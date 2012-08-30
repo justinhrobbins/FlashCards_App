@@ -1,6 +1,6 @@
 ## Overview
 
-The purpose of this project is to demonstrate my Java development compentencies.  A working copy of this project is running on the Amazon EC cloud instance.
+The purpose of this project is to demonstrate my Java and web development compentencies.  A working copy of this project is running on the Amazon EC cloud instance.
 
 
 The documentation below outlines the technologies used in each module of the Flashcards App:
