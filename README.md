@@ -2,7 +2,7 @@
 
 The purpose of this project is to demonstrate my Java development compentencies.  A working copy of this project is running on the Amazon EC cloud instance.
 
-## WebServices
+### WebServices
 JAX-RS web services using the following:
 * [Apache CXF](http://cxf.apache.org/docs/jax-rs.html) JSR 311: JAX-RS
 * [Apache Shiro](http://shiro.apache.org/authentication-features.html) Authentication
@@ -19,24 +19,26 @@ I modeled the web services after the RESTful API best practices chronicled in th
 * [Custom JSON formatted exceptions](http://blog.apigee.com/detail/restful_api_design_what_about_errors/)
 * [JSON responses](http://blog.apigee.com/detail/why_you_should_build_your_next_api_using_json/)
 
-## Domain
+The documentation below outlines the technologies used in each module of the Flashcards App
+
+### Domain
 * POJOs
 * JPA & Jackson annotations
 
-## GWT
+### GWT
 * [Google Web Toolkit](https://developers.google.com/web-toolkit/) (GWT)
 * MVP Framework ([Activities and Places framework](https://developers.google.com/web-toolkit/doc/latest/DevGuideMvpActivitiesAndPlaces))
 * Views, ClientFactory
 * [UiBinder](https://developers.google.com/web-toolkit/doc/latest/DevGuideUiBinder)
 * [RestyGWT](http://restygwt.fusesource.org/)
 
-## Service
+### Service
 * Spring
     - [Spring Data - JPA](http://www.springsource.org/spring-data/jpa)
     - Transactions
 * Hibernate implementation of JPA
 
-## Struts
+### Struts
 * [Struts MVC](http://struts.apache.org/)
     - Actions
     - [Tiles](http://struts.apache.org/2.x/docs/tiles-plugin.html)
@@ -45,5 +47,5 @@ I modeled the web services after the RESTful API best practices chronicled in th
 * [OpenId](http://openid.net/) Authentication
 * JSP
 
-## Deployment
+### Deployment
 Amazon EC2, Tomcat, MySQL
