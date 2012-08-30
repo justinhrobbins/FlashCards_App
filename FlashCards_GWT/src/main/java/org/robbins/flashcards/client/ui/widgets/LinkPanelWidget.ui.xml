@@ -1,0 +1,21 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+
+	<ui:with field='msg' type='org.robbins.flashcards.client.ui.AppConstants'/>
+
+	<ui:style >
+		.linkDiv {
+			display:block;
+		}
+		.anchorStyle:hover {
+			cursor:pointer;
+		}
+	</ui:style>
+
+	<g:HTMLPanel>
+		<g:HTMLPanel ui:field="linksPanel" styleName='{style.linkDiv}' />
+		<g:Anchor ui:field="addLink" styleName='{style.anchorStyle}'><ui:text from="{msg.addLink}" /></g:Anchor>
+	</g:HTMLPanel>
+	
+</ui:UiBinder>

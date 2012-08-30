@@ -1,0 +1,27 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+
+	<ui:style >
+		.imageStyle:hover {
+			cursor:pointer;
+		}
+		.linkContainer {
+			width: 400px;
+			display: none;
+			padding: 5px 4px;
+		}
+	</ui:style>
+	<ui:with field='images' type='org.robbins.flashcards.client.ui.images.Images'/>
+
+	<g:HTMLPanel>
+		<g:Label ui:field="linkLabel" />
+		<span ui:field="linkContainer" class="{style.linkContainer}">
+			<g:Anchor ui:field="linkAnchor" />
+		</span>
+		<g:TextBox ui:field="linkTextBox" width="400px" />
+		<g:Image ui:field="editImage" resource='{images.edit}' styleName='{style.imageStyle}'/>
+		<g:Image ui:field="deleteImage" resource='{images.delete}' styleName='{style.imageStyle}'/>
+	</g:HTMLPanel>
+
+</ui:UiBinder>

@@ -1,0 +1,22 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:my="urn:import:org.robbins.flashcards.client.ui.widgets">
+	
+	<ui:with field='res' type='org.robbins.flashcards.client.ui.desktop.style.FormStyleResource'/>
+	
+	<g:HTMLPanel>
+		<my:LabelWidget ui:field="requiresLogin"/>
+		<br/>
+		<my:TextBoxWidget ui:field="tagName" />
+		<br/>
+		<g:Button ui:field="submit" text="Submit" />
+		&nbsp;
+		<g:Button ui:field="cancel" text="Cancel" />
+		<br/><br/>
+		<my:FlashCardFlexTable ui:field="flashCards" />
+		<br/>
+		<g:Label ui:field="createdDate" width="15em" />
+		<g:Label ui:field="modifiedDate" width="15em" />
+	</g:HTMLPanel>
+</ui:UiBinder> 

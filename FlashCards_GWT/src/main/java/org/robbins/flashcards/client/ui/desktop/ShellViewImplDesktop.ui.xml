@@ -1,0 +1,34 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+
+	<ui:with field='images' type='org.robbins.flashcards.client.ui.images.Images'/>
+	<ui:with field='style' type='org.robbins.flashcards.client.ui.desktop.style.ShellStyleResource'/>
+
+	<g:DockLayoutPanel unit='PX' styleName="{style.shellStyles.wrap}">
+		<g:north size='180'>
+			<g:HTMLPanel styleName='{style.shellStyles.header}'>
+				<div id="login" class="{style.shellStyles.login}">
+					<g:InlineLabel ui:field="loggedInUser"/>
+					<g:InlineHyperlink ui:field="loginLogoutLink"/>
+				</div>
+				<h1><a href="/">Flash Cards Application</a></h1>
+				<!-- <h3>This application is built using Java, Spring, JPA, Google Web Toolkit (GWT), MySQL, JAX-RS, Apache CXF, Apache Shiro, Amazon Elastic Cloud (EC2)</h3>  -->
+			</g:HTMLPanel>
+		</g:north>
+		<g:south size="70">
+			<g:HTMLPanel styleName="{style.shellStyles.footer}">
+				<g:Label>&copy; Copyright by Justin Robbins</g:Label>
+			</g:HTMLPanel>
+		</g:south>
+		<g:center>
+			<g:HTMLPanel styleName='{style.shellStyles.content}'>
+				<g:SimplePanel styleName='{style.shellStyles.left}' ui:field="navigationPanel" />
+				<g:ScrollPanel styleName='{style.shellStyles.right}' ui:field='contentPanel' alwaysShowScrollBars="false" />
+				<div style="clear: both;" ></div>
+			</g:HTMLPanel>
+		</g:center>
+
+	</g:DockLayoutPanel>
+
+</ui:UiBinder> 

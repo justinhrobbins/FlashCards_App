@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+              http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5" xmlns="http://java.sun.com/xml/ns/javaee">
+
+	<servlet>
+		<servlet-name>proxy</servlet-name>
+		<servlet-class>org.robbins.flashcards.server.ProxyServlet</servlet-class>
+		<init-param>
+			<param-name>hostname</param-name>
+			<param-value>localhost</param-value>
+		</init-param>
+		<init-param>
+			<param-name>port</param-name>
+			<param-value>8080</param-value>
+		</init-param>
+		<init-param>
+			<param-name>path</param-name>
+			<param-value>/flashcardsapi</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>proxy</servlet-name>
+		<url-pattern>/flashcardsapi/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- Default page to serve -->
+	<welcome-file-list>
+		<welcome-file>FlashCards_App.html</welcome-file>
+	</welcome-file-list>
+
+</web-app>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+	<definition name="baseLayout" template="/tiles/baseLayout.jsp">
+		<put-attribute name="title" value="Flash Cards Web" />
+		<put-attribute name="header" value="/tiles/header.jsp" />
+		<put-attribute name="menu" value="/tiles/menu.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/tiles/footer.jsp" />
+ 	</definition>
+
+	<definition name="loginLayout" template="/tiles/loginLayout.jsp">
+		<put-attribute name="title" value="Flash Cards Web" />
+		<put-attribute name="header" value="/tiles/header.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/tiles/footer.jsp" />
+ 	</definition>
+
+	<definition name="formflashcard.tiles" extends="baseLayout">
+		<put-attribute name="title" value="Flash Card Form" />
+		<put-attribute name="body" value="/pages/flashCardForm.jsp" />
+	</definition>
+
+	<definition name="formtag.tiles" extends="baseLayout">
+		<put-attribute name="title" value="Tag Form" />
+		<put-attribute name="body" value="/pages/tagForm.jsp" />
+	</definition>
+
+	<definition name="listflashcard.tiles" extends="baseLayout">
+		<put-attribute name="title" value="List Flash Cards" />
+		<put-attribute name="body" value="/pages/listFlashCards.jsp" />
+	</definition>
+
+	<definition name="browseflashcard.tiles" extends="baseLayout">
+		<put-attribute name="title" value="List Flash Cards" />
+		<put-attribute name="body" value="/pages/browseFlashCards.jsp" />
+	</definition>
+
+	<definition name="listtag.tiles" extends="baseLayout">
+		<put-attribute name="title" value="List Tags" />
+		<put-attribute name="body" value="/pages/listTags.jsp" />
+	</definition>
+	
+	<definition name="displayflashcard.tiles" extends="baseLayout">
+		<put-attribute name="title" value="Display Flash Cards" />
+		<put-attribute name="body" value="/pages/displayFlashCard.jsp" />
+	</definition>
+
+	<definition name="displaytag.tiles" extends="baseLayout">
+		<put-attribute name="title" value="Display Tag" />
+		<put-attribute name="body" value="/pages/displayTag.jsp" />
+	</definition>
+
+	<definition name="login.tiles" extends="loginLayout">
+		<put-attribute name="title" value="Login" />
+		<put-attribute name="body" value="/pages/login.jsp" />
+	</definition>
+
+	<definition name="error.tiles" extends="baseLayout">
+		<put-attribute name="title" value="Error page" />
+		<put-attribute name="body" value="/pages/error.jsp" />
+	</definition>
+
+</tiles-definitions>

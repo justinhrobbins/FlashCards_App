@@ -1,0 +1,91 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:my="urn:import:org.robbins.flashcards.client.ui.widgets"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style type='org.robbins.flashcards.client.ui.widgets.autocomplete.InputListWidget.Style'>
+		.auto_suggest {
+		    z-index: 20;
+		    background-color: white;
+		    padding: 10px;
+		    width: 400px;
+		    height: 230px;
+		}
+		
+		.original_token_input {
+		    width: 396px;
+		    border: 1px solid #8496ba;
+		    font-size: 12px;
+		    font-family: Verdana;
+		    padding: 4px 8px;
+		}
+		
+		ul.token_input_list_facebook {
+		    overflow: hidden;
+		    height: auto !important;
+		    height: 1%;
+		    width: 400px;
+		    border: 1px solid #8496ba;
+		    cursor: text;
+		    font-size: 12px;
+		    font-family: Verdana;
+		    min-height: 1px;
+		    z-index: 999;
+		    margin: 0;
+		    padding: 0;
+		    background-color: #fff;
+		    list-style-type: none;
+		}
+		
+		ul.token_input_list_facebook li input {
+		    border: 0;
+		    width: 100px;
+		    padding: 3px 8px;
+		    background-color: white;
+		    margin: 2px 0;
+		}
+		
+		li.token_input_token_facebook {
+		    overflow: hidden;
+		    height: auto !important;
+		    height: 1%;
+		    margin: 3px;
+		    padding: 1px 3px;
+		    background-color: #eff2f7;
+		    color: #000;
+		    cursor: default;
+		    border: 1px solid #ccd5e4;
+		    font-size: 11px;
+		    border-radius: 5px;
+		    -moz-border-radius: 5px;
+		    -webkit-border-radius: 5px;
+		    float: left;
+		}
+		
+		li.token_input_token_facebook p {
+		    display: inline;
+		    padding: 0;
+		    margin: 0;
+		}
+		
+		li.token_input_token_facebook span {
+		    color: #a6b3cf;
+		    margin-left: 5px;
+		    font-weight: bold;
+		    cursor: pointer;
+		}
+		
+		li.token_input_selected_token_facebook {
+		    background-color: #5670a6;
+		    border: 1px solid #3b5998;
+		    color: #fff;
+		}
+		
+		li.token_input_input_token_facebook {
+		    float: left;
+		}
+	</ui:style>
+	<g:HTMLPanel>
+		<my:LabelWidget ui:field="label"/>
+		<g:FlowPanel ui:field="panel" />
+	</g:HTMLPanel>
+</ui:UiBinder> 

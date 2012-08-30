@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+ 
+<struts>
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.devMode" value="false" />
+    <constant name="struts.custom.i18n.resources" value="ApplicationResources" />
+    <constant name="struts.action.extension" value="action" />
+    <constant name="struts.objectFactory" value="org.apache.struts2.spring.StrutsSpringObjectFactory" />
+ 
+    <package name="flashcardweb-default" extends="struts-default" namespace="/">
+		<result-types>
+			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+
+		<interceptors>
+			<interceptor name="loginInterceptor" class="loginInterceptor"/>
+
+	       	<interceptor-stack name="defaultStackWithStore">
+	           	<interceptor-ref name="loginInterceptor"/>
+				<interceptor-ref name="store">
+					<param name="operationMode">STORE</param>
+				</interceptor-ref>
+				<interceptor-ref name="defaultStack" />
+	        </interceptor-stack>
+	        
+	       	<interceptor-stack name="defaultStackWithRetrieve">
+	           	<interceptor-ref name="loginInterceptor"/>
+				<interceptor-ref name="store">
+					<param name="operationMode">RETRIEVE</param>
+				</interceptor-ref>
+				<interceptor-ref name="defaultStack" />
+	        </interceptor-stack>
+		</interceptors>
+
+		<global-results>
+			<result name="login" type="tiles">login.tiles</result>
+		</global-results>
+
+	</package>
+
+	<package name="home" extends="flashcardweb-default" namespace="/home">
+
+        <action name="welcome">
+            <result name="success" type="tiles">baseLayout</result>
+        </action>
+
+        <action name="login">
+            <result name="success" type="tiles">login.tiles</result>
+        </action>
+
+        <action name="validateOpenId"
+        		class="loginAction"
+        		method="validateOpenId">
+       		<interceptor-ref name="defaultStackWithRetrieve"/>
+        </action>
+        
+		<action name="authenticateOpenId"
+        		class="loginAction"
+        		method="authenticateOpenId">
+       		<interceptor-ref name="defaultStackWithRetrieve"/>
+       		<result name="home" type="tiles">baseLayout</result>
+        </action>
+
+		<action name="logout"
+        		class="loginAction"
+        		method="logout">
+       		<interceptor-ref name="defaultStackWithRetrieve"/>
+       		<result name="success" type="tiles">baseLayout</result>
+        </action>
+
+	</package>
+
+	<package name="flashcard" extends="flashcardweb-default" namespace="/flashcard">
+
+        <action name="*"
+            	class="flashCardAction"
+            	method="{1}">
+           	<interceptor-ref name="defaultStackWithRetrieve"/>
+            <result name="success" type="tiles">{1}flashcard.tiles</result>
+            <result name="error" type="tiles">error.tiles</result>
+        </action>
+
+        <action name="saveOrUpdate"
+            	class="flashCardAction"
+            	method="saveOrUpdate">
+           	<interceptor-ref name="defaultStackWithStore"/>
+            <result name="success" type="redirectAction">
+				<param name="actionName">display.action</param>
+				<param name="parse">true</param>
+				<param name="question">${flashCard.question}</param>
+            </result>
+            <result name="input" type="tiles">formflashcard.tiles</result>
+            <result name="error" type="tiles">error.tiles</result>
+        </action>
+
+        <action name="delete"
+            	class="flashCardAction"
+            	method="delete">
+           	<interceptor-ref name="defaultStackWithStore"/>
+            <result name="success" type="redirectAction">list.action</result>
+            <result name="input" type="tiles">formflashcard.tiles</result>
+            <result name="error" type="tiles">error.tiles</result>
+        </action>
+
+	</package>
+
+	<package name="tag" extends="flashcardweb-default" namespace="/tag">
+
+        <action name="*"
+            	class="tagAction"
+            	method="{1}">
+           	<interceptor-ref name="defaultStackWithRetrieve"/>
+            <result name="success" type="tiles">{1}tag.tiles</result>
+            <result name="error" type="tiles">error.tiles</result>
+            <result name="input" type="tiles">formtag.tiles</result>
+        </action>
+
+        <action name="saveOrUpdate"
+            	class="tagAction"
+            	method="saveOrUpdate">
+           	<interceptor-ref name="defaultStackWithStore"/>
+            <result name="success" type="redirectAction">
+				<param name="actionName">display.action</param>
+				<param name="parse">true</param>
+				<param name="name">${tag.name}</param>
+            </result>
+            <result name="input" type="tiles">formtag.tiles</result>
+            <result name="error" type="tiles">error.tiles</result>
+        </action>
+
+        <action name="delete"
+            	class="tagAction"
+            	method="delete">
+           	<interceptor-ref name="defaultStackWithStore"/>
+            <result name="success" type="redirectAction">list.action</result>
+			<result name="input" type="redirectAction">
+				<param name="actionName">list.action</param>
+			</result>
+            <result name="error" type="tiles">error.tiles</result>
+        </action>
+
+    </package>
+
+</struts>

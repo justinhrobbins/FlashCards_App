@@ -1,0 +1,19 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	
+	<ui:with field='msg' type='org.robbins.flashcards.client.ui.AppConstants'/>
+	
+	<g:HTMLPanel>
+		<h4><g:Label><ui:text from="{msg.flashCardMenu}" /></g:Label></h4>
+		<ul>
+			<li><g:Hyperlink ui:field="newFlashCard" /></li>
+			<li><g:Hyperlink  ui:field="listFlashCards" /></li>
+		</ul>
+		<h4><g:Label><ui:text from="{msg.tagMenu}" /></g:Label></h4>
+		<ul>
+			<li><g:Hyperlink ui:field="newTag" /></li>
+			<li><g:Hyperlink ui:field="listTags" /></li>
+		</ul>				
+	</g:HTMLPanel>
+</ui:UiBinder> 
