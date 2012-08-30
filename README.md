@@ -10,9 +10,8 @@ A working copy of this project is running on an Amazon EC2 cloud instance.  Ther
 Both versions of the Flashcards App reuse the same service, domain, and data layers.
 
 The documentation below outlines the technologies used in each module of the Flashcards App:
-
-### WebServices
 ***
+### WebServices
 JAX-RS web services using the following:
 * [Apache CXF](http://cxf.apache.org/docs/jax-rs.html) JSR 311: JAX-RS
 * [Apache Shiro](http://shiro.apache.org/authentication-features.html) Authentication
@@ -28,24 +27,24 @@ I modeled the web services after the RESTful API best practices chronicled in th
 * Authentication using Basic Auth
 * [Custom JSON formatted exceptions](http://blog.apigee.com/detail/restful_api_design_what_about_errors/)
 * [JSON request/responses payloads](http://blog.apigee.com/detail/why_you_should_build_your_next_api_using_json/)
-
+***
 ### Domain
 * POJOs
 * JPA & [Jackson](https://github.com/FasterXML/jackson-annotations) annotations
-
+***
 ### GWT
 * [Google Web Toolkit](https://developers.google.com/web-toolkit/) (GWT)
 * MVP Framework ([Activities and Places framework](https://developers.google.com/web-toolkit/doc/latest/DevGuideMvpActivitiesAndPlaces))
 * Views, ClientFactory
 * [UiBinder](https://developers.google.com/web-toolkit/doc/latest/DevGuideUiBinder)
 * [RestyGWT](http://restygwt.fusesource.org/)
-
+***
 ### Service
 * Spring
     - [Spring Data - JPA](http://www.springsource.org/spring-data/jpa)
     - Transactions
 * Hibernate implementation of JPA
-
+***
 ### Struts
 * [Struts MVC](http://struts.apache.org/) 
     - Actions
@@ -55,7 +54,7 @@ I modeled the web services after the RESTful API best practices chronicled in th
 * Spring IOC
 * [OpenId](http://openid.net/) Authentication
 * JSP
-
+***
 ### Deployment
 Hosted [Amazon EC2 cloud](http://aws.amazon.com/ec2/) using [Tomcat](http://tomcat.apache.org/) servlet container, [MySQL](http://www.mysql.com/)
 
