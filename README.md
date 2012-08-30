@@ -1,9 +1,12 @@
 ## Overview
 
-The purpose of this project is to demonstrate my Java and web development compentencies.  A working copy of this project is running on an Amazon EC cloud instance.
+The purpose of this project is to demonstrate my Java and web development competencies.
 
+A working copy of this project is running on an Amazon EC cloud instance.  There are two published versions of the application:
+1. The Google Web Toolkit version is a rich JavaScript/AJAX client that interacts with the server through a stateless REST API.
+2. A Struts version that implements a more traditional model-view-controller (MVC) architecture.  This version also features authentication password-less authentication using OpenId.
 
-The documentation below outlines the technologies used in each module of the Flashcards App:
+Both versions of the Flashcards app reuse the same service, domain, and data layers.  The documentation below outlines the technologies used in each module of the Flashcards App:
 
 ### WebServices
 JAX-RS web services using the following:
