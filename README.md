@@ -11,7 +11,7 @@ Both versions of the Flashcards App reuse the same service, domain, and data lay
 
 ## Project modules
 The documentation below outlines the technologies used in each module of the Flashcards App:
-***
+
 ### WebServices
 JAX-RS web services using the following:
 * [Apache CXF](http://cxf.apache.org/docs/jax-rs.html) JSR 311: JAX-RS
@@ -29,12 +29,11 @@ I modeled the web services after the RESTful API best practices chronicled in th
 * [Custom JSON formatted exceptions](http://blog.apigee.com/detail/restful_api_design_what_about_errors/)
 * [JSON request/responses payloads](http://blog.apigee.com/detail/why_you_should_build_your_next_api_using_json/)
 
-***
+
 ### Domain
 * POJOs
 * JPA & [Jackson](https://github.com/FasterXML/jackson-annotations) annotations
 
-***
 ### GWT
 * [Google Web Toolkit](https://developers.google.com/web-toolkit/) (GWT)
 * MVP Framework ([Activities and Places framework](https://developers.google.com/web-toolkit/doc/latest/DevGuideMvpActivitiesAndPlaces))
@@ -42,14 +41,12 @@ I modeled the web services after the RESTful API best practices chronicled in th
 * [UiBinder](https://developers.google.com/web-toolkit/doc/latest/DevGuideUiBinder)
 * [RestyGWT](http://restygwt.fusesource.org/)
 
-***
 ### Service
 * Spring
     - [Spring Data - JPA](http://www.springsource.org/spring-data/jpa) - If you are not familiear with Spring Data, you might like to take a look at the [Spring Data Example Showcase](https://github.com/SpringSource/spring-data-jpa-examples/tree/master/spring-data-jpa-showcase) on Github.  The project compares a a typical data access implementation with JPA 2 with a less boilerplate Spring Data version.
     - Transactions
 * Hibernate implementation of JPA
 
-***
 ### Struts
 * [Struts MVC](http://struts.apache.org/) 
     - Actions
@@ -60,10 +57,8 @@ I modeled the web services after the RESTful API best practices chronicled in th
 * [OpenId](http://openid.net/) Authentication
 * JSP
 
-***
 ### Deployment
 Hosted [Amazon EC2 cloud](http://aws.amazon.com/ec2/) using [Tomcat](http://tomcat.apache.org/) servlet container, [MySQL](http://www.mysql.com/)
 
-***
 ### Misc.
 In addition to the technology stack outlined above, this project also uses [Maven](http://maven.apache.org/) for dependency management and project structure.  [JUnit](http://www.junit.org/) is used for integration tests of the service and webservice layers.  Spring RestTemplate is used as the client for web service testing.
