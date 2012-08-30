@@ -10,14 +10,14 @@ JAX-RS web services using the following:
 * Jackson
 
 I modeled the web services after the RESTful API best practices chronicled in the apigee blog.  The API has the following functionality:
-# Each JAX-RS resources supports CRUD using the relevant HTTP methods (@POST, @GET, @PUT, @DELETE)
-# Partial updates
-# API Versioning
-# Sorting and Pagination
-# Counts
-# Authentication using Basic Auth
-# Custom JSON formatted exceptions
-# JSON responses
+* Each JAX-RS resources supports CRUD using the relevant HTTP methods (@POST, @GET, @PUT, @DELETE)
+* Partial updates
+* API Versioning
+* Sorting and Pagination
+* Counts
+* Authentication using Basic Auth
+* Custom JSON formatted exceptions
+* JSON responses
 
 ## Domain
 * POJOs
