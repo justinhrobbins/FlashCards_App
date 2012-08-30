@@ -26,7 +26,7 @@ I modeled the web services after the RESTful API best practices chronicled in th
 * [Counts](http://blog.apigee.com/detail/restful_api_design_what_about_counts/)
 * Authentication using Basic Auth
 * [Custom JSON formatted exceptions](http://blog.apigee.com/detail/restful_api_design_what_about_errors/)
-* [JSON responses](http://blog.apigee.com/detail/why_you_should_build_your_next_api_using_json/)
+* [JSON request/responses payloads](http://blog.apigee.com/detail/why_you_should_build_your_next_api_using_json/)
 
 ### Domain
 * POJOs
