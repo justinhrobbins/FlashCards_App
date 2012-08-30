@@ -9,6 +9,7 @@ A working copy of this project is running on an Amazon EC2 cloud instance.  Ther
 
 Both versions of the Flashcards App reuse the same service, domain, and data layers.
 
+## Project modules
 The documentation below outlines the technologies used in each module of the Flashcards App:
 ***
 ### WebServices
