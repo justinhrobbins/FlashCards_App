@@ -44,7 +44,7 @@ I modeled the web services after the RESTful API best practices chronicled in th
 ***
 ### Service
 * Spring
-    - [Spring Data - JPA](http://www.springsource.org/spring-data/jpa) - If you are not familiear with Spring Data, you might like to take a look at the [Spring Data Example Showcase](https://github.com/SpringSource/spring-data-jpa-examples/tree/master/spring-data-jpa-showcase) on Github.  The project compares a a typical data access implementation with JPA 2 with an even less boiler Spring Data version.
+    - [Spring Data - JPA](http://www.springsource.org/spring-data/jpa) - If you are not familiear with Spring Data, you might like to take a look at the [Spring Data Example Showcase](https://github.com/SpringSource/spring-data-jpa-examples/tree/master/spring-data-jpa-showcase) on Github.  The project compares a a typical data access implementation with JPA 2 with a less boilerplate Spring Data version.
     - Transactions
 * Hibernate implementation of JPA
 
