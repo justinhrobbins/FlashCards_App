@@ -46,9 +46,10 @@ I modeled the web services after the RESTful API best practices chronicled in th
 * Hibernate implementation of JPA
 
 ### Struts
-* [Struts MVC](http://struts.apache.org/)
+* [Struts MVC](http://struts.apache.org/) 
     - Actions
     - [Tiles](http://struts.apache.org/2.x/docs/tiles-plugin.html)
+    - [Interceptors](http://struts.apache.org/2.x/docs/interceptors.html)
     - Struts JSP tags
 * Spring IOC
 * [OpenId](http://openid.net/) Authentication
