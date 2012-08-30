@@ -39,9 +39,10 @@ I modeled the web services after the RESTful API best practices chronicled in th
 ## Struts
 * [Struts MVC](http://struts.apache.org/)
     - Actions
-    - Tiles
+    - [Tiles](http://struts.apache.org/2.x/docs/tiles-plugin.html)
     - Struts JSP tags
-* Spring
+* Spring IOC
+* [OpenId](http://openid.net/) Authentication
 * JSP
 
 ## Deployment
