@@ -27,10 +27,12 @@ I modeled the web services after the RESTful API best practices chronicled in th
 * Authentication using Basic Auth
 * [Custom JSON formatted exceptions](http://blog.apigee.com/detail/restful_api_design_what_about_errors/)
 * [JSON request/responses payloads](http://blog.apigee.com/detail/why_you_should_build_your_next_api_using_json/)
+
 ***
 ### Domain
 * POJOs
 * JPA & [Jackson](https://github.com/FasterXML/jackson-annotations) annotations
+
 ***
 ### GWT
 * [Google Web Toolkit](https://developers.google.com/web-toolkit/) (GWT)
@@ -38,12 +40,14 @@ I modeled the web services after the RESTful API best practices chronicled in th
 * Views, ClientFactory
 * [UiBinder](https://developers.google.com/web-toolkit/doc/latest/DevGuideUiBinder)
 * [RestyGWT](http://restygwt.fusesource.org/)
+
 ***
 ### Service
 * Spring
     - [Spring Data - JPA](http://www.springsource.org/spring-data/jpa)
     - Transactions
 * Hibernate implementation of JPA
+
 ***
 ### Struts
 * [Struts MVC](http://struts.apache.org/) 
@@ -54,6 +58,7 @@ I modeled the web services after the RESTful API best practices chronicled in th
 * Spring IOC
 * [OpenId](http://openid.net/) Authentication
 * JSP
+
 ***
 ### Deployment
 Hosted [Amazon EC2 cloud](http://aws.amazon.com/ec2/) using [Tomcat](http://tomcat.apache.org/) servlet container, [MySQL](http://www.mysql.com/)
