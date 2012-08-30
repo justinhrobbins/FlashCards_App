@@ -57,4 +57,5 @@ I modeled the web services after the RESTful API best practices chronicled in th
 ### Deployment
 Amazon EC2, Tomcat, MySQL
 
+### Misc.
 In addition to the technology stack outlined above, this project also uses Maven for dependency management and project structure.  JUnit is used for integration tests of the service and webservice layers.  Spring RestTemplate is used as the client for web service testing.
