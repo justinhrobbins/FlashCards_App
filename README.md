@@ -30,7 +30,7 @@ I modeled the web services after the RESTful API best practices chronicled in th
 
 ### Domain
 * POJOs
-* JPA & Jackson annotations
+* JPA & [Jackson](https://github.com/FasterXML/jackson-annotations) annotations
 
 ### GWT
 * [Google Web Toolkit](https://developers.google.com/web-toolkit/) (GWT)
