@@ -2,6 +2,9 @@
 
 The purpose of this project is to demonstrate my Java development compentencies.  A working copy of this project is running on the Amazon EC cloud instance.
 
+
+The documentation below outlines the technologies used in each module of the Flashcards App:
+
 ### WebServices
 JAX-RS web services using the following:
 * [Apache CXF](http://cxf.apache.org/docs/jax-rs.html) JSR 311: JAX-RS
@@ -18,8 +21,6 @@ I modeled the web services after the RESTful API best practices chronicled in th
 * Authentication using Basic Auth
 * [Custom JSON formatted exceptions](http://blog.apigee.com/detail/restful_api_design_what_about_errors/)
 * [JSON responses](http://blog.apigee.com/detail/why_you_should_build_your_next_api_using_json/)
-
-The documentation below outlines the technologies used in each module of the Flashcards App
 
 ### Domain
 * POJOs
