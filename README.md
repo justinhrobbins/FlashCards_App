@@ -29,6 +29,11 @@ I modeled the web services after the RESTful API best practices chronicled in th
 * [Custom JSON formatted exceptions](http://blog.apigee.com/detail/restful_api_design_what_about_errors/)
 * [JSON request/responses payloads](http://blog.apigee.com/detail/why_you_should_build_your_next_api_using_json/)
 
+### Service
+* Spring
+    - [Spring Data - JPA](http://www.springsource.org/spring-data/jpa) If you are not familiear with Spring Data, you might like to take a look at the [Spring Data Example Showcase](https://github.com/SpringSource/spring-data-jpa-examples/tree/master/spring-data-jpa-showcase) on Github.  The project compares a a typical data access implementation with JPA 2 with a less boilerplate Spring Data version.  Spring Data evolved out of the [Hades](https://github.com/synyx/hades) open source project.
+    - Transactions
+* Hibernate implementation of JPA
 
 ### Domain
 * POJOs
@@ -41,12 +46,6 @@ I modeled the web services after the RESTful API best practices chronicled in th
 * [UiBinder](https://developers.google.com/web-toolkit/doc/latest/DevGuideUiBinder)
 * [RestyGWT](http://restygwt.fusesource.org/)
 
-### Service
-* Spring
-    - [Spring Data - JPA](http://www.springsource.org/spring-data/jpa) If you are not familiear with Spring Data, you might like to take a look at the [Spring Data Example Showcase](https://github.com/SpringSource/spring-data-jpa-examples/tree/master/spring-data-jpa-showcase) on Github.  The project compares a a typical data access implementation with JPA 2 with a less boilerplate Spring Data version.  Spring Data evolved out of the [Hades](https://github.com/synyx/hades) open source project.
-    - Transactions
-* Hibernate implementation of JPA
-
 ### Struts
 * [Struts MVC](http://struts.apache.org/) 
     - Actions
@@ -57,7 +56,7 @@ I modeled the web services after the RESTful API best practices chronicled in th
 * [OpenId](http://openid.net/) Authentication
 * JSP
 
-### Deployment
+## Deployment
 Hosted [Amazon EC2 cloud](http://aws.amazon.com/ec2/) using [Tomcat](http://tomcat.apache.org/) servlet container, [MySQL](http://www.mysql.com/)
 
 ### Misc.
