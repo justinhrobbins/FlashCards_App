@@ -45,6 +45,7 @@ public class TagsResource extends AbstractGenericResource<Tag, Long> {
 
 		if (entity.getCreatedBy() == null) {
 			Tag orig = service.findOne(id);
+			entity.setFlashcards(orig.getFlashcards());
 			entity.setCreatedBy(orig.getCreatedBy());
 			entity.setCreatedDate(orig.getCreatedDate());
 		}

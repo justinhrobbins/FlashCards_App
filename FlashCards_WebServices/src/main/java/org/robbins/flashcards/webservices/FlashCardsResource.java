@@ -147,12 +147,4 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCard, Long>
 		}
 		return results;
 	}
-	
-//	@POST
-//	@Path("/search")
-//	@Produces("application/json")
-//	public List<FlashCard> search(FlashCard queryFlashCard) {
-//			logger.debug("Entering search()");
-//			return service.findByTagsIn(queryFlashCard.getTags());
-//	}
 }
