@@ -47,7 +47,7 @@ I modeled the web services after the RESTful API best practices chronicled in th
 * [RestyGWT](http://restygwt.fusesource.org/)
 
 ### Struts
-* [Struts MVC](http://struts.apache.org/) 
+* [Struts MVC](http://struts.apache.org/)
     - Actions
     - [Tiles](http://struts.apache.org/2.x/docs/tiles-plugin.html)
     - [Interceptors](http://struts.apache.org/2.x/docs/interceptors.html)
@@ -59,8 +59,8 @@ I modeled the web services after the RESTful API best practices chronicled in th
 ## Deployment
 Hosted [Amazon EC2 cloud](http://aws.amazon.com/ec2/) using [Tomcat](http://tomcat.apache.org/) servlet container, [MySQL](http://www.mysql.com/)
 
-Take a look at an example deployment of bot the GWT and Struts versions of the app:
-[Google Web Toolkit client version](http://www.socialflashcards.com/flashcardsapi/FlashCards_App.html)
+Take a look at an example deployment of bot the GWT and Struts versions of the app:  
+[Google Web Toolkit client version](http://www.socialflashcards.com/flashcardsapi/FlashCards_App.html)  
 [Struts version](http://www.socialflashcards.com/flashcardsstruts/)
 
 ### Misc.
