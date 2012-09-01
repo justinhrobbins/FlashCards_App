@@ -31,8 +31,7 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 
 	@GET
 	@Produces("application/json")
-	public List<T> list(	@QueryParam("fields") String fields, 
-							@QueryParam("sort") String sort,
+	public List<T> list(	@QueryParam("sort") String sort,
 							@DefaultValue("asc") @QueryParam("order") String order) {
 		logger.debug("Entering list()");
 		
@@ -81,8 +80,7 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 	@GET
 	@Path("/{id}")
 	@Produces("application/json")
-	public T findOne(	@PathParam("id") Long id,
-						@QueryParam("fields") String fields) {
+	public T findOne(	@PathParam("id") Long id) {
 
 		logger.debug("Entering findOne()");
 

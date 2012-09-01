@@ -76,9 +76,7 @@ public class PartialResponseFilter implements ResponseHandler {
 			// If 'fields' is still blank then we don't have a value from either the QueryString or @DefaultValue
 			if (StringUtils.isBlank(fields)) {
 				logger.debug("Did not find 'fields' pararm for Resource '" + uriInfo.getPath() + "'");
-				
-				// We still need to filter out 'userpassword' to go ahead and apply that filter
-				return applyUserPasswordFilter(entity, response);
+				return null;
 			}
 		}
 
@@ -103,15 +101,6 @@ public class PartialResponseFilter implements ResponseHandler {
 	private Response applyFieldsFilter(Set<String> filterProperties, Object object, Response response) {
 		SimpleFilterProvider filterProvider = new SimpleFilterProvider();
 		filterProvider.addFilter("apiFilter", SimpleBeanPropertyFilter.filterOutAllExcept(filterProperties));
-		filterProvider.setFailOnUnknownId(false);
-	    
-		return applyWriter(object, filterProvider, response);
-	}
-
-	// configure the Jackson filter to remove 'userpassword'
-	private Response applyUserPasswordFilter(Object object, Response response) {
-		SimpleFilterProvider filterProvider = new SimpleFilterProvider();
-		filterProvider.addFilter("apiFilter", SimpleBeanPropertyFilter.serializeAllExcept("userpassword"));
 		filterProvider.setFailOnUnknownId(false);
 	    
 		return applyWriter(object, filterProvider, response);
