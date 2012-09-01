@@ -59,9 +59,9 @@ I modeled the web services after the RESTful API best practices chronicled in th
 ## Deployment
 Hosted [Amazon EC2 cloud](http://aws.amazon.com/ec2/) using [Tomcat](http://tomcat.apache.org/) servlet container, [MySQL](http://www.mysql.com/)
 
-Take a look at an example deployment of bot the GWT and Struts versions of the app:  
-[Google Web Toolkit client version](http://www.socialflashcards.com/flashcardsapi/FlashCards_App.html)  
-[Struts version](http://www.socialflashcards.com/flashcardsstruts/)
+Take a look at an example deployment of bot the GWT and Struts versions of the app:
+* [Google Web Toolkit version](http://www.socialflashcards.com/flashcardsapi/FlashCards_App.html)
+* [Struts version](http://www.socialflashcards.com/flashcardsstruts/)
 
 ### Misc.
 In addition to the technology stack outlined above, this project also uses [Maven](http://maven.apache.org/) for dependency management and project structure.  [JUnit](http://www.junit.org/) is used for integration tests of the service and webservice layers.  Spring RestTemplate is used as the client for web service testing.
