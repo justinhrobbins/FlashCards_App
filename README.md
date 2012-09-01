@@ -36,8 +36,9 @@ I modeled the web services after the RESTful API best practices chronicled in th
 * Hibernate implementation of JPA
 
 ### Domain
-* POJOs
+* POJO entities
 * JPA & [Jackson](https://github.com/FasterXML/jackson-annotations) annotations
+    - Including: @ManyToMany, @ElementCollection, @CollectionTable
 
 ### GWT
 * [Google Web Toolkit](https://developers.google.com/web-toolkit/) (GWT)
