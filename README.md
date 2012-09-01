@@ -30,9 +30,9 @@ I modeled the web services after the RESTful API best practices chronicled in th
 * [JSON request/responses payloads](http://blog.apigee.com/detail/why_you_should_build_your_next_api_using_json/)
 
 ### Service
-* Spring
-    - [Spring Data - JPA](http://www.springsource.org/spring-data/jpa) If you are not familiear with Spring Data, you might like to take a look at the [Spring Data Example Showcase](https://github.com/SpringSource/spring-data-jpa-examples/tree/master/spring-data-jpa-showcase) on Github.  The project compares a a typical data access implementation with JPA 2 with a less boilerplate Spring Data version.  Spring Data evolved out of the [Hades](https://github.com/synyx/hades) open source project.
-    - Transactions
+* Spring Services and DI
+* [Spring Data - JPA](http://www.springsource.org/spring-data/jpa) repositories. If you are not familiear with Spring Data, you might like to take a look at the [Spring Data Example Showcase](https://github.com/SpringSource/spring-data-jpa-examples/tree/master/spring-data-jpa-showcase) on Github.  The project compares a a typical data access implementation with JPA 2 with a less boilerplate Spring Data version.  Spring Data evolved out of the [Hades](https://github.com/synyx/hades) open source project.
+* Transactions management
 * Hibernate implementation of JPA
 
 ### Domain
