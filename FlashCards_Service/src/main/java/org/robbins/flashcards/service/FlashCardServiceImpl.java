@@ -33,7 +33,7 @@ public class FlashCardServiceImpl extends GenericJpaServiceImpl<FlashCard, Long>
 
 	@Override
 	public List<FlashCard> findByTagsIn(Set<Tag> tags, PageRequest page) {
-		return getRepository().findByTagsIn(tags);
+		return getRepository().findByTagsIn(tags, page);
 	}
 	
 	@Override
