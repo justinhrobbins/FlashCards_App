@@ -67,6 +67,6 @@ Take a look at an example deployment of both the GWT and Struts versions of the 
 ### Misc.
 In addition to the technology stack outlined above, this project also uses:
 * [Maven](http://maven.apache.org/) for dependency management and project structure
-* [JUnit](http://www.junit.org/) is used for integration tests of the service and webservice layers
+* [JUnit](http://www.junit.org/) and [Mockito](http://code.google.com/p/mockito/) are used for unit and integration tests
 * Spring RestTemplate is used as the client for web service testing.
 * [Eclipse](http://www.eclipse.org/) IDE
