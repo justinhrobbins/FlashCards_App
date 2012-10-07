@@ -36,19 +36,16 @@ public class FlashCardServiceImpl extends AbstractCrudServiceImpl<FlashCard> imp
 
 	@Override
 	public List<FlashCard> findByQuestionLike(String question) {
-		// TODO Auto-generated method stub
-		return null;
+		return getRepository().findByQuestionLike(question);
 	}
 
 	@Override
 	public List<FlashCard> findByQuestionLike(String question, PageRequest page) {
-		// TODO Auto-generated method stub
-		return null;
+		return getRepository().findByQuestionLike(question, page);
 	}
 
 	@Override
 	public FlashCard findByQuestion(String question) {
-		// TODO Auto-generated method stub
-		return null;
+		return getRepository().findByQuestion(question);
 	}
 }

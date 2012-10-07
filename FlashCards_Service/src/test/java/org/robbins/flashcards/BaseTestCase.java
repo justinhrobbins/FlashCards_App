@@ -1,4 +1,4 @@
-package org.robbins.flashcards.service.springdata;
+package org.robbins.flashcards;
 
 import org.junit.Before;
 import org.mockito.MockitoAnnotations;

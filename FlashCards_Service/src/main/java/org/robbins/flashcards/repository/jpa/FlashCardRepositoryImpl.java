@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.apache.log4j.Logger;
@@ -20,21 +18,19 @@ import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCard> implements  FlashCardRepository {
+public class FlashCardRepositoryImpl extends
+		AbstractCrudRepositoryImpl<FlashCard> implements FlashCardRepository {
 	static Logger logger = Logger.getLogger(FlashCardRepositoryImpl.class);
 
 	@Override
 	public Class<FlashCard> getClazz() {
 		return FlashCard.class;
 	}
-	
-    @PersistenceContext
-    private EntityManager em;
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<FlashCard> findAll() {
-		return em.createQuery("from FlashCard").getResultList();
+		return getEm().createQuery("from FlashCard").getResultList();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -42,54 +38,64 @@ public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
 	public List<FlashCard> findAll(Sort sort) {
 		String sortOder = null;
 		String sortDirection = null;
-		
+
 		for (Order order : sort) {
 			sortOder = order.getProperty();
 			sortDirection = order.getDirection().toString();
 		}
-		return em.createQuery("from FlashCard order by " + sortOder + " "  + sortDirection).getResultList();
+		return getEm().createQuery(
+				"from FlashCard order by " + sortOder + " " + sortDirection)
+				.getResultList();
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public Page<FlashCard> findAll(Pageable page) {
-		Query query = em.createQuery("from FlashCard");
+		Query query = getEm().createQuery("from FlashCard");
 		query.setFirstResult((page.getPageNumber() + 1) * page.getPageSize());
 		query.setMaxResults(page.getPageSize());
-		
+
 		return new PageImpl(query.getResultList());
 	}
 
-	@SuppressWarnings({ "unchecked" })
 	@Override
 	public List<FlashCard> findByTagsIn(Set<Tag> tags) {
-		List<Long> tagIds = new ArrayList<Long>();
-		for (Tag tag: tags) {
-			tagIds.add(tag.getId());
-		}
-		
-		String jpql = "select fc from FlashCard fc " + "join fc.tags t "
-						+ "where t.id in (:tagIds) " + "group by fc "
-						+ "having count(t)=:tag_count " + "order by fc.question";
-		
-		Query query = em.createQuery(jpql); 
-		query.setParameter("tagIds", tagIds);
-		query.setParameter("tag_count", new Long(tagIds.size()));
-		return query.getResultList();
+		return findByTags(tags, null);
 	}
 
 	@Override
 	public List<FlashCard> findByTagsIn(Set<Tag> tags, Pageable page) {
-		// TODO Auto-generated method stub
-		return null;
+		return findByTags(tags, page);
 	}
 
 	@SuppressWarnings("unchecked")
+	private List<FlashCard> findByTags(Set<Tag> tags, Pageable page) {
+		List<Long> tagIds = new ArrayList<Long>();
+		for (Tag tag : tags) {
+			tagIds.add(tag.getId());
+		}
+
+		String jpql = "select fc from FlashCard fc " + "join fc.tags t "
+				+ "where t.id in (:tagIds) " + "group by fc "
+				+ "having count(t)=:tag_count " + "order by fc.question";
+
+		Query query = getEm().createQuery(jpql);
+		
+		if (page != null) {
+			query.setFirstResult((page.getPageNumber() + 1) * page.getPageSize());
+			query.setMaxResults(page.getPageSize());
+		}
+		query.setParameter("tagIds", tagIds);
+		query.setParameter("tag_count", new Long(tagIds.size()));
+		return query.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<FlashCard> findByQuestionLike(String question) {
-		return em.createQuery("from Flashcard where question like :question")
-					.setParameter("question", question)
-					.getResultList();
+		Query query = getEm().createQuery("from Flashcard where question like :question");
+		query.setParameter("question", question);
+		return query.getResultList();
 	}
 
 	@Override
@@ -98,13 +104,19 @@ public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public FlashCard findByQuestion(String question) {
-		return (FlashCard) em.createQuery("from FlashCard where question = :question")
-				.setParameter("question", question)
-				.getSingleResult();
+		Query query = getEm().createQuery(
+				"from FlashCard where question = :question");
+		query.setParameter("question", question);
+		List<FlashCard> results = query.getResultList();
+		if (!results.isEmpty()) {
+			return results.get(0);
+		} else
+			return null;
 	}
-	
+
 	@Override
 	public Long count() {
 		Query query = getEm().createQuery("SELECT COUNT(*) FROM FlashCard");

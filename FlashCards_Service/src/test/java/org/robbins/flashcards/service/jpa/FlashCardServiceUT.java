@@ -1,4 +1,4 @@
-package org.robbins.flashcards.service.springdata;
+package org.robbins.flashcards.service.jpa;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -17,7 +17,8 @@ import org.mockito.Mockito;
 import org.robbins.flashcards.BaseTestCase;
 import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
-import org.robbins.flashcards.repository.springdata.FlashCardRepository;
+import org.robbins.flashcards.repository.jpa.FlashCardRepository;
+import org.robbins.flashcards.service.jpa.FlashCardServiceImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.util.ReflectionTestUtils;
 

@@ -1,4 +1,4 @@
-package org.robbins.flashcards.service.springdata;
+package org.robbins.flashcards.service.jpa;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -10,7 +10,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.robbins.flashcards.BaseTestCase;
 import org.robbins.flashcards.model.User;
-import org.robbins.flashcards.repository.springdata.UserRepository;
+import org.robbins.flashcards.repository.jpa.UserRepository;
+import org.robbins.flashcards.service.jpa.UserServiceImpl;
 import org.springframework.test.util.ReflectionTestUtils;
 
 public class UserServiceUT extends BaseTestCase {
