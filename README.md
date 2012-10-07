@@ -33,7 +33,7 @@ I modeled the web services after the RESTful API best practices chronicled in th
 * Spring Services and DI
 * There are two Service implementations which can be used interchangeably:
     - [Spring Data - JPA](http://www.springsource.org/spring-data/jpa) repositories. If you are not familiar with Spring Data, you might like to take a look at the [Spring Data Example Showcase](https://github.com/SpringSource/spring-data-jpa-examples/tree/master/spring-data-jpa-showcase) on Github.  The project compares a a typical data access implementation with JPA 2 with a less boilerplate Spring Data version.  Spring Data evolved out of the [Hades](https://github.com/synyx/hades) open source project.
-    - JPA
+    - JPA version using EntityManager, JPQL, and generic CRUD DAOs
 * Transactions management
 * Hibernate implementation of JPA
 
