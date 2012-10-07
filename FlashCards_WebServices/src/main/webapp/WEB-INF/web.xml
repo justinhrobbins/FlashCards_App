@@ -21,8 +21,7 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-			classpath*:applicationContext-jpa.xml
-			classpath*:applicationContext-service.xml
+			classpath*:applicationContext-service-jpa.xml
 			classpath*:applicatonContext-webServices.xml
 		</param-value>
 	</context-param>

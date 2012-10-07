@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
+import org.robbins.flashcards.service.base.GenericJpaService;
 import org.springframework.data.domain.PageRequest;
 
 

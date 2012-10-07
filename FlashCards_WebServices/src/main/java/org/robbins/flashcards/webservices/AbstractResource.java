@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.robbins.flashcards.model.User;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 
@@ -28,20 +29,27 @@ public abstract class AbstractResource {
 	public User getLoggedInUser() {
 		return loggedInUser;
 	}
+
+    protected PageRequest getPageRequest(Integer page, Integer size, String sortOrder, String sortDirection) {
+        // are we Sorting too?
+        if (!StringUtils.isEmpty(sortOrder)) {
+                Sort sort = getSort(sortOrder, sortDirection);
+                return new PageRequest(page, size, sort);
+        } else {
+                return new PageRequest(page, size);
+        }               
+    }
 	
 	protected Sort getSort(String sort, String order) {
-	    Direction direction;		
 		if ((StringUtils.isEmpty(order)) || (order.equals("asc"))) {
-			direction = Direction.ASC;
+			return new Sort(Direction.ASC, order);
 		} else if (order.equals("desc")) {
-			direction = Direction.DESC;
+			return new Sort(Direction.DESC, order);
 		}
 		else {
 			throw new GenericWebServiceException(Response.Status.BAD_REQUEST,
 					"Sort order must be 'asc' or 'desc'.  '" + order + "' is not an acceptable sort order");
 		}
-		
-		return new Sort(direction, sort);
 	}
 
 	@PostConstruct

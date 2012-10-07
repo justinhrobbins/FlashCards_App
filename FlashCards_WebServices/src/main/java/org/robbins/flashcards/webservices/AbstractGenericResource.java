@@ -18,9 +18,10 @@ import javax.ws.rs.core.Response;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
-import org.robbins.flashcards.service.GenericJpaService;
+import org.robbins.flashcards.service.base.GenericJpaService;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
 public abstract class AbstractGenericResource <T, Serializable> extends AbstractResource {
@@ -31,21 +32,31 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 
 	@GET
 	@Produces("application/json")
-	public List<T> list(	@QueryParam("sort") String sort,
-							@DefaultValue("asc") @QueryParam("order") String order) {
+	public List<T> list(@QueryParam("page") Integer page,
+						@DefaultValue("25") @QueryParam("size") Integer size,
+						@QueryParam("sort") String sort,
+						@DefaultValue("asc") @QueryParam("direction") String direction) {
 		logger.debug("Entering list()");
 		
-		List<T> entities;
+		List<T> entities = null;
 		
 	    try {
-			// should we sort the list?
-	    	if (!StringUtils.isEmpty(sort)) {
+	    	
+            // are we trying to use Pagination or Sorting? 
+            // if not then go ahead and return findAll()
+            if ((page == null) && (StringUtils.isEmpty(sort))) {
+            	entities = getService().findAll();
+            }
+            // should we Page
+            else if (page != null) {
+                PageRequest pageRequest = getPageRequest(page, size, sort, direction);
+                return getService().findAll(pageRequest);
+            }
+            // should we just Sort the list?
+            else if (!StringUtils.isEmpty(sort)) {
 	    		// get a sorted list
-	    		Sort entitySort = getSort(sort, order);
+	    		Sort entitySort = getSort(sort, direction);
 				entities = getService().findAll(entitySort);
-			} else {
-				// get an unsorted list
-				entities = getService().findAll();
 			}
 		} catch (InvalidDataAccessApiUsageException e) {
 			logger.error(e);
@@ -72,6 +83,7 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 		try {
 			return getService().count();
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new GenericWebServiceException(
 					Response.Status.INTERNAL_SERVER_ERROR, e.getMessage());
 		}
@@ -80,7 +92,7 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 	@GET
 	@Path("/{id}")
 	@Produces("application/json")
-	public T findOne(	@PathParam("id") Long id) {
+	public T findOne(@PathParam("id") Long id) {
 
 		logger.debug("Entering findOne()");
 
@@ -133,6 +145,7 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 			getService().delete(id);
 		} catch (Exception e) {
 			logger.error(e);
+			e.printStackTrace();
 			throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR,
 					"Unable to 'delete' entity: " + id);
 		}

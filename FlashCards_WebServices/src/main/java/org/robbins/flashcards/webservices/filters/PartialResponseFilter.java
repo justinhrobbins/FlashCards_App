@@ -19,7 +19,7 @@ import org.apache.cxf.jaxrs.model.Parameter;
 import org.apache.cxf.message.Message;
 import org.apache.log4j.Logger;
 import org.robbins.flashcards.jackson.CustomObjectMapper;
-import org.robbins.flashcards.service.FieldInitializerUtil;
+import org.robbins.flashcards.service.util.FieldInitializerUtil;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.springframework.stereotype.Component;
 

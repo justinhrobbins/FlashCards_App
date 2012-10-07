@@ -10,8 +10,8 @@ import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
 import org.robbins.flashcards.model.User;
-import org.robbins.flashcards.service.GenericJpaService;
 import org.robbins.flashcards.service.UserService;
+import org.robbins.flashcards.service.base.GenericJpaService;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
