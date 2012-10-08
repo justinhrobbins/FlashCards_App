@@ -59,16 +59,16 @@ I modeled the web services after the RESTful API best practices chronicled in th
 * [OpenId](http://openid.net/) Authentication
 * JSP
 
-## Deployment
-Hosted [Amazon EC2 cloud](http://aws.amazon.com/ec2/) using [Tomcat](http://tomcat.apache.org/) servlet container, [MySQL](http://www.mysql.com/)
-
-Take a look at an example deployment of both the GWT and Struts versions of the app:
-* [Google Web Toolkit version](http://www.socialflashcards.com/flashcardsapi/FlashCards_App.html)
-* [Struts version](http://www.socialflashcards.com/flashcardsstruts/)
-
 ### Misc.
 In addition to the technology stack outlined above, this project also uses:
 * [Maven](http://maven.apache.org/) for dependency management and project structure
 * [JUnit](http://www.junit.org/) and [Mockito](http://code.google.com/p/mockito/) are used for unit and integration tests
 * Spring RestTemplate is used as the client for web service testing.
 * [Eclipse](http://www.eclipse.org/) IDE
+
+## Deployment
+The deployed app is hosted [Amazon EC2 cloud](http://aws.amazon.com/ec2/) using [Tomcat](http://tomcat.apache.org/) servlet container, [MySQL](http://www.mysql.com/)
+
+Take a look at an example deployment of both the GWT and Struts versions of the app:
+* [Google Web Toolkit version](http://www.socialflashcards.com/flashcardsapi/FlashCards_App.html)
+* [Struts version](http://www.socialflashcards.com/flashcardsstruts/)
