@@ -67,7 +67,7 @@ In addition to the technology stack outlined above, this project also uses:
 * [Eclipse](http://www.eclipse.org/) IDE
 
 ## Deployment
-The deployed app is hosted [Amazon EC2 cloud](http://aws.amazon.com/ec2/) using [Tomcat](http://tomcat.apache.org/) servlet container, [MySQL](http://www.mysql.com/)
+The deployed app is hosted on the [Amazon EC2 cloud](http://aws.amazon.com/ec2/) using [Tomcat](http://tomcat.apache.org/) servlet container, [MySQL](http://www.mysql.com/)
 
 Take a look at an example deployment of both the GWT and Struts versions of the app:
 * [Google Web Toolkit version](http://www.socialflashcards.com/flashcardsapi/FlashCards_App.html)
