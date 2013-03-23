@@ -22,7 +22,7 @@ public class TagAction extends FlashCardsAppBaseAction implements ModelDriven<Ta
 	 */
 	private static final long serialVersionUID = 2900181619806808497L;
 
-	static Logger logger = Logger.getLogger(TagAction.class);
+	private static Logger logger = Logger.getLogger(TagAction.class);
 	
 	private Tag tag = new Tag();
 	

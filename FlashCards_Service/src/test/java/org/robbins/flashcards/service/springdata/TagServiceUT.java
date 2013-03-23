@@ -6,13 +6,16 @@ import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.robbins.flashcards.BaseTestCase;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.repository.springdata.TagRepository;
+import org.robbins.tests.BaseTestCase;
+import org.robbins.tests.UnitTest;
 import org.springframework.test.util.ReflectionTestUtils;
 
+@Category(UnitTest.class)
 public class TagServiceUT extends BaseTestCase {
 
 	@Mock TagRepository repository;
@@ -26,7 +29,7 @@ public class TagServiceUT extends BaseTestCase {
 	
 	@Test
 	public void testFindByName() {
-		when(repository.findByName("EJB")).thenReturn(new Tag("EJB"));
+		when(repository.findByName(Mockito.anyString())).thenReturn(new Tag("EJB"));
 		
 		Tag tag = tagService.findByName("EJB");
 		

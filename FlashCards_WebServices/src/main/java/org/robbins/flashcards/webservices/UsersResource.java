@@ -8,10 +8,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
-import org.apache.log4j.Logger;
 import org.robbins.flashcards.model.User;
 import org.robbins.flashcards.service.UserService;
 import org.robbins.flashcards.service.base.GenericJpaService;
+import org.robbins.flashcards.webservices.base.AbstractGenericResource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
@@ -22,10 +22,8 @@ import org.springframework.web.context.WebApplicationContext;
 @Produces("application/json")
 public class UsersResource extends AbstractGenericResource<User, Long> {
 	
-	static Logger logger = Logger.getLogger(UsersResource.class);
-
 	@Inject
-	UserService service;
+	private UserService service;
 
 	protected GenericJpaService<User, Long> getService() {
 		return service;
@@ -35,7 +33,6 @@ public class UsersResource extends AbstractGenericResource<User, Long> {
 	@Path("/search")
 	@Produces("application/json")
 	public User getUserSearch(@QueryParam("openid") String openid) {
-			logger.debug("Entering getUserSearch()");
 			return service.findUserByOpenid(openid);
 	}
 	

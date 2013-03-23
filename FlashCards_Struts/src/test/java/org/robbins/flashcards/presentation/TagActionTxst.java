@@ -27,7 +27,7 @@ public class TagActionTxst extends StrutsTestCase {
 					tagAction.getFieldErrors().containsKey("name") );
 		} catch (Exception e) {
 			logger.debug("Error running testCreateTagFail()");
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 			
 			assertTrue("Error running testCreateTagFail()", false);
 		}
@@ -73,7 +73,7 @@ public class TagActionTxst extends StrutsTestCase {
 		
 		} catch (Exception e) {
 			logger.debug("Error running testDisplayTag()");
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 		
 		assertEquals("Result returned form executing the action was not success but it should have been.", "success", result);

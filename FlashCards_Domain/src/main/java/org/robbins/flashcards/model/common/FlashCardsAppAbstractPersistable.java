@@ -51,18 +51,6 @@ public abstract class FlashCardsAppAbstractPersistable <PK extends Serializable>
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-
-		//return String.format("Entity of type %s with id: %s", this.getClass().getName(), getId());
-		return super.toString();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

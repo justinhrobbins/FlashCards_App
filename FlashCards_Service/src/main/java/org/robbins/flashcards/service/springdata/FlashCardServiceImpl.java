@@ -19,13 +19,9 @@ public class FlashCardServiceImpl extends GenericJpaServiceImpl<FlashCard, Long>
 	@Inject
 	private FlashCardRepository repository;
 	
+	@Override
 	protected FlashCardRepository getRepository() {
 		return repository;
-	}
-	
-	@Override
-	public FlashCard findOne(Long id){
-		return getRepository().findOne(id);
 	}
 	
 	@Override

@@ -1,31 +1,36 @@
 package org.robbins.flashcards.repository.jpa;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.robbins.flashcards.BaseTestCase;
 import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.repository.jpa.FlashCardRepository;
 import org.robbins.flashcards.repository.jpa.FlashCardRepositoryImpl;
+import org.robbins.tests.BaseTestCase;
+import org.robbins.tests.UnitTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.util.ReflectionTestUtils;
 
+@Category(UnitTest.class)
 public class FlashCardRepositoryUT extends BaseTestCase {
 
 	@Mock EntityManager em;
@@ -55,7 +60,9 @@ public class FlashCardRepositoryUT extends BaseTestCase {
 
 	@Test
 	public void testFindByTagsIn() {
-		List<FlashCard> results = repository.findByTagsIn(new HashSet<Tag>());
+		Set<Tag> tags = new HashSet<Tag>();
+		tags.add(new Tag("tag name"));
+		List<FlashCard> results = repository.findByTagsIn(tags);
 		
 		Mockito.verify(query, Mockito.times(1)).getResultList();
 		assertThat(results, is(List.class));
@@ -76,6 +83,17 @@ public class FlashCardRepositoryUT extends BaseTestCase {
 		
 		Mockito.verify(query, Mockito.times(1)).getResultList();
 		assertThat(result, is(FlashCard.class));
+	}
+	
+	@Test
+	public void testFindByQuestion_NoResults() {
+		List<FlashCard> results = new ArrayList<FlashCard>();
+		when(query.getResultList()).thenReturn(results);
+		
+		FlashCard flashCard = repository.findByQuestion("question"); 
+		
+		Mockito.verify(query, Mockito.times(1)).getResultList();
+		assertThat(flashCard, is(nullValue()));
 	}
 	
 	@Test

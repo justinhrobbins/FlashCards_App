@@ -16,10 +16,11 @@ import org.robbins.flashcards.model.User;
 import org.robbins.flashcards.service.UserService;
 
 public class FlashCardsAppRealm extends AuthorizingRealm {
-	static Logger logger = Logger.getLogger(FlashCardsAppRealm.class);
+
+	private static Logger logger = Logger.getLogger(FlashCardsAppRealm.class);
 	
 	@Inject
-	UserService userService;
+	private UserService userService;
 	
 	public FlashCardsAppRealm() {
 		// we are using MD5 encryption
@@ -35,7 +36,7 @@ public class FlashCardsAppRealm extends AuthorizingRealm {
 	}
 
 	@Override
-	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
+	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) {
 		logger.debug("Entering doGetAuthenticationInfo()");
 		
 		// retrieve a User using the info provided in the authentication attempt
@@ -52,8 +53,7 @@ public class FlashCardsAppRealm extends AuthorizingRealm {
 	            return null;
 	        }
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 			throw new AuthenticationException();
 		}
 	}

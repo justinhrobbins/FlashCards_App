@@ -1,37 +1,37 @@
 package org.robbins.flashcards.webservices.exceptions;
 
 public class WebServicesError {
-	private int error_id;
-	private String error_name;
-	private String error_message;
+	private int errorId;
+	private String errorName;
+	private String errorMessage;
 
-	public WebServicesError(int error_id, String error_name, String error_message) {
-		this.error_id = error_id;
-		this.error_name = error_name;
-		this.error_message = error_message;
+	public WebServicesError(int errorId, String errorName, String errorMessage) {
+		this.errorId = errorId;
+		this.errorName = errorName;
+		this.errorMessage = errorMessage;
 	}
 
-	public int getError_id() {
-		return error_id;
+	public int getErrorId() {
+		return errorId;
 	}
 
-	public void setError_id(int error_id) {
-		this.error_id = error_id;
+	public void setErrorId(int errorId) {
+		this.errorId = errorId;
 	}
 
-	public String getError_name() {
-		return error_name;
+	public String getErrorName() {
+		return errorName;
 	}
 
-	public void setError_name(String error_name) {
-		this.error_name = error_name;
+	public void setErrorName(String errorName) {
+		this.errorName = errorName;
 	}
 
-	public String getError_message() {
-		return error_message;
+	public String getErrorMessage() {
+		return errorMessage;
 	}
 
-	public void setError_message(String error_message) {
-		this.error_message = error_message;
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
 	}
 }

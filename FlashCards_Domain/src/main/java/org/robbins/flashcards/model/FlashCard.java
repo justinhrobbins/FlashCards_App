@@ -111,11 +111,11 @@ public class FlashCard extends FlashCardsAppAbstractAuditable<User, Long> implem
 		if (getTags() == null) {
 			return null;
 		}
-		List<Tag> tags = new ArrayList<Tag>();
+		List<Tag> tagsList = new ArrayList<Tag>();
 		for (Tag tag : getTags()) {
-			tags.add(tag);
+			tagsList.add(tag);
 		}
-		return tags;
+		return tagsList;
 	}
 
 	public List<String> getLinks() {

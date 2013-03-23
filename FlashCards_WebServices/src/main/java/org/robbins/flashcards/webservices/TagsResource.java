@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.service.TagService;
 import org.robbins.flashcards.service.base.GenericJpaService;
+import org.robbins.flashcards.webservices.base.AbstractGenericResource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
@@ -22,10 +23,10 @@ import org.springframework.web.context.WebApplicationContext;
 @Produces("application/json")
 public class TagsResource extends AbstractGenericResource<Tag, Long> {
 	
-	static Logger logger = Logger.getLogger(TagsResource.class);
+	private static Logger logger = Logger.getLogger(TagsResource.class);
 
 	@Inject
-	TagService service;
+	private TagService service;
 	
 	protected GenericJpaService<Tag, Long> getService() {
 		return service;

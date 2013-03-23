@@ -18,12 +18,9 @@ public class LoginInterceptor extends AbstractInterceptor implements StrutsStati
     
     @Inject
     private ApplicationContext applicationContext;
-	
-    /**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -759435156742745257L;
-	static Logger logger = Logger.getLogger(LoginInterceptor.class);
+	private static Logger logger = Logger.getLogger(LoginInterceptor.class);
 
 	public String intercept(final ActionInvocation invocation) throws Exception {
     	logger.debug("Entering intercept()");
@@ -37,7 +34,6 @@ public class LoginInterceptor extends AbstractInterceptor implements StrutsStati
         HttpSession session =  request.getSession (true);
 
         // Is there a "user" object stored in the user's HttpSession?
-        //User user = (User)session.getAttribute("user");
         User user = (User) applicationContext.getBean("loggedInUser");
         
         if ( (user.getId() == null) || (user.getId() == 0)) {

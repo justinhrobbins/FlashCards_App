@@ -7,15 +7,15 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
+import org.apache.log4j.Logger;
 import org.robbins.flashcards.jackson.CustomObjectMapper;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class GenericWebServiceException extends WebApplicationException {
 
-	/**
-	 * 
-	 */
+	private static Logger logger = Logger.getLogger(GenericWebServiceException.class);
+	
 	private static final long serialVersionUID = -922372322231840684L;
 
 	public GenericWebServiceException(Response.Status status, WebServicesError error) {
@@ -39,8 +39,8 @@ public class GenericWebServiceException extends WebApplicationException {
 		String json;
 		try {
 			json = mapper.writeValueAsString(object);
-		} catch (Exception e1) {
-			e1.printStackTrace();
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
 			throw new WebApplicationException();
 		}
 		

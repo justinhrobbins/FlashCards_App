@@ -15,12 +15,12 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.service.FlashCardService;
 import org.robbins.flashcards.service.TagService;
 import org.robbins.flashcards.service.base.GenericJpaService;
+import org.robbins.flashcards.webservices.base.AbstractGenericResource;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.domain.PageRequest;
@@ -32,14 +32,12 @@ import org.springframework.web.context.WebApplicationContext;
 @Scope(value = WebApplicationContext.SCOPE_REQUEST)
 @Produces("application/json")
 public class FlashCardsResource extends AbstractGenericResource<FlashCard, Long> {
-	
-	static Logger logger = Logger.getLogger(FlashCardsResource.class);
 
 	@Inject
-	FlashCardService flashcardService;
+	private FlashCardService flashcardService;
 	
 	@Inject
-	TagService tagService;
+	private TagService tagService;
 
 	protected GenericJpaService<FlashCard, Long> getService() {
 		return flashcardService;

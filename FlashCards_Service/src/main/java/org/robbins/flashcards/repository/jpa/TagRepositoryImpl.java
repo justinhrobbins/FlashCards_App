@@ -58,7 +58,9 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag> implement
 		List<Tag> results = query.getResultList();
 		if (!results.isEmpty()) {
 			return results.get(0);
-		} else return null;
+		} else {
+			return null;
+		}
 	}
 	
 	

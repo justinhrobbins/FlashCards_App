@@ -3,7 +3,7 @@ package org.robbins.flashcards.repository.jpa;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
-
+import static org.hamcrest.core.IsNull.nullValue;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,18 +12,21 @@ import javax.persistence.Query;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.robbins.flashcards.BaseTestCase;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.repository.jpa.TagRepository;
 import org.robbins.flashcards.repository.jpa.TagRepositoryImpl;
+import org.robbins.tests.BaseTestCase;
+import org.robbins.tests.UnitTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.util.ReflectionTestUtils;
 
+@Category(UnitTest.class)
 public class TagRepositoryUT extends BaseTestCase {
 
 	@Mock EntityManager em;
@@ -49,6 +52,17 @@ public class TagRepositoryUT extends BaseTestCase {
 		
 		Mockito.verify(query, Mockito.times(1)).getResultList();
 		assertThat(tag, is(Tag.class));
+	}
+	
+	@Test
+	public void testFindByName_NoResults() {
+		List<Tag> results = new ArrayList<Tag>();
+		when(query.getResultList()).thenReturn(results);
+		
+		Tag tag = repository.findByName("EJB"); 
+		
+		Mockito.verify(query, Mockito.times(1)).getResultList();
+		assertThat(tag, is(nullValue()));
 	}
 	
 	@Test

@@ -7,7 +7,10 @@ import java.util.Iterator;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.robbins.tests.UnitTest;
 
+@Category(UnitTest.class)
 public class FlashCardUT {
 	
 	static Logger logger = Logger.getLogger(FlashCardUT.class);

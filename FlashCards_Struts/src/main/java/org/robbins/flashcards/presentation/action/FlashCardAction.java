@@ -28,7 +28,7 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements ModelDri
 	 */
 	private static final long serialVersionUID = -6246981237373738037L;
 
-	static Logger logger = Logger.getLogger(FlashCardAction.class);
+	private static Logger logger = Logger.getLogger(FlashCardAction.class);
 	
 	@Inject
 	private FlashCardService flashcardService;

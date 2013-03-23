@@ -12,18 +12,21 @@ import javax.persistence.Query;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.robbins.flashcards.BaseTestCase;
 import org.robbins.flashcards.model.User;
 import org.robbins.flashcards.repository.jpa.UserRepository;
 import org.robbins.flashcards.repository.jpa.UserRepositoryImpl;
+import org.robbins.tests.BaseTestCase;
+import org.robbins.tests.UnitTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.util.ReflectionTestUtils;
 
+@Category(UnitTest.class)
 public class UserRepositoryUT extends BaseTestCase {
 
 	@Mock EntityManager em;

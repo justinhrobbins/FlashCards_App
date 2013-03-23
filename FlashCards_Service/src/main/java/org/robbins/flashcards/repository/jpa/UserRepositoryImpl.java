@@ -51,11 +51,6 @@ public class UserRepositoryImpl extends AbstractCrudRepositoryImpl<User> impleme
 	}
 
 	@Override
-	public User findOne(Long id) {
-		return getEm().find(User.class, id);
-	}
-
-	@Override
 	public User findUserByOpenid(String openid) {
 		Query query = getEm().createQuery("from User where openid = :openid");
 		query.setParameter("openid", openid);

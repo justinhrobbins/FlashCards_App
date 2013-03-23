@@ -25,10 +25,12 @@ import org.openid4java.message.sreg.SRegMessage;
 import org.openid4java.message.sreg.SRegResponse;
 import org.robbins.flashcards.model.User;
 
-public class OpenId4JavaAuthenticator {
+public final class OpenId4JavaAuthenticator {
 	
-	static Logger logger = Logger.getLogger(OpenId4JavaAuthenticator.class);
+	private static Logger logger = Logger.getLogger(OpenId4JavaAuthenticator.class);
 
+	private OpenId4JavaAuthenticator(){};
+	
 	private static ConsumerManager getConsumerManager(Map<String, Object> application) {
 		logger.debug("Entering getConsumerManager()");
 		
@@ -44,7 +46,7 @@ public class OpenId4JavaAuthenticator {
 				manager.setAssociations(new InMemoryConsumerAssociationStore());
 				manager.setNonceVerifier(new InMemoryNonceVerifier(5000));
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.error(e.getMessage(), e);
 			}
 	    
 	        // add the Consumer Manager to the application scope

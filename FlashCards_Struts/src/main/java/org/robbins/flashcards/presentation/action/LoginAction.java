@@ -19,12 +19,10 @@ import com.opensymphony.xwork2.Preparable;
 
 public class LoginAction extends FlashCardsAppBaseAction implements Preparable, ServletRequestAware, ServletResponseAware, SessionAware, ApplicationAware {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 9086659350295360444L;
 
-	static Logger logger = Logger.getLogger(LoginAction.class);
+	private static Logger logger = Logger.getLogger(LoginAction.class);
 
 	@Inject
 	private User loggedInUser;
@@ -33,7 +31,7 @@ public class LoginAction extends FlashCardsAppBaseAction implements Preparable, 
 	private UserService userService;
 	
 	// this is the only form field we will be looking for from OpenID Selector on the front end
-	private String openid_identifier;
+	private String openidIdentifier;
 	
     // we'll need access to the Servlet spec objects, rather than just their attribute or parm maps
 	private HttpServletRequest request;
@@ -46,7 +44,9 @@ public class LoginAction extends FlashCardsAppBaseAction implements Preparable, 
     private Map<String, Object> application;
 	
 	// we'll need to send this to the OpenId provider so it knows where to send its response 
-    private final String returnAction = "/home/authenticateOpenId.action";
+    private static final String RETURN_ACTION = "/home/authenticateOpenId.action";
+    
+    private static final int HTTP_PORT = 80;
 
     // the OpenID Selector form will submit to this Action method
     public String validateOpenId() throws Exception {
@@ -62,7 +62,7 @@ public class LoginAction extends FlashCardsAppBaseAction implements Preparable, 
 
         // determine a return_to URL where the application will receive
         // the authentication responses from the OpenID provider
-        String returnUrl = getServerContext(request) + returnAction;
+        String returnUrl = getServerContext(request) + RETURN_ACTION;
         logger.debug("return URL: " + returnUrl);
 		
         // construct the destination Url to send to the Open Id provider
@@ -102,7 +102,6 @@ public class LoginAction extends FlashCardsAppBaseAction implements Preparable, 
 			authenticatingUser.setCreatedDate(existingUser.getCreatedDate());
 			
 			loggedInUser.setId(existingUser.getId());
-			//loggedInUser.setId(1L);
 		} else {
 			// this is a new user and he doesn't have an id yet, temporarily set it to the service user (which is me)
 			loggedInUser.setId(1L);
@@ -165,7 +164,7 @@ public class LoginAction extends FlashCardsAppBaseAction implements Preparable, 
 		serverPath.append(request.getScheme() + "://");
 		serverPath.append(request.getServerName());
 
-		if (request.getServerPort() != 80) {
+		if (request.getServerPort() != HTTP_PORT) {
 		    serverPath.append(":" + request.getServerPort());
 		}
 		serverPath.append(request.getContextPath());
@@ -179,11 +178,11 @@ public class LoginAction extends FlashCardsAppBaseAction implements Preparable, 
 	}
 
 	public String getOpenid_identifier() {
-		return openid_identifier;
+		return openidIdentifier;
 	}
 
 	public void setOpenid_identifier(String openid_identifier) {
-		this.openid_identifier = openid_identifier;
+		this.openidIdentifier = openid_identifier;
 	}
 
 	@Override

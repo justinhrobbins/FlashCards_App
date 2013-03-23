@@ -6,6 +6,7 @@
 						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 	
 	<import resource="applicationContext-repository-springdata.xml" />
+	
 	<context:component-scan base-package="org.robbins.flashcards.service.springdata, org.robbins.flashcards.service.util" />
 
 </beans>

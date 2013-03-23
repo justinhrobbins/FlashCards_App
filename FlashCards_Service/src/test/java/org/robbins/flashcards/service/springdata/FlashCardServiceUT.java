@@ -12,15 +12,18 @@ import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.robbins.flashcards.BaseTestCase;
 import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.repository.springdata.FlashCardRepository;
+import org.robbins.tests.BaseTestCase;
+import org.robbins.tests.UnitTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.util.ReflectionTestUtils;
 
+@Category(UnitTest.class)
 public class FlashCardServiceUT extends BaseTestCase {
 
 	@Mock FlashCardRepository repository;
@@ -34,7 +37,7 @@ public class FlashCardServiceUT extends BaseTestCase {
 	
 	@Test
 	public void testFindByQuestion() {
-		when(repository.findByQuestion("Question")).thenReturn(mock(FlashCard.class));
+		when(repository.findByQuestion(Mockito.anyString())).thenReturn(new FlashCard());
 		
 		FlashCard flashCard = flashCardService.findByQuestion("Question");
 
@@ -44,7 +47,7 @@ public class FlashCardServiceUT extends BaseTestCase {
 	
 	@Test
 	public void testFindByQuestionLike() {
-		when(repository.findByQuestionLike("Question")).thenReturn(new ArrayList<FlashCard>());
+		when(repository.findByQuestionLike(Mockito.anyString())).thenReturn(new ArrayList<FlashCard>());
 		
 		List<FlashCard> flashCards = flashCardService.findByQuestionLike("Question");
 		

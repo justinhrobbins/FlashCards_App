@@ -4,9 +4,12 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class CookieUtil {
-    public static final int dayInSeconds = 86400;
+public final class CookieUtil {
+	
+    private static final int DAY_IN_SECONDS = 86400;
 
+    private CookieUtil(){};
+    
     public static Cookie findCookie(HttpServletRequest request, String name) {
         final Cookie[] cookies = request.getCookies();
 
@@ -46,7 +49,9 @@ public class CookieUtil {
             cookie.setValue(cookieValue);
         }
 
-        cookie.setMaxAge(dayInSeconds); // one day
+        // one day
+        cookie.setMaxAge(DAY_IN_SECONDS);
+        
         cookie.setPath("/");
         response.addCookie(cookie);
     }

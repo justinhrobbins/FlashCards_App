@@ -6,7 +6,6 @@ import java.util.Set;
 
 import javax.persistence.Query;
 
-import org.apache.log4j.Logger;
 import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.repository.jpa.base.AbstractCrudRepositoryImpl;
@@ -20,7 +19,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class FlashCardRepositoryImpl extends
 		AbstractCrudRepositoryImpl<FlashCard> implements FlashCardRepository {
-	static Logger logger = Logger.getLogger(FlashCardRepositoryImpl.class);
 
 	@Override
 	public Class<FlashCard> getClazz() {
@@ -113,8 +111,9 @@ public class FlashCardRepositoryImpl extends
 		List<FlashCard> results = query.getResultList();
 		if (!results.isEmpty()) {
 			return results.get(0);
-		} else
+		} else {
 			return null;
+		}
 	}
 
 	@Override

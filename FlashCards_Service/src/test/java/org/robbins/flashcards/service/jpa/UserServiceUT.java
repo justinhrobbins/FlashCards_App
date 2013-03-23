@@ -6,14 +6,17 @@ import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.robbins.flashcards.BaseTestCase;
 import org.robbins.flashcards.model.User;
 import org.robbins.flashcards.repository.jpa.UserRepository;
 import org.robbins.flashcards.service.jpa.UserServiceImpl;
+import org.robbins.tests.BaseTestCase;
+import org.robbins.tests.UnitTest;
 import org.springframework.test.util.ReflectionTestUtils;
 
+@Category(UnitTest.class)
 public class UserServiceUT extends BaseTestCase {
 
 	@Mock UserRepository repository;
@@ -27,7 +30,7 @@ public class UserServiceUT extends BaseTestCase {
 	
 	@Test
 	public void testFindUserByOpenid() {
-		when(repository.findUserByOpenid("open_id")).thenReturn(new User());
+		when(repository.findUserByOpenid(Mockito.anyString())).thenReturn(new User());
 		
 		User user = userService.findUserByOpenid("open_id");
 		

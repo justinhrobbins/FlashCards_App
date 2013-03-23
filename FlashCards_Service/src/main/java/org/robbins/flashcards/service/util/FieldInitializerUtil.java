@@ -22,13 +22,11 @@ public class FieldInitializerUtil {
 		 
 		 PersistenceUnitUtil unitUtil = em.getEntityManagerFactory().getPersistenceUnitUtil();
 		 
-		 if (PropertyUtils.isReadable(entity, field)) {
-			 if (!unitUtil.isLoaded(entity, field)) {
+		 if ( (PropertyUtils.isReadable(entity, field)) && (!unitUtil.isLoaded(entity, field)) ) {
 				 Object value = PropertyUtils.getProperty(entity, field);
 				 if (value instanceof Collection<?>) {
 					 initializeCollection((Collection<?>) value);	 
 				 }
-			 }			 
 		 }
 	}
 	

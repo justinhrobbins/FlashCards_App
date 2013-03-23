@@ -10,7 +10,7 @@ import org.springframework.data.domain.AuditorAware;
 
 public class AuditingAwareUser implements AuditorAware<User> {
 	
-	static Logger logger = Logger.getLogger(AuditingAwareUser.class);
+	private static Logger logger = Logger.getLogger(AuditingAwareUser.class);
 	
     @Inject
     private ApplicationContext context;

@@ -29,7 +29,7 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 @Component("partialResponseFilter")
 public class PartialResponseFilter implements ResponseHandler {
 
-	static Logger logger = Logger.getLogger(PartialResponseFilter.class);
+	private static Logger logger = Logger.getLogger(PartialResponseFilter.class);
 
 	@Inject
 	private FieldInitializerUtil fieldInitializer;
@@ -45,18 +45,21 @@ public class PartialResponseFilter implements ResponseHandler {
 			Response response) {
 
 		// exit now if not an http GET method
-		if (!ori.getHttpMethod().equals("GET"))
-			return null;
+		if (!ori.getHttpMethod().equals("GET")) {
+			return null;			
+		}
 
 		// exit now if not a 200 response, no sense in apply filtering if not a
 		// '200 OK'
-		if (response.getStatus() != 200)
+		if (response.getStatus() != Response.Status.OK.getStatusCode()) {
 			return null;
+		}
 
 		// exit now if we are not returning json
 		if (!ori.getProduceTypes().get(0).toString()
-				.equals(MediaType.APPLICATION_JSON))
-			return null;
+				.equals(MediaType.APPLICATION_JSON)) {
+			return null;			
+		}
 
 		// get a reference to the response entity. the entity holds the payload
 		// of our response
@@ -134,7 +137,7 @@ public class PartialResponseFilter implements ResponseHandler {
 			// replace the Response entity with our filtered JSON string
 			return Response.fromResponse(response).entity(jsonString).build();
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 			throw new GenericWebServiceException(
 					Response.Status.INTERNAL_SERVER_ERROR, e.getMessage());
 		}
@@ -149,8 +152,9 @@ public class PartialResponseFilter implements ResponseHandler {
 
 			// never allow 'userpassword' to be passed even if it was
 			// specifically requested
-			if (field.equals("userpassword"))
+			if (field.equals("userpassword")) {
 				continue;
+			}
 
 			// add the field to the Set<String>
 			filterProperties.add(field);
@@ -174,8 +178,9 @@ public class PartialResponseFilter implements ResponseHandler {
 	// make sure each of the requested 'fields' are initialized by Hibernate
 	private void initializeEntity(Object entity, Set<String> fields) {
 
-		if (entity == null)
+		if (entity == null) {
 			return;
+		}
 
 		// loop through the values of the 'fields'
 		for (String field : fields) {
@@ -187,7 +192,7 @@ public class PartialResponseFilter implements ResponseHandler {
 				// need to make sure it is loaded
 				fieldInitializer.initializeField(entity, field);
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.error(e.getMessage(), e);
 				throw new GenericWebServiceException(
 						Response.Status.INTERNAL_SERVER_ERROR, e.getMessage());
 			}
