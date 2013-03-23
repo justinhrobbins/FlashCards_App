@@ -23,8 +23,6 @@ public class LoginInterceptor extends AbstractInterceptor implements StrutsStati
 	private static Logger logger = Logger.getLogger(LoginInterceptor.class);
 
 	public String intercept(final ActionInvocation invocation) throws Exception {
-    	logger.debug("Entering intercept()");
-
     	String invocatedAction = invocation.getAction().getClass().getName();
     	logger.debug("Invocated Action: " + invocatedAction);
 
@@ -80,8 +78,6 @@ public class LoginInterceptor extends AbstractInterceptor implements StrutsStati
     }
 
 	private void saveReceivingURL(HttpServletRequest request, HttpSession session) {
-		logger.debug("Entering saveReceivingURL()");
-		
 		// extract the receiving URL from the HTTP request
 		final StringBuffer receivingURL = request.getRequestURL();
 		final String queryString = request.getQueryString();

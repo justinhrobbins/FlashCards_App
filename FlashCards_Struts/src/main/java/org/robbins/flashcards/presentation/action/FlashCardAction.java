@@ -59,8 +59,6 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements ModelDri
 
 	@SkipValidation
 	public String list() {
-		logger.debug("Entering list()");
-
 		// reset the FlashCard list
 		this.flashCardList = null;
 		
@@ -75,8 +73,6 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements ModelDri
 	}
 	
 	public void validate() {
-		logger.debug("Entering validate()");
-		
 		if ( flashCard.getQuestion().length() == 0 ){
 			addFieldError("flashCard.question", getText("error.flashcard.question"));
 		}
@@ -96,8 +92,6 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements ModelDri
 	}
 	
 	public String saveOrUpdate() {
-		logger.debug("Entering saveOrUpdate()");
-	
 		// workaround that converts that Tags passed by the form to Tag objects on the FlashCard
 		this.flashCard.setTags(convertToTags(getExplodedTags()));
 		
@@ -164,8 +158,6 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements ModelDri
 	
 	@SkipValidation
 	public String delete() {
-		logger.debug("Entering delete()");
-		
 		try {
 			flashcardService.delete(this.flashCard.getId());
 			
@@ -182,8 +174,6 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements ModelDri
 	
 	@SkipValidation
 	public String display() {
-		logger.debug("Entering display()");
-		
 		try {
 			if ((this.flashCard.getId() != null) && (this.flashCard.getId() != 0)) {
 				this.flashCard = flashcardService.findOne(this.flashCard.getId());
@@ -209,8 +199,6 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements ModelDri
 
 	@SkipValidation
 	public String browse() {
-		logger.debug("Entering browse()");
-
 		// reset the FlashCard list
 		this.flashCardList = null;
 
@@ -279,8 +267,6 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements ModelDri
 	
 	@SkipValidation
 	public String form() {
-		logger.debug("Entering form()");
-		
 		return display();
 	}
 
@@ -296,7 +282,6 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements ModelDri
 
 	@Override
 	public void prepare() throws Exception {
-		logger.debug("Entering prepare()");
 	}
 	
 	public String getAllExplodedTags() {

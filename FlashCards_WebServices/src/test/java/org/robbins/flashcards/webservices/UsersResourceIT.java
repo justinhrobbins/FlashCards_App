@@ -79,8 +79,6 @@ public class UsersResourceIT extends GenericEntityRestTest<User> {
 	 */
 	@Test
 	public void testSearchByOpenId() {
-		logger.debug("Entering testSearchByName()");
-		
 		Map<String, String> uriVariables = new HashMap<String, String>();
 
 		String openid = "Web API Test 'openid'";
@@ -98,8 +96,6 @@ public class UsersResourceIT extends GenericEntityRestTest<User> {
 	 */
 	@Test
 	public void testUpdateEntity() {
-		logger.debug("Entering  updateEntity()");
-		
 		Long id = getEntity().getId();
 		String updatedValue = "updated value";
 		

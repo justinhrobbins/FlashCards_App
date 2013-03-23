@@ -11,8 +11,6 @@ public class TagActionTxst extends StrutsTestCase {
 	static Logger logger = Logger.getLogger(TagActionTxst.class);
 
 	public void testCreateTagFail() throws Exception {
-		logger.debug("Entering testCreateTagFail()");
-
     	try {
 			request.setParameter("name", "");
 
@@ -34,8 +32,6 @@ public class TagActionTxst extends StrutsTestCase {
     }
 	
     public void testCreateTag() throws Exception {
-    	logger.debug("Entering testCreateTag()");
-
     	request.setParameter("name", "my tag name");
 
     	ActionProxy proxy = getActionProxy("/tag/saveOrUpdate.action");
@@ -49,8 +45,6 @@ public class TagActionTxst extends StrutsTestCase {
     }
     
     public void testListTags() throws Exception {
-    	logger.debug("Entering testlistTags()");
-    	
     	ActionProxy proxy = getActionProxy("/tag/list.action");
        	
         String result = proxy.execute();
@@ -59,9 +53,6 @@ public class TagActionTxst extends StrutsTestCase {
     }
     
     public void testDisplayTag() throws Exception {
-    	logger.debug("Entering testDisplayTag()");
-    	
-    	
     	String result = "";
     	
     	try {

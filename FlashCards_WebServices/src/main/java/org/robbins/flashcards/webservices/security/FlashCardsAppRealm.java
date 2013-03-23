@@ -37,8 +37,6 @@ public class FlashCardsAppRealm extends AuthorizingRealm {
 
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) {
-		logger.debug("Entering doGetAuthenticationInfo()");
-		
 		// retrieve a User using the info provided in the authentication attempt
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
 		logger.debug("Authenticating user name: '" + token.getUsername() + "'");

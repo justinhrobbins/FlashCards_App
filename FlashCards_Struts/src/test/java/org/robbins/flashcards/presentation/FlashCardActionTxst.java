@@ -11,8 +11,6 @@ public class FlashCardActionTxst extends StrutsTestCase {
 	static Logger logger = Logger.getLogger(FlashCardActionTxst.class);
  
 	public void testCreateFlashCardFailOnQuestion() throws Exception {
-		logger.debug("Entering testQuestionErrorMessage()");
-
     	request.setParameter("question", "");
     	request.setParameter("answer", "my answer");
 
@@ -28,8 +26,6 @@ public class FlashCardActionTxst extends StrutsTestCase {
     }
 
 	public void testCreateFlashCardFailOnAnswer() throws Exception {
-		logger.debug("Entering testAnswerErrorMessage()");
-
     	request.setParameter("question", "my question");
     	request.setParameter("answer", "");
 
@@ -45,8 +41,6 @@ public class FlashCardActionTxst extends StrutsTestCase {
     }
 	
     public void testCreateFlashCard() throws Exception {
-    	logger.debug("Entering testQuestionCorrect()");
-
     	request.setParameter("question", "my question");
     	request.setParameter("answer", "my answer");
 
@@ -61,8 +55,6 @@ public class FlashCardActionTxst extends StrutsTestCase {
     }
 
     public void testListFlashCards() throws Exception {
-    	logger.debug("Entering testListFlashCards()");
-    	
     	ActionProxy proxy = getActionProxy("/listflashcards.action");
        	
         String result = proxy.execute();
@@ -71,8 +63,6 @@ public class FlashCardActionTxst extends StrutsTestCase {
     }
     
     public void testDisplayFlashCard() throws Exception {
-    	logger.debug("Entering testDisplayFlashCard()");
-    	
     	request.setParameter("question", "my question");
     	
     	ActionProxy proxy = getActionProxy("/displayflashcard.action");

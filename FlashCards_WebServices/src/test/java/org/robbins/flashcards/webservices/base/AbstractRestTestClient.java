@@ -23,8 +23,6 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 	 * @return the array of entities
 	 */
 	public E[] getEntityList(String url, Class<E[]> clazz) {
-		logger.debug("Entering getEntityList()");
-
 		// set the Authentication header
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		HttpEntity httpEntity = new HttpEntity(getAuthHeaders());
@@ -48,8 +46,6 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 	 * @return the count of entities
 	 */
 	public Long getEntityCount(String url) {
-		logger.debug("Entering getEntityCount()");
-
 		// set the Authentication header
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		HttpEntity httpEntity = new HttpEntity(getAuthHeaders());
@@ -79,8 +75,6 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 	 * @return the entity
 	 */
 	public E getEntity(String url, Long id, Class<E> clazz) {
-		logger.debug("Entering  getEntity()");
-
 		// set the Authentication header
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		HttpEntity httpEntity = new HttpEntity(getAuthHeaders());
@@ -113,8 +107,6 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 	 */
 	public E searchSingleEntity(String url, Map<String, String> uriVariables,
 			Class<E> clazz) {
-		logger.debug("Entering  searchEntities()");
-
 		// set the Authentication header
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		HttpEntity httpEntity = new HttpEntity(getAuthHeaders());
@@ -142,8 +134,6 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 	 */
 	public E[] searchEntities(String url, Map<String, String> uriVariables,
 			Class<E[]> clazz) {
-		logger.debug("Entering  searchEntities()");
-
 		// set the Authentication header
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		HttpEntity httpEntity = new HttpEntity(getAuthHeaders());
@@ -170,8 +160,6 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 	 * @return the count of entities returned by the search
 	 */
 	public Long searchCount(String url, Map<String, String> uriVariables) {
-		logger.debug("Entering  searchEntities()");
-
 		// set the Authentication header
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		HttpEntity httpEntity = new HttpEntity(getAuthHeaders());
@@ -199,8 +187,6 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 	 * @return the e
 	 */
 	public E postEntity(String url, E entity, Class<E> clazz) {
-		logger.debug("Entering  postEntity()");
-
 		// set the Authentication header
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		HttpEntity httpEntity = new HttpEntity(entity, getAuthHeaders());
@@ -224,8 +210,6 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 	 */
 	public E postEntity(String url, E entity, Map<String, String> uriVariables,
 			Class<E> clazz) {
-		logger.debug("Entering  postEntity()");
-
 		// set the Authentication header
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		HttpEntity httpEntity = new HttpEntity(entity, getAuthHeaders());
@@ -247,8 +231,6 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 	 * @return the http status
 	 */
 	public HttpStatus putEntity(String url, Long id, E entity) {
-		logger.debug("Entering putEntity()");
-
 		// set the Authentication header
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		HttpEntity httpEntity = new HttpEntity(entity, getAuthHeaders());
@@ -277,8 +259,6 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 	 */
 	public HttpStatus updateEntity(String url,
 			Map<String, String> uriVariables, E entity) {
-		logger.debug("Entering updateEntity()");
-
 		// set the Authentication header
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		HttpEntity httpEntity = new HttpEntity(entity, getAuthHeaders());
@@ -303,8 +283,6 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 	 */
 	public HttpStatus putEntity(String url, Map<String, String> uriVariables,
 			E entity) {
-		logger.debug("Entering putEntity()");
-
 		// set the Authentication header
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		HttpEntity httpEntity = new HttpEntity(entity, getAuthHeaders());
@@ -326,8 +304,6 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 	 * @return the http status
 	 */
 	public HttpStatus deleteEntity(String url, Long id) {
-		logger.debug("Entering  deleteEntity()");
-
 		// set the Authentication header
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		HttpEntity httpEntity = new HttpEntity(getAuthHeaders());

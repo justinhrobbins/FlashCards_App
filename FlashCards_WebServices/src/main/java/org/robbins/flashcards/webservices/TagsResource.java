@@ -8,7 +8,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
-import org.apache.log4j.Logger;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.service.TagService;
 import org.robbins.flashcards.service.base.GenericJpaService;
@@ -22,8 +21,6 @@ import org.springframework.web.context.WebApplicationContext;
 @Scope(value = WebApplicationContext.SCOPE_REQUEST)
 @Produces("application/json")
 public class TagsResource extends AbstractGenericResource<Tag, Long> {
-	
-	private static Logger logger = Logger.getLogger(TagsResource.class);
 
 	@Inject
 	private TagService service;
@@ -36,8 +33,6 @@ public class TagsResource extends AbstractGenericResource<Tag, Long> {
 	@Path("/search")
 	@Produces("application/json")
 	public Tag searchByName(@QueryParam("name") String name) {
-			logger.debug("Entering search()");
-			
 			return service.findByName(name);
 	}
 	

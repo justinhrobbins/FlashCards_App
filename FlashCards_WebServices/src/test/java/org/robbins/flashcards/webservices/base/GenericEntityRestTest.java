@@ -92,8 +92,6 @@ public abstract class GenericEntityRestTest<E extends Persistable<Long>> extends
 	 */
 	@Test
 	public void testGetEntityList() {
-		logger.debug("Entering testGetEntityList()");
-		
 		// get a Entity
 		E[] entityList = getEntityList(getEntityListUrl(), getClazzArray());
 
@@ -106,8 +104,6 @@ public abstract class GenericEntityRestTest<E extends Persistable<Long>> extends
 	 */
 	@Test
 	public void testGetEntityCount() {
-		logger.debug("Entering testGetEntityCount()");
-		
 		// get a count
 		Long entityCount = getEntityCount(getEntityListUrl());
 
@@ -120,8 +116,6 @@ public abstract class GenericEntityRestTest<E extends Persistable<Long>> extends
 	 */
 	@Test
 	public void testGetEntity() {
-		logger.debug("Entering testGetEntity()");
-		
 		// get a Entity
 		E retrievedEntity = getEntity(getEntityUrl(), getEntity().getId(), getClazz());
 
@@ -134,8 +128,6 @@ public abstract class GenericEntityRestTest<E extends Persistable<Long>> extends
 	 */
 	@Test
 	public void testPostEntity() {
-		logger.debug("Entering testPostEntity()");
-		
 		// if the Entity exists then we know it has been created successfully in @Before
 		assertTrue(getEntity() != null);
 	}
@@ -145,8 +137,6 @@ public abstract class GenericEntityRestTest<E extends Persistable<Long>> extends
 	 */
 	@Test
 	public void testPutEntity() {
-		logger.debug("Entering testPutEntity()");
-		
 		Map<String, String> uriVariables = new HashMap<String, String>();
 		uriVariables.put("id", String.valueOf(getEntity().getId()));
 		
@@ -164,8 +154,6 @@ public abstract class GenericEntityRestTest<E extends Persistable<Long>> extends
 	 */
 	@Test
 	public void testDeleteEntity() {
-		logger.debug("Entering testDeleteEntity()");
-		
 		HttpStatus status = deleteEntity(deleteEntityUrl(), getEntity().getId());
 		assertEquals(status.toString(), "204");
 		

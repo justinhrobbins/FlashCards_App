@@ -54,13 +54,11 @@ public abstract class AbstractResource {
 
 	@PostConstruct
 	public void postConstruct() {
-		logger.debug("Entering @PostConstruct");
 		configureLoggedInUser();
 	}
  
 	@PreDestroy
 	public void preDestroy() {
-		logger.debug("Entering preDestroy()");
 	}
 	
 	/*

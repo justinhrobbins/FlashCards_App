@@ -88,8 +88,6 @@ public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCard> {
 	 */
 	@Test
 	public void testSearchByTagsIn() {
-		logger.debug("Entering testSearchByTagsIn()");
-
 		Map<String, String> uriVariables = setupSearchUriVariables();
 		uriVariables.put("tags", "2,3");
 		
@@ -105,8 +103,6 @@ public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCard> {
 	 */
 	@Test
 	public void testUpdateEntity() {
-		logger.debug("Entering  updateEntity()");
-		
 		Long id = getEntity().getId();
 		String updatedValue = "updated value";
 		

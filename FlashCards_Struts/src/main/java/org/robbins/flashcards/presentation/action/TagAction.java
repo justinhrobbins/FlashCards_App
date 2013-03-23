@@ -35,8 +35,6 @@ public class TagAction extends FlashCardsAppBaseAction implements ModelDriven<Ta
 	
 	@SkipValidation
 	public String list() {
-		logger.debug("Entering list()");
-		
 		try {
 			tagList = tagService.findAll();
 			
@@ -51,8 +49,6 @@ public class TagAction extends FlashCardsAppBaseAction implements ModelDriven<Ta
 	}
 
 	public String saveOrUpdate() {
-		logger.debug("Entering saveOrUpdate()");
-		
 		try {
 			if ((this.tag.getId()!= null) && (this.tag.getId() != 0)) {
 				Tag existingTag = tagService.findOne(this.tag.getId());
@@ -76,8 +72,6 @@ public class TagAction extends FlashCardsAppBaseAction implements ModelDriven<Ta
 
 	@SkipValidation
 	public String delete() {
-		logger.debug("Entering delete()");
-		
 		try {
 			tagService.delete(this.tag.getId());
 			
@@ -101,8 +95,6 @@ public class TagAction extends FlashCardsAppBaseAction implements ModelDriven<Ta
 	
 	@SkipValidation
 	public String display() {
-		logger.debug("Entering display()");
-		
 		try {
 			if ((this.tag.getId() != null) && (this.tag.getId() != 0)) {
 				this.tag = tagService.findOne(this.tag.getId());
@@ -118,14 +110,10 @@ public class TagAction extends FlashCardsAppBaseAction implements ModelDriven<Ta
 
 	@SkipValidation
 	public String form() {
-		logger.debug("Entering form()");
-		
 		return display();
 	}
 	
 	public void validate() {
-		logger.debug("Entering validate()");
-		
 		// Tag name cannot be empty
 		if ( tag.getName().length() == 0 ){
 			logger.debug("Tag name is empty. Adding Field Error for 'Name'");
@@ -149,7 +137,6 @@ public class TagAction extends FlashCardsAppBaseAction implements ModelDriven<Ta
 
 	@Override
 	public void prepare() throws Exception {
-		logger.debug("Entering prepare()");
 	}
 
 	public Map<String, Object> getHttpSession() {

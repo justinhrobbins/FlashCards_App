@@ -32,8 +32,6 @@ public final class OpenId4JavaAuthenticator {
 	private OpenId4JavaAuthenticator(){};
 	
 	private static ConsumerManager getConsumerManager(Map<String, Object> application) {
-		logger.debug("Entering getConsumerManager()");
-		
 		ConsumerManager manager;
 
 		// try to get the ConsumerManager from the Application scope
@@ -59,8 +57,6 @@ public final class OpenId4JavaAuthenticator {
     @SuppressWarnings("unchecked")
     public static String getValidateOpenIdUrl(String returnUrl, String openIdIdentifier, Map<String, Object> httpSession, Map<String, Object> application) throws DiscoveryException,
 			MessageException, ConsumerException {
-    	
-    	logger.debug("Entering getOpenIdDestinationUrl()");
 
 		// get a reference to the Consumer Manager
         ConsumerManager manager = getConsumerManager(application);
@@ -126,8 +122,6 @@ public final class OpenId4JavaAuthenticator {
 	public static User getAuthenticatedUser(Map<String,String[]> parmList,
 			final StringBuffer receivingURL, Map<String, Object> httpSession, Map<String, Object> application)
 			throws MessageException, DiscoveryException, AssociationException {
-
-		logger.debug("Entering getAuthenticatedUser()");
 
 		// extract the parameters from the authentication response
 		// (which comes in as a HTTP request from the OpenID provider)

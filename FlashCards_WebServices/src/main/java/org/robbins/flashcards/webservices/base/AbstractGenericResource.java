@@ -38,8 +38,6 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 						@QueryParam("sort") String sort,
 						@DefaultValue("asc") @QueryParam("direction") String direction) {
 		
-		logger.debug("Entering list()");
-		
 		List<T> entities = null;
 		
 	    try {
@@ -96,8 +94,6 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 	@Produces("application/json")
 	public T findOne(@PathParam("id") Long id) {
 
-		logger.debug("Entering findOne()");
-
 		T entity = getService().findOne(id);
 
 		if (entity == null) {
@@ -110,8 +106,6 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 	@POST
 	@Produces("application/json")
 	public T post(T entity) {
-		logger.debug("Entering post()");
-		
 		try {
 			return getService().save(entity);
 		} catch (Exception e) {
@@ -124,8 +118,6 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 	@PUT
 	@Path("/{id}")
 	public Response put(@PathParam("id") Long id, T entity) {
-		logger.debug("Entering put()");
-		
 		try {
 			getService().save(entity);
 		} catch (Exception e) {
@@ -140,8 +132,6 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 	@DELETE
 	@Path("/{id}")
 	public Response delete(@PathParam("id") Long id) {
-		logger.debug("Entering delete()");
-		
 		try {
 			getService().delete(id);
 		} catch (Exception e) {

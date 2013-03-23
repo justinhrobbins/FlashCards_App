@@ -79,8 +79,6 @@ public class TagsResourceIT extends GenericEntityRestTest<Tag> {
 	 */
 	@Test
 	public void testSearchByName() {
-		logger.debug("Entering testSearchByName()");
-		
 		Map<String, String> uriVariables = new HashMap<String, String>();
 
 		String name = "EJB";
@@ -98,8 +96,6 @@ public class TagsResourceIT extends GenericEntityRestTest<Tag> {
 	 */
 	@Test
 	public void testUpdateEntity() {
-		logger.debug("Entering  updateEntity()");
-		
 		Long id = getEntity().getId();
 		String updatedValue = "updated value";
 		

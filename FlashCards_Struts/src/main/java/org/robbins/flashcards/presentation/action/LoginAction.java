@@ -50,9 +50,6 @@ public class LoginAction extends FlashCardsAppBaseAction implements Preparable, 
 
     // the OpenID Selector form will submit to this Action method
     public String validateOpenId() throws Exception {
-
-    	logger.debug("Entering validateOpenId()");
-    	
     	// get rid of trailing slash
     	if (getOpenid_identifier().endsWith("/")) {
     		setOpenid_identifier(getOpenid_identifier().substring(0, getOpenid_identifier().length() - 1));
@@ -76,8 +73,6 @@ public class LoginAction extends FlashCardsAppBaseAction implements Preparable, 
     }
     
 	public String authenticateOpenId() throws Exception {
-		logger.debug("Entering authenticateOpenId()");
-
 		Map<String,String[]> parmList = request.getParameterMap();
 
 		// extract the receiving URL from the HTTP request
@@ -135,8 +130,6 @@ public class LoginAction extends FlashCardsAppBaseAction implements Preparable, 
 
 	@SuppressWarnings("rawtypes")
 	public String logout() {
-		logger.debug("Entering logout()");
-		
 		try {
 			// invalidate the user's session
 			httpSession.remove("user");
@@ -174,7 +167,6 @@ public class LoginAction extends FlashCardsAppBaseAction implements Preparable, 
 	
 	@Override
 	public void prepare() throws Exception {
-		logger.debug("Entering prepare()");
 	}
 
 	public String getOpenid_identifier() {
