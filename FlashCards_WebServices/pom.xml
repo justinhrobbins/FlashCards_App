@@ -19,7 +19,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.robbins.flashcards</groupId>
-			<artifactId>FlashCards_Service</artifactId>
+			<artifactId>FlashCards_Service_SpringData</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
@@ -91,6 +91,12 @@
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
 			<version>1.9.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.robbins.flashcards</groupId>
+			<artifactId>FlashCards_Test</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
