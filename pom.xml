@@ -27,6 +27,7 @@
 		<module>FlashCards_Domain</module>
 		<module>FlashCards_GWT</module>
 		<module>FlashCards_Service</module>
+		<module>FlashCards_Service_SpringData</module>
 		<module>FlashCards_WebServices</module>
 		<module>FlashCards_Struts</module>
 		<module>gwt-joda-time</module>
