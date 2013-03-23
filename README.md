@@ -5,9 +5,9 @@ The purpose of this project is to demonstrate my Java and web development compet
 A working copy of this project is running on an Amazon EC2 cloud instance.  There are two published versions of the application:
 
 1. The [Google Web Toolkit client version](http://www.socialflashcards.com/flashcardsapi/FlashCards_App.html) is a rich JavaScript/AJAX client that interacts with the server through a stateless REST API.
-2. The [Struts version](http://www.socialflashcards.com/flashcardsstruts/) that implements a more traditional model-view-controller (MVC) architecture.  (This version features authentication using OpenId.  Your password is not saved or even sent to the FlashCards application)
+2. The [Struts version](http://www.socialflashcards.com/flashcardsstruts/) implements a more traditional model-view-controller (MVC) architecture.  (This version features authentication using OpenId.  Your password is not saved or even sent to the FlashCards application)
 
-Both versions of the Flashcards App reuse the same service, domain, and data layers.
+Both versions of the Flashcards App reuse the same service, domain, and persistence layers.
 
 ## Project modules
 The documentation below outlines the technologies used in each module of the Flashcards App:
@@ -31,7 +31,7 @@ I modeled the web services after the RESTful API best practices chronicled in th
 
 ### Service
 * Spring Services and DI
-* There are two Service implementations which can be used interchangeably:
+* I've included two Service implementations which can be used interchangeably:
     - [Spring Data - JPA](http://www.springsource.org/spring-data/jpa) repositories. If you are not familiar with Spring Data, you might like to take a look at the [Spring Data Example Showcase](https://github.com/SpringSource/spring-data-jpa-examples/tree/master/spring-data-jpa-showcase) on Github.  The project compares a a typical data access implementation with JPA 2 with a less boilerplate Spring Data version.  Spring Data evolved out of the [Hades](https://github.com/synyx/hades) open source project.
     - JPA version using EntityManager, JPQL, and generic CRUD DAOs
 * Transactions management
@@ -59,16 +59,16 @@ I modeled the web services after the RESTful API best practices chronicled in th
 * [OpenId](http://openid.net/) Authentication
 * JSP
 
-## Deployment
-Hosted [Amazon EC2 cloud](http://aws.amazon.com/ec2/) using [Tomcat](http://tomcat.apache.org/) servlet container, [MySQL](http://www.mysql.com/)
-
-Take a look at an example deployment of both the GWT and Struts versions of the app:
-* [Google Web Toolkit version](http://www.socialflashcards.com/flashcardsapi/FlashCards_App.html)
-* [Struts version](http://www.socialflashcards.com/flashcardsstruts/)
-
 ### Misc.
 In addition to the technology stack outlined above, this project also uses:
 * [Maven](http://maven.apache.org/) for dependency management and project structure
 * [JUnit](http://www.junit.org/) and [Mockito](http://code.google.com/p/mockito/) are used for unit and integration tests
-* Spring RestTemplate is used as the client for web service testing.
+* Spring RestTemplate is used as the client for web service integration testing.
 * [Eclipse](http://www.eclipse.org/) IDE
+
+## Deployment
+The deployed app is hosted on the [Amazon EC2 cloud](http://aws.amazon.com/ec2/) using [Tomcat](http://tomcat.apache.org/) servlet container, [MySQL](http://www.mysql.com/)
+
+Take a look at an example deployment of both the GWT and Struts versions of the app:
+* [Google Web Toolkit version](http://www.socialflashcards.com/flashcardsapi/FlashCards_App.html)
+* [Struts version](http://www.socialflashcards.com/flashcardsstruts/)
