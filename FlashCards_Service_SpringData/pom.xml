@@ -66,6 +66,11 @@
 			<artifactId>spring-aspects</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjtools</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
