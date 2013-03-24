@@ -25,7 +25,7 @@ import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
-public abstract class AbstractGenericResource <T, Serializable> extends AbstractResource {
+public abstract class AbstractGenericResource <T, Serializable> extends AbstractResource implements GenericResource <T, Serializable> {
 	
 	private static Logger logger = Logger.getLogger(AbstractGenericResource.class);
 	

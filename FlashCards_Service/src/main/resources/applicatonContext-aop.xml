@@ -6,6 +6,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
+	<!-- <aop:aspectj-autoproxy proxy-target-class="true" />  -->
 	<aop:aspectj-autoproxy />
 
 	<bean id="executionTimeLogger" class="org.robbins.flashcards.aop.ExecutionTimeLogger" />
