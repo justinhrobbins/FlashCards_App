@@ -30,13 +30,4 @@
 		<when-type-is class="org.robbins.flashcards.client.factory.ClientFactory" />
 	</replace-with>
 
-	<!-- Use ClientFactoryImplMobile for mobile form factor. -->
-<!--
-	<replace-with
-		class="org.robbins.flashcards.client.factory.ClientFactoryImplMobile">
-		<when-type-is
-			class="org.robbins.flashcards.client.factory.ClientFactory" />
-		<when-property-is name="formfactor" value="mobile" />
-	</replace-with>
--->
 </module>
