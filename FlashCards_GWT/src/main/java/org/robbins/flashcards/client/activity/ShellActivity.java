@@ -9,7 +9,7 @@ import org.robbins.flashcards.client.mvp.AppPlaceHistoryMapper;
 import org.robbins.flashcards.client.place.LoginPlace;
 import org.robbins.flashcards.client.place.ShellPlace;
 import org.robbins.flashcards.client.ui.ShellView;
-import org.robbins.flashcards.model.User;
+import org.robbins.flashcards.model.UserDto;
 import org.robbins.flashcards.service.UserRestService;
 import org.robbins.flashcards.util.ConstsUtil;
 
@@ -60,12 +60,12 @@ public class ShellActivity extends AppAbstractActivity {
 			return;
 		}
 		
-		userService.getUser(ConstsUtil.DEFAULT_AUTH_HEADER, clientFactory.getLoggedInUser().getId(), new MethodCallback<User>() {
+		userService.getUser(ConstsUtil.DEFAULT_AUTH_HEADER, clientFactory.getLoggedInUser().getId(), new MethodCallback<UserDto>() {
 			public void onFailure(Method method, Throwable caught) {
 				GWT.log("ShellActivity: Error loading data");
 				Window.alert(getConstants().errorLoadingTags());
 			}
-			public void onSuccess(Method method, User user) {
+			public void onSuccess(Method method, UserDto user) {
 				GWT.log("ShellActivity: Loading User: " + user.getEmail());
 				
 				// now that we have the full user info, update the user logged in user in the client factory

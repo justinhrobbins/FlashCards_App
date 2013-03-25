@@ -2,14 +2,14 @@ package org.robbins.flashcards.client.ui.mobile;
 
 import java.util.List;
 
-import org.joda.time.format.DateTimeFormat;
 import org.robbins.flashcards.client.ui.EditTagView;
 import org.robbins.flashcards.client.ui.widgets.FlashCardFlexTable;
-import org.robbins.flashcards.model.FlashCard;
-import org.robbins.flashcards.model.Tag;
+import org.robbins.flashcards.model.FlashCardDto;
+import org.robbins.flashcards.model.TagDto;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
@@ -76,7 +76,7 @@ public class EditTagViewImplMobile extends Composite implements EditTagView {
 	}
 
 	@Override
-	public void setTagData(Tag tag) {
+	public void setTagData(TagDto tag) {
 
 		if (tag == null) {
 			getName().setText("");
@@ -89,16 +89,14 @@ public class EditTagViewImplMobile extends Composite implements EditTagView {
 		getName().setText(tag.getName());
 		getCreatedDate().setText(
 				"Created Date: "
-						+ DateTimeFormat.forPattern("MM/dd/yyyy").print(
-								tag.getCreatedDate()));
+						+ DateTimeFormat.getFormat(DateTimeFormat.PredefinedFormat.DATE_SHORT).format(tag.getCreatedDate()));
 		getModifiedDate().setText(
 				"Modified Date: "
-						+ DateTimeFormat.forPattern("MM/dd/yyyy").print(
-								tag.getLastModifiedDate()));
+						+ DateTimeFormat.getFormat(DateTimeFormat.PredefinedFormat.DATE_SHORT).format(tag.getLastModifiedDate()));
 	}
 
 	@Override
-	public void setFlashCardsData(List<FlashCard> flashCards) {
+	public void setFlashCardsData(List<FlashCardDto> flashCards) {
 		this.flashCards.setInput(flashCards);
 		
 	}

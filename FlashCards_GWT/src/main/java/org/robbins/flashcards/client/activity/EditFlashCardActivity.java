@@ -13,8 +13,8 @@ import org.robbins.flashcards.client.place.EditFlashCardPlace;
 import org.robbins.flashcards.client.place.ListFlashCardsPlace;
 import org.robbins.flashcards.client.place.NewFlashCardPlace;
 import org.robbins.flashcards.client.ui.EditFlashCardView;
-import org.robbins.flashcards.model.FlashCard;
-import org.robbins.flashcards.model.Tag;
+import org.robbins.flashcards.model.FlashCardDto;
+import org.robbins.flashcards.model.TagDto;
 import org.robbins.flashcards.service.FlashCardRestService;
 import org.robbins.flashcards.service.TagRestService;
 import org.robbins.flashcards.util.ConstsUtil;
@@ -29,7 +29,7 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
 public class EditFlashCardActivity extends AppAbstractActivity {
 
-	private FlashCard flashCard;
+	private FlashCardDto flashCard;
 
 	private final FlashCardRestService flashCardService;
 	private final TagRestService tagService;
@@ -53,12 +53,12 @@ public class EditFlashCardActivity extends AppAbstractActivity {
 		bind();
 		
 		String fields = "id,name";
-		tagService.getTags(ConstsUtil.DEFAULT_AUTH_HEADER, fields, new MethodCallback<List<Tag>>() {
+		tagService.getTags(ConstsUtil.DEFAULT_AUTH_HEADER, fields, new MethodCallback<List<TagDto>>() {
 			public void onFailure(Method method, Throwable caught) {
 				GWT.log("EditFlashCardActivity: Error loading Tags");
 				Window.alert(getConstants().errorLoadingTags());
 			}
-			public void onSuccess(Method method, List<Tag> result) {
+			public void onSuccess(Method method, List<TagDto> result) {
 				GWT.log("TagsActivity: Loading Tag list: " + result.size() + " tags");
 				EditFlashCardActivity.this.display.setTagsData(result);
 			}
@@ -67,7 +67,7 @@ public class EditFlashCardActivity extends AppAbstractActivity {
 	
 	public EditFlashCardActivity(NewFlashCardPlace place, ClientFactory clientFactory) {
 		this(clientFactory);
-		setFlashCard(new FlashCard());
+		setFlashCard(new FlashCardDto());
 		
 		EditFlashCardActivity.this.display.setFlashCardData(null);
 	}
@@ -78,12 +78,12 @@ public class EditFlashCardActivity extends AppAbstractActivity {
 		Long id = Long.parseLong(place.getPlaceName());
 		
 		String fields = ConstsUtil.DEFAULT_FLASHCARDS_FIELDS;
-		flashCardService.getFlashCard(ConstsUtil.DEFAULT_AUTH_HEADER, id, fields, new MethodCallback<FlashCard>() {
+		flashCardService.getFlashCard(ConstsUtil.DEFAULT_AUTH_HEADER, id, fields, new MethodCallback<FlashCardDto>() {
 			public void onFailure(Method method, Throwable caught) {
 				GWT.log("EditFlashCardActivity: Error loading data");
 				Window.alert(getConstants().errorLoadingTag());
 			}
-			public void onSuccess(Method method, FlashCard flashCard) {
+			public void onSuccess(Method method, FlashCardDto flashCard) {
 				GWT.log("EditFlashCardActivity: 'Load FlashCard' FlashCardId: " + flashCard.getId());
 				EditFlashCardActivity.this.setFlashCard(flashCard);
 				EditFlashCardActivity.this.display.setFlashCardData(flashCard);
@@ -109,11 +109,11 @@ public class EditFlashCardActivity extends AppAbstractActivity {
 		}));
 	}
 
-	public FlashCard getFlashCard() {
+	public FlashCardDto getFlashCard() {
 		return flashCard;
 	}
 
-	public void setFlashCard(FlashCard flashCard) {
+	public void setFlashCard(FlashCardDto flashCard) {
 		this.flashCard = flashCard;
 	}
 	
@@ -137,14 +137,14 @@ public class EditFlashCardActivity extends AppAbstractActivity {
 		}
 	}
 
-	private void saveFlashCard(FlashCard flashcard) {
-		flashCardService.postFlashCards(ConstsUtil.DEFAULT_AUTH_HEADER, flashcard, new MethodCallback<FlashCard>() {
+	private void saveFlashCard(FlashCardDto flashcard) {
+		flashCardService.postFlashCards(ConstsUtil.DEFAULT_AUTH_HEADER, flashcard, new MethodCallback<FlashCardDto>() {
 			public void onFailure(Method method, Throwable caught) {
 				GWT.log("EditFlashCardActivity: Error saving data");
 				Window.alert(getConstants().errorSavingTag());
 				EditFlashCardActivity.this.display.getSubmitEnabled().setEnabled(true);
 			}
-			public void onSuccess(Method method, FlashCard result) {
+			public void onSuccess(Method method, FlashCardDto result) {
 				GWT.log("EditFlashCardActivity: FlashCard Saved:" + result);
 				EditFlashCardActivity.this.display.getSubmitEnabled().setEnabled(true);
 				getPlaceController().goTo(new ListFlashCardsPlace(""));
@@ -152,7 +152,7 @@ public class EditFlashCardActivity extends AppAbstractActivity {
 		});		
 	}
 	
-	private void updateFlashCard(FlashCard flashcard) {
+	private void updateFlashCard(FlashCardDto flashcard) {
 		flashCardService.putFlashCard(ConstsUtil.DEFAULT_AUTH_HEADER, flashcard.getId(), flashcard, new MethodCallback<java.lang.Void>() {
 			public void onFailure(Method method, Throwable caught) {
 				GWT.log("EditFlashCardActivity: Error saving data");
@@ -167,12 +167,12 @@ public class EditFlashCardActivity extends AppAbstractActivity {
 		});
 	}
 	
-	private Set<Tag> getTags(List<String> tagsList) {
-		Set<Tag> tags = new HashSet<Tag>();
+	private Set<TagDto> getTags(List<String> tagsList) {
+		Set<TagDto> tags = new HashSet<TagDto>();
 
 		if (tagsList.size() > 0) {
 			for (String tagName : tagsList) {
-				Tag tag = new Tag(tagName);
+				TagDto tag = new TagDto(tagName);
 				tags.add(tag);
 			}
 		}

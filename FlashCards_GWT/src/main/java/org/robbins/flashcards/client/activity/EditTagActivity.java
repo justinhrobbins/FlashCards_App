@@ -9,7 +9,7 @@ import org.robbins.flashcards.client.place.EditTagPlace;
 import org.robbins.flashcards.client.place.ListTagsPlace;
 import org.robbins.flashcards.client.place.NewTagPlace;
 import org.robbins.flashcards.client.ui.EditTagView;
-import org.robbins.flashcards.model.Tag;
+import org.robbins.flashcards.model.TagDto;
 import org.robbins.flashcards.service.FlashCardRestService;
 import org.robbins.flashcards.service.TagRestService;
 import org.robbins.flashcards.util.ConstsUtil;
@@ -24,7 +24,7 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
 public class EditTagActivity extends AppAbstractActivity {
 
-	private Tag tag;
+	private TagDto tag;
 	private final TagRestService tagService;
 	private final FlashCardRestService flashCardService;
 	private EditTagView display;
@@ -51,7 +51,7 @@ public class EditTagActivity extends AppAbstractActivity {
 	public EditTagActivity(NewTagPlace place, ClientFactory clientFactory) {
 		this(clientFactory);
 		
-		setTag(new Tag());
+		setTag(new TagDto());
 		this.display.setFlashCardsData(null);
 		this.display.setTagData(null);
 	}
@@ -62,8 +62,8 @@ public class EditTagActivity extends AppAbstractActivity {
 		Long tagId = Long.parseLong(place.getPlaceName());
 		String fields = ConstsUtil.DEFAULT_TAGS_FIELDS;
 		
-		tagService.getTag(ConstsUtil.DEFAULT_AUTH_HEADER, tagId, fields, new MethodCallback<Tag>() {
-			public void onSuccess(Method method, Tag tag) {
+		tagService.getTag(ConstsUtil.DEFAULT_AUTH_HEADER, tagId, fields, new MethodCallback<TagDto>() {
+			public void onSuccess(Method method, TagDto tag) {
 				GWT.log("EditTagActivity: 'Load Tag' TagId: " + tag.getId());
 				setTag(tag);
 				EditTagActivity.this.display.setTagData(tag);
@@ -94,11 +94,11 @@ public class EditTagActivity extends AppAbstractActivity {
 		}));
 	}
 
-	private Tag getTag() {
+	private TagDto getTag() {
 		return this.tag;
 	}
 
-	private void setTag(Tag tag) {
+	private void setTag(TagDto tag) {
 		this.tag = tag;
 	}
 	
@@ -115,8 +115,8 @@ public class EditTagActivity extends AppAbstractActivity {
 			updateTag(getTag());
 		} else {
 			// since we don't have a Tag Id then let's see if the name exists before creating a new Tag
-			tagService.getTagsSearch(ConstsUtil.DEFAULT_AUTH_HEADER, getTag().getName(), new MethodCallback<Tag>() {
-				public void onSuccess(Method method, Tag tag) {
+			tagService.getTagsSearch(ConstsUtil.DEFAULT_AUTH_HEADER, getTag().getName(), new MethodCallback<TagDto>() {
+				public void onSuccess(Method method, TagDto tag) {
 					if (tag == null) {
 						GWT.log("EditTagActivity: Tag does not exist.  Creating new Tag");
 	
@@ -136,9 +136,9 @@ public class EditTagActivity extends AppAbstractActivity {
 		}
 	}
 	
-	private void saveTag(Tag tag) {
-		tagService.postTags(ConstsUtil.DEFAULT_AUTH_HEADER, tag, new MethodCallback<Tag>() {
-			public void onSuccess(Method method, Tag result) {
+	private void saveTag(TagDto tag) {
+		tagService.postTags(ConstsUtil.DEFAULT_AUTH_HEADER, tag, new MethodCallback<TagDto>() {
+			public void onSuccess(Method method, TagDto result) {
 				GWT.log("EditTagActivity: Tag Saved:" + result);
 				EditTagActivity.this.display.getSubmitEnabled().setEnabled(true);
 				getPlaceController().goTo(new ListTagsPlace(""));
@@ -151,7 +151,7 @@ public class EditTagActivity extends AppAbstractActivity {
 		});
 	}
 	
-	private void updateTag(Tag tag) {
+	private void updateTag(TagDto tag) {
 		tagService.putTag(ConstsUtil.DEFAULT_AUTH_HEADER, tag.getId(), tag, new MethodCallback<java.lang.Void>() {
 			public void onSuccess(Method method, java.lang.Void result) {
 				GWT.log("EditTagActivity: Tag updated");

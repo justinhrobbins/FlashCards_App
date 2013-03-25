@@ -6,7 +6,7 @@ import java.util.List;
 import org.robbins.flashcards.client.ui.TagsView;
 import org.robbins.flashcards.client.ui.widgets.LinkCell;
 import org.robbins.flashcards.events.LoadTagEvent;
-import org.robbins.flashcards.model.Tag;
+import org.robbins.flashcards.model.TagDto;
 
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.client.GWT;
@@ -19,14 +19,14 @@ import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.ProvidesKey;
 
-public class TagsViewImplMobile extends CellTable<Tag> implements TagsView {
+public class TagsViewImplMobile extends CellTable<TagDto> implements TagsView {
 	private final EventBus eventBus;
 	
 	private LinkCell nameCell;
-	private Column<Tag, String> nameColumn;
+	private Column<TagDto, String> nameColumn;
 	
-	private ListDataProvider<Tag> dataProvider;
-	private List<Tag> tagsList;
+	private ListDataProvider<TagDto> dataProvider;
+	private List<TagDto> tagsList;
 	
     public TagsViewImplMobile(EventBus eventBus) {
     	super();
@@ -37,7 +37,7 @@ public class TagsViewImplMobile extends CellTable<Tag> implements TagsView {
     	init();
     }
     
-    public TagsViewImplMobile(EventBus eventBus, ProvidesKey<Tag> keyProvider) {
+    public TagsViewImplMobile(EventBus eventBus, ProvidesKey<TagDto> keyProvider) {
     	super(keyProvider);
     	
     	GWT.log("Creating 'TagsViewImplMobile'");
@@ -51,14 +51,14 @@ public class TagsViewImplMobile extends CellTable<Tag> implements TagsView {
         formatCellTable();
     }
     
-	private void bindData(List<Tag> tags) {
-		dataProvider = new ListDataProvider<Tag>();
+	private void bindData(List<TagDto> tags) {
+		dataProvider = new ListDataProvider<TagDto>();
 
         // Connect the table to the data provider.
         dataProvider.addDataDisplay(this);
         
         tagsList = dataProvider.getList();
-        for (Tag tag : tags) {
+        for (TagDto tag : tags) {
         	tagsList.add(tag);
         }
 	}
@@ -73,10 +73,10 @@ public class TagsViewImplMobile extends CellTable<Tag> implements TagsView {
 
 	private void createColumnSorting() {
 		// Add a ColumnSortEvent.ListHandler to connect sorting to the List
-        ListHandler<Tag> nameColumnSortHandler = new ListHandler<Tag>(tagsList);
+        ListHandler<TagDto> nameColumnSortHandler = new ListHandler<TagDto>(tagsList);
         nameColumnSortHandler.setComparator(nameColumn,
-            new Comparator<Tag>() {
-              public int compare(Tag o1, Tag o2) {
+            new Comparator<TagDto>() {
+              public int compare(TagDto o1, TagDto o2) {
                   if (o1 == o2) {
                       return 0;
                     }
@@ -98,9 +98,9 @@ public class TagsViewImplMobile extends CellTable<Tag> implements TagsView {
 	private void createColumns() {
 
 		nameCell = new LinkCell();
-		nameColumn = new Column<Tag, String>(nameCell) {
+		nameColumn = new Column<TagDto, String>(nameCell) {
           @Override
-          public String getValue(Tag object) {
+          public String getValue(TagDto object) {
             return object.getName();
           }
         };
@@ -108,9 +108,9 @@ public class TagsViewImplMobile extends CellTable<Tag> implements TagsView {
         this.addColumn(nameColumn, "Name");
         
         // Add a field updater to be notified when the user enters a new name.
-        nameColumn.setFieldUpdater(new FieldUpdater<Tag, String>() {
+        nameColumn.setFieldUpdater(new FieldUpdater<TagDto, String>() {
           @Override
-          public void update(int index, Tag object, String value) {
+          public void update(int index, TagDto object, String value) {
               eventBus.fireEvent(new LoadTagEvent(object.getId()));
           }
         });
@@ -123,7 +123,7 @@ public class TagsViewImplMobile extends CellTable<Tag> implements TagsView {
 	}
 
 	@Override
-	public void setData(List<Tag> data) {
+	public void setData(List<TagDto> data) {
         bindData(data);
 
         createColumnSorting();

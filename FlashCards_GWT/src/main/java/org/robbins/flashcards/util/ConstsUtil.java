@@ -17,8 +17,8 @@ public class ConstsUtil {
 	public static final String TAG_REST_URL = "/flashcardsapi/v1/tags";
 	public static final String USER_REST_URL = "/flashcardsapi/v1/users";
 	public static final String DEFAULT_FLASHCARDS_LIST_FIELDS = "id,question,answer,tags,name";
-	public static final String DEFAULT_FLASHCARDS_FIELDS = "id,question,answer,tags,name,links";
+	public static final String DEFAULT_FLASHCARDS_FIELDS = "id,question,answer,tags,name,links,createdDate,lastModifiedDate";
 	public static final String DEFAULT_TAGS_LIST_FIELDS = "id,name,flashcards,question";
-	public static final String DEFAULT_TAGS_FIELDS = "id,name,flashcards,question";
+	public static final String DEFAULT_TAGS_FIELDS = "id,name,flashcards,question,createdDate,lastModifiedDate";
 	public static final String DEFAULT_AUTH_HEADER = "Basic YXBpdXNlcjphcGl1c2VycGFzc3dvcmQ=";
 }

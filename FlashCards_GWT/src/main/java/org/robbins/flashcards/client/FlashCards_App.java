@@ -6,7 +6,7 @@ import org.robbins.flashcards.client.mvp.ShellActivityMapper;
 import org.robbins.flashcards.client.place.ShellPlace;
 import org.robbins.flashcards.client.ui.desktop.style.ShellStyleResource;
 import org.robbins.flashcards.client.ui.widgets.SimpleWidgetPanel;
-import org.robbins.flashcards.model.User;
+import org.robbins.flashcards.model.UserDto;
 import org.robbins.flashcards.util.ConstsUtil;
 
 import com.google.gwt.activity.shared.ActivityManager;
@@ -30,13 +30,16 @@ public class FlashCards_App implements EntryPoint {
 	
 	public void onModuleLoad() {
 		GWT.log("FlashCards_App - onModuleLoad()");
+
+		// set the date format for RestyGwt so it can use Unix timestamp date format
+		org.fusesource.restygwt.client.Defaults.setDateFormat(null);
 		
 		ShellStyleResource.INSTANCE.shellStyles().ensureInjected();
 		ClientFactory clientFactory = GWT.create(ClientFactory.class);
 		EventBus eventBus = clientFactory.getEventBus();
 		PlaceController placeController = clientFactory.getPlaceController();
 		
-		User loggedInUser = clientFactory.getLoggedInUser();
+		UserDto loggedInUser = clientFactory.getLoggedInUser();
 /*
 		if (loggedInUser == null) {
 			GWT.log("User is NOT logged in");

@@ -34,7 +34,7 @@ import javax.ws.rs.QueryParam;
 import org.fusesource.restygwt.client.MethodCallback;
 import org.fusesource.restygwt.client.Options;
 import org.fusesource.restygwt.client.RestService;
-import org.robbins.flashcards.model.FlashCard;
+import org.robbins.flashcards.model.FlashCardDto;
 
 
 @Path("/flashcardsapi/v1/flashcards")
@@ -46,7 +46,7 @@ public interface FlashCardRestService extends RestService {
     @Produces("application/json")
     public void getFlashCards(	@HeaderParam("Authorization") String authHeader, 
     							@QueryParam("fields") String fields, 
-    							MethodCallback<List<FlashCard>> callback);
+    							MethodCallback<List<FlashCardDto>> callback);
 
     @GET
     @Path("/flashcardsapi/v1/flashcards/{flashCardId}")
@@ -55,7 +55,7 @@ public interface FlashCardRestService extends RestService {
     public void getFlashCard(	@HeaderParam("Authorization") String authHeader, 
     							@PathParam("flashCardId") Long flashCardId, 
     							@QueryParam("fields") String fields, 
-    							MethodCallback<FlashCard> callback);
+    							MethodCallback<FlashCardDto> callback);
 
     @GET
     @Path("/flashcardsapi/v1/flashcards/search")
@@ -64,15 +64,15 @@ public interface FlashCardRestService extends RestService {
     @Options(expect={200,204,1223})
     public void getFlashCardsSearch(@HeaderParam("Authorization") String authHeader, 
     								@QueryParam("tagIds") String tagIds, 
-    								MethodCallback<List<FlashCard>> callback);
+    								MethodCallback<List<FlashCardDto>> callback);
     
     @POST
     @Path("/flashcardsapi/v1/flashcards")
     @Consumes("application/json")
     @Produces("application/json")
     public void postFlashCards(	@HeaderParam("Authorization") String authHeader, 
-    							FlashCard flashCard, 
-    							MethodCallback<FlashCard> callback);
+    							FlashCardDto flashCard, 
+    							MethodCallback<FlashCardDto> callback);
 
     @PUT
     @Path("/flashcardsapi/v1/flashcards/{flashCardId}")
@@ -81,7 +81,7 @@ public interface FlashCardRestService extends RestService {
     @Options(expect={204,1223})
     public void putFlashCard(	@HeaderParam("Authorization") String authHeader,
     							@PathParam("flashCardId") Long flashCardId,
-    							FlashCard flashCard,
+    							FlashCardDto flashCard,
     							MethodCallback<java.lang.Void> callback);
     
     @DELETE

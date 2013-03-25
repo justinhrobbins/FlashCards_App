@@ -3,7 +3,7 @@ package org.robbins.flashcards.client.ui.widgets;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.robbins.flashcards.model.Tag;
+import org.robbins.flashcards.model.TagDto;
 
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.ValueUpdater;
@@ -17,7 +17,7 @@ import com.google.gwt.safehtml.client.SafeHtmlTemplates;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 
-public class TagListCell extends AbstractCell<List<Tag>>{
+public class TagListCell extends AbstractCell<List<TagDto>>{
 
     /**
      * The HTML templates used to render the cell.
@@ -49,7 +49,7 @@ public class TagListCell extends AbstractCell<List<Tag>>{
     }
 
 	@Override
-	public void render(com.google.gwt.cell.client.Cell.Context context, List<Tag> tagList, SafeHtmlBuilder sb) {
+	public void render(com.google.gwt.cell.client.Cell.Context context, List<TagDto> tagList, SafeHtmlBuilder sb) {
 	    /*
 	     * Always do a null check on the value. Cell widgets can pass null to
 	     * cells if the underlying data contains a null, or if the data arrives
@@ -65,7 +65,7 @@ public class TagListCell extends AbstractCell<List<Tag>>{
 	    SafeStyles tagStyle = SafeStylesUtils.fromTrustedString("background: none repeat scroll 0 0 #DEE7F8; border: 1px solid #CAD8F3; border-radius: 5px 5px 5px 5px; color: #555555; cursor: pointer; float: left; font-size: 11px; margin: 2px; padding: 0 5px;");
 	    String toRender = "";
 
-		for (Tag tag : tagList) {
+		for (TagDto tag : tagList) {
 		/*
 			if (toRender.length() > 0){
 				toRender += "<div style=\"float:left\">,&nbsp;</div>";
@@ -82,7 +82,7 @@ public class TagListCell extends AbstractCell<List<Tag>>{
      * to the outermost element that the Cell rendered.
      */
     @Override
-    public void onBrowserEvent(Context context, Element parent, List<Tag> tagList, NativeEvent event, ValueUpdater<List<Tag>> valueUpdater) {
+    public void onBrowserEvent(Context context, Element parent, List<TagDto> tagList, NativeEvent event, ValueUpdater<List<TagDto>> valueUpdater) {
       // Let AbstractCell handle the keydown event.
       super.onBrowserEvent(context, parent, tagList, event, valueUpdater);
 
@@ -103,15 +103,15 @@ public class TagListCell extends AbstractCell<List<Tag>>{
       }
     }
 
-    private void doAction(String value, ValueUpdater<List<Tag>> valueUpdater) {
+    private void doAction(String value, ValueUpdater<List<TagDto>> valueUpdater) {
     	GWT.log("Cell clicked: " + value);
     	
     	// Trigger a value updater. In this case, the value doesn't actually
     	// change, but we use a ValueUpdater to let the app know that a value
     	// was clicked.
-    	Tag tag = new Tag(Long.parseLong(value));
+    	TagDto tag = new TagDto(Long.parseLong(value));
     	
-    	ArrayList<Tag> tagList = new ArrayList<Tag>();
+    	ArrayList<TagDto> tagList = new ArrayList<TagDto>();
     	tagList.add(tag);
     	
     	if (valueUpdater != null) {

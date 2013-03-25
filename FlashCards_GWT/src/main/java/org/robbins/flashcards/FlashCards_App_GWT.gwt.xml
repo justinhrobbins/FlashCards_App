@@ -8,20 +8,14 @@
 	<inherits name="com.google.gwt.user.theme.standard.Standard"/>
 
 	<inherits name="org.robbins.flashcards.FormFactor" />
-	<inherits name="org.robbins.flashcards.Model" />
 	<inherits name="org.fusesource.restygwt.RestyGWT" />
-
-	<inherits name="org.joda.emul.Emulation"/>
-	<inherits name="org.joda.Time"/>
-
-	<inherits name="org.springframework.data.domain.Domain" />
-	<inherits name="org.springframework.data.jpa.domain.Domain" />
 
 	<entry-point class="org.robbins.flashcards.client.FlashCards_App" />
 
 	<!-- Specify the paths for translatable code -->
 	<source path="client" />
 	<source path="events" />
+	<source path="model" />
 	<source path="service" />
 	<source path="shared" />
 

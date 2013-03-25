@@ -6,7 +6,7 @@ import java.util.List;
 import org.robbins.flashcards.client.factory.ClientFactory;
 import org.robbins.flashcards.client.ui.AppConstants;
 import org.robbins.flashcards.client.ui.RequiresLogin;
-import org.robbins.flashcards.model.User;
+import org.robbins.flashcards.model.UserDto;
 
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.core.client.GWT;
@@ -19,7 +19,7 @@ public abstract class AppAbstractActivity extends AbstractActivity {
 	
 	private final AppConstants constants;
 	private final PlaceController placeController;
-	private User loggedInUser;
+	private UserDto loggedInUser;
 	private List<HandlerRegistration> registrations = new ArrayList<HandlerRegistration>();
 
 	public AppAbstractActivity(ClientFactory clientFactory) {
@@ -40,7 +40,7 @@ public abstract class AppAbstractActivity extends AbstractActivity {
 		return placeController;
 	}
 	
-	public User getLoggedInUser() {
+	public UserDto getLoggedInUser() {
 		return loggedInUser;
 	}
 	

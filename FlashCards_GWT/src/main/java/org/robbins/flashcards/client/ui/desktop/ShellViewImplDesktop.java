@@ -5,7 +5,7 @@ import org.robbins.flashcards.client.mvp.ContentActivityMapper;
 import org.robbins.flashcards.client.mvp.NavigationActivityMapper;
 import org.robbins.flashcards.client.ui.AppConstants;
 import org.robbins.flashcards.client.ui.ShellView;
-import org.robbins.flashcards.model.User;
+import org.robbins.flashcards.model.UserDto;
 
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.activity.shared.ActivityMapper;
@@ -73,7 +73,7 @@ public class ShellViewImplDesktop extends Composite implements ShellView {
 	}
 
 	@Override
-	public void setLoggedInUser(User user) {
+	public void setLoggedInUser(UserDto user) {
 		if (user == null ) {
 			loginLogoutLink.setText(constants.login());
 			loggedInUser.setText("");

@@ -21,7 +21,7 @@ import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.robbins.flashcards.model.common.FlashCardsAppAbstractAuditable;
+import org.robbins.flashcards.model.common.AbstractAuditable;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(value = Include.NON_NULL)
 @JsonFilter("apiFilter")
-public class FlashCard extends FlashCardsAppAbstractAuditable<User, Long> implements
+public class FlashCard extends AbstractAuditable<User, Long> implements
 		Serializable {
 
 	/**

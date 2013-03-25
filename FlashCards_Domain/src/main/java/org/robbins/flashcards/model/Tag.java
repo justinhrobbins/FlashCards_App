@@ -16,7 +16,7 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.robbins.flashcards.model.common.FlashCardsAppAbstractAuditable;
+import org.robbins.flashcards.model.common.AbstractAuditable;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(value = Include.NON_NULL)
 @JsonFilter("apiFilter")
-public class Tag extends FlashCardsAppAbstractAuditable<User, Long> implements Serializable {
+public class Tag extends AbstractAuditable<User, Long> implements Serializable {
 
 	private static final long serialVersionUID = 3642775570292807703L;
 

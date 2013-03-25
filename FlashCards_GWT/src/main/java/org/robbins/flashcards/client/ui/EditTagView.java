@@ -2,8 +2,8 @@ package org.robbins.flashcards.client.ui;
 
 import java.util.List;
 
-import org.robbins.flashcards.model.FlashCard;
-import org.robbins.flashcards.model.Tag;
+import org.robbins.flashcards.model.FlashCardDto;
+import org.robbins.flashcards.model.TagDto;
 
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.HasText;
@@ -20,8 +20,8 @@ public interface EditTagView extends IsValidatable, HasSubmitButtons {
 	HasClickHandlers getSaveButton();
 	HasClickHandlers getCancelButton();
 
-	void setTagData(Tag data);
-	void setFlashCardsData(List<FlashCard> flashCards);
+	void setTagData(TagDto data);
+	void setFlashCardsData(List<FlashCardDto> flashCards);
 	
 	Widget asWidget();
 }

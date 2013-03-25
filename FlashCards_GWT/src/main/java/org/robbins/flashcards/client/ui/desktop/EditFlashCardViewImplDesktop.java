@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.joda.time.format.DateTimeFormat;
 import org.robbins.flashcards.client.factory.ClientFactory;
 import org.robbins.flashcards.client.ui.AbstractFlashCardsAppForm;
 import org.robbins.flashcards.client.ui.EditFlashCardView;
@@ -13,8 +12,8 @@ import org.robbins.flashcards.client.ui.widgets.LinkPanelWidget;
 import org.robbins.flashcards.client.ui.widgets.RichTextWidget;
 import org.robbins.flashcards.client.ui.widgets.TextBoxWidget;
 import org.robbins.flashcards.client.ui.widgets.autocomplete.InputListWidget;
-import org.robbins.flashcards.model.FlashCard;
-import org.robbins.flashcards.model.Tag;
+import org.robbins.flashcards.model.FlashCardDto;
+import org.robbins.flashcards.model.TagDto;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
@@ -23,6 +22,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
@@ -106,7 +106,7 @@ public class EditFlashCardViewImplDesktop extends AbstractFlashCardsAppForm impl
 	}
 
 	@Override
-	public void setFlashCardData(FlashCard flashCard) {
+	public void setFlashCardData(FlashCardDto flashCard) {
 		tagsWidget.removeItems();
 		//getSubmitEnabled().setEnabled(true);
 		
@@ -132,20 +132,18 @@ public class EditFlashCardViewImplDesktop extends AbstractFlashCardsAppForm impl
 		getLinksPanel().addLinks(flashCard.getLinks());
 		getCreatedDate().setText(
 				getConstants().createdDate()
-						+ DateTimeFormat.forPattern("MM/dd/yyyy").print(
-								flashCard.getCreatedDate()));
+						+ DateTimeFormat.getFormat(DateTimeFormat.PredefinedFormat.DATE_SHORT).format(flashCard.getCreatedDate()));
 		getModifiedDate().setText(
 				getConstants().modifiedDate()
-						+ DateTimeFormat.forPattern("MM/dd/yyyy").print(
-								flashCard.getLastModifiedDate()));
+						+ DateTimeFormat.getFormat(DateTimeFormat.PredefinedFormat.DATE_SHORT).format(flashCard.getLastModifiedDate()));
 		question.selectAll();
 		question.setFocus(true);
 	}
 	
-	private void setTags(Set<Tag> tags) {
+	private void setTags(Set<TagDto> tags) {
 		List<String> tagList = new ArrayList<String>();
 		if (tags.size() > 0) {
-			for (Tag tag : tags) {
+			for (TagDto tag : tags) {
 				tagList.add(tag.getName());
 			}
 			tagsWidget.setSelected(tagList);			
@@ -153,11 +151,11 @@ public class EditFlashCardViewImplDesktop extends AbstractFlashCardsAppForm impl
 	}
 
 	@Override
-	public void setTagsData(List<Tag> tags) {
+	public void setTagsData(List<TagDto> tags) {
 		if (tags == null) return;
 		
 		List<String> tagsList = new ArrayList<String>();
-		for (Tag tag : tags) {
+		for (TagDto tag : tags) {
 			tagsList.add(tag.getName());
 		}
 		tagsWidget.setSuggestions(tagsList);

@@ -15,7 +15,7 @@ import org.robbins.flashcards.client.ui.desktop.ShellViewImplDesktop;
 import org.robbins.flashcards.client.ui.desktop.TagsViewImplDesktop;
 import org.robbins.flashcards.client.ui.desktop.style.CellTableResources;
 import org.robbins.flashcards.client.ui.desktop.style.FormStyleResource;
-import org.robbins.flashcards.model.User;
+import org.robbins.flashcards.model.UserDto;
 import org.robbins.flashcards.service.FlashCardRestService;
 import org.robbins.flashcards.service.TagRestService;
 import org.robbins.flashcards.service.UserRestService;
@@ -32,7 +32,7 @@ public class ClientFactoryImpl implements ClientFactory {
 	private final EventBus eventBus = new SimpleEventBus();
 	private final PlaceController placeController = new PlaceController(eventBus);
 
-	private User loggedInUser;
+	private UserDto loggedInUser;
 
 	private AppConstants appConstants = GWT.create(AppConstants.class);
 	
@@ -58,19 +58,19 @@ public class ClientFactoryImpl implements ClientFactory {
 	}
 	
 	@Override
-	public  User getLoggedInUser() {
+	public  UserDto getLoggedInUser() {
 		if (this.loggedInUser == null) {
 			String userId = Cookies.getCookie(ConstsUtil.USER_ID);
 			
 			if (userId != null) {
-				User user = new User(Long.parseLong(userId));
+				UserDto user = new UserDto(Long.parseLong(userId));
 				setLoggedInUser(user);
 			}
 		}
 		return this.loggedInUser;
 	}
 
-	public void setLoggedInUser(User loggedInUser) {
+	public void setLoggedInUser(UserDto loggedInUser) {
 		this.loggedInUser = loggedInUser;
 	}
 	

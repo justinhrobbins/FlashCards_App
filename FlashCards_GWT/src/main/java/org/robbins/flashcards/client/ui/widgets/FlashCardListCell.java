@@ -3,7 +3,7 @@ package org.robbins.flashcards.client.ui.widgets;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.robbins.flashcards.model.FlashCard;
+import org.robbins.flashcards.model.FlashCardDto;
 
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.ValueUpdater;
@@ -17,7 +17,7 @@ import com.google.gwt.safehtml.client.SafeHtmlTemplates;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 
-public class FlashCardListCell extends AbstractCell<List<FlashCard>>{
+public class FlashCardListCell extends AbstractCell<List<FlashCardDto>>{
 
     /**
      * The HTML templates used to render the cell.
@@ -49,7 +49,7 @@ public class FlashCardListCell extends AbstractCell<List<FlashCard>>{
     }
 
 	@Override
-	public void render(com.google.gwt.cell.client.Cell.Context context, List<FlashCard> flashCardList, SafeHtmlBuilder sb) {
+	public void render(com.google.gwt.cell.client.Cell.Context context, List<FlashCardDto> flashCardList, SafeHtmlBuilder sb) {
 	    /*
 	     * Always do a null check on the value. Cell widgets can pass null to
 	     * cells if the underlying data contains a null, or if the data arrives
@@ -65,7 +65,7 @@ public class FlashCardListCell extends AbstractCell<List<FlashCard>>{
 	    SafeStyles tagStyle = SafeStylesUtils.fromTrustedString("float:none;");
 	    String toRender = "";
 
-		for (FlashCard flashCard : flashCardList) {
+		for (FlashCardDto flashCard : flashCardList) {
 			toRender += templates.cell(Long.toString(flashCard.getId()), tagStyle, flashCard.getQuestion()).asString();
 		}
 		sb.appendHtmlConstant(toRender);
@@ -77,7 +77,7 @@ public class FlashCardListCell extends AbstractCell<List<FlashCard>>{
      * to the outermost element that the Cell rendered.
      */
     @Override
-    public void onBrowserEvent(Context context, Element parent, List<FlashCard> flashCardList, NativeEvent event, ValueUpdater<List<FlashCard>> valueUpdater) {
+    public void onBrowserEvent(Context context, Element parent, List<FlashCardDto> flashCardList, NativeEvent event, ValueUpdater<List<FlashCardDto>> valueUpdater) {
       // Let AbstractCell handle the keydown event.
       super.onBrowserEvent(context, parent, flashCardList, event, valueUpdater);
 
@@ -98,15 +98,15 @@ public class FlashCardListCell extends AbstractCell<List<FlashCard>>{
       }
     }
 
-    private void doAction(String value, ValueUpdater<List<FlashCard>> valueUpdater) {
+    private void doAction(String value, ValueUpdater<List<FlashCardDto>> valueUpdater) {
     	GWT.log("Cell clicked: " + value);
     	
     	// Trigger a value updater. In this case, the value doesn't actually
     	// change, but we use a ValueUpdater to let the app know that a value
     	// was clicked.
-    	FlashCard flashCard = new FlashCard(Long.parseLong(value));
+    	FlashCardDto flashCard = new FlashCardDto(Long.parseLong(value));
     	
-    	ArrayList<FlashCard> flashCardList = new ArrayList<FlashCard>();
+    	ArrayList<FlashCardDto> flashCardList = new ArrayList<FlashCardDto>();
     	flashCardList.add(flashCard);
     	
     	if (valueUpdater != null) {

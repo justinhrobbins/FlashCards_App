@@ -1,7 +1,7 @@
 package org.robbins.flashcards.client.ui.widgets;
 
 import org.robbins.flashcards.client.ui.images.Images;
-import org.robbins.flashcards.model.Tag;
+import org.robbins.flashcards.model.TagDto;
 
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.GWT;
@@ -11,7 +11,7 @@ import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.client.ui.AbstractImagePrototype;
 
-public class DeleteTagImageCell extends AbstractCell<Tag> {
+public class DeleteTagImageCell extends AbstractCell<TagDto> {
 
 	/**
 	 * The HTML templates used to render the cell.
@@ -45,7 +45,7 @@ public class DeleteTagImageCell extends AbstractCell<Tag> {
 	}
 
 	@Override
-	public void render(Context context, Tag tag, SafeHtmlBuilder sb) {
+	public void render(Context context, TagDto tag, SafeHtmlBuilder sb) {
 		if (tag != null) {
 			if ((tag.getFlashcards() != null) && (tag.getFlashcards().size() > 0)) {
 				sb.append(SafeHtmlUtils.fromTrustedString(AbstractImagePrototype.create(images.deleteDisabled()).getHTML()));

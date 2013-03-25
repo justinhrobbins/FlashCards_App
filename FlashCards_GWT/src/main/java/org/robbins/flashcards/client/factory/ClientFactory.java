@@ -7,7 +7,7 @@ import org.robbins.flashcards.client.ui.FlashCardsView;
 import org.robbins.flashcards.client.ui.NavigationView;
 import org.robbins.flashcards.client.ui.ShellView;
 import org.robbins.flashcards.client.ui.TagsView;
-import org.robbins.flashcards.model.User;
+import org.robbins.flashcards.model.UserDto;
 import org.robbins.flashcards.service.FlashCardRestService;
 import org.robbins.flashcards.service.TagRestService;
 import org.robbins.flashcards.service.UserRestService;
@@ -30,8 +30,8 @@ public interface ClientFactory {
     String getOpenIdUrl();
     
     // logged in User
-    User getLoggedInUser();
-    void setLoggedInUser(User loggedInUser);
+    UserDto getLoggedInUser();
+    void setLoggedInUser(UserDto loggedInUser);
     
     // the views
     ShellView getShellView();

@@ -17,7 +17,7 @@ import org.robbins.flashcards.events.LoadFlashCardEvent;
 import org.robbins.flashcards.events.LoadFlashCardEventHandler;
 import org.robbins.flashcards.events.LoadTagEvent;
 import org.robbins.flashcards.events.LoadTagEventHandler;
-import org.robbins.flashcards.model.Tag;
+import org.robbins.flashcards.model.TagDto;
 import org.robbins.flashcards.service.TagRestService;
 import org.robbins.flashcards.util.ConstsUtil;
 
@@ -29,7 +29,7 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
 public class TagsActivity extends AppAbstractActivity {
 
-	private List<Tag> tags;
+	private List<TagDto> tags;
 	private final TagRestService tagService;
 	private final EventBus eventBus;
 	private final TagsView display;
@@ -93,12 +93,12 @@ public class TagsActivity extends AppAbstractActivity {
 	private void fetchTagDetails(String fields) {
 		
 		// load the table with data
-		tagService.getTags(ConstsUtil.DEFAULT_AUTH_HEADER, fields, new MethodCallback<List<Tag>>() {
+		tagService.getTags(ConstsUtil.DEFAULT_AUTH_HEADER, fields, new MethodCallback<List<TagDto>>() {
 			public void onFailure(Method method, Throwable caught) {
 				GWT.log("TagsActivity: Error loading data");
 				Window.alert(getConstants().errorLoadingTags());
 			}
-			public void onSuccess(Method method, List<Tag> result) {
+			public void onSuccess(Method method, List<TagDto> result) {
 				tags = result;
 				GWT.log("TagsActivity: Loading Tag list: " + tags.size() + " tags");
 

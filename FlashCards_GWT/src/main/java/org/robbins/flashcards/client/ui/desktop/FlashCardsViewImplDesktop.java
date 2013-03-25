@@ -14,8 +14,8 @@ import org.robbins.flashcards.client.ui.widgets.TagListCell;
 import org.robbins.flashcards.events.DeleteFlashCardEvent;
 import org.robbins.flashcards.events.LoadFlashCardEvent;
 import org.robbins.flashcards.events.LoadTagEvent;
-import org.robbins.flashcards.model.FlashCard;
-import org.robbins.flashcards.model.Tag;
+import org.robbins.flashcards.model.FlashCardDto;
+import org.robbins.flashcards.model.TagDto;
 
 import com.google.gwt.cell.client.Cell.Context;
 import com.google.gwt.cell.client.DateCell;
@@ -33,32 +33,32 @@ import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
 import com.google.gwt.view.client.ListDataProvider;
 
-public class FlashCardsViewImplDesktop extends CellTable<FlashCard> implements FlashCardsView {
+public class FlashCardsViewImplDesktop extends CellTable<FlashCardDto> implements FlashCardsView {
 	private final EventBus eventBus;
 	private final AppConstants constants;
 	
 	private DateTimeFormat dateFormat = DateTimeFormat.getFormat("MM/dd/yyyy");
 	
 	private LinkCell questionCell;
-	private Column<FlashCard, String> questionColumn;
+	private Column<FlashCardDto, String> questionColumn;
 	
 	private TagListCell tagsCell;
-	private Column<FlashCard, List<Tag>> tagsColumn;
+	private Column<FlashCardDto, List<TagDto>> tagsColumn;
 
 	private ImageCell editCell;
-	private Column<FlashCard, ImageResource> editColumn;
+	private Column<FlashCardDto, ImageResource> editColumn;
 
 	private ImageCell deleteCell;
-	private Column<FlashCard, ImageResource> deleteColumn;
+	private Column<FlashCardDto, ImageResource> deleteColumn;
 	
 	private DateCell dateCreatedCell;
-	private Column<FlashCard, Date> dateCreatedColumn;
+	private Column<FlashCardDto, Date> dateCreatedColumn;
 	
 	private DateCell dateUpdatedCell;
-	private Column<FlashCard, Date> dateUpdatedColumn;
+	private Column<FlashCardDto, Date> dateUpdatedColumn;
 	
-	private ListDataProvider<FlashCard> dataProvider;
-	private List<FlashCard> flashCardsList;
+	private ListDataProvider<FlashCardDto> dataProvider;
+	private List<FlashCardDto> flashCardsList;
 	
 	private Images images = (Images) GWT.create(Images.class);
 	
@@ -78,14 +78,14 @@ public class FlashCardsViewImplDesktop extends CellTable<FlashCard> implements F
         formatCellTable();
     }
     
-	private void bindData(List<FlashCard> tags) {
-		dataProvider = new ListDataProvider<FlashCard>();
+	private void bindData(List<FlashCardDto> tags) {
+		dataProvider = new ListDataProvider<FlashCardDto>();
 
         // Connect the table to the data provider.
         dataProvider.addDataDisplay(this);
 
         flashCardsList = dataProvider.getList();
-        for (FlashCard tag : tags) {
+        for (FlashCardDto tag : tags) {
         	flashCardsList.add(tag);
         }
 	}
@@ -105,10 +105,10 @@ public class FlashCardsViewImplDesktop extends CellTable<FlashCard> implements F
 
 	private void createColumnSorting() {
 		// Add a ColumnSortEvent.ListHandler to connect sorting to the List
-        ListHandler<FlashCard> nameColumnSortHandler = new ListHandler<FlashCard>(flashCardsList);
+        ListHandler<FlashCardDto> nameColumnSortHandler = new ListHandler<FlashCardDto>(flashCardsList);
         nameColumnSortHandler.setComparator(questionColumn,
-            new Comparator<FlashCard>() {
-              public int compare(FlashCard o1, FlashCard o2) {
+            new Comparator<FlashCardDto>() {
+              public int compare(FlashCardDto o1, FlashCardDto o2) {
                   if (o1 == o2) {
                       return 0;
                     }
@@ -124,10 +124,10 @@ public class FlashCardsViewImplDesktop extends CellTable<FlashCard> implements F
         this.addColumnSortHandler(nameColumnSortHandler);
         
         // Add a ColumnSortEvent.ListHandler to connect sorting to the List
-        ListHandler<FlashCard> createdColumnSortHandler = new ListHandler<FlashCard>(flashCardsList);
+        ListHandler<FlashCardDto> createdColumnSortHandler = new ListHandler<FlashCardDto>(flashCardsList);
         createdColumnSortHandler.setComparator(dateCreatedColumn,
-            new Comparator<FlashCard>() {
-              public int compare(FlashCard o1, FlashCard o2) {
+            new Comparator<FlashCardDto>() {
+              public int compare(FlashCardDto o1, FlashCardDto o2) {
                   if (o1 == o2) {
                       return 0;
                     }
@@ -143,10 +143,10 @@ public class FlashCardsViewImplDesktop extends CellTable<FlashCard> implements F
         this.addColumnSortHandler(createdColumnSortHandler);
 
         // Add a ColumnSortEvent.ListHandler to connect sorting to the List
-        ListHandler<FlashCard> updatedColumnSortHandler = new ListHandler<FlashCard>(flashCardsList);
+        ListHandler<FlashCardDto> updatedColumnSortHandler = new ListHandler<FlashCardDto>(flashCardsList);
         updatedColumnSortHandler.setComparator(dateUpdatedColumn,
-            new Comparator<FlashCard>() {
-              public int compare(FlashCard o1, FlashCard o2) {
+            new Comparator<FlashCardDto>() {
+              public int compare(FlashCardDto o1, FlashCardDto o2) {
                   if (o1 == o2) {
                       return 0;
                     }
@@ -168,9 +168,9 @@ public class FlashCardsViewImplDesktop extends CellTable<FlashCard> implements F
 	private void createColumns() {
 
 		questionCell = new LinkCell();
-		questionColumn = new Column<FlashCard, String>(questionCell) {
+		questionColumn = new Column<FlashCardDto, String>(questionCell) {
           @Override
-          public String getValue(FlashCard object) {
+          public String getValue(FlashCardDto object) {
             return object.getQuestion();
           }
         };
@@ -178,17 +178,17 @@ public class FlashCardsViewImplDesktop extends CellTable<FlashCard> implements F
         this.addColumn(questionColumn, constants.question());
         
         // Add a field updater to be notified when the user enters a new name.
-        questionColumn.setFieldUpdater(new FieldUpdater<FlashCard, String>() {
+        questionColumn.setFieldUpdater(new FieldUpdater<FlashCardDto, String>() {
 			@Override
-			public void update(int index, FlashCard object, String value) {
+			public void update(int index, FlashCardDto object, String value) {
 				eventBus.fireEvent(new LoadFlashCardEvent(object.getId()));
 			}
 		});
         
         tagsCell = new TagListCell();
-        tagsColumn = new Column<FlashCard, List<Tag>>(tagsCell) {
+        tagsColumn = new Column<FlashCardDto, List<TagDto>>(tagsCell) {
             @Override
-            public List<Tag> getValue(FlashCard object) {
+            public List<TagDto> getValue(FlashCardDto object) {
             	return object.getTagsAsList();
             }
           };
@@ -196,24 +196,24 @@ public class FlashCardsViewImplDesktop extends CellTable<FlashCard> implements F
           this.addColumn(tagsColumn, constants.tags());
           
           // Add a field updater to be notified when the user enters a new name.
-          tagsColumn.setFieldUpdater(new FieldUpdater<FlashCard, List<Tag>>() {
+          tagsColumn.setFieldUpdater(new FieldUpdater<FlashCardDto, List<TagDto>>() {
 			@Override
-			public void update(int index, FlashCard object, List<Tag> tagList) {
+			public void update(int index, FlashCardDto object, List<TagDto> tagList) {
 				GWT.log("update: " + tagList.get(0).getId());
 				eventBus.fireEvent(new LoadTagEvent(tagList.get(0).getId()));
 			}
 		});
 
           editCell = new ImageCell();
-          editColumn = new Column<FlashCard, ImageResource>(editCell) {
+          editColumn = new Column<FlashCardDto, ImageResource>(editCell) {
         	  @Override
-              public void onBrowserEvent(Context context, Element elem, FlashCard object, NativeEvent event) {
+              public void onBrowserEvent(Context context, Element elem, FlashCardDto object, NativeEvent event) {
         		  GWT.log("Click on Edit cell for: " + object.getId());
         		  eventBus.fireEvent(new LoadFlashCardEvent(object.getId()));
         	  }
               
         	  @Override
-        	  public ImageResource getValue(FlashCard object) {
+        	  public ImageResource getValue(FlashCardDto object) {
         		  return images.edit();
         	  }
           };
@@ -221,15 +221,15 @@ public class FlashCardsViewImplDesktop extends CellTable<FlashCard> implements F
           this.addColumn(editColumn, constants.edit());
 
           deleteCell = new ImageCell();
-          deleteColumn = new Column<FlashCard, ImageResource>(deleteCell) {
+          deleteColumn = new Column<FlashCardDto, ImageResource>(deleteCell) {
         	  @Override
-              public void onBrowserEvent(Context context, Element elem, FlashCard object, NativeEvent event) {
+              public void onBrowserEvent(Context context, Element elem, FlashCardDto object, NativeEvent event) {
         		  GWT.log("Click on Delete cell for: " + object.getId());
         		  eventBus.fireEvent(new DeleteFlashCardEvent(object.getId()));
         	  }
               
         	  @Override
-        	  public ImageResource getValue(FlashCard object) {
+        	  public ImageResource getValue(FlashCardDto object) {
         		  return images.delete();
         	  }
           };
@@ -237,20 +237,20 @@ public class FlashCardsViewImplDesktop extends CellTable<FlashCard> implements F
           this.addColumn(deleteColumn, constants.delete());
           
         dateCreatedCell = new DateCell(dateFormat);
-        dateCreatedColumn = new Column<FlashCard, Date>(dateCreatedCell) {
+        dateCreatedColumn = new Column<FlashCardDto, Date>(dateCreatedCell) {
           @Override
-          public Date getValue(FlashCard flashCard) {
-            return flashCard.getCreatedDate().toDate();
+          public Date getValue(FlashCardDto flashCard) {
+            return flashCard.getCreatedDate();
           }
         };
         dateCreatedColumn.setSortable(true);
         //this.addColumn(dateCreatedColumn, "Date Created");
 
         dateUpdatedCell = new DateCell(dateFormat);
-        dateUpdatedColumn = new Column<FlashCard, Date>(dateUpdatedCell) {
+        dateUpdatedColumn = new Column<FlashCardDto, Date>(dateUpdatedCell) {
           @Override
-          public Date getValue(FlashCard flashCard) {
-            return flashCard.getLastModifiedDate().toDate();
+          public Date getValue(FlashCardDto flashCard) {
+            return flashCard.getLastModifiedDate();
           }
         };
         dateUpdatedColumn.setSortable(true);
@@ -264,7 +264,7 @@ public class FlashCardsViewImplDesktop extends CellTable<FlashCard> implements F
 	}
 
 	@Override
-	public void setData(List<FlashCard> data) {
+	public void setData(List<FlashCardDto> data) {
         bindData(data);
         
         createColumnSorting();

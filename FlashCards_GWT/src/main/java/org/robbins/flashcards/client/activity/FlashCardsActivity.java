@@ -17,7 +17,7 @@ import org.robbins.flashcards.events.LoadFlashCardEvent;
 import org.robbins.flashcards.events.LoadFlashCardEventHandler;
 import org.robbins.flashcards.events.LoadTagEvent;
 import org.robbins.flashcards.events.LoadTagEventHandler;
-import org.robbins.flashcards.model.FlashCard;
+import org.robbins.flashcards.model.FlashCardDto;
 import org.robbins.flashcards.service.FlashCardRestService;
 import org.robbins.flashcards.util.ConstsUtil;
 
@@ -29,7 +29,7 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
 public class FlashCardsActivity extends AppAbstractActivity {
 
-	private List<FlashCard> flashCards;
+	private List<FlashCardDto> flashCards;
 
 	private final FlashCardRestService flashCardService;
 	private final EventBus eventBus;
@@ -95,12 +95,12 @@ public class FlashCardsActivity extends AppAbstractActivity {
 	private void fetchFlashCardDetails(String fields) {
 		
 		// load the table with data
-		flashCardService.getFlashCards(ConstsUtil.DEFAULT_AUTH_HEADER, fields, new MethodCallback<List<FlashCard>>() {
+		flashCardService.getFlashCards(ConstsUtil.DEFAULT_AUTH_HEADER, fields, new MethodCallback<List<FlashCardDto>>() {
 			public void onFailure(Method method, Throwable caught) {
 				GWT.log("FlashCardsActivity: Error loading data");
 				Window.alert(getConstants().errorLoadingFlashCard());
 			}
-			public void onSuccess(Method method, List<FlashCard> result) {
+			public void onSuccess(Method method, List<FlashCardDto> result) {
 				flashCards = result;
 				GWT.log("FlashCardsActivity: Loading FlashCard list: " + flashCards.size() + " flashCards");
 

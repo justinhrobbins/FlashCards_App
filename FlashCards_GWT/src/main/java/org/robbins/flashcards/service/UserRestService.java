@@ -34,7 +34,7 @@ import javax.ws.rs.QueryParam;
 import org.fusesource.restygwt.client.MethodCallback;
 import org.fusesource.restygwt.client.Options;
 import org.fusesource.restygwt.client.RestService;
-import org.robbins.flashcards.model.User;
+import org.robbins.flashcards.model.UserDto;
 
 
 @Path("/flashcardsapi/v1/users")
@@ -45,7 +45,7 @@ public interface UserRestService extends RestService {
     @Consumes("application/json")
     @Produces("application/json")
     public void getUsers(	@HeaderParam("Authorization") String authHeader, 
-    						MethodCallback<List<User>> callback);
+    						MethodCallback<List<UserDto>> callback);
     
     @GET
     @Path("/flashcardsapi/v1/users/search")
@@ -54,7 +54,7 @@ public interface UserRestService extends RestService {
     @Options(expect={200,204,1223})
     public void getUsersSearch(	@HeaderParam("Authorization") String authHeader, 
     							@QueryParam("openid") String openid, 
-    							MethodCallback<User> callback);
+    							MethodCallback<UserDto> callback);
 
     @GET
     @Path("/flashcardsapi/v1/users/{userId}")
@@ -62,15 +62,15 @@ public interface UserRestService extends RestService {
     @Produces("application/json")
     public void getUser(@HeaderParam("Authorization") String authHeader, 
     					@PathParam("userId") Long userId, 
-    					MethodCallback<User> callback);
+    					MethodCallback<UserDto> callback);
     
     @POST
     @Path("/flashcardsapi/v1/users")
     @Consumes("application/json")
     @Produces("application/json")
     public void postUsers(	@HeaderParam("Authorization") String authHeader, 
-    						User user, 
-    						MethodCallback<User> callback);
+    						UserDto user, 
+    						MethodCallback<UserDto> callback);
 
     @PUT
     @Path("/flashcardsapi/v1/users/{userId}")

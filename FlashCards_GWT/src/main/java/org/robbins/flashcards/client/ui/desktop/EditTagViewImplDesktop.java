@@ -2,15 +2,14 @@ package org.robbins.flashcards.client.ui.desktop;
 
 import java.util.List;
 
-import org.joda.time.format.DateTimeFormat;
 import org.robbins.flashcards.client.factory.ClientFactory;
 import org.robbins.flashcards.client.ui.AbstractFlashCardsAppForm;
 import org.robbins.flashcards.client.ui.EditTagView;
 import org.robbins.flashcards.client.ui.widgets.FlashCardFlexTable;
 import org.robbins.flashcards.client.ui.widgets.LabelWidget;
 import org.robbins.flashcards.client.ui.widgets.TextBoxWidget;
-import org.robbins.flashcards.model.FlashCard;
-import org.robbins.flashcards.model.Tag;
+import org.robbins.flashcards.model.FlashCardDto;
+import org.robbins.flashcards.model.TagDto;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
@@ -19,6 +18,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
@@ -102,7 +102,7 @@ public class EditTagViewImplDesktop extends AbstractFlashCardsAppForm implements
 	}
 
 	@Override
-	public void setTagData(Tag tag) {
+	public void setTagData(TagDto tag) {
 		//getSubmitEnabled().setEnabled(true);
 		
 		if (tag == null) {
@@ -123,20 +123,18 @@ public class EditTagViewImplDesktop extends AbstractFlashCardsAppForm implements
 		
 		getCreatedDate().setText(
 				getConstants().createdDate()
-						+ DateTimeFormat.forPattern("MM/dd/yyyy").print(
-								tag.getCreatedDate()));
+						+ DateTimeFormat.getFormat(DateTimeFormat.PredefinedFormat.DATE_SHORT).format(tag.getCreatedDate()));
 		
 		getModifiedDate().setText(
 				getConstants().modifiedDate()
-						+ DateTimeFormat.forPattern("MM/dd/yyyy").print(
-								tag.getLastModifiedDate()));
+						+ DateTimeFormat.getFormat(DateTimeFormat.PredefinedFormat.DATE_SHORT).format(tag.getLastModifiedDate()));
 		
 		tagName.selectAll();
 		tagName.setFocus(true);
 	}
 
 	@Override
-	public void setFlashCardsData(List<FlashCard> flashCards) {
+	public void setFlashCardsData(List<FlashCardDto> flashCards) {
 		this.flashCards.setInput(flashCards);
 		
 	}

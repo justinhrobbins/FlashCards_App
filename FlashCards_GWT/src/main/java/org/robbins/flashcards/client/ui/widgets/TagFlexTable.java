@@ -3,7 +3,7 @@ package org.robbins.flashcards.client.ui.widgets;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.robbins.flashcards.model.Tag;
+import org.robbins.flashcards.model.TagDto;
 
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Hyperlink;
@@ -17,7 +17,7 @@ public class TagFlexTable extends FlexTable {
 		this.setWidth("100%");
 	}
 
-	public void setInput(List<Tag> tags) {
+	public void setInput(List<TagDto> tags) {
 		for (int i = this.getRowCount(); i > 0; i--) {
 			this.removeRow(0);
 		}
@@ -28,7 +28,7 @@ public class TagFlexTable extends FlexTable {
 		setHeader();
 
 		int i = 1;
-		for (Tag tag : tags) {
+		for (TagDto tag : tags) {
 			this.setWidget(i, 0, new Hyperlink(tag.getName(), "tagForm/" + tag.getId()));
 			i++;
 		}

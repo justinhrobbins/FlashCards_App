@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.robbins.flashcards.client.factory.ClientFactory;
 import org.robbins.flashcards.client.ui.AppConstants;
-import org.robbins.flashcards.model.FlashCard;
+import org.robbins.flashcards.model.FlashCardDto;
 import org.robbins.flashcards.util.ConstsUtil;
 
 import com.google.gwt.user.client.ui.FlexTable;
@@ -24,7 +24,7 @@ public class FlashCardFlexTable extends FlexTable {
 		this.setWidth("100%");
 	}
 
-	public void setInput(List<FlashCard> flashCards) {
+	public void setInput(List<FlashCardDto> flashCards) {
 		for (int i = this.getRowCount(); i > 0; i--) {
 			this.removeRow(0);
 		}
@@ -37,7 +37,7 @@ public class FlashCardFlexTable extends FlexTable {
 		}
 
 		int i = 1;
-		for (FlashCard flashCard : flashCards) {
+		for (FlashCardDto flashCard : flashCards) {
 			this.setWidget(i, 0, new Hyperlink(flashCard.getQuestion(), ConstsUtil.EDIT_FLASHCARD + ":" + flashCard.getId()));
 			i++;
 		}

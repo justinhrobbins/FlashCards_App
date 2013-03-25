@@ -1,6 +1,6 @@
 package org.robbins.flashcards.events;
 
-import org.robbins.flashcards.model.Tag;
+import org.robbins.flashcards.model.TagDto;
 
 import com.google.web.bindery.event.shared.Event;
 import com.google.web.bindery.event.shared.EventBus;
@@ -25,10 +25,10 @@ public class SaveTagEvent extends Event<SaveTagEventHandler> {
       return eventBus.addHandler(TYPE, handler);
     }    
 
-	public Tag getTag() {return tag;}
-    private final Tag tag;
+	public TagDto getTag() {return tag;}
+    private final TagDto tag;
     
-	public SaveTagEvent(Tag tag) {
+	public SaveTagEvent(TagDto tag) {
         this.tag = tag;
     }
 

@@ -7,9 +7,9 @@ import javax.persistence.PersistenceContext;
 import org.joda.time.DateTime;
 import org.robbins.flashcards.auditing.AuditingAwareUser;
 import org.robbins.flashcards.model.User;
-import org.robbins.flashcards.model.common.FlashCardsAppAbstractAuditable;
+import org.robbins.flashcards.model.common.AbstractAuditable;
 
-public abstract class AbstractCrudRepositoryImpl<T extends FlashCardsAppAbstractAuditable<User, Long>> implements CrudRepository<T> {
+public abstract class AbstractCrudRepositoryImpl<T extends AbstractAuditable<User, Long>> implements CrudRepository<T> {
 
 	@PersistenceContext
     private EntityManager em;

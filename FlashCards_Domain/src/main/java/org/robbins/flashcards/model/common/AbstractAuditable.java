@@ -16,7 +16,7 @@ import org.springframework.data.domain.Auditable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @MappedSuperclass
-public abstract class FlashCardsAppAbstractAuditable<U, PK extends Serializable> extends FlashCardsAppAbstractPersistable<PK> implements Auditable<U, PK>  {
+public abstract class AbstractAuditable<U, PK extends Serializable> extends FlashCardsAppAbstractPersistable<PK> implements Auditable<U, PK>  {
 	/**
 	 * 
 	 */
