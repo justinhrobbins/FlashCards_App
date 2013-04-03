@@ -33,8 +33,6 @@
 		<module>FlashCards_WebServices</module>
 		<module>FlashCards_Struts</module>
 		<module>FlashCards_Test</module>
-		<module>gwt-joda-time</module>
-		<module>restygwt</module>
 	</modules>
 	<build>
 		<plugins>
