@@ -19,13 +19,13 @@ import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.repository.jpa.FlashCardRepository;
 import org.robbins.flashcards.service.jpa.FlashCardServiceImpl;
-import org.robbins.tests.BaseTest;
+import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @Category(UnitTest.class)
-public class FlashCardServiceUT extends BaseTest {
+public class FlashCardServiceUT extends BaseMockingTest {
 
 	@Mock FlashCardRepository repository;
 	FlashCardServiceImpl flashCardService;

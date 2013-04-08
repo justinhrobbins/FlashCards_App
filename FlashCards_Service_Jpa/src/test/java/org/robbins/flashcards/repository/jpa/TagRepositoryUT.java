@@ -18,7 +18,7 @@ import org.mockito.Mockito;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.repository.jpa.TagRepository;
 import org.robbins.flashcards.repository.jpa.TagRepositoryImpl;
-import org.robbins.tests.BaseTest;
+import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,7 +27,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @Category(UnitTest.class)
-public class TagRepositoryUT extends BaseTest {
+public class TagRepositoryUT extends BaseMockingTest {
 
 	@Mock EntityManager em;
 	Query query;

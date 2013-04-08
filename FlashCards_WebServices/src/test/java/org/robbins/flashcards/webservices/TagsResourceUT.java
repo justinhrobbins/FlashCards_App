@@ -14,12 +14,12 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.service.TagService;
-import org.robbins.tests.BaseTest;
+import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @Category(UnitTest.class)
-public class TagsResourceUT extends BaseTest {
+public class TagsResourceUT extends BaseMockingTest {
 
 	@Mock TagService service;
 	TagsResource resource;

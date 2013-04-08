@@ -17,4 +17,4 @@ import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
         DependencyInjectionTestExecutionListener.class,
         DirtiesContextTestExecutionListener.class,
         TransactionDbUnitTestExecutionListener.class})
-public class BaseIntegrationTest {}
+public abstract class BaseIntegrationTest {}

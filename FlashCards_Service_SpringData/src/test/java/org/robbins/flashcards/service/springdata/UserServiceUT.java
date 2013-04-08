@@ -11,12 +11,12 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.robbins.flashcards.model.User;
 import org.robbins.flashcards.repository.springdata.UserRepository;
-import org.robbins.tests.BaseTest;
+import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @Category(UnitTest.class)
-public class UserServiceUT extends BaseTest {
+public class UserServiceUT extends BaseMockingTest {
 
 	@Mock UserRepository repository;
 	UserServiceImpl userService;
