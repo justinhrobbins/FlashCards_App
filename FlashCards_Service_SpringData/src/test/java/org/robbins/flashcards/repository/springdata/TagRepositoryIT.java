@@ -13,7 +13,7 @@ import org.robbins.tests.BaseIntegrationTest;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
-@DatabaseSetup("tagRepository.xml")
+@DatabaseSetup("flashCardsAppRepository.xml")
 public class TagRepositoryIT extends BaseIntegrationTest {
 
 	@Inject

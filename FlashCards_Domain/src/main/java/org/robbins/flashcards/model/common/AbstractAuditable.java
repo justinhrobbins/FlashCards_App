@@ -16,14 +16,14 @@ import org.springframework.data.domain.Auditable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @MappedSuperclass
-public abstract class AbstractAuditable<U, PK extends Serializable> extends FlashCardsAppAbstractPersistable<PK> implements Auditable<U, PK>  {
+public abstract class AbstractAuditable<U, PK extends Serializable> extends AbstractPersistable<PK> implements Auditable<U, PK>  {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -4336679752608507624L;
 
 	@ManyToOne
-	@JoinColumn(name="CreatedUserId")
+	@JoinColumn(name="CreatedUserId", nullable=false)
 	private U createdBy;
 
 	@Temporal(TemporalType.TIMESTAMP)

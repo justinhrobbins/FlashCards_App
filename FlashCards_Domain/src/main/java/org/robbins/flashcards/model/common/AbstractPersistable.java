@@ -11,7 +11,7 @@ import org.springframework.data.domain.Persistable;
 
 
 @MappedSuperclass
-public abstract class FlashCardsAppAbstractPersistable <PK extends Serializable> implements Persistable<PK> {
+public abstract class AbstractPersistable <PK extends Serializable> implements Persistable<PK> {
 	private static final long serialVersionUID = -5554308939380869754L;
 
 	@Id
@@ -68,7 +68,7 @@ public abstract class FlashCardsAppAbstractPersistable <PK extends Serializable>
 			return false;
 		}
 
-		FlashCardsAppAbstractPersistable<?> that = (FlashCardsAppAbstractPersistable<?>) obj;
+		AbstractPersistable<?> that = (AbstractPersistable<?>) obj;
 
 		return null == this.getId() ? false : this.getId().equals(that.getId());
 	}

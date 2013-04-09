@@ -1,6 +1,8 @@
 package org.robbins.flashcards.webservices;
 
+import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Collections;
@@ -11,6 +13,7 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.robbins.flashcards.model.FlashCard;
+import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.model.util.TestEntityGenerator;
 import org.robbins.flashcards.webservices.base.GenericEntityRestTest;
 import org.robbins.flashcards.webservices.util.ResourceUrls;
@@ -122,5 +125,26 @@ public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCard> {
 		// double-check the Entity info was updated by re-pulling the Entity
 		FlashCard retrievedEntity = getEntity(getEntityUrl(), getEntity().getId(), getClazz());
 		assertEquals(updatedValue, retrievedEntity.getQuestion());
+	}
+	
+	@Test
+	public void createNewFlashCard_WithNewTag() {
+		
+		FlashCard flashCard = new FlashCard();
+		flashCard.setQuestion("Question4");
+		flashCard.setAnswer("Answer4");
+		
+		Tag tag = new Tag();
+		tag.setName("tag4");
+		
+		flashCard.getTags().add(tag);
+		
+		// make the REST call
+		FlashCard newFlashCard = postEntity(postEntityUrl(), flashCard, getClazz());
+
+		assertThat(newFlashCard.getId(), greaterThan(0L));
+		assertThat(newFlashCard.getTags().size(), greaterThan(0));
+		
+		deleteEntity(deleteEntityUrl(), newFlashCard.getId());
 	}
 }
