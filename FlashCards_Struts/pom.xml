@@ -107,14 +107,14 @@
 			<version>${jgeppert.struts2.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.openid4java</groupId>
-			<artifactId>openid4java-nodeps</artifactId>
-			<version>0.9.6</version>
+		   <groupId>org.openid4java</groupId>
+		   <artifactId>openid4java</artifactId>
+		   <version>0.9.7</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
-			<version>4.0</version>
+			<version>4.2.4</version>
 		</dependency>
 		<dependency>
 			<groupId>net.sourceforge.nekohtml</groupId>
