@@ -136,10 +136,10 @@
 				<version>2.14</version>
 				<configuration>
 					<includes>
-						<exclude>**/*IT.java</exclude>
+						<include>**/*IT.java</include>
 					</includes>
 					<excludes>
-						<include>**/*UT.java</include>
+						<exclude>**/*UT.java</exclude>
 					</excludes>
 				</configuration>
 				<executions>
