@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
+<Configure class="org.mortbay.jetty.webapp.WebAppContext">
+	<New id="flashcardsDb" class="org.mortbay.jetty.plus.naming.Resource">
+		<Arg>jdbc/flashcardsDb</Arg>
+		<Arg>
+			<New class="com.mchange.v2.c3p0.ComboPooledDataSource">
+<!--
+				<Set name="DatabaseName">flashcardsDb</Set>
+				<Set name="User">myUser</Set>
+				<Set name="Password">secret</Set>
+-->
+				<Set name="driverClass">org.h2.Driver</Set>
+				<Set name="jdbcUrl">jdbc:h2:mem:flashcardsDb</Set>
+			</New>
+		</Arg>
+	</New>
+</Configure>
