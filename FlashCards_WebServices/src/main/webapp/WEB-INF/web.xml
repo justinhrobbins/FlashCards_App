@@ -31,17 +31,16 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
-        <!-- ================================================================== 
-                To use request scope beans without Spring MVC, you should declare RequestContextListener in web.xml
-                http://stackoverflow.com/questions/2039522/getting-a-no-thread-bound-request-found-error-from-spring-in-my-web-app 
-         ================================================================== -->
+	<!-- ================================================================== 
+		To use request scope beans without Spring MVC, you should declare RequestContextListener 
+		in web.xml http://stackoverflow.com/questions/2039522/getting-a-no-thread-bound-request-found-error-from-spring-in-my-web-app 
+		================================================================== -->
 	<listener>
 		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>
 
-        <!-- ================================================================== 
-            Shiro Filter is defined in the spring application context: 
-                ================================================================== -->
+	<!-- ================================================================== 
+		Shiro Filter is defined in the spring application context: ================================================================== -->
 	<filter>
 		<filter-name>shiroFilter</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>

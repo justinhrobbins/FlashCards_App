@@ -160,6 +160,12 @@
 					<contextPath>/flashcardsapi</contextPath>
 					<stopPort>8005</stopPort>
 					<stopKey>STOP</stopKey>
+					<systemProperties>
+						<systemProperty>
+							<name>spring.profiles.active</name>
+							<value>embedded</value>
+						</systemProperty>
+					</systemProperties>
 				</configuration>
 				<dependencies>
 					<dependency>

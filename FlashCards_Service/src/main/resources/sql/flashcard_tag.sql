@@ -1,0 +1,16 @@
+INSERT INTO flashcard_tag (FlashCardId, TagId) VALUES (135,12);
+INSERT INTO flashcard_tag (FlashCardId, TagId) VALUES (124,14);
+INSERT INTO flashcard_tag (FlashCardId, TagId) VALUES (125,14);
+INSERT INTO flashcard_tag (FlashCardId, TagId) VALUES (127,14);
+INSERT INTO flashcard_tag (FlashCardId, TagId) VALUES (129,14);
+INSERT INTO flashcard_tag (FlashCardId, TagId) VALUES (130,14);
+INSERT INTO flashcard_tag (FlashCardId, TagId) VALUES (137,14);
+INSERT INTO flashcard_tag (FlashCardId, TagId) VALUES (126,15);
+INSERT INTO flashcard_tag (FlashCardId, TagId) VALUES (128,15);
+INSERT INTO flashcard_tag (FlashCardId, TagId) VALUES (128,16);
+INSERT INTO flashcard_tag (FlashCardId, TagId) VALUES (134,17);
+INSERT INTO flashcard_tag (FlashCardId, TagId) VALUES (136,17);
+INSERT INTO flashcard_tag (FlashCardId, TagId) VALUES (131,19);
+INSERT INTO flashcard_tag (FlashCardId, TagId) VALUES (132,20);
+INSERT INTO flashcard_tag (FlashCardId, TagId) VALUES (133,20);
+INSERT INTO flashcard_tag (FlashCardId, TagId) VALUES (133,2);

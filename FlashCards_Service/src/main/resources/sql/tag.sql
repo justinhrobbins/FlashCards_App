@@ -1,0 +1,10 @@
+INSERT INTO tag (TagId, CreatedDate, TagName, UpdatedDate, CreatedUserId, ModifiedUserId) VALUES (1,'2011-10-17 22:28:15','Hibernate','2011-10-17 22:28:15',1,1);
+INSERT INTO tag (TagId, CreatedDate, TagName, UpdatedDate, CreatedUserId, ModifiedUserId) VALUES (2,'2011-10-17 22:28:22','JPA','2013-03-29 19:10:19',1,4);
+INSERT INTO tag (TagId, CreatedDate, TagName, UpdatedDate, CreatedUserId, ModifiedUserId) VALUES (12,'2012-09-01 19:07:56','JAX-RS','2012-09-01 19:07:56',4,4);
+INSERT INTO tag (TagId, CreatedDate, TagName, UpdatedDate, CreatedUserId, ModifiedUserId) VALUES (14,'2013-04-07 19:58:04','Maven','2013-04-07 19:58:04',1,1);
+INSERT INTO tag (TagId, CreatedDate, TagName, UpdatedDate, CreatedUserId, ModifiedUserId) VALUES (15,'2013-04-07 20:26:02','Java','2013-04-07 20:26:02',4,4);
+INSERT INTO tag (TagId, CreatedDate, TagName, UpdatedDate, CreatedUserId, ModifiedUserId) VALUES (16,'2013-04-08 17:40:59','SQL','2013-04-08 17:40:59',4,4);
+INSERT INTO tag (TagId, CreatedDate, TagName, UpdatedDate, CreatedUserId, ModifiedUserId) VALUES (17,'2013-04-09 13:06:28','Spring','2013-04-09 13:06:28',4,4);
+INSERT INTO tag (TagId, CreatedDate, TagName, UpdatedDate, CreatedUserId, ModifiedUserId) VALUES (18,'2013-04-09 15:46:19','AOP','2013-04-09 15:46:19',4,4);
+INSERT INTO tag (TagId, CreatedDate, TagName, UpdatedDate, CreatedUserId, ModifiedUserId) VALUES (19,'2013-04-12 19:55:28','Agile','2013-04-12 19:55:28',4,4);
+INSERT INTO tag (TagId, CreatedDate, TagName, UpdatedDate, CreatedUserId, ModifiedUserId) VALUES (20,'2013-04-12 22:06:14','Git','2013-04-12 22:06:14',4,4);

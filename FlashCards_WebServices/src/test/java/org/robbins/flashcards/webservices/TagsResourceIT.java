@@ -81,7 +81,7 @@ public class TagsResourceIT extends GenericEntityRestTest<Tag> {
 	public void testSearchByName() {
 		Map<String, String> uriVariables = new HashMap<String, String>();
 
-		String name = "EJB";
+		String name = "Web API Test 'Tag'";
 		uriVariables.put("name", name);
 		
 		// search results

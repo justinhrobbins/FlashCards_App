@@ -58,7 +58,7 @@ public class User extends AbstractAuditable<User, Long> implements Serializable 
 
 	//@JsonSerialize(using = CustomJsonDateSerializer.class)
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "LastLoginDate", nullable = false)
+	@Column(name = "LastLoginDate", nullable=true)
 	private Date lastLoginDate;
 
 	public User() {
