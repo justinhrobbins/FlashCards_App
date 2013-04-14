@@ -13,7 +13,6 @@
 					<g:InlineHyperlink ui:field="loginLogoutLink"/>
 				</div>
 				<h1><a href="/">Flash Cards Application</a></h1>
-				<!-- <h3>This application is built using Java, Spring, JPA, Google Web Toolkit (GWT), MySQL, JAX-RS, Apache CXF, Apache Shiro, Amazon Elastic Cloud (EC2)</h3>  -->
 			</g:HTMLPanel>
 		</g:north>
 		<g:south size="70">
