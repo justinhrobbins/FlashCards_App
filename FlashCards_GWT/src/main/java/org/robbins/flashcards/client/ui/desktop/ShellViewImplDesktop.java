@@ -36,7 +36,7 @@ public class ShellViewImplDesktop extends Composite implements ShellView {
 	SimplePanel navigationPanel;
 	
 	@UiField
-	ScrollPanel contentPanel;
+	SimplePanel contentPanel;
 	
 	@UiField
 	InlineLabel loggedInUser;
@@ -63,7 +63,8 @@ public class ShellViewImplDesktop extends Composite implements ShellView {
 		ActivityMapper contentActivityMapper = new ContentActivityMapper(clientFactory);
 		ActivityManager contentActivityManager = new ActivityManager(contentActivityMapper, this.clientFactory.getEventBus());
 	
-		contentPanel.getElement().getStyle().setOverflow(Overflow.HIDDEN);
+		//contentPanel.getElement().getStyle().setOverflow(Overflow.HIDDEN);
+		contentPanel.getElement().getStyle().setOverflow(Overflow.AUTO);
 		contentActivityManager.setDisplay(contentPanel);
 	}
 

@@ -7,27 +7,27 @@
 
 	<g:DockLayoutPanel unit='PX' styleName="{style.shellStyles.wrap}">
 		<g:north size='180'>
-			<g:HTMLPanel styleName='{style.shellStyles.header}'>
-				<div id="login" class="{style.shellStyles.login}">
-					<g:InlineLabel ui:field="loggedInUser"/>
-					<g:InlineHyperlink ui:field="loginLogoutLink"/>
-				</div>
-				<h1><a href="/">Flash Cards Application</a></h1>
-			</g:HTMLPanel>
+		    <g:HTMLPanel styleName='{style.shellStyles.header}'>
+		        <div id="login" class="{style.shellStyles.login}">
+		            <g:InlineLabel ui:field="loggedInUser"/>
+		            <g:InlineHyperlink ui:field="loginLogoutLink"/>
+		        </div>
+		        <h1><a href="/">Flash Cards Application</a></h1>
+		    </g:HTMLPanel>
 		</g:north>
-		<g:south size="70">
-			<g:HTMLPanel styleName="{style.shellStyles.footer}">
-				<g:Label>&copy; Copyright by Justin Robbins</g:Label>
-			</g:HTMLPanel>
-		</g:south>
+		
 		<g:center>
-			<g:HTMLPanel styleName='{style.shellStyles.content}'>
-				<g:SimplePanel styleName='{style.shellStyles.left}' ui:field="navigationPanel" />
-				<g:ScrollPanel styleName='{style.shellStyles.right}' ui:field='contentPanel' alwaysShowScrollBars="false" />
-				<div style="clear: both;" ></div>
-			</g:HTMLPanel>
+		  <g:FlowPanel>
+		    <g:HTMLPanel styleName='{style.shellStyles.content}'>
+		        <g:SimplePanel styleName='{style.shellStyles.left}' ui:field="navigationPanel" />
+		        <g:SimplePanel styleName='{style.shellStyles.right}' ui:field='contentPanel' />
+		        <div style="clear: both;" ></div>
+		    </g:HTMLPanel>
+		    <g:HTMLPanel styleName="{style.shellStyles.footer}" height="70">
+		        <g:Label>&copy; Copyright by Justin Robbins</g:Label>
+		    </g:HTMLPanel>
+		  </g:FlowPanel>
 		</g:center>
-
 	</g:DockLayoutPanel>
 
 </ui:UiBinder> 
