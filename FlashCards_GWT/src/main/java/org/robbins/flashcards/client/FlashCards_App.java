@@ -34,6 +34,8 @@ public class FlashCards_App implements EntryPoint {
 		// set the date format for RestyGwt so it can use Unix timestamp date format
 		org.fusesource.restygwt.client.Defaults.setDateFormat(null);
 		
+		Window.enableScrolling(true);
+		
 		ShellStyleResource.INSTANCE.shellStyles().ensureInjected();
 		ClientFactory clientFactory = GWT.create(ClientFactory.class);
 		EventBus eventBus = clientFactory.getEventBus();

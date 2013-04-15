@@ -14,9 +14,9 @@ import com.google.gwt.dom.client.Style.Overflow;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.CustomScrollPanel;
 import com.google.gwt.user.client.ui.InlineHyperlink;
 import com.google.gwt.user.client.ui.InlineLabel;
-import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -36,6 +36,9 @@ public class ShellViewImplDesktop extends Composite implements ShellView {
 	SimplePanel navigationPanel;
 	
 	@UiField
+	CustomScrollPanel scrollPanel;
+	
+	@UiField
 	SimplePanel contentPanel;
 	
 	@UiField
@@ -53,6 +56,7 @@ public class ShellViewImplDesktop extends Composite implements ShellView {
 		initWidget(uiBinder.createAndBindUi(this));
 		
 		this.loginLogoutLink.setVisible(false);
+		this.scrollPanel.removeHorizontalScrollbar();
 
 		// Start ActivityManager for the main widget with our ActivityMapper
 		ActivityMapper navigationActivityMapper = new NavigationActivityMapper(clientFactory);
