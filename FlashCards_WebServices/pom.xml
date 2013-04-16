@@ -157,9 +157,9 @@
 				<version>${jetty.version}</version>
 				<configuration>
 					<scanIntervalSeconds>10</scanIntervalSeconds>
-					<webApp>
+					<webAppConfig>
 						<contextPath>/flashcardsapi</contextPath>
-					</webApp>
+					</webAppConfig>
 					<stopPort>8005</stopPort>
 					<stopKey>STOP</stopKey>
 					<systemProperties>
