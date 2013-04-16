@@ -135,11 +135,13 @@
 			</plugin>
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>maven-jetty-plugin</artifactId>
+				<artifactId>jetty-maven-plugin</artifactId>
 				<version>${jetty.version}</version>
 				<configuration>
 					<scanIntervalSeconds>10</scanIntervalSeconds>
-					<contextPath>/flashcardsstruts</contextPath>
+					<webApp>
+						<contextPath>/flashcardsstruts</contextPath>
+					</webApp>
 					<stopPort>8005</stopPort>
 					<stopKey>STOP</stopKey>
 					<systemProperties>
