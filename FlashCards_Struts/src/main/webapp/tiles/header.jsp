@@ -15,5 +15,5 @@
 	</s:else>
 </div>
 
-<h1><a href="/flashcardsstruts">Flash Cards Application</a></h1>
+<h1><a href="/struts">Flash Cards Application</a></h1>
 <h3></h3>

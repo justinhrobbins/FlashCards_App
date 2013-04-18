@@ -14,7 +14,7 @@
 					<g:InlineHyperlink ui:field="loginLogoutLink" />
 				</div>
 				<h1>
-					<a href="/flashcardsgwt/">Flash Cards Application</a>
+					<a href="/gwt/">Flash Cards Application</a>
 				</h1>
 			</g:HTMLPanel>
 		</g:north>

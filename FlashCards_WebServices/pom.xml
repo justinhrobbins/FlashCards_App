@@ -14,7 +14,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<m2eclipse.wtp.contextRoot>flashcardsapi</m2eclipse.wtp.contextRoot>
+		<m2eclipse.wtp.contextRoot>api</m2eclipse.wtp.contextRoot>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -158,7 +158,7 @@
 				<configuration>
 					<scanIntervalSeconds>10</scanIntervalSeconds>
 					<webAppConfig>
-						<contextPath>/flashcardsapi</contextPath>
+						<contextPath>/api</contextPath>
 					</webAppConfig>
 					<stopPort>8005</stopPort>
 					<stopKey>STOP</stopKey>
@@ -171,7 +171,7 @@
 					<contextHandlers>
 						<contextHandler implementation="org.eclipse.jetty.webapp.WebAppContext">
 							<war>../FlashCards_GWT/target/FlashCards_GwtClient.war</war>
-							<contextPath>/flashcardsgwt</contextPath>
+							<contextPath>/gwt</contextPath>
 						</contextHandler>
 					</contextHandlers>
 				</configuration>

@@ -14,7 +14,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<m2eclipse.wtp.contextRoot>flashcardsstruts</m2eclipse.wtp.contextRoot>
+		<m2eclipse.wtp.contextRoot>struts</m2eclipse.wtp.contextRoot>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -140,7 +140,7 @@
 				<configuration>
 					<scanIntervalSeconds>10</scanIntervalSeconds>
 					<webApp>
-						<contextPath>/flashcardsstruts</contextPath>
+						<contextPath>/struts</contextPath>
 					</webApp>
 					<stopPort>8005</stopPort>
 					<stopKey>STOP</stopKey>

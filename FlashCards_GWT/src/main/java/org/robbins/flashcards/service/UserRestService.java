@@ -37,18 +37,18 @@ import org.fusesource.restygwt.client.RestService;
 import org.robbins.flashcards.model.UserDto;
 
 
-@Path("/flashcardsapi/v1/users")
+@Path("/api/v1/users")
 public interface UserRestService extends RestService {
 
     @GET
-    @Path("/flashcardsapi/v1/users")
+    @Path("/api/v1/users")
     @Consumes("application/json")
     @Produces("application/json")
     public void getUsers(	@HeaderParam("Authorization") String authHeader, 
     						MethodCallback<List<UserDto>> callback);
     
     @GET
-    @Path("/flashcardsapi/v1/users/search")
+    @Path("/api/v1/users/search")
     @Consumes("application/json")
     @Produces("application/json")
     @Options(expect={200,204,1223})
@@ -57,7 +57,7 @@ public interface UserRestService extends RestService {
     							MethodCallback<UserDto> callback);
 
     @GET
-    @Path("/flashcardsapi/v1/users/{userId}")
+    @Path("/api/v1/users/{userId}")
     @Consumes("application/json")
     @Produces("application/json")
     public void getUser(@HeaderParam("Authorization") String authHeader, 
@@ -65,7 +65,7 @@ public interface UserRestService extends RestService {
     					MethodCallback<UserDto> callback);
     
     @POST
-    @Path("/flashcardsapi/v1/users")
+    @Path("/api/v1/users")
     @Consumes("application/json")
     @Produces("application/json")
     public void postUsers(	@HeaderParam("Authorization") String authHeader, 
@@ -73,7 +73,7 @@ public interface UserRestService extends RestService {
     						MethodCallback<UserDto> callback);
 
     @PUT
-    @Path("/flashcardsapi/v1/users/{userId}")
+    @Path("/api/v1/users/{userId}")
     @Consumes("application/json")
     @Produces("application/json")
     @Options(expect={204,1223})
@@ -82,7 +82,7 @@ public interface UserRestService extends RestService {
     						MethodCallback<java.lang.Void> callback);
     
     @DELETE
-    @Path("/flashcardsapi/v1/users/{userId}")
+    @Path("/api/v1/users/{userId}")
     @Consumes("application/json")
     @Produces("application/json")
     public void deleteUsers(@HeaderParam("Authorization") String authHeader, 

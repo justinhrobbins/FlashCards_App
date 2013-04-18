@@ -92,7 +92,7 @@
 				<configuration>
 					<scanIntervalSeconds>10</scanIntervalSeconds>
 					<webApp>
-						<contextPath>/flashcardsgwt</contextPath>
+						<contextPath>/gwt</contextPath>
 					</webApp>
 					<stopPort>8005</stopPort>
 					<stopKey>STOP</stopKey>

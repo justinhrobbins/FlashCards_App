@@ -37,11 +37,11 @@ import org.fusesource.restygwt.client.RestService;
 import org.robbins.flashcards.model.FlashCardDto;
 
 
-@Path("/flashcardsapi/v1/flashcards")
+@Path("/api/v1/flashcards")
 public interface FlashCardRestService extends RestService {
 
     @GET
-    @Path("flashcardsapi/v1/flashcards")
+    @Path("api/v1/flashcards")
     @Consumes("application/json")
     @Produces("application/json")
     public void getFlashCards(	@HeaderParam("Authorization") String authHeader, 
@@ -49,7 +49,7 @@ public interface FlashCardRestService extends RestService {
     							MethodCallback<List<FlashCardDto>> callback);
 
     @GET
-    @Path("/flashcardsapi/v1/flashcards/{flashCardId}")
+    @Path("/api/v1/flashcards/{flashCardId}")
     @Consumes("application/json")
     @Produces("application/json")
     public void getFlashCard(	@HeaderParam("Authorization") String authHeader, 
@@ -58,7 +58,7 @@ public interface FlashCardRestService extends RestService {
     							MethodCallback<FlashCardDto> callback);
 
     @GET
-    @Path("/flashcardsapi/v1/flashcards/search")
+    @Path("/api/v1/flashcards/search")
     @Consumes("application/json")
     @Produces("application/json")
     @Options(expect={200,204,1223})
@@ -67,7 +67,7 @@ public interface FlashCardRestService extends RestService {
     								MethodCallback<List<FlashCardDto>> callback);
     
     @POST
-    @Path("/flashcardsapi/v1/flashcards")
+    @Path("/api/v1/flashcards")
     @Consumes("application/json")
     @Produces("application/json")
     public void postFlashCards(	@HeaderParam("Authorization") String authHeader, 
@@ -75,7 +75,7 @@ public interface FlashCardRestService extends RestService {
     							MethodCallback<FlashCardDto> callback);
 
     @PUT
-    @Path("/flashcardsapi/v1/flashcards/{flashCardId}")
+    @Path("/api/v1/flashcards/{flashCardId}")
     @Consumes("application/json")
     @Produces("application/json")
     @Options(expect={204,1223})
@@ -85,7 +85,7 @@ public interface FlashCardRestService extends RestService {
     							MethodCallback<java.lang.Void> callback);
     
     @DELETE
-    @Path("/flashcardsapi/v1/flashcards/{flashCardId}")
+    @Path("/api/v1/flashcards/{flashCardId}")
     @Consumes("application/json")
     @Produces("application/json")
     public void deleteFlashCards(	@HeaderParam("Authorization") String authHeader, 

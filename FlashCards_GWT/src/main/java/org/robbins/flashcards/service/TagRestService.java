@@ -37,11 +37,11 @@ import org.fusesource.restygwt.client.RestService;
 import org.robbins.flashcards.model.TagDto;
 
 
-@Path("/flashcardsapi/v1/tags")
+@Path("/api/v1/tags")
 public interface TagRestService extends RestService {
 
     @GET
-    @Path("/flashcardsapi/v1/tags")
+    @Path("/api/v1/tags")
     @Consumes("application/json")
     @Produces("application/json")
     public void getTags(@HeaderParam("Authorization") String authHeader, 
@@ -49,7 +49,7 @@ public interface TagRestService extends RestService {
     					MethodCallback<List<TagDto>> callback);
     
     @GET
-    @Path("/flashcardsapi/v1/tags/search")
+    @Path("/api/v1/tags/search")
     @Consumes("application/json")
     @Produces("application/json")
     @Options(expect={200,204,1223})
@@ -58,7 +58,7 @@ public interface TagRestService extends RestService {
     							MethodCallback<TagDto> callback);
 
     @GET
-    @Path("/flashcardsapi/v1/tags/{tagId}")
+    @Path("/api/v1/tags/{tagId}")
     @Consumes("application/json")
     @Produces("application/json")
     public void getTag(	@HeaderParam("Authorization") String authHeader, 
@@ -67,7 +67,7 @@ public interface TagRestService extends RestService {
     					MethodCallback<TagDto> callback);
     
     @POST
-    @Path("/flashcardsapi/v1/tags")
+    @Path("/api/v1/tags")
     @Consumes("application/json")
     @Produces("application/json")
     public void postTags(	@HeaderParam("Authorization") String authHeader, 
@@ -75,7 +75,7 @@ public interface TagRestService extends RestService {
     						MethodCallback<TagDto> callback);
 
     @PUT
-    @Path("/flashcardsapi/v1/tags/{tagId}")
+    @Path("/api/v1/tags/{tagId}")
     @Consumes("application/json")
     @Produces("application/json")
     @Options(expect={204,1223})
@@ -85,7 +85,7 @@ public interface TagRestService extends RestService {
     					MethodCallback<java.lang.Void> callback);
     
     @DELETE
-    @Path("/flashcardsapi/v1/tags/{tagId}")
+    @Path("/api/v1/tags/{tagId}")
     @Consumes("application/json")
     @Produces("application/json")
     public void deleteTags(	@HeaderParam("Authorization") String authHeader, 

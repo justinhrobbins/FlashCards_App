@@ -17,12 +17,12 @@
 		</init-param>
 		<init-param>
 			<param-name>path</param-name>
-			<param-value>/flashcardsapi</param-value>
+			<param-value>/api</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>proxy</servlet-name>
-		<url-pattern>/flashcardsapi/*</url-pattern>
+		<url-pattern>/api/*</url-pattern>
 	</servlet-mapping>
 
 	<!-- Default page to serve -->
