@@ -5,7 +5,7 @@ The purpose of this project is to demonstrate my Java and web development compet
 A working copy of this project is running on an Amazon EC2 cloud instance.  There are two published versions of the application:
 
 1. The [Google Web Toolkit client version](http://www.socialflashcards.com/gwt/) is a rich JavaScript/AJAX client that interacts with the server through a stateless REST API.
-2. The [Struts version](http://www.socialflashcards.com/flashcardsstruts/) implements a more traditional model-view-controller (MVC) architecture.  (This version features authentication using OpenId.  Your password is not saved or even sent to the FlashCards application)
+2. The [Struts version](http://www.socialflashcards.com/struts/) implements a more traditional model-view-controller (MVC) architecture.  (This version features authentication using OpenId.  Your password is not saved or even sent to the FlashCards application)
 
 Both versions of the Flashcards App reuse the same service, domain, and persistence layers.
 
@@ -71,4 +71,4 @@ The deployed app is hosted on the [Amazon EC2 cloud](http://aws.amazon.com/ec2/)
 
 Take a look at an example deployment of both the GWT and Struts versions of the app:
 * [Google Web Toolkit version](http://www.socialflashcards.com/gwt/FlashCards_App.html)
-* [Struts version](http://www.socialflashcards.com/flashcardsstruts/)
+* [Struts version](http://www.socialflashcards.com/struts/)
