@@ -44,6 +44,10 @@ public class PartialResponseFilter implements ResponseHandler {
 	public Response handleResponse(Message m, OperationResourceInfo ori,
 			Response response) {
 
+		if (ori == null) {
+			return null;
+		}
+		
 		// exit now if not an http GET method
 		if (!StringUtils.equals(ori.getHttpMethod(), "GET")) {
 			return null;			
