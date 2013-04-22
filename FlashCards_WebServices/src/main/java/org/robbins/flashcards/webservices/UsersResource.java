@@ -12,13 +12,10 @@ import org.robbins.flashcards.model.User;
 import org.robbins.flashcards.service.UserService;
 import org.robbins.flashcards.service.base.GenericJpaService;
 import org.robbins.flashcards.webservices.base.AbstractGenericResource;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.WebApplicationContext;
 
 @Path("/users/")
 @Component("usersResource")
-@Scope(value = WebApplicationContext.SCOPE_REQUEST)
 @Produces("application/json")
 public class UsersResource extends AbstractGenericResource<User, Long> {
 	

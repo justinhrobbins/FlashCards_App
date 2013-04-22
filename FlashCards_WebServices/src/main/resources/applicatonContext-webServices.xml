@@ -2,15 +2,20 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:aop="http://www.springframework.org/schema/aop"
   xmlns:jaxrs="http://cxf.apache.org/jaxrs"
   xmlns:cxf="http://cxf.apache.org/core"
   xsi:schemaLocation="
   		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
 		http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
 		http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
-		
-	<bean id="loggedInUser" class="org.robbins.flashcards.model.User" scope="request" />
+
+
+	<bean id="loggedInUser" class="org.robbins.flashcards.model.User" scope="request" >
+		<aop:scoped-proxy/>
+	</bean>
 
 	<!-- do not use import statements if CXFServlet init parameters link to this beans.xml --> 
   	<import resource="classpath:META-INF/cxf/cxf.xml" />
@@ -21,18 +26,41 @@
         </cxf:features>
     </cxf:bus> 
 
-	<jaxrs:server id="flashCardsServer" address="/"  beanNames="flashCardsResource tagsResource usersResource">
-		<jaxrs:providers>
-			<bean class='com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider' >
-				<property name="mapper" ref="objectMapper"></property>
-			</bean>
-			<ref bean="partialResponseFilter" />
-		</jaxrs:providers>
-	</jaxrs:server>
-  
+	<bean class="org.apache.cxf.jaxrs.JAXRSServerFactoryBean" init-method="create">
+		<property name="address" value="/" />
+		<property name="serviceBeans">
+			<list>
+				<ref bean="tagsResource" />
+				<ref bean="usersResource" />
+				<ref bean="flashCardsResource" />
+				<ref bean="swaggerResourceJSON" />
+				<ref bean="swaggerResourceXML" />
+			</list>
+		</property>
+		<property name="providers">
+			<list>
+				<ref bean="jsonProvider" />
+				<ref bean="partialResponseFilter" />
+				<ref bean="securityFilter" />
+			</list>
+		</property>
+		<property name="application" ref="basicApplication" />
+	</bean>
+
+	<!-- JSON mapper -->
+	<bean id="jsonProvider" class='com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider' >
+		<property name="mapper" ref="objectMapper"></property>
+	</bean>
   	<bean id="objectMapper" class="org.robbins.flashcards.jackson.CustomObjectMapper" />
   	
   	<context:component-scan base-package="org.robbins.flashcards.webservices" />
+
+	<!-- Swagger API listing resource -->
+	<bean id="swaggerResourceJSON" class="com.wordnik.swagger.jaxrs.listing.ApiListingResourceJSON" />
+	<bean id="swaggerResourceXML" class="com.wordnik.swagger.jaxrs.listing.ApiListingResourceXML" />
+	<bean id="basicApplication" class="org.robbins.flashcards.webservices.swagger.util.BasicApplication">
+		<property name="resourcePackage" value="org.robbins.flashcards.webservices" />
+	</bean>
 
     <!-- ==================================================================
          Apache Shiro config

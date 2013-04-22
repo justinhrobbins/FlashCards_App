@@ -17,7 +17,7 @@ public class AuditingAwareUser implements AuditorAware<User> {
 	
 	@Override
 	public User getCurrentAuditor() {
-        User auditor = (User) context.getBean("loggedInUser");
+        User auditor = new User(((User)context.getBean("loggedInUser")).getId());
 
         logger.debug("Logged In User Id: " + auditor.getId());
 

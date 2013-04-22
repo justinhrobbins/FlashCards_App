@@ -75,7 +75,7 @@ public class PartialResponseFilter implements ResponseHandler {
 			List<Parameter> parameters = ori.getParameters();
 			for (Parameter parm : parameters) {
 				// is the current Parameter named 'fields'?
-				if (parm.getName().equals("fields")) {
+				if (StringUtils.equals(parm.getName(), "fields")) {
 					// get the default value for 'fields'
 					fields = parm.getDefaultValue();
 

@@ -13,7 +13,9 @@
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
 
+		<aspectj.version>1.7.2</aspectj.version>
 		<cxf.version>2.6.0</cxf.version>
+		<gwt.version>2.5.1</gwt.version>
 		<hibernate.version>4.1.4.Final</hibernate.version>
 		<jackson.version>2.0.2</jackson.version>
 		<jetty.version>8.1.10.v20130312</jetty.version>
@@ -22,8 +24,7 @@
 		<spring.version>3.1.1.RELEASE</spring.version>
 		<springdata.version>1.1.0.RELEASE</springdata.version>
 		<struts.version>2.3.4.1</struts.version>
-		<aspectj.version>1.7.2</aspectj.version>
-		<gwt.version>2.5.1</gwt.version>
+		<swagger.version>1.2.2</swagger.version>
 	</properties>
 	<modules>
 		<module>FlashCards_Domain</module>

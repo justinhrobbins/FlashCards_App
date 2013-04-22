@@ -12,13 +12,15 @@ import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.service.TagService;
 import org.robbins.flashcards.service.base.GenericJpaService;
 import org.robbins.flashcards.webservices.base.AbstractGenericResource;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.WebApplicationContext;
+
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 
 @Path("/tags/")
 @Component("tagsResource")
-@Scope(value = WebApplicationContext.SCOPE_REQUEST)
+@Api(value="/tags", description = "Operations about Tags")
+//@Scope(value = WebApplicationContext.SCOPE_REQUEST)
 @Produces("application/json")
 public class TagsResource extends AbstractGenericResource<Tag, Long> {
 
@@ -32,6 +34,7 @@ public class TagsResource extends AbstractGenericResource<Tag, Long> {
 	@GET
 	@Path("/search")
 	@Produces("application/json")
+	@ApiOperation(value = "test method", notes = "Search for Tag by Tag name", responseClass = "org.robbins.flashcards.model.Tag")
 	public Tag searchByName(@QueryParam("name") String name) {
 			return service.findByName(name);
 	}
