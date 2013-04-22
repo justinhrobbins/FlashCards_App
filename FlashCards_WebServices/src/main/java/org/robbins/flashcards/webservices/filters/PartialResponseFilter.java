@@ -45,7 +45,7 @@ public class PartialResponseFilter implements ResponseHandler {
 			Response response) {
 
 		// exit now if not an http GET method
-		if (!ori.getHttpMethod().equals("GET")) {
+		if (!StringUtils.equals(ori.getHttpMethod(), "GET")) {
 			return null;			
 		}
 
