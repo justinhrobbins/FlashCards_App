@@ -232,9 +232,12 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 	 * @return the http status
 	 */
 	public HttpStatus putEntity(String url, Long id, E entity) {
+		HttpHeaders httpHeaders = getAuthHeaders();
+		httpHeaders.set("Accept", "application/json");
+		
 		// set the Authentication header
 		@SuppressWarnings({ "unchecked", "rawtypes" })
-		HttpEntity httpEntity = new HttpEntity(entity, getAuthHeaders());
+		HttpEntity httpEntity = new HttpEntity(entity, httpHeaders);
 
 		// set the URL parameter
 		Map<String, String> vars = Collections.singletonMap("id",
@@ -260,9 +263,13 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 	 */
 	public HttpStatus updateEntity(String url,
 			Map<String, String> uriVariables, E entity) {
+		
+		HttpHeaders httpHeaders = getAuthHeaders();
+		httpHeaders.set("Accept", "application/json");
+		
 		// set the Authentication header
 		@SuppressWarnings({ "unchecked", "rawtypes" })
-		HttpEntity httpEntity = new HttpEntity(entity, getAuthHeaders());
+		HttpEntity httpEntity = new HttpEntity(entity, httpHeaders);
 
 		// make the REST call
 		@SuppressWarnings("rawtypes")
@@ -282,11 +289,13 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 	 *            the entity
 	 * @return the http status
 	 */
-	public HttpStatus putEntity(String url, Map<String, String> uriVariables,
-			E entity) {
+	public HttpStatus putEntity(String url, Map<String, String> uriVariables, E entity) {
+		HttpHeaders httpHeaders = getAuthHeaders();
+		httpHeaders.set("Accept", "application/json");
+		
 		// set the Authentication header
 		@SuppressWarnings({ "unchecked", "rawtypes" })
-		HttpEntity httpEntity = new HttpEntity(entity, getAuthHeaders());
+		HttpEntity httpEntity = new HttpEntity(entity, httpHeaders);
 
 		// make the REST call
 		@SuppressWarnings("rawtypes")
