@@ -20,7 +20,6 @@ import com.wordnik.swagger.annotations.ApiOperation;
 @Path("/tags/")
 @Component("tagsResource")
 @Api(value="/tags", description = "Operations about Tags")
-//@Scope(value = WebApplicationContext.SCOPE_REQUEST)
 @Produces("application/json")
 public class TagsResource extends AbstractGenericResource<Tag, Long> {
 
@@ -34,11 +33,12 @@ public class TagsResource extends AbstractGenericResource<Tag, Long> {
 	@GET
 	@Path("/search")
 	@Produces("application/json")
-	@ApiOperation(value = "test method", notes = "Search for Tag by Tag name", responseClass = "org.robbins.flashcards.model.Tag")
+	@ApiOperation(value = "Find Tag by Name", responseClass = "org.robbins.flashcards.model.Tag")
 	public Tag searchByName(@QueryParam("name") String name) {
 			return service.findByName(name);
 	}
 	
+	@ApiOperation(value = "Replace a Tag", responseClass = "javax.ws.rs.core.Response")
 	@Override
 	public Response put(@PathParam("id") Long id, Tag entity) {
 
