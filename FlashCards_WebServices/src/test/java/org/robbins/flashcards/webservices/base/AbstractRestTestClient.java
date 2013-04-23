@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -304,9 +305,12 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 	 * @return the http status
 	 */
 	public HttpStatus deleteEntity(String url, Long id) {
+		HttpHeaders httpHeaders = getAuthHeaders();
+		httpHeaders.set("Accept", "application/json");
+		
 		// set the Authentication header
 		@SuppressWarnings({ "unchecked", "rawtypes" })
-		HttpEntity httpEntity = new HttpEntity(getAuthHeaders());
+		HttpEntity httpEntity = new HttpEntity(httpHeaders);
 
 		// set the URL parameter
 		Map<String, String> vars = Collections.singletonMap("id",
