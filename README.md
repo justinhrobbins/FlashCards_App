@@ -1,3 +1,5 @@
+[![Build Status](https://justinhrobbins.ci.cloudbees.com/job/Flashcards/badge/icon)](https://justinhrobbins.ci.cloudbees.com/job/Flashcards/)
+
 ## Overview
 
 The purpose of this project is to demonstrate my Java and web development competencies.
