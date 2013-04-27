@@ -55,17 +55,23 @@
 	</filter-mapping>
 
 	<servlet>
+		<servlet-name>Bootstrap</servlet-name>
+		<servlet-class>org.robbins.flashcards.webservices.swagger.SwaggerBootstrap</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet>
 		<servlet-name>CXFServlet</servlet-name>
 		<servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
-		
-	    <!-- set the base path for the swagger application -->
-	    <init-param>
-	      <param-name>swagger.api.basepath</param-name>
-	      <!-- <param-value>http://localhost:8080/api/v1</param-value> -->
-	      <param-value>http://www.socialflashcards.com/api/v1</param-value>
-	    </init-param>
 
-		<load-on-startup>1</load-on-startup>    
+		<!-- set the base path for the swagger application -->
+		<init-param>
+			<param-name>swagger.api.basepath</param-name>
+			<param-value>http://localhost:8080/api/v1</param-value>
+			<!-- <param-value>http://www.socialflashcards.com/api/v1</param-value> -->
+		</init-param>
+
+		<load-on-startup>2</load-on-startup>
 	</servlet>
 
 	<servlet-mapping>

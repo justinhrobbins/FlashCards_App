@@ -56,9 +56,9 @@
   	<context:component-scan base-package="org.robbins.flashcards.webservices" />
 
 	<!-- Swagger API listing resource -->
-	<bean id="swaggerResourceJSON" class="com.wordnik.swagger.jaxrs.listing.ApiListingResourceJSON" />
+	<bean id="swaggerResourceJSON" class="org.robbins.flashcards.webservices.swagger.ApiListingResourceJSON" />
 	<bean id="swaggerResourceXML" class="com.wordnik.swagger.jaxrs.listing.ApiListingResourceXML" />
-	<bean id="basicApplication" class="org.robbins.flashcards.webservices.swagger.util.BasicApplication">
+	<bean id="basicApplication" class="org.robbins.flashcards.webservices.swagger.BasicApplication">
 		<property name="resourcePackage" value="org.robbins.flashcards.webservices" />
 	</bean>
 

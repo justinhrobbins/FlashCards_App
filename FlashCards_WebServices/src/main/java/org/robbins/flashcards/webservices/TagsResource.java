@@ -2,6 +2,7 @@ package org.robbins.flashcards.webservices;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -32,14 +33,14 @@ public class TagsResource extends AbstractGenericResource<Tag, Long> {
 
 	@GET
 	@Path("/search")
-	@Produces("application/json")
 	@ApiOperation(value = "Find Tag by Name", responseClass = "org.robbins.flashcards.model.Tag")
 	public Tag searchByName(@QueryParam("name") String name) {
 			return service.findByName(name);
 	}
 	
-	@ApiOperation(value = "Replace a Tag", responseClass = "javax.ws.rs.core.Response")
 	@Override
+	@PUT
+	@ApiOperation(value = "Replace a Tag", responseClass = "void")
 	public Response put(@PathParam("id") Long id, Tag entity) {
 
 		if (entity.getCreatedBy() == null) {

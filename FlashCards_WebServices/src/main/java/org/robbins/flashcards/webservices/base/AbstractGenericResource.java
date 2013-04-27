@@ -13,7 +13,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
@@ -25,6 +24,8 @@ import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
+import com.wordnik.swagger.annotations.ApiOperation;
+
 public abstract class AbstractGenericResource <T, Serializable> extends AbstractResource implements GenericResource <T, Serializable> {
 	
 	private static Logger logger = Logger.getLogger(AbstractGenericResource.class);
@@ -32,7 +33,6 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 	protected abstract GenericJpaService<T, Long> getService();
 
 	@GET
-	@Produces("application/json")
 	public List<T> list(@QueryParam("page") Integer page,
 						@DefaultValue("25") @QueryParam("size") Integer size,
 						@QueryParam("sort") String sort,
@@ -91,7 +91,6 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 	
 	@GET
 	@Path("/{id}")
-	@Produces("application/json")
 	public T findOne(@PathParam("id") Long id) {
 
 		T entity = getService().findOne(id);
@@ -104,7 +103,6 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 	}
 	
 	@POST
-	@Produces("application/json")
 	public T post(T entity) {
 		try {
 			return getService().save(entity);
@@ -131,6 +129,7 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 	
 	@DELETE
 	@Path("/{id}")
+	@ApiOperation(value = "Delete", responseClass = "void")
 	public Response delete(@PathParam("id") Long id) {
 		try {
 			getService().delete(id);
@@ -144,7 +143,6 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 
 	@POST
 	@Path("/{id}/update")
-	@Produces("application/json")
 	public Response update(@PathParam("id") Long id, T updatedEntity) {
 		try {
 			// get the original entity from the db

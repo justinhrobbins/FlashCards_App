@@ -14,12 +14,11 @@ import org.robbins.flashcards.service.base.GenericJpaService;
 import org.robbins.flashcards.webservices.base.AbstractGenericResource;
 import org.springframework.stereotype.Component;
 
-import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 
 @Path("/users/")
 @Component("usersResource")
-@Api(value="/users", description = "Operations about Users")
+//@Api(value="/users", description = "Operations about Users")
 @Produces("application/json")
 public class UsersResource extends AbstractGenericResource<User, Long> {
 	
@@ -33,7 +32,6 @@ public class UsersResource extends AbstractGenericResource<User, Long> {
 	@GET
 	@Path("/search")
 	@ApiOperation(value = "Find a user by their OpenId", responseClass = "org.robbins.flashcards.model.User")
-	@Produces("application/json")
 	public User getUserSearch(@QueryParam("openid") String openid) {
 			return service.findUserByOpenid(openid);
 	}
