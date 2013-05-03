@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 import com.wordnik.swagger.annotations.ApiOperation;
 
-@Path("/users/")
+@Path("/v1/users/")
 @Component("usersResource")
 //@Api(value="/users", description = "Operations about Users")
 @Produces("application/json")

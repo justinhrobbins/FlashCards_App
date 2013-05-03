@@ -27,7 +27,7 @@ import org.springframework.stereotype.Component;
 
 import com.wordnik.swagger.annotations.ApiOperation;
 
-@Path("/flashcards/")
+@Path("/v1/flashcards/")
 @Component("flashCardsResource")
 //@Api(value="/flashcards", description = "Operations about FlashCards")
 @Produces("application/json")

@@ -81,7 +81,7 @@
 	    </property> -->
 	    <property name="filterChainDefinitions">
 	        <value>
-	            /** = authcBasic
+	            /v1/** = authcBasic
 	        </value>
 	    </property>
 	</bean>

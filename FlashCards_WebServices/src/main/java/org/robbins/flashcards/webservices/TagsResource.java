@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 
-@Path("/tags/")
+@Path("/v1/tags/")
 @Component("tagsResource")
 @Api(value="/tags", description = "Operations about Tags")
 @Produces("application/json")
