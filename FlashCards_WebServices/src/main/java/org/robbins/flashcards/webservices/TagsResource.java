@@ -20,7 +20,7 @@ import com.wordnik.swagger.annotations.ApiOperation;
 
 @Path("/v1/tags/")
 @Component("tagsResource")
-@Api(value="/tags", description = "Operations about Tags")
+@Api(value="/v1/tags", description = "Operations about Tags")
 @Produces("application/json")
 public class TagsResource extends AbstractGenericResource<Tag, Long> {
 

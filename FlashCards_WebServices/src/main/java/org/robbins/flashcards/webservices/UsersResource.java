@@ -18,7 +18,7 @@ import com.wordnik.swagger.annotations.ApiOperation;
 
 @Path("/v1/users/")
 @Component("usersResource")
-//@Api(value="/users", description = "Operations about Users")
+//@Api(value="/v1/users", description = "Operations about Users")
 @Produces("application/json")
 public class UsersResource extends AbstractGenericResource<User, Long> {
 	

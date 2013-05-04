@@ -29,7 +29,7 @@ import com.wordnik.swagger.annotations.ApiOperation;
 
 @Path("/v1/flashcards/")
 @Component("flashCardsResource")
-//@Api(value="/flashcards", description = "Operations about FlashCards")
+//@Api(value="/v1/flashcards", description = "Operations about FlashCards")
 @Produces("application/json")
 public class FlashCardsResource extends AbstractGenericResource<FlashCard, Long> {
 
