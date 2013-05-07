@@ -61,17 +61,17 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 		} catch (InvalidDataAccessApiUsageException e) {
 			logger.error(e.getMessage(), e);
 			throw new GenericWebServiceException(Response.Status.BAD_REQUEST,
-					"Inavlid sort parameter: '" + sort + "'");
+					"Inavlid sort parameter: '" + sort + "'", e);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			throw new GenericWebServiceException(Response.Status.BAD_REQUEST,
-					"Unable to 'list' entities");
+					"Unable to 'list' entities", e);
 		}
 
 	    // did we get any results?
 	    if (entities == null) {
 			throw new GenericWebServiceException(Response.Status.NOT_FOUND,
-					"Entities not found");			
+					"Entities not found");
 		}
 		
 		return entities;
@@ -85,7 +85,7 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			throw new GenericWebServiceException(
-					Response.Status.INTERNAL_SERVER_ERROR, e.getMessage());
+					Response.Status.INTERNAL_SERVER_ERROR, e);
 		}
 	}
 	
@@ -109,7 +109,7 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR,
-					"Unable to 'post' entity");
+					"Unable to 'post' entity", e);
 		}
 	}
 	
@@ -121,7 +121,7 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR,
-					"Unable to 'put' entity: " + id);
+					"Unable to 'put' entity: " + id, e);
 		}
 		
 		return Response.noContent().build();
@@ -136,7 +136,7 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR,
-					"Unable to 'delete' entity: " + id);
+					"Unable to 'delete' entity: " + id, e);
 		}
 		return Response.noContent().build();
 	}
@@ -159,7 +159,7 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 
 		} catch (Exception e) {
 			throw new GenericWebServiceException(
-					Response.Status.INTERNAL_SERVER_ERROR, e.getMessage());
+					Response.Status.INTERNAL_SERVER_ERROR, e.getMessage(), e);
 		}
 	}
 	
@@ -170,7 +170,7 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 			beanInfo = Introspector.getBeanInfo(source.getClass());
 		} catch (IntrospectionException e) {
 			logger.error(e.getMessage(), e);
-			throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e.getMessage());
+			throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e.getMessage(), e);
 		}
 
 		// Iterate over all the attributes
@@ -183,7 +183,7 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 					newValue = descriptor.getReadMethod().invoke(source);
 				} catch (Exception e) {
 					logger.error(e.getMessage(), e);
-					throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e.getMessage());
+					throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e.getMessage(), e);
 				}
 
 				// Only copy values values where the destination values is not null
@@ -196,7 +196,7 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 						descriptor.getWriteMethod().invoke(target, newValue);
 					} catch (Exception e) {
 						logger.error(e.getMessage(), e);
-						throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e.getMessage());
+						throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e.getMessage(), e);
 					}
 				}
 			}

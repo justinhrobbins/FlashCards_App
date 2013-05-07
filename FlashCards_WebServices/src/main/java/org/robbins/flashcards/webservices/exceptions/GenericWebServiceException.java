@@ -25,10 +25,24 @@ public class GenericWebServiceException extends WebApplicationException {
 	public GenericWebServiceException(Response.Status status, List<WebServicesError> errors) {
 		throwError(status, errors);
 	}
-	
-	public GenericWebServiceException(Response.Status status, String message) {
+
+	public GenericWebServiceException(Response.Status status, String customMessage) {
 		// create an Error object
-		WebServicesError error = new WebServicesError(status.getStatusCode(), status.getReasonPhrase(), message);
+		WebServicesError error = new WebServicesError(status.getStatusCode(), status.getReasonPhrase(), customMessage);
+		
+		throwError(status, error);
+	}
+
+	public GenericWebServiceException(Response.Status status, Exception e) {
+		// create an Error object
+		WebServicesError error = new WebServicesError(status.getStatusCode(), status.getReasonPhrase(), e.getMessage());
+		
+		throwError(status, error);
+	}
+
+	public GenericWebServiceException(Response.Status status, String customMessage, Exception e) {
+		// create an Error object
+		WebServicesError error = new WebServicesError(status.getStatusCode(), status.getReasonPhrase(), customMessage);
 		
 		throwError(status, error);
 	}

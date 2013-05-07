@@ -69,8 +69,8 @@
 		<!-- set the base path for the swagger application -->
 		<init-param>
 			<param-name>swagger.api.basepath</param-name>
-			<param-value>http://localhost:8080/api</param-value>
-			<!-- <param-value>http://www.socialflashcards.com/api/v1</param-value> -->
+			<!-- <param-value>http://localhost:8080/api</param-value> -->
+			<param-value>http://socialflashcards.com/api/v1</param-value>
 		</init-param>
 
 		<load-on-startup>2</load-on-startup>

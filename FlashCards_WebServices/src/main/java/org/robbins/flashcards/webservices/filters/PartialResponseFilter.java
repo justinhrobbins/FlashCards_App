@@ -143,7 +143,7 @@ public class PartialResponseFilter implements ResponseHandler {
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			throw new GenericWebServiceException(
-					Response.Status.INTERNAL_SERVER_ERROR, e.getMessage());
+					Response.Status.INTERNAL_SERVER_ERROR, e);
 		}
 	}
 
@@ -198,7 +198,7 @@ public class PartialResponseFilter implements ResponseHandler {
 			} catch (Exception e) {
 				logger.error(e.getMessage(), e);
 				throw new GenericWebServiceException(
-						Response.Status.INTERNAL_SERVER_ERROR, e.getMessage());
+						Response.Status.INTERNAL_SERVER_ERROR, e);
 			}
 		}
 		return;

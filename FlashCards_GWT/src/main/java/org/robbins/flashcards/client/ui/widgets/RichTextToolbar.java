@@ -116,29 +116,29 @@ public class RichTextToolbar extends Composite {
     public void onClick(ClickEvent event) {
       Widget sender = (Widget) event.getSource();
 
-      if (sender == bold) {
+      if (sender.equals(bold)) {
         basic.toggleBold();
-      } else if (sender == italic) {
+      } else if (sender.equals(italic)) {
         basic.toggleItalic();
-      } else if (sender == underline) {
+      } else if (sender.equals(underline)) {
         basic.toggleUnderline();
-      } else if (sender == subscript) {
+      } else if (sender.equals(subscript)) {
         basic.toggleSubscript();
-      } else if (sender == superscript) {
+      } else if (sender.equals(superscript)) {
         basic.toggleSuperscript();
-      } else if (sender == strikethrough) {
+      } else if (sender.equals(strikethrough)) {
         extended.toggleStrikethrough();
-      } else if (sender == indent) {
+      } else if (sender.equals(indent)) {
         extended.rightIndent();
-      } else if (sender == outdent) {
+      } else if (sender.equals(outdent)) {
         extended.leftIndent();
-      } else if (sender == justifyLeft) {
+      } else if (sender.equals(justifyLeft)) {
         basic.setJustification(RichTextArea.Justification.LEFT);
-      } else if (sender == justifyCenter) {
+      } else if (sender.equals(justifyCenter)) {
         basic.setJustification(RichTextArea.Justification.CENTER);
-      } else if (sender == justifyRight) {
+      } else if (sender.equals(justifyRight)) {
         basic.setJustification(RichTextArea.Justification.RIGHT);
-      } else if (sender == insertImage) {
+      } else if (sender.equals(insertImage)) {
         String url = Window.prompt("Enter an image URL:", "http://");
         if (url != null) {
           extended.insertImage(url);
@@ -148,17 +148,17 @@ public class RichTextToolbar extends Composite {
         if (url != null) {
           extended.createLink(url);
         }
-      } else if (sender == removeLink) {
+      } else if (sender.equals(removeLink)) {
         extended.removeLink();
-      } else if (sender == hr) {
+      } else if (sender.equals(hr)) {
         extended.insertHorizontalRule();
-      } else if (sender == ol) {
+      } else if (sender.equals(ol)) {
         extended.insertOrderedList();
-      } else if (sender == ul) {
+      } else if (sender.equals(ul)) {
         extended.insertUnorderedList();
-      } else if (sender == removeFormat) {
+      } else if (sender.equals(removeFormat)) {
         extended.removeFormat();
-      } else if (sender == richText) {
+      } else if (sender.equals(richText)) {
         // We use the RichTextArea's onKeyUp event to update the toolbar status.
         // This will catch any cases where the user moves the cursur using the
         // keyboard, or uses one of the browser's built-in keyboard shortcuts.
@@ -168,7 +168,7 @@ public class RichTextToolbar extends Composite {
 
     public void onKeyUp(KeyUpEvent event) {
       Widget sender = (Widget) event.getSource();
-      if (sender == richText) {
+      if (sender.equals(richText)) {
         // We use the RichTextArea's onKeyUp event to update the toolbar status.
         // This will catch any cases where the user moves the cursur using the
         // keyboard, or uses one of the browser's built-in keyboard shortcuts.

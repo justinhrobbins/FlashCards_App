@@ -12,12 +12,9 @@ public interface Images extends ClientBundle {
 
   ImageResource bold();
   ImageResource createLink();
-//  ImageResource content();
   ImageResource delete();
   ImageResource deleteDisabled();
   ImageResource edit();
-//  ImageResource footer();
-//  ImageResource header();
   ImageResource hr();
   ImageResource indent();
   ImageResource insertImage();
@@ -29,7 +26,6 @@ public interface Images extends ClientBundle {
   ImageResource outdent();
   ImageResource removeFormat();
   ImageResource removeLink();
-//  ImageResource sidebar();
   ImageResource strikeThrough();
   ImageResource subscript();
   ImageResource superscript();
