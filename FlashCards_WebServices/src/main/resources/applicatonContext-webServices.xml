@@ -12,108 +12,13 @@
 		http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
 		http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 
+	<import resource="classpath:applicatonContext-shiro.xml" />
+	<import resource="classpath:applicatonContext-cxf.xml" />
 
 	<bean id="loggedInUser" class="org.robbins.flashcards.model.User" scope="request" >
 		<aop:scoped-proxy/>
 	</bean>
-
-	<!-- do not use import statements if CXFServlet init parameters link to this beans.xml --> 
-  	<import resource="classpath:META-INF/cxf/cxf.xml" />
-
-    <cxf:bus>
-        <cxf:features>
-            <cxf:logging/>
-        </cxf:features>
-    </cxf:bus> 
-
-	<bean class="org.apache.cxf.jaxrs.JAXRSServerFactoryBean" init-method="create">
-		<property name="address" value="/" />
-		<property name="serviceBeans">
-			<list>
-				<ref bean="tagsResource" />
-				<ref bean="usersResource" />
-				<ref bean="flashCardsResource" />
-				<ref bean="swaggerResourceJSON" />
-				<ref bean="swaggerResourceXML" />
-			</list>
-		</property>
-		<property name="providers">
-			<list>
-				<ref bean="jsonProvider" />
-				<ref bean="partialResponseFilter" />
-				<ref bean="securityFilter" />
-			</list>
-		</property>
-		<property name="application" ref="basicApplication" />
-	</bean>
-
-	<!-- JSON mapper -->
-	<bean id="jsonProvider" class='com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider' >
-		<property name="mapper" ref="objectMapper"></property>
-	</bean>
-  	<bean id="objectMapper" class="org.robbins.flashcards.jackson.CustomObjectMapper" />
   	
   	<context:component-scan base-package="org.robbins.flashcards.webservices" />
-
-	<!-- Swagger API listing resource -->
-	<bean id="swaggerResourceJSON" class="org.robbins.flashcards.webservices.swagger.ApiListingResourceJSON" />
-	<bean id="swaggerResourceXML" class="com.wordnik.swagger.jaxrs.listing.ApiListingResourceXML" />
-	<bean id="basicApplication" class="org.robbins.flashcards.webservices.swagger.BasicApplication">
-		<property name="resourcePackage" value="org.robbins.flashcards.webservices" />
-	</bean>
-
-    <!-- ==================================================================
-         Apache Shiro config
-         ================================================================== -->
-	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean" >
-	    <property name="securityManager" ref="securityManager"/>
-	    <!-- override these for application-specific URLs if you like:
-	    <property name="loginUrl" value="/login.jsp"/>
-	    <property name="successUrl" value="/home.jsp"/>
-	    <property name="unauthorizedUrl" value="/unauthorized.jsp"/> -->
-	    <!-- The 'filters' property is not necessary since any declared javax.servlet.Filter bean  -->
-	    <!-- defined will be automatically acquired and available via its beanName in chain        -->
-	    <!-- definitions, but you can perform instance overrides or name aliases here if you like: -->
-	    <!-- <property name="filters">
-	        <util:map>
-	            <entry key="anAlias" value-ref="someFilter"/>
-	        </util:map>
-	    </property> -->
-	    <property name="filterChainDefinitions">
-	        <value>
-	            /v1/** = authcBasic
-	        </value>
-	    </property>
-	</bean>
-
-	<!-- Define any javax.servlet.Filter beans you want anywhere in this application context.   -->
-	<!-- They will automatically be acquired by the 'shiroFilter' bean above and made available -->
-	<!-- to the 'filterChainDefinitions' property.  Or you can manually/explicitly add them     -->
-	<!-- to the shiroFilter's 'filters' Map if desired. See its JavaDoc for more details.       -->
-	
-	
-	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager" depends-on="userRepository">
-	    <!-- Single realm app.  If you have multiple realms, use the 'realms' property instead. -->
-	    <property name="realm" ref="flashCardsAppRealm"/>
-	    <property name="subjectDAO" ref="subjectDAO"/>
-	    <!-- By default the servlet container sessions will be used.  Uncomment this line
-	         to use shiro's native sessions (see the JavaDoc for more): -->
-	    <!-- <property name="sessionMode" value="native"/> -->
-	</bean>
-
-	<bean id="subjectDAO" class="org.apache.shiro.mgt.DefaultSubjectDAO" >
-	    <property name="sessionStorageEvaluator" ref="sessionStorageEvaluator"/>
-	</bean>
-
-	<bean id="sessionStorageEvaluator" class="org.apache.shiro.mgt.DefaultSessionStorageEvaluator" >
-	    <!--  Setting to false will prevent Shiro from using a Subject's session to store that Subject's state across requests/invocations/messages for all Subjects. -->
-	    <property name="sessionStorageEnabled" value="false"/>
-	</bean>
-	
-	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
-	
-	<!-- Define the Shiro Realm implementation you want to use to connect to your back-end -->
-	<!-- security datasource: -->
-	<bean id="flashCardsAppRealm" class="org.robbins.flashcards.webservices.security.FlashCardsAppRealm" />
 
 </beans>
