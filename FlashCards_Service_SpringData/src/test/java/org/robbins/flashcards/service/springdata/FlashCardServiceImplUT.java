@@ -5,7 +5,6 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -24,11 +23,22 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @Category(UnitTest.class)
-public class FlashCardServiceUT extends BaseMockingTest {
+public class FlashCardServiceImplUT extends BaseMockingTest {
 
-	@Mock FlashCardRepository repository;
+	@Mock
+	FlashCardRepository repository;
+	
 	FlashCardServiceImpl flashCardService;
 
+	@Mock
+	FlashCard flashcard;
+	
+	@Mock
+	List<FlashCard> flashcards;
+	
+	@Mock
+	PageRequest page;
+	
 	@Before
 	public void before() {
 		flashCardService = new FlashCardServiceImpl();
@@ -37,60 +47,58 @@ public class FlashCardServiceUT extends BaseMockingTest {
 	
 	@Test
 	public void testFindByQuestion() {
-		when(repository.findByQuestion(Mockito.anyString())).thenReturn(new FlashCard());
+		when(repository.findByQuestion(Mockito.anyString())).thenReturn(flashcard);
 		
-		FlashCard flashCard = flashCardService.findByQuestion("Question");
+		FlashCard result = flashCardService.findByQuestion("Question");
 
 		Mockito.verify(repository, Mockito.times(1)).findByQuestion("Question");
-		assertThat(flashCard, is(FlashCard.class));
+		assertThat(result, is(FlashCard.class));
 	}
 	
 	@Test
 	public void testFindByQuestionLike() {
-		when(repository.findByQuestionLike(Mockito.anyString())).thenReturn(new ArrayList<FlashCard>());
+		when(repository.findByQuestionLike(Mockito.anyString())).thenReturn(flashcards);
 		
-		List<FlashCard> flashCards = flashCardService.findByQuestionLike("Question");
+		List<FlashCard> results = flashCardService.findByQuestionLike("Question");
 		
 		Mockito.verify(repository, Mockito.times(1)).findByQuestionLike("Question");
-		assertThat(flashCards, is(List.class));
+		assertThat(results, is(List.class));
 	}
 	
 	@Test
 	public void testFindByTagsIn() {
-		when(repository.findByTagsIn(new HashSet<Tag>())).thenReturn(new ArrayList<FlashCard>());
+		when(repository.findByTagsIn(new HashSet<Tag>())).thenReturn(flashcards);
 		
 		Set<Tag> tags = new HashSet<Tag>();
 		tags.add(new Tag("EJB"));
 
-		List<FlashCard> flashCards = flashCardService.findByTagsIn(tags);
+		List<FlashCard> results = flashCardService.findByTagsIn(tags);
 		
 		Mockito.verify(repository, Mockito.times(1)).findByTagsIn(tags);
-		assertThat(flashCards, is(List.class));
+		assertThat(results, is(List.class));
 	}
 	
 	@Test
 	public void testFindByTagsInWithPageRequest() {
-		when(repository.findByTagsIn(new HashSet<Tag>(), mock(PageRequest.class))).thenReturn(new ArrayList<FlashCard>());
+		when(repository.findByTagsIn(new HashSet<Tag>(), mock(PageRequest.class))).thenReturn(flashcards);
 
 		Set<Tag> tags = new HashSet<Tag>();
 		tags.add(new Tag("EJB"));
 		PageRequest page = mock(PageRequest.class);
 
-		List<FlashCard> flashCards = flashCardService.findByTagsIn(tags, page);
+		List<FlashCard> results = flashCardService.findByTagsIn(tags, page);
 		
 		Mockito.verify(repository, Mockito.times(1)).findByTagsIn(tags, page);
-		assertThat(flashCards, is(List.class));
+		assertThat(results, is(List.class));
 	}
 	
 	@Test
 	public void testFindByQuestionLikeWithPageRequest() {
-		when(repository.findByQuestionLike("Question", mock(PageRequest.class))).thenReturn(new ArrayList<FlashCard>());
+		when(repository.findByQuestionLike("Question", page)).thenReturn(flashcards);
 
-		PageRequest page = mock(PageRequest.class);
-
-		List<FlashCard> flashCards = flashCardService.findByQuestionLike("Question", page);
+		List<FlashCard> results = flashCardService.findByQuestionLike("Question", page);
 
 		Mockito.verify(repository, Mockito.times(1)).findByQuestionLike("Question", page);
-		assertThat(flashCards, is(List.class));	
+		assertThat(results, is(List.class));	
 	}
 }

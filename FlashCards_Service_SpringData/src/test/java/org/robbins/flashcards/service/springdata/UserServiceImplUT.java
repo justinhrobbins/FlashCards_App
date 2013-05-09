@@ -16,7 +16,7 @@ import org.robbins.tests.UnitTest;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @Category(UnitTest.class)
-public class UserServiceUT extends BaseMockingTest {
+public class UserServiceImplUT extends BaseMockingTest {
 
 	@Mock UserRepository repository;
 	UserServiceImpl userService;
