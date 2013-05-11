@@ -25,8 +25,8 @@ public abstract class GenericCrudServiceImpl<T, ID extends Serializable> impleme
 		return getRepository().findAll(ids);
 	}
 
-	public long count() {
-		return getRepository().count();
+	public Long count() {
+		return Long.valueOf(getRepository().count());
 	}
 
 	public void delete(ID id) {

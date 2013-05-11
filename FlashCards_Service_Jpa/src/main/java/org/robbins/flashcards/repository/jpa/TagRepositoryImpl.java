@@ -63,7 +63,6 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag> implement
 		}
 	}
 	
-	
 	@Override
 	public Long count() {
 		Query query = getEm().createQuery("SELECT COUNT(*) FROM Tag");

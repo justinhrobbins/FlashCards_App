@@ -17,8 +17,8 @@ public abstract class AbstractCrudServiceImpl<T> implements GenericJpaService<T,
 	}
 	
 	@Override
-	public long count() {
-		return getRepository().count();
+	public Long count() {
+		return Long.valueOf(getRepository().count());
 	}
 	
 	@Override

@@ -1,14 +1,11 @@
 package org.robbins.flashcards.repository.jpa;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
-
+import static org.hamcrest.core.IsNull.nullValue;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -18,10 +15,9 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
-import org.robbins.flashcards.repository.jpa.FlashCardRepository;
-import org.robbins.flashcards.repository.jpa.FlashCardRepositoryImpl;
+import org.robbins.flashcards.repository.jpa.TagRepository;
+import org.robbins.flashcards.repository.jpa.TagRepositoryImpl;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.data.domain.Page;
@@ -31,19 +27,21 @@ import org.springframework.data.domain.Sort;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @Category(UnitTest.class)
-public class FlashCardRepositoryUT extends BaseMockingTest {
+public class TagRepositoryImplUT extends BaseMockingTest {
 
-	@Mock EntityManager em;
+	@Mock 
+	EntityManager em;
+	
 	Query query;
-	List<FlashCard> results;
-	FlashCardRepository repository;
+	List<Tag> results;
+	TagRepository repository;
 	
 	@Before
 	public void before() {
-		repository = new FlashCardRepositoryImpl();
+		repository = new TagRepositoryImpl();
 		query = Mockito.mock(Query.class);
-		results = new ArrayList<FlashCard>();
-		results.add(new FlashCard());
+		results = new ArrayList<Tag>();
+		results.add(new Tag());
 		ReflectionTestUtils.setField(repository, "em", em);
 		
 		when(em.createQuery(Mockito.anyString())).thenReturn(query);
@@ -51,63 +49,36 @@ public class FlashCardRepositoryUT extends BaseMockingTest {
 	}
 	
 	@Test
-	public void testFindByQuestionLike() {
-		List<FlashCard> results = repository.findByQuestionLike("question"); 
+	public void testFindByName() {
+		Tag tag = repository.findByName("EJB"); 
 		
 		Mockito.verify(query, Mockito.times(1)).getResultList();
-		assertThat(results, is(List.class));
-	}
-
-	@Test
-	public void testFindByTagsIn() {
-		Set<Tag> tags = new HashSet<Tag>();
-		tags.add(new Tag("tag name"));
-		List<FlashCard> results = repository.findByTagsIn(tags);
-		
-		Mockito.verify(query, Mockito.times(1)).getResultList();
-		assertThat(results, is(List.class));
-	}
-
-	@Test
-	public void testFindByTagsInPageable() {
-		Pageable pageRequest = new PageRequest(1, 1);
-		List<FlashCard> results = repository.findByTagsIn(new HashSet<Tag>(), pageRequest);
-		
-		Mockito.verify(query, Mockito.times(1)).getResultList();
-		assertThat(results, is(List.class));
+		assertThat(tag, is(Tag.class));
 	}
 	
 	@Test
-	public void testFindByQuestion() {
-		FlashCard result = repository.findByQuestion("question"); 
-		
-		Mockito.verify(query, Mockito.times(1)).getResultList();
-		assertThat(result, is(FlashCard.class));
-	}
-	
-	@Test
-	public void testFindByQuestion_NoResults() {
-		List<FlashCard> results = new ArrayList<FlashCard>();
+	public void testFindByName_NoResults() {
+		List<Tag> results = new ArrayList<Tag>();
 		when(query.getResultList()).thenReturn(results);
 		
-		FlashCard flashCard = repository.findByQuestion("question"); 
+		Tag tag = repository.findByName("EJB"); 
 		
 		Mockito.verify(query, Mockito.times(1)).getResultList();
-		assertThat(flashCard, is(nullValue()));
+		assertThat(tag, is(nullValue()));
 	}
 	
 	@Test
 	public void testFindAll() {
-		List<FlashCard> results = repository.findAll();
+		List<Tag> tags = repository.findAll();
 		
 		Mockito.verify(query, Mockito.times(1)).getResultList();
-		assertThat(results, is(List.class));
+		assertThat(tags, is(List.class));
 	}
 	
 	@Test
 	public void testfindAllPageable() {
 		Pageable pageRequest = new PageRequest(1, 1);
-		Page<FlashCard> results = repository.findAll(pageRequest);
+		Page<Tag> results = repository.findAll(pageRequest);
 		
 		Mockito.verify(query, Mockito.times(1)).getResultList();
 		assertThat(results, is(Page.class));		
@@ -116,7 +87,7 @@ public class FlashCardRepositoryUT extends BaseMockingTest {
 	@Test
 	public void testfindAllSort() {
 		Sort sort = new Sort("name");
-		List<FlashCard> results = repository.findAll(sort);
+		List<Tag> results = repository.findAll(sort);
 		
 		Mockito.verify(query, Mockito.times(1)).getResultList();
 		assertThat(results, is(List.class));		

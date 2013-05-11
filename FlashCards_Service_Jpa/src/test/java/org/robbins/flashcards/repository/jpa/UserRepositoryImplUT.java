@@ -27,7 +27,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @Category(UnitTest.class)
-public class UserRepositoryUT extends BaseMockingTest {
+public class UserRepositoryImplUT extends BaseMockingTest {
 
 	@Mock EntityManager em;
 	Query query;

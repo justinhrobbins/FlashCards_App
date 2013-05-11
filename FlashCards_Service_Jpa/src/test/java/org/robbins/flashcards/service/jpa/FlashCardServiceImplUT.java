@@ -25,7 +25,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @Category(UnitTest.class)
-public class FlashCardServiceUT extends BaseMockingTest {
+public class FlashCardServiceImplUT extends BaseMockingTest {
 
 	@Mock FlashCardRepository repository;
 	FlashCardServiceImpl flashCardService;

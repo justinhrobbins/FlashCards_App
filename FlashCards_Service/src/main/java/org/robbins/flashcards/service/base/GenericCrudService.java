@@ -59,7 +59,7 @@ public interface GenericCrudService<T, ID extends Serializable> {
 	 * 
 	 * @return the number of entities
 	 */
-	long count();
+	Long count();
 
 	/**
 	 * Deletes the entity with the given id.

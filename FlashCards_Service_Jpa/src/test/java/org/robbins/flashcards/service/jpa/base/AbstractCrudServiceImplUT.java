@@ -1,11 +1,10 @@
-package org.robbins.flashcards.service.springdata.base;
+package org.robbins.flashcards.service.jpa.base;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.mock;
 
 import java.util.List;
 
@@ -15,25 +14,28 @@ import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.robbins.flashcards.model.Tag;
-import org.robbins.flashcards.repository.springdata.TagRepository;
-import org.robbins.flashcards.service.springdata.TagServiceImpl;
+import org.robbins.flashcards.repository.jpa.TagRepository;
+import org.robbins.flashcards.service.jpa.TagServiceImpl;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @Category(UnitTest.class)
-public class GenericCrudServiceImplUT extends BaseMockingTest {
+public class AbstractCrudServiceImplUT extends BaseMockingTest {
 
 	@Mock
 	TagRepository repository;
-	
-	TagServiceImpl tagService;
 	
 	@Mock
 	Tag tag;
 	
 	@Mock
 	List<Tag> tags;
+	
+	TagServiceImpl tagService;
 	
 	@Before
 	public void before() {
@@ -52,39 +54,6 @@ public class GenericCrudServiceImplUT extends BaseMockingTest {
 	}
 	
 	@Test
-	public void findOne() {
-		when(repository.findOne(Mockito.anyLong())).thenReturn(tag);
-		
-		Tag result = tagService.findOne(1L);
-		
-		verify(repository, Mockito.times(1)).findOne(1L);
-		assertThat(result, is(Tag.class));
-	}
-
-	@Test
-	public void exists() {
-		when(repository.exists(Mockito.anyLong())).thenReturn(Boolean.TRUE);
-		
-		Boolean result = tagService.exists(1L);
-		
-		verify(repository, Mockito.times(1)).exists(1L);
-		assertThat(result, is(Boolean.class));
-		assertTrue(result.booleanValue());
-	}
-	
-	@Test
-	public void findAllIterable() {
-		@SuppressWarnings("unchecked")
-		List<Long> ids = mock(List.class);
-		when(repository.findAll(ids)).thenReturn(tags);
-		
-		Iterable<Tag> results = tagService.findAll(ids);
-		
-		verify(repository, Mockito.times(1)).findAll(ids);
-		assertThat(results, is(List.class));
-	}
-	
-	@Test
 	public void count() {
 		Long count = 1L;
 		when(repository.count()).thenReturn(count);
@@ -93,6 +62,16 @@ public class GenericCrudServiceImplUT extends BaseMockingTest {
 		
 		verify(repository, Mockito.times(1)).count();
 		assertThat(results, is(Long.class));
+	}
+	
+	@Test
+	public void findOne() {
+		when(repository.findOne(Mockito.anyLong())).thenReturn(tag);
+		
+		Tag result = tagService.findOne(1L);
+		
+		verify(repository, Mockito.times(1)).findOne(1L);
+		assertThat(result, is(Tag.class));
 	}
 	
 	@Test
@@ -113,16 +92,36 @@ public class GenericCrudServiceImplUT extends BaseMockingTest {
 	}
 	
 	@Test
-	public void deleteIterable() {
-		tagService.delete(tags);
+	public void findAll() {
+		when(repository.findAll()).thenReturn(tags);
 		
-		verify(repository, Mockito.times(1)).delete(tags);
+		List<Tag> results = tagService.findAll();
+		
+		verify(repository, Mockito.times(1)).findAll();
+		assertThat(results, is(List.class));
 	}
 	
 	@Test
-	public void deleteAll() {
-		tagService.deleteAll();
+	public void findAllSort() {
+		Sort sort = mock(Sort.class);
+		when(repository.findAll(sort)).thenReturn(tags);
 		
-		verify(repository, Mockito.times(1)).deleteAll();
+		List<Tag> results = tagService.findAll(sort);
+		
+		verify(repository, Mockito.times(1)).findAll(sort);
+		assertThat(results, is(List.class));
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Test
+	public void findAllPageable() {
+		Pageable pageable = mock(Pageable.class);
+		Page page = mock(Page.class);
+		when(repository.findAll(pageable)).thenReturn(page);
+		
+		List<Tag> results = tagService.findAll(pageable);
+		
+		verify(repository, Mockito.times(1)).findAll(pageable);
+		assertThat(results, is(List.class));
 	}
 }

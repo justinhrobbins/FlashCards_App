@@ -17,7 +17,7 @@ import org.robbins.tests.UnitTest;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @Category(UnitTest.class)
-public class TagServiceUT extends BaseMockingTest {
+public class TagServiceImplUT extends BaseMockingTest {
 
 	@Mock TagRepository repository;
 	TagServiceImpl tagService;
