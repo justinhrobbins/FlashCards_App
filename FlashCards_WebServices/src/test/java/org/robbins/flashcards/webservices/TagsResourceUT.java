@@ -2,16 +2,16 @@ package org.robbins.flashcards.webservices;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.ws.rs.core.Response;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.service.TagService;
 import org.robbins.tests.BaseMockingTest;
@@ -21,7 +21,12 @@ import org.springframework.test.util.ReflectionTestUtils;
 @Category(UnitTest.class)
 public class TagsResourceUT extends BaseMockingTest {
 
-	@Mock TagService service;
+	@Mock
+	TagService service;
+	
+	@Mock
+	Tag tag;
+	
 	TagsResource resource;
 	
 	@Before
@@ -31,36 +36,24 @@ public class TagsResourceUT extends BaseMockingTest {
 	}
 	
 	@Test
-	public void post() {
-		when(service.save(Mockito.any(Tag.class))).thenReturn(new Tag(1L));
+	public void search() {
+		when(service.findByName(any(String.class))).thenReturn(tag);
 		
-		Tag tag = resource.post(new Tag());
+		Tag result = resource.searchByName(any(String.class));
 		
-		Mockito.verify(service).save(Mockito.any(Tag.class));
-		assertThat(tag, is(Tag.class));
+		verify(service).findByName(any(String.class));
+		assertThat(result, is(Tag.class));
 	}
 	
 	@Test
-	public void findOne() {
-		when(service.findOne(Mockito.anyLong())).thenReturn(new Tag(1L));
+	public void put() {
+		when(service.findOne(any(Long.class))).thenReturn(tag);
+		when(service.save(any(Tag.class))).thenReturn(tag);
 		
-		Tag tag = resource.findOne(1L);
+		Response response = resource.put(1L, tag);
 		
-		Mockito.verify(service).findOne(Mockito.anyLong());
-		assertThat(tag, is(Tag.class));
+		verify(service).findOne(any(Long.class));
+		verify(service).save(any(Tag.class));
+		assertThat(response.getStatus(), is(204));
 	}
-	
-	@Test
-	public void list() {
-		when(service.findAll()).thenReturn(new ArrayList<Tag>());
-		
-		List<Tag> tags = resource.list(null, null, null, null);
-		
-		Mockito.verify(service).findAll();
-		assertThat(tags, is(List.class));
-	}
-	
-//	@Test void delete() {
-//		when(service.delete(Mockito.anyLong())).thenReturn(new Response());
-//	}
 }

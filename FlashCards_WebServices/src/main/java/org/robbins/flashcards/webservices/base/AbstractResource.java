@@ -1,7 +1,5 @@
 package org.robbins.flashcards.webservices.base;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.ws.rs.core.Response;
 
 import org.apache.cxf.common.util.StringUtils;
@@ -32,13 +30,5 @@ public abstract class AbstractResource {
 			throw new GenericWebServiceException(Response.Status.BAD_REQUEST,
 					"Sort order must be 'asc' or 'desc'.  '" + order + "' is not an acceptable sort order");
 		}
-	}
-
-	@PostConstruct
-	public void postConstruct() {
-	}
- 
-	@PreDestroy
-	public void preDestroy() {
 	}
 }
