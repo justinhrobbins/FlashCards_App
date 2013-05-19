@@ -68,6 +68,14 @@ In addition to the technology stack outlined above, this project also uses:
 * Spring RestTemplate is used as the client for web service integration testing.
 * [Eclipse](http://www.eclipse.org/) IDE
 
+## Continuous Integration
+Github commits to this project trigger a Jenkins build on [Cloudbees](http://www.cloudbees.com/).
+Check out the [build status](https://justinhrobbins.ci.cloudbees.com/job/Flashcards/)
+
+## Software quality
+[Sonar](http://www.sonarsource.org/) is employed for analyzing the code quality and test coverage of the Flashcards project modules
+Check out the [sonar results](http://www.socialflashcards.com/sonar/).  
+
 ## Deployment
 The deployed app is hosted on the [Amazon EC2 cloud](http://aws.amazon.com/ec2/) using [Tomcat](http://tomcat.apache.org/) servlet container, [MySQL](http://www.mysql.com/)
 
