@@ -1,4 +1,4 @@
-package org.robbins.flashcards.webservices.security;
+package org.robbins.flashcards.webservices.security.shiro;
 
 import javax.inject.Inject;
 

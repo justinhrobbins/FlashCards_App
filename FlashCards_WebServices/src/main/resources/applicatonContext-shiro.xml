@@ -64,6 +64,6 @@
 	
 	<!-- Define the Shiro Realm implementation you want to use to connect to your back-end -->
 	<!-- security datasource: -->
-	<bean id="flashCardsAppRealm" class="org.robbins.flashcards.webservices.security.FlashCardsAppRealm" />
+	<bean id="flashCardsAppRealm" class="org.robbins.flashcards.webservices.security.shiro.FlashCardsAppRealm" />
 
 </beans>

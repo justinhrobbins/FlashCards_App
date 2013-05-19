@@ -1,4 +1,4 @@
-package org.robbins.flashcards.webservices.filters;
+package org.robbins.flashcards.webservices.cxf.providers;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -11,6 +11,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.cxf.jaxrs.ext.ResponseHandler;
@@ -23,6 +24,7 @@ import org.robbins.flashcards.service.util.FieldInitializerUtil;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 
@@ -135,11 +137,13 @@ public class PartialResponseFilter implements ResponseHandler {
 			SimpleFilterProvider filterProvider, Response response) {
 
 		try {
-			String jsonString = objectMapper.writer(filterProvider)
-					.writeValueAsString(object);
+			ObjectWriter writer = objectMapper.writer(filterProvider);
+			String jsonString = writer.writeValueAsString(object);
 
 			// replace the Response entity with our filtered JSON string
-			return Response.fromResponse(response).entity(jsonString).build();
+			ResponseBuilder builder = Response.fromResponse(response);
+			builder = builder.entity(jsonString);
+			return builder.build();
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			throw new GenericWebServiceException(

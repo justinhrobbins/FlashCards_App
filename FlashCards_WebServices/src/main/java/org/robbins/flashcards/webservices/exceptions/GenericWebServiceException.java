@@ -48,6 +48,11 @@ public class GenericWebServiceException extends WebApplicationException {
 	}
 	
 	private void throwError(Response.Status status, Object object) {
+		throw new WebApplicationException(buildResponse(status, object));
+	}
+	
+	public static Response buildResponse(Response.Status status, Object object) {
+		
 		// convert to Json
 		ObjectMapper mapper = new CustomObjectMapper();
 		String json;
@@ -62,8 +67,6 @@ public class GenericWebServiceException extends WebApplicationException {
 		ResponseBuilder builder = Response.status(status);
 		builder.entity(json);
 		builder.type(MediaType.APPLICATION_JSON);
-		Response response = builder.build();
-		
-		throw new WebApplicationException(response);
+		return builder.build();	
 	}
 }

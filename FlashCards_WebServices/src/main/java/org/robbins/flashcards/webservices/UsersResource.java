@@ -32,7 +32,7 @@ public class UsersResource extends AbstractGenericResource<User, Long> {
 	@GET
 	@Path("/search")
 	@ApiOperation(value = "Find a user by their OpenId", responseClass = "org.robbins.flashcards.model.User")
-	public User getUserSearch(@QueryParam("openid") String openid) {
+	public User search(@QueryParam("openid") String openid) {
 			return service.findUserByOpenid(openid);
 	}
 	

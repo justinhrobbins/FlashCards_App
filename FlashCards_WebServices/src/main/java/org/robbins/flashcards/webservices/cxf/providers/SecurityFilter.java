@@ -1,4 +1,4 @@
-package org.robbins.flashcards.webservices.filters;
+package org.robbins.flashcards.webservices.cxf.providers;
 
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;

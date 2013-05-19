@@ -37,6 +37,7 @@
 				<ref bean="jsonProvider" />
 				<ref bean="partialResponseFilter" />
 				<ref bean="securityFilter" />
+				<ref bean="defaultExceptionHandler" />
 			</list>
 		</property>
 		<property name="application" ref="basicApplication" />

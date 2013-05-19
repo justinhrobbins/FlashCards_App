@@ -41,7 +41,6 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 		List<T> entities = null;
 		
 	    try {
-	    	
             // are we trying to use Pagination or Sorting? 
             // if not then go ahead and return findAll()
             if ((page == null) && (StringUtils.isEmpty(sort))) {
@@ -62,10 +61,6 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 			logger.error(e.getMessage(), e);
 			throw new GenericWebServiceException(Response.Status.BAD_REQUEST,
 					"Inavlid sort parameter: '" + sort + "'", e);
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			throw new GenericWebServiceException(Response.Status.BAD_REQUEST,
-					"Unable to 'list' entities", e);
 		}
 
 	    // did we get any results?
@@ -80,13 +75,7 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 	@GET
 	@Path("/count")
 	public Long count() {
-		try {
-			return getService().count();
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			throw new GenericWebServiceException(
-					Response.Status.INTERNAL_SERVER_ERROR, e);
-		}
+		return getService().count();
 	}
 	
 	@GET
@@ -104,25 +93,13 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 	
 	@POST
 	public T post(T entity) {
-		try {
-			return getService().save(entity);
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR,
-					"Unable to 'post' entity", e);
-		}
+		return getService().save(entity);
 	}
 	
 	@PUT
 	@Path("/{id}")
 	public Response put(@PathParam("id") Long id, T entity) {
-		try {
-			getService().save(entity);
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR,
-					"Unable to 'put' entity: " + id, e);
-		}
+		getService().save(entity);
 		
 		return Response.noContent().build();
 	}
@@ -131,36 +108,25 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 	@Path("/{id}")
 	@ApiOperation(value = "Delete", responseClass = "void")
 	public Response delete(@PathParam("id") Long id) {
-		try {
-			getService().delete(id);
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR,
-					"Unable to 'delete' entity: " + id, e);
-		}
+		getService().delete(id);
+
 		return Response.noContent().build();
 	}
 
 	@POST
 	@Path("/{id}/update")
 	public Response update(@PathParam("id") Long id, T updatedEntity) {
-		try {
-			// get the original entity from the db
-			T originalEntity = getService().findOne(id);
+		// get the original entity from the db
+		T originalEntity = getService().findOne(id);
 
-			// merge the original with the updated entity
-			this.merge(updatedEntity, originalEntity);
+		// merge the original with the updated entity
+		this.merge(updatedEntity, originalEntity);
 
-			// persist the entity back to the db
-			getService().save(originalEntity);
+		// persist the entity back to the db
+		getService().save(originalEntity);
 
-			// return the response
-			return Response.noContent().build();
-
-		} catch (Exception e) {
-			throw new GenericWebServiceException(
-					Response.Status.INTERNAL_SERVER_ERROR, e.getMessage(), e);
-		}
+		// return the response
+		return Response.noContent().build();
 	}
 	
 	// update the target entity with any non-null field in the source entity

@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
 import org.junit.Before;
@@ -20,6 +21,7 @@ import org.robbins.flashcards.service.TagService;
 import org.robbins.flashcards.webservices.TagsResource;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -51,9 +53,16 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
 		assertThat(results, is(List.class));
 	}
 
+	@Test(expected = WebApplicationException.class)
+	public void listWithInvalidSortParameter() {
+		when(service.findAll(any(Sort.class))).thenThrow(new InvalidDataAccessApiUsageException("error"));
+		
+		resource.list(null, null, "bad_parameter", "asc");
+	}
+	
 	@Test
 	public void listWithSort() {
-		when(service.findAll()).thenReturn(new ArrayList<Tag>());
+		when(service.findAll(any(Sort.class))).thenReturn(new ArrayList<Tag>());
 		
 		List<Tag> results = resource.list(null, null, "name", "asc");
 		

@@ -5,6 +5,8 @@ public class WebServicesError {
 	private String errorName;
 	private String errorMessage;
 
+	public WebServicesError() {}
+	
 	public WebServicesError(int errorId, String errorName, String errorMessage) {
 		this.errorId = errorId;
 		this.errorName = errorName;
