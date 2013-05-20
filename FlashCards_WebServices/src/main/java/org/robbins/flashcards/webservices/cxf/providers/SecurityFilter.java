@@ -7,8 +7,11 @@ import org.apache.cxf.jaxrs.ext.RequestHandler;
 import org.apache.cxf.jaxrs.model.ClassResourceInfo;
 import org.apache.cxf.message.Message;
 import org.apache.log4j.Logger;
-import org.apache.shiro.SecurityUtils;
 import org.robbins.flashcards.model.User;
+import org.robbins.flashcards.service.UserService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 @Component("securityFilter")
@@ -18,6 +21,8 @@ public class SecurityFilter implements RequestHandler {
 
 	@Inject
 	private User loggedInUser;
+	
+	@Inject UserService userService;
 
 	/**
 	 * Gets the logged in user.
@@ -44,11 +49,18 @@ public class SecurityFilter implements RequestHandler {
 	 */
 	private void configureLoggedInUser() {
 		// get the logged in user name from Security Context
-		Long userId = (Long) SecurityUtils.getSubject().getPrincipal();
+//		Long userId = (Long) SecurityUtils.getSubject().getPrincipal();
+		
+		SecurityContext securityContext = SecurityContextHolder.getContext();
+		Authentication authentication = securityContext.getAuthentication();
+		org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
+		String openId = principal.getUsername();
   	
-		if (userId != null) {
+		User user = userService.findUserByOpenid(openId);
+		
+		if (user != null) {
 	    	// set the user id on the autowired loggedInUser
-			getLoggedInUser().setId(userId);
+			getLoggedInUser().setId(user.getId());
 			logger.debug("Logged In User Id: " + getLoggedInUser().getId());
 		}
 	}

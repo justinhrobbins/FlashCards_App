@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.Query;
 
 public interface GenericJpaService <T, ID extends Serializable> extends GenericPagingAndSortingService<T, ID> {
 	/*
@@ -39,7 +38,7 @@ public interface GenericJpaService <T, ID extends Serializable> extends GenericP
 	T saveAndFlush(T entity);
 
 	/**
-	 * Deletes the given entities in a batch which means it will create a single {@link Query}. Assume that we will clear
+	 * Deletes the given entities in a batch which means it will create a single Query. Assume that we will clear
 	 * the {@link javax.persistence.EntityManager} after the call.
 	 * 
 	 * @param entities

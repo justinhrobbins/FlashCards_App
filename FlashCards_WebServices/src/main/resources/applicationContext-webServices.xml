@@ -12,8 +12,11 @@
 		http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
 		http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 
+<!-- 
 	<import resource="classpath:applicatonContext-shiro.xml" />
+	<import resource="classpath:applicatonContext-springSecurity.xml" />
 	<import resource="classpath:applicatonContext-cxf.xml" />
+ -->
 
 	<bean id="loggedInUser" class="org.robbins.flashcards.model.User" scope="request" >
 		<aop:scoped-proxy/>
