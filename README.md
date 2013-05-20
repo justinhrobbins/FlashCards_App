@@ -65,6 +65,7 @@ I modeled the web services after the RESTful API best practices chronicled in th
 In addition to the technology stack outlined above, this project also uses:
 * [Maven](http://maven.apache.org/) for dependency management and project structure
 * [JUnit](http://www.junit.org/) and [Mockito](http://code.google.com/p/mockito/) are used for unit and integration tests
+* [DbUnit](http://www.dbunit.org/) and an embedded [H2](www.h2database.com/) database is used for integration tests
 * Spring RestTemplate is used as the client for web service integration testing.
 * [Eclipse](http://www.eclipse.org/) IDE
 
