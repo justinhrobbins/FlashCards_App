@@ -17,7 +17,7 @@ The documentation below outlines the technologies used in each module of the Fla
 ### WebServices
 JAX-RS web services using the following:
 * [Apache CXF](http://cxf.apache.org/docs/jax-rs.html) JSR 311: JAX-RS
-* [Apache Shiro](http://shiro.apache.org/authentication-features.html) Authentication
+* [Spring Security](http://static.springsource.org/spring-security/site/index.html) Authentication
 * [Spring](http://www.springsource.org/spring-framework)
 * [Jackson](http://wiki.fasterxml.com/JacksonHome) JSON processor
 
