@@ -22,7 +22,7 @@ JAX-RS web services using the following:
 * [Jackson](http://wiki.fasterxml.com/JacksonHome) JSON processor
 
 I modeled the web services after the RESTful API best practices chronicled in the [apigee blog](http://blog.apigee.com/).  The API has the following functionality:
-* Each JAX-RS resources supports CRUD using the relevant HTTP methods (@POST, @GET, @PUT, @DELETE)
+* Each JAX-RS resource supports CRUD using the relevant HTTP methods (@POST, @GET, @PUT, @DELETE)
 * [Partial updates](http://blog.apigee.com/detail/restful_api_design_can_your_api_give_developers_just_the_information/)
 * [API Versioning](http://blog.apigee.com/detail/restful_api_design_tips_for_versioning)
 * [Sorting and Pagination](http://blog.apigee.com/detail/restful_api_design_can_your_api_give_developers_just_the_information/)
