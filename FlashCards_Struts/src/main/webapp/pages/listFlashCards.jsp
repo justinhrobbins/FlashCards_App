@@ -4,7 +4,7 @@
 <s:actionmessage theme="jquery"/>
 
 <s:if test="flashCardList.size() > 0">
-	<table width="100%" border="0px" cellpadding="8px">
+	<table border="0px" cellpadding="8px">
 		<thead>
 			<tr>
 				<th><s:text name="label.flashcard.question" /></th>
@@ -16,7 +16,7 @@
 		<tbody>
 			<s:iterator value="flashCardList">
 				<tr>
-					<td>
+					<td class="wrapping">
 						<s:url var="url" action="display">
 							<s:param name="id">
 								<s:property value="id" />
@@ -24,7 +24,7 @@
 						</s:url>
 						<s:a href="%{url}"><s:property value="question" /></s:a>
 					</td>
-					<td class="wrapping">
+					<td>
 						<s:if test="tags.size() > 0">
 							<s:iterator value="tags" status="tagStatus">
 								<s:url var="url" namespace="/tag" action="display">

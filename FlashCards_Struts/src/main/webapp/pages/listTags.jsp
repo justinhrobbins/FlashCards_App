@@ -24,7 +24,7 @@
 						</s:url>
 						<s:a href="%{url}"><s:property value="name" /></s:a>
 					</td>
-					<td>
+					<td class="wrapping">
 						<s:if test="flashcards.size() > 0">
 							<s:iterator value="flashcards"  status="flashcardStatus">
 								<s:url var="url" namespace="/flashcard" action="display">
