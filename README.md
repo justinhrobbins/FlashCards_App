@@ -18,7 +18,7 @@ The documentation below outlines the technologies used in each module of the Fla
 JAX-RS web services using the following:
 * [Apache CXF](http://cxf.apache.org/docs/jax-rs.html) JSR 311: JAX-RS
 * [Spring Security](http://static.springsource.org/spring-security/site/index.html) Authentication
-* [Spring](http://www.springsource.org/spring-framework)
+* [Spring IOC](http://www.springsource.org/spring-framework)
 * [Jackson](http://wiki.fasterxml.com/JacksonHome) JSON processor
 
 I modeled the web services after the RESTful API best practices chronicled in the [apigee blog](http://blog.apigee.com/).  The API has the following functionality:
