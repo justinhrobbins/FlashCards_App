@@ -15,12 +15,14 @@ import org.junit.experimental.categories.Category;
 import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.model.util.TestEntityGenerator;
-import org.robbins.flashcards.webservices.base.GenericEntityRestTest;
+import org.robbins.flashcards.tests.webservices.GenericEntityRestTest;
 import org.robbins.flashcards.webservices.util.ResourceUrls;
 import org.robbins.tests.IntegrationTest;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.context.ContextConfiguration;
 
 @Category(IntegrationTest.class)
+@ContextConfiguration(locations = { "classpath*:applicatonContext-webServices-test.xml" })
 public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCard> {
 	static Logger logger = Logger.getLogger(FlashCardsResourceIT.class);
 	

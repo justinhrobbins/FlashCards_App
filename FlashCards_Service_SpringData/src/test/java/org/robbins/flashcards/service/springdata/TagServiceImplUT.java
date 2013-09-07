@@ -2,6 +2,7 @@ package org.robbins.flashcards.service.springdata;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -30,7 +31,8 @@ public class TagServiceImplUT extends BaseMockingTest {
 
 	@Test
 	public void findByName() {
-		when(repository.findByName(Mockito.anyString())).thenReturn(new Tag("EJB"));
+		
+		when(repository.findByName(anyString())).thenReturn(new Tag("EJB"));
 		
 		Tag tag = tagService.findByName("EJB");
 		
