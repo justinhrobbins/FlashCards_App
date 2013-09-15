@@ -2,14 +2,17 @@ package org.robbins.flashcards.dto;
 
 import java.io.Serializable;
 
-public class Tag implements Serializable {
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+public class TagDto implements Serializable {
 
 	private static final long serialVersionUID = 3642775570292807703L;
 
 	private Long id;
 	private String name;
 
-	public Tag() {
+	public TagDto() {
 	}
 
 	public Long getId() {
@@ -20,11 +23,11 @@ public class Tag implements Serializable {
 		this.id = id;
 	}
 	
-	public Tag(Long id) {
+	public TagDto(Long id) {
 		setId(id);
 	}
 
-	public Tag(String name) {
+	public TagDto(String name) {
 		this.name = name;
 	}
 

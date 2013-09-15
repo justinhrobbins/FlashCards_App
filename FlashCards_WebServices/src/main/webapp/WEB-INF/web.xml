@@ -25,6 +25,7 @@
 		<param-value>
 			<!-- classpath*:applicatonContext-aop.xml -->
 			<!-- classpath*:applicationContext-service-jpa.xml -->
+			classpath*:applicationContext-service.xml
 			classpath*:applicationContext-service-springdata.xml
 			classpath*:applicationContext-webServices.xml
 			<!-- classpath*:applicationContext-shiro.xml -->

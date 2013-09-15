@@ -15,10 +15,10 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import org.apache.commons.lang3.StringUtils;
+import org.robbins.flashcards.facade.FlashcardFacade;
+import org.robbins.flashcards.facade.TagFacade;
 import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
-import org.robbins.flashcards.service.FlashCardService;
-import org.robbins.flashcards.service.TagService;
 import org.robbins.flashcards.service.base.GenericJpaService;
 import org.robbins.flashcards.webservices.base.AbstractGenericResource;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
@@ -34,13 +34,13 @@ import com.wordnik.swagger.annotations.ApiOperation;
 public class FlashCardsResource extends AbstractGenericResource<FlashCard, Long> {
 
 	@Inject
-	private FlashCardService flashcardService;
+	private FlashcardFacade flashcardFacade;
 	
 	@Inject
-	private TagService tagService;
+	private TagFacade tagFacade;
 
-	protected GenericJpaService<FlashCard, Long> getService() {
-		return flashcardService;
+	protected GenericJpaService<FlashCard, Long> getFacade() {
+		return flashcardFacade;
 	}
 
 	@GET
@@ -72,10 +72,10 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCard, Long>
 		if (!StringUtils.isBlank(question)) {
 			// are we using pagination?
 			if (page != null) {
-				List<FlashCard> results = flashcardService.findByQuestionLike(question, new PageRequest(page, size));
+				List<FlashCard> results = flashcardFacade.findByQuestionLike(question, new PageRequest(page, size));
 				return results.toArray(new FlashCard[results.size()]);
 			} else {
-				List<FlashCard> results = flashcardService.findByQuestionLike(question);
+				List<FlashCard> results = flashcardFacade.findByQuestionLike(question);
 				return results.toArray(new FlashCard[results.size()]);				
 		}	}
 		// find by Tags
@@ -87,10 +87,10 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCard, Long>
 			}
 			// are we using Pagination?
 			if (page != null) {
-				List<FlashCard> results = flashcardService.findByTagsIn(tagsList, new PageRequest(page, size)); 
+				List<FlashCard> results = flashcardFacade.findByTagsIn(tagsList, new PageRequest(page, size)); 
 				return results.toArray(new FlashCard[results.size()]);
 			} else {
-				List<FlashCard> results = flashcardService.findByTagsIn(tagsList); 
+				List<FlashCard> results = flashcardFacade.findByTagsIn(tagsList); 
 				return results.toArray(new FlashCard[results.size()]);
 			}
 		}
@@ -105,7 +105,7 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCard, Long>
 
 		// some client apps don't know the Created By and Created Date, so make sure we set it 
 		if (entity.getCreatedBy() == null) {
-			FlashCard orig = flashcardService.findOne(id);
+			FlashCard orig = flashcardFacade.findOne(id);
 			entity.setCreatedBy(orig.getCreatedBy());
 			entity.setCreatedDate(orig.getCreatedDate());
 		}
@@ -129,7 +129,7 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCard, Long>
 			// if we don't have the id of the Tag
 			if (tag.getId() == null || tag.getId() == 0) {
 				// try to get the existing Tag
-				Tag existingTag = tagService.findByName(tag.getName());
+				Tag existingTag = tagFacade.findByName(tag.getName());
 				
 				// does the Tag exist?
 				if (existingTag != null) {

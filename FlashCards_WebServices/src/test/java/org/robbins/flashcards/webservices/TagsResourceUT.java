@@ -12,8 +12,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
+import org.robbins.flashcards.facade.TagFacade;
 import org.robbins.flashcards.model.Tag;
-import org.robbins.flashcards.service.TagService;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -22,7 +22,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 public class TagsResourceUT extends BaseMockingTest {
 
 	@Mock
-	TagService service;
+	TagFacade tagFacade;
 	
 	@Mock
 	Tag tag;
@@ -32,28 +32,28 @@ public class TagsResourceUT extends BaseMockingTest {
 	@Before
 	public void before() {
 		resource = new TagsResource();
-		ReflectionTestUtils.setField(resource, "service", service);
+		ReflectionTestUtils.setField(resource, "tagFacade", tagFacade);
 	}
 	
 	@Test
 	public void search() {
-		when(service.findByName(any(String.class))).thenReturn(tag);
+		when(tagFacade.findByName(any(String.class))).thenReturn(tag);
 		
 		Tag result = resource.searchByName(any(String.class));
 		
-		verify(service).findByName(any(String.class));
+		verify(tagFacade).findByName(any(String.class));
 		assertThat(result, is(Tag.class));
 	}
 	
 	@Test
 	public void put() {
-		when(service.findOne(any(Long.class))).thenReturn(tag);
-		when(service.save(any(Tag.class))).thenReturn(tag);
+		when(tagFacade.findOne(any(Long.class))).thenReturn(tag);
+		when(tagFacade.save(any(Tag.class))).thenReturn(tag);
 		
 		Response response = resource.put(1L, tag);
 		
-		verify(service).findOne(any(Long.class));
-		verify(service).save(any(Tag.class));
+		verify(tagFacade).findOne(any(Long.class));
+		verify(tagFacade).save(any(Tag.class));
 		assertThat(response.getStatus(), is(204));
 	}
 }

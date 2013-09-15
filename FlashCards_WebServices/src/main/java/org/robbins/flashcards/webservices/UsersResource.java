@@ -8,8 +8,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
+import org.robbins.flashcards.facade.UserFacade;
 import org.robbins.flashcards.model.User;
-import org.robbins.flashcards.service.UserService;
 import org.robbins.flashcards.service.base.GenericJpaService;
 import org.robbins.flashcards.webservices.base.AbstractGenericResource;
 import org.springframework.stereotype.Component;
@@ -23,17 +23,17 @@ import com.wordnik.swagger.annotations.ApiOperation;
 public class UsersResource extends AbstractGenericResource<User, Long> {
 	
 	@Inject
-	private UserService service;
+	private UserFacade userFacade;
 
-	protected GenericJpaService<User, Long> getService() {
-		return service;
+	protected GenericJpaService<User, Long> getFacade() {
+		return userFacade;
 	}
 	
 	@GET
 	@Path("/search")
 	@ApiOperation(value = "Find a user by their OpenId", responseClass = "org.robbins.flashcards.model.User")
 	public User search(@QueryParam("openid") String openid) {
-			return service.findUserByOpenid(openid);
+			return userFacade.findUserByOpenid(openid);
 	}
 	
 	@Override
@@ -41,7 +41,7 @@ public class UsersResource extends AbstractGenericResource<User, Long> {
 	public Response put(@PathParam("id") Long id, User entity) {
 
 		if (entity.getCreatedBy() == null) {
-			User orig = service.findOne(id);
+			User orig = userFacade.findOne(id);
 			entity.setCreatedBy(orig.getCreatedBy());
 			entity.setCreatedDate(orig.getCreatedDate());
 		}

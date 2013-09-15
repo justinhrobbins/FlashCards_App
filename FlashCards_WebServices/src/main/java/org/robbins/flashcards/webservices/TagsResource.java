@@ -9,8 +9,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
+import org.robbins.flashcards.facade.TagFacade;
 import org.robbins.flashcards.model.Tag;
-import org.robbins.flashcards.service.TagService;
 import org.robbins.flashcards.service.base.GenericJpaService;
 import org.robbins.flashcards.webservices.base.AbstractGenericResource;
 import org.springframework.stereotype.Component;
@@ -25,17 +25,17 @@ import com.wordnik.swagger.annotations.ApiOperation;
 public class TagsResource extends AbstractGenericResource<Tag, Long> {
 
 	@Inject
-	private TagService service;
+	private TagFacade tagFacade;
 	
-	protected GenericJpaService<Tag, Long> getService() {
-		return service;
+	protected GenericJpaService<Tag, Long> getFacade() {
+		return tagFacade;
 	}
 
 	@GET
 	@Path("/search")
 	@ApiOperation(value = "Find Tag by Name", responseClass = "org.robbins.flashcards.model.Tag")
 	public Tag searchByName(@QueryParam("name") String name) {
-			return service.findByName(name);
+			return tagFacade.findByName(name);
 	}
 	
 	@Override
@@ -44,7 +44,7 @@ public class TagsResource extends AbstractGenericResource<Tag, Long> {
 	public Response put(@PathParam("id") Long id, Tag entity) {
 
 		if (entity.getCreatedBy() == null) {
-			Tag orig = service.findOne(id);
+			Tag orig = tagFacade.findOne(id);
 			entity.setFlashcards(orig.getFlashcards());
 			entity.setCreatedBy(orig.getCreatedBy());
 			entity.setCreatedDate(orig.getCreatedDate());

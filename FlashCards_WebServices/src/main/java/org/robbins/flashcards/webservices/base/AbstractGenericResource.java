@@ -30,7 +30,7 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 	
 	private static Logger logger = Logger.getLogger(AbstractGenericResource.class);
 	
-	protected abstract GenericJpaService<T, Long> getService();
+	protected abstract GenericJpaService<T, Long> getFacade();
 
 	@GET
 	public List<T> list(@QueryParam("page") Integer page,
@@ -44,18 +44,18 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
             // are we trying to use Pagination or Sorting? 
             // if not then go ahead and return findAll()
             if ((page == null) && (StringUtils.isEmpty(sort))) {
-            	entities = getService().findAll();
+            	entities = getFacade().findAll();
             }
             // should we Page
             else if (page != null) {
                 PageRequest pageRequest = getPageRequest(page, size, sort, direction);
-                return getService().findAll(pageRequest);
+                return getFacade().findAll(pageRequest);
             }
             // should we just Sort the list?
             else if (!StringUtils.isEmpty(sort)) {
 	    		// get a sorted list
 	    		Sort entitySort = getSort(sort, direction);
-				entities = getService().findAll(entitySort);
+				entities = getFacade().findAll(entitySort);
 			}
 		} catch (InvalidDataAccessApiUsageException e) {
 			logger.error(e.getMessage(), e);
@@ -75,14 +75,14 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 	@GET
 	@Path("/count")
 	public Long count() {
-		return getService().count();
+		return getFacade().count();
 	}
 	
 	@GET
 	@Path("/{id}")
 	public T findOne(@PathParam("id") Long id) {
 
-		T entity = getService().findOne(id);
+		T entity = getFacade().findOne(id);
 
 		if (entity == null) {
 			throw new GenericWebServiceException(Response.Status.NOT_FOUND,
@@ -93,13 +93,13 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 	
 	@POST
 	public T post(T entity) {
-		return getService().save(entity);
+		return getFacade().save(entity);
 	}
 	
 	@PUT
 	@Path("/{id}")
 	public Response put(@PathParam("id") Long id, T entity) {
-		getService().save(entity);
+		getFacade().save(entity);
 		
 		return Response.noContent().build();
 	}
@@ -108,7 +108,7 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 	@Path("/{id}")
 	@ApiOperation(value = "Delete", responseClass = "void")
 	public Response delete(@PathParam("id") Long id) {
-		getService().delete(id);
+		getFacade().delete(id);
 
 		return Response.noContent().build();
 	}
@@ -117,13 +117,13 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 	@Path("/{id}/update")
 	public Response update(@PathParam("id") Long id, T updatedEntity) {
 		// get the original entity from the db
-		T originalEntity = getService().findOne(id);
+		T originalEntity = getFacade().findOne(id);
 
 		// merge the original with the updated entity
 		this.merge(updatedEntity, originalEntity);
 
 		// persist the entity back to the db
-		getService().save(originalEntity);
+		getFacade().save(originalEntity);
 
 		// return the response
 		return Response.noContent().build();
