@@ -10,9 +10,9 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.robbins.flashcards.model.Tag;
-import org.robbins.flashcards.model.util.TestEntityGenerator;
+import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.tests.webservices.GenericEntityRestTest;
+import org.robbins.flashcards.util.TestEntityGenerator;
 import org.robbins.flashcards.webservices.util.ResourceUrls;
 import org.robbins.tests.IntegrationTest;
 import org.springframework.http.HttpStatus;
@@ -20,19 +20,19 @@ import org.springframework.test.context.ContextConfiguration;
 
 @Category(IntegrationTest.class)
 @ContextConfiguration(locations = { "classpath*:applicatonContext-webServices-test.xml" })
-public class TagsResourceIT extends GenericEntityRestTest<Tag> {
+public class TagsResourceIT extends GenericEntityRestTest<TagDto> {
 	static Logger logger = Logger.getLogger(TagsResourceIT.class);
 	
 	// this entity will be created in @Before and we'll use it for our JUnit tests and then delete it in @After
-	private Tag entity = TestEntityGenerator.createTag("Web API Test 'Tag'");
+	private TagDto entity = TestEntityGenerator.createTagDto("Web API Test 'Tag'");
 	
 	@Override
-	public void setEntity(Tag entity) {
+	public void setEntity(TagDto entity) {
 		this.entity = entity;
 	}
 	
 	@Override
-	public Tag getEntity() {
+	public TagDto getEntity() {
 		return entity;
 	}
 
@@ -67,13 +67,13 @@ public class TagsResourceIT extends GenericEntityRestTest<Tag> {
 	}
 	
 	@Override
-	public Class<Tag> getClazz() {
-		return Tag.class;
+	public Class<TagDto> getClazz() {
+		return TagDto.class;
 	}
 
 	@Override
-	public Class<Tag[]> getClazzArray() {
-		return Tag[].class;
+	public Class<TagDto[]> getClazzArray() {
+		return TagDto[].class;
 	}
 	
 	/**
@@ -87,7 +87,7 @@ public class TagsResourceIT extends GenericEntityRestTest<Tag> {
 		uriVariables.put("name", name);
 		
 		// search results
-		Tag searchResult = searchSingleEntity(searchUrl(), uriVariables, Tag.class);
+		TagDto searchResult = searchSingleEntity(searchUrl(), uriVariables, TagDto.class);
 
 		// test that our get worked
 		assertTrue(searchResult != null);
@@ -101,7 +101,7 @@ public class TagsResourceIT extends GenericEntityRestTest<Tag> {
 		Long id = getEntity().getId();
 		String updatedValue = "updated value";
 		
-		Tag entity = new Tag();
+		TagDto entity = new TagDto();
 		entity.setName(updatedValue);
 
 		// build the URL
@@ -115,7 +115,7 @@ public class TagsResourceIT extends GenericEntityRestTest<Tag> {
 		assertEquals(status.toString(), "204");
 
 		// double-check the Entity info was updated by re-pulling the Entity
-		Tag retrievedEntity = getEntity(getEntityUrl(), getEntity().getId(), getClazz());
+		TagDto retrievedEntity = getEntity(getEntityUrl(), getEntity().getId(), getClazz());
 		assertEquals(updatedValue, retrievedEntity.getName());
 	}
 }

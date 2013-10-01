@@ -8,13 +8,18 @@ import static org.junit.Assert.assertThat;
 import javax.inject.Inject;
 
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.tests.BaseIntegrationTest;
+import org.robbins.tests.IntegrationTest;
+import org.springframework.test.context.ContextConfiguration;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
-@DatabaseSetup("flashCardsAppRepository.xml")
+@ContextConfiguration("classpath:test-applicationContext-service-springdata.xml")
+@DatabaseSetup("classpath:test-flashCardsAppRepository.xml")
+@Category(IntegrationTest.class)
 public class FlashCardRepositoryIT extends BaseIntegrationTest {
 
 	@Inject

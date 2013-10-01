@@ -1,4 +1,4 @@
-package org.robbins.flashcards.model.util;
+package org.robbins.flashcards.model.util.serializer;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;

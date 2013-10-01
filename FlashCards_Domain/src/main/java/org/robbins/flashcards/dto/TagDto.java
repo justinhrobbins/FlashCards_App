@@ -1,26 +1,29 @@
 package org.robbins.flashcards.dto;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
-public class TagDto implements Serializable {
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(value = Include.NON_NULL)
+@XmlRootElement(name="tag")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class TagDto extends AbstractAuditableDto implements Serializable {
 
 	private static final long serialVersionUID = 3642775570292807703L;
 
-	private Long id;
 	private String name;
+	private Set<FlashCardDto> flashcards = new HashSet<FlashCardDto>(0);
 
 	public TagDto() {
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 	
 	public TagDto(Long id) {
@@ -37,6 +40,14 @@ public class TagDto implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Set<FlashCardDto> getFlashcards() {
+		return flashcards;
+	}
+
+	public void setFlashcards(Set<FlashCardDto> flashcards) {
+		this.flashcards = flashcards;
 	}
 	
 	/**

@@ -1,4 +1,4 @@
-package org.robbins.flashcards.webservices.cxf.providers;
+package org.robbins.flashcards.providers;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;

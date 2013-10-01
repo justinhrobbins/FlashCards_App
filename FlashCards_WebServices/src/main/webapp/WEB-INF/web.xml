@@ -2,9 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-	id="WebApp_ID"
-	metadata-complete="true" 
-	version="3.0">
+	id="WebApp_ID" metadata-complete="true" version="3.0">
 	<display-name>FlashCards_WebServices</display-name>
 
 	<filter>
@@ -30,7 +28,7 @@
 			classpath*:applicationContext-webServices.xml
 			<!-- classpath*:applicationContext-shiro.xml -->
 			classpath*:applicationContext-springSecurity.xml
-			classpath*:applicationContext-cxf.xml
+			<!-- classpath*:applicationContext-cxf.xml -->
 		</param-value>
 	</context-param>
 
@@ -46,55 +44,62 @@
 		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>
 
-   <!-- Spring Security -->
-   <filter>
-      <filter-name>springSecurityFilterChain</filter-name>
-      <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-   </filter>
-   <filter-mapping>
-      <filter-name>springSecurityFilterChain</filter-name>
-      <url-pattern>/*</url-pattern>
-   </filter-mapping>
-
-	<!-- ================================================================== 
-		Shiro Filter is defined in the spring application context: ==================================================================
+	<!-- Spring Security -->
 	<filter>
-		<filter-name>shiroFilter</filter-name>
+		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-		<init-param>
-			<param-name>targetFilterLifecycle</param-name>
-			<param-value>true</param-value>
-		</init-param>
 	</filter>
 	<filter-mapping>
-		<filter-name>shiroFilter</filter-name>
+		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
- -->
- 
-	<servlet>
-		<servlet-name>Bootstrap</servlet-name>
-		<servlet-class>org.robbins.flashcards.webservices.swagger.SwaggerBootstrap</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
 
+	<!-- JAX-RS implementation -->
 	<servlet>
-		<servlet-name>CXFServlet</servlet-name>
-		<servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
-
-		<!-- set the base path for the swagger application -->
+		<servlet-name>jersey-serlvet</servlet-name>
+		<servlet-class>com.sun.jersey.spi.spring.container.servlet.SpringServlet</servlet-class>
 		<init-param>
-			<param-name>swagger.api.basepath</param-name>
-			<!-- <param-value>http://localhost:8080/api</param-value> -->
-			<param-value>http://socialflashcards.com/api/v1</param-value>
+			<param-name>com.sun.jersey.config.property.packages</param-name>
+			<param-value>
+		     	org.robbins.flashcards.webservices;
+		     </param-value>
 		</init-param>
 
-		<load-on-startup>2</load-on-startup>
-	</servlet>
+		<init-param>
+			<param-name>com.sun.jersey.config.feature.XmlRootElementProcessing</param-name>
+			<param-value>true</param-value>
+		</init-param>
 
+		<init-param>
+			<param-name>com.sun.jersey.spi.container.ContainerRequestFilters</param-name>
+			<param-value>org.robbins.flashcards.jersey.filters.SecurityFilter;com.sun.jersey.api.container.filter.LoggingFilter</param-value>
+		</init-param>
+		<init-param>
+			<param-name>com.sun.jersey.spi.container.ContainerResponseFilters</param-name>
+			<param-value>com.sun.jersey.api.container.filter.LoggingFilter</param-value>
+		</init-param>
+		<init-param>
+			<param-name>com.sun.jersey.config.feature.Trace</param-name>
+			<param-value>true</param-value>
+		</init-param>
+
+		<load-on-startup>1</load-on-startup>
+	</servlet>
 	<servlet-mapping>
-		<servlet-name>CXFServlet</servlet-name>
+		<servlet-name>jersey-serlvet</servlet-name>
 		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
 
+	<!-- ================================================================== 
+		Shiro Filter is defined in the spring application context: ================================================================== 
+		<filter> <filter-name>shiroFilter</filter-name> <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class> 
+		<init-param> <param-name>targetFilterLifecycle</param-name> <param-value>true</param-value> 
+		</init-param> </filter> <filter-mapping> <filter-name>shiroFilter</filter-name> 
+		<url-pattern>/*</url-pattern> </filter-mapping> -->
+	<!-- <servlet> <servlet-name>Bootstrap</servlet-name> <servlet-class>org.robbins.flashcards.webservices.swagger.SwaggerBootstrap</servlet-class> 
+		<load-on-startup>1</load-on-startup> </servlet> -->
+	<!-- <servlet> <servlet-name>CXFServlet</servlet-name> <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class> 
+		<init-param> <param-name>swagger.api.basepath</param-name> <param-value>http://localhost:8080/api</param-value> 
+		</init-param> <load-on-startup>2</load-on-startup> </servlet> <servlet-mapping> 
+		<servlet-name>CXFServlet</servlet-name> <url-pattern>/*</url-pattern> </servlet-mapping> -->
 </web-app>

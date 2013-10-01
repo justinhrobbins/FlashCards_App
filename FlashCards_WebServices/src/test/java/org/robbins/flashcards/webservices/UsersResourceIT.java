@@ -10,9 +10,9 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.robbins.flashcards.model.User;
-import org.robbins.flashcards.model.util.TestEntityGenerator;
+import org.robbins.flashcards.dto.UserDto;
 import org.robbins.flashcards.tests.webservices.GenericEntityRestTest;
+import org.robbins.flashcards.util.TestEntityGenerator;
 import org.robbins.flashcards.webservices.util.ResourceUrls;
 import org.robbins.tests.IntegrationTest;
 import org.springframework.http.HttpStatus;
@@ -20,19 +20,19 @@ import org.springframework.test.context.ContextConfiguration;
 
 @Category(IntegrationTest.class)
 @ContextConfiguration(locations = { "classpath*:applicatonContext-webServices-test.xml" })
-public class UsersResourceIT extends GenericEntityRestTest<User> {
+public class UsersResourceIT extends GenericEntityRestTest<UserDto> {
 	static Logger logger = Logger.getLogger(UsersResourceIT.class);
 	
 	// this entity will be created in @Before and we'll use it for our JUnit tests and then delete it in @After
-	private User entity = TestEntityGenerator.createUser("Web API Test 'openid'", "webapitest@email.com");
+	private UserDto entity = TestEntityGenerator.createUserDto("Web API Test 'openid'", "webapitest@email.com");
 	
 	@Override
-	public void setEntity(User entity) {
+	public void setEntity(UserDto entity) {
 		this.entity = entity;
 	}
 	
 	@Override
-	public User getEntity() {
+	public UserDto getEntity() {
 		return entity;
 	}
 
@@ -67,13 +67,13 @@ public class UsersResourceIT extends GenericEntityRestTest<User> {
 	}
 	
 	@Override
-	public Class<User> getClazz() {
-		return User.class;
+	public Class<UserDto> getClazz() {
+		return UserDto.class;
 	}
 
 	@Override
-	public Class<User[]> getClazzArray() {
-		return User[].class;
+	public Class<UserDto[]> getClazzArray() {
+		return UserDto[].class;
 	}
 	
 	/**
@@ -87,7 +87,7 @@ public class UsersResourceIT extends GenericEntityRestTest<User> {
 		uriVariables.put("openid", openid);
 		
 		// search results
-		User searchResult = searchSingleEntity(searchUrl(), uriVariables, User.class);
+		UserDto searchResult = searchSingleEntity(searchUrl(), uriVariables, UserDto.class);
 
 		// test that our get worked
 		assertTrue(searchResult != null);
@@ -101,7 +101,7 @@ public class UsersResourceIT extends GenericEntityRestTest<User> {
 		Long id = getEntity().getId();
 		String updatedValue = "updated value";
 		
-		User entity = new User();
+		UserDto entity = new UserDto();
 		entity.setFirstName(updatedValue);
 
 		// build the URL
@@ -115,7 +115,7 @@ public class UsersResourceIT extends GenericEntityRestTest<User> {
 		assertEquals(status.toString(), "204");
 
 		// double-check the Entity info was updated by re-pulling the Entity
-		User retrievedEntity = getEntity(getEntityUrl(), getEntity().getId(), getClazz());
+		UserDto retrievedEntity = getEntity(getEntityUrl(), getEntity().getId(), getClazz());
 		assertEquals(updatedValue, retrievedEntity.getFirstName());
 	}
 }

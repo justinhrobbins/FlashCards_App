@@ -1,4 +1,4 @@
-package org.robbins.flashcards.webservices.cxf.providers;
+package org.robbins.flashcards.cxf.filters;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -8,8 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
+import org.robbins.flashcards.dto.UserDto;
+import org.robbins.flashcards.facade.UserFacade;
 import org.robbins.flashcards.model.User;
-import org.robbins.flashcards.service.UserService;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.security.core.Authentication;
@@ -23,7 +24,7 @@ public class SecurityFilterUT extends BaseMockingTest {
 	User loggedInUser;
 
 	@Mock
-	UserService userService;
+	UserFacade userFacade;
 	
 	@Mock
 	Authentication mockAuthentication;
@@ -34,7 +35,7 @@ public class SecurityFilterUT extends BaseMockingTest {
 	public void before() {
 		securityFilter = new SecurityFilter();
 		ReflectionTestUtils.setField(securityFilter, "loggedInUser", loggedInUser);
-		ReflectionTestUtils.setField(securityFilter, "userService", userService);
+		ReflectionTestUtils.setField(securityFilter, "userFacade", userFacade);
 
 		SecurityContextHolder.getContext().setAuthentication(mockAuthentication);
 	}
@@ -48,16 +49,16 @@ public class SecurityFilterUT extends BaseMockingTest {
 	public void handleRequest() {
 		org.springframework.security.core.userdetails.User principal = mock(org.springframework.security.core.userdetails.User.class);
 		String mockOpenId = new String("open_id");
-		User mockUser = new User(1L);
+		UserDto mockUserDto = new UserDto(1L);
 		
 		when(mockAuthentication.getPrincipal()).thenReturn(principal);
 		when(principal.getUsername()).thenReturn(mockOpenId);
-		when(userService.findUserByOpenid(mockOpenId)).thenReturn(mockUser);
+		when(userFacade.findUserByOpenid(mockOpenId)).thenReturn(mockUserDto);
 
 		securityFilter.handleRequest(null, null);
 		
 		verify(mockAuthentication).getPrincipal();
 		verify(principal).getUsername();
-		verify(userService).findUserByOpenid(mockOpenId);
+		verify(userFacade).findUserByOpenid(mockOpenId);
 	}
 }

@@ -1,9 +1,7 @@
 package org.robbins.flashcards.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.AttributeOverride;
@@ -14,22 +12,12 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.robbins.flashcards.model.common.AbstractAuditable;
-
-import com.fasterxml.jackson.annotation.JsonFilter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @Entity
 @Table(name = "tag")
 @AttributeOverride(name="id", column=@Column(name="TagId"))
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(value = Include.NON_NULL)
-@JsonFilter("apiFilter")
 public class Tag extends AbstractAuditable<User, Long> implements Serializable {
 
 	private static final long serialVersionUID = 3642775570292807703L;
@@ -72,19 +60,6 @@ public class Tag extends AbstractAuditable<User, Long> implements Serializable {
 
 	public void setFlashcards(Set<FlashCard> flashcards) {
 		this.flashcards = flashcards;
-	}
-
-	@JsonIgnore
-	@Transient
-	public List<FlashCard> getFlashcardsAsList() {
-		if (getFlashcards() == null) {
-			return null;
-		}
-		List<FlashCard> flashCards = new ArrayList<FlashCard>();
-		for (FlashCard flashCard : getFlashcards()) {
-			flashCards.add(flashCard);
-		}
-		return flashCards;
 	}
 	
 	/**

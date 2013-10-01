@@ -16,24 +16,23 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
-import org.robbins.flashcards.service.base.GenericJpaService;
+import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 
+import com.sun.jersey.api.JResponse;
 import com.wordnik.swagger.annotations.ApiOperation;
 
 public abstract class AbstractGenericResource <T, Serializable> extends AbstractResource implements GenericResource <T, Serializable> {
 	
 	private static Logger logger = Logger.getLogger(AbstractGenericResource.class);
 	
-	protected abstract GenericJpaService<T, Long> getFacade();
+	protected abstract GenericCrudFacade<T> getFacade();
 
 	@GET
-	public List<T> list(@QueryParam("page") Integer page,
+	@Override
+	public JResponse<List<T>> list(@QueryParam("page") Integer page,
 						@DefaultValue("25") @QueryParam("size") Integer size,
 						@QueryParam("sort") String sort,
 						@DefaultValue("asc") @QueryParam("direction") String direction) {
@@ -41,22 +40,7 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 		List<T> entities = null;
 		
 	    try {
-            // are we trying to use Pagination or Sorting? 
-            // if not then go ahead and return findAll()
-            if ((page == null) && (StringUtils.isEmpty(sort))) {
-            	entities = getFacade().findAll();
-            }
-            // should we Page
-            else if (page != null) {
-                PageRequest pageRequest = getPageRequest(page, size, sort, direction);
-                return getFacade().findAll(pageRequest);
-            }
-            // should we just Sort the list?
-            else if (!StringUtils.isEmpty(sort)) {
-	    		// get a sorted list
-	    		Sort entitySort = getSort(sort, direction);
-				entities = getFacade().findAll(entitySort);
-			}
+            entities = getFacade().list(page, size, sort, direction);
 		} catch (InvalidDataAccessApiUsageException e) {
 			logger.error(e.getMessage(), e);
 			throw new GenericWebServiceException(Response.Status.BAD_REQUEST,
@@ -68,8 +52,8 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 			throw new GenericWebServiceException(Response.Status.NOT_FOUND,
 					"Entities not found");
 		}
-		
-		return entities;
+	    
+	    return JResponse.ok(entities).build();
 	}
 
 	@GET
@@ -80,9 +64,9 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 	
 	@GET
 	@Path("/{id}")
-	public T findOne(@PathParam("id") Long id) {
+	public T findOne(@PathParam("id") Long id, @QueryParam("fields") String fields) {
 
-		T entity = getFacade().findOne(id);
+		T entity = getFacade().findOne(id, fields);
 
 		if (entity == null) {
 			throw new GenericWebServiceException(Response.Status.NOT_FOUND,

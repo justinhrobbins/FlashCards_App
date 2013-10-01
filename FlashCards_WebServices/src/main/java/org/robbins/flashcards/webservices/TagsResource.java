@@ -1,6 +1,7 @@
 package org.robbins.flashcards.webservices;
 
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -9,9 +10,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
+import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.facade.TagFacade;
-import org.robbins.flashcards.model.Tag;
-import org.robbins.flashcards.service.base.GenericJpaService;
+import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.webservices.base.AbstractGenericResource;
 import org.springframework.stereotype.Component;
 
@@ -21,34 +22,36 @@ import com.wordnik.swagger.annotations.ApiOperation;
 @Path("/v1/tags/")
 @Component("tagsResource")
 @Api(value="/v1/tags", description = "Operations about Tags")
-@Produces("application/json")
-public class TagsResource extends AbstractGenericResource<Tag, Long> {
+@Produces({"application/xml", "application/json"})
+@Consumes({"application/xml","application/json"})
+public class TagsResource extends AbstractGenericResource<TagDto, Long> {
 
 	@Inject
 	private TagFacade tagFacade;
 	
-	protected GenericJpaService<Tag, Long> getFacade() {
+	protected GenericCrudFacade<TagDto> getFacade() {
 		return tagFacade;
 	}
 
 	@GET
 	@Path("/search")
-	@ApiOperation(value = "Find Tag by Name", responseClass = "org.robbins.flashcards.model.Tag")
-	public Tag searchByName(@QueryParam("name") String name) {
+	@ApiOperation(value = "Find Tag by Name", responseClass = "org.robbins.flashcards.dto.TagDto")
+	public TagDto searchByName(@QueryParam("name") String name) {
 			return tagFacade.findByName(name);
 	}
 	
 	@Override
 	@PUT
+	@Path("/{id}")
 	@ApiOperation(value = "Replace a Tag", responseClass = "void")
-	public Response put(@PathParam("id") Long id, Tag entity) {
+	public Response put(@PathParam("id") Long id, TagDto dto) {
 
-		if (entity.getCreatedBy() == null) {
-			Tag orig = tagFacade.findOne(id);
-			entity.setFlashcards(orig.getFlashcards());
-			entity.setCreatedBy(orig.getCreatedBy());
-			entity.setCreatedDate(orig.getCreatedDate());
+		if (dto.getCreatedBy() == null) {
+			TagDto orig = tagFacade.findOne(id);
+			dto.setFlashcards(orig.getFlashcards());
+			dto.setCreatedBy(orig.getCreatedBy());
+			dto.setCreatedDate(orig.getCreatedDate());
 		}
-		return super.put(id,  entity);
+		return super.put(id,  dto);
 	}
 }

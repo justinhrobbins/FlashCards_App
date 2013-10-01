@@ -1,4 +1,4 @@
-package org.robbins.flashcards.webservices.cxf.providers;
+package org.robbins.flashcards.cxf.filters;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsNull.nullValue;
@@ -26,9 +26,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
+import org.robbins.flashcards.cxf.filters.PartialResponseFilter;
 import org.robbins.flashcards.jackson.CustomObjectMapper;
 import org.robbins.flashcards.service.util.FieldInitializerUtil;
-import org.robbins.flashcards.webservices.cxf.providers.PartialResponseFilter;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.test.util.ReflectionTestUtils;

@@ -19,22 +19,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.robbins.flashcards.model.common.AbstractAuditable;
-
-import com.fasterxml.jackson.annotation.JsonFilter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @Entity
 @Table(name = "flashcard")
 @AttributeOverride(name="id", column=@Column(name="FlashCardId"))
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(value = Include.NON_NULL)
-@JsonFilter("apiFilter")
+
 public class FlashCard extends AbstractAuditable<User, Long> implements
 		Serializable {
 
@@ -103,19 +94,6 @@ public class FlashCard extends AbstractAuditable<User, Long> implements
 
 	public void setTags(Set<Tag> tags) {
 		this.tags = tags;
-	}
-
-	@JsonIgnore
-	@Transient
-	public List<Tag> getTagsAsList() {
-		if (getTags() == null) {
-			return null;
-		}
-		List<Tag> tagsList = new ArrayList<Tag>();
-		for (Tag tag : getTags()) {
-			tagsList.add(tag);
-		}
-		return tagsList;
 	}
 
 	public List<String> getLinks() {

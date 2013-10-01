@@ -13,18 +13,9 @@ import javax.persistence.TemporalType;
 import org.joda.time.DateTime;
 import org.robbins.flashcards.model.common.AbstractAuditable;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
 @Entity
 @Table(name = "user")
 @AttributeOverride(name="id", column=@Column(name="UserId"))
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(value = Include.NON_NULL)
-@JsonFilter("apiFilter")
 public class User extends AbstractAuditable<User, Long> implements Serializable {
 
 	/**
@@ -86,18 +77,6 @@ public class User extends AbstractAuditable<User, Long> implements Serializable 
 		this.language = language;
 	}
 
-	@Override
-	@JsonIgnore
-	public User getCreatedBy() {
-		return super.getCreatedBy();
-	}
-
-	@Override
-	@JsonIgnore
-	public User getLastModifiedBy() {
-		return super.getLastModifiedBy();
-	}
-	
 	public String getOpenid() {
 		return this.openid;
 	}

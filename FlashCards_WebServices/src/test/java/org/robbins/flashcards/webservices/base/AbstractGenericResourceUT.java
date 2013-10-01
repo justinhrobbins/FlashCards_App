@@ -16,127 +16,127 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
+import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.facade.TagFacade;
-import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.webservices.TagsResource;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.test.util.ReflectionTestUtils;
+
+import com.sun.jersey.api.JResponse;
 
 @Category(UnitTest.class)
 public class AbstractGenericResourceUT extends BaseMockingTest {
 
 	@Mock
-	TagFacade tagFacade;
+	TagFacade mockTagFacade;
 	
 	@Mock
-	Tag tag;
+	TagDto mockTagDto;
 	
 	TagsResource resource;
 	
 	@Before
 	public void before() {
 		resource = new TagsResource();
-		ReflectionTestUtils.setField(resource, "tagFacade", tagFacade);
+		ReflectionTestUtils.setField(resource, "tagFacade", mockTagFacade);
 	}
 
 	@Test
 	public void list() {
-		when(tagFacade.findAll()).thenReturn(new ArrayList<Tag>());
+		when(mockTagFacade.list(null, null, null, null)).thenReturn(new ArrayList<TagDto>());
 		
-		List<Tag> results = resource.list(null, null, null, null);
+		JResponse<List<TagDto>> results = resource.list(null, null, null, null);
 		
-		verify(tagFacade).findAll();
-		assertThat(results, is(List.class));
+		verify(mockTagFacade).list(null, null, null, null);
+		assertThat(results.getEntity(), is(List.class));
 	}
 
 	@Test(expected = WebApplicationException.class)
 	public void listWithInvalidSortParameter() {
-		when(tagFacade.findAll(any(Sort.class))).thenThrow(new InvalidDataAccessApiUsageException("error"));
+		when(mockTagFacade.list(null, null, "bad_parameter", "asc")).thenThrow(new InvalidDataAccessApiUsageException("error"));
 		
 		resource.list(null, null, "bad_parameter", "asc");
 	}
 	
 	@Test
 	public void listWithSort() {
-		when(tagFacade.findAll(any(Sort.class))).thenReturn(new ArrayList<Tag>());
+		when(mockTagFacade.list(null, null, "name", "asc")).thenReturn(new ArrayList<TagDto>());
 		
-		List<Tag> results = resource.list(null, null, "name", "asc");
+		JResponse<List<TagDto>> results = resource.list(null, null, "name", "asc");
 		
-		verify(tagFacade).findAll(any(Sort.class));
-		assertThat(results, is(List.class));
+		verify(mockTagFacade).list(null, null, "name", "asc");
+		assertThat(results.getEntity(), is(List.class));
 	}
 	
 	@Test
 	public void listWithPagingAndSort() {
-		when(tagFacade.findAll()).thenReturn(new ArrayList<Tag>());
+		when(mockTagFacade.list(0, 1, "name", "desc")).thenReturn(new ArrayList<TagDto>());
 		
-		List<Tag> results = resource.list(0, 1, "name", "desc");
+		JResponse<List<TagDto>> results = resource.list(0, 1, "name", "desc");
 		
-		verify(tagFacade).findAll(any(PageRequest.class));
-		assertThat(results, is(List.class));
+		verify(mockTagFacade).list(0, 1, "name", "desc");
+		assertThat(results.getEntity(), is(List.class));
 	}
 
 	@Test
 	public void listWithPagingNoSort() {
-		when(tagFacade.findAll()).thenReturn(new ArrayList<Tag>());
+		when(mockTagFacade.list(0, 1, null, null)).thenReturn(new ArrayList<TagDto>());
 		
-		List<Tag> results = resource.list(0, 1, null, null);
+		JResponse<List<TagDto>> results = resource.list(0, 1, null, null);
 		
-		verify(tagFacade).findAll(any(PageRequest.class));
-		assertThat(results, is(List.class));
+		verify(mockTagFacade).list(0, 1, null, null);
+		assertThat(results.getEntity(), is(List.class));
 	}
 	
 	@Test
 	public void count() {
-		when(tagFacade.count()).thenReturn(1L);
+		when(mockTagFacade.count()).thenReturn(1L);
 		
 		Long result = resource.count();
 		
-		verify(tagFacade).count();
+		verify(mockTagFacade).count();
 		assertThat(result, is(Long.class));
 	}
 
 	@Test
 	public void findOne() {
-		when(tagFacade.findOne(anyLong())).thenReturn(new Tag(1L));
+		when(mockTagFacade.findOne(anyLong())).thenReturn(new TagDto(1L));
 		
-		Tag result = resource.findOne(1L);
+		TagDto result = resource.findOne(1L, null);
 		
-		verify(tagFacade).findOne(anyLong());
-		assertThat(result, is(Tag.class));
+		verify(mockTagFacade).findOne(anyLong());
+		assertThat(result, is(TagDto.class));
 	}
 	
 	@Test
 	public void post() {
-		when(tagFacade.save(any(Tag.class))).thenReturn(new Tag(1L));
+		when(mockTagFacade.save(any(TagDto.class))).thenReturn(new TagDto(1L));
 		
-		Tag result = resource.post(new Tag());
+		TagDto result = resource.post(new TagDto());
 		
-		verify(tagFacade).save(any(Tag.class));
-		assertThat(result, is(Tag.class));
+		verify(mockTagFacade).save(any(TagDto.class));
+		assertThat(result, is(TagDto.class));
 	}
 	
 	@Test 
 	public void delete() {
 		Response response = resource.delete(anyLong());
 		
-		verify(tagFacade).delete(anyLong());
+		verify(mockTagFacade).delete(anyLong());
 		assertThat(response.getStatus(), is(204));		
 	}
 	
 	@Test 
 	public void update() {
-		when(tagFacade.findOne(any(Long.class))).thenReturn(tag);
-		when(tagFacade.save(any(Tag.class))).thenReturn(tag);
+		when(mockTagFacade.findOne(any(Long.class))).thenReturn(mockTagDto);
+		when(mockTagFacade.save(any(TagDto.class))).thenReturn(mockTagDto);
 		
-		Response response = resource.update(1L, tag);
+		Response response = resource.update(1L, mockTagDto);
 		
-		verify(tagFacade).findOne(any(Long.class));
-		verify(tagFacade).save(any(Tag.class));
+		verify(mockTagFacade).findOne(any(Long.class));
+		verify(mockTagFacade).save(any(TagDto.class));
 		assertThat(response.getStatus(), is(204));		
 	}
 }

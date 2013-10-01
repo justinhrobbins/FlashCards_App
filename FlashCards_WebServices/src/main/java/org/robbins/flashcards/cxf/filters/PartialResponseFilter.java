@@ -1,4 +1,4 @@
-package org.robbins.flashcards.webservices.cxf.providers;
+package org.robbins.flashcards.cxf.filters;
 
 import java.util.Collection;
 import java.util.HashSet;

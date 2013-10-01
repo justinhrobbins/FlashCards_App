@@ -6,7 +6,7 @@
 						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 	
 	<import resource="test-applicationContext-repository-springdata.xml" />
-<!-- <import resource="classpath:applicatonContext-aop.xml" /> -->
+	<!-- <import resource="classpath:applicatonContext-aop.xml" /> -->
 	
 	<context:component-scan base-package="org.robbins.flashcards.service.springdata, org.robbins.flashcards.service.util" />
 

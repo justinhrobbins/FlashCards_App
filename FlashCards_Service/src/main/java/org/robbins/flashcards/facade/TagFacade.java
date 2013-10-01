@@ -1,8 +1,10 @@
 package org.robbins.flashcards.facade;
 
+import org.robbins.flashcards.dto.TagDto;
+import org.robbins.flashcards.facade.base.CrudFacade;
+import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.model.Tag;
-import org.robbins.flashcards.service.base.GenericJpaService;
 
-public interface TagFacade extends GenericJpaService<Tag, Long> {
-	Tag findByName(String name);
+public interface TagFacade extends GenericCrudFacade<TagDto>, CrudFacade<TagDto, Tag> {
+	TagDto findByName(String name);
 }

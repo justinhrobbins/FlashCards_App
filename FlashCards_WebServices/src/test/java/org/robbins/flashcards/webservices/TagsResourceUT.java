@@ -12,8 +12,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
+import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.facade.TagFacade;
-import org.robbins.flashcards.model.Tag;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -25,7 +25,7 @@ public class TagsResourceUT extends BaseMockingTest {
 	TagFacade tagFacade;
 	
 	@Mock
-	Tag tag;
+	TagDto tagDto;
 	
 	TagsResource resource;
 	
@@ -37,23 +37,23 @@ public class TagsResourceUT extends BaseMockingTest {
 	
 	@Test
 	public void search() {
-		when(tagFacade.findByName(any(String.class))).thenReturn(tag);
+		when(tagFacade.findByName(any(String.class))).thenReturn(tagDto);
 		
-		Tag result = resource.searchByName(any(String.class));
+		TagDto result = resource.searchByName(any(String.class));
 		
 		verify(tagFacade).findByName(any(String.class));
-		assertThat(result, is(Tag.class));
+		assertThat(result, is(TagDto.class));
 	}
 	
 	@Test
 	public void put() {
-		when(tagFacade.findOne(any(Long.class))).thenReturn(tag);
-		when(tagFacade.save(any(Tag.class))).thenReturn(tag);
+		when(tagFacade.findOne(any(Long.class))).thenReturn(tagDto);
+		when(tagFacade.save(any(TagDto.class))).thenReturn(tagDto);
 		
-		Response response = resource.put(1L, tag);
+		Response response = resource.put(1L, tagDto);
 		
 		verify(tagFacade).findOne(any(Long.class));
-		verify(tagFacade).save(any(Tag.class));
+		verify(tagFacade).save(any(TagDto.class));
 		assertThat(response.getStatus(), is(204));
 	}
 }

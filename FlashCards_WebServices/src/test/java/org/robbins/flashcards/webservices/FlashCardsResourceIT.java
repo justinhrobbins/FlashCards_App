@@ -12,10 +12,10 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.robbins.flashcards.model.FlashCard;
-import org.robbins.flashcards.model.Tag;
-import org.robbins.flashcards.model.util.TestEntityGenerator;
+import org.robbins.flashcards.dto.FlashCardDto;
+import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.tests.webservices.GenericEntityRestTest;
+import org.robbins.flashcards.util.TestEntityGenerator;
 import org.robbins.flashcards.webservices.util.ResourceUrls;
 import org.robbins.tests.IntegrationTest;
 import org.springframework.http.HttpStatus;
@@ -23,19 +23,19 @@ import org.springframework.test.context.ContextConfiguration;
 
 @Category(IntegrationTest.class)
 @ContextConfiguration(locations = { "classpath*:applicatonContext-webServices-test.xml" })
-public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCard> {
+public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto> {
 	static Logger logger = Logger.getLogger(FlashCardsResourceIT.class);
 	
 	// this entity will be created in @Before and we'll use it for our JUnit tests and then delete it in @After
-	private FlashCard entity = TestEntityGenerator.createFlashCard("Web API Test 'Question'", "Web API Test 'Answer'");
+	private FlashCardDto entity = TestEntityGenerator.createFlashCardDto("Web API Test 'Question'", "Web API Test 'Answer'");
 	
 	@Override
-	public void setEntity(FlashCard entity) {
+	public void setEntity(FlashCardDto entity) {
 		this.entity = entity;
 	}
 	
 	@Override
-	public FlashCard getEntity() {
+	public FlashCardDto getEntity() {
 		return entity;
 	}
 
@@ -70,13 +70,13 @@ public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCard> {
 	}
 	
 	@Override
-	public Class<FlashCard> getClazz() {
-		return FlashCard.class;
+	public Class<FlashCardDto> getClazz() {
+		return FlashCardDto.class;
 	}
 
 	@Override
-	public Class<FlashCard[]> getClazzArray() {
-		return FlashCard[].class;
+	public Class<FlashCardDto[]> getClazzArray() {
+		return FlashCardDto[].class;
 	}
 
 	private Map<String, String> setupSearchUriVariables() {
@@ -97,7 +97,7 @@ public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCard> {
 		uriVariables.put("tags", "2,3");
 		
 		// search result
-		FlashCard[] searchResult = searchEntities(searchUrl(), uriVariables, FlashCard[].class);
+		FlashCardDto[] searchResult = searchEntities(searchUrl(), uriVariables, FlashCardDto[].class);
 
 		// test that our get worked
 		assertTrue(searchResult.length > 0);
@@ -111,7 +111,7 @@ public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCard> {
 		Long id = getEntity().getId();
 		String updatedValue = "updated value";
 		
-		FlashCard entity = new FlashCard();
+		FlashCardDto entity = new FlashCardDto();
 		entity.setQuestion(updatedValue);
 
 		// build the URL
@@ -125,24 +125,24 @@ public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCard> {
 		assertEquals(status.toString(), "204");
 
 		// double-check the Entity info was updated by re-pulling the Entity
-		FlashCard retrievedEntity = getEntity(getEntityUrl(), getEntity().getId(), getClazz());
+		FlashCardDto retrievedEntity = getEntity(getEntityUrl(), getEntity().getId(), getClazz());
 		assertEquals(updatedValue, retrievedEntity.getQuestion());
 	}
 	
 	@Test
 	public void createNewFlashCard_WithNewTag() {
 		
-		FlashCard flashCard = new FlashCard();
+		FlashCardDto flashCard = new FlashCardDto();
 		flashCard.setQuestion("Question4");
 		flashCard.setAnswer("Answer4");
 		
-		Tag tag = new Tag();
+		TagDto tag = new TagDto();
 		tag.setName("tag4");
 		
 		flashCard.getTags().add(tag);
 		
 		// make the REST call
-		FlashCard newFlashCard = postEntity(postEntityUrl(), flashCard, getClazz());
+		FlashCardDto newFlashCard = postEntity(postEntityUrl(), flashCard, getClazz());
 
 		assertThat(newFlashCard.getId(), greaterThan(0L));
 		assertThat(newFlashCard.getTags().size(), greaterThan(0));

@@ -16,10 +16,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
+import org.robbins.flashcards.dto.FlashCardDto;
+import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.facade.FlashcardFacade;
-import org.robbins.flashcards.facade.TagFacade;
-import org.robbins.flashcards.model.FlashCard;
-import org.robbins.flashcards.model.Tag;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.data.domain.PageRequest;
@@ -32,10 +31,7 @@ public class FlashCardsResourceUT extends BaseMockingTest {
 	FlashcardFacade flashcardFacade;
 
 	@Mock
-	TagFacade tagFacade;
-	
-	@Mock
-	FlashCard flashcard;
+	FlashCardDto flashcard;
 	
 	FlashCardsResource resource;
 	
@@ -43,49 +39,48 @@ public class FlashCardsResourceUT extends BaseMockingTest {
 	public void before() {
 		resource = new FlashCardsResource();
 		ReflectionTestUtils.setField(resource, "flashcardFacade", flashcardFacade);
-		ReflectionTestUtils.setField(resource, "tagFacade", tagFacade);
 	}
 
 	@Test
 	public void searchByQuestionWithPaging() {
-		when(flashcardFacade.findByQuestionLike(any(String.class), any(PageRequest.class))).thenReturn(new ArrayList<FlashCard>());
+		when(flashcardFacade.findByQuestionLike(any(String.class), any(PageRequest.class))).thenReturn(new ArrayList<FlashCardDto>());
 		
-		FlashCard[] results = resource.search(0, 1, "Question", null);
+		FlashCardDto[] results = resource.search(0, 1, "Question", null);
 		
 		verify(flashcardFacade).findByQuestionLike(any(String.class), any(PageRequest.class));
-		assertThat(results, is(FlashCard[].class));
+		assertThat(results, is(FlashCardDto[].class));
 	}
 	
 	@Test
 	public void searchByQuestionNoPaging() {
-		when(flashcardFacade.findByQuestionLike(any(String.class))).thenReturn(new ArrayList<FlashCard>());
+		when(flashcardFacade.findByQuestionLike(any(String.class))).thenReturn(new ArrayList<FlashCardDto>());
 		
-		FlashCard[] results = resource.search(null, null, "Question", null);
+		FlashCardDto[] results = resource.search(null, null, "Question", null);
 		
 		verify(flashcardFacade).findByQuestionLike(any(String.class));
-		assertThat(results, is(FlashCard[].class));
+		assertThat(results, is(FlashCardDto[].class));
 	}
 
 	@SuppressWarnings("unchecked")
 	@Test
 	public void searchByTagsWithPaging() {
-		when(flashcardFacade.findByTagsIn(any(Set.class), any(PageRequest.class))).thenReturn(new ArrayList<FlashCard>());
+		when(flashcardFacade.findByTagsIn(any(Set.class), any(PageRequest.class))).thenReturn(new ArrayList<FlashCardDto>());
 		
-		FlashCard[] results = resource.search(0, 1, null, "1,2");
+		FlashCardDto[] results = resource.search(0, 1, null, "1,2");
 		
 		verify(flashcardFacade).findByTagsIn(any(Set.class), any(PageRequest.class));
-		assertThat(results, is(FlashCard[].class));
+		assertThat(results, is(FlashCardDto[].class));
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Test
 	public void searchByTagsNoPaging() {
-		when(flashcardFacade.findByTagsIn(any(Set.class))).thenReturn(new ArrayList<FlashCard>());
+		when(flashcardFacade.findByTagsIn(any(Set.class))).thenReturn(new ArrayList<FlashCardDto>());
 		
-		FlashCard[] results = resource.search(null, null, null, "1,2");
+		FlashCardDto[] results = resource.search(null, null, null, "1,2");
 		
 		verify(flashcardFacade).findByTagsIn(any(Set.class));
-		assertThat(results, is(FlashCard[].class));
+		assertThat(results, is(FlashCardDto[].class));
 	}
 
 	@Test(expected = WebApplicationException.class)
@@ -95,7 +90,7 @@ public class FlashCardsResourceUT extends BaseMockingTest {
 	
 	@Test
 	public void searchCount() {
-		when(flashcardFacade.findByQuestionLike(any(String.class))).thenReturn(new ArrayList<FlashCard>());
+		when(flashcardFacade.findByQuestionLike(any(String.class))).thenReturn(new ArrayList<FlashCardDto>());
 		
 		Long results = resource.searchCount("Question", null);
 		
@@ -106,62 +101,58 @@ public class FlashCardsResourceUT extends BaseMockingTest {
 	@Test
 	public void put() {
 		when(flashcardFacade.findOne(any(Long.class))).thenReturn(flashcard);
-		when(flashcardFacade.save(any(FlashCard.class))).thenReturn(flashcard);
+		when(flashcardFacade.save(any(FlashCardDto.class))).thenReturn(flashcard);
 		
 		Response response = resource.put(1L, flashcard);
 		
 		verify(flashcardFacade).findOne(any(Long.class));
-		verify(flashcardFacade).save(any(FlashCard.class));
+		verify(flashcardFacade).save(any(FlashCardDto.class));
 		assertThat(response.getStatus(), is(204));
 	}
 	
 	@Test
 	public void postNoTags() {
-		when(flashcardFacade.save(any(FlashCard.class))).thenReturn(flashcard);
+		when(flashcardFacade.save(any(FlashCardDto.class))).thenReturn(flashcard);
 		
-		FlashCard result = resource.post(flashcard);
+		FlashCardDto result = resource.post(flashcard);
 		
-		verify(flashcardFacade).save(any(FlashCard.class));
-		assertThat(result, is(FlashCard.class));
+		verify(flashcardFacade).save(any(FlashCardDto.class));
+		assertThat(result, is(FlashCardDto.class));
 	}
 	
 	@Test
 	public void postWithTagByName() {
-		when(tagFacade.findByName(any(String.class))).thenReturn(new Tag());
-		when(flashcardFacade.save(any(FlashCard.class))).thenReturn(flashcard);
+		when(flashcardFacade.save(any(FlashCardDto.class))).thenReturn(flashcard);
 		
-		FlashCard flashcard = new FlashCard();
-		flashcard.getTags().add(new Tag("tag1"));
-		FlashCard result = resource.post(flashcard);
+		FlashCardDto flashcard = new FlashCardDto();
+		flashcard.getTags().add(new TagDto("tag1"));
+		FlashCardDto result = resource.post(flashcard);
 		
-		verify(tagFacade).findByName(any(String.class));
-		verify(flashcardFacade).save(any(FlashCard.class));
-		assertThat(result, is(FlashCard.class));
+		verify(flashcardFacade).save(any(FlashCardDto.class));
+		assertThat(result, is(FlashCardDto.class));
 	}
 	
 	@Test
 	public void postWithNewTagByName() {
-		when(tagFacade.findByName(any(String.class))).thenReturn(null);
-		when(flashcardFacade.save(any(FlashCard.class))).thenReturn(flashcard);
+		when(flashcardFacade.save(any(FlashCardDto.class))).thenReturn(flashcard);
 		
-		FlashCard flashcard = new FlashCard();
-		flashcard.getTags().add(new Tag("tag1"));
-		FlashCard result = resource.post(flashcard);
+		FlashCardDto flashcard = new FlashCardDto();
+		flashcard.getTags().add(new TagDto("tag1"));
+		FlashCardDto result = resource.post(flashcard);
 		
-		verify(tagFacade).findByName(any(String.class));
-		verify(flashcardFacade).save(any(FlashCard.class));
-		assertThat(result, is(FlashCard.class));
+		verify(flashcardFacade).save(any(FlashCardDto.class));
+		assertThat(result, is(FlashCardDto.class));
 	}
 	
 	@Test
 	public void postWithTagById() {
-		when(flashcardFacade.save(any(FlashCard.class))).thenReturn(flashcard);
+		when(flashcardFacade.save(any(FlashCardDto.class))).thenReturn(flashcard);
 		
-		FlashCard flashcard = new FlashCard();
-		flashcard.getTags().add(new Tag(1L));
-		FlashCard result = resource.post(flashcard);
+		FlashCardDto flashcard = new FlashCardDto();
+		flashcard.getTags().add(new TagDto(1L));
+		FlashCardDto result = resource.post(flashcard);
 		
-		verify(flashcardFacade).save(any(FlashCard.class));
-		assertThat(result, is(FlashCard.class));
+		verify(flashcardFacade).save(any(FlashCardDto.class));
+		assertThat(result, is(FlashCardDto.class));
 	}
 }

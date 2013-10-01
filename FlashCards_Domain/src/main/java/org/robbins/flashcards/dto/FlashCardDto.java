@@ -6,10 +6,19 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
-public class FlashCardDto implements
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(value = Include.NON_NULL)
+@XmlRootElement(name="flashcard")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class FlashCardDto extends AbstractAuditableDto implements
 		Serializable {
 
 	/**
@@ -17,11 +26,9 @@ public class FlashCardDto implements
 	 */
 	private static final long serialVersionUID = -3461056579037652853L;
 
-	private Long id;
 	private String question;
 	private String answer;
 	private Set<TagDto> tags = new HashSet<TagDto>(0);
-
 	private List<String> links = new ArrayList<String>(0);
 
 	public FlashCardDto() {
@@ -42,14 +49,6 @@ public class FlashCardDto implements
 		this.answer = answer;
 		this.tags = tags;
 		this.links = links;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 	
 	public String getQuestion() {

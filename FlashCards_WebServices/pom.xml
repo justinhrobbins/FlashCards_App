@@ -15,6 +15,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<m2eclipse.wtp.contextRoot>api</m2eclipse.wtp.contextRoot>
+		<jersey.version>1.17.1</jersey.version>
 	</properties>
 	<dependencies>
 		<!-- FlashCards project module dependencies -->
@@ -37,7 +38,59 @@
 			<artifactId>cxf-rt-frontend-jaxrs</artifactId>
 			<version>2.5.1</version>
 		</dependency>
-		
+
+		<!-- Jersey dependencies -->
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-server</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+        
+        <!-- Jackson dependencies -->
+		<dependency>
+		  <groupId>com.fasterxml.jackson.jaxrs</groupId>
+		  <artifactId>jackson-jaxrs-json-provider</artifactId>
+		  <version>${jackson.version}</version>
+		</dependency>
+
+        <!-- Jersey + Spring integration dependency -->
+		<dependency>
+		    <groupId>com.sun.jersey.contribs</groupId>
+		    <artifactId>jersey-spring</artifactId>
+		    <version>${jersey.version}</version>
+		    <!-- don't let this artifcat pull in old versions of the following dependencies -->
+		    <exclusions>
+		    	<exclusion>
+		    		<artifactId>spring-aop</artifactId>
+		    		<groupId>org.springframework</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>spring-asm</artifactId>
+		    		<groupId>org.springframework</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>spring-beans</artifactId>
+		    		<groupId>org.springframework</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>spring-context</artifactId>
+		    		<groupId>org.springframework</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>spring-core</artifactId>
+		    		<groupId>org.springframework</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>spring-expression</artifactId>
+		    		<groupId>org.springframework</groupId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<artifactId>spring-web</artifactId>
+		    		<groupId>org.springframework</groupId>
+		    	</exclusion>
+		    </exclusions>
+		</dependency>
+
 		<!-- Jackson -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>

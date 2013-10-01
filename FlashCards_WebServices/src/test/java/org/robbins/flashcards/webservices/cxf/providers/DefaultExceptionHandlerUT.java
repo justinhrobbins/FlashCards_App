@@ -12,7 +12,7 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 import org.apache.cxf.jaxrs.impl.ResponseBuilderImpl;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.robbins.flashcards.webservices.cxf.providers.DefaultExceptionHandler;
+import org.robbins.flashcards.providers.DefaultExceptionHandler;
 import org.robbins.flashcards.webservices.exceptions.WebServicesError;
 import org.robbins.tests.UnitTest;
 

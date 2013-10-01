@@ -18,13 +18,13 @@
 	    <property name="driverClass" value="org.h2.Driver"/>
 	    <property name="jdbcUrl" value="jdbc:h2:mem:flashcardsDb;MVCC=true"/>
 	</bean>
-
+<!--
 	<bean id="org.h2.tools.Server-WebServer" class="org.h2.tools.Server" 
 	    factory-method="createWebServer" depends-on="dataSource" 
 	    init-method="start" lazy-init="false">
 	    <constructor-arg value="-web,-webPort,11111" />
 	</bean>
-
+ -->
  	<bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 		<property name="showSql" value="true"/>
 		<property name="generateDdl" value="true"/>

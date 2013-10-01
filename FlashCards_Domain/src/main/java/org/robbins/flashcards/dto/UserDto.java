@@ -3,17 +3,25 @@ package org.robbins.flashcards.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
-public class UserDto implements Serializable {
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(value = Include.NON_NULL)
+@XmlRootElement(name="user")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class UserDto extends AbstractPersistableDto implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6131151516357988050L;
 
-	private Long id;
 	private String openid;
 	private String firstName;
 	private String lastName;
@@ -47,20 +55,6 @@ public class UserDto implements Serializable {
 		this.nickname = nickname;
 		this.country = country;
 		this.language = language;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public UserDto getCreatedBy() {
-		return getCreatedBy();
-	}
-	public UserDto getLastModifiedBy() {
-		return getLastModifiedBy();
 	}
 	
 	public String getOpenid() {

@@ -47,7 +47,6 @@
 	<bean id="jsonProvider" class='com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider' >
 		<property name="mapper" ref="objectMapper"></property>
 	</bean>
-  	<bean id="objectMapper" class="org.robbins.flashcards.jackson.CustomObjectMapper" />
 
 	<!-- Swagger API listing resource -->
 	<bean id="swaggerResourceJSON" class="org.robbins.flashcards.webservices.swagger.ApiListingResourceJSON" />
