@@ -19,6 +19,7 @@ import javax.ws.rs.core.Response;
 import org.apache.commons.lang3.StringUtils;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
+import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.flashcards.facade.FlashcardFacade;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.webservices.base.AbstractGenericResource;
@@ -106,7 +107,13 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
 
 		// some client apps don't know the Created By and Created Date, so make sure we set it 
 		if (dto.getCreatedBy() == null) {
-			FlashCardDto orig = flashcardFacade.findOne(id, null);
+			FlashCardDto orig;
+			try {
+				orig = flashcardFacade.findOne(id, null);
+			} catch (ServiceException e) {
+				throw new GenericWebServiceException(
+						Response.Status.INTERNAL_SERVER_ERROR, e);
+			}
 			dto.setCreatedBy(orig.getCreatedBy());
 			dto.setCreatedDate(orig.getCreatedDate());
 		}

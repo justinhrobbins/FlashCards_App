@@ -10,8 +10,8 @@ import javax.inject.Inject;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Response.ResponseBuilder;
+import javax.ws.rs.core.UriInfo;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.cxf.jaxrs.ext.ResponseHandler;
@@ -19,6 +19,7 @@ import org.apache.cxf.jaxrs.model.OperationResourceInfo;
 import org.apache.cxf.jaxrs.model.Parameter;
 import org.apache.cxf.message.Message;
 import org.apache.log4j.Logger;
+import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.flashcards.jackson.CustomObjectMapper;
 import org.robbins.flashcards.service.util.FieldInitializerUtil;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
@@ -99,19 +100,24 @@ public class PartialResponseFilter implements ResponseHandler {
 			}
 		}
 
-		Set<String> filterProperties = getFieldsAsSet(fields);
+		Set<String> filterProperties = this.getFieldsAsSet(fields);
 
-		// is the entity a collection?
-		if (entity instanceof Collection<?>) {
-			initializeEntity((Collection<?>) entity, filterProperties);
+		try {
+			// is the entity a collection?
+			if (entity instanceof Collection<?>) {
+				fieldInitializer.initializeEntity((Collection<?>) entity, filterProperties);
+			}
+			// is the entity an array?
+			else if (entity instanceof Object[]) {
+				fieldInitializer.initializeEntity((Object[]) entity, filterProperties);
+			} else {
+				fieldInitializer.initializeEntity(entity, filterProperties);
+			}
+		} catch (ServiceException e) {
+			throw new GenericWebServiceException(
+					Response.Status.INTERNAL_SERVER_ERROR, e);
 		}
-		// is the entity an array?
-		else if (entity instanceof Object[]) {
-			initializeEntity((Object[]) entity, filterProperties);
-		} else {
-			initializeEntity(entity, filterProperties);
-		}
-
+		
 		// apply the Jackson filter and return the Response
 		return applyFieldsFilter(filterProperties, entity, response);
 	}
@@ -150,7 +156,7 @@ public class PartialResponseFilter implements ResponseHandler {
 					Response.Status.INTERNAL_SERVER_ERROR, e);
 		}
 	}
-
+	
 	// Convert the vectorized 'fields' parameter to a Set<String>
 	private Set<String> getFieldsAsSet(String fields) {
 		Set<String> filterProperties = new HashSet<String>();
@@ -167,44 +173,6 @@ public class PartialResponseFilter implements ResponseHandler {
 			// add the field to the Set<String>
 			filterProperties.add(field);
 		}
-
 		return filterProperties;
-	}
-
-	private void initializeEntity(Collection<?> entities, Set<String> fields) {
-		for (Object entity : entities) {
-			initializeEntity(entity, fields);
-		}
-	}
-
-	private void initializeEntity(Object[] entities, Set<String> fields) {
-		for (Object entity : entities) {
-			initializeEntity(entity, fields);
-		}
-	}
-
-	// make sure each of the requested 'fields' are initialized by Hibernate
-	private void initializeEntity(Object entity, Set<String> fields) {
-
-		if (entity == null) {
-			return;
-		}
-
-		// loop through the values of the 'fields'
-		for (String field : fields) {
-			try {
-				// Initialize the current 'field'
-				// This is needed since Hibernate will not auto-initialize most
-				// collections
-				// Therefore, if we want to return the field in the response, we
-				// need to make sure it is loaded
-				fieldInitializer.initializeField(entity, field);
-			} catch (Exception e) {
-				logger.error(e.getMessage(), e);
-				throw new GenericWebServiceException(
-						Response.Status.INTERNAL_SERVER_ERROR, e);
-			}
-		}
-		return;
 	}
 }

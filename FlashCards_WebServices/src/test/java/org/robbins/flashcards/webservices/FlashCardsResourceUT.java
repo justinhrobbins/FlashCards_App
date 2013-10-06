@@ -18,6 +18,7 @@ import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
+import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.flashcards.facade.FlashcardFacade;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
@@ -99,13 +100,13 @@ public class FlashCardsResourceUT extends BaseMockingTest {
 	}
 	
 	@Test
-	public void put() {
-		when(flashcardFacade.findOne(any(Long.class))).thenReturn(flashcard);
+	public void put() throws ServiceException {
+		when(flashcardFacade.findOne(any(Long.class), any(Set.class))).thenReturn(flashcard);
 		when(flashcardFacade.save(any(FlashCardDto.class))).thenReturn(flashcard);
 		
 		Response response = resource.put(1L, flashcard);
 		
-		verify(flashcardFacade).findOne(any(Long.class));
+		verify(flashcardFacade).findOne(any(Long.class), any(Set.class));
 		verify(flashcardFacade).save(any(FlashCardDto.class));
 		assertThat(response.getStatus(), is(204));
 	}

@@ -2,11 +2,15 @@ package org.robbins.flashcards.facade.base;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
+import org.robbins.flashcards.exceptions.ServiceException;
+import org.robbins.flashcards.service.util.FieldInitializerUtil;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -17,6 +21,9 @@ public abstract class AbstractCrudFacadeImpl<D, E> implements
 	@Inject
 	private Mapper mapper;
 
+	@Inject
+	private FieldInitializerUtil fieldInitializer;
+	
 	public Mapper getMapper() {
 		return mapper;
 	}
@@ -35,7 +42,13 @@ public abstract class AbstractCrudFacadeImpl<D, E> implements
 
 	@Override
 	public List<D> list(Integer page, Integer size, String sort,
-			String direction) {
+			String direction) throws ServiceException {
+		return this.list(page, size, sort, direction, null);
+	}
+	
+	@Override
+	public List<D> list(Integer page, Integer size, String sort,
+			String direction, Set<String> fields) throws ServiceException {
 
 		List<E> entities = null;
 
@@ -61,6 +74,10 @@ public abstract class AbstractCrudFacadeImpl<D, E> implements
 			return null;
 		}
 
+		if (CollectionUtils.isNotEmpty(fields)) {
+			fieldInitializer.initializeEntity(entities, fields);
+		}
+		
 		List<D> dtos = new ArrayList<D>();
 		for (E entity : entities) {
 			dtos.add(getDto(entity));
@@ -75,15 +92,19 @@ public abstract class AbstractCrudFacadeImpl<D, E> implements
 	}
 
 	@Override
-	public D findOne(Long id) {
+	public D findOne(Long id) throws ServiceException {
 		return findOne(id, null);
 	}
 
 	@Override
-	public D findOne(Long id, String fields) {
+	public D findOne(Long id, Set<String> fields) throws ServiceException {
 		E resultEntity = getService().findOne(id);
-		D resultDto = getDto(resultEntity);
-		return resultDto;
+
+		if (CollectionUtils.isNotEmpty(fields)) {
+			fieldInitializer.initializeEntity(resultEntity, fields);
+		}
+		
+		return getDto(resultEntity);
 	}
 	
 	@Override

@@ -11,7 +11,8 @@ public interface GenericResource <T, Serializable> {
 	public JResponse<List<T>> list(Integer page,
 						Integer size,
 						String sort,
-						String direction);
+						String direction,
+						String fields);
 	public Long count();
 	public T findOne(Long id, String fields);
 	public T post(T entity);

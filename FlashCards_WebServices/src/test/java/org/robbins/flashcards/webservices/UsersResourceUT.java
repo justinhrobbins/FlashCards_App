@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
 import org.robbins.flashcards.dto.UserDto;
+import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.flashcards.facade.UserFacade;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
@@ -46,7 +47,7 @@ public class UsersResourceUT extends BaseMockingTest {
 	}
 	
 	@Test
-	public void put() {
+	public void put() throws ServiceException {
 		when(mockUserFacade.findOne(any(Long.class))).thenReturn(mockUserDto);
 		when(mockUserFacade.save(any(UserDto.class))).thenReturn(mockUserDto);
 		

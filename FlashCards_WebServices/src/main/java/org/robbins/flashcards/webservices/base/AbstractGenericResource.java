@@ -17,6 +17,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
+import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
@@ -35,16 +36,20 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 	public JResponse<List<T>> list(@QueryParam("page") Integer page,
 						@DefaultValue("25") @QueryParam("size") Integer size,
 						@QueryParam("sort") String sort,
-						@DefaultValue("asc") @QueryParam("direction") String direction) {
+						@DefaultValue("asc") @QueryParam("direction") String direction,
+						@QueryParam("fields") String fields) {
 		
 		List<T> entities = null;
 		
 	    try {
-            entities = getFacade().list(page, size, sort, direction);
+            entities = getFacade().list(page, size, sort, direction, this.getFieldsAsSet(fields));
 		} catch (InvalidDataAccessApiUsageException e) {
 			logger.error(e.getMessage(), e);
 			throw new GenericWebServiceException(Response.Status.BAD_REQUEST,
 					"Inavlid sort parameter: '" + sort + "'", e);
+		} catch (ServiceException e) {
+			throw new GenericWebServiceException(
+					Response.Status.INTERNAL_SERVER_ERROR, e);
 		}
 
 	    // did we get any results?
@@ -66,7 +71,13 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 	@Path("/{id}")
 	public T findOne(@PathParam("id") Long id, @QueryParam("fields") String fields) {
 
-		T entity = getFacade().findOne(id, fields);
+		T entity;
+		try {
+			entity = getFacade().findOne(id, this.getFieldsAsSet(fields));
+		} catch (ServiceException e) {
+			throw new GenericWebServiceException(
+					Response.Status.INTERNAL_SERVER_ERROR, e);
+		}
 
 		if (entity == null) {
 			throw new GenericWebServiceException(Response.Status.NOT_FOUND,
@@ -101,7 +112,13 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 	@Path("/{id}/update")
 	public Response update(@PathParam("id") Long id, T updatedEntity) {
 		// get the original entity from the db
-		T originalEntity = getFacade().findOne(id);
+		T originalEntity;
+		try {
+			originalEntity = getFacade().findOne(id);
+		} catch (ServiceException e) {
+			throw new GenericWebServiceException(
+					Response.Status.INTERNAL_SERVER_ERROR, e);
+		}
 
 		// merge the original with the updated entity
 		this.merge(updatedEntity, originalEntity);

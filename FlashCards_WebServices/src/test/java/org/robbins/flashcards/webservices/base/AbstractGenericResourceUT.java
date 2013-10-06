@@ -3,6 +3,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyLong;
+import static org.mockito.Matchers.anySet;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -17,6 +18,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
 import org.robbins.flashcards.dto.TagDto;
+import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.flashcards.facade.TagFacade;
 import org.robbins.flashcards.webservices.TagsResource;
 import org.robbins.tests.BaseMockingTest;
@@ -44,49 +46,49 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
 	}
 
 	@Test
-	public void list() {
+	public void list() throws ServiceException {
 		when(mockTagFacade.list(null, null, null, null)).thenReturn(new ArrayList<TagDto>());
 		
-		JResponse<List<TagDto>> results = resource.list(null, null, null, null);
+		JResponse<List<TagDto>> results = resource.list(null, null, null, null, null);
 		
-		verify(mockTagFacade).list(null, null, null, null);
+		verify(mockTagFacade).list(null, null, null, null, null);
 		assertThat(results.getEntity(), is(List.class));
 	}
 
 	@Test(expected = WebApplicationException.class)
-	public void listWithInvalidSortParameter() {
-		when(mockTagFacade.list(null, null, "bad_parameter", "asc")).thenThrow(new InvalidDataAccessApiUsageException("error"));
+	public void listWithInvalidSortParameter() throws ServiceException {
+		when(mockTagFacade.list(null, null, "bad_parameter", "asc", null)).thenThrow(new InvalidDataAccessApiUsageException("error"));
 		
-		resource.list(null, null, "bad_parameter", "asc");
+		resource.list(null, null, "bad_parameter", "asc", null);
 	}
 	
 	@Test
-	public void listWithSort() {
+	public void listWithSort() throws ServiceException {
 		when(mockTagFacade.list(null, null, "name", "asc")).thenReturn(new ArrayList<TagDto>());
 		
-		JResponse<List<TagDto>> results = resource.list(null, null, "name", "asc");
+		JResponse<List<TagDto>> results = resource.list(null, null, "name", "asc", null);
 		
-		verify(mockTagFacade).list(null, null, "name", "asc");
+		verify(mockTagFacade).list(null, null, "name", "asc", null);
 		assertThat(results.getEntity(), is(List.class));
 	}
 	
 	@Test
-	public void listWithPagingAndSort() {
+	public void listWithPagingAndSort() throws ServiceException {
 		when(mockTagFacade.list(0, 1, "name", "desc")).thenReturn(new ArrayList<TagDto>());
 		
-		JResponse<List<TagDto>> results = resource.list(0, 1, "name", "desc");
+		JResponse<List<TagDto>> results = resource.list(0, 1, "name", "desc", null);
 		
-		verify(mockTagFacade).list(0, 1, "name", "desc");
+		verify(mockTagFacade).list(0, 1, "name", "desc", null);
 		assertThat(results.getEntity(), is(List.class));
 	}
 
 	@Test
-	public void listWithPagingNoSort() {
+	public void listWithPagingNoSort() throws ServiceException {
 		when(mockTagFacade.list(0, 1, null, null)).thenReturn(new ArrayList<TagDto>());
 		
-		JResponse<List<TagDto>> results = resource.list(0, 1, null, null);
+		JResponse<List<TagDto>> results = resource.list(0, 1, null, null, null);
 		
-		verify(mockTagFacade).list(0, 1, null, null);
+		verify(mockTagFacade).list(0, 1, null, null, null);
 		assertThat(results.getEntity(), is(List.class));
 	}
 	
@@ -100,13 +102,14 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
 		assertThat(result, is(Long.class));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
-	public void findOne() {
-		when(mockTagFacade.findOne(anyLong())).thenReturn(new TagDto(1L));
+	public void findOne() throws ServiceException {
+		when(mockTagFacade.findOne(anyLong(), anySet())).thenReturn(new TagDto(1L));
 		
 		TagDto result = resource.findOne(1L, null);
 		
-		verify(mockTagFacade).findOne(anyLong());
+		verify(mockTagFacade).findOne(anyLong(), anySet());
 		assertThat(result, is(TagDto.class));
 	}
 	
@@ -129,7 +132,7 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
 	}
 	
 	@Test 
-	public void update() {
+	public void update() throws ServiceException {
 		when(mockTagFacade.findOne(any(Long.class))).thenReturn(mockTagDto);
 		when(mockTagFacade.save(any(TagDto.class))).thenReturn(mockTagDto);
 		

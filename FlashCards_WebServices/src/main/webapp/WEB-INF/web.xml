@@ -72,7 +72,7 @@
 
 		<init-param>
 			<param-name>com.sun.jersey.spi.container.ContainerRequestFilters</param-name>
-			<param-value>org.robbins.flashcards.jersey.filters.SecurityFilter;com.sun.jersey.api.container.filter.LoggingFilter</param-value>
+			<param-value>org.robbins.flashcards.jersey.filters.SecurityFilter;org.robbins.flashcards.jersey.filters.AcceptFilter;com.sun.jersey.api.container.filter.LoggingFilter</param-value>
 		</init-param>
 		<init-param>
 			<param-name>com.sun.jersey.spi.container.ContainerResponseFilters</param-name>

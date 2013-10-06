@@ -24,6 +24,10 @@ public class DefaultTagFacade extends AbstractCrudFacadeImpl<TagDto, Tag> implem
 	
 	public TagDto findByName(String name) {
 		Tag result = service.findByName(name);
+		
+		if (result == null) {
+			return null;
+		}
 		TagDto tagDto = getMapper().map(result, TagDto.class);
 		return tagDto;
 	}

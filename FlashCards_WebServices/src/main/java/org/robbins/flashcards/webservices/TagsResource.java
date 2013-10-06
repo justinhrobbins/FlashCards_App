@@ -11,9 +11,11 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import org.robbins.flashcards.dto.TagDto;
+import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.flashcards.facade.TagFacade;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.webservices.base.AbstractGenericResource;
+import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.springframework.stereotype.Component;
 
 import com.wordnik.swagger.annotations.Api;
@@ -37,7 +39,14 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long> {
 	@Path("/search")
 	@ApiOperation(value = "Find Tag by Name", responseClass = "org.robbins.flashcards.dto.TagDto")
 	public TagDto searchByName(@QueryParam("name") String name) {
-			return tagFacade.findByName(name);
+		
+		TagDto tagDto = tagFacade.findByName(name);
+
+		if (tagDto == null) {
+			throw new GenericWebServiceException(Response.Status.NOT_FOUND,
+					"Entity not found: " + name);
+		}
+		return tagDto;
 	}
 	
 	@Override
@@ -47,7 +56,13 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long> {
 	public Response put(@PathParam("id") Long id, TagDto dto) {
 
 		if (dto.getCreatedBy() == null) {
-			TagDto orig = tagFacade.findOne(id);
+			TagDto orig;
+			try {
+				orig = tagFacade.findOne(id);
+			} catch (ServiceException e) {
+				throw new GenericWebServiceException(
+						Response.Status.INTERNAL_SERVER_ERROR, e);
+			}
 			dto.setFlashcards(orig.getFlashcards());
 			dto.setCreatedBy(orig.getCreatedBy());
 			dto.setCreatedDate(orig.getCreatedDate());

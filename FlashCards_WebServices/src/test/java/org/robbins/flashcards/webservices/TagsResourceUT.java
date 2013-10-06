@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
 import org.robbins.flashcards.dto.TagDto;
+import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.flashcards.facade.TagFacade;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
@@ -46,7 +47,7 @@ public class TagsResourceUT extends BaseMockingTest {
 	}
 	
 	@Test
-	public void put() {
+	public void put() throws ServiceException {
 		when(tagFacade.findOne(any(Long.class))).thenReturn(tagDto);
 		when(tagFacade.save(any(TagDto.class))).thenReturn(tagDto);
 		

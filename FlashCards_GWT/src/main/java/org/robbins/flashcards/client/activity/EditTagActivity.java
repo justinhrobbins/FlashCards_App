@@ -1,5 +1,6 @@
 package org.robbins.flashcards.client.activity;
 
+import org.fusesource.restygwt.client.FailedStatusCodeException;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.MethodCallback;
 import org.fusesource.restygwt.client.Resource;
@@ -119,7 +120,6 @@ public class EditTagActivity extends AppAbstractActivity {
 				public void onSuccess(Method method, TagDto tag) {
 					if (tag == null) {
 						GWT.log("EditTagActivity: Tag does not exist.  Creating new Tag");
-	
 						saveTag(getTag());
 					}
 					else {
@@ -128,6 +128,16 @@ public class EditTagActivity extends AppAbstractActivity {
 					}
 				}
 				public void onFailure(Method method, Throwable caught) {
+					// server may return a 404 if the Tag is not found
+					// this is not really a problem but we handle it here
+					if (caught instanceof FailedStatusCodeException) {
+						FailedStatusCodeException exception = (FailedStatusCodeException) caught;
+						if (exception.getStatusCode() == 404) {
+							GWT.log("EditTagActivity: Tag does not exist.  Creating new Tag");
+							saveTag(getTag());
+							return;
+						}
+					}
 					GWT.log("EditTagActivity: Error finding tag");
 					Window.alert(getConstants().errorLoadingTag());
 				}
