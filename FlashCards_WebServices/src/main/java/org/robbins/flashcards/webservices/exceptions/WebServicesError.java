@@ -1,5 +1,11 @@
 package org.robbins.flashcards.webservices.exceptions;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name="tag")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class WebServicesError {
 	private int errorId;
 	private String errorName;
