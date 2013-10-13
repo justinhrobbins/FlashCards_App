@@ -27,11 +27,12 @@ import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
+import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 
 @Path("/v1/flashcards/")
 @Component("flashCardsResource")
-//@Api(value="/v1/flashcards", description = "Operations about FlashCards")
+@Api(value="/v1/flashcards", description = "Operations about FlashCards")
 @Produces({"application/xml", "application/json"})
 @Consumes({"application/xml","application/json"})
 public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Long> {
@@ -45,7 +46,7 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
 
 	@GET
 	@Path("/search")
-	@ApiOperation(value = "Search for FlashCards", responseClass = "org.robbins.flashcards.dto.FlashCardDto")
+	@ApiOperation(value = "Search for FlashCards", response = FlashCardDto.class)
 	public FlashCardDto[] search(	@QueryParam("page") Integer page,
 								@DefaultValue("25") @QueryParam("size") Integer size,
 								@QueryParam("question") String question,
@@ -56,7 +57,7 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
 
 	@GET
 	@Path("/search/count")
-	@ApiOperation(value = "Get a count of FlashCards", responseClass = "java.lang.Long")
+	@ApiOperation(value = "Get a count of FlashCards", response = Long.class)
 	public Long searchCount(@QueryParam("question") String question,
 							@QueryParam("tags") String tags) {
 

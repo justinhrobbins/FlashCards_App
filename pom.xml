@@ -24,7 +24,7 @@
 		<spring.version>3.1.1.RELEASE</spring.version>
 		<springdata.version>1.1.0.RELEASE</springdata.version>
 		<struts.version>2.3.4.1</struts.version>
-		<swagger.version>1.2.2</swagger.version>
+		<swagger.version>1.3.0</swagger.version>
 	</properties>
 	<modules>
 		<module>FlashCards_Domain</module>
@@ -35,6 +35,7 @@
 		<module>FlashCards_WebServices</module>
 		<module>FlashCards_Struts</module>
 		<module>FlashCards_Test</module>
+		<module>swagger_ui</module>
 	</modules>
 	<build>
 		<plugins>

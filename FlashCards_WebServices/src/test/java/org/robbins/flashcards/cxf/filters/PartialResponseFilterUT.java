@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.ws.rs.WebApplicationException;
@@ -26,14 +27,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
-import org.robbins.flashcards.cxf.filters.PartialResponseFilter;
 import org.robbins.flashcards.jackson.CustomObjectMapper;
 import org.robbins.flashcards.service.util.FieldInitializerUtil;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.test.util.ReflectionTestUtils;
-
-import scala.actors.threadpool.Arrays;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;

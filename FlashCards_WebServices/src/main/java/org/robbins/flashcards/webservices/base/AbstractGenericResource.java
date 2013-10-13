@@ -101,7 +101,7 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 	
 	@DELETE
 	@Path("/{id}")
-	@ApiOperation(value = "Delete", responseClass = "void")
+	@ApiOperation(value = "Delete")
 	public Response delete(@PathParam("id") Long id) {
 		getFacade().delete(id);
 

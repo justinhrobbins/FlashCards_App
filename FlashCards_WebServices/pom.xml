@@ -183,7 +183,7 @@
 		<!-- Swagger Stuff -->
 		<dependency>
 			<groupId>com.wordnik</groupId>
-			<artifactId>swagger-jaxrs_2.9.1</artifactId>
+			<artifactId>swagger-jersey-jaxrs_2.10</artifactId>
 			<version>${swagger.version}</version>
 		</dependency>
 	    <dependency>
@@ -284,6 +284,10 @@
 						</systemProperty>
 					</systemProperties>
 					<contextHandlers>
+						<contextHandler implementation="org.eclipse.jetty.webapp.WebAppContext">
+							<war>../swagger_ui/target/apidocs.war</war>
+							<contextPath>/apidocs</contextPath>
+						</contextHandler>
 						<contextHandler implementation="org.eclipse.jetty.webapp.WebAppContext">
 							<war>../FlashCards_GWT/target/FlashCards_GwtClient.war</war>
 							<contextPath>/gwt</contextPath>

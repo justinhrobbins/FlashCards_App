@@ -5,6 +5,7 @@ import static org.junit.Assert.assertThat;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -12,8 +13,6 @@ import org.robbins.flashcards.providers.DefaultExceptionHandler;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.robbins.flashcards.webservices.exceptions.WebServicesError;
 import org.robbins.tests.UnitTest;
-
-import com.sun.jersey.api.client.ClientResponse.Status;
 
 @Category(UnitTest.class)
 public class DefaultExceptionHandlerUT {
@@ -50,7 +49,7 @@ public class DefaultExceptionHandlerUT {
 	
 	@Test
 	public void toResponse_withExpectedException() {
-		exception = new GenericWebServiceException(Response.Status.NOT_FOUND, Status.NOT_FOUND.getReasonPhrase());
+		exception = new GenericWebServiceException(Status.NOT_FOUND, Status.NOT_FOUND.getReasonPhrase());
 
 		Response result = handler.toResponse(exception);
 

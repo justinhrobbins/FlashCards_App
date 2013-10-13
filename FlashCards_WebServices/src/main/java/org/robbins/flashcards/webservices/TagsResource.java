@@ -37,7 +37,7 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long> {
 
 	@GET
 	@Path("/search")
-	@ApiOperation(value = "Find Tag by Name", responseClass = "org.robbins.flashcards.dto.TagDto")
+	@ApiOperation(value = "Find Tag by Name", response = TagDto.class)
 	public TagDto searchByName(@QueryParam("name") String name) {
 		
 		TagDto tagDto = tagFacade.findByName(name);
@@ -52,7 +52,7 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long> {
 	@Override
 	@PUT
 	@Path("/{id}")
-	@ApiOperation(value = "Replace a Tag", responseClass = "void")
+	@ApiOperation(value = "Replace a Tag")
 	public Response put(@PathParam("id") Long id, TagDto dto) {
 
 		if (dto.getCreatedBy() == null) {

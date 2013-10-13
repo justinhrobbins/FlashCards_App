@@ -1,0 +1,23 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<groupId>org.robbins.flashcards</groupId>
+		<artifactId>FlashCards_App</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>swagger_ui</artifactId>
+	<name>swagger_ui</name>
+	<description>JAX-RS API documentation generator</description>
+	<packaging>war</packaging>
+
+	<properties>
+		<m2eclipse.wtp.contextRoot>apidocs</m2eclipse.wtp.contextRoot>
+	</properties>
+
+	<build>
+		<finalName>apidocs</finalName>
+	</build>
+</project>

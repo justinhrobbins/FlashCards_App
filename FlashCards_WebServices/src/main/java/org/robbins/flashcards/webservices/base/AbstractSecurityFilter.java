@@ -40,6 +40,12 @@ public class AbstractSecurityFilter {
 		
 		SecurityContext securityContext = SecurityContextHolder.getContext();
 		Authentication authentication = securityContext.getAuthentication();
+		
+		if ("anonymousUser".equals(authentication.getName())) {
+			logger.debug("AbstractSecurityFilter - anonymous user");
+			return;
+		}
+
 		org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
 		String openId = principal.getUsername();
   	
