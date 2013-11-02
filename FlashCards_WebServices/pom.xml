@@ -22,7 +22,7 @@
 		<dependency>
 			<groupId>org.robbins.flashcards</groupId>
 			<artifactId>FlashCards_Service_SpringData</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 		
 		<!-- helper utilities -->
@@ -45,13 +45,6 @@
             <artifactId>jersey-server</artifactId>
             <version>${jersey.version}</version>
         </dependency>
-        
-        <!-- Jackson dependencies -->
-		<dependency>
-		  <groupId>com.fasterxml.jackson.jaxrs</groupId>
-		  <artifactId>jackson-jaxrs-json-provider</artifactId>
-		  <version>${jackson.version}</version>
-		</dependency>
 
         <!-- Jersey + Spring integration dependency -->
 		<dependency>
@@ -216,7 +209,7 @@
 		<dependency>
 			<groupId>org.robbins.flashcards</groupId>
 			<artifactId>FlashCards_Test</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${project.version}</version>
 			<scope>test</scope>
 		</dependency>
 

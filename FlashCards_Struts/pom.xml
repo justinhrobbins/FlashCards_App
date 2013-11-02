@@ -20,12 +20,12 @@
 		<dependency>
 			<groupId>org.robbins.flashcards</groupId>
 			<artifactId>FlashCards_Service</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.robbins.flashcards</groupId>
 			<artifactId>FlashCards_Service_SpringData</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>

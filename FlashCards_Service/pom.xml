@@ -21,7 +21,7 @@
 		<dependency>
 			<groupId>org.robbins.flashcards</groupId>
 			<artifactId>FlashCards_Domain</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 
 		<!-- reflection helper utils -->
@@ -130,7 +130,7 @@
 		<dependency>
 			<groupId>org.robbins.flashcards</groupId>
 			<artifactId>FlashCards_Test</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${project.version}</version>
 			<scope>test</scope>
 		</dependency>
 
