@@ -12,26 +12,6 @@
      	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
      	http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
  
- <!--
- 	<bean id="dataSource" 
-			class="com.mchange.v2.c3p0.ComboPooledDataSource"
-        	destroy-method="close">
-		<property name="driverClass" value="com.mysql.jdbc.Driver" />
-		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/flashcardapp_db" />
-		<property name="user" value="flashcarduser" />
-		<property name="password" value="flashcard" />
-
-		<property name="acquireIncrement" value="5" />
-		<property name="minPoolSize" value="5" />
-		<property name="maxPoolSize" value="10" />
-		<property name="maxIdleTime" value="900" />
-	</bean>
--->
-
-	<jee:jndi-lookup id="dataSource"
-		jndi-name="jdbc/flashcardsDb"
-		expected-type="javax.sql.DataSource" />
-
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
@@ -50,6 +30,10 @@
 			<property name="generateDdl" value="false"/>
 			<property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect" />
 		</bean>
+
+		<jee:jndi-lookup id="dataSource"
+			jndi-name="jdbc/flashcardsDb"
+			expected-type="javax.sql.DataSource" />
 	</beans>
 
 	<beans profile="embedded">
@@ -59,7 +43,14 @@
 			<property name="generateDdl" value="true"/>
 			<property name="databasePlatform" value="org.hibernate.dialect.H2Dialect" />
 		</bean>
-		
+
+ 		<bean id="dataSource" 
+				class="com.mchange.v2.c3p0.ComboPooledDataSource"
+	        	destroy-method="close">
+			<property name="driverClass" value="org.h2.Driver" />
+			<property name="jdbcUrl" value="jdbc:h2:mem:flashcardsDb" />
+		</bean>
+
 	   <jdbc:initialize-database>
 	      <jdbc:script location="classpath:sql/user.sql" />
 	      <jdbc:script location="classpath:sql/tag.sql" />
