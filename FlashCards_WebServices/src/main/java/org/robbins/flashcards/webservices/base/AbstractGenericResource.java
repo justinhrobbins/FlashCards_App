@@ -88,13 +88,23 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 	
 	@POST
 	public T post(T entity) {
-		return getFacade().save(entity);
+		try {
+			return getFacade().save(entity);
+		} catch (ServiceException e) {
+			throw new GenericWebServiceException(
+					Response.Status.INTERNAL_SERVER_ERROR, e);
+		}
 	}
 	
 	@PUT
 	@Path("/{id}")
 	public Response put(@PathParam("id") Long id, T entity) {
-		getFacade().save(entity);
+		try {
+			getFacade().save(entity);
+		} catch (ServiceException e) {
+			throw new GenericWebServiceException(
+					Response.Status.INTERNAL_SERVER_ERROR, e);
+		}
 		
 		return Response.noContent().build();
 	}
@@ -124,7 +134,12 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 		this.merge(updatedEntity, originalEntity);
 
 		// persist the entity back to the db
-		getFacade().save(originalEntity);
+		try {
+			getFacade().save(originalEntity);
+		} catch (ServiceException e) {
+			throw new GenericWebServiceException(
+					Response.Status.INTERNAL_SERVER_ERROR, e);
+		}
 
 		// return the response
 		return Response.noContent().build();

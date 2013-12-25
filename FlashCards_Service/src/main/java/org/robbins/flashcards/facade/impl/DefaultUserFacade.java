@@ -2,14 +2,17 @@ package org.robbins.flashcards.facade.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 
 import org.robbins.flashcards.dto.UserDto;
+import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.flashcards.facade.UserFacade;
 import org.robbins.flashcards.facade.base.AbstractCrudFacadeImpl;
 import org.robbins.flashcards.model.User;
 import org.robbins.flashcards.service.UserService;
+import org.robbins.flashcards.service.util.DtoUtil;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -29,7 +32,7 @@ public class DefaultUserFacade extends AbstractCrudFacadeImpl<UserDto, User> imp
 	}
 
 	@Override
-	public UserDto save(UserDto dto) {
+	public UserDto save(UserDto dto) throws ServiceException {
 		User entity = getEntity(dto);
 		
 		if (!dto.isNew()) {
@@ -44,17 +47,24 @@ public class DefaultUserFacade extends AbstractCrudFacadeImpl<UserDto, User> imp
 	}
 	
 	@Override
-	public UserDto getDto(User entity) {
-		return getMapper().map(entity, UserDto.class);
+	public UserDto getDto(User entity) throws ServiceException {
+		return getDto(entity, null);
 	}
-
+	
+	@Override
+	public UserDto getDto(User entity, Set<String> fields) throws ServiceException {
+		UserDto userDto = getMapper().map(entity, UserDto.class);
+		DtoUtil.filterFields(userDto, fields);
+		return userDto;
+	}
+	
 	@Override
 	public User getEntity(UserDto dto) {
 		return getMapper().map(dto, User.class);
 	}
 	
 	@Override
-	public List<UserDto> getDtos(List<User> entities) {
+	public List<UserDto> getDtos(List<User> entities, Set<String> fields) throws ServiceException {
 		List<UserDto> dtos = new ArrayList<UserDto>();
 		for (User entity : entities){
 			dtos.add(getDto(entity));

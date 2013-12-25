@@ -32,10 +32,11 @@ import com.wordnik.swagger.annotations.ApiOperation;
 
 @Path("/v1/flashcards/")
 @Component("flashCardsResource")
-@Api(value="/v1/flashcards", description = "Operations about FlashCards")
-@Produces({"application/xml", "application/json"})
-@Consumes({"application/xml","application/json"})
-public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Long> {
+@Api(value = "/v1/flashcards", description = "Operations about FlashCards")
+@Produces({ "application/xml", "application/json" })
+@Consumes({ "application/xml", "application/json" })
+public class FlashCardsResource extends
+		AbstractGenericResource<FlashCardDto, Long> {
 
 	@Inject
 	private FlashcardFacade flashcardFacade;
@@ -47,10 +48,10 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
 	@GET
 	@Path("/search")
 	@ApiOperation(value = "Search for FlashCards", response = FlashCardDto.class)
-	public FlashCardDto[] search(	@QueryParam("page") Integer page,
-								@DefaultValue("25") @QueryParam("size") Integer size,
-								@QueryParam("question") String question,
-								@QueryParam("tags") String tags) {
+	public FlashCardDto[] search(@QueryParam("page") Integer page,
+			@DefaultValue("25") @QueryParam("size") Integer size,
+			@QueryParam("question") String question,
+			@QueryParam("tags") String tags) {
 
 		return searchFlashCards(page, size, question, tags);
 	}
@@ -59,54 +60,65 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
 	@Path("/search/count")
 	@ApiOperation(value = "Get a count of FlashCards", response = Long.class)
 	public Long searchCount(@QueryParam("question") String question,
-							@QueryParam("tags") String tags) {
+			@QueryParam("tags") String tags) {
 
-		return Long.valueOf(searchFlashCards(null, null, question, tags).length);
+		return Long
+				.valueOf(searchFlashCards(null, null, question, tags).length);
 	}
-	
-	private FlashCardDto[] searchFlashCards(	Integer page,
-											Integer size,
-											String question,
-											String tags) {
-		
-		// find by Question
-		if (!StringUtils.isBlank(question)) {
-			// are we using pagination?
-			if (page != null) {
-				List<FlashCardDto> results = flashcardFacade.findByQuestionLike(question, new PageRequest(page, size));
-				return results.toArray(new FlashCardDto[results.size()]);
-			} else {
-				List<FlashCardDto> results = flashcardFacade.findByQuestionLike(question);
-				return results.toArray(new FlashCardDto[results.size()]);				
-		}	}
-		// find by Tags
-		if (!StringUtils.isBlank(tags)) {
-			StringTokenizer st = new StringTokenizer(tags, ",");
-			Set<TagDto> tagsList = new HashSet<TagDto>();
-			while (st.hasMoreTokens()) {
-				tagsList.add(new TagDto(Long.parseLong(st.nextToken())));
+
+	private FlashCardDto[] searchFlashCards(Integer page, Integer size,
+			String question, String tags) {
+
+		try {
+			// find by Question
+			if (!StringUtils.isBlank(question)) {
+				// are we using pagination?
+				if (page != null) {
+					List<FlashCardDto> results;
+					results = flashcardFacade.findByQuestionLike(question,
+							new PageRequest(page, size));
+					return results.toArray(new FlashCardDto[results.size()]);
+				} else {
+					List<FlashCardDto> results = flashcardFacade
+							.findByQuestionLike(question);
+					return results.toArray(new FlashCardDto[results.size()]);
+				}
 			}
-			// are we using Pagination?
-			if (page != null) {
-				List<FlashCardDto> results = flashcardFacade.findByTagsIn(tagsList, new PageRequest(page, size)); 
-				return results.toArray(new FlashCardDto[results.size()]);
+			// find by Tags
+			if (!StringUtils.isBlank(tags)) {
+				StringTokenizer st = new StringTokenizer(tags, ",");
+				Set<TagDto> tagsList = new HashSet<TagDto>();
+				while (st.hasMoreTokens()) {
+					tagsList.add(new TagDto(Long.parseLong(st.nextToken())));
+				}
+				// are we using Pagination?
+				if (page != null) {
+					List<FlashCardDto> results = flashcardFacade.findByTagsIn(
+							tagsList, new PageRequest(page, size));
+					return results.toArray(new FlashCardDto[results.size()]);
+				} else {
+					List<FlashCardDto> results = flashcardFacade
+							.findByTagsIn(tagsList);
+					return results.toArray(new FlashCardDto[results.size()]);
+				}
 			} else {
-				List<FlashCardDto> results = flashcardFacade.findByTagsIn(tagsList); 
-				return results.toArray(new FlashCardDto[results.size()]);
+				throw new GenericWebServiceException(
+						Response.Status.BAD_REQUEST,
+						"Invalid 'search' parameters");
 			}
-		}
-		else {
-			throw new GenericWebServiceException(Response.Status.BAD_REQUEST,
-					"Invalid 'search' parameters");
+		} catch (ServiceException e) {
+			throw new GenericWebServiceException(
+					Response.Status.INTERNAL_SERVER_ERROR, e);
 		}
 	}
-	
+
 	@Override
 	@PUT
 	@Path("/{id}")
 	public Response put(@PathParam("id") Long id, FlashCardDto dto) {
 
-		// some client apps don't know the Created By and Created Date, so make sure we set it 
+		// some client apps don't know the Created By and Created Date, so make
+		// sure we set it
 		if (dto.getCreatedBy() == null) {
 			FlashCardDto orig;
 			try {
@@ -118,7 +130,7 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
 			dto.setCreatedBy(orig.getCreatedBy());
 			dto.setCreatedDate(orig.getCreatedDate());
 		}
-		
-		return super.put(id,  dto);
+
+		return super.put(id, dto);
 	}
 }

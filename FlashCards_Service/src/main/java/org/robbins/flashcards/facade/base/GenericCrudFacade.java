@@ -15,6 +15,6 @@ public interface GenericCrudFacade<D> {
 	public Long count();
 	public D findOne(Long id) throws ServiceException;
 	public D findOne(Long id, Set<String> fields) throws ServiceException;
-	public D save(D entity);
+	public D save(D entity) throws ServiceException;
 	public void delete(Long id);
 }

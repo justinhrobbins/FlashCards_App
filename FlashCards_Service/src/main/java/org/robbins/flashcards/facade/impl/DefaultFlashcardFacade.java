@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
+import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.flashcards.facade.FlashcardFacade;
 import org.robbins.flashcards.facade.TagFacade;
 import org.robbins.flashcards.facade.base.AbstractCrudFacadeImpl;
@@ -16,6 +17,7 @@ import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.service.FlashCardService;
 import org.robbins.flashcards.service.TagService;
+import org.robbins.flashcards.service.util.DtoUtil;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
@@ -40,7 +42,7 @@ public class DefaultFlashcardFacade extends AbstractCrudFacadeImpl<FlashCardDto,
 	}
 
 	@Override
-	public FlashCardDto save(FlashCardDto dto) {
+	public FlashCardDto save(FlashCardDto dto) throws ServiceException {
 		FlashCard entity = getEntity(dto);
 		entity.setTags(configureTags(dto.getTags()));
 		FlashCard resultEntity = getService().save(entity);
@@ -48,19 +50,19 @@ public class DefaultFlashcardFacade extends AbstractCrudFacadeImpl<FlashCardDto,
 		return resultDto;
 	}
 	
-	public List<FlashCardDto> findByTagsIn(Set<TagDto> tagDtos) {
-		return getDtos(flashcardService.findByTagsIn(getTags(tagDtos)));
+	public List<FlashCardDto> findByTagsIn(Set<TagDto> tagDtos) throws ServiceException {
+		return getDtos(flashcardService.findByTagsIn(getTags(tagDtos)), null);
 	}
-	public List<FlashCardDto> findByTagsIn(Set<TagDto> tagDtos, PageRequest page) {
-		return getDtos(flashcardService.findByTagsIn(getTags(tagDtos), page));
+	public List<FlashCardDto> findByTagsIn(Set<TagDto> tagDtos, PageRequest page) throws ServiceException {
+		return getDtos(flashcardService.findByTagsIn(getTags(tagDtos), page), null);
 	}
-	public List<FlashCardDto> findByQuestionLike(String question) {
-		return getDtos(flashcardService.findByQuestionLike(question));
+	public List<FlashCardDto> findByQuestionLike(String question) throws ServiceException {
+		return getDtos(flashcardService.findByQuestionLike(question), null);
 	}
-	public List<FlashCardDto> findByQuestionLike(String question, PageRequest page) {
-		return getDtos(flashcardService.findByQuestionLike(question, page));
+	public List<FlashCardDto> findByQuestionLike(String question, PageRequest page) throws ServiceException {
+		return getDtos(flashcardService.findByQuestionLike(question, page), null);
 	}
-	public FlashCardDto findByQuestion(String question) {
+	public FlashCardDto findByQuestion(String question) throws ServiceException {
 		return getDto(flashcardService.findByQuestion(question));
 	}
 
@@ -69,10 +71,17 @@ public class DefaultFlashcardFacade extends AbstractCrudFacadeImpl<FlashCardDto,
 		List<Tag> tagList = tagFacade.getEtnties(tagDtoList);
 		return Sets.newHashSet(tagList);
 	}
+
+	@Override
+	public FlashCardDto getDto(FlashCard entity) throws ServiceException {
+		return getDto(entity, null);
+	}
 	
 	@Override
-	public FlashCardDto getDto(FlashCard entity) {
-		return getMapper().map(entity, FlashCardDto.class);
+	public FlashCardDto getDto(FlashCard entity, Set<String> fields) throws ServiceException {
+		FlashCardDto flashCardDto = getMapper().map(entity, FlashCardDto.class);
+		DtoUtil.filterFields(flashCardDto, fields);
+		return flashCardDto;
 	}
 
 	@Override
@@ -81,7 +90,7 @@ public class DefaultFlashcardFacade extends AbstractCrudFacadeImpl<FlashCardDto,
 	}
 	
 	@Override
-	public List<FlashCardDto> getDtos(List<FlashCard> entities) {
+	public List<FlashCardDto> getDtos(List<FlashCard> entities, Set<String> fields) throws ServiceException {
 		List<FlashCardDto> dtos = new ArrayList<FlashCardDto>();
 		for (FlashCard entity : entities){
 			dtos.add(getDto(entity));

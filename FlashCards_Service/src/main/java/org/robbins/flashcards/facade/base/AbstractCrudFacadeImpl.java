@@ -33,7 +33,7 @@ public abstract class AbstractCrudFacadeImpl<D, E> implements
 	}
 
 	@Override
-	public D save(D dto) {
+	public D save(D dto) throws ServiceException {
 		E entity = getEntity(dto);
 		E resultEntity = getService().save(entity);
 		D resultDto = getDto(resultEntity);
@@ -74,13 +74,15 @@ public abstract class AbstractCrudFacadeImpl<D, E> implements
 			return null;
 		}
 
+		// if we are explicitly requested certain fields
+		// make sure they have been initialized
 		if (CollectionUtils.isNotEmpty(fields)) {
 			fieldInitializer.initializeEntity(entities, fields);
 		}
 		
 		List<D> dtos = new ArrayList<D>();
 		for (E entity : entities) {
-			dtos.add(getDto(entity));
+			dtos.add(getDto(entity, fields));
 		}
 
 		return dtos;

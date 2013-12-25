@@ -114,7 +114,7 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
 	}
 	
 	@Test
-	public void post() {
+	public void post() throws ServiceException {
 		when(mockTagFacade.save(any(TagDto.class))).thenReturn(new TagDto(1L));
 		
 		TagDto result = resource.post(new TagDto());

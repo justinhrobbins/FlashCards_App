@@ -43,7 +43,7 @@ public class FlashCardsResourceUT extends BaseMockingTest {
 	}
 
 	@Test
-	public void searchByQuestionWithPaging() {
+	public void searchByQuestionWithPaging() throws ServiceException {
 		when(flashcardFacade.findByQuestionLike(any(String.class), any(PageRequest.class))).thenReturn(new ArrayList<FlashCardDto>());
 		
 		FlashCardDto[] results = resource.search(0, 1, "Question", null);
@@ -53,7 +53,7 @@ public class FlashCardsResourceUT extends BaseMockingTest {
 	}
 	
 	@Test
-	public void searchByQuestionNoPaging() {
+	public void searchByQuestionNoPaging() throws ServiceException {
 		when(flashcardFacade.findByQuestionLike(any(String.class))).thenReturn(new ArrayList<FlashCardDto>());
 		
 		FlashCardDto[] results = resource.search(null, null, "Question", null);
@@ -64,7 +64,7 @@ public class FlashCardsResourceUT extends BaseMockingTest {
 
 	@SuppressWarnings("unchecked")
 	@Test
-	public void searchByTagsWithPaging() {
+	public void searchByTagsWithPaging() throws ServiceException {
 		when(flashcardFacade.findByTagsIn(any(Set.class), any(PageRequest.class))).thenReturn(new ArrayList<FlashCardDto>());
 		
 		FlashCardDto[] results = resource.search(0, 1, null, "1,2");
@@ -75,7 +75,7 @@ public class FlashCardsResourceUT extends BaseMockingTest {
 	
 	@SuppressWarnings("unchecked")
 	@Test
-	public void searchByTagsNoPaging() {
+	public void searchByTagsNoPaging() throws ServiceException {
 		when(flashcardFacade.findByTagsIn(any(Set.class))).thenReturn(new ArrayList<FlashCardDto>());
 		
 		FlashCardDto[] results = resource.search(null, null, null, "1,2");
@@ -90,7 +90,7 @@ public class FlashCardsResourceUT extends BaseMockingTest {
 	}
 	
 	@Test
-	public void searchCount() {
+	public void searchCount() throws ServiceException {
 		when(flashcardFacade.findByQuestionLike(any(String.class))).thenReturn(new ArrayList<FlashCardDto>());
 		
 		Long results = resource.searchCount("Question", null);
@@ -112,7 +112,7 @@ public class FlashCardsResourceUT extends BaseMockingTest {
 	}
 	
 	@Test
-	public void postNoTags() {
+	public void postNoTags() throws ServiceException {
 		when(flashcardFacade.save(any(FlashCardDto.class))).thenReturn(flashcard);
 		
 		FlashCardDto result = resource.post(flashcard);
@@ -122,19 +122,7 @@ public class FlashCardsResourceUT extends BaseMockingTest {
 	}
 	
 	@Test
-	public void postWithTagByName() {
-		when(flashcardFacade.save(any(FlashCardDto.class))).thenReturn(flashcard);
-		
-		FlashCardDto flashcard = new FlashCardDto();
-		flashcard.getTags().add(new TagDto("tag1"));
-		FlashCardDto result = resource.post(flashcard);
-		
-		verify(flashcardFacade).save(any(FlashCardDto.class));
-		assertThat(result, is(FlashCardDto.class));
-	}
-	
-	@Test
-	public void postWithNewTagByName() {
+	public void postWithTagByName() throws ServiceException {
 		when(flashcardFacade.save(any(FlashCardDto.class))).thenReturn(flashcard);
 		
 		FlashCardDto flashcard = new FlashCardDto();
@@ -146,7 +134,19 @@ public class FlashCardsResourceUT extends BaseMockingTest {
 	}
 	
 	@Test
-	public void postWithTagById() {
+	public void postWithNewTagByName() throws ServiceException {
+		when(flashcardFacade.save(any(FlashCardDto.class))).thenReturn(flashcard);
+		
+		FlashCardDto flashcard = new FlashCardDto();
+		flashcard.getTags().add(new TagDto("tag1"));
+		FlashCardDto result = resource.post(flashcard);
+		
+		verify(flashcardFacade).save(any(FlashCardDto.class));
+		assertThat(result, is(FlashCardDto.class));
+	}
+	
+	@Test
+	public void postWithTagById() throws ServiceException {
 		when(flashcardFacade.save(any(FlashCardDto.class))).thenReturn(flashcard);
 		
 		FlashCardDto flashcard = new FlashCardDto();
