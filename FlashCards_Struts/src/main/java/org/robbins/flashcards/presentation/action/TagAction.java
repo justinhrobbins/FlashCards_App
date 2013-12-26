@@ -6,11 +6,12 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.apache.log4j.Logger;
 import org.apache.struts2.interceptor.SessionAware;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.service.TagService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
@@ -22,7 +23,7 @@ public class TagAction extends FlashCardsAppBaseAction implements ModelDriven<Ta
 	 */
 	private static final long serialVersionUID = 2900181619806808497L;
 
-	private static Logger logger = Logger.getLogger(TagAction.class);
+	static final Logger logger = LoggerFactory.getLogger(TagAction.class);
 	
 	private Tag tag = new Tag();
 	

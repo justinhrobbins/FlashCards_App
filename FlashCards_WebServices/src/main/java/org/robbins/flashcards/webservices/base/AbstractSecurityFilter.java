@@ -2,18 +2,18 @@ package org.robbins.flashcards.webservices.base;
 
 import javax.inject.Inject;
 
-import org.apache.log4j.Logger;
 import org.robbins.flashcards.dto.UserDto;
 import org.robbins.flashcards.facade.UserFacade;
-import org.robbins.flashcards.jersey.filters.SecurityFilter;
 import org.robbins.flashcards.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 public class AbstractSecurityFilter {
 	
-	private static Logger logger = Logger.getLogger(SecurityFilter.class);
+	static final Logger logger = LoggerFactory.getLogger(AbstractSecurityFilter.class);
 	
 	@Inject
 	private User loggedInUser;

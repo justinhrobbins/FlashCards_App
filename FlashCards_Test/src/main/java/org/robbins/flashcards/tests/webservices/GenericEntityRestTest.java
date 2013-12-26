@@ -6,15 +6,16 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Persistable;
 import org.springframework.http.HttpStatus;
 
 public abstract class GenericEntityRestTest<E extends Persistable<Long>> extends AbstractRestTestClient<E> {
-	static Logger logger = Logger.getLogger(GenericEntityRestTest.class);
+	static final Logger logger = LoggerFactory.getLogger(GenericEntityRestTest.class);
 	
 	/**
 	 * Sets the entity.

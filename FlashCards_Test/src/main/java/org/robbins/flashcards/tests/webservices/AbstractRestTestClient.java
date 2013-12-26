@@ -3,7 +3,8 @@ package org.robbins.flashcards.tests.webservices;
 import java.util.Collections;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -12,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 
 public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 
-	static Logger logger = Logger.getLogger(AbstractRestTestClient.class);
+	static final Logger logger = LoggerFactory.getLogger(AbstractRestTestClient.class);
 
 	/**
 	 * Gets an array entities

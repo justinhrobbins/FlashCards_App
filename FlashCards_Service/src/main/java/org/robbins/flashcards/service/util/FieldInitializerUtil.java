@@ -10,14 +10,15 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnitUtil;
 
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.log4j.Logger;
 import org.robbins.flashcards.exceptions.ServiceException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
 public class FieldInitializerUtil {
 
-	private static Logger logger = Logger.getLogger(FieldInitializerUtil.class);
+	static final Logger logger = LoggerFactory.getLogger(FieldInitializerUtil.class);
 	
 	@Inject
 	private EntityManagerFactory entityManagerFactory;

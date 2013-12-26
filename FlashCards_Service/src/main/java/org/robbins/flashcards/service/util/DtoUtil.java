@@ -9,11 +9,12 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.log4j.Logger;
 import org.robbins.flashcards.exceptions.ServiceException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DtoUtil {
-	private static Logger logger = Logger.getLogger(DtoUtil.class);
+	static final Logger logger = LoggerFactory.getLogger(DtoUtil.class);
 	
 	public static void filterFields(Object obj, Set<String> fields) throws ServiceException {
 		if (CollectionUtils.isEmpty(fields)) {

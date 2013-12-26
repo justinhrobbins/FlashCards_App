@@ -18,11 +18,12 @@ import org.apache.cxf.jaxrs.ext.ResponseHandler;
 import org.apache.cxf.jaxrs.model.OperationResourceInfo;
 import org.apache.cxf.jaxrs.model.Parameter;
 import org.apache.cxf.message.Message;
-import org.apache.log4j.Logger;
 import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.flashcards.jackson.CustomObjectMapper;
 import org.robbins.flashcards.service.util.FieldInitializerUtil;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -32,7 +33,7 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 @Component("partialResponseFilter")
 public class PartialResponseFilter implements ResponseHandler {
 
-	private static Logger logger = Logger.getLogger(PartialResponseFilter.class);
+	static final Logger logger = LoggerFactory.getLogger(PartialResponseFilter.class);
 
 	@Inject
 	private FieldInitializerUtil fieldInitializer;

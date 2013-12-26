@@ -5,9 +5,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.apache.struts2.StrutsStatics;
 import org.robbins.flashcards.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -20,7 +21,7 @@ public class LoginInterceptor extends AbstractInterceptor implements StrutsStati
     private ApplicationContext applicationContext;
 
 	private static final long serialVersionUID = -759435156742745257L;
-	private static Logger logger = Logger.getLogger(LoginInterceptor.class);
+	static final Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
 
 	public String intercept(final ActionInvocation invocation) throws Exception {
     	String invocatedAction = invocation.getAction().getClass().getName();

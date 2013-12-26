@@ -2,15 +2,16 @@ package org.robbins.flashcards.auditing;
 
 import javax.inject.Inject;
 
-import org.apache.log4j.Logger;
 import org.robbins.flashcards.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.AuditorAware;
 
 
 public class AuditingAwareUser implements AuditorAware<User> {
 	
-	private static Logger logger = Logger.getLogger(AuditingAwareUser.class);
+	static final Logger logger = LoggerFactory.getLogger(AuditingAwareUser.class);
 	
     @Inject
     private ApplicationContext context;

@@ -6,7 +6,6 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.apache.struts2.interceptor.ApplicationAware;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
@@ -14,6 +13,8 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.robbins.flashcards.model.User;
 import org.robbins.flashcards.service.UserService;
 import org.robbins.openid.authentication.OpenId4JavaAuthenticator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.opensymphony.xwork2.Preparable;
 
@@ -22,7 +23,7 @@ public class LoginAction extends FlashCardsAppBaseAction implements Preparable, 
 
 	private static final long serialVersionUID = 9086659350295360444L;
 
-	private static Logger logger = Logger.getLogger(LoginAction.class);
+	static final Logger logger = LoggerFactory.getLogger(LoginAction.class);
 
 	@Inject
 	private User loggedInUser;

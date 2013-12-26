@@ -9,7 +9,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.robbins.flashcards.dto.FlashCardDto;
@@ -18,13 +17,15 @@ import org.robbins.flashcards.tests.webservices.GenericEntityRestTest;
 import org.robbins.flashcards.util.TestEntityGenerator;
 import org.robbins.flashcards.webservices.util.ResourceUrls;
 import org.robbins.tests.IntegrationTest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
 
 @Category(IntegrationTest.class)
 @ContextConfiguration(locations = { "classpath*:applicatonContext-webServices-test.xml" })
 public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto> {
-	static Logger logger = Logger.getLogger(FlashCardsResourceIT.class);
+	static final Logger logger = LoggerFactory.getLogger(FlashCardsResourceIT.class);
 	
 	// this entity will be created in @Before and we'll use it for our JUnit tests and then delete it in @After
 	private FlashCardDto entity = TestEntityGenerator.createFlashCardDto("Web API Test 'Question'", "Web API Test 'Answer'");

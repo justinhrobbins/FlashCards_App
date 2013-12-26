@@ -10,13 +10,14 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
-import org.apache.log4j.Logger;
 import org.apache.struts2.interceptor.SessionAware;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.service.FlashCardService;
 import org.robbins.flashcards.service.TagService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
@@ -28,7 +29,7 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements ModelDri
 	 */
 	private static final long serialVersionUID = -6246981237373738037L;
 
-	private static Logger logger = Logger.getLogger(FlashCardAction.class);
+	static final Logger logger = LoggerFactory.getLogger(FlashCardAction.class);
 	
 	@Inject
 	private FlashCardService flashcardService;

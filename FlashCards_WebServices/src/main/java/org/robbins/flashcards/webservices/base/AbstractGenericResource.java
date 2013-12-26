@@ -16,10 +16,11 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
-import org.apache.log4j.Logger;
 import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 
 import com.sun.jersey.api.JResponse;
@@ -27,7 +28,7 @@ import com.wordnik.swagger.annotations.ApiOperation;
 
 public abstract class AbstractGenericResource <T, Serializable> extends AbstractResource implements GenericResource <T, Serializable> {
 	
-	private static Logger logger = Logger.getLogger(AbstractGenericResource.class);
+	static final Logger logger = LoggerFactory.getLogger(AbstractGenericResource.class);
 	
 	protected abstract GenericCrudFacade<T> getFacade();
 

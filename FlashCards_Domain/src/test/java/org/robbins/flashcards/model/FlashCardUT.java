@@ -5,15 +5,16 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Iterator;
 
-import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.robbins.tests.UnitTest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Category(UnitTest.class)
 public class FlashCardUT {
 	
-	static Logger logger = Logger.getLogger(FlashCardUT.class);
+	static final Logger logger = LoggerFactory.getLogger(FlashCardUT.class);
 
 	@Test
 	public void testSetQuestion() {

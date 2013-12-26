@@ -1,14 +1,15 @@
 package org.robbins.flashcards.presentation;
 
-import org.apache.log4j.Logger;
 import org.apache.struts2.StrutsTestCase;
 import org.robbins.flashcards.presentation.action.TagAction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.opensymphony.xwork2.ActionProxy;
 
 public class TagActionTxst extends StrutsTestCase {
 	
-	static Logger logger = Logger.getLogger(TagActionTxst.class);
+	static final Logger logger = LoggerFactory.getLogger(TagActionTxst.class);
 
 	public void testCreateTagFail() throws Exception {
     	try {

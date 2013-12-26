@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.openid4java.association.AssociationException;
 import org.openid4java.consumer.ConsumerException;
 import org.openid4java.consumer.ConsumerManager;
@@ -24,10 +23,12 @@ import org.openid4java.message.ax.FetchResponse;
 import org.openid4java.message.sreg.SRegMessage;
 import org.openid4java.message.sreg.SRegResponse;
 import org.robbins.flashcards.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class OpenId4JavaAuthenticator {
 	
-	private static Logger logger = Logger.getLogger(OpenId4JavaAuthenticator.class);
+	static final Logger logger = LoggerFactory.getLogger(OpenId4JavaAuthenticator.class);
 
 	private OpenId4JavaAuthenticator(){};
 	

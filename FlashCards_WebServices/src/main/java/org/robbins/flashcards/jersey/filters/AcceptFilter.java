@@ -7,8 +7,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import org.apache.log4j.Logger;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.sun.jersey.spi.container.ContainerRequest;
@@ -23,7 +24,7 @@ import com.sun.jersey.spi.container.ContainerRequestFilter;
 @Component("jerseyAcceptFilter")
 public class AcceptFilter implements ContainerRequestFilter {
 
-	private static Logger logger = Logger.getLogger(AcceptFilter.class);
+	static final Logger logger = LoggerFactory.getLogger(AcceptFilter.class);
 
 	private static String ACCEPT = "accept";
 	
@@ -33,7 +34,7 @@ public class AcceptFilter implements ContainerRequestFilter {
 
 		if (request.getQueryParameters().containsKey(ACCEPT)) {
 			List<String> queryparms = request.getQueryParameters().get(ACCEPT); 
-			logger.debug(queryparms);
+			logger.debug(queryparms.toString());
 			
 			// does the 'accept' header match either json or xml? 
 			if ( (!queryparms.contains(MediaType.APPLICATION_JSON)) && (!queryparms.contains(MediaType.APPLICATION_XML)) ) {
