@@ -128,11 +128,11 @@
 
 		<!-- logging -->
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.6.1</version>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>log4j-over-slf4j</artifactId>
+		    <version>1.7.5</version>
 		</dependency>
-
+    
 		<!-- test dependencies -->
 		<dependency>
 			<groupId>org.robbins.flashcards</groupId>
