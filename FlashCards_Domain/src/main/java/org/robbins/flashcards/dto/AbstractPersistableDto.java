@@ -2,6 +2,8 @@ package org.robbins.flashcards.dto;
 
 import org.springframework.data.domain.Persistable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public abstract class AbstractPersistableDto implements Persistable<Long>{
 
 	/**
@@ -21,6 +23,7 @@ public abstract class AbstractPersistableDto implements Persistable<Long>{
 	}
 	
 	@Override
+	@JsonIgnore
 	public boolean isNew() {
 		return null == getId();
 	}
