@@ -1,0 +1,5 @@
+org.robbins.flashcards.dto
+org.robbins.flashcards.model
+org.robbins.flashcards.model.common
+org.robbins.flashcards.model.util.serializer
+org.robbins.flashcards.util
