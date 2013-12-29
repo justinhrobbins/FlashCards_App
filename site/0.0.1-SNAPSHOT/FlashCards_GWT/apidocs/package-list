@@ -1,0 +1,17 @@
+org.robbins.flashcards.client
+org.robbins.flashcards.client.activity
+org.robbins.flashcards.client.factory
+org.robbins.flashcards.client.mvp
+org.robbins.flashcards.client.place
+org.robbins.flashcards.client.ui
+org.robbins.flashcards.client.ui.desktop
+org.robbins.flashcards.client.ui.desktop.style
+org.robbins.flashcards.client.ui.images
+org.robbins.flashcards.client.ui.mobile
+org.robbins.flashcards.client.ui.widgets
+org.robbins.flashcards.client.ui.widgets.autocomplete
+org.robbins.flashcards.events
+org.robbins.flashcards.model
+org.robbins.flashcards.server
+org.robbins.flashcards.service
+org.robbins.flashcards.util
