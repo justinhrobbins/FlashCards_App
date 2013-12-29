@@ -1,0 +1,17 @@
+org.robbins.flashcards.cxf.filters
+org.robbins.flashcards.facade.impl
+org.robbins.flashcards.jackson
+org.robbins.flashcards.model
+org.robbins.flashcards.presentation
+org.robbins.flashcards.repository.jpa
+org.robbins.flashcards.repository.jpa.base
+org.robbins.flashcards.repository.springdata
+org.robbins.flashcards.service.jpa
+org.robbins.flashcards.service.jpa.base
+org.robbins.flashcards.service.springdata
+org.robbins.flashcards.service.springdata.base
+org.robbins.flashcards.webservices
+org.robbins.flashcards.webservices.base
+org.robbins.flashcards.webservices.cxf.providers
+org.robbins.flashcards.webservices.exceptions
+org.robbins.flashcards.webservices.util
