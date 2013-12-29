@@ -1,0 +1,4 @@
+org.robbins.flashcards.repository.jpa
+org.robbins.flashcards.repository.jpa.base
+org.robbins.flashcards.service.jpa
+org.robbins.flashcards.service.jpa.base
