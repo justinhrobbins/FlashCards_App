@@ -25,6 +25,18 @@
 		<struts.version>2.3.4.1</struts.version>
 		<swagger.version>1.3.0</swagger.version>
 	</properties>
+	<scm>
+		<connection>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</connection>
+		<url>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</url>
+		<developerConnection>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</developerConnection>
+	</scm>
+	<distributionManagement>
+		<site>
+			<id>github-pages-site</id>
+			<name>Deployment through GitHub's site deployment plugin</name>
+			<url>site/${project.version}</url>
+		</site>
+	</distributionManagement>
 	<modules>
 		<module>FlashCards_Domain</module>
 		<module>FlashCards_GWT</module>
@@ -58,11 +70,67 @@
 					</includes>
 				</configuration>
 			</plugin>
-	        <plugin>
-	            <groupId>org.apache.maven.plugins</groupId>
-	            <artifactId>maven-site-plugin</artifactId>
-	            <version>3.3</version>
-	        </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<skipDeploy>true</skipDeploy>
+				</configuration>
+				<executions>
+					<execution>
+						<id>attach-descriptor</id>
+						<goals>
+							<goal>attach-descriptor</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.github.github</groupId>
+				<artifactId>site-maven-plugin</artifactId>
+				<version>0.9</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>site</goal>
+						</goals>
+						<phase>site-deploy</phase>
+						<configuration>
+							<message>Creating site for ${project.artifactId},
+								${project.version}</message>
+							<!--<path>${project.version}</path> -->
+							<path>${project.distributionManagement.site.url}</path>
+							<merge>true</merge>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
+	<reporting>
+		<plugins>
+			<!--
+				Skip generating repository locations for dependencies
+				1. speeds up site generation
+				2. prevents error as described here: 
+					http://stackoverflow.com/questions/20809956/unable-to-connect-to-http-repo-springsource-org-libs-release-when-running
+			 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>2.7</version>
+				<configuration>
+					<dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
+			</plugin>
+		</plugins>
+	</reporting>
+
+
 </project>

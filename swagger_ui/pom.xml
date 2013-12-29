@@ -19,5 +19,21 @@
 
 	<build>
 		<finalName>apidocs</finalName>
+		<plugins>
+			<plugin>
+				<groupId>com.github.github</groupId>
+				<artifactId>site-maven-plugin</artifactId>
+				<version>0.9</version>
+				<executions>
+					<!-- prevent the site plugin from running in thie module -->
+					<execution>
+						<goals>
+							<goal>site</goal>
+						</goals>
+						<phase>none</phase>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
 	</build>
 </project>

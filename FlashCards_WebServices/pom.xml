@@ -17,6 +17,11 @@
 		<m2eclipse.wtp.contextRoot>api</m2eclipse.wtp.contextRoot>
 		<jersey.version>1.17.1</jersey.version>
 	</properties>
+	<scm>
+		<connection>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</connection>
+		<url>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</url>
+		<developerConnection>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</developerConnection>
+	</scm>
 	<dependencies>
 		<!-- FlashCards project module dependencies -->
 		<dependency>

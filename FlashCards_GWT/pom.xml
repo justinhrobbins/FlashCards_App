@@ -16,6 +16,11 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<m2eclipse.wtp.contextRoot>gwt</m2eclipse.wtp.contextRoot>
 	</properties>
+	<scm>
+		<connection>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</connection>
+		<url>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</url>
+		<developerConnection>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</developerConnection>
+	</scm>
 	<dependencies>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
