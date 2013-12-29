@@ -1017,58 +1017,60 @@ Joda (http://joda-time.sourceforge.net/) data types.</p>
 <th>Repo ID</th>
 <th>URL</th>
 <th>Release</th>
-<th>Snapshot</th></tr>
+<th>Snapshot</th>
+<th>Blacklisted</th></tr>
 <tr class="b">
 <td>apache.snapshots</td>
 <td><a class="externalLink" href="http://svn.apache.org/maven-snapshot-repository">http://svn.apache.org/maven-snapshot-repository</a></td>
 <td>-</td>
+<td>Yes</td>
 <td>Yes</td></tr>
 <tr class="a">
 <td>spring-libs-release</td>
 <td><a class="externalLink" href="http://repo.springsource.org/libs-release">http://repo.springsource.org/libs-release</a></td>
 <td>Yes</td>
+<td>-</td>
 <td>-</td></tr>
 <tr class="b">
 <td>sonatype-nexus-snapshots</td>
 <td><a class="externalLink" href="https://oss.sonatype.org/content/repositories/snapshots">https://oss.sonatype.org/content/repositories/snapshots</a></td>
 <td>-</td>
-<td>Yes</td></tr>
+<td>Yes</td>
+<td>-</td></tr>
 <tr class="a">
 <td>java.net</td>
 <td><a class="externalLink" href="http://download.java.net/maven/2">http://download.java.net/maven/2</a></td>
 <td>Yes</td>
-<td>Yes</td></tr>
+<td>Yes</td>
+<td>-</td></tr>
 <tr class="b">
 <td>central</td>
 <td><a class="externalLink" href="http://repo1.maven.org/maven2">http://repo1.maven.org/maven2</a></td>
 <td>Yes</td>
+<td>-</td>
 <td>-</td></tr></table>
 <p>Repository locations for each of the Dependencies.</p>
 <table border="0" class="bodyTable">
 <tr class="a">
 <th>Artifact</th>
-<th>apache.snapshots</th>
 <th>spring-libs-release</th>
 <th>sonatype-nexus-snapshots</th>
 <th>java.net</th>
 <th>central</th></tr>
 <tr class="b">
 <td>aopalliance:aopalliance:jar:1.0</td>
-<td>-</td>
 <td><a class="externalLink" href="http://repo.springsource.org/libs-release/aopalliance/aopalliance/1.0/aopalliance-1.0.jar"><img alt="Found at http://repo.springsource.org/libs-release" src="images/icon_success_sml.gif" /></a></td>
 <td>-</td>
 <td>-</td>
 <td><a class="externalLink" href="http://repo1.maven.org/maven2/aopalliance/aopalliance/1.0/aopalliance-1.0.jar"><img alt="Found at http://repo1.maven.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
 <tr class="a">
 <td>ch.qos.logback:logback-classic:jar:1.0.13</td>
-<td>-</td>
 <td><a class="externalLink" href="http://repo.springsource.org/libs-release/ch/qos/logback/logback-classic/1.0.13/logback-classic-1.0.13.jar"><img alt="Found at http://repo.springsource.org/libs-release" src="images/icon_success_sml.gif" /></a></td>
 <td>-</td>
 <td>-</td>
 <td><a class="externalLink" href="http://repo1.maven.org/maven2/ch/qos/logback/logback-classic/1.0.13/logback-classic-1.0.13.jar"><img alt="Found at http://repo1.maven.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
 <tr class="b">
 <td>ch.qos.logback:logback-core:jar:1.0.13</td>
-<td>-</td>
 <td><a class="externalLink" href="http://repo.springsource.org/libs-release/ch/qos/logback/logback-core/1.0.13/logback-core-1.0.13.jar"><img alt="Found at http://repo.springsource.org/libs-release" src="images/icon_success_sml.gif" /></a></td>
 <td>-</td>
 <td>-</td>
@@ -1078,11 +1080,9 @@ Joda (http://joda-time.sourceforge.net/) data types.</p>
 <td>-</td>
 <td>-</td>
 <td>-</td>
-<td>-</td>
 <td><a class="externalLink" href="http://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.0.2/jackson-annotations-2.0.2.jar"><img alt="Found at http://repo1.maven.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
 <tr class="b">
 <td>com.fasterxml.jackson.core:jackson-core:jar:2.0.2</td>
-<td>-</td>
 <td>-</td>
 <td>-</td>
 <td>-</td>
@@ -1092,11 +1092,9 @@ Joda (http://joda-time.sourceforge.net/) data types.</p>
 <td>-</td>
 <td>-</td>
 <td>-</td>
-<td>-</td>
 <td><a class="externalLink" href="http://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.0.2/jackson-databind-2.0.2.jar"><img alt="Found at http://repo1.maven.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
 <tr class="b">
 <td>com.fasterxml.jackson.datatype:jackson-datatype-joda:jar:2.0.2</td>
-<td>-</td>
 <td>-</td>
 <td>-</td>
 <td>-</td>
@@ -1106,32 +1104,27 @@ Joda (http://joda-time.sourceforge.net/) data types.</p>
 <td>-</td>
 <td>-</td>
 <td>-</td>
-<td>-</td>
 <td><a class="externalLink" href="http://repo1.maven.org/maven2/com/github/springtestdbunit/spring-test-dbunit/1.0.1/spring-test-dbunit-1.0.1.jar"><img alt="Found at http://repo1.maven.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
 <tr class="b">
 <td>commons-beanutils:commons-beanutils:jar:1.8.3</td>
-<td>-</td>
 <td><a class="externalLink" href="http://repo.springsource.org/libs-release/commons-beanutils/commons-beanutils/1.8.3/commons-beanutils-1.8.3.jar"><img alt="Found at http://repo.springsource.org/libs-release" src="images/icon_success_sml.gif" /></a></td>
 <td>-</td>
 <td>-</td>
 <td><a class="externalLink" href="http://repo1.maven.org/maven2/commons-beanutils/commons-beanutils/1.8.3/commons-beanutils-1.8.3.jar"><img alt="Found at http://repo1.maven.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
 <tr class="a">
 <td>commons-logging:commons-logging:jar:1.1.1</td>
-<td>-</td>
 <td><a class="externalLink" href="http://repo.springsource.org/libs-release/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar"><img alt="Found at http://repo.springsource.org/libs-release" src="images/icon_success_sml.gif" /></a></td>
 <td>-</td>
 <td>-</td>
 <td><a class="externalLink" href="http://repo1.maven.org/maven2/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar"><img alt="Found at http://repo1.maven.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
 <tr class="b">
 <td>joda-time:joda-time:jar:2.1</td>
-<td>-</td>
 <td><a class="externalLink" href="http://repo.springsource.org/libs-release/joda-time/joda-time/2.1/joda-time-2.1.jar"><img alt="Found at http://repo.springsource.org/libs-release" src="images/icon_success_sml.gif" /></a></td>
 <td>-</td>
 <td>-</td>
 <td><a class="externalLink" href="http://repo1.maven.org/maven2/joda-time/joda-time/2.1/joda-time-2.1.jar"><img alt="Found at http://repo1.maven.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
 <tr class="a">
 <td>junit:junit:jar:4.10</td>
-<td>-</td>
 <td><a class="externalLink" href="http://repo.springsource.org/libs-release/junit/junit/4.10/junit-4.10.jar"><img alt="Found at http://repo.springsource.org/libs-release" src="images/icon_success_sml.gif" /></a></td>
 <td>-</td>
 <td>-</td>
@@ -1141,11 +1134,9 @@ Joda (http://joda-time.sourceforge.net/) data types.</p>
 <td>-</td>
 <td>-</td>
 <td>-</td>
-<td>-</td>
 <td><a class="externalLink" href="http://repo1.maven.org/maven2/net/sf/dozer/dozer/5.4.0/dozer-5.4.0.jar"><img alt="Found at http://repo1.maven.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
 <tr class="a">
 <td>org.apache.commons:commons-lang3:jar:3.1</td>
-<td>-</td>
 <td><a class="externalLink" href="http://repo.springsource.org/libs-release/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.jar"><img alt="Found at http://repo.springsource.org/libs-release" src="images/icon_success_sml.gif" /></a></td>
 <td>-</td>
 <td>-</td>
@@ -1155,39 +1146,33 @@ Joda (http://joda-time.sourceforge.net/) data types.</p>
 <td>-</td>
 <td>-</td>
 <td>-</td>
-<td>-</td>
 <td><a class="externalLink" href="http://repo1.maven.org/maven2/org/apache/geronimo/specs/geronimo-j2ee_1.4_spec/1.1/geronimo-j2ee_1.4_spec-1.1.jar"><img alt="Found at http://repo1.maven.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
 <tr class="a">
 <td>org.aspectj:aspectjrt:jar:1.6.12</td>
-<td>-</td>
 <td><a class="externalLink" href="http://repo.springsource.org/libs-release/org/aspectj/aspectjrt/1.6.12/aspectjrt-1.6.12.jar"><img alt="Found at http://repo.springsource.org/libs-release" src="images/icon_success_sml.gif" /></a></td>
 <td>-</td>
 <td>-</td>
 <td><a class="externalLink" href="http://repo1.maven.org/maven2/org/aspectj/aspectjrt/1.6.12/aspectjrt-1.6.12.jar"><img alt="Found at http://repo1.maven.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
 <tr class="b">
 <td>org.hamcrest:hamcrest-core:jar:1.1</td>
-<td>-</td>
 <td><a class="externalLink" href="http://repo.springsource.org/libs-release/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar"><img alt="Found at http://repo.springsource.org/libs-release" src="images/icon_success_sml.gif" /></a></td>
 <td>-</td>
 <td>-</td>
 <td><a class="externalLink" href="http://repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar"><img alt="Found at http://repo1.maven.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
 <tr class="a">
 <td>org.hibernate.javax.persistence:hibernate-jpa-2.0-api:jar:1.0.1.Final</td>
-<td>-</td>
 <td><a class="externalLink" href="http://repo.springsource.org/libs-release/org/hibernate/javax/persistence/hibernate-jpa-2.0-api/1.0.1.Final/hibernate-jpa-2.0-api-1.0.1.Final.jar"><img alt="Found at http://repo.springsource.org/libs-release" src="images/icon_success_sml.gif" /></a></td>
 <td>-</td>
 <td>-</td>
 <td><a class="externalLink" href="http://repo1.maven.org/maven2/org/hibernate/javax/persistence/hibernate-jpa-2.0-api/1.0.1.Final/hibernate-jpa-2.0-api-1.0.1.Final.jar"><img alt="Found at http://repo1.maven.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
 <tr class="b">
 <td>org.mockito:mockito-core:jar:1.9.0</td>
-<td>-</td>
 <td><a class="externalLink" href="http://repo.springsource.org/libs-release/org/mockito/mockito-core/1.9.0/mockito-core-1.9.0.jar"><img alt="Found at http://repo.springsource.org/libs-release" src="images/icon_success_sml.gif" /></a></td>
 <td>-</td>
 <td>-</td>
 <td><a class="externalLink" href="http://repo1.maven.org/maven2/org/mockito/mockito-core/1.9.0/mockito-core-1.9.0.jar"><img alt="Found at http://repo1.maven.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
 <tr class="a">
 <td>org.objenesis:objenesis:jar:1.0</td>
-<td>-</td>
 <td><a class="externalLink" href="http://repo.springsource.org/libs-release/org/objenesis/objenesis/1.0/objenesis-1.0.jar"><img alt="Found at http://repo.springsource.org/libs-release" src="images/icon_success_sml.gif" /></a></td>
 <td>-</td>
 <td>-</td>
@@ -1197,102 +1182,87 @@ Joda (http://joda-time.sourceforge.net/) data types.</p>
 <td>-</td>
 <td>-</td>
 <td>-</td>
-<td>-</td>
 <td>-</td></tr>
 <tr class="a">
 <td>org.slf4j:jcl-over-slf4j:jar:1.6.6</td>
-<td>-</td>
 <td><a class="externalLink" href="http://repo.springsource.org/libs-release/org/slf4j/jcl-over-slf4j/1.6.6/jcl-over-slf4j-1.6.6.jar"><img alt="Found at http://repo.springsource.org/libs-release" src="images/icon_success_sml.gif" /></a></td>
 <td>-</td>
 <td>-</td>
 <td><a class="externalLink" href="http://repo1.maven.org/maven2/org/slf4j/jcl-over-slf4j/1.6.6/jcl-over-slf4j-1.6.6.jar"><img alt="Found at http://repo1.maven.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
 <tr class="b">
 <td>org.slf4j:slf4j-api:jar:1.7.5</td>
-<td>-</td>
 <td><a class="externalLink" href="http://repo.springsource.org/libs-release/org/slf4j/slf4j-api/1.7.5/slf4j-api-1.7.5.jar"><img alt="Found at http://repo.springsource.org/libs-release" src="images/icon_success_sml.gif" /></a></td>
 <td>-</td>
 <td>-</td>
 <td><a class="externalLink" href="http://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.5/slf4j-api-1.7.5.jar"><img alt="Found at http://repo1.maven.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
 <tr class="a">
 <td>org.springframework:spring-aop:jar:3.1.1.RELEASE</td>
-<td>-</td>
 <td><a class="externalLink" href="http://repo.springsource.org/libs-release/org/springframework/spring-aop/3.1.1.RELEASE/spring-aop-3.1.1.RELEASE.jar"><img alt="Found at http://repo.springsource.org/libs-release" src="images/icon_success_sml.gif" /></a></td>
 <td>-</td>
 <td>-</td>
 <td><a class="externalLink" href="http://repo1.maven.org/maven2/org/springframework/spring-aop/3.1.1.RELEASE/spring-aop-3.1.1.RELEASE.jar"><img alt="Found at http://repo1.maven.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
 <tr class="b">
 <td>org.springframework:spring-asm:jar:3.1.1.RELEASE</td>
-<td>-</td>
 <td><a class="externalLink" href="http://repo.springsource.org/libs-release/org/springframework/spring-asm/3.1.1.RELEASE/spring-asm-3.1.1.RELEASE.jar"><img alt="Found at http://repo.springsource.org/libs-release" src="images/icon_success_sml.gif" /></a></td>
 <td>-</td>
 <td>-</td>
 <td><a class="externalLink" href="http://repo1.maven.org/maven2/org/springframework/spring-asm/3.1.1.RELEASE/spring-asm-3.1.1.RELEASE.jar"><img alt="Found at http://repo1.maven.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
 <tr class="a">
 <td>org.springframework:spring-beans:jar:3.2.6.RELEASE</td>
-<td>-</td>
 <td><a class="externalLink" href="http://repo.springsource.org/libs-release/org/springframework/spring-beans/3.2.6.RELEASE/spring-beans-3.2.6.RELEASE.jar"><img alt="Found at http://repo.springsource.org/libs-release" src="images/icon_success_sml.gif" /></a></td>
 <td>-</td>
 <td>-</td>
 <td><a class="externalLink" href="http://repo1.maven.org/maven2/org/springframework/spring-beans/3.2.6.RELEASE/spring-beans-3.2.6.RELEASE.jar"><img alt="Found at http://repo1.maven.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
 <tr class="b">
 <td>org.springframework:spring-context:jar:3.1.1.RELEASE</td>
-<td>-</td>
 <td><a class="externalLink" href="http://repo.springsource.org/libs-release/org/springframework/spring-context/3.1.1.RELEASE/spring-context-3.1.1.RELEASE.jar"><img alt="Found at http://repo.springsource.org/libs-release" src="images/icon_success_sml.gif" /></a></td>
 <td>-</td>
 <td>-</td>
 <td><a class="externalLink" href="http://repo1.maven.org/maven2/org/springframework/spring-context/3.1.1.RELEASE/spring-context-3.1.1.RELEASE.jar"><img alt="Found at http://repo1.maven.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
 <tr class="a">
 <td>org.springframework:spring-core:jar:3.2.6.RELEASE</td>
-<td>-</td>
 <td><a class="externalLink" href="http://repo.springsource.org/libs-release/org/springframework/spring-core/3.2.6.RELEASE/spring-core-3.2.6.RELEASE.jar"><img alt="Found at http://repo.springsource.org/libs-release" src="images/icon_success_sml.gif" /></a></td>
 <td>-</td>
 <td>-</td>
 <td><a class="externalLink" href="http://repo1.maven.org/maven2/org/springframework/spring-core/3.2.6.RELEASE/spring-core-3.2.6.RELEASE.jar"><img alt="Found at http://repo1.maven.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
 <tr class="b">
 <td>org.springframework:spring-expression:jar:3.1.1.RELEASE</td>
-<td>-</td>
 <td><a class="externalLink" href="http://repo.springsource.org/libs-release/org/springframework/spring-expression/3.1.1.RELEASE/spring-expression-3.1.1.RELEASE.jar"><img alt="Found at http://repo.springsource.org/libs-release" src="images/icon_success_sml.gif" /></a></td>
 <td>-</td>
 <td>-</td>
 <td><a class="externalLink" href="http://repo1.maven.org/maven2/org/springframework/spring-expression/3.1.1.RELEASE/spring-expression-3.1.1.RELEASE.jar"><img alt="Found at http://repo1.maven.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
 <tr class="a">
 <td>org.springframework:spring-test:jar:3.1.1.RELEASE</td>
-<td>-</td>
 <td><a class="externalLink" href="http://repo.springsource.org/libs-release/org/springframework/spring-test/3.1.1.RELEASE/spring-test-3.1.1.RELEASE.jar"><img alt="Found at http://repo.springsource.org/libs-release" src="images/icon_success_sml.gif" /></a></td>
 <td>-</td>
 <td>-</td>
 <td><a class="externalLink" href="http://repo1.maven.org/maven2/org/springframework/spring-test/3.1.1.RELEASE/spring-test-3.1.1.RELEASE.jar"><img alt="Found at http://repo1.maven.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
 <tr class="b">
 <td>org.springframework:spring-tx:jar:3.1.1.RELEASE</td>
-<td>-</td>
 <td><a class="externalLink" href="http://repo.springsource.org/libs-release/org/springframework/spring-tx/3.1.1.RELEASE/spring-tx-3.1.1.RELEASE.jar"><img alt="Found at http://repo.springsource.org/libs-release" src="images/icon_success_sml.gif" /></a></td>
 <td>-</td>
 <td>-</td>
 <td><a class="externalLink" href="http://repo1.maven.org/maven2/org/springframework/spring-tx/3.1.1.RELEASE/spring-tx-3.1.1.RELEASE.jar"><img alt="Found at http://repo1.maven.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
 <tr class="a">
 <td>org.springframework:spring-web:jar:3.1.1.RELEASE</td>
-<td>-</td>
 <td><a class="externalLink" href="http://repo.springsource.org/libs-release/org/springframework/spring-web/3.1.1.RELEASE/spring-web-3.1.1.RELEASE.jar"><img alt="Found at http://repo.springsource.org/libs-release" src="images/icon_success_sml.gif" /></a></td>
 <td>-</td>
 <td>-</td>
 <td><a class="externalLink" href="http://repo1.maven.org/maven2/org/springframework/spring-web/3.1.1.RELEASE/spring-web-3.1.1.RELEASE.jar"><img alt="Found at http://repo1.maven.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
 <tr class="b">
 <td>org.springframework.data:spring-data-commons-core:jar:1.3.2.RELEASE</td>
-<td>-</td>
 <td><a class="externalLink" href="http://repo.springsource.org/libs-release/org/springframework/data/spring-data-commons-core/1.3.2.RELEASE/spring-data-commons-core-1.3.2.RELEASE.jar"><img alt="Found at http://repo.springsource.org/libs-release" src="images/icon_success_sml.gif" /></a></td>
 <td>-</td>
 <td>-</td>
 <td><a class="externalLink" href="http://repo1.maven.org/maven2/org/springframework/data/spring-data-commons-core/1.3.2.RELEASE/spring-data-commons-core-1.3.2.RELEASE.jar"><img alt="Found at http://repo1.maven.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
 <tr class="a">
 <th>Total</th>
-<th>apache.snapshots</th>
 <th>spring-libs-release</th>
 <th>sonatype-nexus-snapshots</th>
 <th>java.net</th>
 <th>central</th></tr>
 <tr class="b">
 <td>33 (compile: 18, test: 15)</td>
-<td>0</td>
 <td>25</td>
 <td>0</td>
 <td>0</td>
