@@ -11,6 +11,8 @@ A working copy of this project is running on an Amazon EC2 cloud instance.  Ther
 
 Both versions of the Flashcards App reuse the same service, domain, and persistence layers.
 
+Maven site hosted on [Github pages](http://justinhrobbins.github.io/FlashCards_App/site/0.0.1-SNAPSHOT/index.html)
+
 ## Project modules
 The documentation below outlines the technologies used in each module of the Flashcards App:
 
