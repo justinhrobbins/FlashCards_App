@@ -141,9 +141,9 @@
 						</goals>
 						<phase>site-deploy</phase>
 						<configuration>
-							<message>Creating site for ${project.artifactId},
-								${project.version}</message>
-							<!--<path>${project.version}</path> -->
+							<message>
+								Creating site for ${project.artifactId}, ${project.version}
+							</message>
 							<path>${project.distributionManagement.site.url}</path>
 							<merge>true</merge>
 						</configuration>
@@ -154,8 +154,11 @@
 	</build>
 	<reporting>
 		<plugins>
-			<!-- Skip generating repository locations for dependencies 1. speeds up 
-				site generation 2. prevents error as described here: http://stackoverflow.com/questions/20809956/unable-to-connect-to-http-repo-springsource-org-libs-release-when-running -->
+			<!-- Skip generating repository locations for dependencies
+				1. speeds up site generation 
+				2. prevents error as described here: 
+					http://stackoverflow.com/questions/20809956/unable-to-connect-to-http-repo-springsource-org-libs-release-when-running 
+			-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-project-info-reports-plugin</artifactId>

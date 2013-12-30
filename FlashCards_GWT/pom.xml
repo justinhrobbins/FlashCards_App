@@ -9,7 +9,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>FlashCards_GWT</artifactId>
 	<packaging>war</packaging>
-	<name>FlashCards_GwtClient</name>
+	<name>FlashCards_GWT</name>
 	<description>FlashCards_GwtClient description</description>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

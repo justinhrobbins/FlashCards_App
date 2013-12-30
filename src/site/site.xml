@@ -18,7 +18,17 @@
 			<item name="FlashCards_App Home" href="./index.html" />
 		</breadcrumbs>
 		<menu ref="parent" inherit="top" />
-		<menu ref="modules" inherit="top" />
+		<!--  <menu ref="modules" inherit="top" />  -->
+		<menu name="MODULES">
+			<item name="FlashCards_Domain" href="/FlashCards_Domain/index.html" />
+			<item name="FlashCards_GWT" href="/FlashCards_GWT/index.html" />
+			<item name="FlashCards_Service" href="/FlashCards_Service/index.html" />
+			<item name="FlashCards_Service_SpringData" href="/FlashCards_Service_SpringData/index.html" />
+			<item name="FlashCards_Service_Jpa" href="/FlashCards_Service_Jpa/index.html" />
+			<item name="FlashCards_WebServices" href="/FlashCards_WebServices/index.html" />
+			<item name="FlashCards_Struts" href="/FlashCards_Struts/index.html" />
+			<item name="FlashCards_Test" href="/FlashCards_Test/index.html" />
+		</menu>
 		<menu ref="reports" inherit="bottom" />
 	</body>
 </project>
