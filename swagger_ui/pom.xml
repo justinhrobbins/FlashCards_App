@@ -20,6 +20,7 @@
 	<build>
 		<finalName>apidocs</finalName>
 		<plugins>
+			<!-- prevent the maven-site-plugin from running in this module -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
@@ -28,12 +29,12 @@
 					<skip>true</skip>
 				</configuration>
 			</plugin>
+			<!-- prevent the site-maven-plugin (github) from running in this module -->
 			<plugin>
 				<groupId>com.github.github</groupId>
 				<artifactId>site-maven-plugin</artifactId>
 				<version>0.9</version>
 				<executions>
-					<!-- prevent the site plugin from running in thie module -->
 					<execution>
 						<goals>
 							<goal>site</goal>
