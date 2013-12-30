@@ -108,17 +108,17 @@
         Test JavaDocs</a>
             </li>
                     
-      <li class="active">
-  
-            <a href="#"><i class="none"></i>Surefire Report</a>
-          </li>
-                    
       <li>
   
-                          <a href="failsafe-report.html" title="Failsafe Report">
+                          <a href="surefire-report.html" title="Surefire Report">
           <i class="none"></i>
-        Failsafe Report</a>
+        Surefire Report</a>
             </li>
+                    
+      <li class="active">
+  
+            <a href="#"><i class="none"></i>Failsafe Report</a>
+          </li>
               </ul>
         </li>
             </ul>
@@ -173,12 +173,12 @@ function toggleDisplay(elementId) {
 <th>Success Rate</th>
 <th>Time</th></tr>
 <tr class="b">
-<td>24</td>
+<td>5</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>100%</td>
-<td>1.044</td></tr></table><br />
+<td>8.107</td></tr></table><br />
 <p>Note: failures are anticipated and checked for with assertions while errors are unanticipated.</p><br /></div>
 <div class="section">
 <h2>Package List<a name="Package_List"></a></h2><a name="Package_List"></a>
@@ -193,24 +193,24 @@ function toggleDisplay(elementId) {
 <th>Success Rate</th>
 <th>Time</th></tr>
 <tr class="b">
-<td><a href="#org.robbins.flashcards.service.springdata">org.robbins.flashcards.service.springdata</a></td>
-<td>7</td>
+<td><a href="#org.robbins.flashcards.facade.impl">org.robbins.flashcards.facade.impl</a></td>
+<td>1</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>100%</td>
-<td>0.031</td></tr>
+<td>7.109</td></tr>
 <tr class="a">
-<td><a href="#org.robbins.flashcards.service.springdata.base">org.robbins.flashcards.service.springdata.base</a></td>
-<td>17</td>
+<td><a href="#org.robbins.flashcards.repository.springdata">org.robbins.flashcards.repository.springdata</a></td>
+<td>4</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>100%</td>
-<td>1.013</td></tr></table><br />
+<td>0.998</td></tr></table><br />
 <p>Note: package statistics are not computed recursively, they only sum up all of its testsuites numbers.</p>
 <div class="section">
-<h3>org.robbins.flashcards.service.springdata<a name="org.robbins.flashcards.service.springdata"></a></h3><a name="org.robbins.flashcards.service.springdata"></a>
+<h3>org.robbins.flashcards.facade.impl<a name="org.robbins.flashcards.facade.impl"></a></h3><a name="org.robbins.flashcards.facade.impl"></a>
 <table border="1" class="table table-striped">
 <tr class="a">
 <th></th>
@@ -222,34 +222,16 @@ function toggleDisplay(elementId) {
 <th>Success Rate</th>
 <th>Time</th></tr>
 <tr class="b">
-<td><a href="#org.robbins.flashcards.service.springdataFlashCardServiceImplUT"><img src="images/icon_success_sml.gif" alt="" /></a></td>
-<td><a href="#org.robbins.flashcards.service.springdataFlashCardServiceImplUT">FlashCardServiceImplUT</a></td>
-<td>5</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>100%</td>
-<td>0.031</td></tr>
-<tr class="a">
-<td><a href="#org.robbins.flashcards.service.springdataTagServiceImplUT"><img src="images/icon_success_sml.gif" alt="" /></a></td>
-<td><a href="#org.robbins.flashcards.service.springdataTagServiceImplUT">TagServiceImplUT</a></td>
+<td><a href="#org.robbins.flashcards.facade.implDefaultTagFacadeIT"><img src="images/icon_success_sml.gif" alt="" /></a></td>
+<td><a href="#org.robbins.flashcards.facade.implDefaultTagFacadeIT">DefaultTagFacadeIT</a></td>
 <td>1</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>100%</td>
-<td>0</td></tr>
-<tr class="b">
-<td><a href="#org.robbins.flashcards.service.springdataUserServiceImplUT"><img src="images/icon_success_sml.gif" alt="" /></a></td>
-<td><a href="#org.robbins.flashcards.service.springdataUserServiceImplUT">UserServiceImplUT</a></td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>100%</td>
-<td>0</td></tr></table></div>
+<td>7.109</td></tr></table></div>
 <div class="section">
-<h3>org.robbins.flashcards.service.springdata.base<a name="org.robbins.flashcards.service.springdata.base"></a></h3><a name="org.robbins.flashcards.service.springdata.base"></a>
+<h3>org.robbins.flashcards.repository.springdata<a name="org.robbins.flashcards.repository.springdata"></a></h3><a name="org.robbins.flashcards.repository.springdata"></a>
 <table border="1" class="table table-striped">
 <tr class="a">
 <th></th>
@@ -261,149 +243,55 @@ function toggleDisplay(elementId) {
 <th>Success Rate</th>
 <th>Time</th></tr>
 <tr class="b">
-<td><a href="#org.robbins.flashcards.service.springdata.baseGenericCrudServiceImplUT"><img src="images/icon_success_sml.gif" alt="" /></a></td>
-<td><a href="#org.robbins.flashcards.service.springdata.baseGenericCrudServiceImplUT">GenericCrudServiceImplUT</a></td>
-<td>9</td>
+<td><a href="#org.robbins.flashcards.repository.springdataFlashCardRepositoryIT"><img src="images/icon_success_sml.gif" alt="" /></a></td>
+<td><a href="#org.robbins.flashcards.repository.springdataFlashCardRepositoryIT">FlashCardRepositoryIT</a></td>
+<td>2</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>100%</td>
-<td>1.013</td></tr>
+<td>0.92</td></tr>
 <tr class="a">
-<td><a href="#org.robbins.flashcards.service.springdata.baseGenericJpaServiceImplUT"><img src="images/icon_success_sml.gif" alt="" /></a></td>
-<td><a href="#org.robbins.flashcards.service.springdata.baseGenericJpaServiceImplUT">GenericJpaServiceImplUT</a></td>
-<td>7</td>
+<td><a href="#org.robbins.flashcards.repository.springdataTagRepositoryIT"><img src="images/icon_success_sml.gif" alt="" /></a></td>
+<td><a href="#org.robbins.flashcards.repository.springdataTagRepositoryIT">TagRepositoryIT</a></td>
+<td>2</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>100%</td>
-<td>0</td></tr>
-<tr class="b">
-<td><a href="#org.robbins.flashcards.service.springdata.baseGenericPagingAndSortingServiceImplUT"><img src="images/icon_success_sml.gif" alt="" /></a></td>
-<td><a href="#org.robbins.flashcards.service.springdata.baseGenericPagingAndSortingServiceImplUT">GenericPagingAndSortingServiceImplUT</a></td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>100%</td>
-<td>0</td></tr></table></div><br /></div>
+<td>0.078</td></tr></table></div><br /></div>
 <div class="section">
 <h2>Test Cases<a name="Test_Cases"></a></h2><a name="Test_Cases"></a>
 <p>[<a href="#Summary">Summary</a>] [<a href="#Package_List">Package List</a>] [<a href="#Test_Cases">Test Cases</a>]</p>
 <div class="section">
-<h3>GenericCrudServiceImplUT<a name="GenericCrudServiceImplUT"></a></h3><a name="org.robbins.flashcards.service.springdata.baseGenericCrudServiceImplUT"></a>
-<table border="1" class="table table-striped">
-<tr class="a">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>count</td>
-<td>0.982</td></tr>
-<tr class="b">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>save</td>
-<td>0</td></tr>
-<tr class="a">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>delete</td>
-<td>0.015</td></tr>
-<tr class="b">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>exists</td>
-<td>0</td></tr>
-<tr class="a">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>findOne</td>
-<td>0.016</td></tr>
-<tr class="b">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>findAllIterable</td>
-<td>0</td></tr>
-<tr class="a">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>deleteEntity</td>
-<td>0</td></tr>
-<tr class="b">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>deleteIterable</td>
-<td>0</td></tr>
-<tr class="a">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>deleteAll</td>
-<td>0</td></tr></table></div>
-<div class="section">
-<h3>GenericJpaServiceImplUT<a name="GenericJpaServiceImplUT"></a></h3><a name="org.robbins.flashcards.service.springdata.baseGenericJpaServiceImplUT"></a>
-<table border="1" class="table table-striped">
-<tr class="a">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>flush</td>
-<td>0</td></tr>
-<tr class="b">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>findAll</td>
-<td>0</td></tr>
-<tr class="a">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>findAllSorted</td>
-<td>0</td></tr>
-<tr class="b">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>saveEntities</td>
-<td>0</td></tr>
-<tr class="a">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>saveAndFlush</td>
-<td>0</td></tr>
-<tr class="b">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>deleteInBatch</td>
-<td>0</td></tr>
-<tr class="a">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>deleteAllInBatch</td>
-<td>0</td></tr></table></div>
-<div class="section">
-<h3>GenericPagingAndSortingServiceImplUT<a name="GenericPagingAndSortingServiceImplUT"></a></h3><a name="org.robbins.flashcards.service.springdata.baseGenericPagingAndSortingServiceImplUT"></a>
-<table border="1" class="table table-striped">
-<tr class="a">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>findAll</td>
-<td>0</td></tr></table></div>
-<div class="section">
-<h3>FlashCardServiceImplUT<a name="FlashCardServiceImplUT"></a></h3><a name="org.robbins.flashcards.service.springdataFlashCardServiceImplUT"></a>
-<table border="1" class="table table-striped">
-<tr class="a">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>testFindByQuestion</td>
-<td>0</td></tr>
-<tr class="b">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>testFindByQuestionLike</td>
-<td>0.015</td></tr>
-<tr class="a">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>testFindByTagsIn</td>
-<td>0</td></tr>
-<tr class="b">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>testFindByTagsInWithPageRequest</td>
-<td>0.016</td></tr>
-<tr class="a">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>testFindByQuestionLikeWithPageRequest</td>
-<td>0</td></tr></table></div>
-<div class="section">
-<h3>TagServiceImplUT<a name="TagServiceImplUT"></a></h3><a name="org.robbins.flashcards.service.springdataTagServiceImplUT"></a>
+<h3>DefaultTagFacadeIT<a name="DefaultTagFacadeIT"></a></h3><a name="org.robbins.flashcards.facade.implDefaultTagFacadeIT"></a>
 <table border="1" class="table table-striped">
 <tr class="a">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
 <td>findByName</td>
-<td>0</td></tr></table></div>
+<td>7.109</td></tr></table></div>
 <div class="section">
-<h3>UserServiceImplUT<a name="UserServiceImplUT"></a></h3><a name="org.robbins.flashcards.service.springdataUserServiceImplUT"></a>
+<h3>FlashCardRepositoryIT<a name="FlashCardRepositoryIT"></a></h3><a name="org.robbins.flashcards.repository.springdataFlashCardRepositoryIT"></a>
 <table border="1" class="table table-striped">
 <tr class="a">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>testFindUserByOpenid</td>
-<td>0</td></tr></table></div><br /></div>
+<td>findByQuestion</td>
+<td>0.749</td></tr>
+<tr class="b">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>createNewFlashCard_WithNewTag</td>
+<td>0.171</td></tr></table></div>
+<div class="section">
+<h3>TagRepositoryIT<a name="TagRepositoryIT"></a></h3><a name="org.robbins.flashcards.repository.springdataTagRepositoryIT"></a>
+<table border="1" class="table table-striped">
+<tr class="a">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>findByName</td>
+<td>0.047</td></tr>
+<tr class="b">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>findByName_noSuchTag</td>
+<td>0.031</td></tr></table></div><br /></div>
                   </div>
             </div>
           </div>
