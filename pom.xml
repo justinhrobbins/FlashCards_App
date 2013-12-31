@@ -135,6 +135,20 @@
 				</executions>
 			</plugin>
 			<plugin>
+				<!-- 
+					Note: to use this plugin you must also add Github authentication information to your local settings.xml
+					For example:
+						<profile>
+							<id>github</id>
+            				<activation>
+                				<activeByDefault>true</activeByDefault>
+            				</activation>
+	    					<properties>
+	        				<github.global.userName>my_user_name</github.global.userName>
+	        				<github.global.password>my_password</github.global.password>
+	    				</properties>
+					</profile>
+				-->
 				<groupId>com.github.github</groupId>
 				<artifactId>site-maven-plugin</artifactId>
 				<version>0.9</version>
