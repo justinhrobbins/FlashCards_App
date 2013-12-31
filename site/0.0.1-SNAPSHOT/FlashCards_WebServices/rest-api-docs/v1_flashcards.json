@@ -1,0 +1,167 @@
+{
+  "apiVersion" : "0.0.1-SNAPSHOT",
+  "swaggerVersion" : "1.1",
+  "basePath" : "http://localhost:8080/api",
+  "resourcePath" : "/v1/flashcards",
+  "apis" : [ {
+    "path" : "/v1/flashcards/search",
+    "description" : "Operations about FlashCards",
+    "operations" : [ {
+      "httpMethod" : "GET",
+      "summary" : "Search for FlashCards",
+      "responseClass" : "void",
+      "nickname" : "search",
+      "parameters" : [ {
+        "name" : "page",
+        "paramType" : "query",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "int"
+      }, {
+        "name" : "size",
+        "paramType" : "query",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "int"
+      }, {
+        "name" : "question",
+        "paramType" : "query",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "string"
+      }, {
+        "name" : "tags",
+        "paramType" : "query",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "string"
+      } ]
+    } ]
+  }, {
+    "path" : "/v1/flashcards/search/count",
+    "description" : "Operations about FlashCards",
+    "operations" : [ {
+      "httpMethod" : "GET",
+      "summary" : "Get a count of FlashCards",
+      "responseClass" : "void",
+      "nickname" : "searchCount",
+      "parameters" : [ {
+        "name" : "question",
+        "paramType" : "query",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "string"
+      }, {
+        "name" : "tags",
+        "paramType" : "query",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "string"
+      } ]
+    } ]
+  }, {
+    "path" : "/v1/flashcards/count",
+    "description" : "Operations about FlashCards",
+    "operations" : [ {
+      "httpMethod" : "GET",
+      "summary" : "Count",
+      "responseClass" : "void",
+      "nickname" : "count"
+    } ]
+  }, {
+    "path" : "/v1/flashcards",
+    "description" : "Operations about FlashCards",
+    "operations" : [ {
+      "httpMethod" : "GET",
+      "summary" : "List",
+      "responseClass" : "void",
+      "nickname" : "list",
+      "parameters" : [ {
+        "name" : "page",
+        "paramType" : "query",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "int"
+      }, {
+        "name" : "size",
+        "paramType" : "query",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "int"
+      }, {
+        "name" : "sort",
+        "paramType" : "query",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "string"
+      }, {
+        "name" : "direction",
+        "paramType" : "query",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "string"
+      }, {
+        "name" : "fields",
+        "paramType" : "query",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "string"
+      } ]
+    }, {
+      "httpMethod" : "POST",
+      "summary" : "Create",
+      "responseClass" : "void",
+      "nickname" : "post"
+    } ]
+  }, {
+    "path" : "/v1/flashcards/{id}",
+    "description" : "Operations about FlashCards",
+    "operations" : [ {
+      "httpMethod" : "DELETE",
+      "summary" : "Delete",
+      "responseClass" : "void",
+      "nickname" : "delete",
+      "parameters" : [ {
+        "name" : "id",
+        "paramType" : "path",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "long"
+      } ]
+    }, {
+      "httpMethod" : "GET",
+      "summary" : "Get one",
+      "responseClass" : "void",
+      "nickname" : "findOne",
+      "parameters" : [ {
+        "name" : "id",
+        "paramType" : "path",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "long"
+      }, {
+        "name" : "fields",
+        "paramType" : "query",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "string"
+      } ]
+    } ]
+  }, {
+    "path" : "/v1/flashcards/{id}/update",
+    "description" : "Operations about FlashCards",
+    "operations" : [ {
+      "httpMethod" : "POST",
+      "summary" : "Update",
+      "responseClass" : "void",
+      "nickname" : "update",
+      "parameters" : [ {
+        "name" : "id",
+        "paramType" : "path",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "long"
+      } ]
+    } ]
+  } ]
+}

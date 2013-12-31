@@ -1,0 +1,139 @@
+{
+  "apiVersion" : "0.0.1-SNAPSHOT",
+  "swaggerVersion" : "1.1",
+  "basePath" : "http://localhost:8080/api",
+  "resourcePath" : "/v1/users",
+  "apis" : [ {
+    "path" : "/v1/users/search",
+    "description" : "Operations about Users",
+    "operations" : [ {
+      "httpMethod" : "GET",
+      "summary" : "Find a user by their OpenId",
+      "responseClass" : "void",
+      "nickname" : "search",
+      "parameters" : [ {
+        "name" : "openid",
+        "paramType" : "query",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "string"
+      } ]
+    } ]
+  }, {
+    "path" : "/v1/users/{id}",
+    "description" : "Operations about Users",
+    "operations" : [ {
+      "httpMethod" : "PUT",
+      "summary" : "Replace",
+      "responseClass" : "void",
+      "nickname" : "put",
+      "parameters" : [ {
+        "name" : "id",
+        "paramType" : "path",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "long"
+      } ]
+    }, {
+      "httpMethod" : "DELETE",
+      "summary" : "Delete",
+      "responseClass" : "void",
+      "nickname" : "delete",
+      "parameters" : [ {
+        "name" : "id",
+        "paramType" : "path",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "long"
+      } ]
+    }, {
+      "httpMethod" : "GET",
+      "summary" : "Get one",
+      "responseClass" : "void",
+      "nickname" : "findOne",
+      "parameters" : [ {
+        "name" : "id",
+        "paramType" : "path",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "long"
+      }, {
+        "name" : "fields",
+        "paramType" : "query",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "string"
+      } ]
+    } ]
+  }, {
+    "path" : "/v1/users/count",
+    "description" : "Operations about Users",
+    "operations" : [ {
+      "httpMethod" : "GET",
+      "summary" : "Count",
+      "responseClass" : "void",
+      "nickname" : "count"
+    } ]
+  }, {
+    "path" : "/v1/users",
+    "description" : "Operations about Users",
+    "operations" : [ {
+      "httpMethod" : "GET",
+      "summary" : "List",
+      "responseClass" : "void",
+      "nickname" : "list",
+      "parameters" : [ {
+        "name" : "page",
+        "paramType" : "query",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "int"
+      }, {
+        "name" : "size",
+        "paramType" : "query",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "int"
+      }, {
+        "name" : "sort",
+        "paramType" : "query",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "string"
+      }, {
+        "name" : "direction",
+        "paramType" : "query",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "string"
+      }, {
+        "name" : "fields",
+        "paramType" : "query",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "string"
+      } ]
+    }, {
+      "httpMethod" : "POST",
+      "summary" : "Create",
+      "responseClass" : "void",
+      "nickname" : "post"
+    } ]
+  }, {
+    "path" : "/v1/users/{id}/update",
+    "description" : "Operations about Users",
+    "operations" : [ {
+      "httpMethod" : "POST",
+      "summary" : "Update",
+      "responseClass" : "void",
+      "nickname" : "update",
+      "parameters" : [ {
+        "name" : "id",
+        "paramType" : "path",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "long"
+      } ]
+    } ]
+  } ]
+}
