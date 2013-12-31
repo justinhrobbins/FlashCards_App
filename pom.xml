@@ -183,6 +183,22 @@
 				<artifactId>maven-surefire-report-plugin</artifactId>
 				<version>2.16</version>
 			</plugin>
+            <!-- generate Github issues report
+                 see 'How to Generate the GitHub Report' section of this page for config example
+                    http://maven.apache.org/plugins/maven-changes-plugin/usage.html
+             -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-changes-plugin</artifactId>
+                <version>2.9</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>github-report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
 		</plugins>
 	</reporting>
 </project>
