@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<project name="Maven" xmlns="http://maven.apache.org/DECORATION/1.0.0"
+<project name="Maven"
+	xmlns="http://maven.apache.org/DECORATION/1.4.0" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.0 http://maven.apache.org/xsd/decoration-1.0.0.xsd">
+  	xsi:schemaLocation="http://maven.apache.org/DECORATION/1.4.0 http://maven.apache.org/xsd/decoration-1.4.0.xsd"
+	>
 	<skin>
 		<groupId>org.apache.maven.skins</groupId>
 		<artifactId>maven-fluido-skin</artifactId>
@@ -28,6 +30,9 @@
 			<item name="FlashCards_WebServices" href="/FlashCards_WebServices/index.html" />
 			<item name="FlashCards_Struts" href="/FlashCards_Struts/index.html" />
 			<item name="FlashCards_Test" href="/FlashCards_Test/index.html" />
+		</menu>
+		<menu name="API">
+			<item name="REST API Docs" href="/FlashCards_WebServices/rest-api-docs/index.html" target="_blank" />
 		</menu>
 		<menu ref="reports" inherit="bottom" />
 	</body>
