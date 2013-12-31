@@ -33,6 +33,7 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 	protected abstract GenericCrudFacade<T> getFacade();
 
 	@GET
+	@ApiOperation(value = "List")
 	@Override
 	public JResponse<List<T>> list(@QueryParam("page") Integer page,
 						@DefaultValue("25") @QueryParam("size") Integer size,
@@ -64,12 +65,14 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 
 	@GET
 	@Path("/count")
+	@ApiOperation(value = "Count")
 	public Long count() {
 		return getFacade().count();
 	}
 	
 	@GET
 	@Path("/{id}")
+	@ApiOperation(value = "Get one")
 	public T findOne(@PathParam("id") Long id, @QueryParam("fields") String fields) {
 
 		T entity;
@@ -88,6 +91,7 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 	}
 	
 	@POST
+	@ApiOperation(value = "Create")
 	public T post(T entity) {
 		try {
 			return getFacade().save(entity);
@@ -99,6 +103,7 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 	
 	@PUT
 	@Path("/{id}")
+	@ApiOperation(value = "Replace")
 	public Response put(@PathParam("id") Long id, T entity) {
 		try {
 			getFacade().save(entity);
@@ -121,6 +126,7 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 
 	@POST
 	@Path("/{id}/update")
+	@ApiOperation(value = "Update")
 	public Response update(@PathParam("id") Long id, T updatedEntity) {
 		// get the original entity from the db
 		T originalEntity;
