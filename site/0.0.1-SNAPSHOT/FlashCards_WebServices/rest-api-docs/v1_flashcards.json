@@ -4,6 +4,28 @@
   "basePath" : "http://localhost:8080/api",
   "resourcePath" : "/v1/flashcards",
   "apis" : [ {
+    "path" : "/v1/flashcards/search/count",
+    "description" : "Operations about FlashCards",
+    "operations" : [ {
+      "httpMethod" : "GET",
+      "summary" : "Get a count of FlashCards",
+      "responseClass" : "void",
+      "nickname" : "searchCount",
+      "parameters" : [ {
+        "name" : "question",
+        "paramType" : "query",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "string"
+      }, {
+        "name" : "tags",
+        "paramType" : "query",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "string"
+      } ]
+    } ]
+  }, {
     "path" : "/v1/flashcards/search",
     "description" : "Operations about FlashCards",
     "operations" : [ {
@@ -38,35 +60,38 @@
       } ]
     } ]
   }, {
-    "path" : "/v1/flashcards/search/count",
+    "path" : "/v1/flashcards/{id}",
     "description" : "Operations about FlashCards",
     "operations" : [ {
       "httpMethod" : "GET",
-      "summary" : "Get a count of FlashCards",
+      "summary" : "Get one",
       "responseClass" : "void",
-      "nickname" : "searchCount",
+      "nickname" : "findOne",
       "parameters" : [ {
-        "name" : "question",
-        "paramType" : "query",
+        "name" : "id",
+        "paramType" : "path",
         "required" : true,
         "allowMultiple" : false,
-        "dataType" : "string"
+        "dataType" : "long"
       }, {
-        "name" : "tags",
+        "name" : "fields",
         "paramType" : "query",
         "required" : true,
         "allowMultiple" : false,
         "dataType" : "string"
       } ]
-    } ]
-  }, {
-    "path" : "/v1/flashcards/count",
-    "description" : "Operations about FlashCards",
-    "operations" : [ {
-      "httpMethod" : "GET",
-      "summary" : "Count",
+    }, {
+      "httpMethod" : "DELETE",
+      "summary" : "Delete",
       "responseClass" : "void",
-      "nickname" : "count"
+      "nickname" : "delete",
+      "parameters" : [ {
+        "name" : "id",
+        "paramType" : "path",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "long"
+      } ]
     } ]
   }, {
     "path" : "/v1/flashcards",
@@ -114,38 +139,13 @@
       "nickname" : "post"
     } ]
   }, {
-    "path" : "/v1/flashcards/{id}",
+    "path" : "/v1/flashcards/count",
     "description" : "Operations about FlashCards",
     "operations" : [ {
-      "httpMethod" : "DELETE",
-      "summary" : "Delete",
-      "responseClass" : "void",
-      "nickname" : "delete",
-      "parameters" : [ {
-        "name" : "id",
-        "paramType" : "path",
-        "required" : true,
-        "allowMultiple" : false,
-        "dataType" : "long"
-      } ]
-    }, {
       "httpMethod" : "GET",
-      "summary" : "Get one",
+      "summary" : "Count",
       "responseClass" : "void",
-      "nickname" : "findOne",
-      "parameters" : [ {
-        "name" : "id",
-        "paramType" : "path",
-        "required" : true,
-        "allowMultiple" : false,
-        "dataType" : "long"
-      }, {
-        "name" : "fields",
-        "paramType" : "query",
-        "required" : true,
-        "allowMultiple" : false,
-        "dataType" : "string"
-      } ]
+      "nickname" : "count"
     } ]
   }, {
     "path" : "/v1/flashcards/{id}/update",

@@ -23,6 +23,24 @@
     "path" : "/v1/users/{id}",
     "description" : "Operations about Users",
     "operations" : [ {
+      "httpMethod" : "GET",
+      "summary" : "Get one",
+      "responseClass" : "void",
+      "nickname" : "findOne",
+      "parameters" : [ {
+        "name" : "id",
+        "paramType" : "path",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "long"
+      }, {
+        "name" : "fields",
+        "paramType" : "query",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "string"
+      } ]
+    }, {
       "httpMethod" : "PUT",
       "summary" : "Replace",
       "responseClass" : "void",
@@ -46,33 +64,6 @@
         "allowMultiple" : false,
         "dataType" : "long"
       } ]
-    }, {
-      "httpMethod" : "GET",
-      "summary" : "Get one",
-      "responseClass" : "void",
-      "nickname" : "findOne",
-      "parameters" : [ {
-        "name" : "id",
-        "paramType" : "path",
-        "required" : true,
-        "allowMultiple" : false,
-        "dataType" : "long"
-      }, {
-        "name" : "fields",
-        "paramType" : "query",
-        "required" : true,
-        "allowMultiple" : false,
-        "dataType" : "string"
-      } ]
-    } ]
-  }, {
-    "path" : "/v1/users/count",
-    "description" : "Operations about Users",
-    "operations" : [ {
-      "httpMethod" : "GET",
-      "summary" : "Count",
-      "responseClass" : "void",
-      "nickname" : "count"
     } ]
   }, {
     "path" : "/v1/users",
@@ -118,6 +109,15 @@
       "summary" : "Create",
       "responseClass" : "void",
       "nickname" : "post"
+    } ]
+  }, {
+    "path" : "/v1/users/count",
+    "description" : "Operations about Users",
+    "operations" : [ {
+      "httpMethod" : "GET",
+      "summary" : "Count",
+      "responseClass" : "void",
+      "nickname" : "count"
     } ]
   }, {
     "path" : "/v1/users/{id}/update",
