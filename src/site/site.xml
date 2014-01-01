@@ -11,8 +11,14 @@
 	</skin>
 	<custom>
 		<fluidoSkin>
+			<gitHub>
+				<projectId> justinhrobbins/FlashCards_App</projectId>
+				<ribbonOrientation>right</ribbonOrientation>
+				<ribbonColor>green</ribbonColor>
+			</gitHub>
 			<sideBarEnabled>true</sideBarEnabled>
 			<googlePlusOne />
+			<facebookLike />
 		</fluidoSkin>
 	</custom>
 	<body>
