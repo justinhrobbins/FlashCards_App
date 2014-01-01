@@ -11,10 +11,6 @@
 	<packaging>jar</packaging>
 	<name>FlashCards_Service</name>
 	<description>FlashCards_Service description</description>
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-	</properties>
 	<scm>
 		<connection>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</connection>
 		<url>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</url>
