@@ -1,0 +1,8 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+FlashCards_Service_SpringData,org.robbins.flashcards.service.springdata.base,GenericJpaServiceImpl,32,3,0,0,10,1,7,1,7,1
+FlashCards_Service_SpringData,org.robbins.flashcards.service.springdata.base,GenericCrudServiceImpl,44,3,0,0,13,1,9,1,9,1
+FlashCards_Service_SpringData,org.robbins.flashcards.service.springdata.base,GenericPagingAndSortingServiceImpl,6,3,0,0,1,1,1,1,1,1
+FlashCards_Service_SpringData,org.robbins.flashcards.service.springdata.security,CustomUserDetailsService,72,3,2,0,18,1,5,1,4,1
+FlashCards_Service_SpringData,org.robbins.flashcards.service.springdata,TagServiceImpl,0,11,0,0,0,3,0,3,0,3
+FlashCards_Service_SpringData,org.robbins.flashcards.service.springdata,UserServiceImpl,8,3,0,0,2,1,2,1,2,1
+FlashCards_Service_SpringData,org.robbins.flashcards.service.springdata,FlashCardServiceImpl,30,3,0,0,6,1,6,1,6,1

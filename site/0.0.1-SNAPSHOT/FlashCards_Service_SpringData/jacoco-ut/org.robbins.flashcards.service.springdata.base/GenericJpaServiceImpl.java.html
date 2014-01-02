@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>GenericJpaServiceImpl.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">FlashCards_Service_SpringData</a> &gt; <a href="index.source.html" class="el_package">org.robbins.flashcards.service.springdata.base</a> &gt; <span class="el_source">GenericJpaServiceImpl.java</span></div><h1>GenericJpaServiceImpl.java</h1><pre class="source lang-java linenums">package org.robbins.flashcards.service.springdata.base;
+
+import java.io.Serializable;
+import java.util.List;
+
+import org.robbins.flashcards.service.base.GenericJpaService;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+<span class="fc" id="L10">public abstract class GenericJpaServiceImpl &lt;T, ID extends Serializable&gt; extends GenericPagingAndSortingServiceImpl&lt;T, ID&gt; implements GenericJpaService&lt;T, ID&gt; {</span>
+
+	protected abstract JpaRepository&lt;T, ID&gt; getRepository();
+	
+	public List&lt;T&gt; findAll() {
+<span class="fc" id="L15">		return getRepository().findAll();</span>
+	}
+
+	public List&lt;T&gt; findAll(Sort sort) {
+<span class="fc" id="L19">		return getRepository().findAll(sort);</span>
+	}
+
+	public List&lt;T&gt; save(Iterable&lt;T&gt; entities) {
+<span class="fc" id="L23">		return getRepository().save(entities);</span>
+	}
+
+	public void flush() {
+<span class="fc" id="L27">		getRepository().flush();</span>
+<span class="fc" id="L28">	}</span>
+
+	public T saveAndFlush(T entity) {
+<span class="fc" id="L31">		return getRepository().saveAndFlush(entity);</span>
+	}
+
+	public void deleteInBatch(Iterable&lt;T&gt; entities) {
+<span class="fc" id="L35">		getRepository().deleteInBatch(entities);</span>
+<span class="fc" id="L36">	}</span>
+
+	public void deleteAllInBatch() {
+<span class="fc" id="L39">		getRepository().deleteAllInBatch();</span>
+<span class="fc" id="L40">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>
