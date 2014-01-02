@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>DefaultUserFacade.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">FlashCards_Service</a> &gt; <a href="index.source.html" class="el_package">org.robbins.flashcards.facade.impl</a> &gt; <span class="el_source">DefaultUserFacade.java</span></div><h1>DefaultUserFacade.java</h1><pre class="source lang-java linenums">package org.robbins.flashcards.facade.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import javax.inject.Inject;
+
+import org.robbins.flashcards.dto.UserDto;
+import org.robbins.flashcards.exceptions.ServiceException;
+import org.robbins.flashcards.facade.UserFacade;
+import org.robbins.flashcards.facade.base.AbstractCrudFacadeImpl;
+import org.robbins.flashcards.model.User;
+import org.robbins.flashcards.service.UserService;
+import org.robbins.flashcards.service.util.DtoUtil;
+import org.springframework.stereotype.Component;
+
+@Component
+<span class="nc" id="L19">public class DefaultUserFacade extends AbstractCrudFacadeImpl&lt;UserDto, User&gt; implements UserFacade {</span>
+	
+	@Inject
+	private UserService service;
+
+	public UserService getService() {
+<span class="nc" id="L25">		return service;</span>
+	}
+	
+	public UserDto findUserByOpenid(String openid) {
+<span class="nc" id="L29">		User result = service.findUserByOpenid(openid);</span>
+<span class="nc" id="L30">		UserDto userDto = getMapper().map(result, UserDto.class);</span>
+<span class="nc" id="L31">		return userDto;</span>
+	}
+
+	@Override
+	public UserDto save(UserDto dto) throws ServiceException {
+<span class="nc" id="L36">		User entity = getEntity(dto);</span>
+		
+<span class="nc bnc" id="L38" title="All 2 branches missed.">		if (!dto.isNew()) {</span>
+<span class="nc" id="L39">			User orig = service.findOne(dto.getId());</span>
+<span class="nc" id="L40">			entity.setCreatedBy(orig.getCreatedBy());</span>
+<span class="nc" id="L41">			entity.setCreatedDate(orig.getCreatedDate());</span>
+		}
+		
+<span class="nc" id="L44">		User resultEntity = getService().save(entity);</span>
+<span class="nc" id="L45">		UserDto resultDto = getDto(resultEntity);</span>
+<span class="nc" id="L46">		return resultDto;</span>
+	}
+	
+	@Override
+	public UserDto getDto(User entity) throws ServiceException {
+<span class="nc" id="L51">		return getDto(entity, null);</span>
+	}
+	
+	@Override
+	public UserDto getDto(User entity, Set&lt;String&gt; fields) throws ServiceException {
+<span class="nc" id="L56">		UserDto userDto = getMapper().map(entity, UserDto.class);</span>
+<span class="nc" id="L57">		DtoUtil.filterFields(userDto, fields);</span>
+<span class="nc" id="L58">		return userDto;</span>
+	}
+	
+	@Override
+	public User getEntity(UserDto dto) {
+<span class="nc" id="L63">		return getMapper().map(dto, User.class);</span>
+	}
+	
+	@Override
+	public List&lt;UserDto&gt; getDtos(List&lt;User&gt; entities, Set&lt;String&gt; fields) throws ServiceException {
+<span class="nc" id="L68">		List&lt;UserDto&gt; dtos = new ArrayList&lt;UserDto&gt;();</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">		for (User entity : entities){</span>
+<span class="nc" id="L70">			dtos.add(getDto(entity));</span>
+<span class="nc" id="L71">		}</span>
+<span class="nc" id="L72">		return dtos;</span>
+	}
+
+	@Override
+	public List&lt;User&gt; getEtnties(List&lt;UserDto&gt; dtos) {
+<span class="nc" id="L77">		List&lt;User&gt; entities = new ArrayList&lt;User&gt;();</span>
+<span class="nc bnc" id="L78" title="All 2 branches missed.">		for (UserDto dto : dtos){</span>
+<span class="nc" id="L79">			entities.add(getEntity(dto));</span>
+<span class="nc" id="L80">		}</span>
+<span class="nc" id="L81">		return entities;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>
