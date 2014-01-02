@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>UserDto.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">FlashCards_Domain</a> &gt; <a href="index.source.html" class="el_package">org.robbins.flashcards.dto</a> &gt; <span class="el_source">UserDto.java</span></div><h1>UserDto.java</h1><pre class="source lang-java linenums">package org.robbins.flashcards.dto;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(value = Include.NON_NULL)
+@XmlRootElement(name=&quot;user&quot;)
+@XmlAccessorType(XmlAccessType.FIELD)
+public class UserDto extends AbstractPersistableDto implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6131151516357988050L;
+
+	private String openid;
+	private String firstName;
+	private String lastName;
+	private String fullName;
+	private String email;
+	private String nickname;
+	private String country;
+	private String language;
+	private Date lastLoginDate;
+
+<span class="nc" id="L35">	public UserDto() {</span>
+<span class="nc" id="L36">	}</span>
+
+<span class="nc" id="L38">	public UserDto(Long userId) {</span>
+<span class="nc" id="L39">		setId(userId);</span>
+<span class="nc" id="L40">	}</span>
+
+<span class="nc" id="L42">	public UserDto(String openid, String email) {</span>
+<span class="nc" id="L43">		this.openid = openid;</span>
+<span class="nc" id="L44">		this.email = email;</span>
+<span class="nc" id="L45">	}</span>
+
+	public UserDto(String openid, String firstName, String lastName,
+			String fullName, String email, String nickname, String country,
+<span class="nc" id="L49">			String language) {</span>
+<span class="nc" id="L50">		this.openid = openid;</span>
+<span class="nc" id="L51">		this.firstName = firstName;</span>
+<span class="nc" id="L52">		this.lastName = lastName;</span>
+<span class="nc" id="L53">		this.fullName = fullName;</span>
+<span class="nc" id="L54">		this.email = email;</span>
+<span class="nc" id="L55">		this.nickname = nickname;</span>
+<span class="nc" id="L56">		this.country = country;</span>
+<span class="nc" id="L57">		this.language = language;</span>
+<span class="nc" id="L58">	}</span>
+	
+	public String getOpenid() {
+<span class="nc" id="L61">		return this.openid;</span>
+	}
+
+	public void setOpenid(String openid) {
+<span class="nc" id="L65">		this.openid = openid;</span>
+<span class="nc" id="L66">	}</span>
+
+	public String getFirstName() {
+<span class="nc" id="L69">		return this.firstName;</span>
+	}
+
+	public void setFirstName(String firstName) {
+<span class="nc" id="L73">		this.firstName = firstName;</span>
+<span class="nc" id="L74">	}</span>
+
+	public String getLastName() {
+<span class="nc" id="L77">		return this.lastName;</span>
+	}
+
+	public void setLastName(String lastName) {
+<span class="nc" id="L81">		this.lastName = lastName;</span>
+<span class="nc" id="L82">	}</span>
+
+	public String getFullName() {
+<span class="nc" id="L85">		return this.fullName;</span>
+	}
+
+	public void setFullName(String fullName) {
+<span class="nc" id="L89">		this.fullName = fullName;</span>
+<span class="nc" id="L90">	}</span>
+
+	public String getEmail() {
+<span class="nc" id="L93">		return this.email;</span>
+	}
+
+	public void setEmail(String email) {
+<span class="nc" id="L97">		this.email = email;</span>
+<span class="nc" id="L98">	}</span>
+
+	public String getNickname() {
+<span class="nc" id="L101">		return this.nickname;</span>
+	}
+
+	public void setNickname(String nickname) {
+<span class="nc" id="L105">		this.nickname = nickname;</span>
+<span class="nc" id="L106">	}</span>
+
+	public String getCountry() {
+<span class="nc" id="L109">		return this.country;</span>
+	}
+
+	public void setCountry(String country) {
+<span class="nc" id="L113">		this.country = country;</span>
+<span class="nc" id="L114">	}</span>
+
+	public String getLanguage() {
+<span class="nc" id="L117">		return this.language;</span>
+	}
+
+	public void setLanguage(String language) {
+<span class="nc" id="L121">		this.language = language;</span>
+<span class="nc" id="L122">	}</span>
+
+	public Date getLastLoginDate() {
+<span class="nc bnc" id="L125" title="All 2 branches missed.">		return null == lastLoginDate ? null : new Date();</span>
+	}
+
+	public void setLastLoginDate(Date lastLoginDate) {
+<span class="nc bnc" id="L129" title="All 2 branches missed.">		this.lastLoginDate = null == lastLoginDate ? null : lastLoginDate;</span>
+<span class="nc" id="L130">	}</span>
+	
+	/**
+	 * toString
+	 * 
+	 * @return String
+	 */
+	public String toString() {
+<span class="nc" id="L138">		StringBuffer buffer = new StringBuffer();</span>
+
+<span class="nc" id="L140">		buffer.append(getClass().getName()).append(&quot;@&quot;)</span>
+				.append(Integer.toHexString(hashCode())).append(&quot; [&quot;);
+<span class="nc" id="L142">		buffer.append(&quot;id&quot;).append(&quot;='&quot;).append(getId()).append(&quot;' &quot;);</span>
+<span class="nc" id="L143">		buffer.append(&quot;openid&quot;).append(&quot;='&quot;).append(getOpenid()).append(&quot;' &quot;);</span>
+<span class="nc" id="L144">		buffer.append(&quot;firstName&quot;).append(&quot;='&quot;).append(getFirstName())</span>
+				.append(&quot;' &quot;);
+<span class="nc" id="L146">		buffer.append(&quot;lastName&quot;).append(&quot;='&quot;).append(getLastName())</span>
+				.append(&quot;' &quot;);
+<span class="nc" id="L148">		buffer.append(&quot;fullName&quot;).append(&quot;='&quot;).append(getFullName())</span>
+				.append(&quot;' &quot;);
+<span class="nc" id="L150">		buffer.append(&quot;email&quot;).append(&quot;='&quot;).append(getEmail()).append(&quot;' &quot;);</span>
+<span class="nc" id="L151">		buffer.append(&quot;nickname&quot;).append(&quot;='&quot;).append(getNickname())</span>
+				.append(&quot;' &quot;);
+<span class="nc" id="L153">		buffer.append(&quot;country&quot;).append(&quot;='&quot;).append(getCountry()).append(&quot;' &quot;);</span>
+<span class="nc" id="L154">		buffer.append(&quot;language&quot;).append(&quot;='&quot;).append(getLanguage())</span>
+				.append(&quot;' &quot;);
+<span class="nc" id="L156">		buffer.append(&quot;]&quot;);</span>
+
+<span class="nc" id="L158">		return buffer.toString();</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

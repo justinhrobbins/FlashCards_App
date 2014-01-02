@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>FlashCard.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">FlashCards_Domain</a> &gt; <a href="index.source.html" class="el_package">org.robbins.flashcards.model</a> &gt; <span class="el_source">FlashCard.java</span></div><h1>FlashCard.java</h1><pre class="source lang-java linenums">package org.robbins.flashcards.model;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OrderBy;
+import javax.persistence.OrderColumn;
+import javax.persistence.Table;
+
+import org.robbins.flashcards.model.common.AbstractAuditable;
+
+@Entity
+@Table(name = &quot;flashcard&quot;)
+@AttributeOverride(name=&quot;id&quot;, column=@Column(name=&quot;FlashCardId&quot;))
+
+public class FlashCard extends AbstractAuditable&lt;User, Long&gt; implements
+		Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3461056579037652853L;
+
+	@Column(name = &quot;Question&quot;, unique = true, nullable = false)
+	private String question;
+
+	@Column(name = &quot;Answer&quot;, nullable = false, columnDefinition = &quot;LONGTEXT&quot;)
+	private String answer;
+
+<span class="pc" id="L43">	@ManyToMany(targetEntity = org.robbins.flashcards.model.Tag.class, cascade = {</span>
+			CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
+	@JoinTable(name = &quot;flashcard_tag&quot;, joinColumns = @JoinColumn(name = &quot;FlashCardId&quot;), inverseJoinColumns = @JoinColumn(name = &quot;TagId&quot;))
+	@OrderBy(&quot;name&quot;)
+	private Set&lt;Tag&gt; tags = new HashSet&lt;Tag&gt;(0);
+
+<span class="pc" id="L49">	@ElementCollection</span>
+	@CollectionTable(name = &quot;flashcard_link&quot;, joinColumns = @JoinColumn(name = &quot;FlashCardId&quot;))
+	@Column(name = &quot;Link&quot;, nullable = false)
+	@OrderColumn(name = &quot;link_idx&quot;)
+	private List&lt;String&gt; links = new ArrayList&lt;String&gt;(0);
+
+<span class="nc" id="L55">	public FlashCard() {</span>
+<span class="nc" id="L56">	}</span>
+
+<span class="fc" id="L58">	public FlashCard(Long flashCardId) {</span>
+<span class="fc" id="L59">		setId(flashCardId);</span>
+<span class="fc" id="L60">	}</span>
+
+<span class="fc" id="L62">	public FlashCard(String question, String answer) {</span>
+<span class="fc" id="L63">		this.question = question;</span>
+<span class="fc" id="L64">		this.answer = answer;</span>
+<span class="fc" id="L65">	}</span>
+
+	public FlashCard(String question, String answer, Set&lt;Tag&gt; tags,
+<span class="nc" id="L68">			List&lt;String&gt; links) {</span>
+<span class="nc" id="L69">		this.question = question;</span>
+<span class="nc" id="L70">		this.answer = answer;</span>
+<span class="nc" id="L71">		this.tags = tags;</span>
+<span class="nc" id="L72">		this.links = links;</span>
+<span class="nc" id="L73">	}</span>
+
+	public String getQuestion() {
+<span class="fc" id="L76">		return this.question;</span>
+	}
+
+	public void setQuestion(String question) {
+<span class="fc" id="L80">		this.question = question;</span>
+<span class="fc" id="L81">	}</span>
+
+	public String getAnswer() {
+<span class="fc" id="L84">		return this.answer;</span>
+	}
+
+	public void setAnswer(String answer) {
+<span class="fc" id="L88">		this.answer = answer;</span>
+<span class="fc" id="L89">	}</span>
+
+	public Set&lt;Tag&gt; getTags() {
+<span class="fc" id="L92">		return this.tags;</span>
+	}
+
+	public void setTags(Set&lt;Tag&gt; tags) {
+<span class="nc" id="L96">		this.tags = tags;</span>
+<span class="nc" id="L97">	}</span>
+
+	public List&lt;String&gt; getLinks() {
+<span class="fc" id="L100">		return this.links;</span>
+	}
+
+	public void setLinks(List&lt;String&gt; links) {
+<span class="nc" id="L104">		this.links = links;</span>
+<span class="nc" id="L105">	}</span>
+	
+	public String toString() {
+<span class="nc" id="L108">		StringBuffer buffer = new StringBuffer();</span>
+
+<span class="nc" id="L110">		buffer.append(getClass().getName()).append(&quot;@&quot;)</span>
+				.append(Integer.toHexString(hashCode())).append(&quot; [&quot;);
+<span class="nc" id="L112">		buffer.append(&quot;id&quot;).append(&quot;='&quot;).append(getId()).append(&quot;' &quot;);</span>
+<span class="nc" id="L113">		buffer.append(&quot;question&quot;).append(&quot;='&quot;).append(getQuestion())</span>
+				.append(&quot;' &quot;);
+<span class="nc" id="L115">		buffer.append(&quot;answer&quot;).append(&quot;='&quot;).append(getAnswer()).append(&quot;' &quot;);</span>
+<span class="nc" id="L116">		buffer.append(&quot;]&quot;);</span>
+
+<span class="nc" id="L118">		return buffer.toString();</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>
