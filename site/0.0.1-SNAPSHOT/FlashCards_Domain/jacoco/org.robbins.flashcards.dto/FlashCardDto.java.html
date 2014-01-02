@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>FlashCardDto.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">FlashCards_Domain</a> &gt; <a href="index.source.html" class="el_package">org.robbins.flashcards.dto</a> &gt; <span class="el_source">FlashCardDto.java</span></div><h1>FlashCardDto.java</h1><pre class="source lang-java linenums">package org.robbins.flashcards.dto;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(value = Include.NON_NULL)
+@XmlRootElement(name=&quot;flashcard&quot;)
+@XmlAccessorType(XmlAccessType.FIELD)
+public class FlashCardDto extends AbstractAuditableDto implements
+		Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3461056579037652853L;
+
+	private String question;
+	private String answer;
+<span class="nc" id="L31">	private Set&lt;TagDto&gt; tags = new HashSet&lt;TagDto&gt;(0);</span>
+<span class="nc" id="L32">	private List&lt;String&gt; links = new ArrayList&lt;String&gt;(0);</span>
+
+<span class="nc" id="L34">	public FlashCardDto() {</span>
+<span class="nc" id="L35">	}</span>
+
+<span class="nc" id="L37">	public FlashCardDto(Long flashCardId) {</span>
+<span class="nc" id="L38">		setId(flashCardId);</span>
+<span class="nc" id="L39">	}</span>
+
+<span class="nc" id="L41">	public FlashCardDto(String question, String answer) {</span>
+<span class="nc" id="L42">		this.question = question;</span>
+<span class="nc" id="L43">		this.answer = answer;</span>
+<span class="nc" id="L44">	}</span>
+
+	public FlashCardDto(String question, String answer, Set&lt;TagDto&gt; tags,
+<span class="nc" id="L47">			List&lt;String&gt; links) {</span>
+<span class="nc" id="L48">		this.question = question;</span>
+<span class="nc" id="L49">		this.answer = answer;</span>
+<span class="nc" id="L50">		this.tags = tags;</span>
+<span class="nc" id="L51">		this.links = links;</span>
+<span class="nc" id="L52">	}</span>
+	
+	public String getQuestion() {
+<span class="nc" id="L55">		return this.question;</span>
+	}
+
+	public void setQuestion(String question) {
+<span class="nc" id="L59">		this.question = question;</span>
+<span class="nc" id="L60">	}</span>
+
+	public String getAnswer() {
+<span class="nc" id="L63">		return this.answer;</span>
+	}
+
+	public void setAnswer(String answer) {
+<span class="nc" id="L67">		this.answer = answer;</span>
+<span class="nc" id="L68">	}</span>
+
+	public Set&lt;TagDto&gt; getTags() {
+<span class="nc" id="L71">		return this.tags;</span>
+	}
+
+	public void setTags(Set&lt;TagDto&gt; tags) {
+<span class="nc" id="L75">		this.tags = tags;</span>
+<span class="nc" id="L76">	}</span>
+
+	public List&lt;String&gt; getLinks() {
+<span class="nc" id="L79">		return this.links;</span>
+	}
+
+	public void setLinks(List&lt;String&gt; links) {
+<span class="nc" id="L83">		this.links = links;</span>
+<span class="nc" id="L84">	}</span>
+	
+	public String toString() {
+<span class="nc" id="L87">		StringBuffer buffer = new StringBuffer();</span>
+
+<span class="nc" id="L89">		buffer.append(getClass().getName()).append(&quot;@&quot;)</span>
+				.append(Integer.toHexString(hashCode())).append(&quot; [&quot;);
+<span class="nc" id="L91">		buffer.append(&quot;id&quot;).append(&quot;='&quot;).append(getId()).append(&quot;' &quot;);</span>
+<span class="nc" id="L92">		buffer.append(&quot;question&quot;).append(&quot;='&quot;).append(getQuestion())</span>
+				.append(&quot;' &quot;);
+<span class="nc" id="L94">		buffer.append(&quot;answer&quot;).append(&quot;='&quot;).append(getAnswer()).append(&quot;' &quot;);</span>
+<span class="nc" id="L95">		buffer.append(&quot;]&quot;);</span>
+
+<span class="nc" id="L97">		return buffer.toString();</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

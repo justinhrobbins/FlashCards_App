@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>AbstractAuditableDto.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">FlashCards_Domain</a> &gt; <a href="index.source.html" class="el_package">org.robbins.flashcards.dto</a> &gt; <span class="el_source">AbstractAuditableDto.java</span></div><h1>AbstractAuditableDto.java</h1><pre class="source lang-java linenums">package org.robbins.flashcards.dto;
+
+import java.util.Date;
+
+<span class="nc" id="L5">public abstract class AbstractAuditableDto extends AbstractPersistableDto {</span>
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6807342050233167498L;
+	private UserDto createdBy;
+	private Date createdDate;
+	private UserDto lastModifiedBy;
+	private Date lastModifiedDate;
+	
+	public UserDto getCreatedBy() {
+<span class="nc" id="L16">		return createdBy;</span>
+	}
+	
+	public void setCreatedBy(UserDto createdBy) {
+<span class="nc" id="L20">		this.createdBy = createdBy;</span>
+<span class="nc" id="L21">	}</span>
+	public Date getCreatedDate() {
+<span class="nc" id="L23">		return createdDate;</span>
+	}
+	public void setCreatedDate(Date createdDate) {
+<span class="nc" id="L26">		this.createdDate = createdDate;</span>
+<span class="nc" id="L27">	}</span>
+	
+	public UserDto getLastModifiedBy() {
+<span class="nc" id="L30">		return lastModifiedBy;</span>
+	}
+	public void setLastModifiedBy(UserDto lastModifiedBy) {
+<span class="nc" id="L33">		this.lastModifiedBy = lastModifiedBy;</span>
+<span class="nc" id="L34">	}</span>
+	public Date getLastModifiedDate() {
+<span class="nc" id="L36">		return lastModifiedDate;</span>
+	}
+	public void setLastModifiedDate(Date lastModifiedDate) {
+<span class="nc" id="L39">		this.lastModifiedDate = lastModifiedDate;</span>
+<span class="nc" id="L40">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

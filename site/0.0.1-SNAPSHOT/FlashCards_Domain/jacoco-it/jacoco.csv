@@ -1,0 +1,14 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+FlashCards_Domain,org.robbins.flashcards.model.common,AbstractPersistable,46,23,11,1,9,7,8,4,2,4
+FlashCards_Domain,org.robbins.flashcards.model.common,AbstractAuditable,64,3,8,0,14,1,14,1,10,1
+FlashCards_Domain,org.robbins.flashcards.model.util.serializer,CustomJsonDateSerializer,17,0,0,0,5,0,3,0,3,0
+FlashCards_Domain,org.robbins.flashcards.model.util.serializer,CustomJsonDateTimeSerializer,14,0,0,0,5,0,2,0,2,0
+FlashCards_Domain,org.robbins.flashcards.model,User,182,65,4,0,30,29,7,18,5,18
+FlashCards_Domain,org.robbins.flashcards.model,Tag,90,19,0,0,18,7,6,3,6,3
+FlashCards_Domain,org.robbins.flashcards.model,FlashCard,108,59,0,0,19,17,5,8,5,8
+FlashCards_Domain,org.robbins.flashcards.dto,FlashCardDto,167,0,0,0,36,0,13,0,13,0
+FlashCards_Domain,org.robbins.flashcards.dto,AbstractAuditableDto,31,0,0,0,13,0,9,0,9,0
+FlashCards_Domain,org.robbins.flashcards.dto,UserDto,244,0,4,0,59,0,25,0,23,0
+FlashCards_Domain,org.robbins.flashcards.dto,TagDto,94,0,0,0,21,0,8,0,8,0
+FlashCards_Domain,org.robbins.flashcards.dto,AbstractPersistableDto,18,0,2,0,5,0,5,0,4,0
+FlashCards_Domain,org.robbins.flashcards.util,TestEntityGenerator,37,0,0,0,7,0,7,0,7,0
