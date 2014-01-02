@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>HibernateFieldMapper.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">FlashCards_Service</a> &gt; <a href="index.source.html" class="el_package">org.robbins.flashcards.service.util.dozer</a> &gt; <span class="el_source">HibernateFieldMapper.java</span></div><h1>HibernateFieldMapper.java</h1><pre class="source lang-java linenums">package org.robbins.flashcards.service.util.dozer;
+
+import org.dozer.CustomFieldMapper;
+import org.dozer.classmap.ClassMap;
+import org.dozer.fieldmap.FieldMap;
+import org.hibernate.collection.internal.PersistentSet;
+
+<span class="nc" id="L8">public class HibernateFieldMapper implements CustomFieldMapper {</span>
+	
+    public boolean mapField(Object source, Object destination, Object sourceFieldValue, ClassMap classMap, FieldMap fieldMapping) 
+    {       
+        // Check if field is a Hibernate PersistentSet
+<span class="nc bnc" id="L13" title="All 2 branches missed.">        if (!(sourceFieldValue instanceof PersistentSet)) {</span>
+            // Allow dozer to map as normal
+<span class="nc" id="L15">            return false;</span>
+        }
+
+        // Check if field is already initialized
+<span class="nc bnc" id="L19" title="All 2 branches missed.">        if (((PersistentSet) sourceFieldValue).wasInitialized()) {</span>
+            // Allow dozer to map as normal
+<span class="nc" id="L21">            return false;</span>
+        }
+
+        // Set destination to null, and tell dozer that the field is mapped
+<span class="nc" id="L25">        destination = null;</span>
+<span class="nc" id="L26">        return true;</span>
+    }   
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>
