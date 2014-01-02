@@ -1,0 +1,15 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+FlashCards_WebServices,org.robbins.flashcards.jersey.filters,SecurityFilter,14,0,0,0,5,0,3,0,3,0
+FlashCards_WebServices,org.robbins.flashcards.jersey.filters,AcceptFilter,51,0,6,0,12,0,6,0,3,0
+FlashCards_WebServices,org.robbins.flashcards.webservices,TagsResource,62,0,4,0,15,0,6,0,4,0
+FlashCards_WebServices,org.robbins.flashcards.webservices,UsersResource,11,0,0,0,3,0,3,0,3,0
+FlashCards_WebServices,org.robbins.flashcards.webservices,FlashCardsResource,163,0,12,0,31,0,12,0,6,0
+FlashCards_WebServices,org.robbins.flashcards.cxf.filters,PartialResponseFilter,214,0,24,0,53,0,18,0,6,0
+FlashCards_WebServices,org.robbins.flashcards.cxf.filters,SecurityFilter,14,0,0,0,5,0,3,0,3,0
+FlashCards_WebServices,org.robbins.flashcards.webservices.exceptions,GenericWebServiceException,53,0,0,0,15,0,6,0,6,0
+FlashCards_WebServices,org.robbins.flashcards.webservices.exceptions,WebServicesError,36,0,0,0,15,0,8,0,8,0
+FlashCards_WebServices,org.robbins.flashcards.webservices.base,AbstractSecurityFilter,56,0,4,0,15,0,6,0,4,0
+FlashCards_WebServices,org.robbins.flashcards.webservices.base,AbstractGenericResource,284,0,14,0,61,0,17,0,10,0
+FlashCards_WebServices,org.robbins.flashcards.webservices.base,AbstractResource,109,0,14,0,21,0,11,0,4,0
+FlashCards_WebServices,org.robbins.flashcards.providers,DefaultExceptionHandler,33,0,2,0,7,0,3,0,2,0
+FlashCards_WebServices,org.robbins.flashcards.jackson,CustomObjectMapper,6,36,0,0,2,10,1,1,1,1

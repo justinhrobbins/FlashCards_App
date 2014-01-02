@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>UsersResource.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">FlashCards_WebServices</a> &gt; <a href="index.source.html" class="el_package">org.robbins.flashcards.webservices</a> &gt; <span class="el_source">UsersResource.java</span></div><h1>UsersResource.java</h1><pre class="source lang-java linenums">package org.robbins.flashcards.webservices;
+
+import javax.inject.Inject;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+
+import org.robbins.flashcards.dto.UserDto;
+import org.robbins.flashcards.facade.UserFacade;
+import org.robbins.flashcards.facade.base.GenericCrudFacade;
+import org.robbins.flashcards.webservices.base.AbstractGenericResource;
+import org.springframework.stereotype.Component;
+
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
+
+@Path(&quot;/v1/users/&quot;)
+@Component(&quot;usersResource&quot;)
+@Api(value=&quot;/v1/users&quot;, description = &quot;Operations about Users&quot;)
+@Produces({&quot;application/xml&quot;, &quot;application/json&quot;})
+@Consumes({&quot;application/xml&quot;,&quot;application/json&quot;})
+<span class="nc" id="L24">public class UsersResource extends AbstractGenericResource&lt;UserDto, Long&gt; {</span>
+	
+	@Inject
+	private UserFacade userFacade;
+
+	protected GenericCrudFacade&lt;UserDto&gt; getFacade() {
+<span class="nc" id="L30">		return userFacade;</span>
+	}
+	
+	@GET
+	@Path(&quot;/search&quot;)
+	@ApiOperation(value = &quot;Find a user by their OpenId&quot;, response = UserDto.class)
+	public UserDto search(@QueryParam(&quot;openid&quot;) String openid) {
+<span class="nc" id="L37">			return userFacade.findUserByOpenid(openid);</span>
+	}
+	
+//	@Override
+//	@ApiOperation(value = &quot;Replace a user&quot;, responseClass = &quot;javax.ws.rs.core.Response&quot;)
+//	public Response put(@PathParam(&quot;id&quot;) Long id, UserDto dto) {
+//
+//		if (dto.getCreatedBy() == null) {
+//			UserDto orig = userFacade.findOne(id);
+//			dto.setCreatedBy(orig.getCreatedBy());
+//			dto.setCreatedDate(orig.getCreatedDate());
+//		}
+//		return super.put(id,  dto);
+//	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>AbstractGenericResource.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">FlashCards_WebServices</a> &gt; <a href="index.source.html" class="el_package">org.robbins.flashcards.webservices.base</a> &gt; <span class="el_source">AbstractGenericResource.java</span></div><h1>AbstractGenericResource.java</h1><pre class="source lang-java linenums">package org.robbins.flashcards.webservices.base;
+
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.util.List;
+
+import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Response;
+
+import org.robbins.flashcards.exceptions.ServiceException;
+import org.robbins.flashcards.facade.base.GenericCrudFacade;
+import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
+
+import com.sun.jersey.api.JResponse;
+import com.wordnik.swagger.annotations.ApiOperation;
+
+<span class="fc" id="L29">public abstract class AbstractGenericResource &lt;T, Serializable&gt; extends AbstractResource implements GenericResource &lt;T, Serializable&gt; {</span>
+	
+<span class="fc" id="L31">	static final Logger logger = LoggerFactory.getLogger(AbstractGenericResource.class);</span>
+	
+	protected abstract GenericCrudFacade&lt;T&gt; getFacade();
+
+	@GET
+	@ApiOperation(value = &quot;List&quot;)
+	@Override
+	public JResponse&lt;List&lt;T&gt;&gt; list(@QueryParam(&quot;page&quot;) Integer page,
+						@DefaultValue(&quot;25&quot;) @QueryParam(&quot;size&quot;) Integer size,
+						@QueryParam(&quot;sort&quot;) String sort,
+						@DefaultValue(&quot;asc&quot;) @QueryParam(&quot;direction&quot;) String direction,
+						@QueryParam(&quot;fields&quot;) String fields) {
+		
+<span class="fc" id="L44">		List&lt;T&gt; entities = null;</span>
+		
+	    try {
+<span class="fc" id="L47">            entities = getFacade().list(page, size, sort, direction, this.getFieldsAsSet(fields));</span>
+<span class="fc" id="L48">		} catch (InvalidDataAccessApiUsageException e) {</span>
+<span class="fc" id="L49">			logger.error(e.getMessage(), e);</span>
+<span class="fc" id="L50">			throw new GenericWebServiceException(Response.Status.BAD_REQUEST,</span>
+					&quot;Inavlid sort parameter: '&quot; + sort + &quot;'&quot;, e);
+<span class="nc" id="L52">		} catch (ServiceException e) {</span>
+<span class="nc" id="L53">			throw new GenericWebServiceException(</span>
+					Response.Status.INTERNAL_SERVER_ERROR, e);
+<span class="fc" id="L55">		}</span>
+
+	    // did we get any results?
+<span class="pc bpc" id="L58" title="1 of 2 branches missed.">	    if (entities == null) {</span>
+<span class="nc" id="L59">			throw new GenericWebServiceException(Response.Status.NOT_FOUND,</span>
+					&quot;Entities not found&quot;);
+		}
+	    
+<span class="fc" id="L63">	    return JResponse.ok(entities).build();</span>
+	}
+
+	@GET
+	@Path(&quot;/count&quot;)
+	@ApiOperation(value = &quot;Count&quot;)
+	public Long count() {
+<span class="fc" id="L70">		return getFacade().count();</span>
+	}
+	
+	@GET
+	@Path(&quot;/{id}&quot;)
+	@ApiOperation(value = &quot;Get one&quot;)
+	public T findOne(@PathParam(&quot;id&quot;) Long id, @QueryParam(&quot;fields&quot;) String fields) {
+
+		T entity;
+		try {
+<span class="fc" id="L80">			entity = getFacade().findOne(id, this.getFieldsAsSet(fields));</span>
+<span class="nc" id="L81">		} catch (ServiceException e) {</span>
+<span class="nc" id="L82">			throw new GenericWebServiceException(</span>
+					Response.Status.INTERNAL_SERVER_ERROR, e);
+<span class="fc" id="L84">		}</span>
+
+<span class="pc bpc" id="L86" title="1 of 2 branches missed.">		if (entity == null) {</span>
+<span class="nc" id="L87">			throw new GenericWebServiceException(Response.Status.NOT_FOUND,</span>
+					&quot;Entity not found: &quot; + id);
+		}
+<span class="fc" id="L90">		return entity;</span>
+	}
+	
+	@POST
+	@ApiOperation(value = &quot;Create&quot;)
+	public T post(T entity) {
+		try {
+<span class="fc" id="L97">			return getFacade().save(entity);</span>
+<span class="nc" id="L98">		} catch (ServiceException e) {</span>
+<span class="nc" id="L99">			throw new GenericWebServiceException(</span>
+					Response.Status.INTERNAL_SERVER_ERROR, e);
+		}
+	}
+	
+	@PUT
+	@Path(&quot;/{id}&quot;)
+	@ApiOperation(value = &quot;Replace&quot;)
+	public Response put(@PathParam(&quot;id&quot;) Long id, T entity) {
+		try {
+<span class="fc" id="L109">			getFacade().save(entity);</span>
+<span class="nc" id="L110">		} catch (ServiceException e) {</span>
+<span class="nc" id="L111">			throw new GenericWebServiceException(</span>
+					Response.Status.INTERNAL_SERVER_ERROR, e);
+<span class="fc" id="L113">		}</span>
+		
+<span class="fc" id="L115">		return Response.noContent().build();</span>
+	}
+	
+	@DELETE
+	@Path(&quot;/{id}&quot;)
+	@ApiOperation(value = &quot;Delete&quot;)
+	public Response delete(@PathParam(&quot;id&quot;) Long id) {
+<span class="fc" id="L122">		getFacade().delete(id);</span>
+
+<span class="fc" id="L124">		return Response.noContent().build();</span>
+	}
+
+	@POST
+	@Path(&quot;/{id}/update&quot;)
+	@ApiOperation(value = &quot;Update&quot;)
+	public Response update(@PathParam(&quot;id&quot;) Long id, T updatedEntity) {
+		// get the original entity from the db
+		T originalEntity;
+		try {
+<span class="fc" id="L134">			originalEntity = getFacade().findOne(id);</span>
+<span class="nc" id="L135">		} catch (ServiceException e) {</span>
+<span class="nc" id="L136">			throw new GenericWebServiceException(</span>
+					Response.Status.INTERNAL_SERVER_ERROR, e);
+<span class="fc" id="L138">		}</span>
+
+		// merge the original with the updated entity
+<span class="fc" id="L141">		this.merge(updatedEntity, originalEntity);</span>
+
+		// persist the entity back to the db
+		try {
+<span class="fc" id="L145">			getFacade().save(originalEntity);</span>
+<span class="nc" id="L146">		} catch (ServiceException e) {</span>
+<span class="nc" id="L147">			throw new GenericWebServiceException(</span>
+					Response.Status.INTERNAL_SERVER_ERROR, e);
+<span class="fc" id="L149">		}</span>
+
+		// return the response
+<span class="fc" id="L152">		return Response.noContent().build();</span>
+	}
+	
+	// update the target entity with any non-null field in the source entity
+	private void merge(T source, T target) {
+		BeanInfo beanInfo;
+		try {
+<span class="fc" id="L159">			beanInfo = Introspector.getBeanInfo(source.getClass());</span>
+<span class="nc" id="L160">		} catch (IntrospectionException e) {</span>
+<span class="nc" id="L161">			logger.error(e.getMessage(), e);</span>
+<span class="nc" id="L162">			throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e.getMessage(), e);</span>
+<span class="fc" id="L163">		}</span>
+
+		// Iterate over all the attributes
+<span class="fc bfc" id="L166" title="All 2 branches covered.">		for (PropertyDescriptor descriptor : beanInfo.getPropertyDescriptors()) {</span>
+
+			// Only copy writable attributes
+<span class="fc bfc" id="L169" title="All 2 branches covered.">			if (descriptor.getWriteMethod() != null) {</span>
+				Object newValue;
+				try {
+<span class="fc" id="L172">					newValue = descriptor.getReadMethod().invoke(source);</span>
+<span class="nc" id="L173">				} catch (Exception e) {</span>
+<span class="nc" id="L174">					logger.error(e.getMessage(), e);</span>
+<span class="nc" id="L175">					throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e.getMessage(), e);</span>
+<span class="fc" id="L176">				}</span>
+
+				// Only copy values values where the destination values is not null
+				// Don't bother updating the 'identity' and 'version' fields
+				// which are part of the AbstractPersistentObject
+<span class="pc bpc" id="L181" title="2 of 6 branches missed.">				if ( (newValue != null) &amp;&amp; (!descriptor.getName().equals(&quot;identity&quot;)) &amp;&amp; (!descriptor.getName().equals(&quot;version&quot;)) ) {</span>
+<span class="fc" id="L182">					logger.debug(&quot;Updating field '&quot; + descriptor.getName()</span>
+							+ &quot;' to: '&quot; + newValue + &quot;'&quot;);
+					try {
+<span class="fc" id="L185">						descriptor.getWriteMethod().invoke(target, newValue);</span>
+<span class="nc" id="L186">					} catch (Exception e) {</span>
+<span class="nc" id="L187">						logger.error(e.getMessage(), e);</span>
+<span class="nc" id="L188">						throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e.getMessage(), e);</span>
+<span class="fc" id="L189">					}</span>
+				}
+			}
+		}
+<span class="fc" id="L193">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>PartialResponseFilter.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">FlashCards_WebServices</a> &gt; <a href="index.source.html" class="el_package">org.robbins.flashcards.cxf.filters</a> &gt; <span class="el_source">PartialResponseFilter.java</span></div><h1>PartialResponseFilter.java</h1><pre class="source lang-java linenums">package org.robbins.flashcards.cxf.filters;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.StringTokenizer;
+
+import javax.inject.Inject;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
+import javax.ws.rs.core.UriInfo;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.cxf.jaxrs.ext.ResponseHandler;
+import org.apache.cxf.jaxrs.model.OperationResourceInfo;
+import org.apache.cxf.jaxrs.model.Parameter;
+import org.apache.cxf.message.Message;
+import org.robbins.flashcards.exceptions.ServiceException;
+import org.robbins.flashcards.jackson.CustomObjectMapper;
+import org.robbins.flashcards.service.util.FieldInitializerUtil;
+import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
+
+@Component(&quot;partialResponseFilter&quot;)
+<span class="nc" id="L34">public class PartialResponseFilter implements ResponseHandler {</span>
+
+<span class="nc" id="L36">	static final Logger logger = LoggerFactory.getLogger(PartialResponseFilter.class);</span>
+
+	@Inject
+	private FieldInitializerUtil fieldInitializer;
+
+	@Inject
+	private CustomObjectMapper objectMapper;
+
+	@Context
+	private UriInfo uriInfo;
+
+	@Override
+	public Response handleResponse(Message m, OperationResourceInfo ori,
+			Response response) {
+
+<span class="nc bnc" id="L51" title="All 2 branches missed.">		if (ori == null) {</span>
+<span class="nc" id="L52">			return null;</span>
+		}
+		
+		// exit now if not an http GET method
+<span class="nc bnc" id="L56" title="All 2 branches missed.">		if (!StringUtils.equals(ori.getHttpMethod(), &quot;GET&quot;)) {</span>
+<span class="nc" id="L57">			return null;			</span>
+		}
+
+		// exit now if not a 200 response, no sense in apply filtering if not a
+		// '200 OK'
+<span class="nc bnc" id="L62" title="All 2 branches missed.">		if (response.getStatus() != Response.Status.OK.getStatusCode()) {</span>
+<span class="nc" id="L63">			return null;</span>
+		}
+
+		// exit now if we are not returning json
+<span class="nc bnc" id="L67" title="All 2 branches missed.">		if (!ori.getProduceTypes().get(0).toString()</span>
+				.equals(MediaType.APPLICATION_JSON)) {
+<span class="nc" id="L69">			return null;			</span>
+		}
+
+		// get a reference to the response entity. the entity holds the payload
+		// of our response
+<span class="nc" id="L74">		Object entity = response.getEntity();</span>
+
+		// try to get the 'fields' parameter from the QueryString
+<span class="nc" id="L77">		String fields = uriInfo.getQueryParameters().getFirst(&quot;fields&quot;);</span>
+
+		// if the 'fields' QueryString is blank, then check to see if we have
+		// @DefaultValue for 'fields'
+<span class="nc bnc" id="L81" title="All 2 branches missed.">		if (StringUtils.isBlank(fields)) {</span>
+			// get the Parameters for this Resource
+<span class="nc" id="L83">			List&lt;Parameter&gt; parameters = ori.getParameters();</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">			for (Parameter parm : parameters) {</span>
+				// is the current Parameter named 'fields'?
+<span class="nc bnc" id="L86" title="All 2 branches missed.">				if (StringUtils.equals(parm.getName(), &quot;fields&quot;)) {</span>
+					// get the default value for 'fields'
+<span class="nc" id="L88">					fields = parm.getDefaultValue();</span>
+
+					// now that we found 'fields', there's no need to keep
+					// looping
+<span class="nc" id="L92">					break;</span>
+				}
+<span class="nc" id="L94">			}</span>
+			// If 'fields' is still blank then we don't have a value from either
+			// the QueryString or @DefaultValue
+<span class="nc bnc" id="L97" title="All 2 branches missed.">			if (StringUtils.isBlank(fields)) {</span>
+<span class="nc" id="L98">				logger.debug(&quot;Did not find 'fields' pararm for Resource '&quot;</span>
+						+ uriInfo.getPath() + &quot;'&quot;);
+<span class="nc" id="L100">				return null;</span>
+			}
+		}
+
+<span class="nc" id="L104">		Set&lt;String&gt; filterProperties = this.getFieldsAsSet(fields);</span>
+
+		try {
+			// is the entity a collection?
+<span class="nc bnc" id="L108" title="All 2 branches missed.">			if (entity instanceof Collection&lt;?&gt;) {</span>
+<span class="nc" id="L109">				fieldInitializer.initializeEntity((Collection&lt;?&gt;) entity, filterProperties);</span>
+			}
+			// is the entity an array?
+<span class="nc bnc" id="L112" title="All 2 branches missed.">			else if (entity instanceof Object[]) {</span>
+<span class="nc" id="L113">				fieldInitializer.initializeEntity((Object[]) entity, filterProperties);</span>
+			} else {
+<span class="nc" id="L115">				fieldInitializer.initializeEntity(entity, filterProperties);</span>
+			}
+<span class="nc" id="L117">		} catch (ServiceException e) {</span>
+<span class="nc" id="L118">			throw new GenericWebServiceException(</span>
+					Response.Status.INTERNAL_SERVER_ERROR, e);
+<span class="nc" id="L120">		}</span>
+		
+		// apply the Jackson filter and return the Response
+<span class="nc" id="L123">		return applyFieldsFilter(filterProperties, entity, response);</span>
+	}
+
+	// configure the Jackson filter for the speicified 'fields'
+	private Response applyFieldsFilter(Set&lt;String&gt; filterProperties,
+			Object object, Response response) {
+<span class="nc" id="L129">		SimpleFilterProvider filterProvider = new SimpleFilterProvider();</span>
+<span class="nc" id="L130">		filterProvider.addFilter(&quot;apiFilter&quot;,</span>
+				SimpleBeanPropertyFilter.filterOutAllExcept(filterProperties));
+<span class="nc" id="L132">		filterProvider.setFailOnUnknownId(false);</span>
+
+<span class="nc" id="L134">		return applyWriter(object, filterProvider, response);</span>
+	}
+
+	// Get a JSON string from Jackson using the provided filter.
+	// Note we are using the ObjectWriter rather than the ObjectMapper directly.
+	// According to the Jackson docs,
+	// &quot;ObjectWriter instances are immutable and thread-safe: they are created by ObjectMapper&quot;
+	// You should not change config settings directly on the ObjectMapper while
+	// using it (changing config of ObjectMapper is not thread-safe
+	private Response applyWriter(Object object,
+			SimpleFilterProvider filterProvider, Response response) {
+
+		try {
+<span class="nc" id="L147">			ObjectWriter writer = objectMapper.writer(filterProvider);</span>
+<span class="nc" id="L148">			String jsonString = writer.writeValueAsString(object);</span>
+
+			// replace the Response entity with our filtered JSON string
+<span class="nc" id="L151">			ResponseBuilder builder = Response.fromResponse(response);</span>
+<span class="nc" id="L152">			builder = builder.entity(jsonString);</span>
+<span class="nc" id="L153">			return builder.build();</span>
+<span class="nc" id="L154">		} catch (Exception e) {</span>
+<span class="nc" id="L155">			logger.error(e.getMessage(), e);</span>
+<span class="nc" id="L156">			throw new GenericWebServiceException(</span>
+					Response.Status.INTERNAL_SERVER_ERROR, e);
+		}
+	}
+	
+	// Convert the vectorized 'fields' parameter to a Set&lt;String&gt;
+	private Set&lt;String&gt; getFieldsAsSet(String fields) {
+<span class="nc" id="L163">		Set&lt;String&gt; filterProperties = new HashSet&lt;String&gt;();</span>
+<span class="nc" id="L164">		StringTokenizer st = new StringTokenizer(fields, &quot;,&quot;);</span>
+<span class="nc bnc" id="L165" title="All 2 branches missed.">		while (st.hasMoreTokens()) {</span>
+<span class="nc" id="L166">			String field = st.nextToken();</span>
+
+			// never allow 'userpassword' to be passed even if it was
+			// specifically requested
+<span class="nc bnc" id="L170" title="All 2 branches missed.">			if (field.equals(&quot;userpassword&quot;)) {</span>
+<span class="nc" id="L171">				continue;</span>
+			}
+
+			// add the field to the Set&lt;String&gt;
+<span class="nc" id="L175">			filterProperties.add(field);</span>
+<span class="nc" id="L176">		}</span>
+<span class="nc" id="L177">		return filterProperties;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>

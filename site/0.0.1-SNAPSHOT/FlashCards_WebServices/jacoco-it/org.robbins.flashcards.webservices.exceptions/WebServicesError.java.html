@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>WebServicesError.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">FlashCards_WebServices</a> &gt; <a href="index.source.html" class="el_package">org.robbins.flashcards.webservices.exceptions</a> &gt; <span class="el_source">WebServicesError.java</span></div><h1>WebServicesError.java</h1><pre class="source lang-java linenums">package org.robbins.flashcards.webservices.exceptions;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name=&quot;tag&quot;)
+@XmlAccessorType(XmlAccessType.FIELD)
+public class WebServicesError {
+	private int errorId;
+	private String errorName;
+	private String errorMessage;
+
+<span class="nc" id="L14">	public WebServicesError() {}</span>
+	
+<span class="nc" id="L16">	public WebServicesError(int errorId, String errorName, String errorMessage) {</span>
+<span class="nc" id="L17">		this.errorId = errorId;</span>
+<span class="nc" id="L18">		this.errorName = errorName;</span>
+<span class="nc" id="L19">		this.errorMessage = errorMessage;</span>
+<span class="nc" id="L20">	}</span>
+
+	public int getErrorId() {
+<span class="nc" id="L23">		return errorId;</span>
+	}
+
+	public void setErrorId(int errorId) {
+<span class="nc" id="L27">		this.errorId = errorId;</span>
+<span class="nc" id="L28">	}</span>
+
+	public String getErrorName() {
+<span class="nc" id="L31">		return errorName;</span>
+	}
+
+	public void setErrorName(String errorName) {
+<span class="nc" id="L35">		this.errorName = errorName;</span>
+<span class="nc" id="L36">	}</span>
+
+	public String getErrorMessage() {
+<span class="nc" id="L39">		return errorMessage;</span>
+	}
+
+	public void setErrorMessage(String errorMessage) {
+<span class="nc" id="L43">		this.errorMessage = errorMessage;</span>
+<span class="nc" id="L44">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>
