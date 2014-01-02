@@ -21,69 +21,61 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
-			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
-			<version>${spring.version}</version>
 		</dependency>
 
 		<!-- Spring data commons for Auditable and Persistable -->
 		<dependency>
 		    <groupId>org.springframework.data</groupId>
 		    <artifactId>spring-data-commons-core</artifactId>
-		    <version>${springdata.version}</version>
 		</dependency>
 
 		<!-- JUnit dependencies -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
+			<scope>compile</scope>
 		</dependency>
 		
 		<!-- Mockito dependencies -->
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
-			<version>${mockito.version}</version>
+			<scope>compile</scope>
 		</dependency>
 		
 		<!-- DbUnit dependencies -->
 		<dependency>
 			<groupId>com.github.springtestdbunit</groupId>
 			<artifactId>spring-test-dbunit</artifactId>
-			<version>${spring.test.dbunit.version}</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<!-- logging dependencies -->
 		<dependency>  
 		  <groupId>ch.qos.logback</groupId>  
 		  <artifactId>logback-classic</artifactId>  
-		  <version>${logback.classic.version}</version>  
 		</dependency>
 		
 		<!-- Jackson dependencies -->
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
 		    <artifactId>jackson-core</artifactId>
-		    <version>${jackson.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>${jackson.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-joda</artifactId>
-			<version>${jackson.version}</version>
 		</dependency>
 
 		<!-- used for Base64 encoding
@@ -91,24 +83,10 @@
 		<dependency>
 		    <groupId>org.apache.geronimo.specs</groupId>
 		    <artifactId>geronimo-j2ee_1.4_spec</artifactId>
-		    <version>${geronimo.j2ee.1.4_spec.version}</version>
 		</dependency>
 
 	</dependencies>
 	<build>
 		<finalName>FlashCards_Test</finalName>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>${maven.surefire.plugin.version}</version>
-				<configuration>
-					<includes>
-						<include>**/*UT.java</include>
-						<include>**/*IT.java</include>
-					</includes>
-				</configuration>
-			</plugin>
-		</plugins>
 	</build>
 </project>
