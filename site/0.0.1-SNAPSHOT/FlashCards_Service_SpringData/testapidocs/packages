@@ -1,0 +1,4 @@
+org.robbins.flashcards.facade.impl
+org.robbins.flashcards.repository.springdata
+org.robbins.flashcards.service.springdata.base
+org.robbins.flashcards.service.springdata
