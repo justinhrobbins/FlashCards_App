@@ -106,7 +106,7 @@ public abstract class AbstractCrudFacadeImpl<D, E> implements
 			fieldInitializer.initializeEntity(resultEntity, fields);
 		}
 		
-		return getDto(resultEntity);
+		return getDto(resultEntity, fields);
 	}
 	
 	@Override
