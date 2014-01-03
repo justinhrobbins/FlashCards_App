@@ -26,7 +26,6 @@
 			<item name="FlashCards_App Home" href="./index.html" />
 		</breadcrumbs>
 		<menu ref="parent" inherit="top" />
-		<!--  <menu ref="modules" inherit="top" />  -->
 		<menu name="MODULES">
 			<item name="FlashCards_Domain" href="/FlashCards_Domain/index.html" />
 			<item name="FlashCards_GWT" href="/FlashCards_GWT/index.html" />
@@ -37,7 +36,7 @@
 			<item name="FlashCards_Struts" href="/FlashCards_Struts/index.html" />
 			<item name="FlashCards_Test" href="/FlashCards_Test/index.html" />
 		</menu>
-		<menu name="API">
+		<menu name="API" inherit="top" >
 			<item name="REST API Docs" href="/FlashCards_WebServices/rest-api-docs/index.html" target="_blank" />
 		</menu>
 		<menu ref="reports" inherit="bottom" />
