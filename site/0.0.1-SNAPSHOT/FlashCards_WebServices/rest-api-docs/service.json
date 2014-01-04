@@ -3,13 +3,13 @@
   "swaggerVersion" : "1.1",
   "basePath" : "http://localhost:8080/api",
   "apis" : [ {
-    "path" : "/v1/users",
-    "description" : ""
-  }, {
     "path" : "/v1/flashcards",
     "description" : ""
   }, {
     "path" : "/v1/tags",
+    "description" : ""
+  }, {
+    "path" : "/v1/users",
     "description" : ""
   } ]
 }

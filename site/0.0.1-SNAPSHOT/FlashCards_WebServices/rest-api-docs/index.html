@@ -15,8 +15,55 @@
 #### Overview
 Operations about FlashCards
 
-#### 1.1 `/v1/flashcards/search`
-##### 1.1.1 search
+#### 1.1 `/v1/flashcards/search/count`
+##### 1.1.1 searchCount
+**GET** `/v1/flashcards/search/count`
+
+Get a count of FlashCards
+
+
+###### URL
+    http://localhost:8080/api/v1/flashcards/search/count
+###### Parameters
+- query
+
+    <table border="1">
+        <tr>
+            <th>Parameter</th>
+            <th>Required</th>
+            <th>Description</th>
+            <th>Data Type</th>
+        </tr>
+        <tr>
+            <th>question</th>
+            <td>true</td>
+            <td></td>
+            <td>string</td>
+        </tr>
+        <tr>
+            <th>tags</th>
+            <td>true</td>
+            <td></td>
+            <td>string</td>
+        </tr>
+    </table>
+
+###### Response
+[](#)
+
+
+###### Errors
+<table border="1">
+    <tr>
+        <th>Status Code</th>
+        <th>Reason</th>
+    </tr>
+</table>
+
+
+- - -
+#### 1.2 `/v1/flashcards/search`
+##### 1.2.1 search
 **GET** `/v1/flashcards/search`
 
 Search for FlashCards
@@ -74,15 +121,15 @@ Search for FlashCards
 
 
 - - -
-#### 1.2 `/v1/flashcards/search/count`
-##### 1.2.1 searchCount
-**GET** `/v1/flashcards/search/count`
+#### 1.3 `/v1/flashcards/{id}`
+##### 1.3.1 findOne
+**GET** `/v1/flashcards/{id}`
 
-Get a count of FlashCards
+Get one
 
 
 ###### URL
-    http://localhost:8080/api/v1/flashcards/search/count
+    http://localhost:8080/api/v1/flashcards/{id}
 ###### Parameters
 - query
 
@@ -94,16 +141,26 @@ Get a count of FlashCards
             <th>Data Type</th>
         </tr>
         <tr>
-            <th>question</th>
+            <th>fields</th>
             <td>true</td>
             <td></td>
             <td>string</td>
         </tr>
+    </table>
+- path
+
+    <table border="1">
         <tr>
-            <th>tags</th>
+            <th>Parameter</th>
+            <th>Required</th>
+            <th>Description</th>
+            <th>Data Type</th>
+        </tr>
+        <tr>
+            <th>id</th>
             <td>true</td>
             <td></td>
-            <td>string</td>
+            <td>long</td>
         </tr>
     </table>
 
@@ -121,16 +178,31 @@ Get a count of FlashCards
 
 
 - - -
-#### 1.3 `/v1/flashcards/count`
-##### 1.3.1 count
-**GET** `/v1/flashcards/count`
+##### 1.3.2 delete
+**DELETE** `/v1/flashcards/{id}`
 
-Count
+Delete
 
 
 ###### URL
-    http://localhost:8080/api/v1/flashcards/count
+    http://localhost:8080/api/v1/flashcards/{id}
 ###### Parameters
+- path
+
+    <table border="1">
+        <tr>
+            <th>Parameter</th>
+            <th>Required</th>
+            <th>Description</th>
+            <th>Data Type</th>
+        </tr>
+        <tr>
+            <th>id</th>
+            <td>true</td>
+            <td></td>
+            <td>long</td>
+        </tr>
+    </table>
 
 ###### Response
 [](#)
@@ -235,88 +307,16 @@ Create
 
 
 - - -
-#### 1.5 `/v1/flashcards/{id}`
-##### 1.5.1 delete
-**DELETE** `/v1/flashcards/{id}`
+#### 1.5 `/v1/flashcards/count`
+##### 1.5.1 count
+**GET** `/v1/flashcards/count`
 
-Delete
-
-
-###### URL
-    http://localhost:8080/api/v1/flashcards/{id}
-###### Parameters
-- path
-
-    <table border="1">
-        <tr>
-            <th>Parameter</th>
-            <th>Required</th>
-            <th>Description</th>
-            <th>Data Type</th>
-        </tr>
-        <tr>
-            <th>id</th>
-            <td>true</td>
-            <td></td>
-            <td>long</td>
-        </tr>
-    </table>
-
-###### Response
-[](#)
-
-
-###### Errors
-<table border="1">
-    <tr>
-        <th>Status Code</th>
-        <th>Reason</th>
-    </tr>
-</table>
-
-
-- - -
-##### 1.5.2 findOne
-**GET** `/v1/flashcards/{id}`
-
-Get one
+Count
 
 
 ###### URL
-    http://localhost:8080/api/v1/flashcards/{id}
+    http://localhost:8080/api/v1/flashcards/count
 ###### Parameters
-- query
-
-    <table border="1">
-        <tr>
-            <th>Parameter</th>
-            <th>Required</th>
-            <th>Description</th>
-            <th>Data Type</th>
-        </tr>
-        <tr>
-            <th>fields</th>
-            <td>true</td>
-            <td></td>
-            <td>string</td>
-        </tr>
-    </table>
-- path
-
-    <table border="1">
-        <tr>
-            <th>Parameter</th>
-            <th>Required</th>
-            <th>Description</th>
-            <th>Data Type</th>
-        </tr>
-        <tr>
-            <th>id</th>
-            <td>true</td>
-            <td></td>
-            <td>long</td>
-        </tr>
-    </table>
 
 ###### Response
 [](#)
@@ -377,8 +377,49 @@ Update
 #### Overview
 Operations about Tags
 
-#### 2.1 `/v1/tags/{id}`
-##### 2.1.1 put
+#### 2.1 `/v1/tags/search`
+##### 2.1.1 searchByName
+**GET** `/v1/tags/search`
+
+Find Tag by Name
+
+
+###### URL
+    http://localhost:8080/api/v1/tags/search
+###### Parameters
+- query
+
+    <table border="1">
+        <tr>
+            <th>Parameter</th>
+            <th>Required</th>
+            <th>Description</th>
+            <th>Data Type</th>
+        </tr>
+        <tr>
+            <th>name</th>
+            <td>true</td>
+            <td></td>
+            <td>string</td>
+        </tr>
+    </table>
+
+###### Response
+[](#)
+
+
+###### Errors
+<table border="1">
+    <tr>
+        <th>Status Code</th>
+        <th>Reason</th>
+    </tr>
+</table>
+
+
+- - -
+#### 2.2 `/v1/tags/{id}`
+##### 2.2.1 put
 **PUT** `/v1/tags/{id}`
 
 Replace a Tag
@@ -418,47 +459,7 @@ Replace a Tag
 
 
 - - -
-##### 2.1.2 delete
-**DELETE** `/v1/tags/{id}`
-
-Delete
-
-
-###### URL
-    http://localhost:8080/api/v1/tags/{id}
-###### Parameters
-- path
-
-    <table border="1">
-        <tr>
-            <th>Parameter</th>
-            <th>Required</th>
-            <th>Description</th>
-            <th>Data Type</th>
-        </tr>
-        <tr>
-            <th>id</th>
-            <td>true</td>
-            <td></td>
-            <td>long</td>
-        </tr>
-    </table>
-
-###### Response
-[](#)
-
-
-###### Errors
-<table border="1">
-    <tr>
-        <th>Status Code</th>
-        <th>Reason</th>
-    </tr>
-</table>
-
-
-- - -
-##### 2.1.3 findOne
+##### 2.2.2 findOne
 **GET** `/v1/tags/{id}`
 
 Get one
@@ -514,17 +515,16 @@ Get one
 
 
 - - -
-#### 2.2 `/v1/tags/search`
-##### 2.2.1 searchByName
-**GET** `/v1/tags/search`
+##### 2.2.3 delete
+**DELETE** `/v1/tags/{id}`
 
-Find Tag by Name
+Delete
 
 
 ###### URL
-    http://localhost:8080/api/v1/tags/search
+    http://localhost:8080/api/v1/tags/{id}
 ###### Parameters
-- query
+- path
 
     <table border="1">
         <tr>
@@ -534,10 +534,10 @@ Find Tag by Name
             <th>Data Type</th>
         </tr>
         <tr>
-            <th>name</th>
+            <th>id</th>
             <td>true</td>
             <td></td>
-            <td>string</td>
+            <td>long</td>
         </tr>
     </table>
 
@@ -555,33 +555,8 @@ Find Tag by Name
 
 
 - - -
-#### 2.3 `/v1/tags/count`
-##### 2.3.1 count
-**GET** `/v1/tags/count`
-
-Count
-
-
-###### URL
-    http://localhost:8080/api/v1/tags/count
-###### Parameters
-
-###### Response
-[](#)
-
-
-###### Errors
-<table border="1">
-    <tr>
-        <th>Status Code</th>
-        <th>Reason</th>
-    </tr>
-</table>
-
-
-- - -
-#### 2.4 `/v1/tags`
-##### 2.4.1 list
+#### 2.3 `/v1/tags`
+##### 2.3.1 list
 **GET** `/v1/tags`
 
 List
@@ -645,7 +620,7 @@ List
 
 
 - - -
-##### 2.4.2 post
+##### 2.3.2 post
 **POST** `/v1/tags`
 
 Create
@@ -653,6 +628,31 @@ Create
 
 ###### URL
     http://localhost:8080/api/v1/tags
+###### Parameters
+
+###### Response
+[](#)
+
+
+###### Errors
+<table border="1">
+    <tr>
+        <th>Status Code</th>
+        <th>Reason</th>
+    </tr>
+</table>
+
+
+- - -
+#### 2.4 `/v1/tags/count`
+##### 2.4.1 count
+**GET** `/v1/tags/count`
+
+Count
+
+
+###### URL
+    http://localhost:8080/api/v1/tags/count
 ###### Parameters
 
 ###### Response
@@ -756,87 +756,7 @@ Find a user by their OpenId
 
 - - -
 #### 3.2 `/v1/users/{id}`
-##### 3.2.1 put
-**PUT** `/v1/users/{id}`
-
-Replace
-
-
-###### URL
-    http://localhost:8080/api/v1/users/{id}
-###### Parameters
-- path
-
-    <table border="1">
-        <tr>
-            <th>Parameter</th>
-            <th>Required</th>
-            <th>Description</th>
-            <th>Data Type</th>
-        </tr>
-        <tr>
-            <th>id</th>
-            <td>true</td>
-            <td></td>
-            <td>long</td>
-        </tr>
-    </table>
-
-###### Response
-[](#)
-
-
-###### Errors
-<table border="1">
-    <tr>
-        <th>Status Code</th>
-        <th>Reason</th>
-    </tr>
-</table>
-
-
-- - -
-##### 3.2.2 delete
-**DELETE** `/v1/users/{id}`
-
-Delete
-
-
-###### URL
-    http://localhost:8080/api/v1/users/{id}
-###### Parameters
-- path
-
-    <table border="1">
-        <tr>
-            <th>Parameter</th>
-            <th>Required</th>
-            <th>Description</th>
-            <th>Data Type</th>
-        </tr>
-        <tr>
-            <th>id</th>
-            <td>true</td>
-            <td></td>
-            <td>long</td>
-        </tr>
-    </table>
-
-###### Response
-[](#)
-
-
-###### Errors
-<table border="1">
-    <tr>
-        <th>Status Code</th>
-        <th>Reason</th>
-    </tr>
-</table>
-
-
-- - -
-##### 3.2.3 findOne
+##### 3.2.1 findOne
 **GET** `/v1/users/{id}`
 
 Get one
@@ -892,16 +812,31 @@ Get one
 
 
 - - -
-#### 3.3 `/v1/users/count`
-##### 3.3.1 count
-**GET** `/v1/users/count`
+##### 3.2.2 put
+**PUT** `/v1/users/{id}`
 
-Count
+Replace
 
 
 ###### URL
-    http://localhost:8080/api/v1/users/count
+    http://localhost:8080/api/v1/users/{id}
 ###### Parameters
+- path
+
+    <table border="1">
+        <tr>
+            <th>Parameter</th>
+            <th>Required</th>
+            <th>Description</th>
+            <th>Data Type</th>
+        </tr>
+        <tr>
+            <th>id</th>
+            <td>true</td>
+            <td></td>
+            <td>long</td>
+        </tr>
+    </table>
 
 ###### Response
 [](#)
@@ -917,8 +852,48 @@ Count
 
 
 - - -
-#### 3.4 `/v1/users`
-##### 3.4.1 list
+##### 3.2.3 delete
+**DELETE** `/v1/users/{id}`
+
+Delete
+
+
+###### URL
+    http://localhost:8080/api/v1/users/{id}
+###### Parameters
+- path
+
+    <table border="1">
+        <tr>
+            <th>Parameter</th>
+            <th>Required</th>
+            <th>Description</th>
+            <th>Data Type</th>
+        </tr>
+        <tr>
+            <th>id</th>
+            <td>true</td>
+            <td></td>
+            <td>long</td>
+        </tr>
+    </table>
+
+###### Response
+[](#)
+
+
+###### Errors
+<table border="1">
+    <tr>
+        <th>Status Code</th>
+        <th>Reason</th>
+    </tr>
+</table>
+
+
+- - -
+#### 3.3 `/v1/users`
+##### 3.3.1 list
 **GET** `/v1/users`
 
 List
@@ -982,7 +957,7 @@ List
 
 
 - - -
-##### 3.4.2 post
+##### 3.3.2 post
 **POST** `/v1/users`
 
 Create
@@ -990,6 +965,31 @@ Create
 
 ###### URL
     http://localhost:8080/api/v1/users
+###### Parameters
+
+###### Response
+[](#)
+
+
+###### Errors
+<table border="1">
+    <tr>
+        <th>Status Code</th>
+        <th>Reason</th>
+    </tr>
+</table>
+
+
+- - -
+#### 3.4 `/v1/users/count`
+##### 3.4.1 count
+**GET** `/v1/users/count`
+
+Count
+
+
+###### URL
+    http://localhost:8080/api/v1/users/count
 ###### Parameters
 
 ###### Response
