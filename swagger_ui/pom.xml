@@ -24,7 +24,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
-				<version>${maven.site.plugin.version}</version>
 				<configuration>
 					<skip>true</skip>
 				</configuration>
@@ -33,7 +32,6 @@
 			<plugin>
 				<groupId>com.github.github</groupId>
 				<artifactId>site-maven-plugin</artifactId>
-				<version>${site.maven.plugin.version}</version>
 				<executions>
 					<execution>
 						<goals>
