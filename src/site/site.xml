@@ -36,6 +36,10 @@
 			<item name="FlashCards_Struts" href="/FlashCards_Struts/index.html" />
 			<item name="FlashCards_Test" href="/FlashCards_Test/index.html" />
 		</menu>
+		<menu name="STATUS" inherit="top" >
+			<item name="" href="https://travis-ci.org/justinhrobbins/FlashCards_App" target="_blank" img="https://travis-ci.org/justinhrobbins/FlashCards_App.png?branch=master" />
+			<item name="" href="https://coveralls.io/r/justinhrobbins/FlashCards_App?branch=master" target="_blank" img="https://coveralls.io/repos/justinhrobbins/FlashCards_App/badge.png?branch=master"/>
+		</menu>
 		<menu name="API" inherit="top" >
 			<item name="REST API Docs" href="/FlashCards_WebServices/rest-api-docs/index.html" target="_blank" />
 		</menu>
