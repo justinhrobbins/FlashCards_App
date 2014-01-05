@@ -102,6 +102,8 @@ public abstract class AbstractCrudFacadeImpl<D, E> implements
 	public D findOne(Long id, Set<String> fields) throws ServiceException {
 		E resultEntity = getService().findOne(id);
 
+		if (resultEntity == null) return null; 
+		
 		if (CollectionUtils.isNotEmpty(fields)) {
 			fieldInitializer.initializeEntity(resultEntity, fields);
 		}
