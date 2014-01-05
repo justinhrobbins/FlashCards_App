@@ -17,13 +17,18 @@
 	    <!-- Only unit tests are run by default. -->
 	    <skip.integration.tests>true</skip.integration.tests>
 	    <skip.unit.tests>false</skip.unit.tests>
+	    
+	    <skip.coveralls>false</skip.coveralls>
+	    <skip.cobertura>false</skip.cobertura>
 		
 		<!-- Dependency versions -->
 		<aspectj.version>1.7.4</aspectj.version>
 		<cglib.version>2.2.2</cglib.version>
+		<maven.cobertura.version>2.6</maven.cobertura.version>
 		<commons.beanutils.version>1.8.3</commons.beanutils.version>
 		<commons.collections.version>3.2.1</commons.collections.version>
 		<commons.lang3.version>3.1</commons.lang3.version>
+		<coveralls.version>2.1.0</coveralls.version>
 		<cxf.version>2.6.0</cxf.version>
 		<c3p0.version>0.9.1</c3p0.version>
 		<dbunit.version>2.4.9</dbunit.version>
@@ -670,33 +675,39 @@
 						<target>${jdk.version}</target>
 					</configuration>
 				</plugin>
+			<!--
 	            <plugin>
 	                <groupId>org.jacoco</groupId>
 	                <artifactId>jacoco-maven-plugin</artifactId>
 	                <version>${jacoco.maven.plugin.version}</version>
-	                <executions>
-	                    <execution>
-	                        <id>pre-test</id>
-	                        <goals>
-	                            <goal>prepare-agent</goal>
-	                        </goals>
-	                        <configuration>
-	                            <!--
-	                               Sets the name of the property containing the settings
-	                               for JaCoCo runtime agent.
-	                           -->
-	                            <propertyName>surefireArgLine</propertyName>
-	                        </configuration>
-	                    </execution>
-	                    <execution>
-	                        <id>post-test</id>
-	                        <phase>test</phase>
-	                        <goals>
-	                            <goal>report</goal>
-	                        </goals>
-	                    </execution>
-	                </executions>
+				    <executions>
+				        <execution>
+				            <id>prepare-agent</id>
+				            <goals>
+				                <goal>prepare-agent</goal>
+				            </goals>
+				        </execution>
+						<execution>
+							<id>report</id>
+							<goals>
+								<goal>report</goal>
+							</goals>
+							<phase>prepare-package</phase>
+                        </execution>
+				    </executions>
 	            </plugin>
+			-->
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>cobertura-maven-plugin</artifactId>
+					<version>${maven.cobertura.version}</version>
+					<configuration>
+						<format>xml</format>
+						<maxmem>256m</maxmem>
+						<aggregate>true</aggregate>
+						<skip>${skip.cobertura}</skip> 
+					</configuration>
+				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
@@ -704,8 +715,6 @@
 					<configuration>
 						<!-- Skips unit tests if the value of skip.unit.tests property is true -->
 						<skipTests>${skip.unit.tests}</skipTests>
-	                    <!-- Sets the VM argument line used when unit tests are run. -->
-	                    <argLine>${surefireArgLine}</argLine>
 						<includes>
 							<include>**/*UT.java</include>
 						</includes>
@@ -822,6 +831,17 @@
 						</systemProperties>
 					</configuration>
 				</plugin>
+				<!-- Maven plugin for submitting Java code coverage reports to Coveralls web service -->
+				<plugin>
+				    <groupId>org.eluder.coveralls</groupId>
+				    <artifactId>coveralls-maven-plugin</artifactId>
+				    <version>${coveralls.version}</version>
+				    <configuration>
+				    	<!-- remove token before pushing to github -->
+				        <repoToken>yroda04eXNaFBZBzc29MnCPoUz6zE1Ml4</repoToken>
+						<skip>${skip.coveralls}</skip>
+				    </configuration>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 		<plugins>
@@ -829,10 +849,16 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 			</plugin>
+		<!--
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
             </plugin>
+		-->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -848,6 +874,10 @@
 			<plugin>
 				<groupId>com.github.github</groupId>
 				<artifactId>site-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+			    <groupId>org.eluder.coveralls</groupId>
+			    <artifactId>coveralls-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
@@ -865,6 +895,10 @@
 				<configuration>
 					<dependencyLocationsEnabled>false</dependencyLocationsEnabled>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
 			</plugin>
 			<!-- generate Javadoc -->
 			<plugin>
@@ -894,12 +928,6 @@
                     </reportSet>
                 </reportSets>
             </plugin>
-			<!-- jacoco reporting for maven site -->
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco.maven.plugin.version}</version>
-			</plugin>
 		</plugins>
 	</reporting>
 </project>

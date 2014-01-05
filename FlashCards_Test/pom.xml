@@ -11,6 +11,10 @@
 	<packaging>jar</packaging>
 	<name>FlashCards_Test</name>
 	<description>FlashCards_Test description</description>
+	<properties>
+		<skip.coveralls>true</skip.coveralls>
+		<skip.cobertura>true</skip.cobertura>
+	</properties>
 	<scm>
 		<connection>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</connection>
 		<url>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</url>

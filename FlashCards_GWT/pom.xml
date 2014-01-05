@@ -14,6 +14,8 @@
 	<properties>
 		<m2eclipse.wtp.contextRoot>gwt</m2eclipse.wtp.contextRoot>
 		<jetty.context.path>gwt</jetty.context.path>
+		<skip.coveralls>true</skip.coveralls>
+		<skip.cobertura>true</skip.cobertura>
 	</properties>
 	<scm>
 		<connection>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</connection>

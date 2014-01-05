@@ -14,6 +14,7 @@
 	<properties>
 		<m2eclipse.wtp.contextRoot>api</m2eclipse.wtp.contextRoot>
 		<jetty.context.path>api</jetty.context.path>
+		<skip.coveralls>false</skip.coveralls>
 	</properties>
 	<scm>
 		<connection>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</connection>
