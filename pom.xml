@@ -13,9 +13,11 @@
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
 		<jdk.version>1.7</jdk.version>
-		<jacoco.it.execution.data.file>${project.build.directory}/coverage-reports/jacoco-it.exec</jacoco.it.execution.data.file>
-        <jacoco.ut.execution.data.file>${project.build.directory}/coverage-reports/jacoco-ut.exec</jacoco.ut.execution.data.file>
 
+	    <!-- Only unit tests are run by default. -->
+	    <skip.integration.tests>true</skip.integration.tests>
+	    <skip.unit.tests>false</skip.unit.tests>
+		
 		<!-- Dependency versions -->
 		<aspectj.version>1.7.4</aspectj.version>
 		<cglib.version>2.2.2</cglib.version>
@@ -134,6 +136,32 @@
 		<module>FlashCards_Test</module>
 		<module>swagger_ui</module>
 	</modules>
+	<profiles>
+		<!-- run only unit tests -->
+		<profile>
+			<id>dev</id>
+		</profile>
+		<!-- run only integration tests -->
+	    <profile>
+	        <id>integration-test</id>
+	        <properties>
+	            <!-- Used to locate the profile specific configuration file. -->
+	            <build.profile.id>integration-test</build.profile.id>
+	            <!-- Only integration tests are run. -->
+	            <skip.integration.tests>false</skip.integration.tests>
+	            <skip.unit.tests>true</skip.unit.tests>
+	        </properties>
+	    </profile>
+	    <!-- run both unit and integration tests -->
+        <profile>
+            <id>all-tests</id>
+            <properties>
+                <!-- All tests are run. -->
+                <skip.integration.tests>false</skip.integration.tests>
+                <skip.unit.tests>false</skip.unit.tests>
+            </properties>
+        </profile>
+	</profiles>
 	<dependencyManagement>
 		<dependencies>
 			<!-- dependency for 'javax.persistence' packages -->
@@ -665,6 +693,8 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>${maven.surefire.plugin.version}</version>
 				<configuration>
+			        <!-- Skips unit tests if the value of skip.unit.tests property is true -->
+			        <skipTests>${skip.unit.tests}</skipTests>
                     <!-- Sets the VM argument line used when unit tests are run. -->
                     <argLine>${surefireArgLine}</argLine>
 					<includes>
@@ -680,6 +710,8 @@
 				<artifactId>maven-failsafe-plugin</artifactId>
 				<version>${maven.failsafe.plugin.version}</version>
 				<configuration>
+	                <!-- Skips integration tests if the value of skip.integration.tests property is true -->
+	                <skipTests>${skip.integration.tests}</skipTests>
 					<includes>
 						<include>**/*IT.java</include>
 					</includes>
