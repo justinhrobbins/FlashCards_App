@@ -147,16 +147,6 @@
 			</activation>
 			<build>
 				<plugins>
-					<!-- disable integration tests by default
-						 we'll run them under the 'integration' profile -->
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-failsafe-plugin</artifactId>
-						<version>${maven.failsafe.plugin.version}</version>
-						<configuration>
-							<skipTests>true</skipTests>
-						</configuration>
-					</plugin>
 					<!-- configure jetty to deploy the swagger and gwt wars
 						 we want them deployed by default for 'mvn jetty:run' -->
 					<plugin>
@@ -183,30 +173,44 @@
 			 Moved this into it's own profile because otherwise Jetty was getting started
 			 	in all cases and wasting time, even when we were skipping tests 'DskipTests=true' -->
 		<profile>
-			<id>integration</id>
+			<id>integration-test</id>
 			<build>
 				<plugins>
 					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-failsafe-plugin</artifactId>
-						<version>${maven.failsafe.plugin.version}</version>
-						<configuration>
-							<includes>
-								<include>**/*IT.java</include>
-							</includes>
-							<excludes>
-								<exclude>**/*UT.java</exclude>
-							</excludes>
-						</configuration>
+						<groupId>org.mortbay.jetty</groupId>
+						<artifactId>jetty-maven-plugin</artifactId>
 						<executions>
 							<execution>
+								<id>start-jetty</id>
+								<phase>pre-integration-test</phase>
 								<goals>
-									<goal>integration-test</goal>
-									<goal>verify</goal>
+									<goal>run-exploded</goal>
+								</goals>
+								<configuration>
+									<scanIntervalSeconds>0</scanIntervalSeconds>
+									<daemon>true</daemon>
+								</configuration>
+							</execution>
+							<execution>
+								<id>stop-jetty</id>
+								<phase>post-integration-test</phase>
+								<goals>
+									<goal>stop</goal>
 								</goals>
 							</execution>
 						</executions>
 					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<!--
+			would prefer a better way to start jetty for both profiles (integration-test & all-test)
+			but for now just copying the plugin into both profiles
+		 -->
+		<profile>
+			<id>all-tests</id>
+			<build>
+				<plugins>
 					<plugin>
 						<groupId>org.mortbay.jetty</groupId>
 						<artifactId>jetty-maven-plugin</artifactId>
@@ -275,20 +279,6 @@
 			</plugins>
 		</pluginManagement>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>${maven.surefire.plugin.version}</version>
-				<configuration>
-					<includes>
-						<include>**/*UT.java</include>
-					</includes>
-					<excludes>
-						<exclude>**/*IT.java</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-
 			<!-- Need to download markdown.mustache first to use strapdown.html.mustache -->
             <plugin>
                 <groupId>com.github.kongchen</groupId>
