@@ -837,9 +837,7 @@
 				    <artifactId>coveralls-maven-plugin</artifactId>
 				    <version>${coveralls.version}</version>
 				    <configuration>
-				    	<!-- remove token before pushing to github -->
-				        <repoToken>yroda04eXNaFBZBzc29MnCPoUz6zE1Ml4</repoToken>
-						<skip>${skip.coveralls}</skip>
+					<skip>${skip.coveralls}</skip>
 				    </configuration>
 				</plugin>
 			</plugins>
