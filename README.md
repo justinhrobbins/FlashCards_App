@@ -1,4 +1,5 @@
 [![Build Status](https://justinhrobbins.ci.cloudbees.com/job/Flashcards/badge/icon)](https://justinhrobbins.ci.cloudbees.com/job/Flashcards/)
+[![Coverage Status](https://coveralls.io/repos/justinhrobbins/FlashCards_App/badge.png?branch=master)](https://coveralls.io/r/justinhrobbins/FlashCards_App?branch=master)
 
 ## Overview
 
