@@ -2,7 +2,6 @@
 [![Coverage Status](https://coveralls.io/repos/justinhrobbins/FlashCards_App/badge.png?branch=master)](https://coveralls.io/r/justinhrobbins/FlashCards_App?branch=master)
 
 ## Overview
-
 The purpose of this project is to demonstrate my Java and web development competencies.
 
 A working copy of this project is running on an Amazon EC2 cloud instance.  There are two published versions of the application:
