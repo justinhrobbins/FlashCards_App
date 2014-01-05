@@ -13,6 +13,7 @@
 	<description>FlashCards_Struts description</description>
 	<properties>
 		<m2eclipse.wtp.contextRoot>struts</m2eclipse.wtp.contextRoot>
+		<jetty.context.path>struts</jetty.context.path>
 	</properties>
 	<scm>
 		<connection>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</connection>
@@ -85,33 +86,6 @@
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
-				<version>${jetty.version}</version>
-				<configuration>
-					<scanIntervalSeconds>10</scanIntervalSeconds>
-					<webApp>
-						<contextPath>/struts</contextPath>
-					</webApp>
-					<stopPort>8005</stopPort>
-					<stopKey>STOP</stopKey>
-					<systemProperties>
-						<systemProperty>
-							<name>spring.profiles.active</name>
-							<value>embedded</value>
-						</systemProperty>
-					</systemProperties>
-				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>c3p0</groupId>
-						<artifactId>c3p0</artifactId>
-						<version>${c3p0.version}</version>
-					</dependency>
-					<dependency>
-						<groupId>com.h2database</groupId>
-						<artifactId>h2</artifactId>
-						<version>${h2.version}</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 		</plugins>
 	</build>

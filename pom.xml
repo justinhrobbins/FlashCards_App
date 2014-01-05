@@ -81,6 +81,14 @@
 		<maven.surefire.report.plugin.version>2.16</maven.surefire.report.plugin.version>
 	</properties>
 	<url>https://github.com/justinhrobbins/FlashCards_App</url>
+	<inceptionYear>2011</inceptionYear>
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 	<developers>
 		<developer>
 			<id>justinhrobbins</id>
@@ -651,136 +659,195 @@
 		</dependencies>
 	</dependencyManagement>
 	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven.compiler.plugin.version}</version>
+					<configuration>
+						<source>${jdk.version}</source>
+						<target>${jdk.version}</target>
+					</configuration>
+				</plugin>
+	            <plugin>
+	                <groupId>org.jacoco</groupId>
+	                <artifactId>jacoco-maven-plugin</artifactId>
+	                <version>${jacoco.maven.plugin.version}</version>
+	                <executions>
+	                    <execution>
+	                        <id>pre-test</id>
+	                        <goals>
+	                            <goal>prepare-agent</goal>
+	                        </goals>
+	                        <configuration>
+	                            <!--
+	                               Sets the name of the property containing the settings
+	                               for JaCoCo runtime agent.
+	                           -->
+	                            <propertyName>surefireArgLine</propertyName>
+	                        </configuration>
+	                    </execution>
+	                    <execution>
+	                        <id>post-test</id>
+	                        <phase>test</phase>
+	                        <goals>
+	                            <goal>report</goal>
+	                        </goals>
+	                    </execution>
+	                </executions>
+	            </plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${maven.surefire.plugin.version}</version>
+					<configuration>
+						<!-- Skips unit tests if the value of skip.unit.tests property is true -->
+						<skipTests>${skip.unit.tests}</skipTests>
+	                    <!-- Sets the VM argument line used when unit tests are run. -->
+	                    <argLine>${surefireArgLine}</argLine>
+						<includes>
+							<include>**/*UT.java</include>
+						</includes>
+						<excludes>
+							<exclude>**/*IT.java</exclude>
+						</excludes>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-failsafe-plugin</artifactId>
+					<version>${maven.failsafe.plugin.version}</version>
+					<configuration>
+						<!-- Skips integration tests if the value of skip.integration.tests property is true -->
+						<skipTests>${skip.integration.tests}</skipTests>
+						<includes>
+							<include>**/*IT.java</include>
+						</includes>
+						<excludes>
+							<exclude>**/*UT.java</exclude>
+						</excludes>
+					</configuration>
+					<executions>
+						<execution>
+							<goals>
+								<goal>integration-test</goal>
+								<goal>verify</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>${maven.site.plugin.version}</version>
+					<configuration>
+						<skipDeploy>true</skipDeploy>
+					</configuration>
+					<executions>
+						<!--
+							Adds the site descriptor (site.xml) to the list of files to be installed/deployed
+							We add this to enable inheritance of menus in the site.xml for each sub module project
+						-->
+						<execution>
+							<id>attach-descriptor</id>
+							<goals>
+								<goal>attach-descriptor</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<!-- 
+						Note: to use this plugin you must also add Github authentication information to your local settings.xml
+						For example:
+							<profile>
+								<id>github</id>
+	            				<activation>
+	                				<activeByDefault>true</activeByDefault>
+	            				</activation>
+		    					<properties>
+		        				<github.global.userName>my_user_name</github.global.userName>
+		        				<github.global.password>my_password</github.global.password>
+		    				</properties>
+						</profile>
+					-->
+					<groupId>com.github.github</groupId>
+					<artifactId>site-maven-plugin</artifactId>
+					<version>${site.maven.plugin.version}</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>site</goal>
+							</goals>
+							<phase>site-deploy</phase>
+							<configuration>
+								<message>
+									Creating site for ${project.artifactId}, ${project.version}
+								</message>
+								<path>${project.distributionManagement.site.url}</path>
+								<merge>true</merge>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.mortbay.jetty</groupId>
+					<artifactId>jetty-maven-plugin</artifactId>
+					<version>${jetty.version}</version>
+					<dependencies>
+						<dependency>
+							<groupId>c3p0</groupId>
+							<artifactId>c3p0</artifactId>
+							<version>${c3p0.version}</version>
+						</dependency>
+						<dependency>
+							<groupId>com.h2database</groupId>
+							<artifactId>h2</artifactId>
+							<version>${h2.version}</version>
+						</dependency>
+					</dependencies>
+					<configuration>
+						<scanIntervalSeconds>25</scanIntervalSeconds>
+						<webAppConfig>
+							<contextPath>/${jetty.context.path}</contextPath>
+						</webAppConfig>
+						<stopPort>8005</stopPort>
+						<stopKey>STOP</stopKey>
+						<systemProperties>
+							<systemProperty>
+								<name>spring.profiles.active</name>
+								<value>embedded</value>
+							</systemProperty>
+						</systemProperties>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 		<plugins>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco.maven.plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>pre-test</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                        <configuration>
-                            <!--
-                               Sets the name of the property containing the settings
-                               for JaCoCo runtime agent.
-                           -->
-                            <propertyName>surefireArgLine</propertyName>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>post-test</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>${maven.compiler.plugin.version}</version>
-				<configuration>
-					<source>${jdk.version}</source>
-					<target>${jdk.version}</target>
-				</configuration>
 			</plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+            </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>${maven.surefire.plugin.version}</version>
-				<configuration>
-			        <!-- Skips unit tests if the value of skip.unit.tests property is true -->
-			        <skipTests>${skip.unit.tests}</skipTests>
-                    <!-- Sets the VM argument line used when unit tests are run. -->
-                    <argLine>${surefireArgLine}</argLine>
-					<includes>
-						<include>**/*UT.java</include>
-					</includes>
-					<excludes>
-						<exclude>**/*IT.java</exclude>
-					</excludes>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>${maven.failsafe.plugin.version}</version>
-				<configuration>
-	                <!-- Skips integration tests if the value of skip.integration.tests property is true -->
-	                <skipTests>${skip.integration.tests}</skipTests>
-					<includes>
-						<include>**/*IT.java</include>
-					</includes>
-					<excludes>
-						<exclude>**/*UT.java</exclude>
-					</excludes>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>integration-test</goal>
-							<goal>verify</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
-				<version>${maven.site.plugin.version}</version>
-				<configuration>
-					<skipDeploy>true</skipDeploy>
-				</configuration>
-				<executions>
-					<!--
-						Adds the site descriptor (site.xml) to the list of files to be installed/deployed
-						We add this to enable inheritance of menus in the site.xml for each sub module project
-					-->
-					<execution>
-						<id>attach-descriptor</id>
-						<goals>
-							<goal>attach-descriptor</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 			<plugin>
-				<!-- 
-					Note: to use this plugin you must also add Github authentication information to your local settings.xml
-					For example:
-						<profile>
-							<id>github</id>
-            				<activation>
-                				<activeByDefault>true</activeByDefault>
-            				</activation>
-	    					<properties>
-	        				<github.global.userName>my_user_name</github.global.userName>
-	        				<github.global.password>my_password</github.global.password>
-	    				</properties>
-					</profile>
-				-->
 				<groupId>com.github.github</groupId>
 				<artifactId>site-maven-plugin</artifactId>
-				<version>${site.maven.plugin.version}</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>site</goal>
-						</goals>
-						<phase>site-deploy</phase>
-						<configuration>
-							<message>
-								Creating site for ${project.artifactId}, ${project.version}
-							</message>
-							<path>${project.distributionManagement.site.url}</path>
-							<merge>true</merge>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>
@@ -832,8 +899,7 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacoco.maven.plugin.version}</version>
-            </plugin>
-
+			</plugin>
 		</plugins>
 	</reporting>
 </project>
