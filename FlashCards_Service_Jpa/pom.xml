@@ -11,6 +11,9 @@
 	<packaging>jar</packaging>
 	<name>FlashCards_Service_Jpa</name>
 	<description>FlashCards_Service_Jpa description</description>
+	<properties>
+		<skip.coveralls>false</skip.coveralls>
+	</properties>
 	<scm>
 		<connection>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</connection>
 		<url>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</url>
