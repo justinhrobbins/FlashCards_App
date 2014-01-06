@@ -16,7 +16,6 @@ import org.robbins.flashcards.facade.base.AbstractCrudFacadeImpl;
 import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.service.FlashCardService;
-import org.robbins.flashcards.service.TagService;
 import org.robbins.flashcards.service.util.DtoUtil;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
@@ -32,9 +31,6 @@ public class DefaultFlashcardFacade extends AbstractCrudFacadeImpl<FlashCardDto,
 
 	@Inject
 	private TagFacade tagFacade;
-	
-	@Inject
-	private TagService tagService;
 	
 	@Override
 	public FlashCardService getService() {
@@ -114,11 +110,11 @@ public class DefaultFlashcardFacade extends AbstractCrudFacadeImpl<FlashCardDto,
 			// if we don't have the id of the Tag
 			if (tagDto.getId() == null || tagDto.getId() == 0) {
 				// try to get the existing Tag
-				Tag existingTag = tagService.findByName(tagDto.getName());
+				TagDto existingTag = tagFacade.findByName(tagDto.getName());
 				
 				// does the Tag exist?
 				if (existingTag != null) {
-					results.add(existingTag);
+					results.add(tagFacade.getEntity(existingTag));
 				} else {
 					// tag doesn't exist, re-add the Tag as-as
 					results.add(tagFacade.getEntity(tagDto));
