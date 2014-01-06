@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
 import org.robbins.flashcards.dto.TagDto;
+import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.flashcards.facade.TagFacade;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.service.TagService;
@@ -53,5 +54,34 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
 		
 		verify(mockService).findByName(any(String.class));
 		assertThat(result, is(TagDto.class));
+	}
+	
+	@Test
+	public void findOne() throws ServiceException {
+		when(mockService.findOne(any(Long.class))).thenReturn(mockTag);
+		when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
+		
+		TagDto result = tagFacade.findOne(any(Long.class));
+		
+		verify(mockService).findOne(any(Long.class));
+		assertThat(result, is(TagDto.class));
+	}
+	
+	@Test
+	public void delete() throws ServiceException {
+		tagFacade.delete(any(Long.class));
+		
+		verify(mockService).delete(any(Long.class));
+	}
+	
+	@Test
+	public void save() throws ServiceException {
+		when(mockService.save(any(Tag.class))).thenReturn(mockTag);
+		when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
+		when(mockMapper.map(mockTagDto, Tag.class)).thenReturn(mockTag);
+		
+		TagDto result = tagFacade.save(mockTagDto);
+		verify(mockService).save(any(Tag.class));
+		assertThat(result, is(TagDto.class));		
 	}
 }
