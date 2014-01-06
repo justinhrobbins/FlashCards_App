@@ -110,10 +110,19 @@ public class DefaultFlashcardFacadeUT extends BaseMockingTest {
 		when(mockService.save(any(FlashCard.class))).thenReturn(mockFlashcard);
 		when(mockMapper.map(mockFlashcardDto, FlashCard.class)).thenReturn(mockFlashcard);
 		when(mockMapper.map(mockFlashcard, FlashCardDto.class)).thenReturn(mockFlashcardDto);
+		when(mockFlashcardDto.getTags()).thenReturn(new HashSet<TagDto>(Arrays.asList(mockTagDto)));
 		
 		FlashCardDto result = flashCardFacade.save(mockFlashcardDto);
 		
 		verify(mockService).save(any(FlashCard.class));
 		assertThat(result, is(FlashCardDto.class));
+	}
+	
+	@Test
+	public void getEntities() {
+		List<FlashCardDto> flashCardDtos = Arrays.asList(mockFlashcardDto);
+		List<FlashCard> results = flashCardFacade.getEtnties(flashCardDtos);
+		
+		assertThat(results, is(List.class));
 	}
 }
