@@ -15,14 +15,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
-import org.robbins.flashcards.dto.TagDto;
+import org.robbins.flashcards.dto.UserDto;
 import org.robbins.flashcards.exceptions.ServiceException;
-import org.robbins.flashcards.facade.TagFacade;
-import org.robbins.flashcards.model.Tag;
-import org.robbins.flashcards.service.TagService;
+import org.robbins.flashcards.facade.UserFacade;
+import org.robbins.flashcards.model.User;
+import org.robbins.flashcards.service.UserService;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.test.util.ReflectionTestUtils;
 
 
@@ -30,100 +29,77 @@ import org.springframework.test.util.ReflectionTestUtils;
 public class DefaultTagFacadeUT extends BaseMockingTest {
 
 	@Mock
-	TagService mockService;
+	UserService mockService;
 	
 	@Mock
 	Mapper mockMapper;
 	
 	@Mock
-	Tag mockTag;
+	User mockUser;
 	
 	@Mock
-	TagDto mockTagDto;
+	UserDto mockUserDto;
 	
-	TagFacade tagFacade;
+	UserFacade userFacade;
 	
 	@Before
 	public void before() {
-		tagFacade = new DefaultTagFacade();
-		ReflectionTestUtils.setField(tagFacade, "service", mockService);
-		ReflectionTestUtils.setField(tagFacade, "mapper", mockMapper);
+		userFacade = new DefaultUserFacade();
+		ReflectionTestUtils.setField(userFacade, "service", mockService);
+		ReflectionTestUtils.setField(userFacade, "mapper", mockMapper);
 	}
 	
 	@Test
-	public void findByName() {
-		when(mockService.findByName(any(String.class))).thenReturn(mockTag);
-		when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
+	public void findUserByOpenid() {
+		when(mockService.findUserByOpenid(any(String.class))).thenReturn(mockUser);
+		when(mockMapper.map(mockUser, UserDto.class)).thenReturn(mockUserDto);
 		
-		TagDto result = tagFacade.findByName(any(String.class));
+		UserDto result = userFacade.findUserByOpenid(any(String.class));
 		
-		verify(mockService).findByName(any(String.class));
-		assertThat(result, is(TagDto.class));
+		verify(mockService).findUserByOpenid(any(String.class));
+		assertThat(result, is(UserDto.class));
+	}
+
+	@Test
+	public void findByName_ReturnNull() {
+		when(mockService.findUserByOpenid(any(String.class))).thenReturn(null);
+		
+		UserDto result = userFacade.findUserByOpenid(any(String.class));
+		
+		verify(mockService).findUserByOpenid(any(String.class));
+		assertThat(result, is(nullValue()));
+	}
+
+	@Test
+	public void getDtos() throws ServiceException {
+		List<User> mockUserList = Arrays.asList(mockUser);
+		
+		List<UserDto> results = userFacade.getDtos(mockUserList, null);
+		
+		assertThat(results, is(List.class));
 	}
 	
 	@Test
-	public void findOne() throws ServiceException {
-		when(mockService.findOne(any(Long.class))).thenReturn(mockTag);
-		when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
+	public void getEntities() throws ServiceException {
+		List<UserDto> mockUserDtoList = Arrays.asList(mockUserDto);
 		
-		TagDto result = tagFacade.findOne(any(Long.class));
+		List<User> results = userFacade.getEtnties(mockUserDtoList);
 		
-		verify(mockService).findOne(any(Long.class));
-		assertThat(result, is(TagDto.class));
-	}
-	
-	@Test
-	public void delete() throws ServiceException {
-		tagFacade.delete(any(Long.class));
-		
-		verify(mockService).delete(any(Long.class));
+		assertThat(results, is(List.class));
 	}
 	
 	@Test
 	public void save() throws ServiceException {
-		when(mockService.save(any(Tag.class))).thenReturn(mockTag);
-		when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
-		when(mockMapper.map(mockTagDto, Tag.class)).thenReturn(mockTag);
+		when(mockService.save(any(User.class))).thenReturn(mockUser);
+		when(mockService.findOne(any(Long.class))).thenReturn(mockUser);
+		when(mockMapper.map(mockUser, UserDto.class)).thenReturn(mockUserDto);
+		when(mockMapper.map(mockUserDto, User.class)).thenReturn(mockUser);
 		
-		TagDto result = tagFacade.save(mockTagDto);
+		UserDto result = userFacade.save(mockUserDto);
 		
-		verify(mockService).save(any(Tag.class));
-		assertThat(result, is(TagDto.class));		
-	}
-	
-	@Test
-	public void list() throws ServiceException {
-		List<Tag> mockTagList = Arrays.asList(mockTag);
-
-		when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
-		when(mockService.findAll()).thenReturn(mockTagList);
-		
-		List<TagDto> results = tagFacade.list(null, null, null, null);
-
-		verify(mockService).findAll();
-		assertThat(results, is(List.class));		
+		verify(mockService).save(any(User.class));
+		assertThat(result, is(UserDto.class));		
 	}
 
-	@Test
-	public void listReturnNull() throws ServiceException {
-		when(mockService.findAll()).thenReturn(null);
-		
-		List<TagDto> results = tagFacade.list(null, null, null, null);
 
-		verify(mockService).findAll();
-		assertThat(results, is(nullValue()));		
-	}
-	
-	@Test
-	public void listWithPage() throws ServiceException {
-		List<Tag> mockTagList = Arrays.asList(mockTag);
-
-		when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
-		when(mockService.findAll(any(PageRequest.class))).thenReturn(mockTagList);
-		
-		List<TagDto> results = tagFacade.list(1, 10, "name", "asc");
-
-		verify(mockService).findAll(any(PageRequest.class));
-		assertThat(results, is(List.class));		
-	}
 }

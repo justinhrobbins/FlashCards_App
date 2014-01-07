@@ -27,6 +27,9 @@ public class DefaultUserFacade extends AbstractCrudFacadeImpl<UserDto, User> imp
 	
 	public UserDto findUserByOpenid(String openid) {
 		User result = service.findUserByOpenid(openid);
+		
+		if (result == null) return null;
+		
 		UserDto userDto = getMapper().map(result, UserDto.class);
 		return userDto;
 	}
