@@ -1,3 +1,4 @@
+org.robbins.flashcards.auditing
 org.robbins.flashcards.cxf.filters
 org.robbins.flashcards.facade.impl
 org.robbins.flashcards.jackson
