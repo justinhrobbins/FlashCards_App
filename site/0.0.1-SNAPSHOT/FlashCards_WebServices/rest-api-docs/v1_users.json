@@ -23,6 +23,18 @@
     "path" : "/v1/users/{id}",
     "description" : "Operations about Users",
     "operations" : [ {
+      "httpMethod" : "PUT",
+      "summary" : "Replace",
+      "responseClass" : "void",
+      "nickname" : "put",
+      "parameters" : [ {
+        "name" : "id",
+        "paramType" : "path",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "long"
+      } ]
+    }, {
       "httpMethod" : "GET",
       "summary" : "Get one",
       "responseClass" : "void",
@@ -41,10 +53,10 @@
         "dataType" : "string"
       } ]
     }, {
-      "httpMethod" : "PUT",
-      "summary" : "Replace",
+      "httpMethod" : "DELETE",
+      "summary" : "Delete",
       "responseClass" : "void",
-      "nickname" : "put",
+      "nickname" : "delete",
       "parameters" : [ {
         "name" : "id",
         "paramType" : "path",
@@ -52,11 +64,24 @@
         "allowMultiple" : false,
         "dataType" : "long"
       } ]
-    }, {
-      "httpMethod" : "DELETE",
-      "summary" : "Delete",
+    } ]
+  }, {
+    "path" : "/v1/users/count",
+    "description" : "Operations about Users",
+    "operations" : [ {
+      "httpMethod" : "GET",
+      "summary" : "Count",
       "responseClass" : "void",
-      "nickname" : "delete",
+      "nickname" : "count"
+    } ]
+  }, {
+    "path" : "/v1/users/{id}/update",
+    "description" : "Operations about Users",
+    "operations" : [ {
+      "httpMethod" : "POST",
+      "summary" : "Update",
+      "responseClass" : "void",
+      "nickname" : "update",
       "parameters" : [ {
         "name" : "id",
         "paramType" : "path",
@@ -109,31 +134,6 @@
       "summary" : "Create",
       "responseClass" : "void",
       "nickname" : "post"
-    } ]
-  }, {
-    "path" : "/v1/users/count",
-    "description" : "Operations about Users",
-    "operations" : [ {
-      "httpMethod" : "GET",
-      "summary" : "Count",
-      "responseClass" : "void",
-      "nickname" : "count"
-    } ]
-  }, {
-    "path" : "/v1/users/{id}/update",
-    "description" : "Operations about Users",
-    "operations" : [ {
-      "httpMethod" : "POST",
-      "summary" : "Update",
-      "responseClass" : "void",
-      "nickname" : "update",
-      "parameters" : [ {
-        "name" : "id",
-        "paramType" : "path",
-        "required" : true,
-        "allowMultiple" : false,
-        "dataType" : "long"
-      } ]
     } ]
   } ]
 }
