@@ -33,6 +33,7 @@
 		<c3p0.version>0.9.1</c3p0.version>
 		<dbunit.version>2.4.9</dbunit.version>
 		<dozer.version>5.4.0</dozer.version>
+		<findbugs.version>2.5.3</findbugs.version>
 		<geronimo.j2ee.1.4_spec.version>1.1</geronimo.j2ee.1.4_spec.version>
 		<guava.version>15.0</guava.version>
 		<gwt.jackson.version>1.4.1</gwt.jackson.version>
@@ -842,6 +843,11 @@
 					<skip>${skip.coveralls}</skip>
 				    </configuration>
 				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>findbugs-maven-plugin</artifactId>
+					<version>${findbugs.version}</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 		<plugins>
@@ -878,6 +884,10 @@
 			<plugin>
 			    <groupId>org.eluder.coveralls</groupId>
 			    <artifactId>coveralls-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
@@ -928,6 +938,10 @@
                     </reportSet>
                 </reportSets>
             </plugin>
+		<plugin>
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>findbugs-maven-plugin</artifactId>
+		</plugin>
 		</plugins>
 	</reporting>
 </project>
