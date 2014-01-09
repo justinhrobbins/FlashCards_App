@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
+import org.springframework.data.mapping.model.MappingException;
 
 @Category(UnitTest.class)
 public class DateTimeConverterUT extends BaseMockingTest {
@@ -28,7 +29,12 @@ public class DateTimeConverterUT extends BaseMockingTest {
 	public void convert_SourceFieldValueIsNull() {
 		Object result = dateTimeConverter.convert(null, null, null, null);
 		
-		assertThat(result, is(nullValue()));		
+		assertThat(result, is(nullValue()));
+	}
+
+	@Test(expected = MappingException.class)
+	public void convert_ThrowsMappingException() {
+		dateTimeConverter.convert(null, new String("test"), null, null);
 	}
 	
 	@Test

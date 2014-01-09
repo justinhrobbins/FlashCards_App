@@ -16,6 +16,8 @@ import org.slf4j.LoggerFactory;
 public class DtoUtil {
 	static final Logger logger = LoggerFactory.getLogger(DtoUtil.class);
 	
+	private DtoUtil(){};
+	
 	public static void filterFields(Object obj, Set<String> fields) throws ServiceException {
 		if (CollectionUtils.isEmpty(fields)) {
 			return;
