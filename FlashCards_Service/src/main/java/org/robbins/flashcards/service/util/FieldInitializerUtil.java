@@ -23,7 +23,7 @@ public class FieldInitializerUtil {
 	@Inject
 	private EntityManagerFactory entityManagerFactory;
 	
-	public void initializeField(Object entity, String field) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	private void initializeField(Object entity, String field) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		 EntityManager em = entityManagerFactory.createEntityManager();
 		 
 		 PersistenceUnitUtil unitUtil = em.getEntityManagerFactory().getPersistenceUnitUtil();
