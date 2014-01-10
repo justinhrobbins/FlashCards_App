@@ -15,6 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
+import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.tests.BaseMockingTest;
@@ -36,15 +37,17 @@ public class HibernateFieldMapperUT extends BaseMockingTest {
 	private FieldInitializerUtil fieldInitializerUtil;
 	
 	private TagDto tagDto;
-	
+
 	private String FIELD_NAME = "name";
+	private String COLLECTION_FIELD_NAME = "flashcards";
 	
 	@Before
 	public void before() {
-		String TAG_NAME = "test_tag";
-		tagDto = new TagDto(TAG_NAME);
 		fieldInitializerUtil = new FieldInitializerUtil();
 
+		tagDto = new TagDto();
+		tagDto.setFlashcards(new HashSet<FlashCardDto>());
+		
 		when(mockEntityManager.getEntityManagerFactory()).thenReturn(mockEntityManagerFactory);
 		when(mockEntityManagerFactory.getPersistenceUnitUtil()).thenReturn(mockPersistenceUnitUtil);
 		when(mockEntityManagerFactory.createEntityManager()).thenReturn(mockEntityManager);
@@ -54,7 +57,7 @@ public class HibernateFieldMapperUT extends BaseMockingTest {
 	
 	@Test
 	public void initializeEntity() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, ServiceException {
-		fieldInitializerUtil.initializeEntity(tagDto, new HashSet<String>(Arrays.asList(FIELD_NAME)));
+		fieldInitializerUtil.initializeEntity(tagDto, new HashSet<String>(Arrays.asList(COLLECTION_FIELD_NAME)));
 	}
 
 	@Test
