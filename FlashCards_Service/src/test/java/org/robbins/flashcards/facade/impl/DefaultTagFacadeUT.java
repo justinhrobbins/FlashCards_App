@@ -26,6 +26,7 @@ import org.robbins.flashcards.service.util.FieldInitializerUtil;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.util.ReflectionTestUtils;
 
 
@@ -174,6 +175,32 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
 	}
 
 	@Test
+	public void list_WithSortAsc() throws ServiceException {
+		List<Tag> mockTagList = Arrays.asList(mockTag);
+
+		when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
+		when(mockService.findAll(any(Sort.class))).thenReturn(mockTagList);
+		
+		List<TagDto> results = tagFacade.list(null, null, "name", "asc");
+
+		verify(mockService).findAll(any(Sort.class));
+		assertThat(results, is(List.class));		
+	}
+
+	@Test
+	public void list_WithSortDesc() throws ServiceException {
+		List<Tag> mockTagList = Arrays.asList(mockTag);
+
+		when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
+		when(mockService.findAll(any(Sort.class))).thenReturn(mockTagList);
+		
+		List<TagDto> results = tagFacade.list(null, null, "name", "desc");
+
+		verify(mockService).findAll(any(Sort.class));
+		assertThat(results, is(List.class));		
+	}
+	
+	@Test
 	public void list_ReturnNull() throws ServiceException {
 		when(mockService.findAll()).thenReturn(null);
 		
@@ -184,13 +211,26 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
 	}
 	
 	@Test
-	public void listWithPage() throws ServiceException {
+	public void list_WithPageAndSort() throws ServiceException {
 		List<Tag> mockTagList = Arrays.asList(mockTag);
 
 		when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
 		when(mockService.findAll(any(PageRequest.class))).thenReturn(mockTagList);
 		
 		List<TagDto> results = tagFacade.list(1, 10, "name", "asc");
+
+		verify(mockService).findAll(any(PageRequest.class));
+		assertThat(results, is(List.class));		
+	}
+	
+	@Test
+	public void list_WithPageNoSort() throws ServiceException {
+		List<Tag> mockTagList = Arrays.asList(mockTag);
+
+		when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
+		when(mockService.findAll(any(PageRequest.class))).thenReturn(mockTagList);
+		
+		List<TagDto> results = tagFacade.list(1, 10, null, null);
 
 		verify(mockService).findAll(any(PageRequest.class));
 		assertThat(results, is(List.class));		
