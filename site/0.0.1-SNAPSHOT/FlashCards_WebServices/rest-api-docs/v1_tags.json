@@ -4,6 +4,22 @@
   "basePath" : "http://localhost:8080/api",
   "resourcePath" : "/v1/tags",
   "apis" : [ {
+    "path" : "/v1/tags/search",
+    "description" : "Operations about Tags",
+    "operations" : [ {
+      "httpMethod" : "GET",
+      "summary" : "Find Tag by Name",
+      "responseClass" : "void",
+      "nickname" : "searchByName",
+      "parameters" : [ {
+        "name" : "name",
+        "paramType" : "query",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "string"
+      } ]
+    } ]
+  }, {
     "path" : "/v1/tags/{id}",
     "description" : "Operations about Tags",
     "operations" : [ {
@@ -41,47 +57,6 @@
       "summary" : "Delete",
       "responseClass" : "void",
       "nickname" : "delete",
-      "parameters" : [ {
-        "name" : "id",
-        "paramType" : "path",
-        "required" : true,
-        "allowMultiple" : false,
-        "dataType" : "long"
-      } ]
-    } ]
-  }, {
-    "path" : "/v1/tags/search",
-    "description" : "Operations about Tags",
-    "operations" : [ {
-      "httpMethod" : "GET",
-      "summary" : "Find Tag by Name",
-      "responseClass" : "void",
-      "nickname" : "searchByName",
-      "parameters" : [ {
-        "name" : "name",
-        "paramType" : "query",
-        "required" : true,
-        "allowMultiple" : false,
-        "dataType" : "string"
-      } ]
-    } ]
-  }, {
-    "path" : "/v1/tags/count",
-    "description" : "Operations about Tags",
-    "operations" : [ {
-      "httpMethod" : "GET",
-      "summary" : "Count",
-      "responseClass" : "void",
-      "nickname" : "count"
-    } ]
-  }, {
-    "path" : "/v1/tags/{id}/update",
-    "description" : "Operations about Tags",
-    "operations" : [ {
-      "httpMethod" : "POST",
-      "summary" : "Update",
-      "responseClass" : "void",
-      "nickname" : "update",
       "parameters" : [ {
         "name" : "id",
         "paramType" : "path",
@@ -134,6 +109,31 @@
       "summary" : "Create",
       "responseClass" : "void",
       "nickname" : "post"
+    } ]
+  }, {
+    "path" : "/v1/tags/count",
+    "description" : "Operations about Tags",
+    "operations" : [ {
+      "httpMethod" : "GET",
+      "summary" : "Count",
+      "responseClass" : "void",
+      "nickname" : "count"
+    } ]
+  }, {
+    "path" : "/v1/tags/{id}/update",
+    "description" : "Operations about Tags",
+    "operations" : [ {
+      "httpMethod" : "POST",
+      "summary" : "Update",
+      "responseClass" : "void",
+      "nickname" : "update",
+      "parameters" : [ {
+        "name" : "id",
+        "paramType" : "path",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "long"
+      } ]
     } ]
   } ]
 }

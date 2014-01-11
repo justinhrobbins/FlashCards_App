@@ -60,31 +60,6 @@
       } ]
     } ]
   }, {
-    "path" : "/v1/flashcards/count",
-    "description" : "Operations about FlashCards",
-    "operations" : [ {
-      "httpMethod" : "GET",
-      "summary" : "Count",
-      "responseClass" : "void",
-      "nickname" : "count"
-    } ]
-  }, {
-    "path" : "/v1/flashcards/{id}/update",
-    "description" : "Operations about FlashCards",
-    "operations" : [ {
-      "httpMethod" : "POST",
-      "summary" : "Update",
-      "responseClass" : "void",
-      "nickname" : "update",
-      "parameters" : [ {
-        "name" : "id",
-        "paramType" : "path",
-        "required" : true,
-        "allowMultiple" : false,
-        "dataType" : "long"
-      } ]
-    } ]
-  }, {
     "path" : "/v1/flashcards/{id}",
     "description" : "Operations about FlashCards",
     "operations" : [ {
@@ -162,6 +137,31 @@
       "summary" : "Create",
       "responseClass" : "void",
       "nickname" : "post"
+    } ]
+  }, {
+    "path" : "/v1/flashcards/count",
+    "description" : "Operations about FlashCards",
+    "operations" : [ {
+      "httpMethod" : "GET",
+      "summary" : "Count",
+      "responseClass" : "void",
+      "nickname" : "count"
+    } ]
+  }, {
+    "path" : "/v1/flashcards/{id}/update",
+    "description" : "Operations about FlashCards",
+    "operations" : [ {
+      "httpMethod" : "POST",
+      "summary" : "Update",
+      "responseClass" : "void",
+      "nickname" : "update",
+      "parameters" : [ {
+        "name" : "id",
+        "paramType" : "path",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "long"
+      } ]
     } ]
   } ]
 }
