@@ -210,7 +210,7 @@
 <th>Missing Classes</th></tr>
 <tr class="b">
 <td>13</td>
-<td>7</td>
+<td>0</td>
 <td>0</td>
 <td>0</td></tr></table></div>
 <div class="section">
@@ -218,85 +218,7 @@
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>Class</th>
-<th>Bugs</th></tr>
-<tr class="b">
-<td><a href="#org.robbins.flashcards.dto.AbstractAuditableDto">org.robbins.flashcards.dto.AbstractAuditableDto</a></td>
-<td>4</td></tr>
-<tr class="a">
-<td><a href="#org.robbins.flashcards.model.common.AbstractAuditable">org.robbins.flashcards.model.common.AbstractAuditable</a></td>
-<td>2</td></tr>
-<tr class="b">
-<td><a href="#org.robbins.flashcards.model.util.serializer.CustomJsonDateSerializer">org.robbins.flashcards.model.util.serializer.CustomJsonDateSerializer</a></td>
-<td>1</td></tr></table></div><a name="org.robbins.flashcards.dto.AbstractAuditableDto"></a>
-<div class="section">
-<h3>org.robbins.flashcards.dto.AbstractAuditableDto<a name="org.robbins.flashcards.dto.AbstractAuditableDto"></a></h3>
-<table border="0" class="table table-striped">
-<tr class="a">
-<th>Bug</th>
-<th>Category</th>
-<th>Details</th>
-<th>Line</th>
-<th>Priority</th></tr>
-<tr class="b">
-<td>org.robbins.flashcards.dto.AbstractAuditableDto.getCreatedDate() may expose internal representation by returning AbstractAuditableDto.createdDate</td>
-<td>MALICIOUS_CODE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
-<td>23</td>
-<td>Medium</td></tr>
-<tr class="a">
-<td>org.robbins.flashcards.dto.AbstractAuditableDto.getLastModifiedDate() may expose internal representation by returning AbstractAuditableDto.lastModifiedDate</td>
-<td>MALICIOUS_CODE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
-<td>36</td>
-<td>Medium</td></tr>
-<tr class="b">
-<td>org.robbins.flashcards.dto.AbstractAuditableDto.setCreatedDate(Date) may expose internal representation by storing an externally mutable object into AbstractAuditableDto.createdDate</td>
-<td>MALICIOUS_CODE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
-<td>26</td>
-<td>Medium</td></tr>
-<tr class="a">
-<td>org.robbins.flashcards.dto.AbstractAuditableDto.setLastModifiedDate(Date) may expose internal representation by storing an externally mutable object into AbstractAuditableDto.lastModifiedDate</td>
-<td>MALICIOUS_CODE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
-<td>39</td>
-<td>Medium</td></tr></table></div><a name="org.robbins.flashcards.model.common.AbstractAuditable"></a>
-<div class="section">
-<h3>org.robbins.flashcards.model.common.AbstractAuditable<a name="org.robbins.flashcards.model.common.AbstractAuditable"></a></h3>
-<table border="0" class="table table-striped">
-<tr class="b">
-<th>Bug</th>
-<th>Category</th>
-<th>Details</th>
-<th>Line</th>
-<th>Priority</th></tr>
-<tr class="a">
-<td>org.robbins.flashcards.model.common.AbstractAuditable.getCreatedDateAsDate() may expose internal representation by returning AbstractAuditable.createdDate</td>
-<td>MALICIOUS_CODE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
-<td>74</td>
-<td>Medium</td></tr>
-<tr class="b">
-<td>org.robbins.flashcards.model.common.AbstractAuditable.getLastModifiedDateAsDate() may expose internal representation by returning AbstractAuditable.lastModifiedDate</td>
-<td>MALICIOUS_CODE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
-<td>79</td>
-<td>Medium</td></tr></table></div><a name="org.robbins.flashcards.model.util.serializer.CustomJsonDateSerializer"></a>
-<div class="section">
-<h3>org.robbins.flashcards.model.util.serializer.CustomJsonDateSerializer<a name="org.robbins.flashcards.model.util.serializer.CustomJsonDateSerializer"></a></h3>
-<table border="0" class="table table-striped">
-<tr class="a">
-<th>Bug</th>
-<th>Category</th>
-<th>Details</th>
-<th>Line</th>
-<th>Priority</th></tr>
-<tr class="b">
-<td>Call to method of static java.text.DateFormat in org.robbins.flashcards.model.util.serializer.CustomJsonDateSerializer.serialize(Date, JsonGenerator, SerializerProvider)</td>
-<td>MT_CORRECTNESS</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#STCAL_INVOKE_ON_STATIC_DATE_FORMAT_INSTANCE">STCAL_INVOKE_ON_STATIC_DATE_FORMAT_INSTANCE</a></td>
-<td>19</td>
-<td>Medium</td></tr></table></div>
+<th>Bugs</th></tr></table></div>
                   </div>
             </div>
           </div>
