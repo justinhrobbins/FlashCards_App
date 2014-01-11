@@ -71,12 +71,12 @@ public abstract class AbstractAuditable<U, PK extends Serializable> extends Abst
 
 	@JsonIgnore
 	public Date getCreatedDateAsDate() {
-		return createdDate;
+		return createdDate == null ? null : (Date)createdDate.clone();
 	}
 	
 	@JsonIgnore
 	public Date getLastModifiedDateAsDate() {
-		return lastModifiedDate;
+		return lastModifiedDate == null ? null : (Date)lastModifiedDate.clone();
 	}
 	
 	/*

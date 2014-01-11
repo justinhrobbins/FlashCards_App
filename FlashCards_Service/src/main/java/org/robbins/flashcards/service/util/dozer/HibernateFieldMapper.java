@@ -22,7 +22,6 @@ public class HibernateFieldMapper implements CustomFieldMapper {
         }
 
         // Set destination to null, and tell dozer that the field is mapped
-        destination = null;
         return true;
     }   
 }

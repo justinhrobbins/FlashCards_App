@@ -84,7 +84,7 @@ public class FlashCardRepositoryImpl extends
 			query.setMaxResults(page.getPageSize());
 		}
 		query.setParameter("tagIds", tagIds);
-		query.setParameter("tag_count", new Long(tagIds.size()));
+		query.setParameter("tag_count", Long.valueOf(tagIds.size()));
 		return query.getResultList();
 	}
 	

@@ -26,7 +26,7 @@ public class LoginAction extends FlashCardsAppBaseAction implements Preparable, 
 	static final Logger logger = LoggerFactory.getLogger(LoginAction.class);
 
 	@Inject
-	private User loggedInUser;
+	private transient User loggedInUser;
 	
 	@Inject
 	private UserService userService;
@@ -35,8 +35,8 @@ public class LoginAction extends FlashCardsAppBaseAction implements Preparable, 
 	private String openidIdentifier;
 	
     // we'll need access to the Servlet spec objects, rather than just their attribute or parm maps
-	private HttpServletRequest request;
-    private HttpServletResponse response;
+	private transient HttpServletRequest request;
+    private transient HttpServletResponse response;
     
     // we'll be storing the User object in the Session
     private Map<String, Object> httpSession;
