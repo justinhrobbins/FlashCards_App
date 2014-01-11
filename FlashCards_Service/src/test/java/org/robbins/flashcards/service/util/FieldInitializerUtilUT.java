@@ -23,7 +23,7 @@ import org.robbins.tests.UnitTest;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @Category(UnitTest.class)
-public class HibernateFieldMapperUT extends BaseMockingTest {
+public class FieldInitializerUtilUT extends BaseMockingTest {
 
 	@Mock
 	private EntityManagerFactory mockEntityManagerFactory;
