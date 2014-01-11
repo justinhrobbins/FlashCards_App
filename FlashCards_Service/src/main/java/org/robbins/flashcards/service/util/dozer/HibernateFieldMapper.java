@@ -7,6 +7,9 @@ import org.hibernate.collection.internal.PersistentSet;
 
 public class HibernateFieldMapper implements CustomFieldMapper {
 	
+	/**
+	 * If false is returned from the call to mapField(), then the field will be subsequently mapped by Dozer as normal.
+	 */
     public boolean mapField(Object source, Object destination, Object sourceFieldValue, ClassMap classMap, FieldMap fieldMapping) 
     {       
         // Check if field is a Hibernate PersistentSet
@@ -21,7 +24,7 @@ public class HibernateFieldMapper implements CustomFieldMapper {
             return false;
         }
 
-        // Set destination to null, and tell dozer that the field is mapped
+        // tell dozer that the field is mapped
         return true;
     }   
 }

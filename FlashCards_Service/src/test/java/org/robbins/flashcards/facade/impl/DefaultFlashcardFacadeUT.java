@@ -33,27 +33,27 @@ import org.springframework.test.util.ReflectionTestUtils;
 public class DefaultFlashcardFacadeUT extends BaseMockingTest {
 
 	@Mock
-	FlashCardService mockService;
+	private FlashCardService mockService;
 	
 	@Mock
-	Mapper mockMapper;
+	private Mapper mockMapper;
 	
 	@Mock
-	FlashCard mockFlashcard;
+	private FlashCard mockFlashcard;
 	
 	@Mock
-	FlashCardDto mockFlashcardDto;
+	private FlashCardDto mockFlashcardDto;
 
 	@Mock
-	TagDto mockTagDto;
+	private TagDto mockTagDto;
 	
 	@Mock
-	Tag mockTag;
+	private Tag mockTag;
 	
 	@Mock
-	TagFacade mockTagFacade;
+	private TagFacade mockTagFacade;
 	
-	FlashcardFacade flashCardFacade;
+	private FlashcardFacade flashCardFacade;
 	
 	@Before
 	public void before() {
