@@ -28,7 +28,7 @@ public class TagAction extends FlashCardsAppBaseAction implements ModelDriven<Ta
 	private Tag tag = new Tag();
 	
 	@Inject
-	private TagService tagService;
+	private transient TagService tagService;
 	
 	private Map <String,Object> httpSession;
 

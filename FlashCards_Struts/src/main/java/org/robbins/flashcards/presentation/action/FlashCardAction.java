@@ -32,10 +32,10 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements ModelDri
 	static final Logger logger = LoggerFactory.getLogger(FlashCardAction.class);
 	
 	@Inject
-	private FlashCardService flashcardService;
+	private transient FlashCardService flashcardService;
 	
 	@Inject
-	private TagService tagService;
+	private transient TagService tagService;
 	
 	private FlashCard flashCard = new FlashCard();
 
