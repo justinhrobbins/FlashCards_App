@@ -1,3 +1,4 @@
+org.robbins.flashcards.auditing
 org.robbins.flashcards.cxf.filters
 org.robbins.flashcards.facade.impl
 org.robbins.flashcards.jackson
@@ -11,6 +12,7 @@ org.robbins.flashcards.service.jpa.base
 org.robbins.flashcards.service.springdata
 org.robbins.flashcards.service.springdata.base
 org.robbins.flashcards.service.util
+org.robbins.flashcards.service.util.dozer
 org.robbins.flashcards.webservices
 org.robbins.flashcards.webservices.base
 org.robbins.flashcards.webservices.cxf.providers
