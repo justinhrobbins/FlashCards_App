@@ -217,7 +217,7 @@
 <th>Missing Classes</th></tr>
 <tr class="b">
 <td>13</td>
-<td>0</td>
+<td>2</td>
 <td>0</td>
 <td>0</td></tr></table></div>
 <div class="section">
@@ -225,7 +225,43 @@
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>Class</th>
-<th>Bugs</th></tr></table></div>
+<th>Bugs</th></tr>
+<tr class="b">
+<td><a href="#org.robbins.flashcards.repository.jpa.FlashCardRepositoryImpl">org.robbins.flashcards.repository.jpa.FlashCardRepositoryImpl</a></td>
+<td>1</td></tr>
+<tr class="a">
+<td><a href="#org.robbins.flashcards.service.jpa.base.AbstractCrudServiceImpl">org.robbins.flashcards.service.jpa.base.AbstractCrudServiceImpl</a></td>
+<td>1</td></tr></table></div><a name="org.robbins.flashcards.repository.jpa.FlashCardRepositoryImpl"></a>
+<div class="section">
+<h3>org.robbins.flashcards.repository.jpa.FlashCardRepositoryImpl<a name="org.robbins.flashcards.repository.jpa.FlashCardRepositoryImpl"></a></h3>
+<table border="0" class="table table-striped">
+<tr class="b">
+<th>Bug</th>
+<th>Category</th>
+<th>Details</th>
+<th>Line</th>
+<th>Priority</th></tr>
+<tr class="a">
+<td>org.robbins.flashcards.repository.jpa.FlashCardRepositoryImpl.findByTags(Set, Pageable) invokes inefficient new Long(long) constructor; use Long.valueOf(long) instead</td>
+<td>PERFORMANCE</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_NUMBER_CTOR">DM_NUMBER_CTOR</a></td>
+<td>87</td>
+<td>Medium</td></tr></table></div><a name="org.robbins.flashcards.service.jpa.base.AbstractCrudServiceImpl"></a>
+<div class="section">
+<h3>org.robbins.flashcards.service.jpa.base.AbstractCrudServiceImpl<a name="org.robbins.flashcards.service.jpa.base.AbstractCrudServiceImpl"></a></h3>
+<table border="0" class="table table-striped">
+<tr class="b">
+<th>Bug</th>
+<th>Category</th>
+<th>Details</th>
+<th>Line</th>
+<th>Priority</th></tr>
+<tr class="a">
+<td>Boxed value is unboxed and then immediately reboxed in org.robbins.flashcards.service.jpa.base.AbstractCrudServiceImpl.count()</td>
+<td>PERFORMANCE</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#BX_UNBOXING_IMMEDIATELY_REBOXED">BX_UNBOXING_IMMEDIATELY_REBOXED</a></td>
+<td>21</td>
+<td>Medium</td></tr></table></div>
                   </div>
             </div>
           </div>
