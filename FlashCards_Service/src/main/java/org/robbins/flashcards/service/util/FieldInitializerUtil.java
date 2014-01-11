@@ -28,9 +28,13 @@ public class FieldInitializerUtil {
 		 
 		 PersistenceUnitUtil unitUtil = em.getEntityManagerFactory().getPersistenceUnitUtil();
 		 
+		 // if the requested 'field' exists and hasn't been 
 		 if ( (PropertyUtils.isReadable(entity, field)) && (!unitUtil.isLoaded(entity, field)) ) {
 				 Object value = PropertyUtils.getProperty(entity, field);
+				 // is the 'field' a collection?
 				 if (value instanceof Collection<?>) {
+					 // this is why we are here!
+					 // initialize the collection
 					 initializeCollection((Collection<?>) value);	 
 				 }
 		 }
@@ -77,6 +81,7 @@ public class FieldInitializerUtil {
 	    if(collection == null) {
 	        return;
 	    }
+	    // we force the ORM to initialize the collection by touching it (hasNext)
 	    collection.iterator().hasNext();
 	}
 }
