@@ -10,7 +10,8 @@
 	<name>FlashCards_Domain</name>
 	<description>FlashCards_Domain description</description>
 	<properties>
-		<skip.coveralls>false</skip.coveralls>
+		<skip.coveralls>true</skip.coveralls>
+		<skip.cobertura>true</skip.cobertura>
 	</properties>
 	<scm>
 		<connection>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</connection>
