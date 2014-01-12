@@ -2,6 +2,7 @@ org.robbins.flashcards.auditing
 org.robbins.flashcards.cxf.filters
 org.robbins.flashcards.facade.impl
 org.robbins.flashcards.jackson
+org.robbins.flashcards.jersey.filters
 org.robbins.flashcards.model
 org.robbins.flashcards.presentation
 org.robbins.flashcards.repository.jpa
