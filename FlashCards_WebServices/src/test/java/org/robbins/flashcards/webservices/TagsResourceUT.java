@@ -57,7 +57,7 @@ public class TagsResourceUT extends BaseMockingTest {
 	
 	@Test
 	public void put() throws ServiceException {
-		when(mockTagFacade.save(any(TagDto.class))).thenReturn(mockTagDto);
+		when(mockTagFacade.findOne(any(Long.class))).thenReturn(mockTagDto);
 		when(mockTagFacade.save(any(TagDto.class))).thenReturn(mockTagDto);
 		
 		Response response = resource.put(1L, mockTagDto);
