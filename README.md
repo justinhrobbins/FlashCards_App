@@ -12,6 +12,7 @@ The documentation below outlines the technologies used in this project
 * [Jersey](https://jersey.java.net/) JSR 311: JAX-RS
 * [Jackson](http://wiki.fasterxml.com/JacksonHome) JSON processor
 * [JAXB](https://jersey.java.net/) Java Architecture for XML Binding (JAXB)
+
 Spring
 * [Spring IOC](http://www.springsource.org/spring-framework)
 * [Spring Security](http://static.springsource.org/spring-security/site/index.html) Authentication
