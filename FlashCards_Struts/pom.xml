@@ -15,7 +15,7 @@
 		<m2eclipse.wtp.contextRoot>struts</m2eclipse.wtp.contextRoot>
 		<jetty.context.path>struts</jetty.context.path>
 		<skip.coveralls>true</skip.coveralls>
-		<skip.cobertura>false</skip.cobertura>
+		<skip.cobertura>true</skip.cobertura>
 	</properties>
 	<scm>
 		<connection>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</connection>
