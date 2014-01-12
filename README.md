@@ -27,6 +27,7 @@ The documentation below outlines the technologies used in this project
     * Dependency and plugin management
     * Maven profiles
     * Maven site reports
+* [Dozer](http://dozer.sourceforge.net/) Java bean mapping
 
 ### UI Technologies
 
