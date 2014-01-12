@@ -4,8 +4,6 @@
 ## Overview
 The purpose of this project is to demonstrate my Java and web development competencies.
 
-A working copy of this project is running on an Amazon EC2 cloud instance.  There are two published versions of the application:
-
 1. The [Google Web Toolkit client version](http://www.socialflashcards.com/gwt/) is a rich JavaScript/AJAX client that interacts with the server through a stateless REST API.
 2. The [Struts version](http://www.socialflashcards.com/struts/) implements a more traditional model-view-controller (MVC) architecture.  (This version features authentication using OpenId.  Your password is not saved or even sent to the FlashCards application)
 
@@ -18,12 +16,13 @@ The documentation below outlines the technologies used in each module of the Fla
 
 ### WebServices
 JAX-RS web services using the following:
-* [Apache CXF](http://cxf.apache.org/docs/jax-rs.html) JSR 311: JAX-RS
+* [Jersey](https://jersey.java.net/) JSR 311: JAX-RS
 * [Spring Security](http://static.springsource.org/spring-security/site/index.html) Authentication
 * [Spring IOC](http://www.springsource.org/spring-framework)
 * [Jackson](http://wiki.fasterxml.com/JacksonHome) JSON processor
-
-I modeled the web services after the RESTful API best practices chronicled in the [apigee blog](http://blog.apigee.com/).  The API has the following functionality:
+* [JAXB](https://jersey.java.net/) Java Architecture for XML Binding (JAXB)
+* 
+The web services are modeled after the RESTful API best practices chronicled in the [apigee blog](http://blog.apigee.com/).  The API has the following functionality:
 * Each JAX-RS resource supports CRUD using the relevant HTTP methods (@POST, @GET, @PUT, @DELETE)
 * [Partial updates](http://blog.apigee.com/detail/restful_api_design_can_your_api_give_developers_just_the_information/)
 * [API Versioning](http://blog.apigee.com/detail/restful_api_design_tips_for_versioning)
@@ -65,26 +64,35 @@ I modeled the web services after the RESTful API best practices chronicled in th
 
 ### Misc.
 In addition to the technology stack outlined above, this project also uses:
-* [Maven](http://maven.apache.org/) for dependency management and project structure
+* [Maven](http://maven.apache.org/) for dependency management, project structure, and site reports
 * [JUnit](http://www.junit.org/) and [Mockito](http://code.google.com/p/mockito/) are used for unit and integration tests
 * [DbUnit](http://www.dbunit.org/) and an embedded [H2](www.h2database.com/) database is used for integration tests
 * An embedded [Jetty](http://www.eclipse.org/jetty/) servlet container is used for API integration tests
 * Spring RestTemplate is used as the client for web service integration testing.
-* [Eclipse](http://www.eclipse.org/) IDE
 
 ## Continuous Integration
-Github commits to this project trigger a Jenkins build on [Cloudbees](http://www.cloudbees.com/).
+Github commits to this project trigger a CI build on [Travis CI](https://travis-ci.org/).
 
-Check out the current [build status](https://justinhrobbins.ci.cloudbees.com/job/Flashcards/)
+Check out the current [build status](https://travis-ci.org/justinhrobbins/FlashCards_App/builds)
 
 ## Software quality
-[Sonar](http://www.sonarsource.org/) is employed for analyzing the code quality and test coverage of the Flashcards project modules
+* [Cobertura](http://cobertura.github.io/cobertura/) is used for analyzing unit test coverage
+* [Findbugs](http://findbugs.sourceforge.net/) is used for code quality analysis
 
-Check out the current [sonar results](http://www.socialflashcards.com/sonar/).  
+## Maven Site Reports
+The Maven [site report](http://maven.apache.org/guides/mini/guide-site.html) for this project is published to [Github Pages](http://pages.github.com/)
+Reports generated for this project include:
+* [JavaDocs](http://maven.apache.org/plugins/maven-javadoc-plugin/)
+* [Surefire Report](https://maven.apache.org/surefire/maven-surefire-report-plugin/)
+* [Failsafe Report](https://maven.apache.org/surefire/maven-failsafe-plugin/)
+* [Github issues](http://maven.apache.org/plugins/maven-changes-plugin/github-report-mojo.html)
+* [Cobertura Test Coverage](http://mojo.codehaus.org/cobertura-maven-plugin/)
+* [Findbugs Report](http://mojo.codehaus.org/findbugs-maven-plugin/)
 
 ## Deployment
-The deployed app is hosted on the [Amazon EC2 cloud](http://aws.amazon.com/ec2/) using [Tomcat](http://tomcat.apache.org/) servlet container, [MySQL](http://www.mysql.com/)
-
-Take a look at an example deployment of both the GWT and Struts versions of the app:
-* [Google Web Toolkit version](http://www.socialflashcards.com/gwt/FlashCards_App.html)
-* [Struts version](http://www.socialflashcards.com/struts/)
+The project wars (API, GWT UI, Stuts UI) can be deployed to any servlet container.
+The simplest way to see the application in action is to:
+* Clone the Flashcards git repository (or Fork then Clone)
+* run 'mvn install' from the project root
+* from the FlashCards_WebServices directory run 'mvn jetty:run'
+* Open a browser and navigate to the GWT UI:  http://localhost:8080/gwt/
