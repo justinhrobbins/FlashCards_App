@@ -4,12 +4,7 @@
 View the [Maven site report](http://justinhrobbins.github.io/FlashCards_App/site/0.0.1-SNAPSHOT/index.html) for this project.
 
 ## Overview
-The purpose of this project is to demonstrate my Java and web development competencies.
-
-1. The [Google Web Toolkit client version](http://www.socialflashcards.com/gwt/) is a rich JavaScript/AJAX client that interacts with the server through a stateless REST API.
-2. The [Struts version](http://www.socialflashcards.com/struts/) implements a more traditional model-view-controller (MVC) architecture.  (This version features authentication using OpenId.  Your password is not saved or even sent to the FlashCards application)
-
-Both versions of the Flashcards App reuse the same service, domain, and persistence layers.
+I use this project as a playground to learn new skills and demonstrate my Java and web development skills.
 
 ## Project modules
 The documentation below outlines the technologies used in each module of the Flashcards App:
@@ -41,7 +36,7 @@ The web services are modeled after the RESTful API best practices chronicled in 
 * Hibernate implementation of JPA
 
 ### Domain
-* POJO entities
+* POJO entities and DTOs
 * JPA & [Jackson](https://github.com/FasterXML/jackson-annotations) annotations
     - Including: @ManyToMany, @ElementCollection, @CollectionTable
 
@@ -65,7 +60,7 @@ The web services are modeled after the RESTful API best practices chronicled in 
 ### Misc.
 In addition to the technology stack outlined above, this project also uses:
 * [Maven](http://maven.apache.org/) for dependency management, project structure, and site reports
-* [JUnit](http://www.junit.org/) and [Mockito](http://code.google.com/p/mockito/) are used for unit and integration tests
+* [JUnit](http://www.junit.org/), [Mockito](http://code.google.com/p/mockito/) and [Hamcrest](http://hamcrest.org/JavaHamcrest/) matchers are used for testing
 * [DbUnit](http://www.dbunit.org/) and an embedded [H2](www.h2database.com/) database is used for integration tests
 * An embedded [Jetty](http://www.eclipse.org/jetty/) servlet container is used for API integration tests
 * Spring RestTemplate is used as the client for web service integration testing.
