@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/justinhrobbins/FlashCards_App.png?branch=master)](https://travis-ci.org/justinhrobbins/FlashCards_App)
 [![Coverage Status](https://coveralls.io/repos/justinhrobbins/FlashCards_App/badge.png?branch=master)](https://coveralls.io/r/justinhrobbins/FlashCards_App?branch=master)
 
+View the [Maven site report](http://justinhrobbins.github.io/FlashCards_App/site/0.0.1-SNAPSHOT/index.html) for this project.
+
 ## Overview
 The purpose of this project is to demonstrate my Java and web development competencies.
 
@@ -8,8 +10,6 @@ The purpose of this project is to demonstrate my Java and web development compet
 2. The [Struts version](http://www.socialflashcards.com/struts/) implements a more traditional model-view-controller (MVC) architecture.  (This version features authentication using OpenId.  Your password is not saved or even sent to the FlashCards application)
 
 Both versions of the Flashcards App reuse the same service, domain, and persistence layers.
-
-Maven site hosted on [Github pages](http://justinhrobbins.github.io/FlashCards_App/site/0.0.1-SNAPSHOT/index.html)
 
 ## Project modules
 The documentation below outlines the technologies used in each module of the Flashcards App:
