@@ -21,7 +21,7 @@ JAX-RS web services using the following:
 * [Spring IOC](http://www.springsource.org/spring-framework)
 * [Jackson](http://wiki.fasterxml.com/JacksonHome) JSON processor
 * [JAXB](https://jersey.java.net/) Java Architecture for XML Binding (JAXB)
-* 
+
 The web services are modeled after the RESTful API best practices chronicled in the [apigee blog](http://blog.apigee.com/).  The API has the following functionality:
 * Each JAX-RS resource supports CRUD using the relevant HTTP methods (@POST, @GET, @PUT, @DELETE)
 * [Partial updates](http://blog.apigee.com/detail/restful_api_design_can_your_api_give_developers_just_the_information/)
@@ -88,11 +88,20 @@ Reports generated for this project include:
 * [Github issues](http://maven.apache.org/plugins/maven-changes-plugin/github-report-mojo.html)
 * [Cobertura Test Coverage](http://mojo.codehaus.org/cobertura-maven-plugin/)
 * [Findbugs Report](http://mojo.codehaus.org/findbugs-maven-plugin/)
+* [REST API Docs](https://github.com/kongchen/swagger-maven-plugin)
+
+You can view the Maven site report for the [FlashCards app here](http://justinhrobbins.github.io/FlashCards_App/site/0.0.1-SNAPSHOT/index.html).
 
 ## Deployment
 The project wars (API, GWT UI, Stuts UI) can be deployed to any servlet container.
+
 The simplest way to see the application in action is to:
 * Clone the Flashcards git repository (or Fork then Clone)
 * run 'mvn install' from the project root
 * from the FlashCards_WebServices directory run 'mvn jetty:run'
-* Open a browser and navigate to the GWT UI:  http://localhost:8080/gwt/
+ 
+Once Jetty has completed startup, you can browse the GWT UI, Struts UI, or interact directly with the API using the Swagger UI or using a REST client of your choice
+* GWT UI:  http://localhost:8080/gwt/
+* Struts UI: http://localhost:8080/struts/
+* Swagger UI: http://localhost:8080/apidocs/
+* API: http://localhost:8080/api/
