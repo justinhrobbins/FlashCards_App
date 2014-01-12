@@ -23,7 +23,7 @@ The documentation below outlines the technologies used in this project
 * [DbUnit](http://www.dbunit.org/) and an embedded [H2](www.h2database.com/) database is used for integration tests
 * An embedded [Jetty](http://www.eclipse.org/jetty/) servlet container is used for API integration tests
 * [Maven](http://maven.apache.org/)
-    * Multi-moduls project
+    * Multi-module project
     * Dependency and plugin management
     * Maven profiles
     * Maven site reports
