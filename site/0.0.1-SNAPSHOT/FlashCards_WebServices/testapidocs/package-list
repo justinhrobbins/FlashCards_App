@@ -1,5 +1,6 @@
 org.robbins.flashcards.cxf.filters
 org.robbins.flashcards.jackson
+org.robbins.flashcards.jersey.filters
 org.robbins.flashcards.webservices
 org.robbins.flashcards.webservices.base
 org.robbins.flashcards.webservices.cxf.providers
