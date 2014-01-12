@@ -95,3 +95,6 @@ Once Jetty has completed startup, you can browse the GWT UI, Struts UI, or inter
 * Struts UI: http://localhost:8080/struts/
 * Swagger UI: http://localhost:8080/apidocs/
 * API: http://localhost:8080/api/
+ 
+## git workflow
+* [GitHub Flow](http://scottchacon.com/2011/08/31/github-flow.html)
