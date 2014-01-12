@@ -3,12 +3,27 @@
 
 View the [Maven site report](http://justinhrobbins.github.io/FlashCards_App/site/0.0.1-SNAPSHOT/index.html) for this project.
 
-## Overview
+##Table of Contents
+* [Overview](#overview)
+* [Technologies](#technologies)
+    * [Back-end Technologies](#backend-technologies)
+    * [Front-end Technologies](#ui-technologies)
+        * [GWT UI](#gwt)
+        * [Struts UI](#struts)
+* [REST API](#rest-api)
+* [Continuous Integration](#continuous-integration)
+* [Software Quality](#software-quality)
+* [Maven Site Reports](#maven-site-reports)
+* [Deployment](#deployment)
+* [git workflow](#git-workflow)
+
+## <a name="overview"></a>Overview
 I use this project as a playground to learn new skills and demonstrate my Java and web development skills.
 
-## Technologies
+## <a name="technologies"></a>Technologies
 The documentation below outlines the technologies used in this project
 
+### <a name="backend-technologies"></a>Back-end Technologies
 * [Dozer](http://dozer.sourceforge.net/) Java bean mapping
 * [DbUnit](http://www.dbunit.org/) and an embedded [H2](www.h2database.com/) database is used for integration tests
 * [Jackson](http://wiki.fasterxml.com/JacksonHome) JSON processor
@@ -30,17 +45,17 @@ The documentation below outlines the technologies used in this project
     * [Spring profiles](http://spring.io/blog/2011/02/14/spring-3-1-m1-introducing-profile/) to select embedded vs external database
 * [Swagger](http://developers.helloreverb.com/swagger/) API documentation
 
-### UI Technologies
+### <a name="ui-technologies"></a>UI Technologies
 There are two UI's for this project
 
-#### GWT
+#### <a name="gwt"></a>GWT
 * [Google Web Toolkit](https://developers.google.com/web-toolkit/) (GWT)
 * MVP Framework ([Activities and Places framework](https://developers.google.com/web-toolkit/doc/latest/DevGuideMvpActivitiesAndPlaces))
 * Views, ClientFactory
 * [UiBinder](https://developers.google.com/web-toolkit/doc/latest/DevGuideUiBinder)
 * [RestyGWT](http://restygwt.fusesource.org/)
 
-#### Struts
+#### <a name="struts"></a>Struts
 * [Struts MVC](http://struts.apache.org/)
     - Actions
     - [Tiles](http://struts.apache.org/2.x/docs/tiles-plugin.html)
@@ -49,7 +64,7 @@ There are two UI's for this project
 * [OpenId](http://openid.net/) Authentication
 * JSP
 
-## REST API
+## <a name="rest-api"></a>REST API
 The web services are modeled after the RESTful API best practices chronicled in the [apigee blog](http://blog.apigee.com/).  The API has the following functionality:
 * Each JAX-RS resource supports CRUD using the relevant HTTP methods (@POST, @GET, @PUT, @DELETE)
 * [Partial updates](http://blog.apigee.com/detail/restful_api_design_can_your_api_give_developers_just_the_information/)
@@ -60,16 +75,16 @@ The web services are modeled after the RESTful API best practices chronicled in 
 * [Custom JSON formatted exceptions](http://blog.apigee.com/detail/restful_api_design_what_about_errors/)
 * [JSON request/responses payloads](http://blog.apigee.com/detail/why_you_should_build_your_next_api_using_json/)
 
-## Continuous Integration
+## <a name="continuous-integration"></a>Continuous Integration
 Github commits to this project trigger a CI build on [Travis CI](https://travis-ci.org/).
 
 Check out the current [build status](https://travis-ci.org/justinhrobbins/FlashCards_App/builds)
 
-## Software quality
+## <a name="software-quality"></a>Software quality
 * [Cobertura](http://cobertura.github.io/cobertura/) is used for analyzing unit test coverage
 * [Findbugs](http://findbugs.sourceforge.net/) is used for code quality analysis
 
-## Maven Site Reports
+## <a name="maven-site-reports"></a>Maven Site Reports
 The Maven [site report](http://maven.apache.org/guides/mini/guide-site.html) for this project is published to [Github Pages](http://pages.github.com/)
 Reports generated for this project include:
 * [JavaDocs](http://maven.apache.org/plugins/maven-javadoc-plugin/)
@@ -82,7 +97,7 @@ Reports generated for this project include:
 
 You can view the Maven site report for the [FlashCards app here](http://justinhrobbins.github.io/FlashCards_App/site/0.0.1-SNAPSHOT/index.html).
 
-## Deployment
+## <a name="deployment"></a>Deployment
 The project wars (API, GWT UI, Stuts UI) can be deployed to any servlet container.
 
 The simplest way to see the application in action is to:
@@ -96,5 +111,5 @@ Once Jetty has completed startup, you can browse the GWT UI, Struts UI, or inter
 * Swagger UI: http://localhost:8080/apidocs/
 * API: http://localhost:8080/api/
  
-## git workflow
+## <a name="git-workflow"></a>git workflow
 * [GitHub Flow](http://scottchacon.com/2011/08/31/github-flow.html)
