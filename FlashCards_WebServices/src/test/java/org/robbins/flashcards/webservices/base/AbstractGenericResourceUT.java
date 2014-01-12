@@ -126,6 +126,18 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
 	}
 
 	@SuppressWarnings("unchecked")
+	@Test
+	public void findOne_WithFields() throws ServiceException {
+		String fields = "name,flashcards,userpassword";
+		when(mockTagFacade.findOne(anyLong(), anySet())).thenReturn(new TagDto(1L));
+		
+		TagDto result = resource.findOne(1L, fields);
+		
+		verify(mockTagFacade).findOne(anyLong(), anySet());
+		assertThat(result, is(TagDto.class));
+	}
+	
+	@SuppressWarnings("unchecked")
 	@Test(expected = GenericWebServiceException.class)
 	public void findOne_ReturnsNull() throws ServiceException {
 		when(mockTagFacade.findOne(anyLong(), anySet())).thenReturn(null);

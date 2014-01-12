@@ -2,7 +2,6 @@ package org.robbins.flashcards.jersey.filters;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -19,7 +18,6 @@ import org.mockito.Mock;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
-import org.springframework.data.domain.PageRequest;
 
 import com.sun.jersey.spi.container.ContainerRequest;
 
