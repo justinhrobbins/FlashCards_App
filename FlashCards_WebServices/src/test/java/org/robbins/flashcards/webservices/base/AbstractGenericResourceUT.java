@@ -7,7 +7,7 @@ import static org.mockito.Matchers.anySet;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.ws.rs.WebApplicationException;
@@ -21,6 +21,7 @@ import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.flashcards.facade.TagFacade;
 import org.robbins.flashcards.webservices.TagsResource;
+import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
@@ -32,22 +33,26 @@ import com.sun.jersey.api.JResponse;
 public class AbstractGenericResourceUT extends BaseMockingTest {
 
 	@Mock
-	TagFacade mockTagFacade;
+	private TagFacade mockTagFacade;
 	
 	@Mock
-	TagDto mockTagDto;
+	private TagDto mockTagDto;
 	
-	TagsResource resource;
+	private List<TagDto> tagDtoList;
+	
+	private TagsResource resource;
 	
 	@Before
 	public void before() {
 		resource = new TagsResource();
+		tagDtoList = Arrays.asList(mockTagDto);
+		
 		ReflectionTestUtils.setField(resource, "tagFacade", mockTagFacade);
 	}
 
 	@Test
 	public void list() throws ServiceException {
-		when(mockTagFacade.list(null, null, null, null)).thenReturn(new ArrayList<TagDto>());
+		when(mockTagFacade.list(null, null, null, null, null)).thenReturn(tagDtoList);
 		
 		JResponse<List<TagDto>> results = resource.list(null, null, null, null, null);
 		
@@ -55,6 +60,13 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
 		assertThat(results.getEntity(), is(List.class));
 	}
 
+	@Test(expected =GenericWebServiceException.class)
+	public void list_NullResult() throws ServiceException {
+		when(mockTagFacade.list(null, null, null, null)).thenReturn(null);
+		
+		resource.list(null, null, null, null, null);
+	}
+	
 	@Test(expected = WebApplicationException.class)
 	public void listWithInvalidSortParameter() throws ServiceException {
 		when(mockTagFacade.list(null, null, "bad_parameter", "asc", null)).thenThrow(new InvalidDataAccessApiUsageException("error"));
@@ -64,7 +76,7 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
 	
 	@Test
 	public void listWithSort() throws ServiceException {
-		when(mockTagFacade.list(null, null, "name", "asc")).thenReturn(new ArrayList<TagDto>());
+		when(mockTagFacade.list(null, null, "name", "asc", null)).thenReturn(tagDtoList);
 		
 		JResponse<List<TagDto>> results = resource.list(null, null, "name", "asc", null);
 		
@@ -74,7 +86,7 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
 	
 	@Test
 	public void listWithPagingAndSort() throws ServiceException {
-		when(mockTagFacade.list(0, 1, "name", "desc")).thenReturn(new ArrayList<TagDto>());
+		when(mockTagFacade.list(0, 1, "name", "desc", null)).thenReturn(tagDtoList);
 		
 		JResponse<List<TagDto>> results = resource.list(0, 1, "name", "desc", null);
 		
@@ -84,7 +96,7 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
 
 	@Test
 	public void listWithPagingNoSort() throws ServiceException {
-		when(mockTagFacade.list(0, 1, null, null)).thenReturn(new ArrayList<TagDto>());
+		when(mockTagFacade.list(0, 1, null, null, null)).thenReturn(tagDtoList);
 		
 		JResponse<List<TagDto>> results = resource.list(0, 1, null, null, null);
 		
@@ -111,6 +123,14 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
 		
 		verify(mockTagFacade).findOne(anyLong(), anySet());
 		assertThat(result, is(TagDto.class));
+	}
+
+	@SuppressWarnings("unchecked")
+	@Test(expected = GenericWebServiceException.class)
+	public void findOne_ReturnsNull() throws ServiceException {
+		when(mockTagFacade.findOne(anyLong(), anySet())).thenReturn(null);
+		
+		resource.findOne(1L, null);
 	}
 	
 	@Test

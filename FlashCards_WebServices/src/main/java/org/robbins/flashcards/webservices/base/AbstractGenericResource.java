@@ -44,7 +44,7 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 		List<T> entities = null;
 		
 	    try {
-            entities = getFacade().list(page, size, sort, direction, this.getFieldsAsSet(fields));
+	    	entities = getFacade().list(page, size, sort, direction, this.getFieldsAsSet(fields));
 		} catch (InvalidDataAccessApiUsageException e) {
 			logger.error(e.getMessage(), e);
 			throw new GenericWebServiceException(Response.Status.BAD_REQUEST,
@@ -55,7 +55,7 @@ public abstract class AbstractGenericResource <T, Serializable> extends Abstract
 		}
 
 	    // did we get any results?
-	    if (entities == null) {
+	    if ((entities == null) || (entities.size() == 0)) {
 			throw new GenericWebServiceException(Response.Status.NOT_FOUND,
 					"Entities not found");
 		}
