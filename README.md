@@ -9,27 +9,29 @@ I use this project as a playground to learn new skills and demonstrate my Java a
 ## Technologies
 The documentation below outlines the technologies used in this project
 
-* [Jersey](https://jersey.java.net/) JAX-RS implementation
+* [Dozer](http://dozer.sourceforge.net/) Java bean mapping
+* [DbUnit](http://www.dbunit.org/) and an embedded [H2](www.h2database.com/) database is used for integration tests
 * [Jackson](http://wiki.fasterxml.com/JacksonHome) JSON processor
 * [JAXB](https://jersey.java.net/) Java Architecture for XML Binding (JAXB)
+* [Jersey](https://jersey.java.net/) JAX-RS implementation
+* [Jetty](http://www.eclipse.org/jetty/) servlet container is used for API integration tests
+* [JPA](http://www.oracle.com/technetwork/java/javaee/tech/persistence-jsp-140049.html) & [Hibernate](http://hibernate.org/orm/) JPA provider
+* [JUnit](http://www.junit.org/), [Mockito](http://code.google.com/p/mockito/) and [Hamcrest](http://hamcrest.org/JavaHamcrest/) matchers are used for testing
+* [Maven](http://maven.apache.org/)
+    * Multi-module project
+    * Dependency and plugin management
+    * Maven profiles
+    * Maven site reports
 * Spring technologies
     * [Spring IOC](http://www.springsource.org/spring-framework) dependency injection
     * [Spring Security](http://static.springsource.org/spring-security/site/index.html) Authentication
     * [Spring Data - JPA](http://www.springsource.org/spring-data/jpa) If you are not familiar with Spring Data, you might like to take a look at the [Spring Data Example Showcase](https://github.com/SpringSource/spring-data-jpa-examples/tree/master/spring-data-jpa-showcase) on Github.  The project compares a a typical data access implementation with JPA 2 with a less boilerplate Spring Data version.
     * [Spring RestTemplate](http://spring.io/blog/2009/03/27/rest-in-spring-3-resttemplate/) for API integration tests
     * [Spring profiles](http://spring.io/blog/2011/02/14/spring-3-1-m1-introducing-profile/) to select embedded vs external database
-* [JPA](http://www.oracle.com/technetwork/java/javaee/tech/persistence-jsp-140049.html) & [Hibernate](http://hibernate.org/orm/) JPA provider
-* [JUnit](http://www.junit.org/), [Mockito](http://code.google.com/p/mockito/) and [Hamcrest](http://hamcrest.org/JavaHamcrest/) matchers are used for testing
-* [DbUnit](http://www.dbunit.org/) and an embedded [H2](www.h2database.com/) database is used for integration tests
-* An embedded [Jetty](http://www.eclipse.org/jetty/) servlet container is used for API integration tests
-* [Maven](http://maven.apache.org/)
-    * Multi-module project
-    * Dependency and plugin management
-    * Maven profiles
-    * Maven site reports
-* [Dozer](http://dozer.sourceforge.net/) Java bean mapping
+* [Swagger](http://developers.helloreverb.com/swagger/) API documentation
 
 ### UI Technologies
+There are two UI's for this project
 
 #### GWT
 * [Google Web Toolkit](https://developers.google.com/web-toolkit/) (GWT)
