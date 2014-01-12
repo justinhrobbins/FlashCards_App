@@ -99,6 +99,7 @@ public class FlashCardsResourceUT extends BaseMockingTest {
 		assertThat(results, is(Long.class));
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	public void put() throws ServiceException {
 		when(flashcardFacade.findOne(any(Long.class), any(Set.class))).thenReturn(flashcard);

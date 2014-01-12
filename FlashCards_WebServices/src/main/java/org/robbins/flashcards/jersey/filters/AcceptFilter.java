@@ -32,18 +32,20 @@ public class AcceptFilter implements ContainerRequestFilter {
 	public ContainerRequest filter(ContainerRequest request) {
 		logger.debug("AcceptFilter");
 
-		if (request.getQueryParameters().containsKey(ACCEPT)) {
-			List<String> queryparms = request.getQueryParameters().get(ACCEPT); 
-			logger.debug(queryparms.toString());
+		MultivaluedMap<String, String> queryParametersMap = request.getQueryParameters();
+		
+		if (queryParametersMap.containsKey(ACCEPT)) {
+			List<String> queryparmsList = queryParametersMap.get(ACCEPT); 
+			logger.debug(queryparmsList.toString());
 			
 			// does the 'accept' header match either json or xml? 
-			if ( (!queryparms.contains(MediaType.APPLICATION_JSON)) && (!queryparms.contains(MediaType.APPLICATION_XML)) ) {
+			if ( (!queryparmsList.contains(MediaType.APPLICATION_JSON)) && (!queryparmsList.contains(MediaType.APPLICATION_XML)) ) {
 				throw new GenericWebServiceException(
 						Response.Status.BAD_REQUEST, "'accept' parameter must container either " + MediaType.APPLICATION_JSON + " or " + MediaType.APPLICATION_XML);
 			}
 			
 			MultivaluedMap<String, String> headers = request.getRequestHeaders();
-			headers.put(HttpHeaders.ACCEPT, queryparms);
+			headers.put(HttpHeaders.ACCEPT, queryparmsList);
 		}
 		
 		return request;
