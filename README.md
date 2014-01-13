@@ -21,7 +21,7 @@ View the [Maven site report](http://justinhrobbins.github.io/FlashCards_App/site
 I use this project as a playground to learn new skills and demonstrate my Java and web development skills.
 
 ## <a name="technologies"></a>Technologies
-The documentation below outlines the technologies used in this project
+Technologies and libraries used in this project:
 
 ### <a name="backend-technologies"></a>Back-end Technologies
 * [Dozer](http://dozer.sourceforge.net/) Java bean mapping
