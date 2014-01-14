@@ -88,7 +88,7 @@ Check out the current [build status](https://travis-ci.org/justinhrobbins/FlashC
 The Maven [site report](http://maven.apache.org/guides/mini/guide-site.html) for this project is published to [Github Pages](http://pages.github.com/)
 Reports generated for this project include:
 * [JavaDocs](http://maven.apache.org/plugins/maven-javadoc-plugin/)
-* [Surefire Report](https://maven.apache.org/surefire/maven-surefire-report-plugin/)
+* [Surefire Report](https://maven.apache.org/surefire/maven-surefire-report-plugin/)  
 * [Failsafe Report](https://maven.apache.org/surefire/maven-failsafe-plugin/)
 * [Github issues](http://maven.apache.org/plugins/maven-changes-plugin/github-report-mojo.html)
 * [Cobertura Test Coverage](http://mojo.codehaus.org/cobertura-maven-plugin/)
