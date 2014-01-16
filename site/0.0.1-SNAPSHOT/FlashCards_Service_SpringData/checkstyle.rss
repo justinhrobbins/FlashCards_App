@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<rss version="0.91">
+  <channel>
+    <title>FlashCards_Service_SpringData - Checkstyle report</title>
+    <link>https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service_SpringData</link>
+    <description>FlashCards_Service_SpringData - Checkstyle report</description>
+    <language>en-us</language>
+    <copyright>&#169;2011 - 2014</copyright>
+    <item>
+      <title>File: 10,
+             Errors: 333,
+             Warnings: 0,
+             Infos: 0
+      </title>
+            <link>https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service_SpringData/checkstyle.html</link>
+      <description>
+        <p>Click <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service_SpringData/checkstyle.html">here</a> for the full Checkstyle report.</p>
+
+        <table summary="Files" boder="1">
+          <thead>
+            <tr>
+              <th>Files</th>
+              <th style="width:30px;"><abbr title="Info">I</abbr></th>
+              <th style="width:30px;"><abbr title="Warning">W</abbr></th>
+              <th style="width:30px;"><abbr title="Error">E</abbr></th>
+            </tr>
+          </thead>
+          <tbody>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service_SpringData/checkstyle.html#org.robbins.flashcards.service.springdata.security.CustomUserDetailsService.java">org/robbins/flashcards/service/springdata/security/CustomUserDetailsService.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  103
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service_SpringData/checkstyle.html#org.robbins.flashcards.service.springdata.TagServiceImpl.java">org/robbins/flashcards/service/springdata/TagServiceImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  22
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service_SpringData/checkstyle.html#org.robbins.flashcards.service.springdata.UserServiceImpl.java">org/robbins/flashcards/service/springdata/UserServiceImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  22
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service_SpringData/checkstyle.html#org.robbins.flashcards.service.springdata.base.GenericJpaServiceImpl.java">org/robbins/flashcards/service/springdata/base/GenericJpaServiceImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  45
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service_SpringData/checkstyle.html#org.robbins.flashcards.repository.springdata.FlashCardRepository.java">org/robbins/flashcards/repository/springdata/FlashCardRepository.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  12
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service_SpringData/checkstyle.html#org.robbins.flashcards.service.springdata.base.GenericPagingAndSortingServiceImpl.java">org/robbins/flashcards/service/springdata/base/GenericPagingAndSortingServiceImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  10
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service_SpringData/checkstyle.html#org.robbins.flashcards.repository.springdata.UserRepository.java">org/robbins/flashcards/repository/springdata/UserRepository.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service_SpringData/checkstyle.html#org.robbins.flashcards.repository.springdata.TagRepository.java">org/robbins/flashcards/repository/springdata/TagRepository.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service_SpringData/checkstyle.html#org.robbins.flashcards.service.springdata.base.GenericCrudServiceImpl.java">org/robbins/flashcards/service/springdata/base/GenericCrudServiceImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  59
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service_SpringData/checkstyle.html#org.robbins.flashcards.service.springdata.FlashCardServiceImpl.java">org/robbins/flashcards/service/springdata/FlashCardServiceImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  54
+                </td>
+              </tr>
+                      </tbody>
+        </table>
+        
+      </description>
+    </item>
+  </channel>
+</rss>
+
