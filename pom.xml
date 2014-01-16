@@ -701,7 +701,7 @@
 						<excludes>
 							<exclude>**/*IT.java</exclude>
 						</excludes>
-						<parallel>classes</parallel>
+						<!-- <parallel>classes</parallel> -->
 					</configuration>
 				</plugin>
 				<plugin>
@@ -717,7 +717,7 @@
 						<excludes>
 							<exclude>**/*UT.java</exclude>
 						</excludes>
-						<parallel>classes</parallel>
+						<!-- <parallel>classes</parallel> -->
 					</configuration>
 					<executions>
 						<execution>
