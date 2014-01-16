@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<rss version="0.91">
+  <channel>
+    <title>FlashCards_Struts - Checkstyle report</title>
+    <link>https://github.com/justinhrobbins/FlashCards_App/FlashCards_Struts</link>
+    <description>FlashCards_Struts - Checkstyle report</description>
+    <language>en-us</language>
+    <copyright>&#169;2011 - 2014</copyright>
+    <item>
+      <title>File: 10,
+             Errors: 1196,
+             Warnings: 0,
+             Infos: 0
+      </title>
+            <link>https://github.com/justinhrobbins/FlashCards_App/FlashCards_Struts/checkstyle.html</link>
+      <description>
+        <p>Click <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Struts/checkstyle.html">here</a> for the full Checkstyle report.</p>
+
+        <table summary="Files" boder="1">
+          <thead>
+            <tr>
+              <th>Files</th>
+              <th style="width:30px;"><abbr title="Info">I</abbr></th>
+              <th style="width:30px;"><abbr title="Warning">W</abbr></th>
+              <th style="width:30px;"><abbr title="Error">E</abbr></th>
+            </tr>
+          </thead>
+          <tbody>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Struts/checkstyle.html#org.robbins.openid.authentication.OpenId4JavaAuthenticator.java">org/robbins/openid/authentication/OpenId4JavaAuthenticator.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  181
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Struts/checkstyle.html#org.robbins.flashcards.model.FlashCard-conversion.properties">org/robbins/flashcards/model/FlashCard-conversion.properties</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Struts/checkstyle.html#org.robbins.flashcards.presentation.action.FlashCardAction.java">org/robbins/flashcards/presentation/action/FlashCardAction.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  455
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Struts/checkstyle.html#org.robbins.flashcards.presentation.interceptor.LoginInterceptor.java">org/robbins/flashcards/presentation/interceptor/LoginInterceptor.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  86
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Struts/checkstyle.html#org.robbins.flashcards.model.Tag-conversion.properties">org/robbins/flashcards/model/Tag-conversion.properties</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Struts/checkstyle.html#org.robbins.flashcards.presentation.action.LoginAction.java">org/robbins/flashcards/presentation/action/LoginAction.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  222
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Struts/checkstyle.html#org.robbins.flashcards.presentation.action.FlashCardsAppBaseAction.java">org/robbins/flashcards/presentation/action/FlashCardsAppBaseAction.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Struts/checkstyle.html#ApplicationResources.properties">ApplicationResources.properties</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Struts/checkstyle.html#org.robbins.flashcards.presentation.converter.IdConverter.java">org/robbins/flashcards/presentation/converter/IdConverter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  30
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Struts/checkstyle.html#org.robbins.flashcards.presentation.action.TagAction.java">org/robbins/flashcards/presentation/action/TagAction.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  217
+                </td>
+              </tr>
+                      </tbody>
+        </table>
+        
+      </description>
+    </item>
+  </channel>
+</rss>
+
