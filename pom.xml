@@ -24,7 +24,8 @@
 		<!-- Dependency versions -->
 		<aspectj.version>1.7.4</aspectj.version>
 		<cglib.version>2.2.2</cglib.version>
-		<maven.cobertura.version>2.6</maven.cobertura.version>
+		<checkstyle.version>2.10</checkstyle.version>
+		<cobertura.version>2.6</cobertura.version>
 		<commons.beanutils.version>1.8.3</commons.beanutils.version>
 		<commons.collections.version>3.2.1</commons.collections.version>
 		<commons.lang3.version>3.1</commons.lang3.version>
@@ -53,6 +54,7 @@
 		<jspapi.version>2.0</jspapi.version>
 		<jsr311.api.version>1.1</jsr311.api.version>
 		<junit.version>4.10</junit.version>
+		<jxr.version>2.4</jxr.version>
 		<logback.classic.version>1.0.13</logback.classic.version>
 		<log4j.version>1.2.14</log4j.version> <!-- only used by GWT module, all other modules using logback -->
 		<mockito.version>1.9.0</mockito.version>
@@ -71,7 +73,6 @@
 		
 		<!-- Plugin versions -->
 		<gwt.maven.plugin.version>2.5.1</gwt.maven.plugin.version>
-		<jacoco.maven.plugin.version>0.6.4.201312101107</jacoco.maven.plugin.version>
 		<maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>
 		<maven.failsafe.plugin.version>2.14</maven.failsafe.plugin.version>
 		<maven.site.plugin.version>3.3</maven.site.plugin.version>
@@ -676,32 +677,10 @@
 						<target>${jdk.version}</target>
 					</configuration>
 				</plugin>
-			<!--
-	            <plugin>
-	                <groupId>org.jacoco</groupId>
-	                <artifactId>jacoco-maven-plugin</artifactId>
-	                <version>${jacoco.maven.plugin.version}</version>
-				    <executions>
-				        <execution>
-				            <id>prepare-agent</id>
-				            <goals>
-				                <goal>prepare-agent</goal>
-				            </goals>
-				        </execution>
-						<execution>
-							<id>report</id>
-							<goals>
-								<goal>report</goal>
-							</goals>
-							<phase>prepare-package</phase>
-                        </execution>
-				    </executions>
-	            </plugin>
-			-->
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>cobertura-maven-plugin</artifactId>
-					<version>${maven.cobertura.version}</version>
+					<version>${cobertura.version}</version>
 					<configuration>
 						<format>xml</format>
 						<maxmem>256m</maxmem>
@@ -848,6 +827,16 @@
 					<artifactId>findbugs-maven-plugin</artifactId>
 					<version>${findbugs.version}</version>
 				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-checkstyle-plugin</artifactId>
+					<version>${checkstyle.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jxr-plugin</artifactId>
+					<version>${jxr.version}</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 		<plugins>
@@ -855,12 +844,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 			</plugin>
-		<!--
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-            </plugin>
-		-->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>cobertura-maven-plugin</artifactId>
@@ -889,6 +872,14 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>findbugs-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+			</plugin>
 		</plugins>
 	</build>
 	<reporting>
@@ -909,7 +900,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>cobertura-maven-plugin</artifactId>
-				<version>${maven.cobertura.version}</version>
+				<version>${cobertura.version}</version>
 			</plugin>
 			<!-- generate Javadoc -->
 			<plugin>
@@ -943,6 +934,16 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>findbugs-maven-plugin</artifactId>
 				<version>${findbugs.version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>${checkstyle.version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+				<version>${jxr.version}</version>
 			</plugin>
 		</plugins>
 	</reporting>
