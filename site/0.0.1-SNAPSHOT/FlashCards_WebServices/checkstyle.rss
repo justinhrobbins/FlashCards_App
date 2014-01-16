@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<rss version="0.91">
+  <channel>
+    <title>FlashCards_WebServices - Checkstyle report</title>
+    <link>https://github.com/justinhrobbins/FlashCards_App/FlashCards_WebServices</link>
+    <description>FlashCards_WebServices - Checkstyle report</description>
+    <language>en-us</language>
+    <copyright>&#169;2011 - 2014</copyright>
+    <item>
+      <title>File: 15,
+             Errors: 1012,
+             Warnings: 0,
+             Infos: 0
+      </title>
+            <link>https://github.com/justinhrobbins/FlashCards_App/FlashCards_WebServices/checkstyle.html</link>
+      <description>
+        <p>Click <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_WebServices/checkstyle.html">here</a> for the full Checkstyle report.</p>
+
+        <table summary="Files" boder="1">
+          <thead>
+            <tr>
+              <th>Files</th>
+              <th style="width:30px;"><abbr title="Info">I</abbr></th>
+              <th style="width:30px;"><abbr title="Warning">W</abbr></th>
+              <th style="width:30px;"><abbr title="Error">E</abbr></th>
+            </tr>
+          </thead>
+          <tbody>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_WebServices/checkstyle.html#org.robbins.flashcards.webservices.exceptions.WebServicesError.java">org/robbins/flashcards/webservices/exceptions/WebServicesError.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  64
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_WebServices/checkstyle.html#org.robbins.flashcards.webservices.TagsResource.java">org/robbins/flashcards/webservices/TagsResource.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  59
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_WebServices/checkstyle.html#org.robbins.flashcards.webservices.base.AbstractGenericResource.java">org/robbins/flashcards/webservices/base/AbstractGenericResource.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  228
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_WebServices/checkstyle.html#org.robbins.flashcards.webservices.UsersResource.java">org/robbins/flashcards/webservices/UsersResource.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  41
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_WebServices/checkstyle.html#org.robbins.flashcards.webservices.base.GenericResource.java">org/robbins/flashcards/webservices/base/GenericResource.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  26
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_WebServices/checkstyle.html#org.robbins.flashcards.jackson.CustomObjectMapper.java">org/robbins/flashcards/jackson/CustomObjectMapper.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  22
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_WebServices/checkstyle.html#org.robbins.flashcards.webservices.base.AbstractResource.java">org/robbins/flashcards/webservices/base/AbstractResource.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  30
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_WebServices/checkstyle.html#org.robbins.flashcards.webservices.FlashCardsResource.java">org/robbins/flashcards/webservices/FlashCardsResource.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  128
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_WebServices/checkstyle.html#org.robbins.flashcards.jersey.filters.AcceptFilter.java">org/robbins/flashcards/jersey/filters/AcceptFilter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  49
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_WebServices/checkstyle.html#org.robbins.flashcards.cxf.filters.PartialResponseFilter.java">org/robbins/flashcards/cxf/filters/PartialResponseFilter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  175
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_WebServices/checkstyle.html#org.robbins.flashcards.webservices.base.AbstractSecurityFilter.java">org/robbins/flashcards/webservices/base/AbstractSecurityFilter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  68
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_WebServices/checkstyle.html#org.robbins.flashcards.providers.DefaultExceptionHandler.java">org/robbins/flashcards/providers/DefaultExceptionHandler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  24
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_WebServices/checkstyle.html#org.robbins.flashcards.cxf.filters.SecurityFilter.java">org/robbins/flashcards/cxf/filters/SecurityFilter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  23
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_WebServices/checkstyle.html#org.robbins.flashcards.jersey.filters.SecurityFilter.java">org/robbins/flashcards/jersey/filters/SecurityFilter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  19
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_WebServices/checkstyle.html#org.robbins.flashcards.webservices.exceptions.GenericWebServiceException.java">org/robbins/flashcards/webservices/exceptions/GenericWebServiceException.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  56
+                </td>
+              </tr>
+                      </tbody>
+        </table>
+        
+      </description>
+    </item>
+  </channel>
+</rss>
+
