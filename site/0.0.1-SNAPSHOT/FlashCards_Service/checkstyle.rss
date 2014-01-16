@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<rss version="0.91">
+  <channel>
+    <title>FlashCards_Service - Checkstyle report</title>
+    <link>https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service</link>
+    <description>FlashCards_Service - Checkstyle report</description>
+    <language>en-us</language>
+    <copyright>&#169;2011 - 2014</copyright>
+    <item>
+      <title>File: 23,
+             Errors: 1070,
+             Warnings: 0,
+             Infos: 0
+      </title>
+            <link>https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service/checkstyle.html</link>
+      <description>
+        <p>Click <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service/checkstyle.html">here</a> for the full Checkstyle report.</p>
+
+        <table summary="Files" boder="1">
+          <thead>
+            <tr>
+              <th>Files</th>
+              <th style="width:30px;"><abbr title="Info">I</abbr></th>
+              <th style="width:30px;"><abbr title="Warning">W</abbr></th>
+              <th style="width:30px;"><abbr title="Error">E</abbr></th>
+            </tr>
+          </thead>
+          <tbody>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service/checkstyle.html#org.robbins.flashcards.facade.TagFacade.java">org/robbins/flashcards/facade/TagFacade.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service/checkstyle.html#org.robbins.flashcards.service.base.GenericCrudService.java">org/robbins/flashcards/service/base/GenericCrudService.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  105
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service/checkstyle.html#org.robbins.flashcards.facade.impl.DefaultUserFacade.java">org/robbins/flashcards/facade/impl/DefaultUserFacade.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  100
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service/checkstyle.html#org.robbins.flashcards.aop.ExecutionTimeLogger.java">org/robbins/flashcards/aop/ExecutionTimeLogger.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  38
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service/checkstyle.html#org.robbins.flashcards.service.util.dozer.HibernateFieldMapper.java">org/robbins/flashcards/service/util/dozer/HibernateFieldMapper.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  23
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service/checkstyle.html#org.robbins.flashcards.facade.UserFacade.java">org/robbins/flashcards/facade/UserFacade.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service/checkstyle.html#org.robbins.flashcards.service.base.GenericJpaService.java">org/robbins/flashcards/service/base/GenericJpaService.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  49
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service/checkstyle.html#org.robbins.flashcards.facade.FlashcardFacade.java">org/robbins/flashcards/facade/FlashcardFacade.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  17
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service/checkstyle.html#org.robbins.flashcards.facade.impl.DefaultFlashcardFacade.java">org/robbins/flashcards/facade/impl/DefaultFlashcardFacade.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  159
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service/checkstyle.html#org.robbins.flashcards.facade.base.AbstractCrudFacadeImpl.java">org/robbins/flashcards/facade/base/AbstractCrudFacadeImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  165
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service/checkstyle.html#org.robbins.flashcards.service.FlashCardService.java">org/robbins/flashcards/service/FlashCardService.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  12
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service/checkstyle.html#org.robbins.flashcards.service.base.GenericPagingAndSortingService.java">org/robbins/flashcards/service/base/GenericPagingAndSortingService.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  22
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service/checkstyle.html#org.robbins.flashcards.facade.base.GenericCrudFacade.java">org/robbins/flashcards/facade/base/GenericCrudFacade.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  25
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service/checkstyle.html#org.robbins.flashcards.facade.impl.DefaultTagFacade.java">org/robbins/flashcards/facade/impl/DefaultTagFacade.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  77
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service/checkstyle.html#dozer.properties">dozer.properties</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service/checkstyle.html#org.robbins.flashcards.exceptions.ServiceException.java">org/robbins/flashcards/exceptions/ServiceException.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  18
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service/checkstyle.html#org.robbins.flashcards.service.UserService.java">org/robbins/flashcards/service/UserService.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service/checkstyle.html#org.robbins.flashcards.service.util.DtoUtil.java">org/robbins/flashcards/service/util/DtoUtil.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  75
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service/checkstyle.html#org.robbins.flashcards.service.util.dozer.DateTimeConverter.java">org/robbins/flashcards/service/util/dozer/DateTimeConverter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  28
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service/checkstyle.html#org.robbins.flashcards.service.TagService.java">org/robbins/flashcards/service/TagService.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service/checkstyle.html#org.robbins.flashcards.service.util.FieldInitializerUtil.java">org/robbins/flashcards/service/util/FieldInitializerUtil.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  104
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service/checkstyle.html#org.robbins.flashcards.auditing.AuditingAwareUser.java">org/robbins/flashcards/auditing/AuditingAwareUser.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  19
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service/checkstyle.html#org.robbins.flashcards.facade.base.CrudFacade.java">org/robbins/flashcards/facade/base/CrudFacade.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  16
+                </td>
+              </tr>
+                      </tbody>
+        </table>
+        
+      </description>
+    </item>
+  </channel>
+</rss>
+
