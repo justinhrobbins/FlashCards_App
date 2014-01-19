@@ -6,79 +6,76 @@
 </head>
 <body>
 <div id="overview"><a href="../../../../../apidocs/org/robbins/flashcards/client/FlashCards_App.html">View Javadoc</a></div><pre>
-<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> org.robbins.flashcards.client;
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> org.robbins.flashcards.client.factory.ClientFactory;
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> org.robbins.flashcards.client.mvp.AppPlaceHistoryMapper;
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> org.robbins.flashcards.client.mvp.ShellActivityMapper;
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> org.robbins.flashcards.client.place.ShellPlace;
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> org.robbins.flashcards.client.ui.desktop.style.ShellStyleResource;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> org.robbins.flashcards.client.ui.widgets.SimpleWidgetPanel;
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> org.robbins.flashcards.model.UserDto;
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> org.robbins.flashcards.util.ConstsUtil;
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> com.google.gwt.activity.shared.ActivityManager;
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> com.google.gwt.activity.shared.ActivityMapper;
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> com.google.gwt.core.client.EntryPoint;
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> com.google.gwt.core.client.GWT;
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> com.google.gwt.event.shared.EventBus;
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> com.google.gwt.place.shared.Place;
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> com.google.gwt.place.shared.PlaceController;
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> com.google.gwt.place.shared.PlaceHistoryHandler;
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> com.google.gwt.user.client.Cookies;
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> com.google.gwt.user.client.Window;
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> com.google.gwt.user.client.ui.RootLayoutPanel;
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>  
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <strong class="jxr_keyword">package</strong> org.robbins.flashcards.client;
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> org.robbins.flashcards.client.factory.ClientFactory;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> org.robbins.flashcards.client.mvp.AppPlaceHistoryMapper;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> org.robbins.flashcards.client.mvp.ShellActivityMapper;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> org.robbins.flashcards.client.place.ShellPlace;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> org.robbins.flashcards.client.ui.desktop.style.ShellStyleResource;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> org.robbins.flashcards.client.ui.widgets.SimpleWidgetPanel;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> org.robbins.flashcards.model.UserDto;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> org.robbins.flashcards.util.ConstsUtil;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> com.google.gwt.activity.shared.ActivityManager;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> com.google.gwt.activity.shared.ActivityMapper;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> com.google.gwt.core.client.EntryPoint;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> com.google.gwt.core.client.GWT;
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> com.google.gwt.event.shared.EventBus;
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> com.google.gwt.place.shared.Place;
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> com.google.gwt.place.shared.PlaceController;
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> com.google.gwt.place.shared.PlaceHistoryHandler;
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> com.google.gwt.user.client.Cookies;
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> com.google.gwt.user.client.Window;
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> com.google.gwt.user.client.ui.RootLayoutPanel;
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../org/robbins/flashcards/client/FlashCards_App.html">FlashCards_App</a> <strong class="jxr_keyword">implements</strong> EntryPoint {
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>  	<strong class="jxr_keyword">private</strong> Place defaultPlace;
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>  	
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>  	<strong class="jxr_keyword">private</strong> <a href="../../../../org/robbins/flashcards/client/ui/widgets/SimpleWidgetPanel.html">SimpleWidgetPanel</a> appWidget = <strong class="jxr_keyword">new</strong> <a href="../../../../org/robbins/flashcards/client/ui/widgets/SimpleWidgetPanel.html">SimpleWidgetPanel</a>();
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>  	
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> onModuleLoad() {
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>  		GWT.log(<span class="jxr_string">"FlashCards_App - onModuleLoad()"</span>);
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>  
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>  		<em class="jxr_comment">// set the date format for RestyGwt so it can use Unix timestamp date format</em>
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>  		org.fusesource.restygwt.client.Defaults.setDateFormat(<strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>  		
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>  		Window.enableScrolling(<strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>  		
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>  		ShellStyleResource.INSTANCE.shellStyles().ensureInjected();
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>  		ClientFactory clientFactory = GWT.create(ClientFactory.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>  		EventBus eventBus = clientFactory.getEventBus();
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>  		PlaceController placeController = clientFactory.getPlaceController();
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>  		
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>  		UserDto loggedInUser = clientFactory.getLoggedInUser();
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>  <em class="jxr_comment">		if (loggedInUser == null) {</em>
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>  <em class="jxr_comment">			GWT.log("User is NOT logged in");</em>
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>  <em class="jxr_comment">			Cookies.setCookie("desitinationURL", Window.Location.getHref());</em>
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>  <em class="jxr_comment">			defaultPlace = new LoginPlace(ConstsUtil.LOGIN);</em>
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>  <em class="jxr_comment">		}</em>
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>  <em class="jxr_comment">		else {</em>
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>  <em class="jxr_comment">			GWT.log("Logged in user: " + loggedInUser.toString());</em>
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>  <em class="jxr_comment">			defaultPlace = new ShellPlace(ConstsUtil.SHELL_VIEW);</em>
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>  <em class="jxr_comment">		}</em>
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>  <em class="jxr_comment">*/</em>		Cookies.setCookie(<span class="jxr_string">"desitinationURL"</span>, Window.Location.getHref());
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>  		defaultPlace = <strong class="jxr_keyword">new</strong> <a href="../../../../org/robbins/flashcards/client/place/ShellPlace.html">ShellPlace</a>(ConstsUtil.SHELL_VIEW);
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>  		
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>  		<em class="jxr_comment">// start activity manager for our main widget with our ActivityMapper</em>
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>  		ActivityMapper activityMapper = <strong class="jxr_keyword">new</strong> <a href="../../../../org/robbins/flashcards/client/mvp/ShellActivityMapper.html">ShellActivityMapper</a>(clientFactory);
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>  		ActivityManager activityManager = <strong class="jxr_keyword">new</strong> ActivityManager(activityMapper, eventBus);
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>  		activityManager.setDisplay(appWidget);
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>  		
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>  		<em class="jxr_comment">// start PlaceHistoryHandler with our PlaceHistoryMapper</em>
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>  		AppPlaceHistoryMapper historyMapper = GWT.create(AppPlaceHistoryMapper.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>  		PlaceHistoryHandler historyHandler = <strong class="jxr_keyword">new</strong> PlaceHistoryHandler(historyMapper);
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>  		historyHandler.register(placeController, eventBus, defaultPlace);
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>  		
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>  		RootLayoutPanel.get().add(appWidget);
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>  		
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>  		historyHandler.handleCurrentHistory();
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>  		
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>  	}
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>  }
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>      <strong class="jxr_keyword">private</strong> Place defaultPlace;
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../org/robbins/flashcards/client/ui/widgets/SimpleWidgetPanel.html">SimpleWidgetPanel</a> appWidget = <strong class="jxr_keyword">new</strong> <a href="../../../../org/robbins/flashcards/client/ui/widgets/SimpleWidgetPanel.html">SimpleWidgetPanel</a>();
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>      @Override
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> onModuleLoad() {
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>          GWT.log(<span class="jxr_string">"FlashCards_App - onModuleLoad()"</span>);
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>          <em class="jxr_comment">// set the date format for RestyGwt so it can use Unix timestamp date format</em>
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>          org.fusesource.restygwt.client.Defaults.setDateFormat(<strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>          Window.enableScrolling(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>          ShellStyleResource.INSTANCE.shellStyles().ensureInjected();
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>          <a href="../../../../org/robbins/flashcards/client/factory/ClientFactory.html">ClientFactory</a> clientFactory = GWT.create(ClientFactory.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>          EventBus eventBus = clientFactory.getEventBus();
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>          PlaceController placeController = clientFactory.getPlaceController();
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>          <a href="../../../../org/robbins/flashcards/model/UserDto.html">UserDto</a> loggedInUser = clientFactory.getLoggedInUser();
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>          <em class="jxr_comment">/*</em>
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>  <em class="jxr_comment">         * if (loggedInUser == null) { GWT.log("User is NOT logged in");</em>
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>  <em class="jxr_comment">         * Cookies.setCookie("desitinationURL", Window.Location.getHref()); defaultPlace =</em>
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>  <em class="jxr_comment">         * new LoginPlace(ConstsUtil.LOGIN); } else { GWT.log("Logged in user: " +</em>
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>  <em class="jxr_comment">         * loggedInUser.toString()); defaultPlace = new ShellPlace(ConstsUtil.SHELL_VIEW);</em>
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>  <em class="jxr_comment">         * }</em>
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>  <em class="jxr_comment">         */</em>Cookies.setCookie(<span class="jxr_string">"desitinationURL"</span>, Window.Location.getHref());
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>          defaultPlace = <strong class="jxr_keyword">new</strong> <a href="../../../../org/robbins/flashcards/client/place/ShellPlace.html">ShellPlace</a>(ConstsUtil.SHELL_VIEW);
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>  
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>          <em class="jxr_comment">// start activity manager for our main widget with our ActivityMapper</em>
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>          ActivityMapper activityMapper = <strong class="jxr_keyword">new</strong> <a href="../../../../org/robbins/flashcards/client/mvp/ShellActivityMapper.html">ShellActivityMapper</a>(clientFactory);
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>          ActivityManager activityManager = <strong class="jxr_keyword">new</strong> ActivityManager(activityMapper, eventBus);
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>          activityManager.setDisplay(appWidget);
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>  
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>          <em class="jxr_comment">// start PlaceHistoryHandler with our PlaceHistoryMapper</em>
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>          <a href="../../../../org/robbins/flashcards/client/mvp/AppPlaceHistoryMapper.html">AppPlaceHistoryMapper</a> historyMapper = GWT.create(AppPlaceHistoryMapper.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>          PlaceHistoryHandler historyHandler = <strong class="jxr_keyword">new</strong> PlaceHistoryHandler(historyMapper);
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>          historyHandler.register(placeController, eventBus, defaultPlace);
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>  
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>          RootLayoutPanel.get().add(appWidget);
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>  
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>          historyHandler.handleCurrentHistory();
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>  
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>      }
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2011&#x2013;2014. All rights reserved.</div>

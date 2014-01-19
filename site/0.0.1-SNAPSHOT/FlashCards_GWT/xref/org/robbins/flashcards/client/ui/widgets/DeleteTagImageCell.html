@@ -6,65 +6,66 @@
 </head>
 <body>
 <div id="overview"><a href="../../../../../../../apidocs/org/robbins/flashcards/client/ui/widgets/DeleteTagImageCell.html">View Javadoc</a></div><pre>
-<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> org.robbins.flashcards.client.ui.widgets;
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> org.robbins.flashcards.client.ui.images.Images;
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> org.robbins.flashcards.model.TagDto;
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> com.google.gwt.cell.client.AbstractCell;
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> com.google.gwt.core.client.GWT;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> com.google.gwt.safehtml.client.SafeHtmlTemplates;
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> com.google.gwt.safehtml.shared.SafeHtml;
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> com.google.gwt.safehtml.shared.SafeHtmlBuilder;
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> com.google.gwt.safehtml.shared.SafeHtmlUtils;
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> com.google.gwt.user.client.ui.AbstractImagePrototype;
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../../org/robbins/flashcards/client/ui/widgets/DeleteTagImageCell.html">DeleteTagImageCell</a> <strong class="jxr_keyword">extends</strong> AbstractCell&lt;TagDto&gt; {
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  	<em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_javadoccomment">	 * The HTML templates used to render the cell.</em>
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  	<strong class="jxr_keyword">interface</strong> <a href="../../../../../../org/robbins/flashcards/client/ui/widgets/TagListCell.html">Templates</a> <strong class="jxr_keyword">extends</strong> SafeHtmlTemplates {
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  		<em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_javadoccomment">		 * The template for this Cell, which includes styles and a value.</em>
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_javadoccomment">		 * </em>
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_javadoccomment">		 * @param styles</em>
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment">		 *            the styles to include in the style attribute of the div</em>
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <em class="jxr_javadoccomment">		 * @param value</em>
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <em class="jxr_javadoccomment">		 *            the safe value. Since the value type is {@link SafeHtml},</em>
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_javadoccomment">		 *            it will not be escaped before including it in the</em>
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment">		 *            template. Alternatively, you could make the value type</em>
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment">		 *            String, in which case the value would be escaped.</em>
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_javadoccomment">		 * @return a {@link SafeHtml} instance</em>
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_javadoccomment">		 */</em>
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>  		@SafeHtmlTemplates.Template(<span class="jxr_string">"&lt;a href=\&quot;javascript:;\&quot;&gt;{0}&lt;/a&gt;"</span>)
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>  		SafeHtml cell(SafeHtml value);
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>  	}
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <strong class="jxr_keyword">package</strong> org.robbins.flashcards.client.ui.widgets;
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> org.robbins.flashcards.client.ui.images.Images;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> org.robbins.flashcards.model.TagDto;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> com.google.gwt.cell.client.AbstractCell;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> com.google.gwt.core.client.GWT;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> com.google.gwt.safehtml.client.SafeHtmlTemplates;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> com.google.gwt.safehtml.shared.SafeHtml;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> com.google.gwt.safehtml.shared.SafeHtmlBuilder;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> com.google.gwt.safehtml.shared.SafeHtmlUtils;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> com.google.gwt.user.client.ui.AbstractImagePrototype;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../../org/robbins/flashcards/client/ui/widgets/DeleteTagImageCell.html">DeleteTagImageCell</a> <strong class="jxr_keyword">extends</strong> AbstractCell&lt;TagDto&gt; {
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_javadoccomment">     * The HTML templates used to render the cell.</em>
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>      <strong class="jxr_keyword">interface</strong> <a href="../../../../../../org/robbins/flashcards/client/ui/widgets/TagListCell.html">Templates</a> <strong class="jxr_keyword">extends</strong> SafeHtmlTemplates {
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>          <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_javadoccomment">         * The template for this Cell, which includes styles and a value.</em>
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment">         * </em>
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <em class="jxr_javadoccomment">         * @param styles the styles to include in the style attribute of the div</em>
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <em class="jxr_javadoccomment">         * @param value the safe value. Since the value type is {@link SafeHtml}, it will</em>
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_javadoccomment">         *        not be escaped before including it in the template. Alternatively, you</em>
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment">         *        could make the value type String, in which case the value would be</em>
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment">         *        escaped.</em>
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_javadoccomment">         * @return a {@link SafeHtml} instance</em>
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_javadoccomment">         */</em>
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>          @SafeHtmlTemplates.Template(<span class="jxr_string">"&lt;a href=\&quot;javascript:;\&quot;&gt;{0}&lt;/a&gt;"</span>)
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>          SafeHtml cell(SafeHtml value);
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>      }
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>  	<em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment">	 * Create a singleton instance of the templates used to render the cell.</em>
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>  	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../../org/robbins/flashcards/client/ui/widgets/TagListCell.html">Templates</a> templates = GWT.create(Templates.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>  	
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>  	<strong class="jxr_keyword">private</strong> <a href="../../../../../../org/robbins/flashcards/client/ui/images/Images.html">Images</a> images = (Images) GWT.create(Images.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment">     * Create a singleton instance of the templates used to render the cell.</em>
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../../org/robbins/flashcards/client/ui/widgets/TagListCell.html">Templates</a> templates = GWT.create(Templates.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../../../org/robbins/flashcards/client/ui/images/Images.html">Images</a> images = (Images) GWT.create(Images.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>  	<strong class="jxr_keyword">public</strong> <a href="../../../../../../org/robbins/flashcards/client/ui/widgets/DeleteTagImageCell.html">DeleteTagImageCell</a>() {
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>  		<strong class="jxr_keyword">super</strong>(<span class="jxr_string">"click"</span>);
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>  	}
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../../../org/robbins/flashcards/client/ui/widgets/DeleteTagImageCell.html">DeleteTagImageCell</a>() {
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>          <strong class="jxr_keyword">super</strong>(<span class="jxr_string">"click"</span>);
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>      }
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>  	@Override
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> render(Context context, <a href="../../../../../../org/robbins/flashcards/model/TagDto.html">TagDto</a> tag, SafeHtmlBuilder sb) {
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>  		<strong class="jxr_keyword">if</strong> (tag != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>  			<strong class="jxr_keyword">if</strong> ((tag.getFlashcards() != <strong class="jxr_keyword">null</strong>) &amp;&amp; (tag.getFlashcards().size() &gt; 0)) {
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>  				sb.append(SafeHtmlUtils.fromTrustedString(AbstractImagePrototype.create(images.deleteDisabled()).getHTML()));
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>  			}
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>  			<strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>  				SafeHtml html = SafeHtmlUtils.fromTrustedString(AbstractImagePrototype.create(images.delete()).getHTML());
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>  				sb.append(templates.cell(html));
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>  			}
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>  		}
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>  	}
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>  }
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>      @Override
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> render(Context context, <a href="../../../../../../org/robbins/flashcards/model/TagDto.html">TagDto</a> tag, SafeHtmlBuilder sb) {
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>          <strong class="jxr_keyword">if</strong> (tag != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>              <strong class="jxr_keyword">if</strong> ((tag.getFlashcards() != <strong class="jxr_keyword">null</strong>) &amp;&amp; (tag.getFlashcards().size() &gt; 0)) {
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>                  sb.append(SafeHtmlUtils.fromTrustedString(AbstractImagePrototype.create(
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>                          images.deleteDisabled()).getHTML()));
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>              } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>                  SafeHtml html = SafeHtmlUtils.fromTrustedString(AbstractImagePrototype.create(
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>                          images.delete()).getHTML());
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>                  sb.append(templates.cell(html));
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>              }
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>          }
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>      }
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2011&#x2013;2014. All rights reserved.</div>
