@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.client.ui.widgets;
 
 import org.robbins.flashcards.client.ui.IsRequired;
@@ -15,57 +16,57 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class LabelWidget extends Composite implements HasText, IsRequired {
 
-	private static LabelWidgetUiBinder uiBinder = GWT.create(LabelWidgetUiBinder.class);
+    private static LabelWidgetUiBinder uiBinder = GWT.create(LabelWidgetUiBinder.class);
 
-	interface LabelWidgetUiBinder extends UiBinder<Widget, LabelWidget> {
-	}
+    interface LabelWidgetUiBinder extends UiBinder<Widget, LabelWidget> {
+    }
 
-	@UiField
-	InlineLabel displayName;
+    @UiField
+    InlineLabel displayName;
 
-	@UiField
-	SpanElement required;
-	
-	@UiField
-	SpanElement validationContainer;
-	
-	@UiField
-	InlineLabel validationText;
+    @UiField
+    SpanElement required;
 
-	public LabelWidget() {
-		initWidget(uiBinder.createAndBindUi(this));
-	}
+    @UiField
+    SpanElement validationContainer;
 
-	public LabelWidget (String text) {
-		this();
-	}
-	
-	public void dispayValidationMessage(String message) {
-		validationText.setText(message);
-		validationContainer.removeClassName(FormStyleResource.INSTANCE.formStyles().hidden());
-	}
+    @UiField
+    InlineLabel validationText;
 
-	public void hideValidationMessage() {
-		validationText.setText("");
-		validationContainer.addClassName(FormStyleResource.INSTANCE.formStyles().hidden());
-	}
+    public LabelWidget() {
+        initWidget(uiBinder.createAndBindUi(this));
+    }
 
-	@Override
-	public String getText() {
-		return displayName.getText();
-	}
+    public LabelWidget(String text) {
+        this();
+    }
 
-	@Override
-	public void setText(String text) {
-		displayName.setText(text);
-	}
+    public void dispayValidationMessage(String message) {
+        validationText.setText(message);
+        validationContainer.removeClassName(FormStyleResource.INSTANCE.formStyles().hidden());
+    }
 
-	@Override
-	public void isRequired(boolean required) {
-		if (required) {
-			this.required.getStyle().setDisplay(Display.INLINE);
-		} else {
-			this.required.getStyle().setDisplay(Display.NONE);
-		}
-	}
+    public void hideValidationMessage() {
+        validationText.setText("");
+        validationContainer.addClassName(FormStyleResource.INSTANCE.formStyles().hidden());
+    }
+
+    @Override
+    public String getText() {
+        return displayName.getText();
+    }
+
+    @Override
+    public void setText(String text) {
+        displayName.setText(text);
+    }
+
+    @Override
+    public void isRequired(boolean required) {
+        if (required) {
+            this.required.getStyle().setDisplay(Display.INLINE);
+        } else {
+            this.required.getStyle().setDisplay(Display.NONE);
+        }
+    }
 }

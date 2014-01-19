@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.dto;
 
 import java.io.Serializable;
@@ -14,56 +15,58 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(value = Include.NON_NULL)
-@XmlRootElement(name="tag")
+@XmlRootElement(name = "tag")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TagDto extends AbstractAuditableDto implements Serializable {
 
-	private static final long serialVersionUID = 3642775570292807703L;
+    private static final long serialVersionUID = 3642775570292807703L;
 
-	private String name;
-	private Set<FlashCardDto> flashcards = new HashSet<FlashCardDto>(0);
+    private String name;
 
-	public TagDto() {
-	}
-	
-	public TagDto(Long id) {
-		setId(id);
-	}
+    private Set<FlashCardDto> flashcards = new HashSet<FlashCardDto>(0);
 
-	public TagDto(String name) {
-		this.name = name;
-	}
+    public TagDto() {
+    }
 
-	public String getName() {
-		return this.name;
-	}
+    public TagDto(Long id) {
+        setId(id);
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public TagDto(String name) {
+        this.name = name;
+    }
 
-	public Set<FlashCardDto> getFlashcards() {
-		return flashcards;
-	}
+    public String getName() {
+        return this.name;
+    }
 
-	public void setFlashcards(Set<FlashCardDto> flashcards) {
-		this.flashcards = flashcards;
-	}
-	
-	/**
-	 * toString
-	 * 
-	 * @return String
-	 */
-	public String toString() {
-		StringBuffer buffer = new StringBuffer();
+    public void setName(String name) {
+        this.name = name;
+    }
 
-		buffer.append(getClass().getName()).append("@")
-				.append(Integer.toHexString(hashCode())).append(" [");
-		buffer.append("id").append("='").append(getId()).append("' ");
-		buffer.append("name").append("='").append(getName()).append("' ");
-		buffer.append("]");
+    public Set<FlashCardDto> getFlashcards() {
+        return flashcards;
+    }
 
-		return buffer.toString();
-	}
+    public void setFlashcards(Set<FlashCardDto> flashcards) {
+        this.flashcards = flashcards;
+    }
+
+    /**
+     * toString
+     * 
+     * @return String
+     */
+    @Override
+    public String toString() {
+        StringBuffer buffer = new StringBuffer();
+
+        buffer.append(getClass().getName()).append("@").append(
+                Integer.toHexString(hashCode())).append(" [");
+        buffer.append("id").append("='").append(getId()).append("' ");
+        buffer.append("name").append("='").append(getName()).append("' ");
+        buffer.append("]");
+
+        return buffer.toString();
+    }
 }

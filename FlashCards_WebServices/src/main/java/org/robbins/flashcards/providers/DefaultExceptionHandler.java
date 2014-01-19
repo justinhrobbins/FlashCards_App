@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.providers;
 
 import javax.ws.rs.WebApplicationException;
@@ -12,19 +13,22 @@ import org.springframework.stereotype.Component;
 @Provider
 @Component
 public class DefaultExceptionHandler implements ExceptionMapper<WebApplicationException> {
-	
-    public Response toResponse(WebApplicationException webApplicationException) {
-    	ResponseBuilder builder;
-    	GenericWebServiceException exception;
-    	
-    	if (webApplicationException instanceof GenericWebServiceException) {
-    		exception = (GenericWebServiceException)webApplicationException;
-    	} else {
-    		exception = new GenericWebServiceException(Response.Status.fromStatusCode(webApplicationException.getResponse().getStatus()), webApplicationException.getMessage());
-    	}
 
-		builder = Response.status(exception.getError().getErrorId());
-		builder.entity(exception.getError());
-		return builder.build();	
+    @Override
+    public Response toResponse(WebApplicationException webApplicationException) {
+        ResponseBuilder builder;
+        GenericWebServiceException exception;
+
+        if (webApplicationException instanceof GenericWebServiceException) {
+            exception = (GenericWebServiceException) webApplicationException;
+        } else {
+            exception = new GenericWebServiceException(
+                    Response.Status.fromStatusCode(webApplicationException.getResponse().getStatus()),
+                    webApplicationException.getMessage());
+        }
+
+        builder = Response.status(exception.getError().getErrorId());
+        builder.entity(exception.getError());
+        return builder.build();
     }
 }

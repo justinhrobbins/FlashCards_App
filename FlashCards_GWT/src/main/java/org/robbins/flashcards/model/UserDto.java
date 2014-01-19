@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.model;
 
 import java.io.Serializable;
@@ -7,123 +8,131 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 
 public class UserDto extends AbstractAuditable<UserDto, Long> implements Serializable {
 
-	private static final long serialVersionUID = 6131151516357988050L;
-	private String openid;
-	private String firstName;
-	private String lastName;
-	private String fullName;
-	private String email;
-	private String nickname;
-	private String country;
-	private String language;
-	private Date lastLoginDate;
+    private static final long serialVersionUID = 6131151516357988050L;
 
-	public UserDto() {
-	}
+    private String openid;
 
-	public UserDto(Long userId) {
-		setId(userId);
-	}
+    private String firstName;
 
-	public UserDto(String openid, String email) {
-		this.openid = openid;
-		this.email = email;
-	}
+    private String lastName;
 
-	public UserDto(String openid, String firstName, String lastName,
-			String fullName, String email, String nickname, String country,
-			String language) {
-		this.openid = openid;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.fullName = fullName;
-		this.email = email;
-		this.nickname = nickname;
-		this.country = country;
-		this.language = language;
-	}
+    private String fullName;
 
-	@Override
-	@JsonIgnore
-	public UserDto getCreatedBy() {
-		return super.getCreatedBy();
-	}
+    private String email;
 
-	@Override
-	@JsonIgnore
-	public UserDto getLastModifiedBy() {
-		return super.getLastModifiedBy();
-	}
-	
-	public String getOpenid() {
-		return this.openid;
-	}
+    private String nickname;
 
-	public void setOpenid(String openid) {
-		this.openid = openid;
-	}
+    private String country;
 
-	public String getFirstName() {
-		return this.firstName;
-	}
+    private String language;
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    private Date lastLoginDate;
 
-	public String getLastName() {
-		return this.lastName;
-	}
+    public UserDto() {
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public UserDto(Long userId) {
+        setId(userId);
+    }
 
-	public String getFullName() {
-		return this.fullName;
-	}
+    public UserDto(String openid, String email) {
+        this.openid = openid;
+        this.email = email;
+    }
 
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
-	}
+    public UserDto(String openid, String firstName, String lastName, String fullName,
+            String email, String nickname, String country, String language) {
+        this.openid = openid;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.fullName = fullName;
+        this.email = email;
+        this.nickname = nickname;
+        this.country = country;
+        this.language = language;
+    }
 
-	public String getEmail() {
-		return this.email;
-	}
+    @Override
+    @JsonIgnore
+    public UserDto getCreatedBy() {
+        return super.getCreatedBy();
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    @Override
+    @JsonIgnore
+    public UserDto getLastModifiedBy() {
+        return super.getLastModifiedBy();
+    }
 
-	public String getNickname() {
-		return this.nickname;
-	}
+    public String getOpenid() {
+        return this.openid;
+    }
 
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
+    public void setOpenid(String openid) {
+        this.openid = openid;
+    }
 
-	public String getCountry() {
-		return this.country;
-	}
+    public String getFirstName() {
+        return this.firstName;
+    }
 
-	public void setCountry(String country) {
-		this.country = country;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public String getLanguage() {
-		return this.language;
-	}
+    public String getLastName() {
+        return this.lastName;
+    }
 
-	public void setLanguage(String language) {
-		this.language = language;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public Date getLastLoginDate() {
-		return lastLoginDate;
-	}
+    public String getFullName() {
+        return this.fullName;
+    }
 
-	public void setLastLoginDate(Date lastLoginDate) {
-		this.lastLoginDate = lastLoginDate;
-	}
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getNickname() {
+        return this.nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getCountry() {
+        return this.country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getLanguage() {
+        return this.language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public Date getLastLoginDate() {
+        return lastLoginDate;
+    }
+
+    public void setLastLoginDate(Date lastLoginDate) {
+        this.lastLoginDate = lastLoginDate;
+    }
 }

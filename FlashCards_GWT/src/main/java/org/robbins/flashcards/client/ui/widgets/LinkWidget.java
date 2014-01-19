@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.client.ui.widgets;
 
 import com.google.gwt.core.client.GWT;
@@ -18,70 +19,70 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class LinkWidget extends Composite {
 
-	private static LinkWidgetUiBinder uiBinder = GWT.create(LinkWidgetUiBinder.class);
+    private static LinkWidgetUiBinder uiBinder = GWT.create(LinkWidgetUiBinder.class);
 
-	interface LinkWidgetUiBinder extends UiBinder<Widget, LinkWidget> {
-	}
+    interface LinkWidgetUiBinder extends UiBinder<Widget, LinkWidget> {
+    }
 
-	@UiField
-	Label linkLabel;
-	
-	@UiField
-	SpanElement linkContainer;
-	
-	@UiField
-	Anchor linkAnchor;
-	
-	@UiField
-	TextBox linkTextBox;
+    @UiField
+    Label linkLabel;
 
-	@UiField
-	Image editImage;
-	
-	@UiField
-	Image deleteImage;
-	
-	private String link;
-	
-	public LinkWidget() {
-		initWidget(uiBinder.createAndBindUi(this));
-	}
-	
-	@UiHandler("linkTextBox")
-	void onKeyUp(KeyUpEvent event) {
-		this.link = this.linkTextBox.getText();
-		this.linkAnchor.setText(this.linkTextBox.getText());
-	}
-	
-	@UiHandler("editImage")
-	void onEditClick(ClickEvent event) {
-		linkContainer.getStyle().setDisplay(Display.NONE);
-		linkTextBox.setVisible(true);
-	}
-	
-	@UiHandler("deleteImage")
-	void onDeleteClick(ClickEvent event) {
-		LinkWidget.this.removeFromParent();
-	}
+    @UiField
+    SpanElement linkContainer;
 
-	public String getLink() {
-		return link;
-	}
+    @UiField
+    Anchor linkAnchor;
 
-	public void setLink(String link) {
-		this.link = link;
-		
-		this.linkContainer.getStyle().setDisplay(Display.INLINE_BLOCK);
-		this.linkAnchor.setText(link);
-		this.linkAnchor.setHref(link);
-		this.linkAnchor.setTarget("_blank");
-		this.linkAnchor.setVisible(true);
+    @UiField
+    TextBox linkTextBox;
 
-		this.linkTextBox.setText(link);
-		this.linkTextBox.setVisible(false);
-	}
-	
-	public HasText getLinkLabel() {
-		return linkLabel;
-	}
+    @UiField
+    Image editImage;
+
+    @UiField
+    Image deleteImage;
+
+    private String link;
+
+    public LinkWidget() {
+        initWidget(uiBinder.createAndBindUi(this));
+    }
+
+    @UiHandler("linkTextBox")
+    void onKeyUp(KeyUpEvent event) {
+        this.link = this.linkTextBox.getText();
+        this.linkAnchor.setText(this.linkTextBox.getText());
+    }
+
+    @UiHandler("editImage")
+    void onEditClick(ClickEvent event) {
+        linkContainer.getStyle().setDisplay(Display.NONE);
+        linkTextBox.setVisible(true);
+    }
+
+    @UiHandler("deleteImage")
+    void onDeleteClick(ClickEvent event) {
+        LinkWidget.this.removeFromParent();
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+
+        this.linkContainer.getStyle().setDisplay(Display.INLINE_BLOCK);
+        this.linkAnchor.setText(link);
+        this.linkAnchor.setHref(link);
+        this.linkAnchor.setTarget("_blank");
+        this.linkAnchor.setVisible(true);
+
+        this.linkTextBox.setText(link);
+        this.linkTextBox.setVisible(false);
+    }
+
+    public HasText getLinkLabel() {
+        return linkLabel;
+    }
 }

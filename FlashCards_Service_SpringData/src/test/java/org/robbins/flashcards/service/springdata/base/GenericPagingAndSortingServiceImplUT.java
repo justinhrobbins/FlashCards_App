@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.service.springdata.base;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -25,27 +26,28 @@ import org.springframework.test.util.ReflectionTestUtils;
 @Category(UnitTest.class)
 public class GenericPagingAndSortingServiceImplUT extends BaseMockingTest {
 
-	@Mock TagRepository repository;
-	
-	TagServiceImpl service;
-	
-	@Mock
-	PageRequest page;
-	
-	@Before
-	public void before() {
-		service = new TagServiceImpl();
-		ReflectionTestUtils.setField(service, "repository", repository);		
-	}
+    @Mock
+    TagRepository repository;
 
-	@Test
-	public void findAll() {
-		
-		when(repository.findAll(page)).thenReturn(new PageImpl<Tag>(new ArrayList<Tag>()));
-		
-		List<Tag> tags = service.findAll(page);
-		
-		verify(repository, Mockito.times(1)).findAll(page);
-		assertThat(tags, is(List.class));
-	}
+    TagServiceImpl service;
+
+    @Mock
+    PageRequest page;
+
+    @Before
+    public void before() {
+        service = new TagServiceImpl();
+        ReflectionTestUtils.setField(service, "repository", repository);
+    }
+
+    @Test
+    public void findAll() {
+
+        when(repository.findAll(page)).thenReturn(new PageImpl<Tag>(new ArrayList<Tag>()));
+
+        List<Tag> tags = service.findAll(page);
+
+        verify(repository, Mockito.times(1)).findAll(page);
+        assertThat(tags, is(List.class));
+    }
 }

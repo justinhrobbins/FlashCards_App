@@ -1,3 +1,4 @@
+
 package org.robbins.tests;
 
 import org.junit.runner.RunWith;
@@ -11,8 +12,8 @@ import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-@TestExecutionListeners({
-        DependencyInjectionTestExecutionListener.class,
-        DirtiesContextTestExecutionListener.class,
-        TransactionDbUnitTestExecutionListener.class})
-public abstract class BaseIntegrationTest {}
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
+    DirtiesContextTestExecutionListener.class,
+    TransactionDbUnitTestExecutionListener.class })
+public abstract class BaseIntegrationTest {
+}

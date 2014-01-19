@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.cxf.filters;
 
 import java.util.Collection;
@@ -33,147 +34,144 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 @Component("partialResponseFilter")
 public class PartialResponseFilter implements ResponseHandler {
 
-	static final Logger logger = LoggerFactory.getLogger(PartialResponseFilter.class);
+    static final Logger logger = LoggerFactory.getLogger(PartialResponseFilter.class);
 
-	@Inject
-	private FieldInitializerUtil fieldInitializer;
+    @Inject
+    private FieldInitializerUtil fieldInitializer;
 
-	@Inject
-	private CustomObjectMapper objectMapper;
+    @Inject
+    private CustomObjectMapper objectMapper;
 
-	@Context
-	private UriInfo uriInfo;
+    @Context
+    private UriInfo uriInfo;
 
-	@Override
-	public Response handleResponse(Message m, OperationResourceInfo ori,
-			Response response) {
+    @Override
+    public Response handleResponse(Message m, OperationResourceInfo ori, Response response) {
 
-		if (ori == null) {
-			return null;
-		}
-		
-		// exit now if not an http GET method
-		if (!StringUtils.equals(ori.getHttpMethod(), "GET")) {
-			return null;			
-		}
+        if (ori == null) {
+            return null;
+        }
 
-		// exit now if not a 200 response, no sense in apply filtering if not a
-		// '200 OK'
-		if (response.getStatus() != Response.Status.OK.getStatusCode()) {
-			return null;
-		}
+        // exit now if not an http GET method
+        if (!StringUtils.equals(ori.getHttpMethod(), "GET")) {
+            return null;
+        }
 
-		// exit now if we are not returning json
-		if (!ori.getProduceTypes().get(0).toString()
-				.equals(MediaType.APPLICATION_JSON)) {
-			return null;			
-		}
+        // exit now if not a 200 response, no sense in apply filtering if not a
+        // '200 OK'
+        if (response.getStatus() != Response.Status.OK.getStatusCode()) {
+            return null;
+        }
 
-		// get a reference to the response entity. the entity holds the payload
-		// of our response
-		Object entity = response.getEntity();
+        // exit now if we are not returning json
+        if (!ori.getProduceTypes().get(0).toString().equals(MediaType.APPLICATION_JSON)) {
+            return null;
+        }
 
-		// try to get the 'fields' parameter from the QueryString
-		String fields = uriInfo.getQueryParameters().getFirst("fields");
+        // get a reference to the response entity. the entity holds the payload
+        // of our response
+        Object entity = response.getEntity();
 
-		// if the 'fields' QueryString is blank, then check to see if we have
-		// @DefaultValue for 'fields'
-		if (StringUtils.isBlank(fields)) {
-			// get the Parameters for this Resource
-			List<Parameter> parameters = ori.getParameters();
-			for (Parameter parm : parameters) {
-				// is the current Parameter named 'fields'?
-				if (StringUtils.equals(parm.getName(), "fields")) {
-					// get the default value for 'fields'
-					fields = parm.getDefaultValue();
+        // try to get the 'fields' parameter from the QueryString
+        String fields = uriInfo.getQueryParameters().getFirst("fields");
 
-					// now that we found 'fields', there's no need to keep
-					// looping
-					break;
-				}
-			}
-			// If 'fields' is still blank then we don't have a value from either
-			// the QueryString or @DefaultValue
-			if (StringUtils.isBlank(fields)) {
-				logger.debug("Did not find 'fields' pararm for Resource '"
-						+ uriInfo.getPath() + "'");
-				return null;
-			}
-		}
+        // if the 'fields' QueryString is blank, then check to see if we have
+        // @DefaultValue for 'fields'
+        if (StringUtils.isBlank(fields)) {
+            // get the Parameters for this Resource
+            List<Parameter> parameters = ori.getParameters();
+            for (Parameter parm : parameters) {
+                // is the current Parameter named 'fields'?
+                if (StringUtils.equals(parm.getName(), "fields")) {
+                    // get the default value for 'fields'
+                    fields = parm.getDefaultValue();
 
-		Set<String> filterProperties = this.getFieldsAsSet(fields);
+                    // now that we found 'fields', there's no need to keep
+                    // looping
+                    break;
+                }
+            }
+            // If 'fields' is still blank then we don't have a value from either
+            // the QueryString or @DefaultValue
+            if (StringUtils.isBlank(fields)) {
+                logger.debug("Did not find 'fields' pararm for Resource '"
+                        + uriInfo.getPath() + "'");
+                return null;
+            }
+        }
 
-		try {
-			// is the entity a collection?
-			if (entity instanceof Collection<?>) {
-				fieldInitializer.initializeEntity((Collection<?>) entity, filterProperties);
-			}
-			// is the entity an array?
-			else if (entity instanceof Object[]) {
-				fieldInitializer.initializeEntity((Object[]) entity, filterProperties);
-			} else {
-				fieldInitializer.initializeEntity(entity, filterProperties);
-			}
-		} catch (ServiceException e) {
-			throw new GenericWebServiceException(
-					Response.Status.INTERNAL_SERVER_ERROR, e);
-		}
-		
-		// apply the Jackson filter and return the Response
-		return applyFieldsFilter(filterProperties, entity, response);
-	}
+        Set<String> filterProperties = this.getFieldsAsSet(fields);
 
-	// configure the Jackson filter for the speicified 'fields'
-	private Response applyFieldsFilter(Set<String> filterProperties,
-			Object object, Response response) {
-		SimpleFilterProvider filterProvider = new SimpleFilterProvider();
-		filterProvider.addFilter("apiFilter",
-				SimpleBeanPropertyFilter.filterOutAllExcept(filterProperties));
-		filterProvider.setFailOnUnknownId(false);
+        try {
+            // is the entity a collection?
+            if (entity instanceof Collection<?>) {
+                fieldInitializer.initializeEntity((Collection<?>) entity,
+                        filterProperties);
+            }
+            // is the entity an array?
+            else if (entity instanceof Object[]) {
+                fieldInitializer.initializeEntity((Object[]) entity, filterProperties);
+            } else {
+                fieldInitializer.initializeEntity(entity, filterProperties);
+            }
+        } catch (ServiceException e) {
+            throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
+        }
 
-		return applyWriter(object, filterProvider, response);
-	}
+        // apply the Jackson filter and return the Response
+        return applyFieldsFilter(filterProperties, entity, response);
+    }
 
-	// Get a JSON string from Jackson using the provided filter.
-	// Note we are using the ObjectWriter rather than the ObjectMapper directly.
-	// According to the Jackson docs,
-	// "ObjectWriter instances are immutable and thread-safe: they are created by ObjectMapper"
-	// You should not change config settings directly on the ObjectMapper while
-	// using it (changing config of ObjectMapper is not thread-safe
-	private Response applyWriter(Object object,
-			SimpleFilterProvider filterProvider, Response response) {
+    // configure the Jackson filter for the speicified 'fields'
+    private Response applyFieldsFilter(Set<String> filterProperties, Object object,
+            Response response) {
+        SimpleFilterProvider filterProvider = new SimpleFilterProvider();
+        filterProvider.addFilter("apiFilter",
+                SimpleBeanPropertyFilter.filterOutAllExcept(filterProperties));
+        filterProvider.setFailOnUnknownId(false);
 
-		try {
-			ObjectWriter writer = objectMapper.writer(filterProvider);
-			String jsonString = writer.writeValueAsString(object);
+        return applyWriter(object, filterProvider, response);
+    }
 
-			// replace the Response entity with our filtered JSON string
-			ResponseBuilder builder = Response.fromResponse(response);
-			builder = builder.entity(jsonString);
-			return builder.build();
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			throw new GenericWebServiceException(
-					Response.Status.INTERNAL_SERVER_ERROR, e);
-		}
-	}
-	
-	// Convert the vectorized 'fields' parameter to a Set<String>
-	private Set<String> getFieldsAsSet(String fields) {
-		Set<String> filterProperties = new HashSet<String>();
-		StringTokenizer st = new StringTokenizer(fields, ",");
-		while (st.hasMoreTokens()) {
-			String field = st.nextToken();
+    // Get a JSON string from Jackson using the provided filter.
+    // Note we are using the ObjectWriter rather than the ObjectMapper directly.
+    // According to the Jackson docs,
+    // "ObjectWriter instances are immutable and thread-safe: they are created by ObjectMapper"
+    // You should not change config settings directly on the ObjectMapper while
+    // using it (changing config of ObjectMapper is not thread-safe
+    private Response applyWriter(Object object, SimpleFilterProvider filterProvider,
+            Response response) {
 
-			// never allow 'userpassword' to be passed even if it was
-			// specifically requested
-			if (field.equals("userpassword")) {
-				continue;
-			}
+        try {
+            ObjectWriter writer = objectMapper.writer(filterProvider);
+            String jsonString = writer.writeValueAsString(object);
 
-			// add the field to the Set<String>
-			filterProperties.add(field);
-		}
-		return filterProperties;
-	}
+            // replace the Response entity with our filtered JSON string
+            ResponseBuilder builder = Response.fromResponse(response);
+            builder = builder.entity(jsonString);
+            return builder.build();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
+        }
+    }
+
+    // Convert the vectorized 'fields' parameter to a Set<String>
+    private Set<String> getFieldsAsSet(String fields) {
+        Set<String> filterProperties = new HashSet<String>();
+        StringTokenizer st = new StringTokenizer(fields, ",");
+        while (st.hasMoreTokens()) {
+            String field = st.nextToken();
+
+            // never allow 'userpassword' to be passed even if it was
+            // specifically requested
+            if (field.equals("userpassword")) {
+                continue;
+            }
+
+            // add the field to the Set<String>
+            filterProperties.add(field);
+        }
+        return filterProperties;
+    }
 }

@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.client;
 
 import org.robbins.flashcards.client.factory.ClientFactory;
@@ -21,53 +22,49 @@ import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 
-
 public class FlashCards_App implements EntryPoint {
 
-	private Place defaultPlace;
-	
-	private SimpleWidgetPanel appWidget = new SimpleWidgetPanel();
-	
-	public void onModuleLoad() {
-		GWT.log("FlashCards_App - onModuleLoad()");
+    private Place defaultPlace;
 
-		// set the date format for RestyGwt so it can use Unix timestamp date format
-		org.fusesource.restygwt.client.Defaults.setDateFormat(null);
-		
-		Window.enableScrolling(true);
-		
-		ShellStyleResource.INSTANCE.shellStyles().ensureInjected();
-		ClientFactory clientFactory = GWT.create(ClientFactory.class);
-		EventBus eventBus = clientFactory.getEventBus();
-		PlaceController placeController = clientFactory.getPlaceController();
-		
-		UserDto loggedInUser = clientFactory.getLoggedInUser();
-/*
-		if (loggedInUser == null) {
-			GWT.log("User is NOT logged in");
-			Cookies.setCookie("desitinationURL", Window.Location.getHref());
-			defaultPlace = new LoginPlace(ConstsUtil.LOGIN);
-		}
-		else {
-			GWT.log("Logged in user: " + loggedInUser.toString());
-			defaultPlace = new ShellPlace(ConstsUtil.SHELL_VIEW);
-		}
-*/		Cookies.setCookie("desitinationURL", Window.Location.getHref());
-		defaultPlace = new ShellPlace(ConstsUtil.SHELL_VIEW);
-		
-		// start activity manager for our main widget with our ActivityMapper
-		ActivityMapper activityMapper = new ShellActivityMapper(clientFactory);
-		ActivityManager activityManager = new ActivityManager(activityMapper, eventBus);
-		activityManager.setDisplay(appWidget);
-		
-		// start PlaceHistoryHandler with our PlaceHistoryMapper
-		AppPlaceHistoryMapper historyMapper = GWT.create(AppPlaceHistoryMapper.class);
-		PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(historyMapper);
-		historyHandler.register(placeController, eventBus, defaultPlace);
-		
-		RootLayoutPanel.get().add(appWidget);
-		
-		historyHandler.handleCurrentHistory();
-		
-	}
+    private SimpleWidgetPanel appWidget = new SimpleWidgetPanel();
+
+    @Override
+    public void onModuleLoad() {
+        GWT.log("FlashCards_App - onModuleLoad()");
+
+        // set the date format for RestyGwt so it can use Unix timestamp date format
+        org.fusesource.restygwt.client.Defaults.setDateFormat(null);
+
+        Window.enableScrolling(true);
+
+        ShellStyleResource.INSTANCE.shellStyles().ensureInjected();
+        ClientFactory clientFactory = GWT.create(ClientFactory.class);
+        EventBus eventBus = clientFactory.getEventBus();
+        PlaceController placeController = clientFactory.getPlaceController();
+
+        UserDto loggedInUser = clientFactory.getLoggedInUser();
+        /*
+         * if (loggedInUser == null) { GWT.log("User is NOT logged in");
+         * Cookies.setCookie("desitinationURL", Window.Location.getHref()); defaultPlace =
+         * new LoginPlace(ConstsUtil.LOGIN); } else { GWT.log("Logged in user: " +
+         * loggedInUser.toString()); defaultPlace = new ShellPlace(ConstsUtil.SHELL_VIEW);
+         * }
+         */Cookies.setCookie("desitinationURL", Window.Location.getHref());
+        defaultPlace = new ShellPlace(ConstsUtil.SHELL_VIEW);
+
+        // start activity manager for our main widget with our ActivityMapper
+        ActivityMapper activityMapper = new ShellActivityMapper(clientFactory);
+        ActivityManager activityManager = new ActivityManager(activityMapper, eventBus);
+        activityManager.setDisplay(appWidget);
+
+        // start PlaceHistoryHandler with our PlaceHistoryMapper
+        AppPlaceHistoryMapper historyMapper = GWT.create(AppPlaceHistoryMapper.class);
+        PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(historyMapper);
+        historyHandler.register(placeController, eventBus, defaultPlace);
+
+        RootLayoutPanel.get().add(appWidget);
+
+        historyHandler.handleCurrentHistory();
+
+    }
 }

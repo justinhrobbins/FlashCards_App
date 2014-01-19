@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.service.jpa;
 
 import javax.inject.Inject;
@@ -13,14 +14,16 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class UserServiceImpl extends AbstractCrudServiceImpl<User> implements UserService {
 
-	@Inject
-	private UserRepository repository;
+    @Inject
+    private UserRepository repository;
 
-	public UserRepository getRepository() {
-		return repository;
-	}
-	@Override
-	public User findUserByOpenid(String openid) {
-		return getRepository().findUserByOpenid(openid);
-	}
+    @Override
+    public UserRepository getRepository() {
+        return repository;
+    }
+
+    @Override
+    public User findUserByOpenid(String openid) {
+        return getRepository().findUserByOpenid(openid);
+    }
 }

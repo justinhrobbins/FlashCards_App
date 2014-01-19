@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.cxf.filters;
 
 import javax.ws.rs.core.Response;
@@ -13,15 +14,15 @@ import org.springframework.stereotype.Component;
 @Component("securityFilter")
 public class SecurityFilter extends AbstractSecurityFilter implements RequestHandler {
 
-	static final Logger logger = LoggerFactory.getLogger(SecurityFilter.class);
-	
-	@Override
-	public Response handleRequest(Message inputMessage, ClassResourceInfo resourceClass) {
+    static final Logger logger = LoggerFactory.getLogger(SecurityFilter.class);
 
-		logger.debug("SecurityFilter");
-		
-		configureLoggedInUser();
-		
-		return null;
-	}
+    @Override
+    public Response handleRequest(Message inputMessage, ClassResourceInfo resourceClass) {
+
+        logger.debug("SecurityFilter");
+
+        configureLoggedInUser();
+
+        return null;
+    }
 }

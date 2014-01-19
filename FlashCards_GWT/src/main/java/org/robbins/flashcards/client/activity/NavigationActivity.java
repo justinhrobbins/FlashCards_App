@@ -13,8 +13,8 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.robbins.flashcards.client.activity;
 
+package org.robbins.flashcards.client.activity;
 
 import org.robbins.flashcards.client.factory.ClientFactory;
 import org.robbins.flashcards.client.mvp.AppPlaceHistoryMapper;
@@ -32,28 +32,32 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
 public class NavigationActivity extends AbstractActivity {
 
-	private final NavigationView navigationView;
+    private final NavigationView navigationView;
 
-	public NavigationActivity(ClientFactory clientFactory) {
-		GWT.log("Creating 'NavigationActivity'");
-		
-		this.navigationView = clientFactory.getNavigationView();
-		
-		bind();
-	}
-	
-	@Override
-	public void start(AcceptsOneWidget panel, EventBus eventBus) {
-		panel.setWidget(navigationView.asWidget());
-	}
+    public NavigationActivity(ClientFactory clientFactory) {
+        GWT.log("Creating 'NavigationActivity'");
 
-	public void bind() {
+        this.navigationView = clientFactory.getNavigationView();
 
-		AppPlaceHistoryMapper historyMapper = GWT.create(AppPlaceHistoryMapper.class); 
-		
-		navigationView.setNewFlashCardToken(historyMapper.getToken(new NewFlashCardPlace(ConstsUtil.FLASHCARD_FORM)));
-		navigationView.setListFlashCardsToken(historyMapper.getToken(new ListFlashCardsPlace(ConstsUtil.LIST_FLASHCARDS)));
-		navigationView.setNewTagToken(historyMapper.getToken(new NewTagPlace(ConstsUtil.TAG_FORM)));
-		navigationView.setListTagsToken(historyMapper.getToken(new ListTagsPlace(ConstsUtil.LIST_TAGS)));
-	}
+        bind();
+    }
+
+    @Override
+    public void start(AcceptsOneWidget panel, EventBus eventBus) {
+        panel.setWidget(navigationView.asWidget());
+    }
+
+    public void bind() {
+
+        AppPlaceHistoryMapper historyMapper = GWT.create(AppPlaceHistoryMapper.class);
+
+        navigationView.setNewFlashCardToken(historyMapper.getToken(new NewFlashCardPlace(
+                ConstsUtil.FLASHCARD_FORM)));
+        navigationView.setListFlashCardsToken(historyMapper.getToken(new ListFlashCardsPlace(
+                ConstsUtil.LIST_FLASHCARDS)));
+        navigationView.setNewTagToken(historyMapper.getToken(new NewTagPlace(
+                ConstsUtil.TAG_FORM)));
+        navigationView.setListTagsToken(historyMapper.getToken(new ListTagsPlace(
+                ConstsUtil.LIST_TAGS)));
+    }
 }
