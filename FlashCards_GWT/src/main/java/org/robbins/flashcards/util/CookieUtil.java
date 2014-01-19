@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.util;
 
 import javax.servlet.http.Cookie;
@@ -5,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class CookieUtil {
+
     public static final int dayInSeconds = 86400;
 
     public static Cookie findCookie(HttpServletRequest request, String name) {
@@ -29,7 +31,8 @@ public class CookieUtil {
         return cookie != null ? cookie.getValue() : null;
     }
 
-    public static void resetCookie(HttpServletRequest request, HttpServletResponse response, String name) {
+    public static void resetCookie(HttpServletRequest request,
+            HttpServletResponse response, String name) {
         Cookie cookie = findCookie(request, name);
         if (cookie != null) {
             cookie.setMaxAge(0);
@@ -37,7 +40,8 @@ public class CookieUtil {
         }
     }
 
-    public static void setCookie(HttpServletRequest request, HttpServletResponse response, final String cookieName, String cookieValue) {
+    public static void setCookie(HttpServletRequest request,
+            HttpServletResponse response, final String cookieName, String cookieValue) {
         Cookie cookie = findCookie(request, cookieName);
 
         if (cookie == null) {

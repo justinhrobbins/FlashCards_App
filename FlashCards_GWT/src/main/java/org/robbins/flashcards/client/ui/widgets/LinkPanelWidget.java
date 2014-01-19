@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.client.ui.widgets;
 
 import java.util.ArrayList;
@@ -20,76 +21,79 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class LinkPanelWidget extends Composite {
 
-	private static LinkPanelUiBinder uiBinder = GWT.create(LinkPanelUiBinder.class);
-	interface LinkPanelUiBinder extends UiBinder<Widget, LinkPanelWidget> {}
+    private static LinkPanelUiBinder uiBinder = GWT.create(LinkPanelUiBinder.class);
 
-	private final AppConstants constants;
-	
-	@UiField
-	HTMLPanel linksPanel;
-	
-	@UiField
-	Anchor addLink;
+    interface LinkPanelUiBinder extends UiBinder<Widget, LinkPanelWidget> {
+    }
 
-	public LinkPanelWidget(ClientFactory clientFactory) {
-		this.constants = clientFactory.getConstants();
-		initWidget(uiBinder.createAndBindUi(this));
-	}
+    private final AppConstants constants;
 
-	@UiHandler("addLink")
-	void onClick(ClickEvent event) {
-		GWT.log("LinkPanelWidget: 'Add Link' clicked");
-		addLink(null);
-	}
-	
-	public void addLinks(List<String> linksList) {
-		clearLinks();
-		
-		if ((linksList == null) || (linksList.size() < 1)) {
-			addLink(null);
-			return;
-		}
-		
-		for (String link : linksList) {
-			addLink(link);
-		}
-	}
+    @UiField
+    HTMLPanel linksPanel;
 
-	private void clearLinks() {
-		linksPanel.clear();
-	}
-	
-	private void addLink(String linkUrl) {
-		int linkCount = getLinkCount((HasWidgets) linksPanel);
-		LinkWidget linkWidget = new LinkWidget();
+    @UiField
+    Anchor addLink;
 
-		linkWidget.getLinkLabel().setText(constants.linkNumber() + Integer.toString(linkCount + 1) + ": ");
-		if (linkUrl != null) {
-			linkWidget.setLink(linkUrl);
-		}
-		linksPanel.add(linkWidget);
-	}
+    public LinkPanelWidget(ClientFactory clientFactory) {
+        this.constants = clientFactory.getConstants();
+        initWidget(uiBinder.createAndBindUi(this));
+    }
 
-	private int getLinkCount(HasWidgets linksPanel) {
-		int counter = 0;
-		Iterator<Widget> iterator = linksPanel.iterator();
-		while (iterator.hasNext()) {
-			iterator.next();
-			counter ++;
-		}
-		return counter;
-	}
-	
-	public List<String> getLinks() {
-		List<String> linksList = new ArrayList<String>();
-		Iterator<Widget> linksIterator = linksPanel.iterator();
-		while (linksIterator.hasNext()) {
-			LinkWidget linkWidget = (LinkWidget) linksIterator.next();
-			String link = linkWidget.getLink();
-			if (link != null && link.length() > 0) {
-				linksList.add(link);
-			}
-		}
-		return linksList;
-	}
+    @UiHandler("addLink")
+    void onClick(ClickEvent event) {
+        GWT.log("LinkPanelWidget: 'Add Link' clicked");
+        addLink(null);
+    }
+
+    public void addLinks(List<String> linksList) {
+        clearLinks();
+
+        if ((linksList == null) || (linksList.size() < 1)) {
+            addLink(null);
+            return;
+        }
+
+        for (String link : linksList) {
+            addLink(link);
+        }
+    }
+
+    private void clearLinks() {
+        linksPanel.clear();
+    }
+
+    private void addLink(String linkUrl) {
+        int linkCount = getLinkCount(linksPanel);
+        LinkWidget linkWidget = new LinkWidget();
+
+        linkWidget.getLinkLabel().setText(
+                constants.linkNumber() + Integer.toString(linkCount + 1) + ": ");
+        if (linkUrl != null) {
+            linkWidget.setLink(linkUrl);
+        }
+        linksPanel.add(linkWidget);
+    }
+
+    private int getLinkCount(HasWidgets linksPanel) {
+        int counter = 0;
+        Iterator<Widget> iterator = linksPanel.iterator();
+        while (iterator.hasNext()) {
+            iterator.next();
+            counter++;
+        }
+        return counter;
+    }
+
+    public List<String> getLinks() {
+        List<String> linksList = new ArrayList<String>();
+        Iterator<Widget> linksIterator = linksPanel.iterator();
+        while (linksIterator.hasNext()) {
+            LinkWidget linkWidget = (LinkWidget) linksIterator.next();
+            String link = linkWidget.getLink();
+            if (link != null && link.length() > 0) {
+                linksList.add(link);
+            }
+        }
+        return linksList;
+    }
 }

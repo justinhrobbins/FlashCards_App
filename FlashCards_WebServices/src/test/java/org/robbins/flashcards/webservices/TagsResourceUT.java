@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.webservices;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -24,56 +25,56 @@ import org.springframework.test.util.ReflectionTestUtils;
 @Category(UnitTest.class)
 public class TagsResourceUT extends BaseMockingTest {
 
-	@Mock
-	TagFacade mockTagFacade;
-	
-	@Mock
-	TagDto mockTagDto;
-	
-	TagsResource resource;
-	
-	@Before
-	public void before() {
-		resource = new TagsResource();
-		ReflectionTestUtils.setField(resource, "tagFacade", mockTagFacade);
-	}
-	
-	@Test
-	public void search() {
-		when(mockTagFacade.findByName(any(String.class))).thenReturn(mockTagDto);
-		
-		TagDto result = resource.searchByName(any(String.class));
-		
-		verify(mockTagFacade).findByName(any(String.class));
-		assertThat(result, is(TagDto.class));
-	}
-	
-	@Test(expected=GenericWebServiceException.class)
-	public void search_NotFound() {
-		when(mockTagFacade.findByName(any(String.class))).thenReturn(null);
-		
-		resource.searchByName(any(String.class));
-	}
-	
-	@Test
-	public void put() throws ServiceException {
-		when(mockTagFacade.findOne(any(Long.class))).thenReturn(mockTagDto);
-		when(mockTagFacade.save(any(TagDto.class))).thenReturn(mockTagDto);
-		
-		Response response = resource.put(1L, mockTagDto);
-		
-		verify(mockTagFacade).save(any(TagDto.class));
-		assertThat(response.getStatus(), is(204));
-	}
-	
-	@Test
-	public void put_WithCreatedBy() throws ServiceException {
-		when(mockTagDto.getCreatedBy()).thenReturn(new UserDto());
-		when(mockTagFacade.save(any(TagDto.class))).thenReturn(mockTagDto);
-		
-		Response response = resource.put(1L, mockTagDto);
-		
-		verify(mockTagFacade).save(any(TagDto.class));
-		assertThat(response.getStatus(), is(204));
-	}
+    @Mock
+    TagFacade mockTagFacade;
+
+    @Mock
+    TagDto mockTagDto;
+
+    TagsResource resource;
+
+    @Before
+    public void before() {
+        resource = new TagsResource();
+        ReflectionTestUtils.setField(resource, "tagFacade", mockTagFacade);
+    }
+
+    @Test
+    public void search() {
+        when(mockTagFacade.findByName(any(String.class))).thenReturn(mockTagDto);
+
+        TagDto result = resource.searchByName(any(String.class));
+
+        verify(mockTagFacade).findByName(any(String.class));
+        assertThat(result, is(TagDto.class));
+    }
+
+    @Test(expected = GenericWebServiceException.class)
+    public void search_NotFound() {
+        when(mockTagFacade.findByName(any(String.class))).thenReturn(null);
+
+        resource.searchByName(any(String.class));
+    }
+
+    @Test
+    public void put() throws ServiceException {
+        when(mockTagFacade.findOne(any(Long.class))).thenReturn(mockTagDto);
+        when(mockTagFacade.save(any(TagDto.class))).thenReturn(mockTagDto);
+
+        Response response = resource.put(1L, mockTagDto);
+
+        verify(mockTagFacade).save(any(TagDto.class));
+        assertThat(response.getStatus(), is(204));
+    }
+
+    @Test
+    public void put_WithCreatedBy() throws ServiceException {
+        when(mockTagDto.getCreatedBy()).thenReturn(new UserDto());
+        when(mockTagFacade.save(any(TagDto.class))).thenReturn(mockTagDto);
+
+        Response response = resource.put(1L, mockTagDto);
+
+        verify(mockTagFacade).save(any(TagDto.class));
+        assertThat(response.getStatus(), is(204));
+    }
 }

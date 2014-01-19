@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.service.jpa;
 
 import java.util.List;
@@ -16,36 +17,39 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(readOnly = true)
-public class FlashCardServiceImpl extends AbstractCrudServiceImpl<FlashCard> implements FlashCardService {
+public class FlashCardServiceImpl extends AbstractCrudServiceImpl<FlashCard> implements
+        FlashCardService {
 
-	@Inject
-	private FlashCardRepository repository;
+    @Inject
+    private FlashCardRepository repository;
 
-	public FlashCardRepository getRepository() {
-		return repository;
-	}
-	@Override
-	public List<FlashCard> findByTagsIn(Set<Tag> tags) {
-		return getRepository().findByTagsIn(tags);
-	}
+    @Override
+    public FlashCardRepository getRepository() {
+        return repository;
+    }
 
-	@Override
-	public List<FlashCard> findByTagsIn(Set<Tag> tags, PageRequest page) {
-		return getRepository().findByTagsIn(tags, page);
-	}
+    @Override
+    public List<FlashCard> findByTagsIn(Set<Tag> tags) {
+        return getRepository().findByTagsIn(tags);
+    }
 
-	@Override
-	public List<FlashCard> findByQuestionLike(String question) {
-		return getRepository().findByQuestionLike(question);
-	}
+    @Override
+    public List<FlashCard> findByTagsIn(Set<Tag> tags, PageRequest page) {
+        return getRepository().findByTagsIn(tags, page);
+    }
 
-	@Override
-	public List<FlashCard> findByQuestionLike(String question, PageRequest page) {
-		return getRepository().findByQuestionLike(question, page);
-	}
+    @Override
+    public List<FlashCard> findByQuestionLike(String question) {
+        return getRepository().findByQuestionLike(question);
+    }
 
-	@Override
-	public FlashCard findByQuestion(String question) {
-		return getRepository().findByQuestion(question);
-	}
+    @Override
+    public List<FlashCard> findByQuestionLike(String question, PageRequest page) {
+        return getRepository().findByQuestionLike(question, page);
+    }
+
+    @Override
+    public FlashCard findByQuestion(String question) {
+        return getRepository().findByQuestion(question);
+    }
 }

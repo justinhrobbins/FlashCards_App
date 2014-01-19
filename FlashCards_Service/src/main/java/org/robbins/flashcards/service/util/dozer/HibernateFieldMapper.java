@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.service.util.dozer;
 
 import org.dozer.CustomFieldMapper;
@@ -6,12 +7,14 @@ import org.dozer.fieldmap.FieldMap;
 import org.hibernate.collection.internal.PersistentSet;
 
 public class HibernateFieldMapper implements CustomFieldMapper {
-	
-	/**
-	 * If false is returned from the call to mapField(), then the field will be subsequently mapped by Dozer as normal.
-	 */
-    public boolean mapField(Object source, Object destination, Object sourceFieldValue, ClassMap classMap, FieldMap fieldMapping) 
-    {       
+
+    /**
+     * If false is returned from the call to mapField(), then the field will be
+     * subsequently mapped by Dozer as normal.
+     */
+    @Override
+    public boolean mapField(Object source, Object destination, Object sourceFieldValue,
+            ClassMap classMap, FieldMap fieldMapping) {
         // Check if field is a Hibernate PersistentSet
         if (!(sourceFieldValue instanceof PersistentSet)) {
             // Allow dozer to map as normal
@@ -26,5 +29,5 @@ public class HibernateFieldMapper implements CustomFieldMapper {
 
         // tell dozer that the field is mapped
         return true;
-    }   
+    }
 }

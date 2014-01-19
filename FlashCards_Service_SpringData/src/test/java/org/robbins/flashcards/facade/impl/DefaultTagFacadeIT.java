@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.facade.impl;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -15,20 +16,21 @@ import org.springframework.test.context.ContextConfiguration;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
-@ContextConfiguration({"classpath:applicationContext-service.xml", "classpath:test-applicationContext-service-springdata.xml"})
+@ContextConfiguration({ "classpath:applicationContext-service.xml",
+    "classpath:test-applicationContext-service-springdata.xml" })
 @DatabaseSetup("classpath:test-flashCardsAppRepository.xml")
 @Category(IntegrationTest.class)
 public class DefaultTagFacadeIT extends BaseIntegrationTest {
 
-	@Inject
-	private TagFacade tagFacade;
+    @Inject
+    private TagFacade tagFacade;
 
-	private static String TAG_NAME = "tag1";
-	
-	@Test
-	public void findByName() {
-		TagDto result = tagFacade.findByName(TAG_NAME);
-		assertThat(result, is(TagDto.class));
-		assertThat(result.getName(), is(TAG_NAME));
-	}
+    private static String TAG_NAME = "tag1";
+
+    @Test
+    public void findByName() {
+        TagDto result = tagFacade.findByName(TAG_NAME);
+        assertThat(result, is(TagDto.class));
+        assertThat(result.getName(), is(TAG_NAME));
+    }
 }

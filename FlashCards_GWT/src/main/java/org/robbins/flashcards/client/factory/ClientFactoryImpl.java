@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.client.factory;
 
 import org.robbins.flashcards.client.ui.AppConstants;
@@ -28,150 +29,161 @@ import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.user.client.Cookies;
 
 public class ClientFactoryImpl implements ClientFactory {
- 
-	private final EventBus eventBus = new SimpleEventBus();
-	private final PlaceController placeController = new PlaceController(eventBus);
 
-	private UserDto loggedInUser;
+    private final EventBus eventBus = new SimpleEventBus();
 
-	private AppConstants appConstants = GWT.create(AppConstants.class);
-	
-	private final ShellView shellView = new ShellViewImplDesktop(this);
-	private NavigationView navigationView;
-	private TagsView tagsView;
-	private EditTagView editTagView;
-	private FlashCardsView flashCardsView;
-	private EditFlashCardView editFlashCardView;
-	
-	private final TagRestService tagService = GWT.create(TagRestService.class);
-	private final FlashCardRestService flashCardService = GWT.create(FlashCardRestService.class);
-	private final UserRestService userService = GWT.create(UserRestService.class);
+    private final PlaceController placeController = new PlaceController(eventBus);
 
-	@Override
-	public String getLoginUrl() {
-		return ConstsUtil.LOG_IN_URL;
-	}
-	
-	@Override
-	public String getOpenIdUrl() {
-		return ConstsUtil.OPEN_ID_URL;
-	}
-	
-	@Override
-	public  UserDto getLoggedInUser() {
-		if (this.loggedInUser == null) {
-			String userId = Cookies.getCookie(ConstsUtil.USER_ID);
-			
-			if (userId != null) {
-				UserDto user = new UserDto(Long.parseLong(userId));
-				setLoggedInUser(user);
-			}
-		}
-		return this.loggedInUser;
-	}
+    private UserDto loggedInUser;
 
-	public void setLoggedInUser(UserDto loggedInUser) {
-		this.loggedInUser = loggedInUser;
-	}
-	
-	@Override
-	public ShellView getShellView() {
-		return shellView;
-	}
+    private AppConstants appConstants = GWT.create(AppConstants.class);
 
-	@Override
-	public AppConstants getConstants() {
-		return appConstants;
-	}
-	
-	@Override
-	public NavigationView getNavigationView() {
-		if (navigationView == null) {
-			navigationView = createNavigationView();
-		}
-		return navigationView;
-	}
-	
-	protected NavigationView createNavigationView() {
-		return new NavigationViewImplDesktop(this);
-	}
-	
-	@Override
-	public EventBus getEventBus() {
-		return eventBus;
-	}
+    private final ShellView shellView = new ShellViewImplDesktop(this);
 
-	@Override
-	public TagsView getTagsView() {
+    private NavigationView navigationView;
 
-		if (tagsView == null) {
-			tagsView = createTagsView();
-		}
-		return tagsView;
-	}
+    private TagsView tagsView;
 
-	protected TagsView createTagsView() {
-		CellTableResources.INSTANCE.cellTableStyle().ensureInjected();
-		return new TagsViewImplDesktop(getEventBus(), 20, CellTableResources.INSTANCE, this);
-	}
+    private EditTagView editTagView;
 
-	@Override
-	public EditTagView getEditTagView() {
-		if (editTagView == null) {
-			editTagView = editTagsView();
-		}
-		return editTagView;
-	}
+    private FlashCardsView flashCardsView;
 
-	protected EditTagView editTagsView() {
-		FormStyleResource.INSTANCE.formStyles().ensureInjected();
-		return new EditTagViewImplDesktop(this);
-	}
+    private EditFlashCardView editFlashCardView;
 
-	@Override
-	public FlashCardsView getFlashCardsView() {
+    private final TagRestService tagService = GWT.create(TagRestService.class);
 
-		if (flashCardsView == null) {
-			flashCardsView = createFlashCardsView();
-		}
-		return flashCardsView;
-	}
+    private final FlashCardRestService flashCardService = GWT.create(FlashCardRestService.class);
 
-	protected FlashCardsView createFlashCardsView() {
-		CellTableResources.INSTANCE.cellTableStyle().ensureInjected();
-		return new FlashCardsViewImplDesktop(getEventBus(), 20, CellTableResources.INSTANCE, this);
-	}
+    private final UserRestService userService = GWT.create(UserRestService.class);
 
-	@Override
-	public EditFlashCardView getEditFlashCardView() {
-		if (editFlashCardView == null) {
-			editFlashCardView = editFlashCardsView();
-		}
-		return editFlashCardView;
-	}
+    @Override
+    public String getLoginUrl() {
+        return ConstsUtil.LOG_IN_URL;
+    }
 
-	protected EditFlashCardView editFlashCardsView() {
-		FormStyleResource.INSTANCE.formStyles().ensureInjected();
-		return new EditFlashCardViewImplDesktop(this);
-	}
-	
-	@Override
-	public PlaceController getPlaceController() {
-		return placeController;
-	}
+    @Override
+    public String getOpenIdUrl() {
+        return ConstsUtil.OPEN_ID_URL;
+    }
 
-	@Override
-	public TagRestService getTagService() {
-		return tagService;
-	}
+    @Override
+    public UserDto getLoggedInUser() {
+        if (this.loggedInUser == null) {
+            String userId = Cookies.getCookie(ConstsUtil.USER_ID);
 
-	@Override
-	public FlashCardRestService getFlashCardService() {
-		return flashCardService;
-	}
+            if (userId != null) {
+                UserDto user = new UserDto(Long.parseLong(userId));
+                setLoggedInUser(user);
+            }
+        }
+        return this.loggedInUser;
+    }
 
-	@Override
-	public UserRestService getUserService() {
-		return userService;
-	}
+    @Override
+    public void setLoggedInUser(UserDto loggedInUser) {
+        this.loggedInUser = loggedInUser;
+    }
+
+    @Override
+    public ShellView getShellView() {
+        return shellView;
+    }
+
+    @Override
+    public AppConstants getConstants() {
+        return appConstants;
+    }
+
+    @Override
+    public NavigationView getNavigationView() {
+        if (navigationView == null) {
+            navigationView = createNavigationView();
+        }
+        return navigationView;
+    }
+
+    protected NavigationView createNavigationView() {
+        return new NavigationViewImplDesktop(this);
+    }
+
+    @Override
+    public EventBus getEventBus() {
+        return eventBus;
+    }
+
+    @Override
+    public TagsView getTagsView() {
+
+        if (tagsView == null) {
+            tagsView = createTagsView();
+        }
+        return tagsView;
+    }
+
+    protected TagsView createTagsView() {
+        CellTableResources.INSTANCE.cellTableStyle().ensureInjected();
+        return new TagsViewImplDesktop(getEventBus(), 20, CellTableResources.INSTANCE,
+                this);
+    }
+
+    @Override
+    public EditTagView getEditTagView() {
+        if (editTagView == null) {
+            editTagView = editTagsView();
+        }
+        return editTagView;
+    }
+
+    protected EditTagView editTagsView() {
+        FormStyleResource.INSTANCE.formStyles().ensureInjected();
+        return new EditTagViewImplDesktop(this);
+    }
+
+    @Override
+    public FlashCardsView getFlashCardsView() {
+
+        if (flashCardsView == null) {
+            flashCardsView = createFlashCardsView();
+        }
+        return flashCardsView;
+    }
+
+    protected FlashCardsView createFlashCardsView() {
+        CellTableResources.INSTANCE.cellTableStyle().ensureInjected();
+        return new FlashCardsViewImplDesktop(getEventBus(), 20,
+                CellTableResources.INSTANCE, this);
+    }
+
+    @Override
+    public EditFlashCardView getEditFlashCardView() {
+        if (editFlashCardView == null) {
+            editFlashCardView = editFlashCardsView();
+        }
+        return editFlashCardView;
+    }
+
+    protected EditFlashCardView editFlashCardsView() {
+        FormStyleResource.INSTANCE.formStyles().ensureInjected();
+        return new EditFlashCardViewImplDesktop(this);
+    }
+
+    @Override
+    public PlaceController getPlaceController() {
+        return placeController;
+    }
+
+    @Override
+    public TagRestService getTagService() {
+        return tagService;
+    }
+
+    @Override
+    public FlashCardRestService getFlashCardService() {
+        return flashCardService;
+    }
+
+    @Override
+    public UserRestService getUserService() {
+        return userService;
+    }
 }

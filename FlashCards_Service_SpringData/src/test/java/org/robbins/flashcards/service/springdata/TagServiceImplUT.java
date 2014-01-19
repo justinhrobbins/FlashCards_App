@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.service.springdata;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -20,23 +21,25 @@ import org.springframework.test.util.ReflectionTestUtils;
 @Category(UnitTest.class)
 public class TagServiceImplUT extends BaseMockingTest {
 
-	@Mock TagRepository repository;
-	TagServiceImpl tagService;
-	
-	@Before
-	public void before() {
-		tagService = new TagServiceImpl();
-		ReflectionTestUtils.setField(tagService, "repository", repository);		
-	}
+    @Mock
+    TagRepository repository;
 
-	@Test
-	public void findByName() {
-		
-		when(repository.findByName(anyString())).thenReturn(new Tag("EJB"));
-		
-		Tag tag = tagService.findByName("EJB");
-		
-		verify(repository, Mockito.times(1)).findByName("EJB");
-		assertThat(tag, is(Tag.class));
-	}
+    TagServiceImpl tagService;
+
+    @Before
+    public void before() {
+        tagService = new TagServiceImpl();
+        ReflectionTestUtils.setField(tagService, "repository", repository);
+    }
+
+    @Test
+    public void findByName() {
+
+        when(repository.findByName(anyString())).thenReturn(new Tag("EJB"));
+
+        Tag tag = tagService.findByName("EJB");
+
+        verify(repository, Mockito.times(1)).findByName("EJB");
+        assertThat(tag, is(Tag.class));
+    }
 }

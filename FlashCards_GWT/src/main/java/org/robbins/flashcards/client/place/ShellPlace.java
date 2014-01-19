@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.client.place;
 
 import com.google.gwt.place.shared.Place;
@@ -8,22 +9,23 @@ public class ShellPlace extends Place {
     private String shellName;
 
     public ShellPlace(String token) {
-            this.shellName = token;
+        this.shellName = token;
     }
 
     public String getShellName() {
-            return shellName;
+        return shellName;
     }
 
     public static class Tokenizer implements PlaceTokenizer<ShellPlace> {
-            @Override
-            public String getToken(ShellPlace place) {
-                    return place.getShellName();
-            }
 
-            @Override
-            public ShellPlace getPlace(String token) {
-                    return new ShellPlace(token);
-            }
+        @Override
+        public String getToken(ShellPlace place) {
+            return place.getShellName();
+        }
+
+        @Override
+        public ShellPlace getPlace(String token) {
+            return new ShellPlace(token);
+        }
     }
 }

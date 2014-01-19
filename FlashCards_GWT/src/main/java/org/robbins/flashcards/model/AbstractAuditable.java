@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.model;
 
 import java.io.Serializable;
@@ -5,52 +6,56 @@ import java.util.Date;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
-public abstract class AbstractAuditable<U, PK extends Serializable> extends AbstractPersistable<PK>  {
+public abstract class AbstractAuditable<U, PK extends Serializable> extends
+        AbstractPersistable<PK> {
 
-	private U createdBy;
-	private Date createdDate;
-	private U lastModifiedBy;
-	private Date lastModifiedDate;
+    private U createdBy;
 
-	public U getCreatedBy() {
-		return createdBy;
-	}
+    private Date createdDate;
 
-	public void setCreatedBy(final U createdBy) {
-		this.createdBy = createdBy;
-	}
+    private U lastModifiedBy;
 
-	public Date getCreatedDate() {
-		return createdDate;
-	}
+    private Date lastModifiedDate;
 
-	@JsonIgnore
-	public Date getCreatedDateAsDate() {
-		return createdDate;
-	}
-	
-	@JsonIgnore
-	public Date getLastModifiedDateAsDate() {
-		return lastModifiedDate;
-	}
+    public U getCreatedBy() {
+        return createdBy;
+    }
 
-	public void setCreatedDate(final Date createdDate) {
-		this.createdDate = createdDate;
-	}
+    public void setCreatedBy(final U createdBy) {
+        this.createdBy = createdBy;
+    }
 
-	public U getLastModifiedBy() {
-		return lastModifiedBy;
-	}
+    public Date getCreatedDate() {
+        return createdDate;
+    }
 
-	public void setLastModifiedBy(final U lastModifiedBy) {
-		this.lastModifiedBy = lastModifiedBy;
-	}
+    @JsonIgnore
+    public Date getCreatedDateAsDate() {
+        return createdDate;
+    }
 
-	public Date getLastModifiedDate() {
-		return lastModifiedDate;
-	}
+    @JsonIgnore
+    public Date getLastModifiedDateAsDate() {
+        return lastModifiedDate;
+    }
 
-	public void setLastModifiedDate(final Date lastModifiedDate) {
-		this.lastModifiedDate = lastModifiedDate;
-	}
+    public void setCreatedDate(final Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public U getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(final U lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
+    }
+
+    public Date getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(final Date lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
 }

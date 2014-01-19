@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.repository.springdata;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
@@ -21,18 +22,18 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 @Category(IntegrationTest.class)
 public class TagRepositoryIT extends BaseIntegrationTest {
 
-	@Inject
-	TagRepository tagRepository;
+    @Inject
+    TagRepository tagRepository;
 
-	@Test
-	public void findByName_noSuchTag(){
-		Tag tag = tagRepository.findByName("DOES_NOT_EXIST"); 
-		assertThat(tag, is(nullValue()));
-	}
+    @Test
+    public void findByName_noSuchTag() {
+        Tag tag = tagRepository.findByName("DOES_NOT_EXIST");
+        assertThat(tag, is(nullValue()));
+    }
 
-	@Test
-	public void findByName() {
-		Tag tag = tagRepository.findByName("tag1"); 
-		assertThat(tag, is(instanceOf(Tag.class)));
-	}
+    @Test
+    public void findByName() {
+        Tag tag = tagRepository.findByName("tag1");
+        assertThat(tag, is(instanceOf(Tag.class)));
+    }
 }

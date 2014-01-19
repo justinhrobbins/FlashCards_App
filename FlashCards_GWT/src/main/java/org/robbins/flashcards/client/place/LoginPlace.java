@@ -1,16 +1,17 @@
+
 package org.robbins.flashcards.client.place;
 
 import com.google.gwt.place.shared.Place;
 
 public class LoginPlace extends Place {
 
-	private String placeName;
+    private String placeName;
 
-	public LoginPlace(String token) {
-		this.placeName = token;
-	}
+    public LoginPlace(String token) {
+        this.placeName = token;
+    }
 
-	public String getPlaceName() {
-		return placeName;
-	}
+    public String getPlaceName() {
+        return placeName;
+    }
 }

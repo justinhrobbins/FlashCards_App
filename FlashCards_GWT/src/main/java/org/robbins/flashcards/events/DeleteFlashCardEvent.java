@@ -1,14 +1,13 @@
-package org.robbins.flashcards.events;
 
+package org.robbins.flashcards.events;
 
 import com.google.web.bindery.event.shared.Event;
 import com.google.web.bindery.event.shared.EventBus;
-
 import com.google.web.bindery.event.shared.HandlerRegistration;
 
 /**
- * Here is a custom event. For comparison this is also a DeleteFlashCardEvent.
- * This event extends the Event from the web.bindery package.
+ * Here is a custom event. For comparison this is also a DeleteFlashCardEvent. This event
+ * extends the Event from the web.bindery package.
  */
 public class DeleteFlashCardEvent extends Event<DeleteFlashCardEventHandler> {
 
@@ -21,14 +20,18 @@ public class DeleteFlashCardEvent extends Event<DeleteFlashCardEventHandler> {
      * @param handler an {@link DeleteFlashCardEvent.Handler} instance
      * @return an {@link HandlerRegistration} instance
      */
-    public static HandlerRegistration register(EventBus eventBus, DeleteFlashCardEventHandler handler) {
-      return eventBus.addHandler(TYPE, handler);
-    }    
+    public static HandlerRegistration register(EventBus eventBus,
+            DeleteFlashCardEventHandler handler) {
+        return eventBus.addHandler(TYPE, handler);
+    }
 
-	public Long getFlashCardId() {return FlashCardId;}
+    public Long getFlashCardId() {
+        return FlashCardId;
+    }
+
     private final Long FlashCardId;
-    
-	public DeleteFlashCardEvent(Long FlashCardId) {
+
+    public DeleteFlashCardEvent(Long FlashCardId) {
         this.FlashCardId = FlashCardId;
     }
 
@@ -36,7 +39,6 @@ public class DeleteFlashCardEvent extends Event<DeleteFlashCardEventHandler> {
     public Type<DeleteFlashCardEventHandler> getAssociatedType() {
         return TYPE;
     }
-
 
     @Override
     protected void dispatch(DeleteFlashCardEventHandler handler) {
