@@ -6,59 +6,64 @@
 </head>
 <body>
 <div id="overview"><a href="../../../../../../apidocs/org/robbins/flashcards/jersey/filters/AcceptFilter.html">View Javadoc</a></div><pre>
-<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> org.robbins.flashcards.jersey.filters;
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> java.util.List;
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> javax.ws.rs.core.HttpHeaders;
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> javax.ws.rs.core.MediaType;
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> javax.ws.rs.core.MultivaluedMap;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> javax.ws.rs.core.Response;
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> org.slf4j.Logger;
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> org.slf4j.LoggerFactory;
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> org.springframework.stereotype.Component;
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> com.sun.jersey.spi.container.ContainerRequest;
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> com.sun.jersey.spi.container.ContainerRequestFilter;
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment"> * Overrides the 'accept' HTTP header with value parsed from the querystring 'accept' parameter.</em>
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_javadoccomment"> * The 'accept' parameter must match </em>
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_javadoccomment"> * @author Justin Robbins</em>
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>  @Component(<span class="jxr_string">"jerseyAcceptFilter"</span>)
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../org/robbins/flashcards/jersey/filters/AcceptFilter.html">AcceptFilter</a> <strong class="jxr_keyword">implements</strong> ContainerRequestFilter {
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>  
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>  	<strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Logger logger = LoggerFactory.getLogger(AcceptFilter.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <strong class="jxr_keyword">package</strong> org.robbins.flashcards.jersey.filters;
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> java.util.List;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> javax.ws.rs.core.HttpHeaders;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> javax.ws.rs.core.MediaType;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> javax.ws.rs.core.MultivaluedMap;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> javax.ws.rs.core.Response;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> org.slf4j.Logger;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> org.slf4j.LoggerFactory;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> org.springframework.stereotype.Component;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> com.sun.jersey.spi.container.ContainerRequest;
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> com.sun.jersey.spi.container.ContainerRequestFilter;
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_javadoccomment"> * Overrides the 'accept' HTTP header with value parsed from the querystring 'accept'</em>
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_javadoccomment"> * parameter. The 'accept' parameter must match</em>
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_javadoccomment"> * </em>
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_javadoccomment"> * @author Justin Robbins</em>
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment"> * </em>
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  @Component(<span class="jxr_string">"jerseyAcceptFilter"</span>)
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../org/robbins/flashcards/jersey/filters/AcceptFilter.html">AcceptFilter</a> <strong class="jxr_keyword">implements</strong> ContainerRequestFilter {
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>  	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String ACCEPT = <span class="jxr_string">"accept"</span>;
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>  	
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>  	@Override
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>  	<strong class="jxr_keyword">public</strong> ContainerRequest filter(ContainerRequest request) {
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>  		logger.debug(<span class="jxr_string">"AcceptFilter"</span>);
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>  
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>  		MultivaluedMap&lt;String, String&gt; queryParametersMap = request.getQueryParameters();
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>  		
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>  		<strong class="jxr_keyword">if</strong> (queryParametersMap.containsKey(ACCEPT)) {
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>  			List&lt;String&gt; queryparmsList = queryParametersMap.get(ACCEPT); 
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>  			logger.debug(queryparmsList.toString());
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>  			
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>  			<em class="jxr_comment">// does the 'accept' header match either json or xml? </em>
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>  			<strong class="jxr_keyword">if</strong> ( (!queryparmsList.contains(MediaType.APPLICATION_JSON)) &amp;&amp; (!queryparmsList.contains(MediaType.APPLICATION_XML)) ) {
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>  				<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../org/robbins/flashcards/webservices/exceptions/GenericWebServiceException.html">GenericWebServiceException</a>(
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>  						Response.Status.BAD_REQUEST, <span class="jxr_string">"'accept' parameter must container either "</span> + MediaType.APPLICATION_JSON + <span class="jxr_string">" or "</span> + MediaType.APPLICATION_XML);
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>  			}
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>  			
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>  			MultivaluedMap&lt;String, String&gt; headers = request.getRequestHeaders();
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>  			headers.put(HttpHeaders.ACCEPT, queryparmsList);
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>  		}
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>  		
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>  		<strong class="jxr_keyword">return</strong> request;
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>  	}
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>  }
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>      <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Logger logger = LoggerFactory.getLogger(AcceptFilter.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String ACCEPT = <span class="jxr_string">"accept"</span>;
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>      @Override
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>      <strong class="jxr_keyword">public</strong> ContainerRequest filter(ContainerRequest request) {
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>          logger.debug(<span class="jxr_string">"AcceptFilter"</span>);
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>          MultivaluedMap&lt;String, String&gt; queryParametersMap = request.getQueryParameters();
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>          <strong class="jxr_keyword">if</strong> (queryParametersMap.containsKey(ACCEPT)) {
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>              List&lt;String&gt; queryparmsList = queryParametersMap.get(ACCEPT);
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>              logger.debug(queryparmsList.toString());
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>              <em class="jxr_comment">// does the 'accept' header match either json or xml?</em>
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>              <strong class="jxr_keyword">if</strong> ((!queryparmsList.contains(MediaType.APPLICATION_JSON))
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>                      &amp;&amp; (!queryparmsList.contains(MediaType.APPLICATION_XML))) {
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>                  <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../org/robbins/flashcards/webservices/exceptions/GenericWebServiceException.html">GenericWebServiceException</a>(Response.Status.BAD_REQUEST,
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>                          <span class="jxr_string">"'accept' parameter must container either "</span>
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>                                  + MediaType.APPLICATION_JSON + <span class="jxr_string">" or "</span>
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>                                  + MediaType.APPLICATION_XML);
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>              }
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>  
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>              MultivaluedMap&lt;String, String&gt; headers = request.getRequestHeaders();
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>              headers.put(HttpHeaders.ACCEPT, queryparmsList);
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>          }
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>  
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>          <strong class="jxr_keyword">return</strong> request;
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>      }
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2011&#x2013;2014. All rights reserved.</div>
