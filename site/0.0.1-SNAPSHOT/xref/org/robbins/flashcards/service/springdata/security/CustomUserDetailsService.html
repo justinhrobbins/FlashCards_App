@@ -6,98 +6,100 @@
 </head>
 <body>
 <div id="overview"><a href="../../../../../../../apidocs/org/robbins/flashcards/service/springdata/security/CustomUserDetailsService.html">View Javadoc</a></div><pre>
-<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> org.robbins.flashcards.service.springdata.security;
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> java.util.ArrayList;
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> java.util.Collection;
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> java.util.List;
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> org.robbins.flashcards.model.User;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> org.robbins.flashcards.repository.springdata.UserRepository;
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> org.springframework.beans.factory.annotation.Autowired;
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> org.springframework.security.core.GrantedAuthority;
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> org.springframework.security.core.authority.SimpleGrantedAuthority;
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> org.springframework.security.core.userdetails.UserDetails;
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> org.springframework.security.core.userdetails.UserDetailsService;
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> org.springframework.security.core.userdetails.UsernameNotFoundException;
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> org.springframework.stereotype.Service;
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> org.springframework.transaction.annotation.Transactional;
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment"> * A custom {@link UserDetailsService} where user information</em>
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_javadoccomment"> * is retrieved from a JPA repository</em>
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>  @Service
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>  @Transactional(readOnly = <strong class="jxr_keyword">true</strong>)
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../../org/robbins/flashcards/service/springdata/security/CustomUserDetailsService.html">CustomUserDetailsService</a> <strong class="jxr_keyword">implements</strong> UserDetailsService {
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>  	
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>  	@Autowired
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>  	<strong class="jxr_keyword">private</strong> <a href="../../../../../../org/robbins/flashcards/repository/springdata/UserRepository.html">UserRepository</a> userRepository;
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>  
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>  	<em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_javadoccomment">	 * Returns a populated {@link UserDetails} object. </em>
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_javadoccomment">	 * The username is first retrieved from the database and then mapped to </em>
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment">	 * a {@link UserDetails} object.</em>
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>  	<strong class="jxr_keyword">public</strong> UserDetails loadUserByUsername(String username) <strong class="jxr_keyword">throws</strong> UsernameNotFoundException {
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>  		<strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>  			User domainUser = userRepository.findUserByOpenid(username);
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>  			
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>  			<strong class="jxr_keyword">boolean</strong> enabled = <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>  			<strong class="jxr_keyword">boolean</strong> accountNonExpired = <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>  			<strong class="jxr_keyword">boolean</strong> credentialsNonExpired = <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>  			<strong class="jxr_keyword">boolean</strong> accountNonLocked = <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>  			
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>  			<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> org.springframework.security.core.userdetails.User(
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>  					domainUser.getOpenid(), 
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>  					<span class="jxr_string">"apiuserpassword"</span>,
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>  					enabled,
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>  					accountNonExpired,
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>  					credentialsNonExpired,
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>  					accountNonLocked,
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>  					getAuthorities());
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>  			
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>  		} <strong class="jxr_keyword">catch</strong> (Exception e) {
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>  			<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(e);
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>  		}
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>  	}
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>  	
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>  	<em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>  <em class="jxr_javadoccomment">	 * Retrieves a collection of {@link GrantedAuthority} based on a numerical role</em>
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>  <em class="jxr_javadoccomment">	 * @param role the numerical role</em>
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>  <em class="jxr_javadoccomment">	 * @return a collection of {@link GrantedAuthority</em>
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>  	<strong class="jxr_keyword">public</strong> Collection&lt;? <strong class="jxr_keyword">extends</strong> GrantedAuthority&gt; getAuthorities() {
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>  		List&lt;GrantedAuthority&gt; authList = getGrantedAuthorities(getRoles());
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>  		<strong class="jxr_keyword">return</strong> authList;
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>  	}
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>  	
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>  	<em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>  <em class="jxr_javadoccomment">	 * Converts a numerical role to an equivalent list of roles</em>
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>  <em class="jxr_javadoccomment">	 * @param role the numerical role</em>
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>  <em class="jxr_javadoccomment">	 * @return list of roles as as a list of {@link String}</em>
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>  <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>  	<strong class="jxr_keyword">public</strong> List&lt;String&gt; getRoles() {
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>  		List&lt;String&gt; roles = <strong class="jxr_keyword">new</strong> ArrayList&lt;String&gt;();
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>  		
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>  		roles.add(<span class="jxr_string">"ROLE_USER"</span>);
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>  		
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>  		<strong class="jxr_keyword">return</strong> roles;
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>  	}
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>  	
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>  	<em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_javadoccomment">	 * Wraps {@link String} roles to {@link SimpleGrantedAuthority} objects</em>
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_javadoccomment">	 * @param roles {@link String} of roles</em>
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>  <em class="jxr_javadoccomment">	 * @return list of granted authorities</em>
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>  <em class="jxr_javadoccomment">	 */</em>
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> List&lt;GrantedAuthority&gt; getGrantedAuthorities(List&lt;String&gt; roles) {
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>  		List&lt;GrantedAuthority&gt; authorities = <strong class="jxr_keyword">new</strong> ArrayList&lt;GrantedAuthority&gt;();
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>  		<strong class="jxr_keyword">for</strong> (String role : roles) {
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>  			authorities.add(<strong class="jxr_keyword">new</strong> SimpleGrantedAuthority(role));
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>  		}
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>  		<strong class="jxr_keyword">return</strong> authorities;
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>  	}
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>  }
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <strong class="jxr_keyword">package</strong> org.robbins.flashcards.service.springdata.security;
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> java.util.ArrayList;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> java.util.Collection;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> java.util.List;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> org.robbins.flashcards.model.User;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> org.robbins.flashcards.repository.springdata.UserRepository;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> org.springframework.beans.factory.annotation.Autowired;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> org.springframework.security.core.GrantedAuthority;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> org.springframework.security.core.authority.SimpleGrantedAuthority;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> org.springframework.security.core.userdetails.UserDetails;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> org.springframework.security.core.userdetails.UserDetailsService;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> org.springframework.security.core.userdetails.UsernameNotFoundException;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> org.springframework.stereotype.Service;
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> org.springframework.transaction.annotation.Transactional;
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_javadoccomment"> * A custom {@link UserDetailsService} where user information is retrieved from a JPA</em>
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_javadoccomment"> * repository</em>
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  @Service
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  @Transactional(readOnly = <strong class="jxr_keyword">true</strong>)
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../../org/robbins/flashcards/service/springdata/security/CustomUserDetailsService.html">CustomUserDetailsService</a> <strong class="jxr_keyword">implements</strong> UserDetailsService {
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>      @Autowired
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../../../org/robbins/flashcards/repository/springdata/UserRepository.html">UserRepository</a> userRepository;
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_javadoccomment">     * Returns a populated {@link UserDetails} object. The username is first retrieved</em>
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment">     * from the database and then mapped to a {@link UserDetails} object.</em>
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>      @Override
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>      <strong class="jxr_keyword">public</strong> UserDetails loadUserByUsername(String username)
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>              <strong class="jxr_keyword">throws</strong> UsernameNotFoundException {
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>          <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>              <a href="../../../../../../org/robbins/flashcards/model/User.html">User</a> domainUser = userRepository.findUserByOpenid(username);
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>              <strong class="jxr_keyword">boolean</strong> enabled = <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>              <strong class="jxr_keyword">boolean</strong> accountNonExpired = <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>              <strong class="jxr_keyword">boolean</strong> credentialsNonExpired = <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>              <strong class="jxr_keyword">boolean</strong> accountNonLocked = <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>              <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> org.springframework.security.core.userdetails.User(
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>                      domainUser.getOpenid(), <span class="jxr_string">"apiuserpassword"</span>, enabled,
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>                      accountNonExpired, credentialsNonExpired, accountNonLocked,
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>                      getAuthorities());
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>  
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>          } <strong class="jxr_keyword">catch</strong> (Exception e) {
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(e);
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>          }
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>      }
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>  
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>  <em class="jxr_javadoccomment">     * Retrieves a collection of {@link GrantedAuthority} based on a numerical role</em>
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>  <em class="jxr_javadoccomment">     * </em>
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>  <em class="jxr_javadoccomment">     * @param role the numerical role</em>
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>  <em class="jxr_javadoccomment">     * @return a collection of {@link GrantedAuthority</em>
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>  
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>      <strong class="jxr_keyword">public</strong> Collection&lt;? <strong class="jxr_keyword">extends</strong> GrantedAuthority&gt; getAuthorities() {
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>          List&lt;GrantedAuthority&gt; authList = getGrantedAuthorities(getRoles());
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>          <strong class="jxr_keyword">return</strong> authList;
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>      }
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>  
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>  <em class="jxr_javadoccomment">     * Converts a numerical role to an equivalent list of roles</em>
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>  <em class="jxr_javadoccomment">     * </em>
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>  <em class="jxr_javadoccomment">     * @param role the numerical role</em>
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>  <em class="jxr_javadoccomment">     * @return list of roles as as a list of {@link String}</em>
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>      <strong class="jxr_keyword">public</strong> List&lt;String&gt; getRoles() {
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>          List&lt;String&gt; roles = <strong class="jxr_keyword">new</strong> ArrayList&lt;String&gt;();
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>  
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>          roles.add(<span class="jxr_string">"ROLE_USER"</span>);
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>  
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>          <strong class="jxr_keyword">return</strong> roles;
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>      }
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>  
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_javadoccomment">     * Wraps {@link String} roles to {@link SimpleGrantedAuthority} objects</em>
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>  <em class="jxr_javadoccomment">     * </em>
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>  <em class="jxr_javadoccomment">     * @param roles {@link String} of roles</em>
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>  <em class="jxr_javadoccomment">     * @return list of granted authorities</em>
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> List&lt;GrantedAuthority&gt; getGrantedAuthorities(List&lt;String&gt; roles) {
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>          List&lt;GrantedAuthority&gt; authorities = <strong class="jxr_keyword">new</strong> ArrayList&lt;GrantedAuthority&gt;();
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>          <strong class="jxr_keyword">for</strong> (String role : roles) {
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>              authorities.add(<strong class="jxr_keyword">new</strong> SimpleGrantedAuthority(role));
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>          }
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>          <strong class="jxr_keyword">return</strong> authorities;
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>      }
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2011&#x2013;2014. All rights reserved.</div>

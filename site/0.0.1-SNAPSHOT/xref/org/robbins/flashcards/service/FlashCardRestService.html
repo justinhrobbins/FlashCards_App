@@ -44,62 +44,58 @@
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  <strong class="jxr_keyword">import</strong> org.fusesource.restygwt.client.RestService;
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">import</strong> org.robbins.flashcards.model.FlashCardDto;
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>  
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>  @Path(<span class="jxr_string">"/api/v1/flashcards"</span>)
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">interface</strong> <a href="../../../../org/robbins/flashcards/service/FlashCardRestService.html">FlashCardRestService</a> <strong class="jxr_keyword">extends</strong> RestService {
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>  
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>      @GET
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>      @Path(<span class="jxr_string">"api/v1/flashcards"</span>)
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>      @Consumes(<span class="jxr_string">"application/json"</span>)
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>      @Produces(<span class="jxr_string">"application/json"</span>)
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> getFlashCards(	@HeaderParam(<span class="jxr_string">"Authorization"</span>) String authHeader, 
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>      							@QueryParam(<span class="jxr_string">"fields"</span>) String fields, 
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>      							MethodCallback&lt;List&lt;FlashCardDto&gt;&gt; callback);
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>  
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>      @GET
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>      @Path(<span class="jxr_string">"/api/v1/flashcards/{flashCardId}"</span>)
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>      @Consumes(<span class="jxr_string">"application/json"</span>)
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>      @Produces(<span class="jxr_string">"application/json"</span>)
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> getFlashCard(	@HeaderParam(<span class="jxr_string">"Authorization"</span>) String authHeader, 
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>      							@PathParam(<span class="jxr_string">"flashCardId"</span>) Long flashCardId, 
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>      							@QueryParam(<span class="jxr_string">"fields"</span>) String fields, 
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>      							MethodCallback&lt;FlashCardDto&gt; callback);
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>  
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>      @GET
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>      @Path(<span class="jxr_string">"/api/v1/flashcards/search"</span>)
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>      @Consumes(<span class="jxr_string">"application/json"</span>)
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>      @Produces(<span class="jxr_string">"application/json"</span>)
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>      @Options(expect={200,204,1223})
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> getFlashCardsSearch(@HeaderParam(<span class="jxr_string">"Authorization"</span>) String authHeader, 
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>      								@QueryParam(<span class="jxr_string">"tagIds"</span>) String tagIds, 
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>      								MethodCallback&lt;List&lt;FlashCardDto&gt;&gt; callback);
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>      
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>      @POST
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>      @Path(<span class="jxr_string">"/api/v1/flashcards"</span>)
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>      @Consumes(<span class="jxr_string">"application/json"</span>)
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>      @Produces(<span class="jxr_string">"application/json"</span>)
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> postFlashCards(	@HeaderParam(<span class="jxr_string">"Authorization"</span>) String authHeader, 
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>      							FlashCardDto flashCard, 
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>      							MethodCallback&lt;FlashCardDto&gt; callback);
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>  
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>      @PUT
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>      @Path(<span class="jxr_string">"/api/v1/flashcards/{flashCardId}"</span>)
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>      @Consumes(<span class="jxr_string">"application/json"</span>)
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>      @Produces(<span class="jxr_string">"application/json"</span>)
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>      @Options(expect={204,1223})
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> putFlashCard(	@HeaderParam(<span class="jxr_string">"Authorization"</span>) String authHeader,
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>      							@PathParam(<span class="jxr_string">"flashCardId"</span>) Long flashCardId,
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>      							FlashCardDto flashCard,
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>      							MethodCallback&lt;java.lang.Void&gt; callback);
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>      
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>      @DELETE
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>      @Path(<span class="jxr_string">"/api/v1/flashcards/{flashCardId}"</span>)
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>      @Consumes(<span class="jxr_string">"application/json"</span>)
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>      @Produces(<span class="jxr_string">"application/json"</span>)
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> deleteFlashCards(	@HeaderParam(<span class="jxr_string">"Authorization"</span>) String authHeader, 
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>      								@PathParam(<span class="jxr_string">"flashCardId"</span>) Long flashCardId, 
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>      								MethodCallback&lt;java.lang.Void&gt; callback);
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>  }
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  @Path(<span class="jxr_string">"/api/v1/flashcards"</span>)
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">interface</strong> <a href="../../../../org/robbins/flashcards/service/FlashCardRestService.html">FlashCardRestService</a> <strong class="jxr_keyword">extends</strong> RestService {
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>      @GET
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>      @Path(<span class="jxr_string">"api/v1/flashcards"</span>)
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>      @Consumes(<span class="jxr_string">"application/json"</span>)
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>      @Produces(<span class="jxr_string">"application/json"</span>)
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> getFlashCards(@HeaderParam(<span class="jxr_string">"Authorization"</span>) String authHeader,
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>              @QueryParam(<span class="jxr_string">"fields"</span>) String fields,
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>              MethodCallback&lt;List&lt;FlashCardDto&gt;&gt; callback);
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>  
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>      @GET
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>      @Path(<span class="jxr_string">"/api/v1/flashcards/{flashCardId}"</span>)
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>      @Consumes(<span class="jxr_string">"application/json"</span>)
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>      @Produces(<span class="jxr_string">"application/json"</span>)
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> getFlashCard(@HeaderParam(<span class="jxr_string">"Authorization"</span>) String authHeader,
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>              @PathParam(<span class="jxr_string">"flashCardId"</span>) Long flashCardId,
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>              @QueryParam(<span class="jxr_string">"fields"</span>) String fields, MethodCallback&lt;FlashCardDto&gt; callback);
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>  
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>      @GET
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>      @Path(<span class="jxr_string">"/api/v1/flashcards/search"</span>)
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>      @Consumes(<span class="jxr_string">"application/json"</span>)
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>      @Produces(<span class="jxr_string">"application/json"</span>)
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>      @Options(expect = { 200, 204, 1223 })
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> getFlashCardsSearch(@HeaderParam(<span class="jxr_string">"Authorization"</span>) String authHeader,
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>              @QueryParam(<span class="jxr_string">"tagIds"</span>) String tagIds,
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>              MethodCallback&lt;List&lt;FlashCardDto&gt;&gt; callback);
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>  
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>      @POST
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>      @Path(<span class="jxr_string">"/api/v1/flashcards"</span>)
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>      @Consumes(<span class="jxr_string">"application/json"</span>)
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>      @Produces(<span class="jxr_string">"application/json"</span>)
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> postFlashCards(@HeaderParam(<span class="jxr_string">"Authorization"</span>) String authHeader,
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>              <a href="../../../../org/robbins/flashcards/model/FlashCardDto.html">FlashCardDto</a> flashCard, MethodCallback&lt;FlashCardDto&gt; callback);
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>  
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>      @PUT
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>      @Path(<span class="jxr_string">"/api/v1/flashcards/{flashCardId}"</span>)
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>      @Consumes(<span class="jxr_string">"application/json"</span>)
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>      @Produces(<span class="jxr_string">"application/json"</span>)
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>      @Options(expect = { 204, 1223 })
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> putFlashCard(@HeaderParam(<span class="jxr_string">"Authorization"</span>) String authHeader,
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>              @PathParam(<span class="jxr_string">"flashCardId"</span>) Long flashCardId, <a href="../../../../org/robbins/flashcards/model/FlashCardDto.html">FlashCardDto</a> flashCard,
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>              MethodCallback&lt;java.lang.Void&gt; callback);
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>  
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>      @DELETE
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>      @Path(<span class="jxr_string">"/api/v1/flashcards/{flashCardId}"</span>)
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>      @Consumes(<span class="jxr_string">"application/json"</span>)
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>      @Produces(<span class="jxr_string">"application/json"</span>)
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> deleteFlashCards(@HeaderParam(<span class="jxr_string">"Authorization"</span>) String authHeader,
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>              @PathParam(<span class="jxr_string">"flashCardId"</span>) Long flashCardId,
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>              MethodCallback&lt;java.lang.Void&gt; callback);
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2011&#x2013;2014. All rights reserved.</div>
