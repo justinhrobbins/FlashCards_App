@@ -21,7 +21,7 @@ public class TagAction extends FlashCardsAppBaseAction implements ModelDriven<Ta
         Preparable, SessionAware {
 
     /**
-	 * 
+	 *
 	 */
     private static final long serialVersionUID = 2900181619806808497L;
 

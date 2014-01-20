@@ -60,7 +60,7 @@ public class TagDto extends AbstractAuditable<UserDto, Long> implements Serializ
 
     /**
      * toString
-     * 
+     *
      * @return String
      */
     @Override

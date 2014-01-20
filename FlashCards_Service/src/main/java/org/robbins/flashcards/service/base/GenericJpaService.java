@@ -11,7 +11,7 @@ public interface GenericJpaService<T, ID extends Serializable> extends
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.springframework.data.repository.CrudRepository#findAll()
      */
     @Override
@@ -19,7 +19,7 @@ public interface GenericJpaService<T, ID extends Serializable> extends
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.springframework.data.repository.PagingAndSortingRepository#findAll(org.
      * springframework.data.domain.Sort)
      */
@@ -28,7 +28,7 @@ public interface GenericJpaService<T, ID extends Serializable> extends
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.springframework.data.repository.CrudRepository#save(java.lang.Iterable)
      */
     @Override
@@ -41,7 +41,7 @@ public interface GenericJpaService<T, ID extends Serializable> extends
 
     /**
      * Saves an entity and flushes changes instantly.
-     * 
+     *
      * @param entity
      * @return the saved entity
      */
@@ -51,7 +51,7 @@ public interface GenericJpaService<T, ID extends Serializable> extends
      * Deletes the given entities in a batch which means it will create a single Query.
      * Assume that we will clear the {@link javax.persistence.EntityManager} after the
      * call.
-     * 
+     *
      * @param entities
      */
     void deleteInBatch(Iterable<T> entities);

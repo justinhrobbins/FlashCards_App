@@ -22,56 +22,56 @@ public abstract class GenericEntityRestTest<E extends Persistable<Long>> extends
 
     /**
      * Sets the entity.
-     * 
+     *
      * @param entity the new entity
      */
     public abstract void setEntity(E entity);
 
     /**
      * Gets the entity.
-     * 
+     *
      * @return the entity
      */
     public abstract E getEntity();
 
     /**
      * Gets the entity list url.
-     * 
+     *
      * @return the entity list url
      */
     public abstract String getEntityListUrl();
 
     /**
      * Gets the entity url.
-     * 
+     *
      * @return the entity url
      */
     public abstract String getEntityUrl();
 
     /**
      * Post entity url.
-     * 
+     *
      * @return the string
      */
     public abstract String postEntityUrl();
 
     /**
      * Put entity url.
-     * 
+     *
      * @return the string
      */
     public abstract String putEntityUrl();
 
     /**
      * Delete entity url.
-     * 
+     *
      * @return the string
      */
     public abstract String deleteEntityUrl();
 
     /**
      * Search url.
-     * 
+     *
      * @return the string
      */
     public abstract String searchUrl();
@@ -79,14 +79,14 @@ public abstract class GenericEntityRestTest<E extends Persistable<Long>> extends
     // private Class<E> clazz;
     /**
      * Gets the clazz.
-     * 
+     *
      * @return the clazz
      */
     public abstract Class<E> getClazz();
 
     /**
      * Gets the clazz array.
-     * 
+     *
      * @return the clazz array
      */
     public abstract Class<E[]> getClazzArray();

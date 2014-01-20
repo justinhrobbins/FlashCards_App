@@ -54,7 +54,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     /**
      * Retrieves a collection of {@link GrantedAuthority} based on a numerical role
-     * 
+     *
      * @param role the numerical role
      * @return a collection of {@link GrantedAuthority
      */
@@ -65,7 +65,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     /**
      * Converts a numerical role to an equivalent list of roles
-     * 
+     *
      * @param role the numerical role
      * @return list of roles as as a list of {@link String}
      */
@@ -79,7 +79,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     /**
      * Wraps {@link String} roles to {@link SimpleGrantedAuthority} objects
-     * 
+     *
      * @param roles {@link String} of roles
      * @return list of granted authorities
      */

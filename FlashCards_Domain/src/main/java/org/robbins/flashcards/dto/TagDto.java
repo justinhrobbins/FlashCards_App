@@ -54,7 +54,7 @@ public class TagDto extends AbstractAuditableDto implements Serializable {
 
     /**
      * toString
-     * 
+     *
      * @return String
      */
     @Override

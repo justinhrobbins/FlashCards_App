@@ -65,7 +65,7 @@ public class Tag extends AbstractAuditable<User, Long> implements Serializable {
 
     /**
      * toString
-     * 
+     *
      * @return String
      */
     @Override

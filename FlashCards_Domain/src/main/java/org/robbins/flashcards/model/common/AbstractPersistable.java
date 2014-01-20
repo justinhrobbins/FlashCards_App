@@ -22,7 +22,7 @@ public abstract class AbstractPersistable<PK extends Serializable> implements
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.springframework.data.domain.Persistable#getId()
      */
     @Override
@@ -33,7 +33,7 @@ public abstract class AbstractPersistable<PK extends Serializable> implements
 
     /**
      * Sets the id of the entity.
-     * 
+     *
      * @param id the id to set
      */
     public void setId(final PK id) {
@@ -43,7 +43,7 @@ public abstract class AbstractPersistable<PK extends Serializable> implements
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.springframework.data.domain.Persistable#isNew()
      */
     @Override
@@ -54,7 +54,7 @@ public abstract class AbstractPersistable<PK extends Serializable> implements
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -79,7 +79,7 @@ public abstract class AbstractPersistable<PK extends Serializable> implements
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override

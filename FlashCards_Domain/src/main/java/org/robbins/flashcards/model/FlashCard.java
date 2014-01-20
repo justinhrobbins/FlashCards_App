@@ -29,7 +29,7 @@ import org.robbins.flashcards.model.common.AbstractAuditable;
 public class FlashCard extends AbstractAuditable<User, Long> implements Serializable {
 
     /**
-	 * 
+	 *
 	 */
     private static final long serialVersionUID = -3461056579037652853L;
 

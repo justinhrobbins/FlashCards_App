@@ -18,7 +18,7 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 
     /**
      * Gets an array entities
-     * 
+     *
      * @param url the url
      * @param clazz the clazz
      * @return the array of entities
@@ -41,7 +41,7 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 
     /**
      * Gets a count of entities
-     * 
+     *
      * @param url the url
      * @return the count of entities
      */
@@ -65,7 +65,7 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 
     /**
      * Gets the entity.
-     * 
+     *
      * @param url the url
      * @param id the id
      * @param clazz the clazz
@@ -92,7 +92,7 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 
     /**
      * Search for a single entity
-     * 
+     *
      * @param url the url
      * @param uriVariables the uri variables
      * @param clazz the clazz
@@ -116,7 +116,7 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 
     /**
      * Search entities.
-     * 
+     *
      * @param url the url
      * @param uriVariables the uri variables
      * @param clazz the clazz
@@ -140,7 +140,7 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 
     /**
      * Search count.
-     * 
+     *
      * @param url the url
      * @param uriVariables the uri variables
      * @param clazz the clazz
@@ -164,7 +164,7 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 
     /**
      * Post entity.
-     * 
+     *
      * @param url the url
      * @param entity the entity
      * @param clazz the clazz
@@ -181,7 +181,7 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 
     /**
      * Post entity.
-     * 
+     *
      * @param url the url
      * @param entity the entity
      * @param uriVariables the uri variables
@@ -200,7 +200,7 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 
     /**
      * Put entity.
-     * 
+     *
      * @param url the url
      * @param id the id
      * @param entity the entity
@@ -226,7 +226,7 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 
     /**
      * Update the entity.
-     * 
+     *
      * @param url the url
      * @param uriVariables the uri variables
      * @param entity the entity
@@ -250,7 +250,7 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 
     /**
      * Put entity.
-     * 
+     *
      * @param url the url
      * @param uriVariables the uri variables
      * @param entity the entity
@@ -273,7 +273,7 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 
     /**
      * Delete entity.
-     * 
+     *
      * @param url the url
      * @param id the id
      * @return the http status

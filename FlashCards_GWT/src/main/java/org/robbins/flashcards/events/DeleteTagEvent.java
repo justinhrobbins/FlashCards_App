@@ -15,7 +15,7 @@ public class DeleteTagEvent extends Event<DeleteTagEventHandler> {
 
     /**
      * Register a handler for DeleteTagEvent events on the eventbus.
-     * 
+     *
      * @param eventBus the {@link EventBus}
      * @param handler an {@link DeleteTagEvent.Handler} instance
      * @return an {@link HandlerRegistration} instance
