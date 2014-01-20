@@ -17,7 +17,7 @@ public class SaveTagEvent extends Event<SaveTagEventHandler> {
 
     /**
      * Register a handler for SaveTagEvent events on the eventbus.
-     * 
+     *
      * @param eventBus the {@link EventBus}
      * @param handler an {@link SaveTagEvent.Handler} instance
      * @return an {@link HandlerRegistration} instance

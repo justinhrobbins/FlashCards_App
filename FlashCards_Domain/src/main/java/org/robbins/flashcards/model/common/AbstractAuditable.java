@@ -21,7 +21,7 @@ public abstract class AbstractAuditable<U, PK extends Serializable> extends
         AbstractPersistable<PK> implements Auditable<U, PK> {
 
     /**
-	 * 
+	 *
 	 */
     private static final long serialVersionUID = -4336679752608507624L;
 
@@ -43,7 +43,7 @@ public abstract class AbstractAuditable<U, PK extends Serializable> extends
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.springframework.data.domain.Auditable#getCreatedBy()
      */
     @Override
@@ -54,7 +54,7 @@ public abstract class AbstractAuditable<U, PK extends Serializable> extends
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.springframework.data.domain.Auditable#setCreatedBy(java.lang.Object)
      */
     @Override
@@ -65,7 +65,7 @@ public abstract class AbstractAuditable<U, PK extends Serializable> extends
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.springframework.data.domain.Auditable#getCreatedDate()
      */
     @Override
@@ -86,7 +86,7 @@ public abstract class AbstractAuditable<U, PK extends Serializable> extends
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.springframework.data.domain.Auditable#setCreatedDate(org.joda.time
      * .DateTime)
      */
@@ -98,7 +98,7 @@ public abstract class AbstractAuditable<U, PK extends Serializable> extends
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.springframework.data.domain.Auditable#getLastModifiedBy()
      */
     @Override
@@ -109,7 +109,7 @@ public abstract class AbstractAuditable<U, PK extends Serializable> extends
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.springframework.data.domain.Auditable#setLastModifiedBy(java.lang .Object)
      */
     @Override
@@ -120,7 +120,7 @@ public abstract class AbstractAuditable<U, PK extends Serializable> extends
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.springframework.data.domain.Auditable#getLastModifiedDate()
      */
     @Override
@@ -131,7 +131,7 @@ public abstract class AbstractAuditable<U, PK extends Serializable> extends
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.springframework.data.domain.Auditable#setLastModifiedDate(org.joda
      * .time.DateTime)
      */

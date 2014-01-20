@@ -24,7 +24,7 @@ public class AbstractSecurityFilter {
 
     /**
      * Gets the logged in user.
-     * 
+     *
      * @return the logged in user
      */
     public User getLoggedInUser() {

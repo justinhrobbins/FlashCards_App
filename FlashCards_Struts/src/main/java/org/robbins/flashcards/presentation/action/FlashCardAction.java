@@ -27,7 +27,7 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
         ModelDriven<FlashCard>, Preparable, SessionAware {
 
     /**
-	 * 
+	 *
 	 */
     private static final long serialVersionUID = -6246981237373738037L;
 

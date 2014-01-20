@@ -5,9 +5,6 @@ import java.util.Date;
 
 public abstract class AbstractAuditableDto extends AbstractPersistableDto {
 
-    /**
-	 * 
-	 */
     private static final long serialVersionUID = -6807342050233167498L;
 
     private UserDto createdBy;

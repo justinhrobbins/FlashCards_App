@@ -15,7 +15,7 @@ public class LoadTagEvent extends Event<LoadTagEventHandler> {
 
     /**
      * Register a handler for LoadTagEvent events on the eventbus.
-     * 
+     *
      * @param eventBus the {@link EventBus}
      * @param handler an {@link LoadTagEvent.Handler} instance
      * @return an {@link HandlerRegistration} instance

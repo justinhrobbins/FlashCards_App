@@ -15,7 +15,7 @@ public class DeleteFlashCardEvent extends Event<DeleteFlashCardEventHandler> {
 
     /**
      * Register a handler for DeleteFlashCardEvent events on the eventbus.
-     * 
+     *
      * @param eventBus the {@link EventBus}
      * @param handler an {@link DeleteFlashCardEvent.Handler} instance
      * @return an {@link HandlerRegistration} instance

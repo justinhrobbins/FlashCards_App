@@ -27,7 +27,7 @@ public class FlashCardListCell extends AbstractCell<List<FlashCardDto>> {
 
         /**
          * The template for this Cell, which includes styles and a value.
-         * 
+         *
          * @param styles the styles to include in the style attribute of the div
          * @param value the safe value. Since the value type is {@link SafeHtml}, it will
          *        not be escaped before including it in the template. Alternatively, you

@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class FlashCardDto extends AbstractAuditableDto implements Serializable {
 
     /**
-	 * 
+	 *
 	 */
     private static final long serialVersionUID = -3461056579037652853L;
 

@@ -19,9 +19,9 @@ import com.sun.jersey.spi.container.ContainerRequestFilter;
 /**
  * Overrides the 'accept' HTTP header with value parsed from the querystring 'accept'
  * parameter. The 'accept' parameter must match
- * 
+ *
  * @author Justin Robbins
- * 
+ *
  */
 @Component("jerseyAcceptFilter")
 public class AcceptFilter implements ContainerRequestFilter {
