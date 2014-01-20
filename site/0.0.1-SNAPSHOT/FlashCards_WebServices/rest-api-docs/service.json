@@ -6,10 +6,10 @@
     "path" : "/v1/tags",
     "description" : ""
   }, {
-    "path" : "/v1/flashcards",
+    "path" : "/v1/users",
     "description" : ""
   }, {
-    "path" : "/v1/users",
+    "path" : "/v1/flashcards",
     "description" : ""
   } ]
 }
