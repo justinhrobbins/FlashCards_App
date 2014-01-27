@@ -19,7 +19,7 @@
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  @Aspect
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../org/robbins/flashcards/aop/ExecutionTimeLogger.html">ExecutionTimeLogger</a> {
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>      <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Logger logger = LoggerFactory.getLogger(ExecutionTimeLogger.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Logger LOGGER = LoggerFactory.getLogger(ExecutionTimeLogger.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>      @Around(<span class="jxr_string">"execution(* org.robbins.flashcards..*.*(..))"</span>)
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>      <strong class="jxr_keyword">public</strong> Object logTimeMethod(ProceedingJoinPoint joinPoint) <strong class="jxr_keyword">throws</strong> Throwable {
@@ -52,7 +52,7 @@
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>          logMessage.append(<span class="jxr_string">" execution time: "</span>);
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>          logMessage.append(stopWatch.getTotalTimeMillis());
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>          logMessage.append(<span class="jxr_string">" ms"</span>);
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>          logger.debug(logMessage.toString());
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>          LOGGER.debug(logMessage.toString());
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>          <strong class="jxr_keyword">return</strong> retVal;
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>      }
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>  }

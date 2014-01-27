@@ -27,7 +27,7 @@
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  @Component
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../org/robbins/flashcards/service/util/FieldInitializerUtil.html">FieldInitializerUtil</a> {
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>  
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>      <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Logger logger = LoggerFactory.getLogger(FieldInitializerUtil.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Logger LOGGER = LoggerFactory.getLogger(FieldInitializerUtil.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>      @Inject
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>      <strong class="jxr_keyword">private</strong> EntityManagerFactory entityManagerFactory;
@@ -84,7 +84,7 @@
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>                  <em class="jxr_comment">// need to make sure it is loaded</em>
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>                  initializeField(entity, field);
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>              } <strong class="jxr_keyword">catch</strong> (Exception e) {
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>                  logger.error(e.getMessage(), e);
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>                  LOGGER.error(e.getMessage(), e);
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>                  <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../org/robbins/flashcards/exceptions/ServiceException.html">ServiceException</a>(e.getMessage(), e);
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>              }
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>          }

@@ -22,9 +22,9 @@
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> org.slf4j.Logger;
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> org.slf4j.LoggerFactory;
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../org/robbins/flashcards/service/util/DtoUtil.html">DtoUtil</a> {
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../org/robbins/flashcards/service/util/DtoUtil.html">DtoUtil</a> {
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>      <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Logger logger = LoggerFactory.getLogger(DtoUtil.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Logger LOGGER = LoggerFactory.getLogger(DtoUtil.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>  
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../../org/robbins/flashcards/service/util/DtoUtil.html">DtoUtil</a>() {
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>      };
@@ -57,7 +57,7 @@
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>                  }
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>              }
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>          } <strong class="jxr_keyword">catch</strong> (Exception e) {
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>              logger.error(e.getMessage(), e);
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>              LOGGER.error(e.getMessage(), e);
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../org/robbins/flashcards/exceptions/ServiceException.html">ServiceException</a>(e.getMessage(), e);
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>          }
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>      }
