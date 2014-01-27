@@ -26,7 +26,7 @@
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">abstract</strong> <strong class="jxr_keyword">class</strong> GenericEntityRestTest&lt;E <strong class="jxr_keyword">extends</strong> Persistable&lt;Long&gt;&gt; <strong class="jxr_keyword">extends</strong>
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>          AbstractRestTestClient&lt;E&gt; {
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>  
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>      <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Logger logger = LoggerFactory.getLogger(GenericEntityRestTest.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Logger LOGGER = LoggerFactory.getLogger(GenericEntityRestTest.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment">     * Sets the entity.</em>
@@ -185,7 +185,7 @@
 <a class="jxr_linenumber" name="L177" href="#L177">177</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L178" href="#L178">178</a>     @Before
 <a class="jxr_linenumber" name="L179" href="#L179">179</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> before() {
-<a class="jxr_linenumber" name="L180" href="#L180">180</a>         logger.info(<span class="jxr_string">"******************** BEFORE TEST ********************"</span>);
+<a class="jxr_linenumber" name="L180" href="#L180">180</a>         LOGGER.info(<span class="jxr_string">"******************** BEFORE TEST ********************"</span>);
 <a class="jxr_linenumber" name="L181" href="#L181">181</a> 
 <a class="jxr_linenumber" name="L182" href="#L182">182</a>         postEntity();
 <a class="jxr_linenumber" name="L183" href="#L183">183</a>     }
@@ -195,7 +195,7 @@
 <a class="jxr_linenumber" name="L187" href="#L187">187</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L188" href="#L188">188</a>     @After
 <a class="jxr_linenumber" name="L189" href="#L189">189</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> after() {
-<a class="jxr_linenumber" name="L190" href="#L190">190</a>         logger.info(<span class="jxr_string">"******************** AFTER TEST ********************"</span>);
+<a class="jxr_linenumber" name="L190" href="#L190">190</a>         LOGGER.info(<span class="jxr_string">"******************** AFTER TEST ********************"</span>);
 <a class="jxr_linenumber" name="L191" href="#L191">191</a> 
 <a class="jxr_linenumber" name="L192" href="#L192">192</a>         <strong class="jxr_keyword">if</strong> (getEntity() != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L193" href="#L193">193</a>             <em class="jxr_comment">// go ahead and delete the Entity</em>
