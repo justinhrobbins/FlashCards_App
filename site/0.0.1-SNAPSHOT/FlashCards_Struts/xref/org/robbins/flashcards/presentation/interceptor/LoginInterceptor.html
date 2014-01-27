@@ -31,12 +31,12 @@
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong> serialVersionUID = -759435156742745257L;
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>  
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>      <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Logger logger = LoggerFactory.getLogger(LoginInterceptor.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Logger LOGGER = LoggerFactory.getLogger(LoginInterceptor.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>      @Override
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>      <strong class="jxr_keyword">public</strong> String intercept(<strong class="jxr_keyword">final</strong> ActionInvocation invocation) <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>          String invocatedAction = invocation.getAction().getClass().getName();
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>          logger.debug(<span class="jxr_string">"Invocated Action: "</span> + invocatedAction);
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>          LOGGER.debug(<span class="jxr_string">"Invocated Action: "</span> + invocatedAction);
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>          <em class="jxr_comment">// get references to the App Context, Session, and Request objects</em>
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>          <strong class="jxr_keyword">final</strong> ActionContext context = invocation.getInvocationContext();
@@ -48,7 +48,7 @@
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>          <strong class="jxr_keyword">if</strong> ((user.getId() == <strong class="jxr_keyword">null</strong>) || (user.getId() == 0)) {
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>              <em class="jxr_comment">// The user has not logged in yet.</em>
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>              logger.debug(<span class="jxr_string">"User NOT found in the Session"</span>);
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>              LOGGER.debug(<span class="jxr_string">"User NOT found in the Session"</span>);
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>              <em class="jxr_comment">// Is the user attempting to log in right now?</em>
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>              String loginIdentifier = request.getParameter(<span class="jxr_string">"openid_identifier"</span>);
@@ -58,7 +58,7 @@
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>              <em class="jxr_comment">// "openid_identifier" is a Request parm</em>
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>              <strong class="jxr_keyword">if</strong> (!StringUtils.isBlank(loginIdentifier)) {
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>                  <em class="jxr_comment">// The user is attempting to log in.</em>
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>                  logger.debug(<span class="jxr_string">"The user is attempting to log in"</span>);
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>                  LOGGER.debug(<span class="jxr_string">"The user is attempting to log in"</span>);
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>                  <em class="jxr_comment">// Process the user's login attempt.</em>
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>                  <strong class="jxr_keyword">return</strong> invocation.invoke();
@@ -67,7 +67,7 @@
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>              <em class="jxr_comment">// "openid.op_endpoint" is a Request parm</em>
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>              <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (!StringUtils.isBlank(openIdEndpoint)) {
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>                  <em class="jxr_comment">// The user has logged in with an OpenId provider</em>
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>                  logger.debug(<span class="jxr_string">"The user has logged in with an OpenId provider"</span>);
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>                  LOGGER.debug(<span class="jxr_string">"The user has logged in with an OpenId provider"</span>);
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>  
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>                  <em class="jxr_comment">// Process the user's login attempt.</em>
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>                  <strong class="jxr_keyword">return</strong> invocation.invoke();
@@ -75,14 +75,14 @@
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>                  <em class="jxr_comment">// save the original URL, we'll need it later</em>
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>                  saveReceivingURL(request, session);
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>  
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>                  logger.debug(<span class="jxr_string">"Forwarding to the Login form"</span>);
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>                  LOGGER.debug(<span class="jxr_string">"Forwarding to the Login form"</span>);
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>              }
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>  
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>              <em class="jxr_comment">// it we get this far then the user hasn't tried to login yet,</em>
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>              <em class="jxr_comment">// and we need to send to the login form.</em>
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>              <strong class="jxr_keyword">return</strong> <span class="jxr_string">"login"</span>;
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>          } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>              logger.debug(<span class="jxr_string">"User "</span> + user.toString() + <span class="jxr_string">" found in the Session"</span>);
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>              LOGGER.debug(<span class="jxr_string">"User "</span> + user.toString() + <span class="jxr_string">" found in the Session"</span>);
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>  
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>              <em class="jxr_comment">// user is already logged in</em>
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>              <strong class="jxr_keyword">return</strong> invocation.invoke();
@@ -99,7 +99,7 @@
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>              receivingURL.append(<span class="jxr_string">"?"</span>).append(request.getQueryString());
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>          }
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>  
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>          logger.debug(<span class="jxr_string">"Original URL: "</span> + receivingURL.toString());
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>          LOGGER.debug(<span class="jxr_string">"Original URL: "</span> + receivingURL.toString());
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>  
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>          <em class="jxr_comment">// save the original URL in the Session</em>
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>          <em class="jxr_comment">// we're going to need to redirect the user back to this URL after login is</em>

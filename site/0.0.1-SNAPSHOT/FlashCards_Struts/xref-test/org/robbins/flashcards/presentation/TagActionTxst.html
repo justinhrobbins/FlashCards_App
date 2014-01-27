@@ -18,7 +18,7 @@
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../org/robbins/flashcards/presentation/TagActionTxst.html">TagActionTxst</a> <strong class="jxr_keyword">extends</strong> StrutsTestCase {
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>      <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Logger logger = LoggerFactory.getLogger(TagActionTxst.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Logger LOGGER = LoggerFactory.getLogger(TagActionTxst.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testCreateTagFail() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>          <strong class="jxr_keyword">try</strong> {
@@ -37,8 +37,8 @@
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>                      <span class="jxr_string">"Problem field 'name' not present in fieldErrors but it should have been"</span>,
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>                      tagAction.getFieldErrors().containsKey(<span class="jxr_string">"name"</span>));
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>          } <strong class="jxr_keyword">catch</strong> (Exception e) {
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>              logger.debug(<span class="jxr_string">"Error running testCreateTagFail()"</span>);
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>              logger.error(e.getMessage(), e);
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>              LOGGER.debug(<span class="jxr_string">"Error running testCreateTagFail()"</span>);
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>              LOGGER.error(e.getMessage(), e);
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>              assertTrue(<span class="jxr_string">"Error running testCreateTagFail()"</span>, false);
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>          }
@@ -82,8 +82,8 @@
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>              result = proxy.execute();
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>  
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>          } <strong class="jxr_keyword">catch</strong> (Exception e) {
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>              logger.debug(<span class="jxr_string">"Error running testDisplayTag()"</span>);
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>              logger.error(e.getMessage(), e);
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>              LOGGER.debug(<span class="jxr_string">"Error running testDisplayTag()"</span>);
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>              LOGGER.error(e.getMessage(), e);
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>          }
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>  
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>          assertEquals(
