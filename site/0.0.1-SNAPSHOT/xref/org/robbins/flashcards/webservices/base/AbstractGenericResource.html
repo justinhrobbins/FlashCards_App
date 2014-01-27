@@ -38,7 +38,7 @@
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">abstract</strong> <strong class="jxr_keyword">class</strong> AbstractGenericResource&lt;T, Serializable&gt; <strong class="jxr_keyword">extends</strong> <a href="../../../../../org/robbins/flashcards/webservices/base/AbstractResource.html">AbstractResource</a>
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>          <strong class="jxr_keyword">implements</strong> GenericResource&lt;T, Serializable&gt; {
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>      <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Logger logger = LoggerFactory.getLogger(AbstractGenericResource.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Logger LOGGER = LoggerFactory.getLogger(AbstractGenericResource.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>      <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">abstract</strong> GenericCrudFacade&lt;T&gt; getFacade();
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  
@@ -57,7 +57,7 @@
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>              entities = getFacade().list(page, size, sort, direction,
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>                      <strong class="jxr_keyword">this</strong>.getFieldsAsSet(fields));
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>          } <strong class="jxr_keyword">catch</strong> (InvalidDataAccessApiUsageException e) {
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>              logger.error(e.getMessage(), e);
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>              LOGGER.error(e.getMessage(), e);
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../org/robbins/flashcards/webservices/exceptions/GenericWebServiceException.html">GenericWebServiceException</a>(Response.Status.BAD_REQUEST,
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>                      <span class="jxr_string">"Inavlid sort parameter: '"</span> + sort + <span class="jxr_string">"'"</span>, e);
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>          } <strong class="jxr_keyword">catch</strong> (ServiceException e) {
@@ -169,7 +169,7 @@
 <a class="jxr_linenumber" name="L161" href="#L161">161</a>         <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L162" href="#L162">162</a>             beanInfo = Introspector.getBeanInfo(source.getClass());
 <a class="jxr_linenumber" name="L163" href="#L163">163</a>         } <strong class="jxr_keyword">catch</strong> (IntrospectionException e) {
-<a class="jxr_linenumber" name="L164" href="#L164">164</a>             logger.error(e.getMessage(), e);
+<a class="jxr_linenumber" name="L164" href="#L164">164</a>             LOGGER.error(e.getMessage(), e);
 <a class="jxr_linenumber" name="L165" href="#L165">165</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../org/robbins/flashcards/webservices/exceptions/GenericWebServiceException.html">GenericWebServiceException</a>(Response.Status.INTERNAL_SERVER_ERROR,
 <a class="jxr_linenumber" name="L166" href="#L166">166</a>                     e.getMessage(), e);
 <a class="jxr_linenumber" name="L167" href="#L167">167</a>         }
@@ -183,7 +183,7 @@
 <a class="jxr_linenumber" name="L175" href="#L175">175</a>                 <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L176" href="#L176">176</a>                     newValue = descriptor.getReadMethod().invoke(source);
 <a class="jxr_linenumber" name="L177" href="#L177">177</a>                 } <strong class="jxr_keyword">catch</strong> (Exception e) {
-<a class="jxr_linenumber" name="L178" href="#L178">178</a>                     logger.error(e.getMessage(), e);
+<a class="jxr_linenumber" name="L178" href="#L178">178</a>                     LOGGER.error(e.getMessage(), e);
 <a class="jxr_linenumber" name="L179" href="#L179">179</a>                     <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../org/robbins/flashcards/webservices/exceptions/GenericWebServiceException.html">GenericWebServiceException</a>(
 <a class="jxr_linenumber" name="L180" href="#L180">180</a>                             Response.Status.INTERNAL_SERVER_ERROR, e.getMessage(), e);
 <a class="jxr_linenumber" name="L181" href="#L181">181</a>                 }
@@ -193,12 +193,12 @@
 <a class="jxr_linenumber" name="L185" href="#L185">185</a>                 <em class="jxr_comment">// which are part of the AbstractPersistentObject</em>
 <a class="jxr_linenumber" name="L186" href="#L186">186</a>                 <strong class="jxr_keyword">if</strong> ((newValue != <strong class="jxr_keyword">null</strong>) &amp;&amp; (!descriptor.getName().equals(<span class="jxr_string">"identity"</span>))
 <a class="jxr_linenumber" name="L187" href="#L187">187</a>                         &amp;&amp; (!descriptor.getName().equals(<span class="jxr_string">"version"</span>))) {
-<a class="jxr_linenumber" name="L188" href="#L188">188</a>                     logger.debug(<span class="jxr_string">"Updating field '"</span> + descriptor.getName() + <span class="jxr_string">"' to: '"</span>
+<a class="jxr_linenumber" name="L188" href="#L188">188</a>                     LOGGER.debug(<span class="jxr_string">"Updating field '"</span> + descriptor.getName() + <span class="jxr_string">"' to: '"</span>
 <a class="jxr_linenumber" name="L189" href="#L189">189</a>                             + newValue + <span class="jxr_string">"'"</span>);
 <a class="jxr_linenumber" name="L190" href="#L190">190</a>                     <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L191" href="#L191">191</a>                         descriptor.getWriteMethod().invoke(target, newValue);
 <a class="jxr_linenumber" name="L192" href="#L192">192</a>                     } <strong class="jxr_keyword">catch</strong> (Exception e) {
-<a class="jxr_linenumber" name="L193" href="#L193">193</a>                         logger.error(e.getMessage(), e);
+<a class="jxr_linenumber" name="L193" href="#L193">193</a>                         LOGGER.error(e.getMessage(), e);
 <a class="jxr_linenumber" name="L194" href="#L194">194</a>                         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../../org/robbins/flashcards/webservices/exceptions/GenericWebServiceException.html">GenericWebServiceException</a>(
 <a class="jxr_linenumber" name="L195" href="#L195">195</a>                                 Response.Status.INTERNAL_SERVER_ERROR, e.getMessage(), e);
 <a class="jxr_linenumber" name="L196" href="#L196">196</a>                     }

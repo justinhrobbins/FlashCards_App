@@ -37,7 +37,7 @@
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../org/robbins/openid/authentication/OpenId4JavaAuthenticator.html">OpenId4JavaAuthenticator</a> {
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Logger logger = LoggerFactory.getLogger(OpenId4JavaAuthenticator.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Logger LOGGER = LoggerFactory.getLogger(OpenId4JavaAuthenticator.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> MAX_AGE = 5000;
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  
@@ -57,7 +57,7 @@
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>                  manager.setAssociations(<strong class="jxr_keyword">new</strong> InMemoryConsumerAssociationStore());
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>                  manager.setNonceVerifier(<strong class="jxr_keyword">new</strong> InMemoryNonceVerifier(MAX_AGE));
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>              } <strong class="jxr_keyword">catch</strong> (Exception e) {
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>                  logger.error(e.getMessage(), e);
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>                  LOGGER.error(e.getMessage(), e);
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>              }
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>              <em class="jxr_comment">// add the Consumer Manager to the application scope</em>
@@ -94,14 +94,14 @@
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>  
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>          <em class="jxr_comment">// different Open Id providers accept different attributes</em>
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>          <strong class="jxr_keyword">if</strong> (openIdIdentifier.contains(<span class="jxr_string">"google.com"</span>)) {
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>              logger.debug(<span class="jxr_string">"Open Id Identifier is: google.com"</span>);
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>              LOGGER.debug(<span class="jxr_string">"Open Id Identifier is: google.com"</span>);
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>  
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>              fetch.addAttribute(<span class="jxr_string">"first"</span>, <span class="jxr_string">"http://axschema.org/namePerson/first"</span>, <strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>              fetch.addAttribute(<span class="jxr_string">"last"</span>, <span class="jxr_string">"http://axschema.org/namePerson/last"</span>, <strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>              fetch.addAttribute(<span class="jxr_string">"email"</span>, <span class="jxr_string">"http://axschema.org/contact/email"</span>, <strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>              fetch.addAttribute(<span class="jxr_string">"language"</span>, <span class="jxr_string">"http://axschema.org/pref/language"</span>, <strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>          } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (openIdIdentifier.contains(<span class="jxr_string">"yahoo.com"</span>)) {
-<a class="jxr_linenumber" name="L96" href="#L96">96</a>              logger.debug(<span class="jxr_string">"Open Id Identifier is: yahoo.com"</span>);
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>              LOGGER.debug(<span class="jxr_string">"Open Id Identifier is: yahoo.com"</span>);
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>  
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>              fetch.addAttribute(<span class="jxr_string">"fullname"</span>, <span class="jxr_string">"http://axschema.org/namePerson"</span>, <strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>              fetch.addAttribute(<span class="jxr_string">"nickname"</span>, <span class="jxr_string">"http://axschema.org/namePerson/friendly"</span>,
@@ -109,14 +109,14 @@
 <a class="jxr_linenumber" name="L101" href="#L101">101</a>             fetch.addAttribute(<span class="jxr_string">"email"</span>, <span class="jxr_string">"http://axschema.org/contact/email"</span>, <strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>             fetch.addAttribute(<span class="jxr_string">"language"</span>, <span class="jxr_string">"http://axschema.org/pref/language"</span>, <strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (openIdIdentifier.contains(<span class="jxr_string">"aol.com"</span>)) {
-<a class="jxr_linenumber" name="L104" href="#L104">104</a>             logger.debug(<span class="jxr_string">"Open Id Identifier is: aol.com"</span>);
+<a class="jxr_linenumber" name="L104" href="#L104">104</a>             LOGGER.debug(<span class="jxr_string">"Open Id Identifier is: aol.com"</span>);
 <a class="jxr_linenumber" name="L105" href="#L105">105</a> 
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>             fetch.addAttribute(<span class="jxr_string">"first"</span>, <span class="jxr_string">"http://axschema.org/namePerson/first"</span>, <strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>             fetch.addAttribute(<span class="jxr_string">"last"</span>, <span class="jxr_string">"http://axschema.org/namePerson/last"</span>, <strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>             fetch.addAttribute(<span class="jxr_string">"email"</span>, <span class="jxr_string">"http://axschema.org/contact/email"</span>, <strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>             fetch.addAttribute(<span class="jxr_string">"language"</span>, <span class="jxr_string">"http://axschema.org/pref/language"</span>, <strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L110" href="#L110">110</a>         } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>             logger.debug(<span class="jxr_string">"Open Id Identifier is: something else"</span>);
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>             LOGGER.debug(<span class="jxr_string">"Open Id Identifier is: something else"</span>);
 <a class="jxr_linenumber" name="L112" href="#L112">112</a> 
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>             fetch.addAttribute(<span class="jxr_string">"fullname"</span>, <span class="jxr_string">"http://schema.openid.net/namePerson"</span>, <strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>             fetch.addAttribute(<span class="jxr_string">"email"</span>, <span class="jxr_string">"http://schema.openid.net/contact/email"</span>, <strong class="jxr_keyword">true</strong>);
@@ -127,7 +127,7 @@
 <a class="jxr_linenumber" name="L119" href="#L119">119</a>         <em class="jxr_comment">// attach the extension to the authentication request</em>
 <a class="jxr_linenumber" name="L120" href="#L120">120</a>         authReq.addExtension(fetch);
 <a class="jxr_linenumber" name="L121" href="#L121">121</a> 
-<a class="jxr_linenumber" name="L122" href="#L122">122</a>         logger.info(<span class="jxr_string">"The request string is: "</span>
+<a class="jxr_linenumber" name="L122" href="#L122">122</a>         LOGGER.info(<span class="jxr_string">"The request string is: "</span>
 <a class="jxr_linenumber" name="L123" href="#L123">123</a>                 + authReq.getDestinationUrl(<strong class="jxr_keyword">true</strong>).replaceAll(<span class="jxr_string">"&amp;"</span>, <span class="jxr_string">"\n"</span>));
 <a class="jxr_linenumber" name="L124" href="#L124">124</a> 
 <a class="jxr_linenumber" name="L125" href="#L125">125</a>         <strong class="jxr_keyword">return</strong> authReq.getDestinationUrl(<strong class="jxr_keyword">true</strong>);
@@ -164,7 +164,7 @@
 <a class="jxr_linenumber" name="L156" href="#L156">156</a>         user.setOpenid(authSuccess.getIdentity());
 <a class="jxr_linenumber" name="L157" href="#L157">157</a> 
 <a class="jxr_linenumber" name="L158" href="#L158">158</a>         <strong class="jxr_keyword">if</strong> (authSuccess.hasExtension(AxMessage.OPENID_NS_AX)) {
-<a class="jxr_linenumber" name="L159" href="#L159">159</a>             logger.info(<span class="jxr_string">"Processed as OPENID_NS_AX"</span>);
+<a class="jxr_linenumber" name="L159" href="#L159">159</a>             LOGGER.info(<span class="jxr_string">"Processed as OPENID_NS_AX"</span>);
 <a class="jxr_linenumber" name="L160" href="#L160">160</a> 
 <a class="jxr_linenumber" name="L161" href="#L161">161</a>             FetchResponse fetchResp = (FetchResponse) authSuccess.getExtension(AxMessage.OPENID_NS_AX);
 <a class="jxr_linenumber" name="L162" href="#L162">162</a> 
@@ -177,11 +177,11 @@
 <a class="jxr_linenumber" name="L169" href="#L169">169</a>             user.setLanguage(fetchResp.getAttributeValue(<span class="jxr_string">"language"</span>));
 <a class="jxr_linenumber" name="L170" href="#L170">170</a>             user.setCountry(fetchResp.getAttributeValue(<span class="jxr_string">"country"</span>));
 <a class="jxr_linenumber" name="L171" href="#L171">171</a> 
-<a class="jxr_linenumber" name="L172" href="#L172">172</a>             logger.info(<span class="jxr_string">"User: "</span> + user.toString());
+<a class="jxr_linenumber" name="L172" href="#L172">172</a>             LOGGER.info(<span class="jxr_string">"User: "</span> + user.toString());
 <a class="jxr_linenumber" name="L173" href="#L173">173</a>         }
 <a class="jxr_linenumber" name="L174" href="#L174">174</a> 
 <a class="jxr_linenumber" name="L175" href="#L175">175</a>         <strong class="jxr_keyword">if</strong> (authSuccess.hasExtension(SRegMessage.OPENID_NS_SREG)) {
-<a class="jxr_linenumber" name="L176" href="#L176">176</a>             logger.info(<span class="jxr_string">"Processed as OPENID_NS_SREG"</span>);
+<a class="jxr_linenumber" name="L176" href="#L176">176</a>             LOGGER.info(<span class="jxr_string">"Processed as OPENID_NS_SREG"</span>);
 <a class="jxr_linenumber" name="L177" href="#L177">177</a> 
 <a class="jxr_linenumber" name="L178" href="#L178">178</a>             SRegResponse sregResp = (SRegResponse) authSuccess.getExtension(SRegMessage.OPENID_NS_SREG);
 <a class="jxr_linenumber" name="L179" href="#L179">179</a> 
