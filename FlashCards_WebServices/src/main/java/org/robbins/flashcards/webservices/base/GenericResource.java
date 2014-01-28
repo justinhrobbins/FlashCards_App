@@ -23,4 +23,6 @@ public interface GenericResource<T, Serializable> {
     Response delete(Long id);
 
     Response update(Long id, T updatedEntity);
+
+    String status();
 }

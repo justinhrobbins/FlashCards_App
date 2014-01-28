@@ -5,9 +5,23 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+import javax.inject.Inject;
+
 import org.apache.cxf.common.util.StringUtils;
+import org.springframework.context.ApplicationContext;
 
 public abstract class AbstractResource {
+
+    @Inject
+    private ApplicationContext context;
+
+    public ApplicationContext getContext() {
+        return context;
+    }
+
+    public void setContext(ApplicationContext context) {
+        this.context = context;
+    }
 
     // Convert the vectorized 'fields' parameter to a Set<String>
     protected Set<String> getFieldsAsSet(String fields) {
