@@ -7,9 +7,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public abstract class AbstractPersistableDto implements Persistable<Long> {
 
-    /**
-	 *
-	 */
     private static final long serialVersionUID = -7383983165721894674L;
 
     private Long id;

@@ -31,19 +31,19 @@ import org.springframework.test.util.ReflectionTestUtils;
 public class AbstractCrudRepositoryImplUT extends BaseMockingTest {
 
     @Mock
-    EntityManager em;
+    private EntityManager em;
 
     @Mock
-    Tag tag;
+    private Tag tag;
 
     @Mock
-    AuditingAwareUser auditorAware;
+    private AuditingAwareUser auditorAware;
 
-    Query query;
+    private Query query;
 
-    List<Tag> results;
+    private List<Tag> results;
 
-    TagRepository repository;
+    private TagRepository repository;
 
     @Before
     public void before() {

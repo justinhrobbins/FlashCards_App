@@ -11,7 +11,7 @@ import org.springframework.data.domain.AuditorAware;
 
 public class AuditingAwareUser implements AuditorAware<User> {
 
-    static final Logger logger = LoggerFactory.getLogger(AuditingAwareUser.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuditingAwareUser.class);
 
     @Inject
     private ApplicationContext context;
@@ -20,7 +20,7 @@ public class AuditingAwareUser implements AuditorAware<User> {
     public User getCurrentAuditor() {
         User auditor = new User(((User) context.getBean("loggedInUser")).getId());
 
-        logger.debug("Logged In User Id: " + auditor.getId());
+        LOGGER.debug("Logged In User Id: " + auditor.getId());
 
         return auditor;
     }

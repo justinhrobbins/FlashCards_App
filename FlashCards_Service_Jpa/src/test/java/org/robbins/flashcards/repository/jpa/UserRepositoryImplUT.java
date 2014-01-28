@@ -30,13 +30,13 @@ import org.springframework.test.util.ReflectionTestUtils;
 public class UserRepositoryImplUT extends BaseMockingTest {
 
     @Mock
-    EntityManager em;
+    private EntityManager em;
 
-    Query query;
+    private Query query;
 
-    List<User> results;
+    private List<User> results;
 
-    UserRepository repository;
+    private UserRepository repository;
 
     @Before
     public void before() {

@@ -43,7 +43,7 @@ public interface TagRestService extends RestService {
     @Path("/api/v1/tags")
     @Consumes("application/json")
     @Produces("application/json")
-    public void getTags(@HeaderParam("Authorization") String authHeader,
+    void getTags(@HeaderParam("Authorization") String authHeader,
             @QueryParam("fields") String fields, MethodCallback<List<TagDto>> callback);
 
     @GET
@@ -51,14 +51,14 @@ public interface TagRestService extends RestService {
     @Consumes("application/json")
     @Produces("application/json")
     @Options(expect = { 200, 204, 1223 })
-    public void getTagsSearch(@HeaderParam("Authorization") String authHeader,
+    void getTagsSearch(@HeaderParam("Authorization") String authHeader,
             @QueryParam("name") String name, MethodCallback<TagDto> callback);
 
     @GET
     @Path("/api/v1/tags/{tagId}")
     @Consumes("application/json")
     @Produces("application/json")
-    public void getTag(@HeaderParam("Authorization") String authHeader,
+    void getTag(@HeaderParam("Authorization") String authHeader,
             @PathParam("tagId") Long tagId, @QueryParam("fields") String fields,
             MethodCallback<TagDto> callback);
 
@@ -66,7 +66,7 @@ public interface TagRestService extends RestService {
     @Path("/api/v1/tags")
     @Consumes("application/json")
     @Produces("application/json")
-    public void postTags(@HeaderParam("Authorization") String authHeader, TagDto tag,
+    void postTags(@HeaderParam("Authorization") String authHeader, TagDto tag,
             MethodCallback<TagDto> callback);
 
     @PUT
@@ -74,7 +74,7 @@ public interface TagRestService extends RestService {
     @Consumes("application/json")
     @Produces("application/json")
     @Options(expect = { 204, 1223 })
-    public void putTag(@HeaderParam("Authorization") String authHeader,
+    void putTag(@HeaderParam("Authorization") String authHeader,
             @PathParam("tagId") Long tagId, TagDto tag,
             MethodCallback<java.lang.Void> callback);
 
@@ -82,6 +82,6 @@ public interface TagRestService extends RestService {
     @Path("/api/v1/tags/{tagId}")
     @Consumes("application/json")
     @Produces("application/json")
-    public void deleteTags(@HeaderParam("Authorization") String authHeader,
+    void deleteTags(@HeaderParam("Authorization") String authHeader,
             @PathParam("tagId") Long tagId, MethodCallback<java.lang.Void> callback);
 }

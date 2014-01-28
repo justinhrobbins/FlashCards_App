@@ -10,7 +10,7 @@ import com.opensymphony.xwork2.ActionProxy;
 
 public class FlashCardActionTxst extends StrutsTestCase {
 
-    static final Logger logger = LoggerFactory.getLogger(FlashCardActionTxst.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FlashCardActionTxst.class);
 
     public void testCreateFlashCardFailOnQuestion() throws Exception {
         request.setParameter("question", "");

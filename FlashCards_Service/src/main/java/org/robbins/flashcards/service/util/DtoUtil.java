@@ -14,9 +14,9 @@ import org.robbins.flashcards.exceptions.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DtoUtil {
+public final class DtoUtil {
 
-    static final Logger logger = LoggerFactory.getLogger(DtoUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DtoUtil.class);
 
     private DtoUtil() {
     };
@@ -49,7 +49,7 @@ public class DtoUtil {
                 }
             }
         } catch (Exception e) {
-            logger.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
             throw new ServiceException(e.getMessage(), e);
         }
     }

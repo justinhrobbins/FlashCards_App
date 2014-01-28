@@ -13,11 +13,11 @@ import com.sun.jersey.spi.container.ContainerRequestFilter;
 public class SecurityFilter extends AbstractSecurityFilter implements
         ContainerRequestFilter {
 
-    static final Logger logger = LoggerFactory.getLogger(SecurityFilter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SecurityFilter.class);
 
     @Override
     public ContainerRequest filter(ContainerRequest request) {
-        logger.debug("SecurityFilter");
+        LOGGER.debug("SecurityFilter");
 
         configureLoggedInUser();
 

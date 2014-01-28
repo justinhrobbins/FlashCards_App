@@ -14,11 +14,11 @@ import org.springframework.http.ResponseEntity;
 
 public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 
-    static final Logger logger = LoggerFactory.getLogger(AbstractRestTestClient.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractRestTestClient.class);
 
     /**
-     * Gets an array entities
-     *
+     * Gets an array entities.
+     * 
      * @param url the url
      * @param clazz the clazz
      * @return the array of entities
@@ -40,8 +40,8 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
     }
 
     /**
-     * Gets a count of entities
-     *
+     * Gets a count of entities.
+     * 
      * @param url the url
      * @return the count of entities
      */
@@ -91,8 +91,8 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
     }
 
     /**
-     * Search for a single entity
-     *
+     * Search for a single entity.
+     * 
      * @param url the url
      * @param uriVariables the uri variables
      * @param clazz the clazz
@@ -143,7 +143,6 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
      *
      * @param url the url
      * @param uriVariables the uri variables
-     * @param clazz the clazz
      * @return the count of entities returned by the search
      */
     public Long searchCount(String url, Map<String, String> uriVariables) {

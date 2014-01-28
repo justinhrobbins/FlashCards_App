@@ -30,7 +30,7 @@ import com.wordnik.swagger.annotations.ApiOperation;
 public abstract class AbstractGenericResource<T, Serializable> extends AbstractResource
         implements GenericResource<T, Serializable> {
 
-    static final Logger logger = LoggerFactory.getLogger(AbstractGenericResource.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGenericResource.class);
 
     protected abstract GenericCrudFacade<T> getFacade();
 
@@ -49,7 +49,7 @@ public abstract class AbstractGenericResource<T, Serializable> extends AbstractR
             entities = getFacade().list(page, size, sort, direction,
                     this.getFieldsAsSet(fields));
         } catch (InvalidDataAccessApiUsageException e) {
-            logger.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
             throw new GenericWebServiceException(Response.Status.BAD_REQUEST,
                     "Inavlid sort parameter: '" + sort + "'", e);
         } catch (ServiceException e) {
@@ -161,7 +161,7 @@ public abstract class AbstractGenericResource<T, Serializable> extends AbstractR
         try {
             beanInfo = Introspector.getBeanInfo(source.getClass());
         } catch (IntrospectionException e) {
-            logger.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR,
                     e.getMessage(), e);
         }
@@ -175,7 +175,7 @@ public abstract class AbstractGenericResource<T, Serializable> extends AbstractR
                 try {
                     newValue = descriptor.getReadMethod().invoke(source);
                 } catch (Exception e) {
-                    logger.error(e.getMessage(), e);
+                    LOGGER.error(e.getMessage(), e);
                     throw new GenericWebServiceException(
                             Response.Status.INTERNAL_SERVER_ERROR, e.getMessage(), e);
                 }
@@ -185,12 +185,12 @@ public abstract class AbstractGenericResource<T, Serializable> extends AbstractR
                 // which are part of the AbstractPersistentObject
                 if ((newValue != null) && (!descriptor.getName().equals("identity"))
                         && (!descriptor.getName().equals("version"))) {
-                    logger.debug("Updating field '" + descriptor.getName() + "' to: '"
+                    LOGGER.debug("Updating field '" + descriptor.getName() + "' to: '"
                             + newValue + "'");
                     try {
                         descriptor.getWriteMethod().invoke(target, newValue);
                     } catch (Exception e) {
-                        logger.error(e.getMessage(), e);
+                        LOGGER.error(e.getMessage(), e);
                         throw new GenericWebServiceException(
                                 Response.Status.INTERNAL_SERVER_ERROR, e.getMessage(), e);
                     }

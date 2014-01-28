@@ -18,9 +18,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class UserDto extends AbstractPersistableDto implements Serializable {
 
-    /**
-	 * 
-	 */
     private static final long serialVersionUID = 6131151516357988050L;
 
     private String openid;

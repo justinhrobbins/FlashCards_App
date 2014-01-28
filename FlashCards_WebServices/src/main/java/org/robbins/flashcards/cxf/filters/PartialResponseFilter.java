@@ -34,7 +34,7 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 @Component("partialResponseFilter")
 public class PartialResponseFilter implements ResponseHandler {
 
-    static final Logger logger = LoggerFactory.getLogger(PartialResponseFilter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PartialResponseFilter.class);
 
     @Inject
     private FieldInitializerUtil fieldInitializer;
@@ -94,7 +94,7 @@ public class PartialResponseFilter implements ResponseHandler {
             // If 'fields' is still blank then we don't have a value from either
             // the QueryString or @DefaultValue
             if (StringUtils.isBlank(fields)) {
-                logger.debug("Did not find 'fields' pararm for Resource '"
+                LOGGER.debug("Did not find 'fields' pararm for Resource '"
                         + uriInfo.getPath() + "'");
                 return null;
             }
@@ -107,8 +107,7 @@ public class PartialResponseFilter implements ResponseHandler {
             if (entity instanceof Collection<?>) {
                 fieldInitializer.initializeEntity((Collection<?>) entity,
                         filterProperties);
-            }
-            // is the entity an array?
+            } // is the entity an array?
             else if (entity instanceof Object[]) {
                 fieldInitializer.initializeEntity((Object[]) entity, filterProperties);
             } else {
@@ -151,7 +150,7 @@ public class PartialResponseFilter implements ResponseHandler {
             builder = builder.entity(jsonString);
             return builder.build();
         } catch (Exception e) {
-            logger.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
     }

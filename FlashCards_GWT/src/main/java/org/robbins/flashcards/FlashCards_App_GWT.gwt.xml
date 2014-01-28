@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module rename-to="flashcards">
 
-	<inherits name="com.google.gwt.activity.Activity" />
-	<inherits name="com.google.gwt.json.JSON" />
-	<inherits name="com.google.gwt.place.Place" />
-	<inherits name="com.google.gwt.user.User" />
-	<inherits name="com.google.gwt.user.theme.standard.Standard"/>
+    <inherits name="com.google.gwt.activity.Activity" />
+    <inherits name="com.google.gwt.json.JSON" />
+    <inherits name="com.google.gwt.place.Place" />
+    <inherits name="com.google.gwt.user.User" />
+    <inherits name="com.google.gwt.user.theme.standard.Standard" />
 
-	<inherits name="org.robbins.flashcards.FormFactor" />
-	<inherits name="org.fusesource.restygwt.RestyGWT" />
+    <inherits name="org.robbins.flashcards.FormFactor" />
+    <inherits name="org.fusesource.restygwt.RestyGWT" />
 
-	<entry-point class="org.robbins.flashcards.client.FlashCards_App" />
+    <entry-point class="org.robbins.flashcards.client.FlashCards_App" />
 
-	<!-- Specify the paths for translatable code -->
-	<source path="client" />
-	<source path="events" />
-	<source path="model" />
-	<source path="service" />
-	<source path="shared" />
+    <!-- Specify the paths for translatable code -->
+    <source path="client" />
+    <source path="events" />
+    <source path="model" />
+    <source path="service" />
+    <source path="shared" />
 
-	<!-- Use ClientFactoryImpl by default -->
-	<replace-with class="org.robbins.flashcards.client.factory.ClientFactoryImpl">
-		<when-type-is class="org.robbins.flashcards.client.factory.ClientFactory" />
-	</replace-with>
+    <!-- Use ClientFactoryImpl by default -->
+    <replace-with
+        class="org.robbins.flashcards.client.factory.ClientFactoryImpl">
+        <when-type-is
+            class="org.robbins.flashcards.client.factory.ClientFactory" />
+    </replace-with>
 
 </module>

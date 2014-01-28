@@ -41,7 +41,7 @@
         var size = Math.sqrt(width*width + height*height);
         return (size < 6) ? "mobile" : "tablet";
       }
-      
+
       // Everything else is a desktop.
       return "desktop";
       //return "mobile";

@@ -1,6 +1,25 @@
-.borderEmpty 	{ border: 1px #999999 solid; }
-.borderError 	{ border: 2px red solid; }
-.borderHidden 	{ border: 1px #ffffff solid; }
-.borderOk 		{ border: 2px green solid; }
-.hidden 		{ visibility: hidden; }
-.required 		{ font-weight: bold; font-size: 14px; color: #ff0000;}
+.borderEmpty {
+    border: 1px #999999 solid;
+}
+
+.borderError {
+    border: 2px red solid;
+}
+
+.borderHidden {
+    border: 1px #ffffff solid;
+}
+
+.borderOk {
+    border: 2px green solid;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.required {
+    font-weight: bold;
+    font-size: 14px;
+    color: #ff0000;
+}

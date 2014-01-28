@@ -1,43 +1,49 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-	xmlns:g="urn:import:com.google.gwt.user.client.ui"
-	xmlns:my="urn:import:org.robbins.flashcards.client.ui.widgets">
-	<g:HTMLPanel>
-		<table>
-			<tr><td colspan="2">Mobile Version</td></tr>
-			<tr>
-				<td>
-					<g:Label>Name:</g:Label>
-				</td>
-				<td>
-					<g:TextBox ui:field="tagName" width="15em" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<g:Button ui:field="submit" text="Submit" />
-				</td>
-				<td>
-					<g:Button ui:field="cancel" text="Cancel" />
-				</td>
-			</tr>
-			<tr><td colspan="2">&nbsp;</td></tr>
-			<tr>
-				<td colspan="2">
-					<my:FlashCardFlexTable ui:field="flashCards" />
-				</td>
-			</tr>
-			<tr><td colspan="2">&nbsp;</td></tr>
-			<tr>
-				<td colspan="2">
-					<g:Label ui:field="createdDate" width="15em" />
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<g:Label ui:field="modifiedDate" width="15em" />
-				</td>
-			</tr>
-		</table>
-	</g:HTMLPanel>
-</ui:UiBinder> 
+    xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:my="urn:import:org.robbins.flashcards.client.ui.widgets">
+    <g:HTMLPanel>
+        <table>
+            <tr>
+                <td colspan="2">Mobile Version</td>
+            </tr>
+            <tr>
+                <td>
+                    <g:Label>Name:</g:Label>
+                </td>
+                <td>
+                    <g:TextBox ui:field="tagName" width="15em" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <g:Button ui:field="submit" text="Submit" />
+                </td>
+                <td>
+                    <g:Button ui:field="cancel" text="Cancel" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <my:FlashCardFlexTable
+                        ui:field="flashCards" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <g:Label ui:field="createdDate" width="15em" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <g:Label ui:field="modifiedDate" width="15em" />
+                </td>
+            </tr>
+        </table>
+    </g:HTMLPanel>
+</ui:UiBinder>

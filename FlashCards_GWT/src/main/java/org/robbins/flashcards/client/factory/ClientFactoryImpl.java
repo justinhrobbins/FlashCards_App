@@ -36,7 +36,7 @@ public class ClientFactoryImpl implements ClientFactory {
 
     private UserDto loggedInUser;
 
-    private AppConstants appConstants = GWT.create(AppConstants.class);
+    private final AppConstants appConstants = GWT.create(AppConstants.class);
 
     private final ShellView shellView = new ShellViewImplDesktop(this);
 
@@ -55,6 +55,8 @@ public class ClientFactoryImpl implements ClientFactory {
     private final FlashCardRestService flashCardService = GWT.create(FlashCardRestService.class);
 
     private final UserRestService userService = GWT.create(UserRestService.class);
+
+    private final int PAGE_SIZE = 20;
 
     @Override
     public String getLoginUrl() {
@@ -122,7 +124,8 @@ public class ClientFactoryImpl implements ClientFactory {
 
     protected TagsView createTagsView() {
         CellTableResources.INSTANCE.cellTableStyle().ensureInjected();
-        return new TagsViewImplDesktop(getEventBus(), 20, CellTableResources.INSTANCE,
+        return new TagsViewImplDesktop(getEventBus(), PAGE_SIZE,
+                CellTableResources.INSTANCE,
                 this);
     }
 
@@ -150,7 +153,7 @@ public class ClientFactoryImpl implements ClientFactory {
 
     protected FlashCardsView createFlashCardsView() {
         CellTableResources.INSTANCE.cellTableStyle().ensureInjected();
-        return new FlashCardsViewImplDesktop(getEventBus(), 20,
+        return new FlashCardsViewImplDesktop(getEventBus(), PAGE_SIZE,
                 CellTableResources.INSTANCE, this);
     }
 

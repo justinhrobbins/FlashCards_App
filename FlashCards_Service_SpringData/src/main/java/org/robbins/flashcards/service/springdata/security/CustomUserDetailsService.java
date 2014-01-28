@@ -12,13 +12,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * A custom {@link UserDetailsService} where user information is retrieved from a JPA
- * repository
+ * repository.
  */
 @Service
 @Transactional(readOnly = true)
@@ -32,8 +31,7 @@ public class CustomUserDetailsService implements UserDetailsService {
      * from the database and then mapped to a {@link UserDetails} object.
      */
     @Override
-    public UserDetails loadUserByUsername(String username)
-            throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) {
         try {
             User domainUser = userRepository.findUserByOpenid(username);
 
@@ -53,10 +51,10 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     /**
-     * Retrieves a collection of {@link GrantedAuthority} based on a numerical role
+     * Retrieves a collection of {@link GrantedAuthority} based on a numerical role.
      *
-     * @param role the numerical role
-     * @return a collection of {@link GrantedAuthority
+     * @return a collection of {@link GrantedAuthority
+
      */
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authList = getGrantedAuthorities(getRoles());
@@ -64,9 +62,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     /**
-     * Converts a numerical role to an equivalent list of roles
+     * Converts a numerical role to an equivalent list of roles.
      *
-     * @param role the numerical role
      * @return list of roles as as a list of {@link String}
      */
     public List<String> getRoles() {
@@ -78,7 +75,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     /**
-     * Wraps {@link String} roles to {@link SimpleGrantedAuthority} objects
+     * Wraps {@link String} roles to {@link SimpleGrantedAuthority} objects.
      *
      * @param roles {@link String} of roles
      * @return list of granted authorities

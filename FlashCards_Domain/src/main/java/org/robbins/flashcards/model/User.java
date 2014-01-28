@@ -19,9 +19,6 @@ import org.robbins.flashcards.model.common.AbstractAuditable;
 @AttributeOverride(name = "id", column = @Column(name = "UserId"))
 public class User extends AbstractAuditable<User, Long> implements Serializable {
 
-    /**
-	 *
-	 */
     private static final long serialVersionUID = 6131151516357988050L;
 
     @Column(name = "OpenId", unique = true, nullable = false)

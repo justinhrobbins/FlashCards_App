@@ -29,7 +29,9 @@ import org.slf4j.LoggerFactory;
 
 public final class OpenId4JavaAuthenticator {
 
-    static final Logger logger = LoggerFactory.getLogger(OpenId4JavaAuthenticator.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OpenId4JavaAuthenticator.class);
+
+    private static final int MAX_AGE = 5000;
 
     private OpenId4JavaAuthenticator() {
     };
@@ -45,9 +47,9 @@ public final class OpenId4JavaAuthenticator {
             try {
                 manager = new ConsumerManager();
                 manager.setAssociations(new InMemoryConsumerAssociationStore());
-                manager.setNonceVerifier(new InMemoryNonceVerifier(5000));
+                manager.setNonceVerifier(new InMemoryNonceVerifier(MAX_AGE));
             } catch (Exception e) {
-                logger.error(e.getMessage(), e);
+                LOGGER.error(e.getMessage(), e);
             }
 
             // add the Consumer Manager to the application scope
@@ -84,14 +86,14 @@ public final class OpenId4JavaAuthenticator {
 
         // different Open Id providers accept different attributes
         if (openIdIdentifier.contains("google.com")) {
-            logger.debug("Open Id Identifier is: google.com");
+            LOGGER.debug("Open Id Identifier is: google.com");
 
             fetch.addAttribute("first", "http://axschema.org/namePerson/first", true);
             fetch.addAttribute("last", "http://axschema.org/namePerson/last", true);
             fetch.addAttribute("email", "http://axschema.org/contact/email", true);
             fetch.addAttribute("language", "http://axschema.org/pref/language", true);
         } else if (openIdIdentifier.contains("yahoo.com")) {
-            logger.debug("Open Id Identifier is: yahoo.com");
+            LOGGER.debug("Open Id Identifier is: yahoo.com");
 
             fetch.addAttribute("fullname", "http://axschema.org/namePerson", true);
             fetch.addAttribute("nickname", "http://axschema.org/namePerson/friendly",
@@ -99,14 +101,14 @@ public final class OpenId4JavaAuthenticator {
             fetch.addAttribute("email", "http://axschema.org/contact/email", true);
             fetch.addAttribute("language", "http://axschema.org/pref/language", true);
         } else if (openIdIdentifier.contains("aol.com")) {
-            logger.debug("Open Id Identifier is: aol.com");
+            LOGGER.debug("Open Id Identifier is: aol.com");
 
             fetch.addAttribute("first", "http://axschema.org/namePerson/first", true);
             fetch.addAttribute("last", "http://axschema.org/namePerson/last", true);
             fetch.addAttribute("email", "http://axschema.org/contact/email", true);
             fetch.addAttribute("language", "http://axschema.org/pref/language", true);
         } else {
-            logger.debug("Open Id Identifier is: something else");
+            LOGGER.debug("Open Id Identifier is: something else");
 
             fetch.addAttribute("fullname", "http://schema.openid.net/namePerson", true);
             fetch.addAttribute("email", "http://schema.openid.net/contact/email", true);
@@ -117,7 +119,7 @@ public final class OpenId4JavaAuthenticator {
         // attach the extension to the authentication request
         authReq.addExtension(fetch);
 
-        logger.info("The request string is: "
+        LOGGER.info("The request string is: "
                 + authReq.getDestinationUrl(true).replaceAll("&", "\n"));
 
         return authReq.getDestinationUrl(true);
@@ -154,7 +156,7 @@ public final class OpenId4JavaAuthenticator {
         user.setOpenid(authSuccess.getIdentity());
 
         if (authSuccess.hasExtension(AxMessage.OPENID_NS_AX)) {
-            logger.info("Processed as OPENID_NS_AX");
+            LOGGER.info("Processed as OPENID_NS_AX");
 
             FetchResponse fetchResp = (FetchResponse) authSuccess.getExtension(AxMessage.OPENID_NS_AX);
 
@@ -167,11 +169,11 @@ public final class OpenId4JavaAuthenticator {
             user.setLanguage(fetchResp.getAttributeValue("language"));
             user.setCountry(fetchResp.getAttributeValue("country"));
 
-            logger.info("User: " + user.toString());
+            LOGGER.info("User: " + user.toString());
         }
 
         if (authSuccess.hasExtension(SRegMessage.OPENID_NS_SREG)) {
-            logger.info("Processed as OPENID_NS_SREG");
+            LOGGER.info("Processed as OPENID_NS_SREG");
 
             SRegResponse sregResp = (SRegResponse) authSuccess.getExtension(SRegMessage.OPENID_NS_SREG);
 

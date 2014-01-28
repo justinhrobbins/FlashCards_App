@@ -18,18 +18,19 @@ import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.flashcards.facade.UserFacade;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @Category(UnitTest.class)
 public class UsersResourceUT extends BaseMockingTest {
 
     @Mock
-    UserFacade mockUserFacade;
+    private UserFacade mockUserFacade;
 
     @Mock
-    UserDto mockUserDto;
+    private UserDto mockUserDto;
 
-    UsersResource resource;
+    private UsersResource resource;
 
     @Before
     public void before() {
@@ -55,6 +56,6 @@ public class UsersResourceUT extends BaseMockingTest {
         Response response = resource.put(1L, mockUserDto);
 
         verify(mockUserFacade).save(any(UserDto.class));
-        assertThat(response.getStatus(), is(204));
+        assertThat(response.getStatus(), is(HttpStatus.NO_CONTENT.value()));
     }
 }

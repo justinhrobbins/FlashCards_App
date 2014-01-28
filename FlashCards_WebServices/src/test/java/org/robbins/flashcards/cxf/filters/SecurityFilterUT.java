@@ -23,15 +23,15 @@ import org.springframework.test.util.ReflectionTestUtils;
 public class SecurityFilterUT extends BaseMockingTest {
 
     @Mock
-    User loggedInUser;
+    private User loggedInUser;
 
     @Mock
-    UserFacade userFacade;
+    private UserFacade userFacade;
 
     @Mock
-    Authentication mockAuthentication;
+    private Authentication mockAuthentication;
 
-    SecurityFilter securityFilter;
+    private SecurityFilter securityFilter;
 
     @Before
     public void before() {

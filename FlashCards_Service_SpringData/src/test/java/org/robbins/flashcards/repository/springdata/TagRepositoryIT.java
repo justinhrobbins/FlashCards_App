@@ -23,7 +23,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 public class TagRepositoryIT extends BaseIntegrationTest {
 
     @Inject
-    TagRepository tagRepository;
+    private TagRepository tagRepository;
 
     @Test
     public void findByName_noSuchTag() {

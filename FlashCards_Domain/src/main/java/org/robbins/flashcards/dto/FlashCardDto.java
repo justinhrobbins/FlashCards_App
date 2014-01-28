@@ -21,9 +21,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class FlashCardDto extends AbstractAuditableDto implements Serializable {
 
-    /**
-	 *
-	 */
     private static final long serialVersionUID = -3461056579037652853L;
 
     private String question;

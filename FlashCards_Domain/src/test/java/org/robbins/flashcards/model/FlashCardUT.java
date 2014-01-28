@@ -9,13 +9,11 @@ import java.util.Iterator;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.robbins.tests.UnitTest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Category(UnitTest.class)
 public class FlashCardUT {
 
-    static final Logger logger = LoggerFactory.getLogger(FlashCardUT.class);
+    private final Long FLASHCARD_ID = 100L;
 
     @Test
     public void testSetQuestion() {
@@ -44,9 +42,9 @@ public class FlashCardUT {
 
     @Test
     public void testSetId() {
-        FlashCard fc = new FlashCard(100L);
+        FlashCard fc = new FlashCard(FLASHCARD_ID);
 
-        assertEquals(new Long(100), fc.getId());
+        assertEquals(FLASHCARD_ID, fc.getId());
     }
 
     @Test

@@ -27,7 +27,7 @@ import org.springframework.test.context.ContextConfiguration;
 @ContextConfiguration(locations = { "classpath*:applicatonContext-webServices-test.xml" })
 public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto> {
 
-    static final Logger logger = LoggerFactory.getLogger(FlashCardsResourceIT.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FlashCardsResourceIT.class);
 
     // this entity will be created in @Before and we'll use it for our JUnit tests and
     // then delete it in @After

@@ -6,7 +6,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasText;
 
 /**
- * This widget is to create <span> elements in a page.
+ * This widget is to create <span/> elements in a page.
  */
 public class Span extends HTML implements HasText {
 

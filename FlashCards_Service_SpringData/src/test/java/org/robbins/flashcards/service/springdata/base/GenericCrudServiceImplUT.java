@@ -27,15 +27,15 @@ import org.springframework.test.util.ReflectionTestUtils;
 public class GenericCrudServiceImplUT extends BaseMockingTest {
 
     @Mock
-    TagRepository repository;
+    private TagRepository repository;
 
-    TagServiceImpl tagService;
-
-    @Mock
-    Tag tag;
+    private TagServiceImpl tagService;
 
     @Mock
-    List<Tag> tags;
+    private Tag tag;
+
+    @Mock
+    private List<Tag> tags;
 
     @Before
     public void before() {

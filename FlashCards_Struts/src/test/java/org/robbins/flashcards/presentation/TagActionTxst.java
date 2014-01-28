@@ -10,7 +10,7 @@ import com.opensymphony.xwork2.ActionProxy;
 
 public class TagActionTxst extends StrutsTestCase {
 
-    static final Logger logger = LoggerFactory.getLogger(TagActionTxst.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TagActionTxst.class);
 
     public void testCreateTagFail() throws Exception {
         try {
@@ -29,8 +29,8 @@ public class TagActionTxst extends StrutsTestCase {
                     "Problem field 'name' not present in fieldErrors but it should have been",
                     tagAction.getFieldErrors().containsKey("name"));
         } catch (Exception e) {
-            logger.debug("Error running testCreateTagFail()");
-            logger.error(e.getMessage(), e);
+            LOGGER.debug("Error running testCreateTagFail()");
+            LOGGER.error(e.getMessage(), e);
 
             assertTrue("Error running testCreateTagFail()", false);
         }
@@ -74,8 +74,8 @@ public class TagActionTxst extends StrutsTestCase {
             result = proxy.execute();
 
         } catch (Exception e) {
-            logger.debug("Error running testDisplayTag()");
-            logger.error(e.getMessage(), e);
+            LOGGER.debug("Error running testDisplayTag()");
+            LOGGER.error(e.getMessage(), e);
         }
 
         assertEquals(

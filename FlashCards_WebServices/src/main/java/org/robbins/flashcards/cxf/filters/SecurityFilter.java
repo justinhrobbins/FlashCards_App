@@ -14,12 +14,12 @@ import org.springframework.stereotype.Component;
 @Component("securityFilter")
 public class SecurityFilter extends AbstractSecurityFilter implements RequestHandler {
 
-    static final Logger logger = LoggerFactory.getLogger(SecurityFilter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SecurityFilter.class);
 
     @Override
     public Response handleRequest(Message inputMessage, ClassResourceInfo resourceClass) {
 
-        logger.debug("SecurityFilter");
+        LOGGER.debug("SecurityFilter");
 
         configureLoggedInUser();
 

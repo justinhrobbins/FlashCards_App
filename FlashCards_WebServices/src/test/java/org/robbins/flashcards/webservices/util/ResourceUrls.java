@@ -1,7 +1,10 @@
 
 package org.robbins.flashcards.webservices.util;
 
-public class ResourceUrls {
+public final class ResourceUrls {
+
+    private ResourceUrls() {
+    };
 
     public static final String tag = "tags/{id}";
 

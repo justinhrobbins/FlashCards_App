@@ -11,7 +11,7 @@ import org.springframework.util.StopWatch;
 @Aspect
 public class ExecutionTimeLogger {
 
-    static final Logger logger = LoggerFactory.getLogger(ExecutionTimeLogger.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExecutionTimeLogger.class);
 
     @Around("execution(* org.robbins.flashcards..*.*(..))")
     public Object logTimeMethod(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -44,7 +44,7 @@ public class ExecutionTimeLogger {
         logMessage.append(" execution time: ");
         logMessage.append(stopWatch.getTotalTimeMillis());
         logMessage.append(" ms");
-        logger.debug(logMessage.toString());
+        LOGGER.debug(logMessage.toString());
         return retVal;
     }
 }

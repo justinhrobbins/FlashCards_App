@@ -26,19 +26,19 @@ import com.sun.jersey.spi.container.ContainerRequestFilter;
 @Component("jerseyAcceptFilter")
 public class AcceptFilter implements ContainerRequestFilter {
 
-    static final Logger logger = LoggerFactory.getLogger(AcceptFilter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AcceptFilter.class);
 
     private static String ACCEPT = "accept";
 
     @Override
     public ContainerRequest filter(ContainerRequest request) {
-        logger.debug("AcceptFilter");
+        LOGGER.debug("AcceptFilter");
 
         MultivaluedMap<String, String> queryParametersMap = request.getQueryParameters();
 
         if (queryParametersMap.containsKey(ACCEPT)) {
             List<String> queryparmsList = queryParametersMap.get(ACCEPT);
-            logger.debug(queryparmsList.toString());
+            LOGGER.debug(queryparmsList.toString());
 
             // does the 'accept' header match either json or xml?
             if ((!queryparmsList.contains(MediaType.APPLICATION_JSON))

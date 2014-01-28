@@ -57,13 +57,11 @@ public abstract class AbstractCrudFacadeImpl<D, E> implements GenericCrudFacade<
         // if not then go ahead and return findAll()
         if ((page == null) && (StringUtils.isEmpty(sort))) {
             entities = getService().findAll();
-        }
-        // should we Page
+        } // should we Page
         else if (page != null) {
             PageRequest pageRequest = getPageRequest(page, size, sort, direction);
             entities = getService().findAll(pageRequest);
-        }
-        // should we just Sort the list?
+        } // should we just Sort the list?
         else if (!StringUtils.isEmpty(sort)) {
             // get a sorted list
             Sort entitySort = getSort(sort, direction);

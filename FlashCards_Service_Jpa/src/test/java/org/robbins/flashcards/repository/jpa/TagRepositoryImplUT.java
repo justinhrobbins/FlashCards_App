@@ -31,13 +31,13 @@ import org.springframework.test.util.ReflectionTestUtils;
 public class TagRepositoryImplUT extends BaseMockingTest {
 
     @Mock
-    EntityManager em;
+    private EntityManager em;
 
-    Query query;
+    private Query query;
 
-    List<Tag> results;
+    private List<Tag> results;
 
-    TagRepository repository;
+    private TagRepository repository;
 
     @Before
     public void before() {

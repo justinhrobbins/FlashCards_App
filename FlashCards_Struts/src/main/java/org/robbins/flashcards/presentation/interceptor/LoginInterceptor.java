@@ -23,12 +23,12 @@ public class LoginInterceptor extends AbstractInterceptor implements StrutsStati
 
     private static final long serialVersionUID = -759435156742745257L;
 
-    static final Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginInterceptor.class);
 
     @Override
     public String intercept(final ActionInvocation invocation) throws Exception {
         String invocatedAction = invocation.getAction().getClass().getName();
-        logger.debug("Invocated Action: " + invocatedAction);
+        LOGGER.debug("Invocated Action: " + invocatedAction);
 
         // get references to the App Context, Session, and Request objects
         final ActionContext context = invocation.getInvocationContext();
@@ -40,7 +40,7 @@ public class LoginInterceptor extends AbstractInterceptor implements StrutsStati
 
         if ((user.getId() == null) || (user.getId() == 0)) {
             // The user has not logged in yet.
-            logger.debug("User NOT found in the Session");
+            LOGGER.debug("User NOT found in the Session");
 
             // Is the user attempting to log in right now?
             String loginIdentifier = request.getParameter("openid_identifier");
@@ -50,7 +50,7 @@ public class LoginInterceptor extends AbstractInterceptor implements StrutsStati
             // "openid_identifier" is a Request parm
             if (!StringUtils.isBlank(loginIdentifier)) {
                 // The user is attempting to log in.
-                logger.debug("The user is attempting to log in");
+                LOGGER.debug("The user is attempting to log in");
 
                 // Process the user's login attempt.
                 return invocation.invoke();
@@ -59,7 +59,7 @@ public class LoginInterceptor extends AbstractInterceptor implements StrutsStati
             // "openid.op_endpoint" is a Request parm
             else if (!StringUtils.isBlank(openIdEndpoint)) {
                 // The user has logged in with an OpenId provider
-                logger.debug("The user has logged in with an OpenId provider");
+                LOGGER.debug("The user has logged in with an OpenId provider");
 
                 // Process the user's login attempt.
                 return invocation.invoke();
@@ -67,14 +67,14 @@ public class LoginInterceptor extends AbstractInterceptor implements StrutsStati
                 // save the original URL, we'll need it later
                 saveReceivingURL(request, session);
 
-                logger.debug("Forwarding to the Login form");
+                LOGGER.debug("Forwarding to the Login form");
             }
 
             // it we get this far then the user hasn't tried to login yet,
             // and we need to send to the login form.
             return "login";
         } else {
-            logger.debug("User " + user.toString() + " found in the Session");
+            LOGGER.debug("User " + user.toString() + " found in the Session");
 
             // user is already logged in
             return invocation.invoke();
@@ -91,7 +91,7 @@ public class LoginInterceptor extends AbstractInterceptor implements StrutsStati
             receivingURL.append("?").append(request.getQueryString());
         }
 
-        logger.debug("Original URL: " + receivingURL.toString());
+        LOGGER.debug("Original URL: " + receivingURL.toString());
 
         // save the original URL in the Session
         // we're going to need to redirect the user back to this URL after login is

@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-	id="WebApp_ID" metadata-complete="true" version="3.0">
-	<display-name>FlashCards_WebServices</display-name>
+    xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+    id="WebApp_ID" metadata-complete="true" version="3.0">
+    <display-name>FlashCards_WebServices</display-name>
 
-	<filter>
-		<filter-name>OEMIVFilter</filter-name>
-		<filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class>
-		<init-param>
-			<param-name>entityManagerFactoryBeanName</param-name>
-			<param-value>entityManagerFactory</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>OEMIVFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+    <filter>
+        <filter-name>OEMIVFilter</filter-name>
+        <filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class>
+        <init-param>
+            <param-name>entityManagerFactoryBeanName</param-name>
+            <param-value>entityManagerFactory</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>OEMIVFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>
-			<!-- classpath*:applicatonContext-aop.xml -->
-			<!-- classpath*:applicationContext-service-jpa.xml -->
-			classpath*:applicationContext-service.xml
-			classpath*:applicationContext-service-springdata.xml
-			classpath*:applicationContext-webServices.xml
-			<!-- classpath*:applicationContext-shiro.xml -->
-			classpath*:applicationContext-springSecurity.xml
-			<!-- classpath*:applicationContext-cxf.xml -->
-		</param-value>
-	</context-param>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            <!-- classpath*:applicatonContext-aop.xml -->
+            <!-- classpath*:applicationContext-service-jpa.xml -->
+            classpath*:applicationContext-service.xml
+            classpath*:applicationContext-service-springdata.xml
+            classpath*:applicationContext-webServices.xml
+            <!-- classpath*:applicationContext-shiro.xml -->
+            classpath*:applicationContext-springSecurity.xml
+            <!-- classpath*:applicationContext-cxf.xml -->
+        </param-value>
+    </context-param>
 
     <!-- set the default Spring profile.  this can be overridden with an environment variable (spring.profiles.active) -->
     <context-param>
@@ -38,81 +38,81 @@
         <param-value>embedded</param-value>
     </context-param>
 
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
 
-	<!-- ================================================================== 
-		To use request scope beans without Spring MVC, you should declare RequestContextListener 
-		in web.xml http://stackoverflow.com/questions/2039522/getting-a-no-thread-bound-request-found-error-from-spring-in-my-web-app 
-		================================================================== -->
-	<listener>
-		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
-	</listener>
+    <!-- ================================================================== 
+        To use request scope beans without Spring MVC, you should declare RequestContextListener 
+        in web.xml http://stackoverflow.com/questions/2039522/getting-a-no-thread-bound-request-found-error-from-spring-in-my-web-app 
+        ================================================================== -->
+    <listener>
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
 
-	<!-- Spring Security -->
-	<filter>
-		<filter-name>springSecurityFilterChain</filter-name>
-		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>springSecurityFilterChain</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+    <!-- Spring Security -->
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
-	<!-- JAX-RS implementation -->
-	<servlet>
-		<servlet-name>jersey-serlvet</servlet-name>
-		<servlet-class>com.sun.jersey.spi.spring.container.servlet.SpringServlet</servlet-class>
-		<init-param>
-			<param-name>com.sun.jersey.config.property.packages</param-name>
-			<param-value>
-		     	org.robbins.flashcards.webservices;com.wordnik.swagger.jersey.listing
-		     </param-value>
-		</init-param>
+    <!-- JAX-RS implementation -->
+    <servlet>
+        <servlet-name>jersey-serlvet</servlet-name>
+        <servlet-class>com.sun.jersey.spi.spring.container.servlet.SpringServlet</servlet-class>
+        <init-param>
+            <param-name>com.sun.jersey.config.property.packages</param-name>
+            <param-value>
+                 org.robbins.flashcards.webservices;com.wordnik.swagger.jersey.listing
+             </param-value>
+        </init-param>
 
-		<init-param>
-			<param-name>com.sun.jersey.config.feature.XmlRootElementProcessing</param-name>
-			<param-value>true</param-value>
-		</init-param>
+        <init-param>
+            <param-name>com.sun.jersey.config.feature.XmlRootElementProcessing</param-name>
+            <param-value>true</param-value>
+        </init-param>
 
-		<init-param>
-			<param-name>com.sun.jersey.spi.container.ContainerRequestFilters</param-name>
-			<param-value>
-				org.robbins.flashcards.jersey.filters.SecurityFilter;
-				org.robbins.flashcards.jersey.filters.AcceptFilter;
-				com.sun.jersey.api.container.filter.LoggingFilter;
-			</param-value>
-		</init-param>
-		<init-param>
-			<param-name>com.sun.jersey.spi.container.ContainerResponseFilters</param-name>
-			<param-value>
-				com.sun.jersey.api.container.filter.LoggingFilter;
-			</param-value>
-		</init-param>
-		<init-param>
-			<param-name>com.sun.jersey.config.feature.Trace</param-name>
-			<param-value>true</param-value>
-		</init-param>
+        <init-param>
+            <param-name>com.sun.jersey.spi.container.ContainerRequestFilters</param-name>
+            <param-value>
+                org.robbins.flashcards.jersey.filters.SecurityFilter;
+                org.robbins.flashcards.jersey.filters.AcceptFilter;
+                com.sun.jersey.api.container.filter.LoggingFilter;
+            </param-value>
+        </init-param>
+        <init-param>
+            <param-name>com.sun.jersey.spi.container.ContainerResponseFilters</param-name>
+            <param-value>
+                com.sun.jersey.api.container.filter.LoggingFilter;
+            </param-value>
+        </init-param>
+        <init-param>
+            <param-name>com.sun.jersey.config.feature.Trace</param-name>
+            <param-value>true</param-value>
+        </init-param>
 
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>jersey-serlvet</servlet-name>
-		<url-pattern>/*</url-pattern>
-	</servlet-mapping>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>jersey-serlvet</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
 
-	<servlet>
-		<servlet-name>JerseyJaxrsConfig</servlet-name>
-		<servlet-class>com.wordnik.swagger.jersey.config.JerseyJaxrsConfig</servlet-class>
-		<init-param>
-			<param-name>api.version</param-name>
-			<param-value>1.0.0</param-value>
-		</init-param>
-		<init-param>
-			<param-name>swagger.api.basepath</param-name>
-			<param-value>http://localhost:8080/api</param-value>
-		</init-param>
-		<load-on-startup>2</load-on-startup>
-	</servlet>
+    <servlet>
+        <servlet-name>JerseyJaxrsConfig</servlet-name>
+        <servlet-class>com.wordnik.swagger.jersey.config.JerseyJaxrsConfig</servlet-class>
+        <init-param>
+            <param-name>api.version</param-name>
+            <param-value>1.0.0</param-value>
+        </init-param>
+        <init-param>
+            <param-name>swagger.api.basepath</param-name>
+            <param-value>http://localhost:8080/api</param-value>
+        </init-param>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
 </web-app>

@@ -39,8 +39,7 @@ public abstract class AbstractCrudRepositoryImpl<T extends AbstractAuditable<Use
             entity.setCreatedBy(getAuditorAware().getCurrentAuditor());
             entity.setCreatedDate(new DateTime());
             getEm().persist(entity);
-        }
-        // must be an update
+        } // must be an update
         else {
             getEm().merge(entity);
         }

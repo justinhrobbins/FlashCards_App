@@ -1,27 +1,28 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-	xmlns:g="urn:import:com.google.gwt.user.client.ui"
-	xmlns:my="urn:import:org.robbins.flashcards.client.ui.widgets"
-	xmlns:tags="urn:import:org.robbins.flashcards.client.ui.widgets.autocomplete">
+    xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:my="urn:import:org.robbins.flashcards.client.ui.widgets"
+    xmlns:tags="urn:import:org.robbins.flashcards.client.ui.widgets.autocomplete">
 
-	<ui:with field='res' type='org.robbins.flashcards.client.ui.desktop.style.FormStyleResource'/>
+    <ui:with field='res'
+        type='org.robbins.flashcards.client.ui.desktop.style.FormStyleResource' />
 
-	<g:HTMLPanel>
-		<my:LabelWidget ui:field="requiresLogin"/>
-		<br/>
-		<my:TextBoxWidget ui:field="question" />
-		<br/>
-		<my:RichTextWidget ui:field="answer" />
-		<br/>
-		<tags:InputListWidget ui:field="tagsWidget" />
-		<br/>
-		<my:LinkPanelWidget ui:field="linksPanel" />
-		<br/>
-		<g:Button ui:field="submit" text="Submit" />
-		&nbsp;
-		<g:Button ui:field="cancel" text="Cancel" />
-		<br/><br/>
-		<g:Label ui:field="createdDate" width="15em" />
-		<g:Label ui:field="modifiedDate" width="15em" />
-	</g:HTMLPanel>
+    <g:HTMLPanel>
+        <my:LabelWidget ui:field="requiresLogin" />
+        <br />
+        <my:TextBoxWidget ui:field="question" />
+        <br />
+        <my:RichTextWidget ui:field="answer" />
+        <br />
+        <tags:InputListWidget ui:field="tagsWidget" />
+        <br />
+        <my:LinkPanelWidget ui:field="linksPanel" />
+        <br />
+        <g:Button ui:field="submit" text="Submit" />
+        &nbsp;
+        <g:Button ui:field="cancel" text="Cancel" />
+        <br />
+        <br />
+        <g:Label ui:field="createdDate" width="15em" />
+        <g:Label ui:field="modifiedDate" width="15em" />
+    </g:HTMLPanel>
 </ui:UiBinder>

@@ -20,9 +20,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public abstract class AbstractAuditable<U, PK extends Serializable> extends
         AbstractPersistable<PK> implements Auditable<U, PK> {
 
-    /**
-	 *
-	 */
     private static final long serialVersionUID = -4336679752608507624L;
 
     @ManyToOne

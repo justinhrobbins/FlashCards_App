@@ -27,6 +27,7 @@ import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import com.sun.jersey.api.JResponse;
@@ -163,7 +164,7 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
         Response response = resource.delete(anyLong());
 
         verify(mockTagFacade).delete(anyLong());
-        assertThat(response.getStatus(), is(204));
+        assertThat(response.getStatus(), is(HttpStatus.NO_CONTENT.value()));
     }
 
     @Test
@@ -175,6 +176,6 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
 
         verify(mockTagFacade).findOne(any(Long.class));
         verify(mockTagFacade).save(any(TagDto.class));
-        assertThat(response.getStatus(), is(204));
+        assertThat(response.getStatus(), is(HttpStatus.NO_CONTENT.value()));
     }
 }

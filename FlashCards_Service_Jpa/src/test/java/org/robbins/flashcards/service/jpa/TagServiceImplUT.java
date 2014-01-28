@@ -21,9 +21,9 @@ import org.springframework.test.util.ReflectionTestUtils;
 public class TagServiceImplUT extends BaseMockingTest {
 
     @Mock
-    TagRepository repository;
+    private TagRepository repository;
 
-    TagServiceImpl tagService;
+    private TagServiceImpl tagService;
 
     @Before
     public void before() {

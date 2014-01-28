@@ -1,7 +1,10 @@
 
 package org.robbins.flashcards.util;
 
-public class ConstsUtil {
+public final class ConstsUtil {
+
+    private ConstsUtil() {
+    }
 
     public static final String EDIT_FLASHCARD = "editFlashCard";
 

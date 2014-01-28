@@ -24,18 +24,19 @@ import org.robbins.flashcards.facade.FlashcardFacade;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @Category(UnitTest.class)
 public class FlashCardsResourceUT extends BaseMockingTest {
 
     @Mock
-    FlashcardFacade flashcardFacade;
+    private FlashcardFacade flashcardFacade;
 
     @Mock
-    FlashCardDto flashcard;
+    private FlashCardDto flashcard;
 
-    FlashCardsResource resource;
+    private FlashCardsResource resource;
 
     @Before
     public void before() {
@@ -118,7 +119,7 @@ public class FlashCardsResourceUT extends BaseMockingTest {
 
         verify(flashcardFacade).findOne(any(Long.class), any(Set.class));
         verify(flashcardFacade).save(any(FlashCardDto.class));
-        assertThat(response.getStatus(), is(204));
+        assertThat(response.getStatus(), is(HttpStatus.NO_CONTENT.value()));
     }
 
     @Test

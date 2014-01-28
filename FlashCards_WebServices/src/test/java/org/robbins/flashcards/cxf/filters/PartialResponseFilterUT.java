@@ -34,8 +34,6 @@ import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 
@@ -43,15 +41,15 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 public class PartialResponseFilterUT extends BaseMockingTest {
 
     @Mock
-    FieldInitializerUtil mockFieldInitializer;
+    private FieldInitializerUtil mockFieldInitializer;
 
     @Mock
-    CustomObjectMapper mockObjectMapper;
+    private CustomObjectMapper mockObjectMapper;
 
     @Mock
-    UriInfo mockUriInfo;
+    private UriInfo mockUriInfo;
 
-    PartialResponseFilter partialResponseFilter;
+    private PartialResponseFilter partialResponseFilter;
 
     @Before
     public void before() {
@@ -168,8 +166,7 @@ public class PartialResponseFilterUT extends BaseMockingTest {
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Test
-    public void defaultParameter() throws JsonGenerationException, JsonMappingException,
-            IOException {
+    public void defaultParameter() throws IOException {
         OperationResourceInfo mockOri = mock(OperationResourceInfo.class);
 
         String entity = new String("my_entity");
@@ -206,8 +203,7 @@ public class PartialResponseFilterUT extends BaseMockingTest {
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Test
-    public void defaultParameterCollection() throws JsonGenerationException,
-            JsonMappingException, IOException {
+    public void defaultParameterCollection() throws IOException {
         OperationResourceInfo mockOri = mock(OperationResourceInfo.class);
 
         List<String> entity = Arrays.asList(new String[] { "my_entity" });
@@ -244,8 +240,7 @@ public class PartialResponseFilterUT extends BaseMockingTest {
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Test
-    public void defaultParameterArray() throws JsonGenerationException,
-            JsonMappingException, IOException {
+    public void defaultParameterArray() throws IOException {
         OperationResourceInfo mockOri = mock(OperationResourceInfo.class);
 
         String[] entity = new String[] { "my_entity" };

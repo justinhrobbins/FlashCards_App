@@ -20,12 +20,9 @@ import com.opensymphony.xwork2.Preparable;
 public class TagAction extends FlashCardsAppBaseAction implements ModelDriven<Tag>,
         Preparable, SessionAware {
 
-    /**
-	 *
-	 */
     private static final long serialVersionUID = 2900181619806808497L;
 
-    static final Logger logger = LoggerFactory.getLogger(TagAction.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TagAction.class);
 
     private Tag tag = new Tag();
 
@@ -41,11 +38,11 @@ public class TagAction extends FlashCardsAppBaseAction implements ModelDriven<Ta
         try {
             tagList = tagService.findAll();
 
-            logger.debug("listTags found '" + tagList.size() + "' tags");
+            LOGGER.debug("listTags found '" + tagList.size() + "' tags");
 
             return "success";
         } catch (Exception e) {
-            logger.error("Exception in listTags():", e);
+            LOGGER.error("Exception in listTags():", e);
 
             return "error";
         }
@@ -58,17 +55,17 @@ public class TagAction extends FlashCardsAppBaseAction implements ModelDriven<Ta
                 existingTag.setName(this.tag.getName());
                 tagService.save(existingTag);
 
-                logger.debug("Tag updated successfully");
+                LOGGER.debug("Tag updated successfully");
                 this.addActionMessage(getText("actionmessage.tag.updated"));
             } else {
                 tagService.save(this.tag);
 
-                logger.debug("Tag created successfully");
+                LOGGER.debug("Tag created successfully");
                 this.addActionMessage(getText("actionmessage.tag.created"));
             }
             return "success";
         } catch (Exception e) {
-            logger.error("Exception while saving Tag:", e);
+            LOGGER.error("Exception while saving Tag:", e);
             return "error";
         }
     }
@@ -78,13 +75,13 @@ public class TagAction extends FlashCardsAppBaseAction implements ModelDriven<Ta
         try {
             tagService.delete(this.tag.getId());
 
-            logger.debug("Tag deleted successfully");
+            LOGGER.debug("Tag deleted successfully");
 
             this.addActionMessage(getText("actionmessage.tag.deleted"));
 
             return "success";
         } catch (Exception e) {
-            logger.error("unable to delete Tag");
+            LOGGER.error("unable to delete Tag");
 
             this.addActionMessage(getText("error.tag.delete.failed"));
 
@@ -108,7 +105,7 @@ public class TagAction extends FlashCardsAppBaseAction implements ModelDriven<Ta
             }
             return "success";
         } catch (Exception e) {
-            logger.error("Exception in display():", e);
+            LOGGER.error("Exception in display():", e);
             return "error";
         }
     }
@@ -122,15 +119,14 @@ public class TagAction extends FlashCardsAppBaseAction implements ModelDriven<Ta
     public void validate() {
         // Tag name cannot be empty
         if (tag.getName().length() == 0) {
-            logger.debug("Tag name is empty. Adding Field Error for 'Name'");
+            LOGGER.debug("Tag name is empty. Adding Field Error for 'Name'");
             addFieldError("tag.name", getText("error.tag.name"));
-        }
-        // Prevent duplicate Tag
+        } // Prevent duplicate Tag
         else {
-            logger.debug("Confirming Tag does not already exist");
+            LOGGER.debug("Confirming Tag does not already exist");
             Tag tempTag = tagService.findByName(tag.getName());
             if (tempTag != null) {
-                logger.debug("Tag already exists.  Adding Field Error for 'Name'");
+                LOGGER.debug("Tag already exists.  Adding Field Error for 'Name'");
                 addFieldError("tag.name", getText("error.tag.exists"));
             }
         }

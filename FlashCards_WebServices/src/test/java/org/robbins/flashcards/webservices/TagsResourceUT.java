@@ -20,18 +20,19 @@ import org.robbins.flashcards.facade.TagFacade;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @Category(UnitTest.class)
 public class TagsResourceUT extends BaseMockingTest {
 
     @Mock
-    TagFacade mockTagFacade;
+    private TagFacade mockTagFacade;
 
     @Mock
-    TagDto mockTagDto;
+    private TagDto mockTagDto;
 
-    TagsResource resource;
+    private TagsResource resource;
 
     @Before
     public void before() {
@@ -64,7 +65,7 @@ public class TagsResourceUT extends BaseMockingTest {
         Response response = resource.put(1L, mockTagDto);
 
         verify(mockTagFacade).save(any(TagDto.class));
-        assertThat(response.getStatus(), is(204));
+        assertThat(response.getStatus(), is(HttpStatus.NO_CONTENT.value()));
     }
 
     @Test
@@ -75,6 +76,6 @@ public class TagsResourceUT extends BaseMockingTest {
         Response response = resource.put(1L, mockTagDto);
 
         verify(mockTagFacade).save(any(TagDto.class));
-        assertThat(response.getStatus(), is(204));
+        assertThat(response.getStatus(), is(HttpStatus.NO_CONTENT.value()));
     }
 }

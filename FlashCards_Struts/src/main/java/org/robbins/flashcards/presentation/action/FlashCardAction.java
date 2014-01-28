@@ -26,12 +26,9 @@ import com.opensymphony.xwork2.Preparable;
 public class FlashCardAction extends FlashCardsAppBaseAction implements
         ModelDriven<FlashCard>, Preparable, SessionAware {
 
-    /**
-	 *
-	 */
     private static final long serialVersionUID = -6246981237373738037L;
 
-    static final Logger logger = LoggerFactory.getLogger(FlashCardAction.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FlashCardAction.class);
 
     @Inject
     private transient FlashCardService flashcardService;
@@ -71,7 +68,7 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
 
             return "success";
         } catch (Exception e) {
-            logger.error("Exception in list():", e);
+            LOGGER.error("Exception in list():", e);
             return "error";
         }
     }
@@ -111,17 +108,17 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
 
                 flashcardService.save(existingFlashCard);
 
-                logger.debug("Flash Card updated successfully");
+                LOGGER.debug("Flash Card updated successfully");
                 this.addActionMessage(getText("actionmessage.flashcard.updated"));
             } else {
                 flashcardService.save(this.flashCard);
 
-                logger.debug("Flash Card created successfully");
+                LOGGER.debug("Flash Card created successfully");
                 this.addActionMessage(getText("actionmessage.flashcard.created"));
             }
             return "success";
         } catch (Exception e) {
-            logger.error("unable to create or update FlashCard", e);
+            LOGGER.error("unable to create or update FlashCard", e);
             return "error";
         }
     }
@@ -134,7 +131,7 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
         }
 
         // create an array of strings with a space (",") as their delimiter
-        String tokens[] = explodedTags.split(",");
+        String[] tokens = explodedTags.split(",");
         for (String token : tokens) {
             if (token.length() > 0) {
                 Tag tag = tagService.findByName(token);
@@ -168,13 +165,13 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
         try {
             flashcardService.delete(this.flashCard.getId());
 
-            logger.debug("Flash Card deleted successfully");
+            LOGGER.debug("Flash Card deleted successfully");
 
             this.addActionMessage(getText("actionmessage.flashcard.deleted"));
 
             return "success";
         } catch (Exception e) {
-            logger.error("unable to delete Flash Card");
+            LOGGER.error("unable to delete Flash Card");
             return "error";
         }
     }
@@ -198,7 +195,7 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
 
             return "success";
         } catch (Exception e) {
-            logger.error("Exception in display():", e);
+            LOGGER.error("Exception in display():", e);
 
             return "error";
         }
@@ -213,12 +210,11 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
 
             // if there is a ViewType add it to the HTTP Session
             if (this.getViewType() != null) {
-                logger.debug("viewType found in Request: '" + this.getViewType() + "'");
+                LOGGER.debug("viewType found in Request: '" + this.getViewType() + "'");
                 httpSession.put("viewType", this.getViewType());
-            }
-            // otherwise, try to get the ViewType from the HTTP Session
+            } // otherwise, try to get the ViewType from the HTTP Session
             else if (httpSession.containsKey("viewType")) {
-                logger.debug("viewType found in Session: '"
+                LOGGER.debug("viewType found in Session: '"
                         + (String) httpSession.get("viewType") + "'");
                 this.setViewType((String) httpSession.get("viewType"));
             }
@@ -227,7 +223,7 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
             if ((this.getExplodedTags() != null)
                     && (!this.getExplodedTags().equals("All"))) {
 
-                logger.debug("ExplodedTags found in Request");
+                LOGGER.debug("ExplodedTags found in Request");
 
                 // add the Exploded Tags to the HTTP Session
                 httpSession.put("explodedTags", this.getExplodedTags());
@@ -238,12 +234,11 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
 
                 // get a list of Flash Cards from the data tier
                 this.flashCardList = flashcardService.findByTagsIn(this.flashCard.getTags());
-            }
-            // if we have the Tag filter saved in the HTTP Session
+            } // if we have the Tag filter saved in the HTTP Session
             else if ((httpSession.containsKey("explodedTags"))
                     && (this.getExplodedTags() == null)) {
 
-                logger.debug("ExplodedTags found in HTTP Session");
+                LOGGER.debug("ExplodedTags found in HTTP Session");
 
                 // do we have Tags saved in the session?
                 this.setExplodedTags((String) httpSession.get("explodedTags"));
@@ -257,7 +252,7 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
             }
             // otherwise, let's grab all FlashCards for all Tags
             else {
-                logger.debug("Retrieving FlashCards for all Tags");
+                LOGGER.debug("Retrieving FlashCards for all Tags");
 
                 // retrieve all the FlashCards
                 this.flashCardList = flashcardService.findAll();
@@ -269,7 +264,7 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
 
             return "success";
         } catch (Exception e) {
-            logger.error("Exception in browse():", e);
+            LOGGER.error("Exception in browse():", e);
 
             return "error";
         }

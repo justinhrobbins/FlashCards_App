@@ -19,7 +19,6 @@ public interface GenericCrudService<T, ID extends Serializable> {
      *
      * @param entities
      * @return the saved entities
-     * @throws IllegalArgumentException in case the given entity is (@literal null}.
      */
     Iterable<T> save(Iterable<T> entities);
 
@@ -28,7 +27,6 @@ public interface GenericCrudService<T, ID extends Serializable> {
      *
      * @param id must not be {@literal null}.
      * @return the entity with the given id or {@literal null} if none found
-     * @throws IllegalArgumentException if {@code id} is {@literal null}
      */
     T findOne(ID id);
 
@@ -37,7 +35,6 @@ public interface GenericCrudService<T, ID extends Serializable> {
      *
      * @param id must not be {@literal null}.
      * @return true if an entity with the given id exists, alse otherwise
-     * @throws IllegalArgumentException if {@code id} is {@literal null}
      */
     boolean exists(ID id);
 
@@ -67,7 +64,6 @@ public interface GenericCrudService<T, ID extends Serializable> {
      * Deletes the entity with the given id.
      *
      * @param id must not be {@literal null}.
-     * @throws IllegalArgumentException in case the given {@code id} is {@literal null}
      */
     void delete(ID id);
 
@@ -75,7 +71,6 @@ public interface GenericCrudService<T, ID extends Serializable> {
      * Deletes a given entity.
      *
      * @param entity
-     * @throws IllegalArgumentException in case the given entity is (@literal null}.
      */
     void delete(T entity);
 
@@ -83,8 +78,6 @@ public interface GenericCrudService<T, ID extends Serializable> {
      * Deletes the given entities.
      *
      * @param entities
-     * @throws IllegalArgumentException in case the given {@link Iterable} is (@literal
-     *         null}.
      */
     void delete(Iterable<? extends T> entities);
 

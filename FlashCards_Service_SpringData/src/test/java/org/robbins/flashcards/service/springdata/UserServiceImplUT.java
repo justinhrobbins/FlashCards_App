@@ -21,9 +21,9 @@ import org.springframework.test.util.ReflectionTestUtils;
 public class UserServiceImplUT extends BaseMockingTest {
 
     @Mock
-    UserRepository repository;
+    private UserRepository repository;
 
-    UserServiceImpl userService;
+    private UserServiceImpl userService;
 
     @Before
     public void before() {

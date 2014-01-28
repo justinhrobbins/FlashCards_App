@@ -27,12 +27,12 @@ import org.springframework.test.util.ReflectionTestUtils;
 public class GenericPagingAndSortingServiceImplUT extends BaseMockingTest {
 
     @Mock
-    TagRepository repository;
+    private TagRepository repository;
 
-    TagServiceImpl service;
+    private TagServiceImpl service;
 
     @Mock
-    PageRequest page;
+    private PageRequest page;
 
     @Before
     public void before() {

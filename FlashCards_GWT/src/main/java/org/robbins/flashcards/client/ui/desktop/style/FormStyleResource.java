@@ -6,9 +6,9 @@ import com.google.gwt.resources.client.ClientBundle;
 
 public interface FormStyleResource extends ClientBundle {
 
-    public static final FormStyleResource INSTANCE = GWT.create(FormStyleResource.class);
+    static final FormStyleResource INSTANCE = GWT.create(FormStyleResource.class);
 
     @Source("FormStyles.css")
-    public FormStyles formStyles();
+    FormStyles formStyles();
 
 }

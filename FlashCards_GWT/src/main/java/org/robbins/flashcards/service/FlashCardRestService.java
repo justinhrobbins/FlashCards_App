@@ -43,7 +43,7 @@ public interface FlashCardRestService extends RestService {
     @Path("api/v1/flashcards")
     @Consumes("application/json")
     @Produces("application/json")
-    public void getFlashCards(@HeaderParam("Authorization") String authHeader,
+    void getFlashCards(@HeaderParam("Authorization") String authHeader,
             @QueryParam("fields") String fields,
             MethodCallback<List<FlashCardDto>> callback);
 
@@ -51,7 +51,7 @@ public interface FlashCardRestService extends RestService {
     @Path("/api/v1/flashcards/{flashCardId}")
     @Consumes("application/json")
     @Produces("application/json")
-    public void getFlashCard(@HeaderParam("Authorization") String authHeader,
+    void getFlashCard(@HeaderParam("Authorization") String authHeader,
             @PathParam("flashCardId") Long flashCardId,
             @QueryParam("fields") String fields, MethodCallback<FlashCardDto> callback);
 
@@ -60,7 +60,7 @@ public interface FlashCardRestService extends RestService {
     @Consumes("application/json")
     @Produces("application/json")
     @Options(expect = { 200, 204, 1223 })
-    public void getFlashCardsSearch(@HeaderParam("Authorization") String authHeader,
+    void getFlashCardsSearch(@HeaderParam("Authorization") String authHeader,
             @QueryParam("tagIds") String tagIds,
             MethodCallback<List<FlashCardDto>> callback);
 
@@ -68,7 +68,7 @@ public interface FlashCardRestService extends RestService {
     @Path("/api/v1/flashcards")
     @Consumes("application/json")
     @Produces("application/json")
-    public void postFlashCards(@HeaderParam("Authorization") String authHeader,
+    void postFlashCards(@HeaderParam("Authorization") String authHeader,
             FlashCardDto flashCard, MethodCallback<FlashCardDto> callback);
 
     @PUT
@@ -76,7 +76,7 @@ public interface FlashCardRestService extends RestService {
     @Consumes("application/json")
     @Produces("application/json")
     @Options(expect = { 204, 1223 })
-    public void putFlashCard(@HeaderParam("Authorization") String authHeader,
+    void putFlashCard(@HeaderParam("Authorization") String authHeader,
             @PathParam("flashCardId") Long flashCardId, FlashCardDto flashCard,
             MethodCallback<java.lang.Void> callback);
 
@@ -84,7 +84,7 @@ public interface FlashCardRestService extends RestService {
     @Path("/api/v1/flashcards/{flashCardId}")
     @Consumes("application/json")
     @Produces("application/json")
-    public void deleteFlashCards(@HeaderParam("Authorization") String authHeader,
+    void deleteFlashCards(@HeaderParam("Authorization") String authHeader,
             @PathParam("flashCardId") Long flashCardId,
             MethodCallback<java.lang.Void> callback);
 }

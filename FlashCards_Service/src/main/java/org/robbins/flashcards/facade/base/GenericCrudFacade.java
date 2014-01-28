@@ -8,19 +8,19 @@ import org.robbins.flashcards.exceptions.ServiceException;
 
 public interface GenericCrudFacade<D> {
 
-    public List<D> list(Integer page, Integer size, String sort, String direction)
+    List<D> list(Integer page, Integer size, String sort, String direction)
             throws ServiceException;
 
-    public List<D> list(Integer page, Integer size, String sort, String direction,
+    List<D> list(Integer page, Integer size, String sort, String direction,
             Set<String> fields) throws ServiceException;
 
-    public Long count();
+    Long count();
 
-    public D findOne(Long id) throws ServiceException;
+    D findOne(Long id) throws ServiceException;
 
-    public D findOne(Long id, Set<String> fields) throws ServiceException;
+    D findOne(Long id, Set<String> fields) throws ServiceException;
 
-    public D save(D entity) throws ServiceException;
+    D save(D entity) throws ServiceException;
 
-    public void delete(Long id);
+    void delete(Long id);
 }

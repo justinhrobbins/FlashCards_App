@@ -29,9 +29,9 @@ import org.springframework.test.util.ReflectionTestUtils;
 public class FlashCardServiceImplUT extends BaseMockingTest {
 
     @Mock
-    FlashCardRepository repository;
+    private FlashCardRepository repository;
 
-    FlashCardServiceImpl flashCardService;
+    private FlashCardServiceImpl flashCardService;
 
     @Before
     public void before() {

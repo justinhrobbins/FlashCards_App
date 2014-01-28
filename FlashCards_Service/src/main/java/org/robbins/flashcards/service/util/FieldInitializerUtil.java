@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class FieldInitializerUtil {
 
-    static final Logger logger = LoggerFactory.getLogger(FieldInitializerUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FieldInitializerUtil.class);
 
     @Inject
     private EntityManagerFactory entityManagerFactory;
@@ -76,7 +76,7 @@ public class FieldInitializerUtil {
                 // need to make sure it is loaded
                 initializeField(entity, field);
             } catch (Exception e) {
-                logger.error(e.getMessage(), e);
+                LOGGER.error(e.getMessage(), e);
                 throw new ServiceException(e.getMessage(), e);
             }
         }

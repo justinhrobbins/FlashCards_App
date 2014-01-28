@@ -19,10 +19,10 @@ import org.springframework.test.util.ReflectionTestUtils;
 @Category(UnitTest.class)
 public class AuditingAwareUserUT extends BaseMockingTest {
 
-    AuditingAwareUser auditingAwareUser;
+    private AuditingAwareUser auditingAwareUser;
 
     @Mock
-    User mockUser;
+    private User mockUser;
 
     @Mock
     private ApplicationContext mockContext;

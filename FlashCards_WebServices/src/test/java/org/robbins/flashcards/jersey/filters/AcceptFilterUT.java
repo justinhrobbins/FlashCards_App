@@ -28,7 +28,7 @@ public class AcceptFilterUT extends BaseMockingTest {
     private AcceptFilter acceptFilter;
 
     @Mock
-    ContainerRequest mockContainerRequest;
+    private ContainerRequest mockContainerRequest;
 
     @Before
     public void before() {

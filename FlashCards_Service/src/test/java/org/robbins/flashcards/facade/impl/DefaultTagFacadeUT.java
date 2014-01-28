@@ -50,6 +50,8 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
 
     private TagFacade tagFacade;
 
+    private final Integer PAGE_SIZE = 10;
+
     @Before
     public void before() {
         tagFacade = new DefaultTagFacade();
@@ -217,7 +219,7 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
         when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
         when(mockService.findAll(any(PageRequest.class))).thenReturn(mockTagList);
 
-        List<TagDto> results = tagFacade.list(1, 10, "name", "asc");
+        List<TagDto> results = tagFacade.list(1, PAGE_SIZE, "name", "asc");
 
         verify(mockService).findAll(any(PageRequest.class));
         assertThat(results, is(List.class));
@@ -230,7 +232,7 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
         when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
         when(mockService.findAll(any(PageRequest.class))).thenReturn(mockTagList);
 
-        List<TagDto> results = tagFacade.list(1, 10, null, null);
+        List<TagDto> results = tagFacade.list(1, PAGE_SIZE, null, null);
 
         verify(mockService).findAll(any(PageRequest.class));
         assertThat(results, is(List.class));

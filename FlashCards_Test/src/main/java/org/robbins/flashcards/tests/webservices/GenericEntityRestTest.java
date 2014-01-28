@@ -18,7 +18,7 @@ import org.springframework.http.HttpStatus;
 public abstract class GenericEntityRestTest<E extends Persistable<Long>> extends
         AbstractRestTestClient<E> {
 
-    static final Logger logger = LoggerFactory.getLogger(GenericEntityRestTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GenericEntityRestTest.class);
 
     /**
      * Sets the entity.
@@ -177,7 +177,7 @@ public abstract class GenericEntityRestTest<E extends Persistable<Long>> extends
      */
     @Before
     public void before() {
-        logger.info("******************** BEFORE TEST ********************");
+        LOGGER.info("******************** BEFORE TEST ********************");
 
         postEntity();
     }
@@ -187,7 +187,7 @@ public abstract class GenericEntityRestTest<E extends Persistable<Long>> extends
      */
     @After
     public void after() {
-        logger.info("******************** AFTER TEST ********************");
+        LOGGER.info("******************** AFTER TEST ********************");
 
         if (getEntity() != null) {
             // go ahead and delete the Entity

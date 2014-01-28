@@ -24,7 +24,7 @@ public class LoginAction extends FlashCardsAppBaseAction implements Preparable,
 
     private static final long serialVersionUID = 9086659350295360444L;
 
-    static final Logger logger = LoggerFactory.getLogger(LoginAction.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginAction.class);
 
     @Inject
     private transient User loggedInUser;
@@ -63,12 +63,12 @@ public class LoginAction extends FlashCardsAppBaseAction implements Preparable,
                     getOpenid_identifier().length() - 1));
         }
 
-        logger.debug("The requested OpenId identifier is: " + getOpenid_identifier());
+        LOGGER.debug("The requested OpenId identifier is: " + getOpenid_identifier());
 
         // determine a return_to URL where the application will receive
         // the authentication responses from the OpenID provider
         String returnUrl = getServerContext(request) + RETURN_ACTION;
-        logger.debug("return URL: " + returnUrl);
+        LOGGER.debug("return URL: " + returnUrl);
 
         // construct the destination Url to send to the Open Id provider
         String destinationUrl = OpenId4JavaAuthenticator.getValidateOpenIdUrl(returnUrl,
@@ -92,7 +92,7 @@ public class LoginAction extends FlashCardsAppBaseAction implements Preparable,
             receivingURL.append("?").append(request.getQueryString());
         }
 
-        logger.debug(receivingURL.toString().replaceAll("&", "\n"));
+        LOGGER.debug(receivingURL.toString().replaceAll("&", "\n"));
 
         // verify the user has authenticated with the Open Id provider and
         // get a reference to the authenticated User
@@ -130,10 +130,10 @@ public class LoginAction extends FlashCardsAppBaseAction implements Preparable,
 
         // was a destination URL provided?
         if (desitinationURL == null) {
-            logger.debug("No destination URL provided, will send to Home");
+            LOGGER.debug("No destination URL provided, will send to Home");
             return "home";
         } else {
-            logger.debug("Redirecting to : " + desitinationURL);
+            LOGGER.debug("Redirecting to : " + desitinationURL);
             response.sendRedirect(desitinationURL);
             return NONE;
         }
@@ -149,13 +149,13 @@ public class LoginAction extends FlashCardsAppBaseAction implements Preparable,
                 try {
                     ((org.apache.struts2.dispatcher.SessionMap) httpSession).invalidate();
                 } catch (IllegalStateException e) {
-                    logger.error("Exception in logout()", e);
+                    LOGGER.error("Exception in logout()", e);
                 }
             }
 
             return "success";
         } catch (Exception e) {
-            logger.error("Exception in logout():", e);
+            LOGGER.error("Exception in logout():", e);
 
             return "error";
         }

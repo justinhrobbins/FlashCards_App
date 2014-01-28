@@ -34,13 +34,13 @@ import org.springframework.test.util.ReflectionTestUtils;
 public class FlashCardRepositoryImplUT extends BaseMockingTest {
 
     @Mock
-    EntityManager em;
+    private EntityManager em;
 
-    Query query;
+    private Query query;
 
-    List<FlashCard> results;
+    private List<FlashCard> results;
 
-    FlashCardRepository repository;
+    private FlashCardRepository repository;
 
     @Before
     public void before() {

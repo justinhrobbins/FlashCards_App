@@ -1,4 +1,4 @@
 <!DOCTYPE module SYSTEM "http://google-web-toolkit.googlecode.com/svn/trunk/distro-source/core/src/gwt-module.dtd">
 <module>
-	<source path="model" />
+    <source path="model" />
 </module>

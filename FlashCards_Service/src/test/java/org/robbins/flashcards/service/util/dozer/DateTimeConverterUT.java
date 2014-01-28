@@ -19,7 +19,7 @@ import org.springframework.data.mapping.model.MappingException;
 @Category(UnitTest.class)
 public class DateTimeConverterUT extends BaseMockingTest {
 
-    DateTimeConverter dateTimeConverter;
+    private DateTimeConverter dateTimeConverter;
 
     @Before
     public void before() {
@@ -40,8 +40,9 @@ public class DateTimeConverterUT extends BaseMockingTest {
 
     @Test
     public void convert_SourceFromDate() {
+        final int year = 1988;
         Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.YEAR, 1988);
+        cal.set(Calendar.YEAR, year);
         cal.set(Calendar.MONTH, 1);
         cal.set(Calendar.DAY_OF_MONTH, 1);
 

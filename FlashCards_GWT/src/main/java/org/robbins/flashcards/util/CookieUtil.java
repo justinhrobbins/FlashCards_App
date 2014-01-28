@@ -5,7 +5,10 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class CookieUtil {
+public final class CookieUtil {
+
+    private CookieUtil() {
+    }
 
     public static final int dayInSeconds = 86400;
 
