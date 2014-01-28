@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.client.ui.mobile;
 
 import java.util.List;
@@ -22,109 +23,119 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class EditTagViewImplMobile extends Composite implements EditTagView {
 
-	private static TagFormUiBinder uiBinder = GWT.create(TagFormUiBinder.class);
+    private static TagFormUiBinder uiBinder = GWT.create(TagFormUiBinder.class);
 
-	interface TagFormUiBinder extends UiBinder<Widget, EditTagViewImplMobile> {
-	}
+    interface TagFormUiBinder extends UiBinder<Widget, EditTagViewImplMobile> {
+    }
 
-	public EditTagViewImplMobile() {
-		GWT.log("Creating 'EditTagViewImplMobile'");
-		
-		initWidget(uiBinder.createAndBindUi(this));
-	}
+    public EditTagViewImplMobile() {
+        GWT.log("Creating 'EditTagViewImplMobile'");
 
-	@UiField
-	TextBox tagName;
+        initWidget(uiBinder.createAndBindUi(this));
+    }
 
-	@UiField
-	Label createdDate;
+    @UiField
+    TextBox tagName;
 
-	@UiField
-	Label modifiedDate;
+    @UiField
+    Label createdDate;
 
-	@UiField
-	Button submit;
+    @UiField
+    Label modifiedDate;
 
-	@UiField
-	Button cancel;
+    @UiField
+    Button submit;
 
-	@UiField
-	FlashCardFlexTable flashCards;
+    @UiField
+    Button cancel;
 
-	public HasText getName() {
-		return tagName;
-	}
+    @UiField
+    FlashCardFlexTable flashCards;
 
-	public HasText getCreatedDate() {
-		return createdDate;
-	}
+    @Override
+    public HasText getName() {
+        return tagName;
+    }
 
-	public HasText getModifiedDate() {
-		return modifiedDate;
-	}
+    @Override
+    public HasText getCreatedDate() {
+        return createdDate;
+    }
 
-	public HasClickHandlers getSaveButton() {
-		return submit;
-	}
+    @Override
+    public HasText getModifiedDate() {
+        return modifiedDate;
+    }
 
-	public HasClickHandlers getCancelButton() {
-		return cancel;
-	}
+    @Override
+    public HasClickHandlers getSaveButton() {
+        return submit;
+    }
 
-	public Widget asWidget() {
-		return this;
-	}
+    @Override
+    public HasClickHandlers getCancelButton() {
+        return cancel;
+    }
 
-	@Override
-	public void setTagData(TagDto tag) {
+    @Override
+    public Widget asWidget() {
+        return this;
+    }
 
-		if (tag == null) {
-			getName().setText("");
-			getCreatedDate().setText("");
-			getModifiedDate().setText("");
+    @Override
+    public void setTagData(TagDto tag) {
 
-			return;
-		}
+        if (tag == null) {
+            getName().setText("");
+            getCreatedDate().setText("");
+            getModifiedDate().setText("");
 
-		getName().setText(tag.getName());
-		getCreatedDate().setText(
-				"Created Date: "
-						+ DateTimeFormat.getFormat(DateTimeFormat.PredefinedFormat.DATE_SHORT).format(tag.getCreatedDate()));
-		getModifiedDate().setText(
-				"Modified Date: "
-						+ DateTimeFormat.getFormat(DateTimeFormat.PredefinedFormat.DATE_SHORT).format(tag.getLastModifiedDate()));
-	}
+            return;
+        }
 
-	@Override
-	public void setFlashCardsData(List<FlashCardDto> flashCards) {
-		this.flashCards.setInput(flashCards);
-		
-	}
+        getName().setText(tag.getName());
+        getCreatedDate().setText(
+                "Created Date: "
+                        + DateTimeFormat.getFormat(
+                                DateTimeFormat.PredefinedFormat.DATE_SHORT).format(
+                                tag.getCreatedDate()));
+        getModifiedDate().setText(
+                "Modified Date: "
+                        + DateTimeFormat.getFormat(
+                                DateTimeFormat.PredefinedFormat.DATE_SHORT).format(
+                                tag.getLastModifiedDate()));
+    }
 
-	@Override
-	public boolean validate() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public void setFlashCardsData(List<FlashCardDto> flashCards) {
+        this.flashCards.setInput(flashCards);
 
-	@Override
-	public void initFormValidation() {
-		// TODO Auto-generated method stub
-	}
+    }
 
-	@Override
-	public void displayTagNameValidationMessage(String message) {
-		// TODO Auto-generated method stub
-	}
+    @Override
+    public boolean validate() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public HasEnabled getSubmitEnabled() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public void initFormValidation() {
+        // TODO Auto-generated method stub
+    }
 
-//	@Override
-//	public void enableForm(boolean enable) {
-//		// TODO Auto-generated method stub
-//	}
+    @Override
+    public void displayTagNameValidationMessage(String message) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public HasEnabled getSubmitEnabled() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    // @Override
+    // public void enableForm(boolean enable) {
+    // // TODO Auto-generated method stub
+    // }
 }

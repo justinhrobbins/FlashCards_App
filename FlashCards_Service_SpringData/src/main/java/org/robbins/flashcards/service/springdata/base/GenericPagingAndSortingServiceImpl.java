@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.service.springdata.base;
 
 import java.io.Serializable;
@@ -7,11 +8,15 @@ import org.robbins.flashcards.service.base.GenericPagingAndSortingService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-public abstract class GenericPagingAndSortingServiceImpl<T, ID extends Serializable> extends GenericCrudServiceImpl<T, ID> implements GenericPagingAndSortingService<T, ID> {
+public abstract class GenericPagingAndSortingServiceImpl<T, ID extends Serializable>
+        extends GenericCrudServiceImpl<T, ID> implements
+        GenericPagingAndSortingService<T, ID> {
 
-	protected abstract PagingAndSortingRepository<T, ID> getRepository();
+    @Override
+    protected abstract PagingAndSortingRepository<T, ID> getRepository();
 
-	public List<T> findAll(Pageable pageable) {
-		return getRepository().findAll(pageable).getContent();
-	}
+    @Override
+    public List<T> findAll(Pageable pageable) {
+        return getRepository().findAll(pageable).getContent();
+    }
 }

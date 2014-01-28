@@ -36,7 +36,6 @@ import org.fusesource.restygwt.client.Options;
 import org.fusesource.restygwt.client.RestService;
 import org.robbins.flashcards.model.UserDto;
 
-
 @Path("/api/v1/users")
 public interface UserRestService extends RestService {
 
@@ -44,48 +43,43 @@ public interface UserRestService extends RestService {
     @Path("/api/v1/users")
     @Consumes("application/json")
     @Produces("application/json")
-    public void getUsers(	@HeaderParam("Authorization") String authHeader, 
-    						MethodCallback<List<UserDto>> callback);
-    
+    void getUsers(@HeaderParam("Authorization") String authHeader,
+            MethodCallback<List<UserDto>> callback);
+
     @GET
     @Path("/api/v1/users/search")
     @Consumes("application/json")
     @Produces("application/json")
-    @Options(expect={200,204,1223})
-    public void getUsersSearch(	@HeaderParam("Authorization") String authHeader, 
-    							@QueryParam("openid") String openid, 
-    							MethodCallback<UserDto> callback);
+    @Options(expect = { 200, 204, 1223 })
+    void getUsersSearch(@HeaderParam("Authorization") String authHeader,
+            @QueryParam("openid") String openid, MethodCallback<UserDto> callback);
 
     @GET
     @Path("/api/v1/users/{userId}")
     @Consumes("application/json")
     @Produces("application/json")
-    public void getUser(@HeaderParam("Authorization") String authHeader, 
-    					@PathParam("userId") Long userId, 
-    					MethodCallback<UserDto> callback);
-    
+    void getUser(@HeaderParam("Authorization") String authHeader,
+            @PathParam("userId") Long userId, MethodCallback<UserDto> callback);
+
     @POST
     @Path("/api/v1/users")
     @Consumes("application/json")
     @Produces("application/json")
-    public void postUsers(	@HeaderParam("Authorization") String authHeader, 
-    						UserDto user, 
-    						MethodCallback<UserDto> callback);
+    void postUsers(@HeaderParam("Authorization") String authHeader, UserDto user,
+            MethodCallback<UserDto> callback);
 
     @PUT
     @Path("/api/v1/users/{userId}")
     @Consumes("application/json")
     @Produces("application/json")
-    @Options(expect={204,1223})
-    public void putUsers(	@HeaderParam("Authorization") String authHeader, 
-    						@PathParam("userId") Long userId, 
-    						MethodCallback<java.lang.Void> callback);
-    
+    @Options(expect = { 204, 1223 })
+    void putUsers(@HeaderParam("Authorization") String authHeader,
+            @PathParam("userId") Long userId, MethodCallback<java.lang.Void> callback);
+
     @DELETE
     @Path("/api/v1/users/{userId}")
     @Consumes("application/json")
     @Produces("application/json")
-    public void deleteUsers(@HeaderParam("Authorization") String authHeader, 
-    						@PathParam("userId") Long userId, 
-    						MethodCallback<java.lang.Void> callback);
+    void deleteUsers(@HeaderParam("Authorization") String authHeader,
+            @PathParam("userId") Long userId, MethodCallback<java.lang.Void> callback);
 }

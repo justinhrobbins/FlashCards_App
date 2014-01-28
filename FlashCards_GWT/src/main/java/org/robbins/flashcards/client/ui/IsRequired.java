@@ -1,5 +1,7 @@
+
 package org.robbins.flashcards.client.ui;
 
 public interface IsRequired {
-	void isRequired(boolean required);
+
+    void isRequired(boolean required);
 }

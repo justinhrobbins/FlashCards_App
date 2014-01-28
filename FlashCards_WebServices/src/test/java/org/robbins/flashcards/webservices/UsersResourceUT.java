@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.webservices;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -17,43 +18,44 @@ import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.flashcards.facade.UserFacade;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @Category(UnitTest.class)
 public class UsersResourceUT extends BaseMockingTest {
 
-	@Mock
-	UserFacade mockUserFacade;
-	
-	@Mock
-	UserDto mockUserDto;
-	
-	UsersResource resource;
-	
-	@Before
-	public void before() {
-		resource = new UsersResource();
-		ReflectionTestUtils.setField(resource, "userFacade", mockUserFacade);
-	}
-	
-	@Test
-	public void search() {
-		when(mockUserFacade.findUserByOpenid(any(String.class))).thenReturn(mockUserDto);
-		
-		UserDto result = resource.search(any(String.class));
-		
-		verify(mockUserFacade).findUserByOpenid(any(String.class));
-		assertThat(result, is(UserDto.class));
-	}
-	
-	@Test
-	public void put() throws ServiceException {
-		when(mockUserFacade.findOne(any(Long.class))).thenReturn(mockUserDto);
-		when(mockUserFacade.save(any(UserDto.class))).thenReturn(mockUserDto);
-		
-		Response response = resource.put(1L, mockUserDto);
-		
-		verify(mockUserFacade).save(any(UserDto.class));
-		assertThat(response.getStatus(), is(204));
-	}
+    @Mock
+    private UserFacade mockUserFacade;
+
+    @Mock
+    private UserDto mockUserDto;
+
+    private UsersResource resource;
+
+    @Before
+    public void before() {
+        resource = new UsersResource();
+        ReflectionTestUtils.setField(resource, "userFacade", mockUserFacade);
+    }
+
+    @Test
+    public void search() {
+        when(mockUserFacade.findUserByOpenid(any(String.class))).thenReturn(mockUserDto);
+
+        UserDto result = resource.search(any(String.class));
+
+        verify(mockUserFacade).findUserByOpenid(any(String.class));
+        assertThat(result, is(UserDto.class));
+    }
+
+    @Test
+    public void put() throws ServiceException {
+        when(mockUserFacade.findOne(any(Long.class))).thenReturn(mockUserDto);
+        when(mockUserFacade.save(any(UserDto.class))).thenReturn(mockUserDto);
+
+        Response response = resource.put(1L, mockUserDto);
+
+        verify(mockUserFacade).save(any(UserDto.class));
+        assertThat(response.getStatus(), is(HttpStatus.NO_CONTENT.value()));
+    }
 }

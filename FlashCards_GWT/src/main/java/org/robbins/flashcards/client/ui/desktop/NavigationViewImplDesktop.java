@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.client.ui.desktop;
 
 import org.robbins.flashcards.client.factory.ClientFactory;
@@ -13,54 +14,55 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class NavigationViewImplDesktop extends Composite implements NavigationView {
 
-	private static NavigationWidgetUiBinder uiBinder = GWT.create(NavigationWidgetUiBinder.class);
+    private static NavigationWidgetUiBinder uiBinder = GWT.create(NavigationWidgetUiBinder.class);
 
-	interface NavigationWidgetUiBinder extends UiBinder<Widget, NavigationViewImplDesktop> {
-	}
+    interface NavigationWidgetUiBinder extends
+            UiBinder<Widget, NavigationViewImplDesktop> {
+    }
 
-	@UiField
-	Hyperlink newFlashCard;
-	
-	@UiField
-	Hyperlink listFlashCards;
+    @UiField
+    Hyperlink newFlashCard;
 
-	@UiField
-	Hyperlink newTag;
-	
-	@UiField
-	Hyperlink listTags;
-	
-	public NavigationViewImplDesktop(ClientFactory clientFactory) {
-		GWT.log("Creating 'NavigationViewImplDesktop'");
-		
-		initWidget(uiBinder.createAndBindUi(this));
-		
-		AppConstants constants = clientFactory.getConstants();
-		
-		newFlashCard.setText(constants.newFlashCard());
-		listFlashCards.setText(constants.listFlashCards());
-		newTag.setText(constants.newTag());
-		listTags.setText(constants.listTags());
-	}
+    @UiField
+    Hyperlink listFlashCards;
 
-	@Override
-	public void setNewFlashCardToken(String token) {
-		newFlashCard.setTargetHistoryToken(token);
-		
-	}
+    @UiField
+    Hyperlink newTag;
 
-	@Override
-	public void setListFlashCardsToken(String token) {
-		listFlashCards.setTargetHistoryToken(token);
-	}
+    @UiField
+    Hyperlink listTags;
 
-	@Override
-	public void setNewTagToken(String token) {
-		newTag.setTargetHistoryToken(token);
-	}
+    public NavigationViewImplDesktop(ClientFactory clientFactory) {
+        GWT.log("Creating 'NavigationViewImplDesktop'");
 
-	@Override
-	public void setListTagsToken(String token) {
-		listTags.setTargetHistoryToken(token);
-	}	
+        initWidget(uiBinder.createAndBindUi(this));
+
+        AppConstants constants = clientFactory.getConstants();
+
+        newFlashCard.setText(constants.newFlashCard());
+        listFlashCards.setText(constants.listFlashCards());
+        newTag.setText(constants.newTag());
+        listTags.setText(constants.listTags());
+    }
+
+    @Override
+    public void setNewFlashCardToken(String token) {
+        newFlashCard.setTargetHistoryToken(token);
+
+    }
+
+    @Override
+    public void setListFlashCardsToken(String token) {
+        listFlashCards.setTargetHistoryToken(token);
+    }
+
+    @Override
+    public void setNewTagToken(String token) {
+        newTag.setTargetHistoryToken(token);
+    }
+
+    @Override
+    public void setListTagsToken(String token) {
+        listTags.setTargetHistoryToken(token);
+    }
 }

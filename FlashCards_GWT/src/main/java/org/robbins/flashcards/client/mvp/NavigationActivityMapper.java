@@ -13,6 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
+
 package org.robbins.flashcards.client.mvp;
 
 import org.robbins.flashcards.client.activity.NavigationActivity;
@@ -29,22 +30,21 @@ import com.google.gwt.place.shared.Place;
  */
 public class NavigationActivityMapper implements ActivityMapper {
 
-	private ClientFactory clientFactory;
+    private ClientFactory clientFactory;
 
-	public NavigationActivityMapper(ClientFactory clientFactory) {
-		super();
-		this.clientFactory = clientFactory;
-	}
+    public NavigationActivityMapper(ClientFactory clientFactory) {
+        super();
+        this.clientFactory = clientFactory;
+    }
 
-	@Override
-	public Activity getActivity(Place place) {
-		GWT.log("NavigationActivityMapper - Place called: " + place);
+    @Override
+    public Activity getActivity(Place place) {
+        GWT.log("NavigationActivityMapper - Place called: " + place);
 
-		if (place instanceof LoginPlace) {
-			return null;
-		}
-		else {
-			return new NavigationActivity(clientFactory);
-		}
-	}
+        if (place instanceof LoginPlace) {
+            return null;
+        } else {
+            return new NavigationActivity(clientFactory);
+        }
+    }
 }

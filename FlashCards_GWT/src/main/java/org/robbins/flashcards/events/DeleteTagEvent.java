@@ -1,14 +1,13 @@
-package org.robbins.flashcards.events;
 
+package org.robbins.flashcards.events;
 
 import com.google.web.bindery.event.shared.Event;
 import com.google.web.bindery.event.shared.EventBus;
-
 import com.google.web.bindery.event.shared.HandlerRegistration;
 
 /**
- * Here is a custom event. For comparison this is also a DeleteTagEvent.
- * This event extends the Event from the web.bindery package.
+ * Here is a custom event. For comparison this is also a DeleteTagEvent. This event
+ * extends the Event from the web.bindery package.
  */
 public class DeleteTagEvent extends Event<DeleteTagEventHandler> {
 
@@ -16,19 +15,23 @@ public class DeleteTagEvent extends Event<DeleteTagEventHandler> {
 
     /**
      * Register a handler for DeleteTagEvent events on the eventbus.
-     * 
+     *
      * @param eventBus the {@link EventBus}
      * @param handler an {@link DeleteTagEvent.Handler} instance
      * @return an {@link HandlerRegistration} instance
      */
-    public static HandlerRegistration register(EventBus eventBus, DeleteTagEventHandler handler) {
-      return eventBus.addHandler(TYPE, handler);
-    }    
+    public static HandlerRegistration register(EventBus eventBus,
+            DeleteTagEventHandler handler) {
+        return eventBus.addHandler(TYPE, handler);
+    }
 
-	public Long getTagId() {return tagId;}
+    public Long getTagId() {
+        return tagId;
+    }
+
     private final Long tagId;
-    
-	public DeleteTagEvent(Long tagId) {
+
+    public DeleteTagEvent(Long tagId) {
         this.tagId = tagId;
     }
 
@@ -36,7 +39,6 @@ public class DeleteTagEvent extends Event<DeleteTagEventHandler> {
     public Type<DeleteTagEventHandler> getAssociatedType() {
         return TYPE;
     }
-
 
     @Override
     protected void dispatch(DeleteTagEventHandler handler) {

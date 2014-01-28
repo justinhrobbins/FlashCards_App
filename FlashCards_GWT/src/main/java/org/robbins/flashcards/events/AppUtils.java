@@ -1,10 +1,15 @@
+
 package org.robbins.flashcards.events;
 
 import com.google.gwt.core.client.GWT;
 import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.event.shared.SimpleEventBus;
 
-public class AppUtils {
-	public static EventBus EVENT_BUS = GWT.create(SimpleEventBus.class);
+public final class AppUtils {
 
+    private AppUtils() {
+
+    }
+
+    public static final EventBus EVENT_BUS = GWT.create(SimpleEventBus.class);
 }

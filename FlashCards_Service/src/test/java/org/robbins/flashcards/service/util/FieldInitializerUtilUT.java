@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.service.util;
 
 import static org.mockito.Mockito.when;
@@ -25,59 +26,71 @@ import org.springframework.test.util.ReflectionTestUtils;
 @Category(UnitTest.class)
 public class FieldInitializerUtilUT extends BaseMockingTest {
 
-	@Mock
-	private EntityManagerFactory mockEntityManagerFactory;
+    @Mock
+    private EntityManagerFactory mockEntityManagerFactory;
 
-	@Mock
-	private EntityManager mockEntityManager;
-	
-	@Mock
-	private PersistenceUnitUtil mockPersistenceUnitUtil;
-	
-	private FieldInitializerUtil fieldInitializerUtil;
-	
-	private TagDto tagDto;
+    @Mock
+    private EntityManager mockEntityManager;
 
-	private String FIELD_NAME = "name";
-	private String COLLECTION_FIELD_NAME = "flashcards";
-	
-	@Before
-	public void before() {
-		fieldInitializerUtil = new FieldInitializerUtil();
+    @Mock
+    private PersistenceUnitUtil mockPersistenceUnitUtil;
 
-		tagDto = new TagDto();
-		tagDto.setFlashcards(new HashSet<FlashCardDto>());
-		
-		when(mockEntityManager.getEntityManagerFactory()).thenReturn(mockEntityManagerFactory);
-		when(mockEntityManagerFactory.getPersistenceUnitUtil()).thenReturn(mockPersistenceUnitUtil);
-		when(mockEntityManagerFactory.createEntityManager()).thenReturn(mockEntityManager);
-		
-		ReflectionTestUtils.setField(fieldInitializerUtil, "entityManagerFactory", mockEntityManagerFactory);
-	}
-	
-	@Test
-	public void initializeEntity() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, ServiceException {
-		fieldInitializerUtil.initializeEntity(tagDto, new HashSet<String>(Arrays.asList(COLLECTION_FIELD_NAME)));
-	}
+    private FieldInitializerUtil fieldInitializerUtil;
 
-	@Test
-	public void initializeEntity_collection() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, ServiceException {
-		List<TagDto> tagList = Arrays.asList(tagDto);
-		
-		fieldInitializerUtil.initializeEntity(tagList, new HashSet<String>(Arrays.asList(FIELD_NAME)));
-	}
+    private TagDto tagDto;
 
-	@Test
-	public void initializeEntity_array() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, ServiceException {
-		TagDto[] tagArray = {tagDto};
-		
-		fieldInitializerUtil.initializeEntity(tagArray, new HashSet<String>(Arrays.asList(FIELD_NAME)));
-	}
-	
-	@Test
-	public void initializeEntity_nullEntity() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, ServiceException {
-		tagDto = null;
-		
-		fieldInitializerUtil.initializeEntity(tagDto, new HashSet<String>(Arrays.asList(FIELD_NAME)));
-	}
+    private String FIELD_NAME = "name";
+
+    private String COLLECTION_FIELD_NAME = "flashcards";
+
+    @Before
+    public void before() {
+        fieldInitializerUtil = new FieldInitializerUtil();
+
+        tagDto = new TagDto();
+        tagDto.setFlashcards(new HashSet<FlashCardDto>());
+
+        when(mockEntityManager.getEntityManagerFactory()).thenReturn(
+                mockEntityManagerFactory);
+        when(mockEntityManagerFactory.getPersistenceUnitUtil()).thenReturn(
+                mockPersistenceUnitUtil);
+        when(mockEntityManagerFactory.createEntityManager()).thenReturn(mockEntityManager);
+
+        ReflectionTestUtils.setField(fieldInitializerUtil, "entityManagerFactory",
+                mockEntityManagerFactory);
+    }
+
+    @Test
+    public void initializeEntity() throws IllegalAccessException,
+            InvocationTargetException, NoSuchMethodException, ServiceException {
+        fieldInitializerUtil.initializeEntity(tagDto,
+                new HashSet<String>(Arrays.asList(COLLECTION_FIELD_NAME)));
+    }
+
+    @Test
+    public void initializeEntity_collection() throws IllegalAccessException,
+            InvocationTargetException, NoSuchMethodException, ServiceException {
+        List<TagDto> tagList = Arrays.asList(tagDto);
+
+        fieldInitializerUtil.initializeEntity(tagList,
+                new HashSet<String>(Arrays.asList(FIELD_NAME)));
+    }
+
+    @Test
+    public void initializeEntity_array() throws IllegalAccessException,
+            InvocationTargetException, NoSuchMethodException, ServiceException {
+        TagDto[] tagArray = { tagDto };
+
+        fieldInitializerUtil.initializeEntity(tagArray,
+                new HashSet<String>(Arrays.asList(FIELD_NAME)));
+    }
+
+    @Test
+    public void initializeEntity_nullEntity() throws IllegalAccessException,
+            InvocationTargetException, NoSuchMethodException, ServiceException {
+        tagDto = null;
+
+        fieldInitializerUtil.initializeEntity(tagDto,
+                new HashSet<String>(Arrays.asList(FIELD_NAME)));
+    }
 }

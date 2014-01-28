@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.service.springdata.base;
 
 import java.io.Serializable;
@@ -7,35 +8,44 @@ import org.robbins.flashcards.service.base.GenericJpaService;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public abstract class GenericJpaServiceImpl <T, ID extends Serializable> extends GenericPagingAndSortingServiceImpl<T, ID> implements GenericJpaService<T, ID> {
+public abstract class GenericJpaServiceImpl<T, ID extends Serializable> extends
+        GenericPagingAndSortingServiceImpl<T, ID> implements GenericJpaService<T, ID> {
 
-	protected abstract JpaRepository<T, ID> getRepository();
-	
-	public List<T> findAll() {
-		return getRepository().findAll();
-	}
+    @Override
+    protected abstract JpaRepository<T, ID> getRepository();
 
-	public List<T> findAll(Sort sort) {
-		return getRepository().findAll(sort);
-	}
+    @Override
+    public List<T> findAll() {
+        return getRepository().findAll();
+    }
 
-	public List<T> save(Iterable<T> entities) {
-		return getRepository().save(entities);
-	}
+    @Override
+    public List<T> findAll(Sort sort) {
+        return getRepository().findAll(sort);
+    }
 
-	public void flush() {
-		getRepository().flush();
-	}
+    @Override
+    public List<T> save(Iterable<T> entities) {
+        return getRepository().save(entities);
+    }
 
-	public T saveAndFlush(T entity) {
-		return getRepository().saveAndFlush(entity);
-	}
+    @Override
+    public void flush() {
+        getRepository().flush();
+    }
 
-	public void deleteInBatch(Iterable<T> entities) {
-		getRepository().deleteInBatch(entities);
-	}
+    @Override
+    public T saveAndFlush(T entity) {
+        return getRepository().saveAndFlush(entity);
+    }
 
-	public void deleteAllInBatch() {
-		getRepository().deleteAllInBatch();
-	}
+    @Override
+    public void deleteInBatch(Iterable<T> entities) {
+        getRepository().deleteInBatch(entities);
+    }
+
+    @Override
+    public void deleteAllInBatch() {
+        getRepository().deleteAllInBatch();
+    }
 }

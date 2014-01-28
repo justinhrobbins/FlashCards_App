@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.client.ui.desktop;
 
 import java.util.List;
@@ -27,152 +28,165 @@ import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
-public class EditTagViewImplDesktop extends AbstractFlashCardsAppForm implements EditTagView {
+public class EditTagViewImplDesktop extends AbstractFlashCardsAppForm implements
+        EditTagView {
 
-	private static TagFormUiBinder uiBinder = GWT.create(TagFormUiBinder.class);
+    private static TagFormUiBinder uiBinder = GWT.create(TagFormUiBinder.class);
 
-	interface TagFormUiBinder extends UiBinder<Widget, EditTagViewImplDesktop> {
-	}
+    interface TagFormUiBinder extends UiBinder<Widget, EditTagViewImplDesktop> {
+    }
 
-	@UiField
-	LabelWidget requiresLogin;
-	
-	@UiField
-	TextBoxWidget tagName;
+    @UiField
+    LabelWidget requiresLogin;
 
-	@UiField
-	Label createdDate;
+    @UiField
+    TextBoxWidget tagName;
 
-	@UiField
-	Label modifiedDate;
+    @UiField
+    Label createdDate;
 
-	@UiField
-	Button submit;
+    @UiField
+    Label modifiedDate;
 
-	@UiField
-	Button cancel;
+    @UiField
+    Button submit;
 
-	@UiField(provided=true)
-	FlashCardFlexTable flashCards;
-	
-	public EditTagViewImplDesktop(ClientFactory clientFactory) {
-		super(clientFactory);
-		
-		GWT.log("Creating 'EditTagViewImplDesktop'");
-		flashCards = new FlashCardFlexTable(clientFactory);
+    @UiField
+    Button cancel;
 
-		initWidget(uiBinder.createAndBindUi(this));
-		initFormValidation();
-		requiresLogin.isRequired(false);
-		tagName.setLabel("Name:");
-		tagName.setWidth("35em");
-		tagName.addKeyDownHandler(new KeyDownHandler() {
-			@Override
-			public void onKeyDown(KeyDownEvent event) {
-				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-					submit.click();
-				}
-			}
-		});
-	}
+    @UiField(provided = true)
+    FlashCardFlexTable flashCards;
 
-	@Override
-	public void initFormValidation() {
-		tagName.hideValidationMessage();
-	}
+    public EditTagViewImplDesktop(ClientFactory clientFactory) {
+        super(clientFactory);
 
-	public HasText getCreatedDate() {
-		return createdDate;
-	}
+        GWT.log("Creating 'EditTagViewImplDesktop'");
+        flashCards = new FlashCardFlexTable(clientFactory);
 
-	public HasText getModifiedDate() {
-		return modifiedDate;
-	}
+        initWidget(uiBinder.createAndBindUi(this));
+        initFormValidation();
+        requiresLogin.isRequired(false);
+        tagName.setLabel("Name:");
+        tagName.setWidth("35em");
+        tagName.addKeyDownHandler(new KeyDownHandler() {
 
-	public HasClickHandlers getSaveButton() {
-		return submit;
-	}
+            @Override
+            public void onKeyDown(KeyDownEvent event) {
+                if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+                    submit.click();
+                }
+            }
+        });
+    }
 
-	public HasClickHandlers getCancelButton() {
-		return cancel;
-	}
+    @Override
+    public void initFormValidation() {
+        tagName.hideValidationMessage();
+    }
 
-	public Widget asWidget() {
-		return this;
-	}
+    @Override
+    public HasText getCreatedDate() {
+        return createdDate;
+    }
 
-	@Override
-	public void setTagData(TagDto tag) {
-		//getSubmitEnabled().setEnabled(true);
-		
-		if (tag == null) {
-			getName().setText("");
-			getCreatedDate().setText("");
-			getModifiedDate().setText("");
-			
-			// had to add this in order for the setfocus() to work
-			Scheduler.get().scheduleDeferred(new ScheduledCommand() {
-		        public void execute () {
-		        	tagName.setFocus(true);
-		        }
-			});
-			return;
-		}
+    @Override
+    public HasText getModifiedDate() {
+        return modifiedDate;
+    }
 
-		getName().setText(tag.getName());
-		
-		getCreatedDate().setText(
-				getConstants().createdDate()
-						+ DateTimeFormat.getFormat(DateTimeFormat.PredefinedFormat.DATE_SHORT).format(tag.getCreatedDate()));
-		
-		getModifiedDate().setText(
-				getConstants().modifiedDate()
-						+ DateTimeFormat.getFormat(DateTimeFormat.PredefinedFormat.DATE_SHORT).format(tag.getLastModifiedDate()));
-		
-		tagName.selectAll();
-		tagName.setFocus(true);
-	}
+    @Override
+    public HasClickHandlers getSaveButton() {
+        return submit;
+    }
 
-	@Override
-	public void setFlashCardsData(List<FlashCardDto> flashCards) {
-		this.flashCards.setInput(flashCards);
-		
-	}
+    @Override
+    public HasClickHandlers getCancelButton() {
+        return cancel;
+    }
 
-	@Override
-	public boolean validate() {
-		boolean result = true;
-		
-		if (tagName.getText().length() < 1) {
-			displayTagNameValidationMessage(getConstants().tagNameIsRequired());
-			result = false;
-		}
-		return result;
-	}
-	
-	@Override
-	public void displayTagNameValidationMessage(String message) {
-		tagName.dispayValidationMessage(message);
-	}
+    @Override
+    public Widget asWidget() {
+        return this;
+    }
 
-	@Override
-	public HasText getName() {
-		return this.tagName;
-	}
-	
-	@Override
-	public HasEnabled getSubmitEnabled() {
-		return submit;
-	}
+    @Override
+    public void setTagData(TagDto tag) {
+        // getSubmitEnabled().setEnabled(true);
 
-//	@Override
-//	public void enableForm(boolean enable) {
-//		if (enable == true) {
-//			requiresLogin.hideValidationMessage();			
-//		}
-//		else {
-//			requiresLogin.dispayValidationMessage(getConstants().featureRequiresLogin());
-//		}
-//		getSubmitEnabled().setEnabled(enable);		
-//	}
+        if (tag == null) {
+            getName().setText("");
+            getCreatedDate().setText("");
+            getModifiedDate().setText("");
+
+            // had to add this in order for the setfocus() to work
+            Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+
+                @Override
+                public void execute() {
+                    tagName.setFocus(true);
+                }
+            });
+            return;
+        }
+
+        getName().setText(tag.getName());
+
+        getCreatedDate().setText(
+                getConstants().createdDate()
+                        + DateTimeFormat.getFormat(
+                                DateTimeFormat.PredefinedFormat.DATE_SHORT).format(
+                                tag.getCreatedDate()));
+
+        getModifiedDate().setText(
+                getConstants().modifiedDate()
+                        + DateTimeFormat.getFormat(
+                                DateTimeFormat.PredefinedFormat.DATE_SHORT).format(
+                                tag.getLastModifiedDate()));
+
+        tagName.selectAll();
+        tagName.setFocus(true);
+    }
+
+    @Override
+    public void setFlashCardsData(List<FlashCardDto> flashCards) {
+        this.flashCards.setInput(flashCards);
+
+    }
+
+    @Override
+    public boolean validate() {
+        boolean result = true;
+
+        if (tagName.getText().length() < 1) {
+            displayTagNameValidationMessage(getConstants().tagNameIsRequired());
+            result = false;
+        }
+        return result;
+    }
+
+    @Override
+    public void displayTagNameValidationMessage(String message) {
+        tagName.dispayValidationMessage(message);
+    }
+
+    @Override
+    public HasText getName() {
+        return this.tagName;
+    }
+
+    @Override
+    public HasEnabled getSubmitEnabled() {
+        return submit;
+    }
+
+    // @Override
+    // public void enableForm(boolean enable) {
+    // if (enable == true) {
+    // requiresLogin.hideValidationMessage();
+    // }
+    // else {
+    // requiresLogin.dispayValidationMessage(getConstants().featureRequiresLogin());
+    // }
+    // getSubmitEnabled().setEnabled(enable);
+    // }
 }

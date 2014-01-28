@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.repository.jpa;
 
 import java.util.List;
@@ -9,9 +10,14 @@ import org.robbins.flashcards.repository.jpa.base.CrudRepository;
 import org.springframework.data.domain.Pageable;
 
 public interface FlashCardRepository extends CrudRepository<FlashCard> {
-	List<FlashCard> findByTagsIn(Set<Tag> tags);
-	List<FlashCard> findByTagsIn(Set<Tag> tags, Pageable page);
-	List<FlashCard> findByQuestionLike(String question);
-	List<FlashCard> findByQuestionLike(String question, Pageable page);
-	FlashCard findByQuestion(String question);
+
+    List<FlashCard> findByTagsIn(Set<Tag> tags);
+
+    List<FlashCard> findByTagsIn(Set<Tag> tags, Pageable page);
+
+    List<FlashCard> findByQuestionLike(String question);
+
+    List<FlashCard> findByQuestionLike(String question, Pageable page);
+
+    FlashCard findByQuestion(String question);
 }

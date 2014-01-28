@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.jersey.filters;
 
 import java.util.List;
@@ -16,38 +17,42 @@ import com.sun.jersey.spi.container.ContainerRequest;
 import com.sun.jersey.spi.container.ContainerRequestFilter;
 
 /**
- * Overrides the 'accept' HTTP header with value parsed from the querystring 'accept' parameter.
- * The 'accept' parameter must match 
+ * Overrides the 'accept' HTTP header with value parsed from the querystring 'accept'
+ * parameter. The 'accept' parameter must match
+ *
  * @author Justin Robbins
  *
  */
 @Component("jerseyAcceptFilter")
 public class AcceptFilter implements ContainerRequestFilter {
 
-	static final Logger logger = LoggerFactory.getLogger(AcceptFilter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AcceptFilter.class);
 
-	private static String ACCEPT = "accept";
-	
-	@Override
-	public ContainerRequest filter(ContainerRequest request) {
-		logger.debug("AcceptFilter");
+    private static String ACCEPT = "accept";
 
-		MultivaluedMap<String, String> queryParametersMap = request.getQueryParameters();
-		
-		if (queryParametersMap.containsKey(ACCEPT)) {
-			List<String> queryparmsList = queryParametersMap.get(ACCEPT); 
-			logger.debug(queryparmsList.toString());
-			
-			// does the 'accept' header match either json or xml? 
-			if ( (!queryparmsList.contains(MediaType.APPLICATION_JSON)) && (!queryparmsList.contains(MediaType.APPLICATION_XML)) ) {
-				throw new GenericWebServiceException(
-						Response.Status.BAD_REQUEST, "'accept' parameter must container either " + MediaType.APPLICATION_JSON + " or " + MediaType.APPLICATION_XML);
-			}
-			
-			MultivaluedMap<String, String> headers = request.getRequestHeaders();
-			headers.put(HttpHeaders.ACCEPT, queryparmsList);
-		}
-		
-		return request;
-	}
+    @Override
+    public ContainerRequest filter(ContainerRequest request) {
+        LOGGER.debug("AcceptFilter");
+
+        MultivaluedMap<String, String> queryParametersMap = request.getQueryParameters();
+
+        if (queryParametersMap.containsKey(ACCEPT)) {
+            List<String> queryparmsList = queryParametersMap.get(ACCEPT);
+            LOGGER.debug(queryparmsList.toString());
+
+            // does the 'accept' header match either json or xml?
+            if ((!queryparmsList.contains(MediaType.APPLICATION_JSON))
+                    && (!queryparmsList.contains(MediaType.APPLICATION_XML))) {
+                throw new GenericWebServiceException(Response.Status.BAD_REQUEST,
+                        "'accept' parameter must container either "
+                                + MediaType.APPLICATION_JSON + " or "
+                                + MediaType.APPLICATION_XML);
+            }
+
+            MultivaluedMap<String, String> headers = request.getRequestHeaders();
+            headers.put(HttpHeaders.ACCEPT, queryparmsList);
+        }
+
+        return request;
+    }
 }

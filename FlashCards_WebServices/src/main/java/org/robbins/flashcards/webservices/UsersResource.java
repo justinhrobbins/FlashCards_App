@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.webservices;
 
 import javax.inject.Inject;
@@ -18,34 +19,36 @@ import com.wordnik.swagger.annotations.ApiOperation;
 
 @Path("/v1/users/")
 @Component("usersResource")
-@Api(value="/v1/users", description = "Operations about Users")
-@Produces({"application/xml", "application/json"})
-@Consumes({"application/xml","application/json"})
+@Api(value = "/v1/users", description = "Operations about Users")
+@Produces({ "application/xml", "application/json" })
+@Consumes({ "application/xml", "application/json" })
 public class UsersResource extends AbstractGenericResource<UserDto, Long> {
-	
-	@Inject
-	private UserFacade userFacade;
 
-	protected GenericCrudFacade<UserDto> getFacade() {
-		return userFacade;
-	}
-	
-	@GET
-	@Path("/search")
-	@ApiOperation(value = "Find a user by their OpenId", response = UserDto.class)
-	public UserDto search(@QueryParam("openid") String openid) {
-			return userFacade.findUserByOpenid(openid);
-	}
-	
-//	@Override
-//	@ApiOperation(value = "Replace a user", responseClass = "javax.ws.rs.core.Response")
-//	public Response put(@PathParam("id") Long id, UserDto dto) {
-//
-//		if (dto.getCreatedBy() == null) {
-//			UserDto orig = userFacade.findOne(id);
-//			dto.setCreatedBy(orig.getCreatedBy());
-//			dto.setCreatedDate(orig.getCreatedDate());
-//		}
-//		return super.put(id,  dto);
-//	}
+    @Inject
+    private UserFacade userFacade;
+
+    @Override
+    protected GenericCrudFacade<UserDto> getFacade() {
+        return userFacade;
+    }
+
+    @GET
+    @Path("/search")
+    @ApiOperation(value = "Find a user by their OpenId", response = UserDto.class)
+    public UserDto search(@QueryParam("openid") String openid) {
+        return userFacade.findUserByOpenid(openid);
+    }
+
+    // @Override
+    // @ApiOperation(value = "Replace a user", responseClass =
+    // "javax.ws.rs.core.Response")
+    // public Response put(@PathParam("id") Long id, UserDto dto) {
+    //
+    // if (dto.getCreatedBy() == null) {
+    // UserDto orig = userFacade.findOne(id);
+    // dto.setCreatedBy(orig.getCreatedBy());
+    // dto.setCreatedDate(orig.getCreatedDate());
+    // }
+    // return super.put(id, dto);
+    // }
 }

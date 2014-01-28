@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.facade.base;
 
 import java.util.ArrayList;
@@ -15,131 +16,129 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 
-public abstract class AbstractCrudFacadeImpl<D, E> implements
-		GenericCrudFacade<D>, CrudFacade<D, E> {
+public abstract class AbstractCrudFacadeImpl<D, E> implements GenericCrudFacade<D>,
+        CrudFacade<D, E> {
 
-	@Inject
-	private Mapper mapper;
+    @Inject
+    private Mapper mapper;
 
-	@Inject
-	private FieldInitializerUtil fieldInitializer;
-	
-	public Mapper getMapper() {
-		return mapper;
-	}
+    @Inject
+    private FieldInitializerUtil fieldInitializer;
 
-	public void setMapper(Mapper mapper) {
-		this.mapper = mapper;
-	}
+    public Mapper getMapper() {
+        return mapper;
+    }
 
-	@Override
-	public D save(D dto) throws ServiceException {
-		E entity = getEntity(dto);
-		E resultEntity = getService().save(entity);
-		D resultDto = getDto(resultEntity);
-		return resultDto;
-	}
+    public void setMapper(Mapper mapper) {
+        this.mapper = mapper;
+    }
 
-	@Override
-	public List<D> list(Integer page, Integer size, String sort,
-			String direction) throws ServiceException {
-		return this.list(page, size, sort, direction, null);
-	}
-	
-	@Override
-	public List<D> list(Integer page, Integer size, String sort,
-			String direction, Set<String> fields) throws ServiceException {
+    @Override
+    public D save(D dto) throws ServiceException {
+        E entity = getEntity(dto);
+        E resultEntity = getService().save(entity);
+        D resultDto = getDto(resultEntity);
+        return resultDto;
+    }
 
-		List<E> entities = null;
+    @Override
+    public List<D> list(Integer page, Integer size, String sort, String direction)
+            throws ServiceException {
+        return this.list(page, size, sort, direction, null);
+    }
 
-		// are we trying to use Pagination or Sorting?
-		// if not then go ahead and return findAll()
-		if ((page == null) && (StringUtils.isEmpty(sort))) {
-			entities = getService().findAll();
-		}
-		// should we Page
-		else if (page != null) {
-			PageRequest pageRequest = getPageRequest(page, size, sort,
-					direction);
-			entities = getService().findAll(pageRequest);
-		}
-		// should we just Sort the list?
-		else if (!StringUtils.isEmpty(sort)) {
-			// get a sorted list
-			Sort entitySort = getSort(sort, direction);
-			entities = getService().findAll(entitySort);
-		}
+    @Override
+    public List<D> list(Integer page, Integer size, String sort, String direction,
+            Set<String> fields) throws ServiceException {
 
-		if (entities == null) {
-			return null;
-		}
+        List<E> entities = null;
 
-		// if we are explicitly requested certain fields
-		// make sure they have been initialized
-		if (CollectionUtils.isNotEmpty(fields)) {
-			fieldInitializer.initializeEntity(entities, fields);
-		}
-		
-		List<D> dtos = new ArrayList<D>();
-		for (E entity : entities) {
-			dtos.add(getDto(entity, fields));
-		}
+        // are we trying to use Pagination or Sorting?
+        // if not then go ahead and return findAll()
+        if ((page == null) && (StringUtils.isEmpty(sort))) {
+            entities = getService().findAll();
+        } // should we Page
+        else if (page != null) {
+            PageRequest pageRequest = getPageRequest(page, size, sort, direction);
+            entities = getService().findAll(pageRequest);
+        } // should we just Sort the list?
+        else if (!StringUtils.isEmpty(sort)) {
+            // get a sorted list
+            Sort entitySort = getSort(sort, direction);
+            entities = getService().findAll(entitySort);
+        }
 
-		return dtos;
-	}
+        if (entities == null) {
+            return null;
+        }
 
-	@Override
-	public Long count() {
-		return getService().count();
-	}
+        // if we are explicitly requested certain fields
+        // make sure they have been initialized
+        if (CollectionUtils.isNotEmpty(fields)) {
+            fieldInitializer.initializeEntity(entities, fields);
+        }
 
-	@Override
-	public D findOne(Long id) throws ServiceException {
-		return findOne(id, null);
-	}
+        List<D> dtos = new ArrayList<D>();
+        for (E entity : entities) {
+            dtos.add(getDto(entity, fields));
+        }
 
-	@Override
-	public D findOne(Long id, Set<String> fields) throws ServiceException {
-		E resultEntity = getService().findOne(id);
+        return dtos;
+    }
 
-		if (resultEntity == null) return null; 
-		
-		if (CollectionUtils.isNotEmpty(fields)) {
-			fieldInitializer.initializeEntity(resultEntity, fields);
-		}
-		
-		return getDto(resultEntity, fields);
-	}
-	
-	@Override
-	public void delete(Long id) {
-		getService().delete(id);
-	}
+    @Override
+    public Long count() {
+        return getService().count();
+    }
 
-	protected PageRequest getPageRequest(Integer page, Integer size,
-			String sortOrder, String sortDirection) {
-		// are we Sorting too?
-		if (!StringUtils.isEmpty(sortOrder)) {
-			Sort sort = getSort(sortOrder, sortDirection);
-			return new PageRequest(page, size, sort);
-		} else {
-			return new PageRequest(page, size);
-		}
-	}
+    @Override
+    public D findOne(Long id) throws ServiceException {
+        return findOne(id, null);
+    }
 
-	protected Sort getSort(String sort, String order) {
-		if ((StringUtils.isEmpty(order)) || (order.equals("asc"))) {
-			return new Sort(Direction.ASC, order);
-		} else if (order.equals("desc")) {
-			return new Sort(Direction.DESC, order);
-		} else {
-			// throw new GenericWebServiceException(Response.Status.BAD_REQUEST,
-			// "Sort order must be 'asc' or 'desc'.  '" + order +
-			// "' is not an acceptable sort order");
+    @Override
+    public D findOne(Long id, Set<String> fields) throws ServiceException {
+        E resultEntity = getService().findOne(id);
 
-			throw new IllegalArgumentException(
-					"Sort order must be 'asc' or 'desc'.  '" + order
-							+ "' is not an acceptable sort order");
-		}
-	}
+        if (resultEntity == null) {
+            return null;
+        }
+
+        if (CollectionUtils.isNotEmpty(fields)) {
+            fieldInitializer.initializeEntity(resultEntity, fields);
+        }
+
+        return getDto(resultEntity, fields);
+    }
+
+    @Override
+    public void delete(Long id) {
+        getService().delete(id);
+    }
+
+    protected PageRequest getPageRequest(Integer page, Integer size, String sortOrder,
+            String sortDirection) {
+        // are we Sorting too?
+        if (!StringUtils.isEmpty(sortOrder)) {
+            Sort sort = getSort(sortOrder, sortDirection);
+            return new PageRequest(page, size, sort);
+        } else {
+            return new PageRequest(page, size);
+        }
+    }
+
+    protected Sort getSort(String sort, String order) {
+        if ((StringUtils.isEmpty(order)) || (order.equals("asc"))) {
+            return new Sort(Direction.ASC, order);
+        } else if (order.equals("desc")) {
+            return new Sort(Direction.DESC, order);
+        } else {
+            // throw new GenericWebServiceException(Response.Status.BAD_REQUEST,
+            // "Sort order must be 'asc' or 'desc'.  '" + order +
+            // "' is not an acceptable sort order");
+
+            throw new IllegalArgumentException("Sort order must be 'asc' or 'desc'.  '"
+                    + order + "' is not an acceptable sort order");
+        }
+    }
 }

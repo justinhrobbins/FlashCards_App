@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.facade.impl;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -29,210 +30,211 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.util.ReflectionTestUtils;
 
-
 @Category(UnitTest.class)
 public class DefaultTagFacadeUT extends BaseMockingTest {
 
-	@Mock
-	private TagService mockService;
-	
-	@Mock
-	private Mapper mockMapper;
-	
-	@Mock
-	private Tag mockTag;
-	
-	@Mock
-	private TagDto mockTagDto;
-	
-	@Mock
-	private FieldInitializerUtil fieldInitializer;
-	
-	private TagFacade tagFacade;
-	
-	@Before
-	public void before() {
-		tagFacade = new DefaultTagFacade();
-		ReflectionTestUtils.setField(tagFacade, "service", mockService);
-		ReflectionTestUtils.setField(tagFacade, "mapper", mockMapper);
-		ReflectionTestUtils.setField(tagFacade, "fieldInitializer", fieldInitializer);
-	}
-	
-	@Test
-	public void findByName() {
-		when(mockService.findByName(any(String.class))).thenReturn(mockTag);
-		when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
-		
-		TagDto result = tagFacade.findByName(any(String.class));
-		
-		verify(mockService).findByName(any(String.class));
-		assertThat(result, is(TagDto.class));
-	}
+    @Mock
+    private TagService mockService;
 
-	@Test
-	public void findByName_ReturnNull() {
-		when(mockService.findByName(any(String.class))).thenReturn(null);
-		
-		TagDto result = tagFacade.findByName(any(String.class));
-		
-		verify(mockService).findByName(any(String.class));
-		assertThat(result, is(nullValue()));
-	}
+    @Mock
+    private Mapper mockMapper;
 
-	@Test
-	public void getDtos() throws ServiceException {
-		List<Tag> mockTagList = Arrays.asList(mockTag);
-		
-		List<TagDto> results = tagFacade.getDtos(mockTagList, null);
-		
-		assertThat(results, is(List.class));
-	}
+    @Mock
+    private Tag mockTag;
 
-	@Test
-	public void getEntities() throws ServiceException {
-		List<TagDto> mockTagDtoList = Arrays.asList(mockTagDto);
-		
-		List<Tag> results = tagFacade.getEtnties(mockTagDtoList);
-		
-		assertThat(results, is(List.class));
-	}
+    @Mock
+    private TagDto mockTagDto;
 
-	@Test
-	public void count() {
-		when(mockService.count()).thenReturn(1L);
-		
-		Long result = tagFacade.count();
-		
-		verify(mockService).count();
-		assertThat(result, is(1L));
-	}
-	
-	@Test
-	public void findOne() throws ServiceException {
-		when(mockService.findOne(any(Long.class))).thenReturn(mockTag);
-		when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
-		
-		TagDto result = tagFacade.findOne(any(Long.class));
-		
-		verify(mockService).findOne(any(Long.class));
-		assertThat(result, is(TagDto.class));
-	}
+    @Mock
+    private FieldInitializerUtil fieldInitializer;
 
-	@Test
-	public void findOne_WithFields() throws ServiceException {
-		TagDto tagDto = new TagDto();
-		Set<String> fields =  new HashSet<String>(Arrays.asList("flashcards"));
-		
-		when(mockService.findOne(any(Long.class))).thenReturn(mockTag);
-		when(mockMapper.map(mockTag, TagDto.class)).thenReturn(tagDto);
-		
-		TagDto result = tagFacade.findOne(any(Long.class), fields);
-		
-		verify(mockService).findOne(any(Long.class));
-		assertThat(result, is(TagDto.class));
-	}
+    private TagFacade tagFacade;
 
-	@Test
-	public void findOne_ReturnsNull() throws ServiceException {
-		when(mockService.findOne(any(Long.class))).thenReturn(null);
-		
-		TagDto result = tagFacade.findOne(any(Long.class));
-		
-		verify(mockService).findOne(any(Long.class));
-		assertThat(result, is(nullValue()));
-	}
-	
-	@Test
-	public void delete() throws ServiceException {
-		tagFacade.delete(any(Long.class));
-		
-		verify(mockService).delete(any(Long.class));
-	}
-	
-	@Test
-	public void save() throws ServiceException {
-		when(mockService.save(any(Tag.class))).thenReturn(mockTag);
-		when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
-		when(mockMapper.map(mockTagDto, Tag.class)).thenReturn(mockTag);
-		
-		TagDto result = tagFacade.save(mockTagDto);
-		
-		verify(mockService).save(any(Tag.class));
-		assertThat(result, is(TagDto.class));		
-	}
-	
-	@Test
-	public void list() throws ServiceException {
-		List<Tag> mockTagList = Arrays.asList(mockTag);
+    private final Integer PAGE_SIZE = 10;
 
-		when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
-		when(mockService.findAll()).thenReturn(mockTagList);
-		
-		List<TagDto> results = tagFacade.list(null, null, null, null);
+    @Before
+    public void before() {
+        tagFacade = new DefaultTagFacade();
+        ReflectionTestUtils.setField(tagFacade, "service", mockService);
+        ReflectionTestUtils.setField(tagFacade, "mapper", mockMapper);
+        ReflectionTestUtils.setField(tagFacade, "fieldInitializer", fieldInitializer);
+    }
 
-		verify(mockService).findAll();
-		assertThat(results, is(List.class));		
-	}
+    @Test
+    public void findByName() {
+        when(mockService.findByName(any(String.class))).thenReturn(mockTag);
+        when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
 
-	@Test
-	public void list_WithSortAsc() throws ServiceException {
-		List<Tag> mockTagList = Arrays.asList(mockTag);
+        TagDto result = tagFacade.findByName(any(String.class));
 
-		when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
-		when(mockService.findAll(any(Sort.class))).thenReturn(mockTagList);
-		
-		List<TagDto> results = tagFacade.list(null, null, "name", "asc");
+        verify(mockService).findByName(any(String.class));
+        assertThat(result, is(TagDto.class));
+    }
 
-		verify(mockService).findAll(any(Sort.class));
-		assertThat(results, is(List.class));		
-	}
+    @Test
+    public void findByName_ReturnNull() {
+        when(mockService.findByName(any(String.class))).thenReturn(null);
 
-	@Test
-	public void list_WithSortDesc() throws ServiceException {
-		List<Tag> mockTagList = Arrays.asList(mockTag);
+        TagDto result = tagFacade.findByName(any(String.class));
 
-		when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
-		when(mockService.findAll(any(Sort.class))).thenReturn(mockTagList);
-		
-		List<TagDto> results = tagFacade.list(null, null, "name", "desc");
+        verify(mockService).findByName(any(String.class));
+        assertThat(result, is(nullValue()));
+    }
 
-		verify(mockService).findAll(any(Sort.class));
-		assertThat(results, is(List.class));		
-	}
-	
-	@Test
-	public void list_ReturnNull() throws ServiceException {
-		when(mockService.findAll()).thenReturn(null);
-		
-		List<TagDto> results = tagFacade.list(null, null, null, null);
+    @Test
+    public void getDtos() throws ServiceException {
+        List<Tag> mockTagList = Arrays.asList(mockTag);
 
-		verify(mockService).findAll();
-		assertThat(results, is(nullValue()));		
-	}
-	
-	@Test
-	public void list_WithPageAndSort() throws ServiceException {
-		List<Tag> mockTagList = Arrays.asList(mockTag);
+        List<TagDto> results = tagFacade.getDtos(mockTagList, null);
 
-		when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
-		when(mockService.findAll(any(PageRequest.class))).thenReturn(mockTagList);
-		
-		List<TagDto> results = tagFacade.list(1, 10, "name", "asc");
+        assertThat(results, is(List.class));
+    }
 
-		verify(mockService).findAll(any(PageRequest.class));
-		assertThat(results, is(List.class));		
-	}
-	
-	@Test
-	public void list_WithPageNoSort() throws ServiceException {
-		List<Tag> mockTagList = Arrays.asList(mockTag);
+    @Test
+    public void getEntities() throws ServiceException {
+        List<TagDto> mockTagDtoList = Arrays.asList(mockTagDto);
 
-		when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
-		when(mockService.findAll(any(PageRequest.class))).thenReturn(mockTagList);
-		
-		List<TagDto> results = tagFacade.list(1, 10, null, null);
+        List<Tag> results = tagFacade.getEtnties(mockTagDtoList);
 
-		verify(mockService).findAll(any(PageRequest.class));
-		assertThat(results, is(List.class));		
-	}
+        assertThat(results, is(List.class));
+    }
+
+    @Test
+    public void count() {
+        when(mockService.count()).thenReturn(1L);
+
+        Long result = tagFacade.count();
+
+        verify(mockService).count();
+        assertThat(result, is(1L));
+    }
+
+    @Test
+    public void findOne() throws ServiceException {
+        when(mockService.findOne(any(Long.class))).thenReturn(mockTag);
+        when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
+
+        TagDto result = tagFacade.findOne(any(Long.class));
+
+        verify(mockService).findOne(any(Long.class));
+        assertThat(result, is(TagDto.class));
+    }
+
+    @Test
+    public void findOne_WithFields() throws ServiceException {
+        TagDto tagDto = new TagDto();
+        Set<String> fields = new HashSet<String>(Arrays.asList("flashcards"));
+
+        when(mockService.findOne(any(Long.class))).thenReturn(mockTag);
+        when(mockMapper.map(mockTag, TagDto.class)).thenReturn(tagDto);
+
+        TagDto result = tagFacade.findOne(any(Long.class), fields);
+
+        verify(mockService).findOne(any(Long.class));
+        assertThat(result, is(TagDto.class));
+    }
+
+    @Test
+    public void findOne_ReturnsNull() throws ServiceException {
+        when(mockService.findOne(any(Long.class))).thenReturn(null);
+
+        TagDto result = tagFacade.findOne(any(Long.class));
+
+        verify(mockService).findOne(any(Long.class));
+        assertThat(result, is(nullValue()));
+    }
+
+    @Test
+    public void delete() throws ServiceException {
+        tagFacade.delete(any(Long.class));
+
+        verify(mockService).delete(any(Long.class));
+    }
+
+    @Test
+    public void save() throws ServiceException {
+        when(mockService.save(any(Tag.class))).thenReturn(mockTag);
+        when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
+        when(mockMapper.map(mockTagDto, Tag.class)).thenReturn(mockTag);
+
+        TagDto result = tagFacade.save(mockTagDto);
+
+        verify(mockService).save(any(Tag.class));
+        assertThat(result, is(TagDto.class));
+    }
+
+    @Test
+    public void list() throws ServiceException {
+        List<Tag> mockTagList = Arrays.asList(mockTag);
+
+        when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
+        when(mockService.findAll()).thenReturn(mockTagList);
+
+        List<TagDto> results = tagFacade.list(null, null, null, null);
+
+        verify(mockService).findAll();
+        assertThat(results, is(List.class));
+    }
+
+    @Test
+    public void list_WithSortAsc() throws ServiceException {
+        List<Tag> mockTagList = Arrays.asList(mockTag);
+
+        when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
+        when(mockService.findAll(any(Sort.class))).thenReturn(mockTagList);
+
+        List<TagDto> results = tagFacade.list(null, null, "name", "asc");
+
+        verify(mockService).findAll(any(Sort.class));
+        assertThat(results, is(List.class));
+    }
+
+    @Test
+    public void list_WithSortDesc() throws ServiceException {
+        List<Tag> mockTagList = Arrays.asList(mockTag);
+
+        when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
+        when(mockService.findAll(any(Sort.class))).thenReturn(mockTagList);
+
+        List<TagDto> results = tagFacade.list(null, null, "name", "desc");
+
+        verify(mockService).findAll(any(Sort.class));
+        assertThat(results, is(List.class));
+    }
+
+    @Test
+    public void list_ReturnNull() throws ServiceException {
+        when(mockService.findAll()).thenReturn(null);
+
+        List<TagDto> results = tagFacade.list(null, null, null, null);
+
+        verify(mockService).findAll();
+        assertThat(results, is(nullValue()));
+    }
+
+    @Test
+    public void list_WithPageAndSort() throws ServiceException {
+        List<Tag> mockTagList = Arrays.asList(mockTag);
+
+        when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
+        when(mockService.findAll(any(PageRequest.class))).thenReturn(mockTagList);
+
+        List<TagDto> results = tagFacade.list(1, PAGE_SIZE, "name", "asc");
+
+        verify(mockService).findAll(any(PageRequest.class));
+        assertThat(results, is(List.class));
+    }
+
+    @Test
+    public void list_WithPageNoSort() throws ServiceException {
+        List<Tag> mockTagList = Arrays.asList(mockTag);
+
+        when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
+        when(mockService.findAll(any(PageRequest.class))).thenReturn(mockTagList);
+
+        List<TagDto> results = tagFacade.list(1, PAGE_SIZE, null, null);
+
+        verify(mockService).findAll(any(PageRequest.class));
+        assertThat(results, is(List.class));
+    }
 }

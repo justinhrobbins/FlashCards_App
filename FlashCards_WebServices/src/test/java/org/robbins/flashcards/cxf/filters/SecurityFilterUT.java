@@ -1,4 +1,6 @@
+
 package org.robbins.flashcards.cxf.filters;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -20,45 +22,45 @@ import org.springframework.test.util.ReflectionTestUtils;
 @Category(UnitTest.class)
 public class SecurityFilterUT extends BaseMockingTest {
 
-	@Mock
-	User loggedInUser;
+    @Mock
+    private User loggedInUser;
 
-	@Mock
-	UserFacade userFacade;
-	
-	@Mock
-	Authentication mockAuthentication;
+    @Mock
+    private UserFacade userFacade;
 
-	SecurityFilter securityFilter;
+    @Mock
+    private Authentication mockAuthentication;
 
-	@Before
-	public void before() {
-		securityFilter = new SecurityFilter();
-		ReflectionTestUtils.setField(securityFilter, "loggedInUser", loggedInUser);
-		ReflectionTestUtils.setField(securityFilter, "userFacade", userFacade);
+    private SecurityFilter securityFilter;
 
-		SecurityContextHolder.getContext().setAuthentication(mockAuthentication);
-	}
+    @Before
+    public void before() {
+        securityFilter = new SecurityFilter();
+        ReflectionTestUtils.setField(securityFilter, "loggedInUser", loggedInUser);
+        ReflectionTestUtils.setField(securityFilter, "userFacade", userFacade);
 
-	@After
-	public void detachSubject() {
-		SecurityContextHolder.clearContext();
-	}
-	
-	@Test
-	public void handleRequest() {
-		org.springframework.security.core.userdetails.User principal = mock(org.springframework.security.core.userdetails.User.class);
-		String mockOpenId = new String("open_id");
-		UserDto mockUserDto = new UserDto(1L);
-		
-		when(mockAuthentication.getPrincipal()).thenReturn(principal);
-		when(principal.getUsername()).thenReturn(mockOpenId);
-		when(userFacade.findUserByOpenid(mockOpenId)).thenReturn(mockUserDto);
+        SecurityContextHolder.getContext().setAuthentication(mockAuthentication);
+    }
 
-		securityFilter.handleRequest(null, null);
-		
-		verify(mockAuthentication).getPrincipal();
-		verify(principal).getUsername();
-		verify(userFacade).findUserByOpenid(mockOpenId);
-	}
+    @After
+    public void detachSubject() {
+        SecurityContextHolder.clearContext();
+    }
+
+    @Test
+    public void handleRequest() {
+        org.springframework.security.core.userdetails.User principal = mock(org.springframework.security.core.userdetails.User.class);
+        String mockOpenId = new String("open_id");
+        UserDto mockUserDto = new UserDto(1L);
+
+        when(mockAuthentication.getPrincipal()).thenReturn(principal);
+        when(principal.getUsername()).thenReturn(mockOpenId);
+        when(userFacade.findUserByOpenid(mockOpenId)).thenReturn(mockUserDto);
+
+        securityFilter.handleRequest(null, null);
+
+        verify(mockAuthentication).getPrincipal();
+        verify(principal).getUsername();
+        verify(userFacade).findUserByOpenid(mockOpenId);
+    }
 }

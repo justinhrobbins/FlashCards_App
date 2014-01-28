@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.client.ui.desktop;
 
 import org.robbins.flashcards.client.factory.ClientFactory;
@@ -22,69 +23,71 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class ShellViewImplDesktop extends Composite implements ShellView {
 
-	private ClientFactory clientFactory;
-	private AppConstants constants;
-	
-	private static MyDockLayoutPanelUiBinder uiBinder = GWT
-			.create(MyDockLayoutPanelUiBinder.class);
+    private ClientFactory clientFactory;
 
-	interface MyDockLayoutPanelUiBinder extends
-			UiBinder<Widget, ShellViewImplDesktop> {
-	}
+    private AppConstants constants;
 
-	@UiField
-	SimplePanel navigationPanel;
-	
-	@UiField
-	CustomScrollPanel scrollPanel;
-	
-	@UiField
-	SimplePanel contentPanel;
-	
-	@UiField
-	InlineLabel loggedInUser;
-	
-	@UiField
-	InlineHyperlink loginLogoutLink;
-	
-	public ShellViewImplDesktop(ClientFactory clientFactory) {
-		GWT.log("Creating 'ShellViewImplDesktop'");
+    private static MyDockLayoutPanelUiBinder uiBinder = GWT.create(MyDockLayoutPanelUiBinder.class);
 
-		this.clientFactory = clientFactory;
-		this.constants = clientFactory.getConstants();
-		
-		initWidget(uiBinder.createAndBindUi(this));
-		
-		this.loginLogoutLink.setVisible(false);
-		this.scrollPanel.removeHorizontalScrollbar();
+    interface MyDockLayoutPanelUiBinder extends UiBinder<Widget, ShellViewImplDesktop> {
+    }
 
-		// Start ActivityManager for the main widget with our ActivityMapper
-		ActivityMapper navigationActivityMapper = new NavigationActivityMapper(clientFactory);
-		ActivityManager navigationActivityManager = new ActivityManager(navigationActivityMapper, this.clientFactory.getEventBus());
-		navigationActivityManager.setDisplay(navigationPanel);
+    @UiField
+    SimplePanel navigationPanel;
 
-		// right side
-		ActivityMapper contentActivityMapper = new ContentActivityMapper(clientFactory);
-		ActivityManager contentActivityManager = new ActivityManager(contentActivityMapper, this.clientFactory.getEventBus());
-	
-		//contentPanel.getElement().getStyle().setOverflow(Overflow.HIDDEN);
-		contentPanel.getElement().getStyle().setOverflow(Overflow.AUTO);
-		contentActivityManager.setDisplay(contentPanel);
-	}
+    @UiField
+    CustomScrollPanel scrollPanel;
 
-	@Override
-	public void setLogoutToken(String token) {
-		loginLogoutLink.setTargetHistoryToken(token);
-	}
+    @UiField
+    SimplePanel contentPanel;
 
-	@Override
-	public void setLoggedInUser(UserDto user) {
-		if (user == null ) {
-			loginLogoutLink.setText(constants.login());
-			loggedInUser.setText("");
-		} else {
-			loginLogoutLink.setText(constants.logout());
-			loggedInUser.setText(user.getEmail() + " | ");
-		}
-	}
+    @UiField
+    InlineLabel loggedInUser;
+
+    @UiField
+    InlineHyperlink loginLogoutLink;
+
+    public ShellViewImplDesktop(ClientFactory clientFactory) {
+        GWT.log("Creating 'ShellViewImplDesktop'");
+
+        this.clientFactory = clientFactory;
+        this.constants = clientFactory.getConstants();
+
+        initWidget(uiBinder.createAndBindUi(this));
+
+        this.loginLogoutLink.setVisible(false);
+        this.scrollPanel.removeHorizontalScrollbar();
+
+        // Start ActivityManager for the main widget with our ActivityMapper
+        ActivityMapper navigationActivityMapper = new NavigationActivityMapper(
+                clientFactory);
+        ActivityManager navigationActivityManager = new ActivityManager(
+                navigationActivityMapper, this.clientFactory.getEventBus());
+        navigationActivityManager.setDisplay(navigationPanel);
+
+        // right side
+        ActivityMapper contentActivityMapper = new ContentActivityMapper(clientFactory);
+        ActivityManager contentActivityManager = new ActivityManager(
+                contentActivityMapper, this.clientFactory.getEventBus());
+
+        // contentPanel.getElement().getStyle().setOverflow(Overflow.HIDDEN);
+        contentPanel.getElement().getStyle().setOverflow(Overflow.AUTO);
+        contentActivityManager.setDisplay(contentPanel);
+    }
+
+    @Override
+    public void setLogoutToken(String token) {
+        loginLogoutLink.setTargetHistoryToken(token);
+    }
+
+    @Override
+    public void setLoggedInUser(UserDto user) {
+        if (user == null) {
+            loginLogoutLink.setText(constants.login());
+            loggedInUser.setText("");
+        } else {
+            loginLogoutLink.setText(constants.logout());
+            loggedInUser.setText(user.getEmail() + " | ");
+        }
+    }
 }

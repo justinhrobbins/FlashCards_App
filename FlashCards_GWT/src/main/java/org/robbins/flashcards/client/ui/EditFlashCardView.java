@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.client.ui;
 
 import java.util.List;
@@ -11,20 +12,26 @@ import com.google.gwt.user.client.ui.Widget;
 
 public interface EditFlashCardView extends IsValidatable, HasSubmitButtons {
 
-	HasText getQuestion();
-	HasHTML getAnswer();
-	List<String> getTags();
-	List<String> getLinks();
-	
-	void displayQuestionValidationMessage(String message);
-	
-	HasText getCreatedDate();
-	HasText getModifiedDate();
+    HasText getQuestion();
 
-	boolean validate();
+    HasHTML getAnswer();
 
-	void setFlashCardData(FlashCardDto data);
-	void setTagsData(List<TagDto> tags);
+    List<String> getTags();
 
-	Widget asWidget();
+    List<String> getLinks();
+
+    void displayQuestionValidationMessage(String message);
+
+    HasText getCreatedDate();
+
+    HasText getModifiedDate();
+
+    @Override
+    boolean validate();
+
+    void setFlashCardData(FlashCardDto data);
+
+    void setTagsData(List<TagDto> tags);
+
+    Widget asWidget();
 }

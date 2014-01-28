@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.model.common;
 
 import java.io.Serializable;
@@ -9,82 +10,85 @@ import javax.persistence.MappedSuperclass;
 
 import org.springframework.data.domain.Persistable;
 
-
 @MappedSuperclass
-public abstract class AbstractPersistable <PK extends Serializable> implements Persistable<PK> {
-	private static final long serialVersionUID = -5554308939380869754L;
+public abstract class AbstractPersistable<PK extends Serializable> implements
+        Persistable<PK> {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private PK id;
+    private static final long serialVersionUID = -5554308939380869754L;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.springframework.data.domain.Persistable#getId()
-	 */
-	public PK getId() {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private PK id;
 
-		return id;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.springframework.data.domain.Persistable#getId()
+     */
+    @Override
+    public PK getId() {
 
-	/**
-	 * Sets the id of the entity.
-	 * 
-	 * @param id the id to set
-	 */
-	public void setId(final PK id) {
+        return id;
+    }
 
-		this.id = id;
-	}
+    /**
+     * Sets the id of the entity.
+     *
+     * @param id the id to set
+     */
+    public void setId(final PK id) {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.springframework.data.domain.Persistable#isNew()
-	 */
-	public boolean isNew() {
+        this.id = id;
+    }
 
-		return null == getId();
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.springframework.data.domain.Persistable#isNew()
+     */
+    @Override
+    public boolean isNew() {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
+        return null == getId();
+    }
 
-		if (null == obj) {
-			return false;
-		}
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
 
-		if (this == obj) {
-			return true;
-		}
+        if (null == obj) {
+            return false;
+        }
 
-		if (!getClass().equals(obj.getClass())) {
-			return false;
-		}
+        if (this == obj) {
+            return true;
+        }
 
-		AbstractPersistable<?> that = (AbstractPersistable<?>) obj;
+        if (!getClass().equals(obj.getClass())) {
+            return false;
+        }
 
-		return null == this.getId() ? false : this.getId().equals(that.getId());
-	}
+        AbstractPersistable<?> that = (AbstractPersistable<?>) obj;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
+        return null == this.getId() ? false : this.getId().equals(that.getId());
+    }
 
-		int hashCode = 17;
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
 
-		hashCode += null == getId() ? 0 : getId().hashCode() * 31;
+        int hashCode = 17;
 
-		return hashCode;
-	}
+        hashCode += null == getId() ? 0 : getId().hashCode() * 31;
+
+        return hashCode;
+    }
 }

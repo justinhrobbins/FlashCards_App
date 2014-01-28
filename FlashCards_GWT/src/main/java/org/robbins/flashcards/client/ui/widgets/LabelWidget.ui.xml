@@ -1,15 +1,17 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+    xmlns:g="urn:import:com.google.gwt.user.client.ui">
 
-	<ui:with field='res' type='org.robbins.flashcards.client.ui.desktop.style.FormStyleResource'/>
+    <ui:with field='res'
+        type='org.robbins.flashcards.client.ui.desktop.style.FormStyleResource' />
 
-	<g:HTMLPanel>
-		<g:InlineLabel ui:field="displayName"/>
-		<span ui:field="required" class='{res.formStyles.required}'>*</span>
-		<span ui:field="validationContainer">
-			<g:InlineLabel ui:field="validationText" styleName='{res.formStyles.required}' />
-		</span>
-	</g:HTMLPanel>
+    <g:HTMLPanel>
+        <g:InlineLabel ui:field="displayName" />
+        <span ui:field="required" class='{res.formStyles.required}'>*</span>
+        <span ui:field="validationContainer">
+            <g:InlineLabel ui:field="validationText"
+                styleName='{res.formStyles.required}' />
+        </span>
+    </g:HTMLPanel>
 
 </ui:UiBinder>

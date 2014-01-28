@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.client.ui.widgets;
 
 import org.robbins.flashcards.client.ui.AbstractWidget;
@@ -16,90 +17,94 @@ import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
-public class TextBoxWidget extends AbstractWidget implements HasText, HasKeyDownHandlers, Focusable {
+public class TextBoxWidget extends AbstractWidget implements HasText, HasKeyDownHandlers,
+        Focusable {
 
-	private static TextBoxWidgetUiBinder uiBinder = GWT.create(TextBoxWidgetUiBinder.class);
+    private static TextBoxWidgetUiBinder uiBinder = GWT.create(TextBoxWidgetUiBinder.class);
 
-	interface TextBoxWidgetUiBinder extends UiBinder<Widget, TextBoxWidget> {
-	}
+    interface TextBoxWidgetUiBinder extends UiBinder<Widget, TextBoxWidget> {
+    }
 
-	@UiField
-	LabelWidget label;
+    @UiField
+    LabelWidget label;
 
-	@UiField
-	TextBox textBox;
+    @UiField
+    TextBox textBox;
 
-	public TextBoxWidget() {
-		initWidget(uiBinder.createAndBindUi(this));
-	}
+    public TextBoxWidget() {
+        initWidget(uiBinder.createAndBindUi(this));
+    }
 
-	@UiHandler("textBox")
-	public void textBoxHasFocus (FocusEvent event) {
-		hideValidationMessage();
-	}
+    @UiHandler("textBox")
+    public void textBoxHasFocus(FocusEvent event) {
+        hideValidationMessage();
+    }
 
-	public void dispayValidationMessage(String message) {
-		label.dispayValidationMessage(message);
-		setBorderStyle(textBox, FormStyleResource.INSTANCE.formStyles().borderError());
-	}
+    @Override
+    public void dispayValidationMessage(String message) {
+        label.dispayValidationMessage(message);
+        setBorderStyle(textBox, FormStyleResource.INSTANCE.formStyles().borderError());
+    }
 
-	public void hideValidationMessage() {
-		label.hideValidationMessage();
-		setBorderStyle(textBox, FormStyleResource.INSTANCE.formStyles().borderEmpty());
-	}
+    @Override
+    public void hideValidationMessage() {
+        label.hideValidationMessage();
+        setBorderStyle(textBox, FormStyleResource.INSTANCE.formStyles().borderEmpty());
+    }
 
-	@Override
-	public String getText() {
-		return textBox.getText();
-	}
+    @Override
+    public String getText() {
+        return textBox.getText();
+    }
 
-	@Override
-	public void setText(String text) {
-		textBox.setText(text);
-	}
+    @Override
+    public void setText(String text) {
+        textBox.setText(text);
+    }
 
-	@Override
-	public void setLabel(String text) {
-		label.setText(text);
-	}
-	
-	public void setWidth(String width) {
-		textBox.setWidth(width);
-	}
-	
-	@Override
-	public void isRequired(boolean required) {
-		label.isRequired(required);
-	}
+    @Override
+    public void setLabel(String text) {
+        label.setText(text);
+    }
 
-	@Override
-	public int getTabIndex() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public void setWidth(String width) {
+        textBox.setWidth(width);
+    }
 
-	@Override
-	public void setAccessKey(char key) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void isRequired(boolean required) {
+        label.isRequired(required);
+    }
 
-	@Override
-	public void setFocus(boolean focused) {
-		textBox.setFocus(true);
-	}
+    @Override
+    public int getTabIndex() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
-	@Override
-	public void setTabIndex(int index) {
-		// TODO Auto-generated method stub
-	}
-	
-	public void selectAll() {
-		textBox.selectAll();
-	}
+    @Override
+    public void setAccessKey(char key) {
+        // TODO Auto-generated method stub
 
-	@Override
-	public HandlerRegistration addKeyDownHandler(KeyDownHandler handler) {
-		return textBox.addKeyDownHandler(handler);
-	}
+    }
+
+    @Override
+    public void setFocus(boolean focused) {
+        textBox.setFocus(true);
+    }
+
+    @Override
+    public void setTabIndex(int index) {
+        // TODO Auto-generated method stub
+    }
+
+    public void selectAll() {
+        textBox.selectAll();
+    }
+
+    @Override
+    public HandlerRegistration addKeyDownHandler(KeyDownHandler handler) {
+        return textBox.addKeyDownHandler(handler);
+    }
 }

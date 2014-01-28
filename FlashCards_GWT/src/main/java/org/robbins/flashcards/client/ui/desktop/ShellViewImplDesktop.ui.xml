@@ -1,41 +1,43 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+    xmlns:g="urn:import:com.google.gwt.user.client.ui">
 
-	<ui:with field='images' type='org.robbins.flashcards.client.ui.images.Images' />
-	<ui:with field='style'
-		type='org.robbins.flashcards.client.ui.desktop.style.ShellStyleResource' />
+    <ui:with field='images'
+        type='org.robbins.flashcards.client.ui.images.Images' />
+    <ui:with field='style'
+        type='org.robbins.flashcards.client.ui.desktop.style.ShellStyleResource' />
 
-	<g:DockLayoutPanel unit='PX' styleName="{style.shellStyles.wrap}">
-		<g:north size='180'>
-			<g:HTMLPanel styleName='{style.shellStyles.header}'>
-				<div id="login" class="{style.shellStyles.login}">
-					<g:InlineLabel ui:field="loggedInUser" />
-					<g:InlineHyperlink ui:field="loginLogoutLink" />
-				</div>
-				<h1>
-					<a href="/gwt/">Flash Cards Application</a>
-				</h1>
-			</g:HTMLPanel>
-		</g:north>
+    <g:DockLayoutPanel unit='PX' styleName="{style.shellStyles.wrap}">
+        <g:north size='180'>
+            <g:HTMLPanel styleName='{style.shellStyles.header}'>
+                <div id="login" class="{style.shellStyles.login}">
+                    <g:InlineLabel ui:field="loggedInUser" />
+                    <g:InlineHyperlink ui:field="loginLogoutLink" />
+                </div>
+                <h1>
+                    <a href="/gwt/">Flash Cards Application</a>
+                </h1>
+            </g:HTMLPanel>
+        </g:north>
 
-		<g:center>
-			<g:CustomScrollPanel height="100%" ui:field="scrollPanel">
-				<g:FlowPanel>
-					<g:HTMLPanel styleName='{style.shellStyles.content}'>
-						<g:SimplePanel styleName='{style.shellStyles.left}'
-							ui:field="navigationPanel" />
-						<g:SimplePanel styleName='{style.shellStyles.right}'
-							ui:field='contentPanel' />
-						<div style="clear: both;"></div>
-					</g:HTMLPanel>
-					<g:HTMLPanel styleName="{style.shellStyles.footer}"
-						height="70">
-						<g:Label>&copy; Copyright by Justin Robbins</g:Label>
-					</g:HTMLPanel>
-				</g:FlowPanel>
-			</g:CustomScrollPanel>
-		</g:center>
-	</g:DockLayoutPanel>
+        <g:center>
+            <g:CustomScrollPanel height="100%"
+                ui:field="scrollPanel">
+                <g:FlowPanel>
+                    <g:HTMLPanel styleName='{style.shellStyles.content}'>
+                        <g:SimplePanel styleName='{style.shellStyles.left}'
+                            ui:field="navigationPanel" />
+                        <g:SimplePanel styleName='{style.shellStyles.right}'
+                            ui:field='contentPanel' />
+                        <div style="clear: both;"></div>
+                    </g:HTMLPanel>
+                    <g:HTMLPanel styleName="{style.shellStyles.footer}"
+                        height="70">
+                        <g:Label>&copy; Copyright by Justin Robbins</g:Label>
+                    </g:HTMLPanel>
+                </g:FlowPanel>
+            </g:CustomScrollPanel>
+        </g:center>
+    </g:DockLayoutPanel>
 
-</ui:UiBinder> 
+</ui:UiBinder>

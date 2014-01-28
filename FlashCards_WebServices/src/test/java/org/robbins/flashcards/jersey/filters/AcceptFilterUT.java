@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.jersey.filters;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -24,75 +25,75 @@ import com.sun.jersey.spi.container.ContainerRequest;
 @Category(UnitTest.class)
 public class AcceptFilterUT extends BaseMockingTest {
 
-	private AcceptFilter acceptFilter;
-	
-	@Mock
-	ContainerRequest mockContainerRequest;
-	
-	@Before
-	public void before() {
-		acceptFilter = new AcceptFilter();
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Test
-	public void filter_WithJson() {
-		MultivaluedMap<String, String> mockQueryParameters = mock(MultivaluedMap.class);
-		List<String> mockQueryparmsList = mock(List.class);
-		MultivaluedMap<String, String> mockHeaders = mock(MultivaluedMap.class);
-		
-		when(mockContainerRequest.getQueryParameters()).thenReturn(mockQueryParameters);
-		when(mockContainerRequest.getRequestHeaders()).thenReturn(mockHeaders);
-		when(mockQueryParameters.containsKey("accept")).thenReturn(true);
-		when(mockQueryParameters.get("accept")).thenReturn(mockQueryparmsList);
-		when(mockQueryparmsList.contains(MediaType.APPLICATION_JSON)).thenReturn(true);
-		
-		ContainerRequest result = acceptFilter.filter(mockContainerRequest);
-		
-		verify(mockContainerRequest).getQueryParameters();
-		verify(mockQueryParameters).containsKey("accept");
-		verify(mockQueryParameters).get("accept");
-		verify(mockQueryparmsList).contains(MediaType.APPLICATION_JSON);
-		verify(mockContainerRequest).getRequestHeaders();
-		assertThat(result, is(ContainerRequest.class));
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Test
-	public void filter_WithXml() {
-		MultivaluedMap<String, String> mockQueryParameters = mock(MultivaluedMap.class);
-		List<String> mockQueryparmsList = mock(List.class);
-		MultivaluedMap<String, String> mockHeaders = mock(MultivaluedMap.class);
-		
-		when(mockContainerRequest.getQueryParameters()).thenReturn(mockQueryParameters);
-		when(mockContainerRequest.getRequestHeaders()).thenReturn(mockHeaders);
-		when(mockQueryParameters.containsKey("accept")).thenReturn(true);
-		when(mockQueryParameters.get("accept")).thenReturn(mockQueryparmsList);
-		when(mockQueryparmsList.contains(MediaType.APPLICATION_XML)).thenReturn(true);
-		
-		ContainerRequest result = acceptFilter.filter(mockContainerRequest);
-		
-		verify(mockContainerRequest).getQueryParameters();
-		verify(mockQueryParameters).containsKey("accept");
-		verify(mockQueryParameters).get("accept");
-		verify(mockQueryparmsList).contains(MediaType.APPLICATION_XML);
-		verify(mockContainerRequest).getRequestHeaders();
-		assertThat(result, is(ContainerRequest.class));
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Test(expected = GenericWebServiceException.class)
-	public void filter_WithText() {
-		MultivaluedMap<String, String> mockQueryParameters = mock(MultivaluedMap.class);
-		List<String> mockQueryparmsList = mock(List.class);
-		MultivaluedMap<String, String> mockHeaders = mock(MultivaluedMap.class);
-		
-		when(mockContainerRequest.getQueryParameters()).thenReturn(mockQueryParameters);
-		when(mockContainerRequest.getRequestHeaders()).thenReturn(mockHeaders);
-		when(mockQueryParameters.containsKey("accept")).thenReturn(true);
-		when(mockQueryParameters.get("accept")).thenReturn(mockQueryparmsList);
-		when(mockQueryparmsList.contains(MediaType.TEXT_PLAIN)).thenReturn(true);
-		
-		acceptFilter.filter(mockContainerRequest);
-	}
+    private AcceptFilter acceptFilter;
+
+    @Mock
+    private ContainerRequest mockContainerRequest;
+
+    @Before
+    public void before() {
+        acceptFilter = new AcceptFilter();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void filter_WithJson() {
+        MultivaluedMap<String, String> mockQueryParameters = mock(MultivaluedMap.class);
+        List<String> mockQueryparmsList = mock(List.class);
+        MultivaluedMap<String, String> mockHeaders = mock(MultivaluedMap.class);
+
+        when(mockContainerRequest.getQueryParameters()).thenReturn(mockQueryParameters);
+        when(mockContainerRequest.getRequestHeaders()).thenReturn(mockHeaders);
+        when(mockQueryParameters.containsKey("accept")).thenReturn(true);
+        when(mockQueryParameters.get("accept")).thenReturn(mockQueryparmsList);
+        when(mockQueryparmsList.contains(MediaType.APPLICATION_JSON)).thenReturn(true);
+
+        ContainerRequest result = acceptFilter.filter(mockContainerRequest);
+
+        verify(mockContainerRequest).getQueryParameters();
+        verify(mockQueryParameters).containsKey("accept");
+        verify(mockQueryParameters).get("accept");
+        verify(mockQueryparmsList).contains(MediaType.APPLICATION_JSON);
+        verify(mockContainerRequest).getRequestHeaders();
+        assertThat(result, is(ContainerRequest.class));
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void filter_WithXml() {
+        MultivaluedMap<String, String> mockQueryParameters = mock(MultivaluedMap.class);
+        List<String> mockQueryparmsList = mock(List.class);
+        MultivaluedMap<String, String> mockHeaders = mock(MultivaluedMap.class);
+
+        when(mockContainerRequest.getQueryParameters()).thenReturn(mockQueryParameters);
+        when(mockContainerRequest.getRequestHeaders()).thenReturn(mockHeaders);
+        when(mockQueryParameters.containsKey("accept")).thenReturn(true);
+        when(mockQueryParameters.get("accept")).thenReturn(mockQueryparmsList);
+        when(mockQueryparmsList.contains(MediaType.APPLICATION_XML)).thenReturn(true);
+
+        ContainerRequest result = acceptFilter.filter(mockContainerRequest);
+
+        verify(mockContainerRequest).getQueryParameters();
+        verify(mockQueryParameters).containsKey("accept");
+        verify(mockQueryParameters).get("accept");
+        verify(mockQueryparmsList).contains(MediaType.APPLICATION_XML);
+        verify(mockContainerRequest).getRequestHeaders();
+        assertThat(result, is(ContainerRequest.class));
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test(expected = GenericWebServiceException.class)
+    public void filter_WithText() {
+        MultivaluedMap<String, String> mockQueryParameters = mock(MultivaluedMap.class);
+        List<String> mockQueryparmsList = mock(List.class);
+        MultivaluedMap<String, String> mockHeaders = mock(MultivaluedMap.class);
+
+        when(mockContainerRequest.getQueryParameters()).thenReturn(mockQueryParameters);
+        when(mockContainerRequest.getRequestHeaders()).thenReturn(mockHeaders);
+        when(mockQueryParameters.containsKey("accept")).thenReturn(true);
+        when(mockQueryParameters.get("accept")).thenReturn(mockQueryparmsList);
+        when(mockQueryparmsList.contains(MediaType.TEXT_PLAIN)).thenReturn(true);
+
+        acceptFilter.filter(mockContainerRequest);
+    }
 }

@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.repository.jpa;
 
 import java.util.List;
@@ -14,52 +15,53 @@ import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Repository;
 
 @Repository("userRepository")
-public class UserRepositoryImpl extends AbstractCrudRepositoryImpl<User> implements UserRepository {
+public class UserRepositoryImpl extends AbstractCrudRepositoryImpl<User> implements
+        UserRepository {
 
-	@Override
-	public Class<User> getClazz() {
-		return User.class;
-	}
-    
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<User> findAll() {
-		return getEm().createQuery("from User").getResultList();
-	}
+    @Override
+    public Class<User> getClazz() {
+        return User.class;
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<User> findAll(Sort sort) {
-		String sortOder = null;
-		String sortDirection = null;
-		
-		for (Order order : sort) {
-			sortOder = order.getProperty();
-			sortDirection = order.getDirection().toString();
-		}
-		return getEm().createQuery("from User order by " + sortOder + " "  + sortDirection).getResultList();
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<User> findAll() {
+        return getEm().createQuery("from User").getResultList();
+    }
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@Override
-	public Page<User> findAll(Pageable page) {
-		Query query = getEm().createQuery("from User");
-		query.setFirstResult((page.getPageNumber() + 1) * page.getPageSize());
-		query.setMaxResults(page.getPageSize());
-		
-		return new PageImpl(query.getResultList());
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<User> findAll(Sort sort) {
+        String sortOder = null;
+        String sortDirection = null;
 
-	@Override
-	public User findUserByOpenid(String openid) {
-		Query query = getEm().createQuery("from User where openid = :openid");
-		query.setParameter("openid", openid);
-		return (User)query.getSingleResult();
-	}
-	
-	@Override
-	public Long count() {
-		Query query = getEm().createQuery("SELECT COUNT(*) FROM User");
-		return (Long) query.getSingleResult();
-	}
+        for (Order order : sort) {
+            sortOder = order.getProperty();
+            sortDirection = order.getDirection().toString();
+        }
+        return getEm().createQuery("from User order by " + sortOder + " " + sortDirection).getResultList();
+    }
+
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @Override
+    public Page<User> findAll(Pageable page) {
+        Query query = getEm().createQuery("from User");
+        query.setFirstResult((page.getPageNumber() + 1) * page.getPageSize());
+        query.setMaxResults(page.getPageSize());
+
+        return new PageImpl(query.getResultList());
+    }
+
+    @Override
+    public User findUserByOpenid(String openid) {
+        Query query = getEm().createQuery("from User where openid = :openid");
+        query.setParameter("openid", openid);
+        return (User) query.getSingleResult();
+    }
+
+    @Override
+    public Long count() {
+        Query query = getEm().createQuery("SELECT COUNT(*) FROM User");
+        return (Long) query.getSingleResult();
+    }
 }

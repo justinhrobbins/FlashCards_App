@@ -1,3 +1,4 @@
+
 package org.robbins.flashcards.client.activity;
 
 import java.util.List;
@@ -29,81 +30,108 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
 public class TagsActivity extends AppAbstractActivity {
 
-	private List<TagDto> tags;
-	private final TagRestService tagService;
-	private final EventBus eventBus;
-	private final TagsView display;
-	private PlaceController placeController;
-	
-	public TagsActivity(ClientFactory clientFactory) {
-		super(clientFactory);
-		
-		GWT.log("Creating 'TagsActivity'");
-		
-		this.tagService = clientFactory.getTagService();
-		this.eventBus = clientFactory.getEventBus();
-		this.display = clientFactory.getTagsView();
-		this.placeController = clientFactory.getPlaceController();
-		
-		((RestServiceProxy)tagService).setResource(new Resource(""));
-		
-		getRegistrations().add(LoadTagEvent.register(this.eventBus, new LoadTagEventHandler() {
-			@Override
-			public void onLoadTag(LoadTagEvent event) {
-				GWT.log("TagsActivity: 'Load Tag' event");
-				TagsActivity.this.placeController.goTo(new EditTagPlace(Long.toString(event.getTagId())));
-			}
-		}));
+    private List<TagDto> tags;
 
-		getRegistrations().add(LoadFlashCardEvent.register(this.eventBus, new LoadFlashCardEventHandler() {
-			@Override
-			public void onLoadFlashCard(LoadFlashCardEvent event) {
-				GWT.log("FlashCardsActivity: 'Load FlashCard' event");
-				TagsActivity.this.placeController.goTo(new EditFlashCardPlace(Long.toString(event.getFlashCardId())));
-			}
-		}));
-		
-		getRegistrations().add(DeleteTagEvent.register(this.eventBus, new DeleteTagEventHandler() {
-			@Override
-			public void onDeleteTag(DeleteTagEvent event) {
-				GWT.log("TagsActivity: 'Delete Tag' event");
-				
-				tagService.deleteTags(ConstsUtil.DEFAULT_AUTH_HEADER, event.getTagId(), new MethodCallback<java.lang.Void>() {
-					public void onFailure(Method method, Throwable caught) {
-						GWT.log("DeleteTagActivity: Error deleting data");
-						Window.alert(getConstants().errorDeletingTag());
-					}
-					public void onSuccess(Method method, java.lang.Void result) {
-						GWT.log("DeleteTagActivity: Tag Deleted:" + result);
-						TagsActivity.this.placeController.goTo(new ListTagsPlace(""));
-					}
-				});
-			}
-		}));
-	}
-	
-	@Override
-	public void start(AcceptsOneWidget container, EventBus eventBus) {
-		container.setWidget(display.asWidget());
-		
-		String fields = ConstsUtil.DEFAULT_TAGS_LIST_FIELDS;
-		fetchTagDetails(fields);
-	}
+    private final TagRestService tagService;
 
-	private void fetchTagDetails(String fields) {
-		
-		// load the table with data
-		tagService.getTags(ConstsUtil.DEFAULT_AUTH_HEADER, fields, new MethodCallback<List<TagDto>>() {
-			public void onFailure(Method method, Throwable caught) {
-				GWT.log("TagsActivity: Error loading data");
-				Window.alert(getConstants().errorLoadingTags());
-			}
-			public void onSuccess(Method method, List<TagDto> result) {
-				tags = result;
-				GWT.log("TagsActivity: Loading Tag list: " + tags.size() + " tags");
+    private final EventBus eventBus;
 
-				display.setData(tags);
-			}
-		});
-	}
+    private final TagsView display;
+
+    private PlaceController placeController;
+
+    public TagsActivity(ClientFactory clientFactory) {
+        super(clientFactory);
+
+        GWT.log("Creating 'TagsActivity'");
+
+        this.tagService = clientFactory.getTagService();
+        this.eventBus = clientFactory.getEventBus();
+        this.display = clientFactory.getTagsView();
+        this.placeController = clientFactory.getPlaceController();
+
+        ((RestServiceProxy) tagService).setResource(new Resource(""));
+
+        getRegistrations().add(
+                LoadTagEvent.register(this.eventBus, new LoadTagEventHandler() {
+
+                    @Override
+                    public void onLoadTag(LoadTagEvent event) {
+                        GWT.log("TagsActivity: 'Load Tag' event");
+                        TagsActivity.this.placeController.goTo(new EditTagPlace(
+                                Long.toString(event.getTagId())));
+                    }
+                }));
+
+        getRegistrations().add(
+                LoadFlashCardEvent.register(this.eventBus,
+                        new LoadFlashCardEventHandler() {
+
+                            @Override
+                            public void onLoadFlashCard(LoadFlashCardEvent event) {
+                                GWT.log("FlashCardsActivity: 'Load FlashCard' event");
+                                TagsActivity.this.placeController.goTo(new EditFlashCardPlace(
+                                        Long.toString(event.getFlashCardId())));
+                            }
+                        }));
+
+        getRegistrations().add(
+                DeleteTagEvent.register(this.eventBus, new DeleteTagEventHandler() {
+
+                    @Override
+                    public void onDeleteTag(DeleteTagEvent event) {
+                        GWT.log("TagsActivity: 'Delete Tag' event");
+
+                        tagService.deleteTags(ConstsUtil.DEFAULT_AUTH_HEADER,
+                                event.getTagId(), new MethodCallback<java.lang.Void>() {
+
+                                    @Override
+                                    public void onFailure(Method method, Throwable caught) {
+                                        GWT.log("DeleteTagActivity: Error deleting data");
+                                        Window.alert(getConstants().errorDeletingTag());
+                                    }
+
+                                    @Override
+                                    public void onSuccess(Method method,
+                                            java.lang.Void result) {
+                                        GWT.log("DeleteTagActivity: Tag Deleted:"
+                                                + result);
+                                        TagsActivity.this.placeController.goTo(new ListTagsPlace(
+                                                ""));
+                                    }
+                                });
+                    }
+                }));
+    }
+
+    @Override
+    public void start(AcceptsOneWidget container, EventBus eventBus) {
+        container.setWidget(display.asWidget());
+
+        String fields = ConstsUtil.DEFAULT_TAGS_LIST_FIELDS;
+        fetchTagDetails(fields);
+    }
+
+    private void fetchTagDetails(String fields) {
+
+        // load the table with data
+        tagService.getTags(ConstsUtil.DEFAULT_AUTH_HEADER, fields,
+                new MethodCallback<List<TagDto>>() {
+
+                    @Override
+                    public void onFailure(Method method, Throwable caught) {
+                        GWT.log("TagsActivity: Error loading data");
+                        Window.alert(getConstants().errorLoadingTags());
+                    }
+
+                    @Override
+                    public void onSuccess(Method method, List<TagDto> result) {
+                        tags = result;
+                        GWT.log("TagsActivity: Loading Tag list: " + tags.size()
+                                + " tags");
+
+                        display.setData(tags);
+                    }
+                });
+    }
 }
