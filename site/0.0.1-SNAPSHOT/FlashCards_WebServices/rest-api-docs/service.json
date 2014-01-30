@@ -6,10 +6,10 @@
     "path" : "/v1_flashcards.{format}",
     "description" : "Operations about FlashCards"
   }, {
-    "path" : "/v1_users.{format}",
-    "description" : "Operations about Users"
-  }, {
     "path" : "/v1_tags.{format}",
     "description" : "Operations about Tags"
+  }, {
+    "path" : "/v1_users.{format}",
+    "description" : "Operations about Users"
   } ]
 }
