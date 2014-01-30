@@ -5,11 +5,8 @@ import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
-import java.io.IOException;
 import java.util.List;
-import java.util.Properties;
 
-import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
@@ -17,7 +14,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
@@ -26,8 +22,6 @@ import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 
 import com.sun.jersey.api.JResponse;
@@ -204,34 +198,5 @@ public abstract class AbstractGenericResource<T, Serializable> extends AbstractR
                 }
             }
         }
-    }
-
-    @Override
-    @GET
-    @Path("/status")
-    @Produces("text/plain")
-    @Consumes("text/plain")
-    @ApiOperation(value = "Status")
-    public String status() {
-        String version = getClass().getPackage().getImplementationVersion();
-        if (version == null) {
-            try {
-                Resource resource = getContext().getResource("/META-INF/MANIFEST.MF");
-                Properties prop = PropertiesLoaderUtils.loadProperties(resource);
-                version = prop.getProperty("Implementation-Version");
-                if (null == version) {
-                    throw new GenericWebServiceException(
-                            Response.Status.INTERNAL_SERVER_ERROR,
-                            "Unable to determine status");
-                }
-                LOGGER.debug("Version: " + version);
-            } catch (IOException e) {
-                LOGGER.error(e.toString());
-                throw new GenericWebServiceException(
-                        Response.Status.INTERNAL_SERVER_ERROR,
-                        "Unable to determine status", e);
-            }
-        }
-        return version;
     }
 }
