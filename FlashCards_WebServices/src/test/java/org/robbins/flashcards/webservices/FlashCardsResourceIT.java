@@ -18,16 +18,12 @@ import org.robbins.flashcards.tests.webservices.GenericEntityRestTest;
 import org.robbins.flashcards.util.TestEntityGenerator;
 import org.robbins.flashcards.webservices.util.ResourceUrls;
 import org.robbins.tests.IntegrationTest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
 
 @Category(IntegrationTest.class)
 @ContextConfiguration(locations = { "classpath*:applicatonContext-webServices-test.xml" })
 public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto> {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(FlashCardsResourceIT.class);
 
     // this entity will be created in @Before and we'll use it for our JUnit tests and
     // then delete it in @After

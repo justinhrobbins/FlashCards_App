@@ -34,10 +34,6 @@ public class FlashCardsAppResource {
         return context;
     }
 
-    public void setContext(ApplicationContext context) {
-        this.context = context;
-    }
-
     @GET
     @Path("/status")
     public String getStatus() {
