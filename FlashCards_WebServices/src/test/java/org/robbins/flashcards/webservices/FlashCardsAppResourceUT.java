@@ -3,79 +3,68 @@ package org.robbins.flashcards.webservices;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
-import javax.ws.rs.core.Response;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
-import org.robbins.flashcards.dto.TagDto;
-import org.robbins.flashcards.dto.UserDto;
-import org.robbins.flashcards.exceptions.ServiceException;
-import org.robbins.flashcards.facade.TagFacade;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
-import org.springframework.http.HttpStatus;
+import org.springframework.context.ApplicationContext;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @Category(UnitTest.class)
 public class FlashCardsAppResourceUT extends BaseMockingTest {
 
-    @Mock
-    private TagFacade mockTagFacade;
+    private static final String TEST_MANIFEST_PATH = "test-manifests/TEST_MANIFEST.MF";
+
+    private static final String TEST_BAD_MANIFEST_PATH = "test-manifests/TEST_BAD_MANIFEST.MF";
+
+    private static final String FAKE_MANIFEST_PATH = "DOES_NOT_EXIST.MF";
+
+    private static final String MANIFEST_PATH = "/META-INF/MANIFEST.MF";
 
     @Mock
-    private TagDto mockTagDto;
+    private ApplicationContext context;
 
-    private TagsResource resource;
+    private FlashCardsAppResource flashCardsAppResource;
 
     @Before
     public void before() {
-        resource = new TagsResource();
-        ReflectionTestUtils.setField(resource, "tagFacade", mockTagFacade);
+        flashCardsAppResource = new FlashCardsAppResource();
+        ReflectionTestUtils.setField(flashCardsAppResource, "context", context);
     }
 
     @Test
-    public void search() {
-        when(mockTagFacade.findByName(any(String.class))).thenReturn(mockTagDto);
+    public void status_FoundManifestAndVerson() {
+        Resource resource = new ClassPathResource(TEST_MANIFEST_PATH);
+        when(context.getResource(MANIFEST_PATH)).thenReturn(resource);
 
-        TagDto result = resource.searchByName(any(String.class));
+        String result = flashCardsAppResource.getStatus();
 
-        verify(mockTagFacade).findByName(any(String.class));
-        assertThat(result, is(TagDto.class));
+        verify(context).getResource(MANIFEST_PATH);
+        assertThat(result, is(String.class));
+        assertThat(result, is("TEST_VERSION"));
     }
 
     @Test(expected = GenericWebServiceException.class)
-    public void search_NotFound() {
-        when(mockTagFacade.findByName(any(String.class))).thenReturn(null);
+    public void status_FoundManifest_VersionNotFound() {
+        Resource resource = new ClassPathResource(TEST_BAD_MANIFEST_PATH);
+        when(context.getResource(MANIFEST_PATH)).thenReturn(resource);
 
-        resource.searchByName(any(String.class));
+        flashCardsAppResource.getStatus();
     }
 
-    @Test
-    public void put() throws ServiceException {
-        when(mockTagFacade.findOne(any(Long.class))).thenReturn(mockTagDto);
-        when(mockTagFacade.save(any(TagDto.class))).thenReturn(mockTagDto);
+    @Test(expected = GenericWebServiceException.class)
+    public void status_ManifestNotFound() {
+        Resource resource = new ClassPathResource(FAKE_MANIFEST_PATH);
+        when(context.getResource(MANIFEST_PATH)).thenReturn(resource);
 
-        Response response = resource.put(1L, mockTagDto);
-
-        verify(mockTagFacade).save(any(TagDto.class));
-        assertThat(response.getStatus(), is(HttpStatus.NO_CONTENT.value()));
-    }
-
-    @Test
-    public void put_WithCreatedBy() throws ServiceException {
-        when(mockTagDto.getCreatedBy()).thenReturn(new UserDto());
-        when(mockTagFacade.save(any(TagDto.class))).thenReturn(mockTagDto);
-
-        Response response = resource.put(1L, mockTagDto);
-
-        verify(mockTagFacade).save(any(TagDto.class));
-        assertThat(response.getStatus(), is(HttpStatus.NO_CONTENT.value()));
+        flashCardsAppResource.getStatus();
     }
 }

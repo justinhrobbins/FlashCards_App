@@ -85,17 +85,17 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
             // find by Tags
             if (!StringUtils.isBlank(tags)) {
                 StringTokenizer st = new StringTokenizer(tags, ",");
-                Set<TagDto> tagsList = new HashSet<TagDto>();
+                Set<TagDto> tagsSet = new HashSet<TagDto>();
                 while (st.hasMoreTokens()) {
-                    tagsList.add(new TagDto(Long.parseLong(st.nextToken())));
+                    tagsSet.add(new TagDto(Long.parseLong(st.nextToken())));
                 }
                 // are we using Pagination?
                 if (page != null) {
-                    List<FlashCardDto> results = flashcardFacade.findByTagsIn(tagsList,
+                    List<FlashCardDto> results = flashcardFacade.findByTagsIn(tagsSet,
                             new PageRequest(page, size));
                     return results.toArray(new FlashCardDto[results.size()]);
                 } else {
-                    List<FlashCardDto> results = flashcardFacade.findByTagsIn(tagsList);
+                    List<FlashCardDto> results = flashcardFacade.findByTagsIn(tagsSet);
                     return results.toArray(new FlashCardDto[results.size()]);
                 }
             } else {
