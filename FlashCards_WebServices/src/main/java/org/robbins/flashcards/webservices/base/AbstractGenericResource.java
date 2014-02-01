@@ -34,6 +34,7 @@ public abstract class AbstractGenericResource<T, Serializable> extends AbstractR
 
     protected abstract GenericCrudFacade<T> getFacade();
 
+
     @GET
     @ApiOperation(value = "List")
     @Override

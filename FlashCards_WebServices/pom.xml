@@ -164,10 +164,6 @@
                                     <war>../FlashCards_GWT/target/FlashCards_GwtClient.war</war>
                                     <contextPath>/gwt</contextPath>
                                 </contextHandler>
-                                <contextHandler implementation="org.eclipse.jetty.webapp.WebAppContext">
-                                    <war>../FlashCards_Struts/target/FlashCards_Struts.war</war>
-                                    <contextPath>/struts</contextPath>
-                                </contextHandler>
                             </contextHandlers>
                         </configuration>
                     </plugin>
