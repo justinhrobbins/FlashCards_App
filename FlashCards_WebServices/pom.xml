@@ -149,18 +149,20 @@
             </activation>
             <build>
                 <plugins>
-                    <!-- configure jetty to deploy the swagger and gwt wars
-                         we want them deployed by default for 'mvn jetty:run' -->
+                    <!-- configure jetty to deploy the swagger and gwt wars 
+                        we want them deployed by default for 'mvn jetty:run' -->
                     <plugin>
                         <groupId>org.mortbay.jetty</groupId>
                         <artifactId>jetty-maven-plugin</artifactId>
                         <configuration>
                             <contextHandlers>
-                                <contextHandler implementation="org.eclipse.jetty.webapp.WebAppContext">
+                                <contextHandler
+                                    implementation="org.eclipse.jetty.webapp.WebAppContext">
                                     <war>../swagger_ui/target/apidocs.war</war>
                                     <contextPath>/apidocs</contextPath>
                                 </contextHandler>
-                                <contextHandler implementation="org.eclipse.jetty.webapp.WebAppContext">
+                                <contextHandler
+                                    implementation="org.eclipse.jetty.webapp.WebAppContext">
                                     <war>../FlashCards_GWT/target/FlashCards_GwtClient.war</war>
                                     <contextPath>/gwt</contextPath>
                                 </contextHandler>
@@ -170,10 +172,9 @@
                 </plugins>
             </build>
         </profile>
-        <!-- Profile for running integration tests
-             Starts up/shuts down jetty
-             Moved this into it's own profile because otherwise Jetty was getting started
-                 in all cases and wasting time, even when we were skipping tests 'DskipTests=true' -->
+        <!-- Profile for running integration tests Starts up/shuts down jetty 
+            Moved this into it's own profile because otherwise Jetty was getting started 
+            in all cases and wasting time, even when we were skipping tests 'DskipTests=true' -->
         <profile>
             <id>integration-test</id>
             <build>
@@ -205,10 +206,8 @@
                 </plugins>
             </build>
         </profile>
-        <!--
-            would prefer a better way to start jetty for both profiles (integration-test & all-test)
-            but for now just copying the plugin into both profiles
-         -->
+        <!-- would prefer a better way to start jetty for both profiles (integration-test 
+            & all-test) but for now just copying the plugin into both profiles -->
         <profile>
             <id>all-tests</id>
             <build>
@@ -257,7 +256,7 @@
                                 <apiVersion>${project.version}</apiVersion>
                                 <basePath>http://localhost:8080/api</basePath>
                                 <outputTemplate>
-                                         https://raw.github.com/kongchen/api-doc-template/master/v1.1/strapdown.html.mustache
+                                    https://raw.github.com/kongchen/api-doc-template/master/v1.1/strapdown.html.mustache
                                 </outputTemplate>
                                 <outputPath>${project.build.directory}/site/rest-api-docs/index.html</outputPath>
                                 <swaggerDirectory>${project.build.directory}/site/rest-api-docs/</swaggerDirectory>
@@ -274,7 +273,31 @@
                             </goals>
                         </execution>
                     </executions>
-                </plugin> 
+                </plugin>
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>com.github.kongchen</groupId>
+                                        <artifactId>swagger-maven-plugin</artifactId>
+                                        <versionRange>${swagger.maven.plugin.version}</versionRange>
+                                        <goals>
+                                            <goal>generate</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore />
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
