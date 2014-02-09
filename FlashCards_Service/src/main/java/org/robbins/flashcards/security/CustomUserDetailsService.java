@@ -1,13 +1,14 @@
 
-package org.robbins.flashcards.service.springdata.security;
+package org.robbins.flashcards.security;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.robbins.flashcards.model.User;
-import org.robbins.flashcards.repository.springdata.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
+
+import org.robbins.flashcards.dto.UserDto;
+import org.robbins.flashcards.facade.UserFacade;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,8 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class CustomUserDetailsService implements UserDetailsService {
 
-    @Autowired
-    private UserRepository userRepository;
+    @Inject
+    private UserFacade userFacade;
 
     /**
      * Returns a populated {@link UserDetails} object. The username is first retrieved
@@ -33,7 +34,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) {
         try {
-            User domainUser = userRepository.findUserByOpenid(username);
+            UserDto domainUser = userFacade.findUserByOpenid(username);
 
             boolean enabled = true;
             boolean accountNonExpired = true;
