@@ -5,6 +5,7 @@ import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -36,6 +37,16 @@ public final class DtoUtil {
             // loop through the properties of the bean
             for (PropertyDescriptor propertyDesc : beanInfo.getPropertyDescriptors()) {
                 String propertyName = propertyDesc.getName();
+
+                // is the current property a collection?
+                Method getter = propertyDesc.getReadMethod();
+                Object values = getter.invoke(obj);
+                if (values instanceof Collection<?>) {
+                    // run the filter over the fields in the collection
+                    for (Object value : (Collection<?>) values) {
+                        filterFields(value, fields);
+                    }
+                }
 
                 // if we don't explicitly want this field
                 if (fieldsMap.get(propertyName) == null) {
