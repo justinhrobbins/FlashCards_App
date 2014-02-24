@@ -1,0 +1,26 @@
+<h1>{{tag.name}}</h1>
+
+<ul class="specs">
+    <li>
+        <span>Created</span>
+        <dl>
+            <dt>Created By</dt>
+            <dd>{{tag.createdBy.firstName}} {{tag.createdBy.lastName}}</dd>
+        </dl>
+        <dl>
+            <dt>Created Date</dt>
+            <dd>{{tag.createdDate}}</dd>
+        </dl>
+    </li>
+    <li>
+        <span>Modified</span>
+        <dl>
+            <dt>Modified By</dt>
+            <dd>{{tag.lastModifiedBy.firstName}} {{tag.lastModifiedBy.lastName}}</dd>
+        </dl>
+        <dl>
+            <dt>Modified Date</dt>
+            <dd>{{tag.lastModifiedDate}}</dd>
+        </dl>
+    </li>
+</ul>

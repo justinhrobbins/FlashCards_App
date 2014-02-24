@@ -1,0 +1,27 @@
+{
+
+    "id": 1,
+    "createdBy": {
+        "id": 1,
+        "openid": "https://www.google.com/accounts/o8/id?id=AItOawllJAsRUc_lQK9cK8vk0E7CJGqEFUAC5oE",
+        "firstName": "Justin",
+        "lastName": "Robbins",
+        "email": "justinhrobbins@gmail.com",
+        "language": "en-US",
+        "lastLoginDate": 1393113006493
+    },
+    "createdDate": 1318912095000,
+    "lastModifiedBy": {
+        "id": 1,
+        "openid": "https://www.google.com/accounts/o8/id?id=AItOawllJAsRUc_lQK9cK8vk0E7CJGqEFUAC5oE",
+        "firstName": "Justin",
+        "lastName": "Robbins",
+        "email": "justinhrobbins@gmail.com",
+        "language": "en-US",
+        "lastLoginDate": 1393113006493
+    },
+    "lastModifiedDate": 1318912095000,
+    "name": "Hibernate",
+    "flashcards": [ ]
+
+}
