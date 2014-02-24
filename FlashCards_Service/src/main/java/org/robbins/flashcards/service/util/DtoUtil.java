@@ -38,11 +38,6 @@ public final class DtoUtil {
             for (PropertyDescriptor propertyDesc : beanInfo.getPropertyDescriptors()) {
                 String propertyName = propertyDesc.getName();
 
-                // if (propertyDesc.getPropertyType().equals(Collection.class)) {
-                // Method getter = propertyDesc.getReadMethod();
-                // filterFields(getter.invoke(obj), fields);
-                // }
-
                 // is the current property a collection?
                 Method getter = propertyDesc.getReadMethod();
                 Object values = getter.invoke(obj);
