@@ -51,5 +51,5 @@ gwt-joda-time/
 Icon?
 ehthumbs.db
 Thumbs.db
-/FlashCards_App.iml
+*.iml
 /.idea
