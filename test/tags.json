@@ -1,0 +1,128 @@
+[
+    {
+        "id":1,
+        "name":"Hibernate",
+        "flashcards":[
+
+        ]
+    },
+    {
+        "id":2,
+        "name":"JPA",
+        "flashcards":[
+            {
+                "id":133,
+                "question":"What is the difference between the terms 'origin' and 'master' in Git?"
+            }
+        ]
+    },
+    {
+        "id":12,
+        "name":"JAX-RS",
+        "flashcards":[
+            {
+                "id":135,
+                "question":"What are some implementations for JAX-RS?"
+            }
+        ]
+    },
+    {
+        "id":14,
+        "name":"Maven",
+        "flashcards":[
+            {
+                "id":129,
+                "question":"What are the Maven dependency scopes?"
+            },
+            {
+                "id":125,
+                "question":"What are the build phases of the default Maven lifecycle?"
+            },
+            {
+                "id":130,
+                "question":"What is the difference between Maven lifecycles, phases and goals?"
+            },
+            {
+                "id":137,
+                "question":"What are the purpose of Maven build profiles?"
+            },
+            {
+                "id":127,
+                "question":"What is the standard Maven directory layout?"
+            },
+            {
+                "id":124,
+                "question":"Which Maven plugin executes tests?"
+            }
+        ]
+    },
+    {
+        "id":15,
+        "name":"Java",
+        "flashcards":[
+            {
+                "id":126,
+                "question":"What are some new language features introduced in Java 5,6 and 7?"
+            },
+            {
+                "id":128,
+                "question":"How can you protect against SQL Injection?"
+            }
+        ]
+    },
+    {
+        "id":16,
+        "name":"SQL",
+        "flashcards":[
+            {
+                "id":128,
+                "question":"How can you protect against SQL Injection?"
+            }
+        ]
+    },
+    {
+        "id":17,
+        "name":"Spring",
+        "flashcards":[
+            {
+                "id":134,
+                "question":"What are three ways to wire Spring beans?"
+            },
+            {
+                "id":136,
+                "question":"What are the available 'scopes' for Spring beans?"
+            }
+        ]
+    },
+    {
+        "id":18,
+        "name":"AOP",
+        "flashcards":[
+
+        ]
+    },
+    {
+        "id":19,
+        "name":"Agile",
+        "flashcards":[
+            {
+                "id":131,
+                "question":"What  are the meanings and items of the Agile Manifesto?"
+            }
+        ]
+    },
+    {
+        "id":20,
+        "name":"Git",
+        "flashcards":[
+            {
+                "id":133,
+                "question":"What is the difference between the terms 'origin' and 'master' in Git?"
+            },
+            {
+                "id":132,
+                "question":"What is the difference between Fetch and Pull in Git?"
+            }
+        ]
+    }
+]
