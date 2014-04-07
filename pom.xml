@@ -826,6 +826,42 @@
                             <version>${h2.version}</version>
                         </dependency>
                     </dependencies>
+                    <configuration>
+                    <webapps>
+                        <webapp> 
+                            <groupId>org.robbins.flashcards</groupId> 
+                            <artifactId>FlashCards_WebServices</artifactId> 
+                            <version>${project.version}</version> 
+                            <type>war</type>
+                            <asWebapp>true</asWebapp>
+                            <contextPath>/api</contextPath>
+                        </webapp>
+                        <webapp> 
+                            <groupId>org.robbins.flashcards</groupId> 
+                            <artifactId>FlashCards_GWT</artifactId> 
+                            <version>${project.version}</version> 
+                            <type>war</type>
+                            <asWebapp>true</asWebapp>
+                            <contextPath>/gwt</contextPath>
+                        </webapp>
+                        <webapp> 
+                            <groupId>org.robbins.flashcards</groupId> 
+                            <artifactId>FlashCards_Struts</artifactId> 
+                            <version>${project.version}</version> 
+                            <type>war</type>
+                            <asWebapp>true</asWebapp>
+                            <contextPath>/struts</contextPath>
+                        </webapp>
+                        <webapp> 
+                            <groupId>org.robbins.flashcards</groupId> 
+                            <artifactId>swagger_ui</artifactId> 
+                            <version>${project.version}</version> 
+                            <type>war</type>
+                            <asWebapp>true</asWebapp>
+                            <contextPath>/apidocs</contextPath>
+                        </webapp>
+                    </webapps>
+                    </configuration>
                 </plugin>
                 <!-- Maven plugin for submitting Java code coverage reports 
                     to Coveralls web service -->
