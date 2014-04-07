@@ -13,7 +13,7 @@
     <description>FlashCards_Struts description</description>
     <properties>
         <m2eclipse.wtp.contextRoot>struts</m2eclipse.wtp.contextRoot>
-        <jetty.context.path>struts</jetty.context.path>
+        <tomcat.context.path>/struts</tomcat.context.path>
         <skip.coveralls>true</skip.coveralls>
         <skip.cobertura>true</skip.cobertura>
     </properties>
@@ -86,8 +86,11 @@
         <finalName>FlashCards_Struts</finalName>
         <plugins>
             <plugin>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <configuration>
+                    <path>${tomcat.context.path}</path>
+                </configuration>
             </plugin>
         </plugins>
     </build>

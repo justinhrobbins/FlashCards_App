@@ -13,7 +13,6 @@
     <description>FlashCards_GwtClient description</description>
     <properties>
         <m2eclipse.wtp.contextRoot>gwt</m2eclipse.wtp.contextRoot>
-        <jetty.context.path>gwt</jetty.context.path>
         <skip.coveralls>true</skip.coveralls>
         <skip.cobertura>true</skip.cobertura>
     </properties>
@@ -73,10 +72,6 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>gwt-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
