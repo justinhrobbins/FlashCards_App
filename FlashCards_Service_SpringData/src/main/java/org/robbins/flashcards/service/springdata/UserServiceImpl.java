@@ -22,7 +22,7 @@ public class UserServiceImpl extends GenericJpaServiceImpl<User, Long> implement
     }
 
     @Override
-    public User findUserByOpenid(String openid) {
+    public User findUserByOpenid(final String openid) {
         return getRepository().findUserByOpenid(openid);
     }
 }

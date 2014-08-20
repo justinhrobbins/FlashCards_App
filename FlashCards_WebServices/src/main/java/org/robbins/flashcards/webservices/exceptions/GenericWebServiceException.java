@@ -10,7 +10,8 @@ public class GenericWebServiceException extends WebApplicationException {
 
     private WebServicesError error;
 
-    public GenericWebServiceException(Response.Status status, WebServicesError error) {
+    public GenericWebServiceException(final Response.Status status,
+            final WebServicesError error) {
         this.setError(error);
     }
 
@@ -19,18 +20,19 @@ public class GenericWebServiceException extends WebApplicationException {
     // throwError(status, errors);
     // }
 
-    public GenericWebServiceException(Response.Status status, String customMessage) {
+    public GenericWebServiceException(final Response.Status status,
+            final String customMessage) {
         this.setError(new WebServicesError(status.getStatusCode(),
                 status.getReasonPhrase(), customMessage));
     }
 
-    public GenericWebServiceException(Response.Status status, Exception e) {
+    public GenericWebServiceException(final Response.Status status, final Exception e) {
         this.setError(new WebServicesError(status.getStatusCode(),
                 status.getReasonPhrase(), e.getMessage()));
     }
 
-    public GenericWebServiceException(Response.Status status, String customMessage,
-            Exception e) {
+    public GenericWebServiceException(final Response.Status status,
+            final String customMessage, final Exception e) {
         this.setError(new WebServicesError(status.getStatusCode(),
                 status.getReasonPhrase(), customMessage));
     }
@@ -39,7 +41,7 @@ public class GenericWebServiceException extends WebApplicationException {
         return error;
     }
 
-    public void setError(WebServicesError error) {
+    public void setError(final WebServicesError error) {
         this.error = error;
     }
 }

@@ -41,17 +41,18 @@ public class UserDto extends AbstractPersistableDto implements Serializable {
     public UserDto() {
     }
 
-    public UserDto(Long userId) {
+    public UserDto(final Long userId) {
         setId(userId);
     }
 
-    public UserDto(String openid, String email) {
+    public UserDto(final String openid, final String email) {
         this.openid = openid;
         this.email = email;
     }
 
-    public UserDto(String openid, String firstName, String lastName, String fullName,
-            String email, String nickname, String country, String language) {
+    public UserDto(final String openid, final String firstName, final String lastName,
+            final String fullName, final String email, final String nickname,
+            final String country, final String language) {
         this.openid = openid;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -66,7 +67,7 @@ public class UserDto extends AbstractPersistableDto implements Serializable {
         return this.openid;
     }
 
-    public void setOpenid(String openid) {
+    public void setOpenid(final String openid) {
         this.openid = openid;
     }
 
@@ -74,7 +75,7 @@ public class UserDto extends AbstractPersistableDto implements Serializable {
         return this.firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public void setFirstName(final String firstName) {
         this.firstName = firstName;
     }
 
@@ -82,7 +83,7 @@ public class UserDto extends AbstractPersistableDto implements Serializable {
         return this.lastName;
     }
 
-    public void setLastName(String lastName) {
+    public void setLastName(final String lastName) {
         this.lastName = lastName;
     }
 
@@ -90,7 +91,7 @@ public class UserDto extends AbstractPersistableDto implements Serializable {
         return this.fullName;
     }
 
-    public void setFullName(String fullName) {
+    public void setFullName(final String fullName) {
         this.fullName = fullName;
     }
 
@@ -98,7 +99,7 @@ public class UserDto extends AbstractPersistableDto implements Serializable {
         return this.email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(final String email) {
         this.email = email;
     }
 
@@ -106,7 +107,7 @@ public class UserDto extends AbstractPersistableDto implements Serializable {
         return this.nickname;
     }
 
-    public void setNickname(String nickname) {
+    public void setNickname(final String nickname) {
         this.nickname = nickname;
     }
 
@@ -114,7 +115,7 @@ public class UserDto extends AbstractPersistableDto implements Serializable {
         return this.country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(final String country) {
         this.country = country;
     }
 
@@ -122,7 +123,7 @@ public class UserDto extends AbstractPersistableDto implements Serializable {
         return this.language;
     }
 
-    public void setLanguage(String language) {
+    public void setLanguage(final String language) {
         this.language = language;
     }
 
@@ -130,13 +131,13 @@ public class UserDto extends AbstractPersistableDto implements Serializable {
         return null == lastLoginDate ? null : new Date();
     }
 
-    public void setLastLoginDate(Date lastLoginDate) {
+    public void setLastLoginDate(final Date lastLoginDate) {
         this.lastLoginDate = null == lastLoginDate ? null : lastLoginDate;
     }
 
     /**
      * toString
-     * 
+     *
      * @return String
      */
     @Override

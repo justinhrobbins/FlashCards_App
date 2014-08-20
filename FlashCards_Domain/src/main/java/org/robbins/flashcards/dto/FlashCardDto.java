@@ -34,17 +34,17 @@ public class FlashCardDto extends AbstractAuditableDto implements Serializable {
     public FlashCardDto() {
     }
 
-    public FlashCardDto(Long flashCardId) {
+    public FlashCardDto(final Long flashCardId) {
         setId(flashCardId);
     }
 
-    public FlashCardDto(String question, String answer) {
+    public FlashCardDto(final String question, final String answer) {
         this.question = question;
         this.answer = answer;
     }
 
-    public FlashCardDto(String question, String answer, Set<TagDto> tags,
-            List<String> links) {
+    public FlashCardDto(final String question, final String answer,
+            final Set<TagDto> tags, final List<String> links) {
         this.question = question;
         this.answer = answer;
         this.tags = tags;
@@ -55,7 +55,7 @@ public class FlashCardDto extends AbstractAuditableDto implements Serializable {
         return this.question;
     }
 
-    public void setQuestion(String question) {
+    public void setQuestion(final String question) {
         this.question = question;
     }
 
@@ -63,7 +63,7 @@ public class FlashCardDto extends AbstractAuditableDto implements Serializable {
         return this.answer;
     }
 
-    public void setAnswer(String answer) {
+    public void setAnswer(final String answer) {
         this.answer = answer;
     }
 
@@ -71,7 +71,7 @@ public class FlashCardDto extends AbstractAuditableDto implements Serializable {
         return this.tags;
     }
 
-    public void setTags(Set<TagDto> tags) {
+    public void setTags(final Set<TagDto> tags) {
         this.tags = tags;
     }
 
@@ -79,7 +79,7 @@ public class FlashCardDto extends AbstractAuditableDto implements Serializable {
         return this.links;
     }
 
-    public void setLinks(List<String> links) {
+    public void setLinks(final List<String> links) {
         this.links = links;
     }
 

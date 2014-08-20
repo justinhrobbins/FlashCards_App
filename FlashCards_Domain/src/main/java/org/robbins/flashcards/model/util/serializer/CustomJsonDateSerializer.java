@@ -14,7 +14,8 @@ public class CustomJsonDateSerializer extends JsonSerializer<Date> {
     private static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
 
     @Override
-    public void serialize(Date date, JsonGenerator gen, SerializerProvider provider)
+    public void serialize(final Date date, final JsonGenerator gen,
+            final SerializerProvider provider)
             throws IOException {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);

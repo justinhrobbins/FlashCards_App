@@ -30,7 +30,7 @@ public abstract class AbstractCrudRepositoryImpl<T extends AbstractAuditable<Use
     }
 
     @Override
-    public T save(T entity) {
+    public T save(final T entity) {
         entity.setLastModifiedBy(getAuditorAware().getCurrentAuditor());
         entity.setLastModifiedDate(new DateTime());
 
@@ -47,17 +47,17 @@ public abstract class AbstractCrudRepositoryImpl<T extends AbstractAuditable<Use
     }
 
     @Override
-    public T findOne(Long id) {
+    public T findOne(final Long id) {
         return getEm().find(getClazz(), id);
     }
 
     @Override
-    public void delete(T entity) {
+    public void delete(final T entity) {
         getEm().remove(entity);
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(final Long id) {
         T entity = em.find(getClazz(), id);
         em.remove(entity);
     }

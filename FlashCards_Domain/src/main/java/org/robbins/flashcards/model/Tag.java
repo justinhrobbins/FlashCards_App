@@ -34,15 +34,15 @@ public class Tag extends AbstractAuditable<User, Long> implements Serializable {
     public Tag() {
     }
 
-    public Tag(Long id) {
+    public Tag(final Long id) {
         setId(id);
     }
 
-    public Tag(String name) {
+    public Tag(final String name) {
         this.name = name;
     }
 
-    public Tag(String name, Set<FlashCard> flashcards) {
+    public Tag(final String name, final Set<FlashCard> flashcards) {
         this.name = name;
         this.flashcards = flashcards;
     }
@@ -51,7 +51,7 @@ public class Tag extends AbstractAuditable<User, Long> implements Serializable {
         return this.name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -59,7 +59,7 @@ public class Tag extends AbstractAuditable<User, Long> implements Serializable {
         return this.flashcards;
     }
 
-    public void setFlashcards(Set<FlashCard> flashcards) {
+    public void setFlashcards(final Set<FlashCard> flashcards) {
         this.flashcards = flashcards;
     }
 

@@ -40,7 +40,7 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long> {
     @GET
     @Path("/search")
     @ApiOperation(value = "Find Tag by Name", response = TagDto.class)
-    public TagDto searchByName(@QueryParam("name") String name) {
+    public TagDto searchByName(@QueryParam("name") final String name) {
 
         TagDto tagDto = tagFacade.findByName(name);
 
@@ -55,7 +55,7 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long> {
     @PUT
     @Path("/{id}")
     @ApiOperation(value = "Replace a Tag")
-    public Response put(@PathParam("id") Long id, TagDto dto) {
+    public Response put(@PathParam("id") final Long id, final TagDto dto) {
 
         if (dto.getCreatedBy() == null) {
             TagDto orig;

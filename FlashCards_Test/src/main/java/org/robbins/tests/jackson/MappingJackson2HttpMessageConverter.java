@@ -32,7 +32,7 @@ public class MappingJackson2HttpMessageConverter extends
         super(new MediaType("application", "json", DEFAULT_CHARSET));
     }
 
-    public void setObjectMapper(ObjectMapper objectMapper) {
+    public void setObjectMapper(final ObjectMapper objectMapper) {
         Assert.notNull(objectMapper, "ObjectMapper must not be null");
         this.objectMapper = objectMapper;
     }
@@ -41,29 +41,30 @@ public class MappingJackson2HttpMessageConverter extends
         return this.objectMapper;
     }
 
-    public void setPrefixJson(boolean prefixJson) {
+    public void setPrefixJson(final boolean prefixJson) {
         this.prefixJson = prefixJson;
     }
 
     @Override
-    public boolean canRead(Class<?> clazz, MediaType mediaType) {
+    public boolean canRead(final Class<?> clazz, final MediaType mediaType) {
         JavaType javaType = getJavaType(clazz);
         return (this.objectMapper.canDeserialize(javaType) && canRead(mediaType));
     }
 
     @Override
-    public boolean canWrite(Class<?> clazz, MediaType mediaType) {
+    public boolean canWrite(final Class<?> clazz, final MediaType mediaType) {
         return (this.objectMapper.canSerialize(clazz) && canWrite(mediaType));
     }
 
     @Override
-    protected boolean supports(Class<?> clazz) {
+    protected boolean supports(final Class<?> clazz) {
         // should not be called, since we override canRead/Write instead
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Object readInternal(Class<?> clazz, HttpInputMessage inputMessage)
+    protected Object readInternal(final Class<?> clazz,
+            final HttpInputMessage inputMessage)
             throws IOException {
 
         JavaType javaType = getJavaType(clazz);
@@ -76,7 +77,8 @@ public class MappingJackson2HttpMessageConverter extends
     }
 
     @Override
-    protected void writeInternal(Object object, HttpOutputMessage outputMessage)
+    protected void writeInternal(final Object object,
+            final HttpOutputMessage outputMessage)
             throws IOException {
 
         JsonEncoding encoding = getJsonEncoding(outputMessage.getHeaders().getContentType());
@@ -93,11 +95,11 @@ public class MappingJackson2HttpMessageConverter extends
         }
     }
 
-    protected JavaType getJavaType(Class<?> clazz) {
+    protected JavaType getJavaType(final Class<?> clazz) {
         return TypeFactory.defaultInstance().constructType(clazz);
     }
 
-    protected JsonEncoding getJsonEncoding(MediaType contentType) {
+    protected JsonEncoding getJsonEncoding(final MediaType contentType) {
         if (contentType != null && contentType.getCharSet() != null) {
             Charset charset = contentType.getCharSet();
             for (JsonEncoding encoding : JsonEncoding.values()) {

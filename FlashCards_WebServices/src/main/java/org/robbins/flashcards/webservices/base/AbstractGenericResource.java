@@ -38,11 +38,11 @@ public abstract class AbstractGenericResource<T, Serializable> extends AbstractR
     @GET
     @ApiOperation(value = "List")
     @Override
-    public JResponse<List<T>> list(@QueryParam("page") Integer page,
-            @DefaultValue("25") @QueryParam("size") Integer size,
-            @QueryParam("sort") String sort,
-            @DefaultValue("asc") @QueryParam("direction") String direction,
-            @QueryParam("fields") String fields) {
+    public JResponse<List<T>> list(@QueryParam("page") final Integer page,
+            @DefaultValue("25") @QueryParam("size") final Integer size,
+            @QueryParam("sort") final String sort,
+            @DefaultValue("asc") @QueryParam("direction") final String direction,
+            @QueryParam("fields") final String fields) {
 
         List<T> entities = null;
 
@@ -78,7 +78,8 @@ public abstract class AbstractGenericResource<T, Serializable> extends AbstractR
     @GET
     @Path("/{id}")
     @ApiOperation(value = "Get one")
-    public T findOne(@PathParam("id") Long id, @QueryParam("fields") String fields) {
+    public T findOne(@PathParam("id") final Long id,
+            @QueryParam("fields") final String fields) {
 
         T entity;
         try {
@@ -97,7 +98,7 @@ public abstract class AbstractGenericResource<T, Serializable> extends AbstractR
     @Override
     @POST
     @ApiOperation(value = "Create")
-    public T post(T entity) {
+    public T post(final T entity) {
         try {
             return getFacade().save(entity);
         } catch (ServiceException e) {
@@ -109,7 +110,7 @@ public abstract class AbstractGenericResource<T, Serializable> extends AbstractR
     @PUT
     @Path("/{id}")
     @ApiOperation(value = "Replace")
-    public Response put(@PathParam("id") Long id, T entity) {
+    public Response put(@PathParam("id") final Long id, final T entity) {
         try {
             getFacade().save(entity);
         } catch (ServiceException e) {
@@ -123,7 +124,7 @@ public abstract class AbstractGenericResource<T, Serializable> extends AbstractR
     @DELETE
     @Path("/{id}")
     @ApiOperation(value = "Delete")
-    public Response delete(@PathParam("id") Long id) {
+    public Response delete(@PathParam("id") final Long id) {
         getFacade().delete(id);
 
         return Response.noContent().build();
@@ -133,7 +134,7 @@ public abstract class AbstractGenericResource<T, Serializable> extends AbstractR
     @POST
     @Path("/{id}/update")
     @ApiOperation(value = "Update")
-    public Response update(@PathParam("id") Long id, T updatedEntity) {
+    public Response update(@PathParam("id") final Long id, final T updatedEntity) {
         // get the original entity from the db
         T originalEntity;
         try {
@@ -157,7 +158,7 @@ public abstract class AbstractGenericResource<T, Serializable> extends AbstractR
     }
 
     // update the target entity with any non-null field in the source entity
-    private void merge(T source, T target) {
+    private void merge(final T source, final T target) {
         BeanInfo beanInfo;
         try {
             beanInfo = Introspector.getBeanInfo(source.getClass());

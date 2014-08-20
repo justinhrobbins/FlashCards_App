@@ -23,7 +23,7 @@ public class UserServiceImpl extends AbstractCrudServiceImpl<User> implements Us
     }
 
     @Override
-    public User findUserByOpenid(String openid) {
+    public User findUserByOpenid(final String openid) {
         return getRepository().findUserByOpenid(openid);
     }
 }

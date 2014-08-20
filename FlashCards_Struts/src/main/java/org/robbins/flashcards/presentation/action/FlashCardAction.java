@@ -123,7 +123,7 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
         }
     }
 
-    private Set<Tag> convertToTags(String explodedTags) {
+    private Set<Tag> convertToTags(final String explodedTags) {
         Set<Tag> tags = new HashSet<Tag>();
 
         if (getExplodedTags() == null) {
@@ -141,7 +141,7 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
         return tags;
     }
 
-    private String convertFromTags(Collection<Tag> tags, boolean addQuotes) {
+    private String convertFromTags(final Collection<Tag> tags, final boolean addQuotes) {
 
         StringBuilder sb = new StringBuilder();
         String prefix = "";
@@ -281,7 +281,7 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
     }
 
     @Override
-    public void setSession(Map<String, Object> httpSession) {
+    public void setSession(final Map<String, Object> httpSession) {
         this.httpSession = httpSession;
     }
 
@@ -293,7 +293,7 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
         return allExplodedTags;
     }
 
-    public void setAllExplodedTags(String allExplodedTags) {
+    public void setAllExplodedTags(final String allExplodedTags) {
         this.allExplodedTags = allExplodedTags;
     }
 
@@ -305,7 +305,7 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
         return viewType;
     }
 
-    public void setViewType(String viewType) {
+    public void setViewType(final String viewType) {
         this.viewType = viewType;
     }
 
@@ -313,7 +313,7 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
         return tagList;
     }
 
-    public void setTagList(List<Tag> tagList) {
+    public void setTagList(final List<Tag> tagList) {
         this.tagList = tagList;
     }
 
@@ -321,7 +321,7 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
         return explodedTags;
     }
 
-    public void setExplodedTags(String explodedTags) {
+    public void setExplodedTags(final String explodedTags) {
         this.explodedTags = explodedTags;
     }
 
@@ -329,7 +329,7 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
         return this.flashCard;
     }
 
-    public void setFlashCard(FlashCard flashCard) {
+    public void setFlashCard(final FlashCard flashCard) {
         this.flashCard = flashCard;
     }
 
@@ -337,7 +337,7 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
         return this.flashCardList;
     }
 
-    public void setFlashCardList(List<FlashCard> flashCardList) {
+    public void setFlashCardList(final List<FlashCard> flashCardList) {
         this.flashCardList = flashCardList;
     }
 }

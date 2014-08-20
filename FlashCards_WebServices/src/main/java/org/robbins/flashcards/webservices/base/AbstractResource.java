@@ -10,7 +10,7 @@ import org.apache.cxf.common.util.StringUtils;
 public abstract class AbstractResource {
 
     // Convert the vectorized 'fields' parameter to a Set<String>
-    protected Set<String> getFieldsAsSet(String fields) {
+    protected Set<String> getFieldsAsSet(final String fields) {
 
         if (StringUtils.isEmpty(fields)) {
             return null;

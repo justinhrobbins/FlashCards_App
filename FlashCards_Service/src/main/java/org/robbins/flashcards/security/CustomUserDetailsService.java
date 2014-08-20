@@ -32,7 +32,7 @@ public class CustomUserDetailsService implements UserDetailsService {
      * from the database and then mapped to a {@link UserDetails} object.
      */
     @Override
-    public UserDetails loadUserByUsername(String username) {
+    public UserDetails loadUserByUsername(final String username) {
         try {
             UserDto domainUser = userFacade.findUserByOpenid(username);
 
@@ -81,7 +81,7 @@ public class CustomUserDetailsService implements UserDetailsService {
      * @param roles {@link String} of roles
      * @return list of granted authorities
      */
-    public static List<GrantedAuthority> getGrantedAuthorities(List<String> roles) {
+    public static List<GrantedAuthority> getGrantedAuthorities(final List<String> roles) {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         for (String role : roles) {
             authorities.add(new SimpleGrantedAuthority(role));

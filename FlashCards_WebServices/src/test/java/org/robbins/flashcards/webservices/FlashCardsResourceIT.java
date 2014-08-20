@@ -31,7 +31,7 @@ public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto> {
             "Web API Test 'Question'", "Web API Test 'Answer'");
 
     @Override
-    public void setEntity(FlashCardDto entity) {
+    public void setEntity(final FlashCardDto entity) {
         this.entity = entity;
     }
 

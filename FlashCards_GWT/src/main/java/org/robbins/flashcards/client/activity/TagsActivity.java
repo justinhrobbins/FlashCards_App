@@ -38,7 +38,7 @@ public class TagsActivity extends AppAbstractActivity {
 
     private final TagsView display;
 
-    private PlaceController placeController;
+    private final PlaceController placeController;
 
     public TagsActivity(ClientFactory clientFactory) {
         super(clientFactory);
@@ -56,7 +56,7 @@ public class TagsActivity extends AppAbstractActivity {
                 LoadTagEvent.register(this.eventBus, new LoadTagEventHandler() {
 
                     @Override
-                    public void onLoadTag(LoadTagEvent event) {
+                    public void onLoadTag(final LoadTagEvent event) {
                         GWT.log("TagsActivity: 'Load Tag' event");
                         TagsActivity.this.placeController.goTo(new EditTagPlace(
                                 Long.toString(event.getTagId())));
@@ -68,7 +68,7 @@ public class TagsActivity extends AppAbstractActivity {
                         new LoadFlashCardEventHandler() {
 
                             @Override
-                            public void onLoadFlashCard(LoadFlashCardEvent event) {
+                            public void onLoadFlashCard(final LoadFlashCardEvent event) {
                                 GWT.log("FlashCardsActivity: 'Load FlashCard' event");
                                 TagsActivity.this.placeController.goTo(new EditFlashCardPlace(
                                         Long.toString(event.getFlashCardId())));
@@ -79,21 +79,22 @@ public class TagsActivity extends AppAbstractActivity {
                 DeleteTagEvent.register(this.eventBus, new DeleteTagEventHandler() {
 
                     @Override
-                    public void onDeleteTag(DeleteTagEvent event) {
+                    public void onDeleteTag(final DeleteTagEvent event) {
                         GWT.log("TagsActivity: 'Delete Tag' event");
 
                         tagService.deleteTags(ConstsUtil.DEFAULT_AUTH_HEADER,
                                 event.getTagId(), new MethodCallback<java.lang.Void>() {
 
                                     @Override
-                                    public void onFailure(Method method, Throwable caught) {
+                                    public void onFailure(final Method method,
+                                            final Throwable caught) {
                                         GWT.log("DeleteTagActivity: Error deleting data");
                                         Window.alert(getConstants().errorDeletingTag());
                                     }
 
                                     @Override
-                                    public void onSuccess(Method method,
-                                            java.lang.Void result) {
+                                    public void onSuccess(final Method method,
+                                            final java.lang.Void result) {
                                         GWT.log("DeleteTagActivity: Tag Deleted:"
                                                 + result);
                                         TagsActivity.this.placeController.goTo(new ListTagsPlace(
@@ -105,7 +106,7 @@ public class TagsActivity extends AppAbstractActivity {
     }
 
     @Override
-    public void start(AcceptsOneWidget container, EventBus eventBus) {
+    public void start(final AcceptsOneWidget container, final EventBus eventBus) {
         container.setWidget(display.asWidget());
 
         String fields = ConstsUtil.DEFAULT_TAGS_LIST_FIELDS;

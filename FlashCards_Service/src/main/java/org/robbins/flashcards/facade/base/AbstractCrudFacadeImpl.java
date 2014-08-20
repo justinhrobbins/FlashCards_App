@@ -29,12 +29,12 @@ public abstract class AbstractCrudFacadeImpl<D, E> implements GenericCrudFacade<
         return mapper;
     }
 
-    public void setMapper(Mapper mapper) {
+    public void setMapper(final Mapper mapper) {
         this.mapper = mapper;
     }
 
     @Override
-    public D save(D dto) throws ServiceException {
+    public D save(final D dto) throws ServiceException {
         E entity = getEntity(dto);
         E resultEntity = getService().save(entity);
         D resultDto = getDto(resultEntity);
@@ -42,14 +42,15 @@ public abstract class AbstractCrudFacadeImpl<D, E> implements GenericCrudFacade<
     }
 
     @Override
-    public List<D> list(Integer page, Integer size, String sort, String direction)
+    public List<D> list(final Integer page, final Integer size, final String sort,
+            final String direction)
             throws ServiceException {
         return this.list(page, size, sort, direction, null);
     }
 
     @Override
-    public List<D> list(Integer page, Integer size, String sort, String direction,
-            Set<String> fields) throws ServiceException {
+    public List<D> list(final Integer page, final Integer size, final String sort,
+            final String direction, final Set<String> fields) throws ServiceException {
 
         List<E> entities = null;
 
@@ -92,12 +93,12 @@ public abstract class AbstractCrudFacadeImpl<D, E> implements GenericCrudFacade<
     }
 
     @Override
-    public D findOne(Long id) throws ServiceException {
+    public D findOne(final Long id) throws ServiceException {
         return findOne(id, null);
     }
 
     @Override
-    public D findOne(Long id, Set<String> fields) throws ServiceException {
+    public D findOne(final Long id, final Set<String> fields) throws ServiceException {
         E resultEntity = getService().findOne(id);
 
         if (resultEntity == null) {
@@ -112,12 +113,12 @@ public abstract class AbstractCrudFacadeImpl<D, E> implements GenericCrudFacade<
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(final Long id) {
         getService().delete(id);
     }
 
-    protected PageRequest getPageRequest(Integer page, Integer size, String sortOrder,
-            String sortDirection) {
+    protected PageRequest getPageRequest(final Integer page, final Integer size,
+            final String sortOrder, final String sortDirection) {
         // are we Sorting too?
         if (!StringUtils.isEmpty(sortOrder)) {
             Sort sort = getSort(sortOrder, sortDirection);
@@ -127,7 +128,7 @@ public abstract class AbstractCrudFacadeImpl<D, E> implements GenericCrudFacade<
         }
     }
 
-    protected Sort getSort(String sort, String order) {
+    protected Sort getSort(final String sort, final String order) {
         if ((StringUtils.isEmpty(order)) || (order.equals("asc"))) {
             return new Sort(Direction.ASC, order);
         } else if (order.equals("desc")) {

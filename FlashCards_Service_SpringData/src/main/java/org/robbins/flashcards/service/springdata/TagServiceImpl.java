@@ -22,7 +22,7 @@ public class TagServiceImpl extends GenericJpaServiceImpl<Tag, Long> implements
     }
 
     @Override
-    public Tag findByName(String name) {
+    public Tag findByName(final String name) {
         return getRepository().findByName(name);
     }
 }

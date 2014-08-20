@@ -13,27 +13,28 @@ public final class TestEntityGenerator {
     private TestEntityGenerator() {
     };
 
-    public static Tag createTag(String name) {
+    public static Tag createTag(final String name) {
         return new Tag(name);
     }
 
-    public static TagDto createTagDto(String name) {
+    public static TagDto createTagDto(final String name) {
         return new TagDto(name);
     }
 
-    public static FlashCard createFlashCard(String question, String answer) {
+    public static FlashCard createFlashCard(final String question, final String answer) {
         return new FlashCard(question, answer);
     }
 
-    public static User createUser(String openid, String email) {
+    public static User createUser(final String openid, final String email) {
         return new User(openid, email);
     }
 
-    public static UserDto createUserDto(String openid, String email) {
+    public static UserDto createUserDto(final String openid, final String email) {
         return new UserDto(openid, email);
     }
 
-    public static FlashCardDto createFlashCardDto(String question, String answer) {
+    public static FlashCardDto createFlashCardDto(final String question,
+            final String answer) {
         return new FlashCardDto(question, answer);
     }
 }

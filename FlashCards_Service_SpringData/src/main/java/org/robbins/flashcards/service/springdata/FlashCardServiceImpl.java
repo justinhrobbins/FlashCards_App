@@ -27,27 +27,28 @@ public class FlashCardServiceImpl extends GenericJpaServiceImpl<FlashCard, Long>
     }
 
     @Override
-    public List<FlashCard> findByTagsIn(Set<Tag> tags) {
+    public List<FlashCard> findByTagsIn(final Set<Tag> tags) {
         return getRepository().findByTagsIn(tags);
     }
 
     @Override
-    public List<FlashCard> findByTagsIn(Set<Tag> tags, PageRequest page) {
+    public List<FlashCard> findByTagsIn(final Set<Tag> tags, final PageRequest page) {
         return getRepository().findByTagsIn(tags, page);
     }
 
     @Override
-    public List<FlashCard> findByQuestionLike(String question) {
+    public List<FlashCard> findByQuestionLike(final String question) {
         return getRepository().findByQuestionLike(question);
     }
 
     @Override
-    public List<FlashCard> findByQuestionLike(String question, PageRequest page) {
+    public List<FlashCard> findByQuestionLike(final String question,
+            final PageRequest page) {
         return getRepository().findByQuestionLike(question, page);
     }
 
     @Override
-    public FlashCard findByQuestion(String question) {
+    public FlashCard findByQuestion(final String question) {
         return getRepository().findByQuestion(question);
     }
 }

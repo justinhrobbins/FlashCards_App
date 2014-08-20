@@ -19,7 +19,7 @@ public abstract class AbstractAuditableDto extends AbstractPersistableDto {
         return createdBy;
     }
 
-    public void setCreatedBy(UserDto createdBy) {
+    public void setCreatedBy(final UserDto createdBy) {
         this.createdBy = createdBy;
     }
 
@@ -27,7 +27,7 @@ public abstract class AbstractAuditableDto extends AbstractPersistableDto {
         return createdDate == null ? null : (Date) createdDate.clone();
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(final Date createdDate) {
         this.createdDate = createdDate == null ? null : (Date) createdDate.clone();
     }
 
@@ -35,7 +35,7 @@ public abstract class AbstractAuditableDto extends AbstractPersistableDto {
         return lastModifiedBy;
     }
 
-    public void setLastModifiedBy(UserDto lastModifiedBy) {
+    public void setLastModifiedBy(final UserDto lastModifiedBy) {
         this.lastModifiedBy = lastModifiedBy;
     }
 
@@ -43,7 +43,7 @@ public abstract class AbstractAuditableDto extends AbstractPersistableDto {
         return lastModifiedDate == null ? null : (Date) lastModifiedDate.clone();
     }
 
-    public void setLastModifiedDate(Date lastModifiedDate) {
+    public void setLastModifiedDate(final Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate == null ? null
                 : (Date) lastModifiedDate.clone();
     }

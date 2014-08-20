@@ -40,7 +40,7 @@ public class DefaultFlashcardFacade extends
     }
 
     @Override
-    public FlashCardDto save(FlashCardDto dto) throws ServiceException {
+    public FlashCardDto save(final FlashCardDto dto) throws ServiceException {
         FlashCard entity = getEntity(dto);
         entity.setTags(configureTags(dto.getTags()));
         FlashCard resultEntity = getService().save(entity);
@@ -49,45 +49,49 @@ public class DefaultFlashcardFacade extends
     }
 
     @Override
-    public List<FlashCardDto> findByTagsIn(Set<TagDto> tagDtos) throws ServiceException {
+    public List<FlashCardDto> findByTagsIn(final Set<TagDto> tagDtos)
+            throws ServiceException {
         return getDtos(flashcardService.findByTagsIn(getTags(tagDtos)), null);
     }
 
     @Override
-    public List<FlashCardDto> findByTagsIn(Set<TagDto> tagDtos, PageRequest page)
+    public List<FlashCardDto> findByTagsIn(final Set<TagDto> tagDtos,
+            final PageRequest page)
             throws ServiceException {
         return getDtos(flashcardService.findByTagsIn(getTags(tagDtos), page), null);
     }
 
     @Override
-    public List<FlashCardDto> findByQuestionLike(String question) throws ServiceException {
+    public List<FlashCardDto> findByQuestionLike(final String question)
+            throws ServiceException {
         return getDtos(flashcardService.findByQuestionLike(question), null);
     }
 
     @Override
-    public List<FlashCardDto> findByQuestionLike(String question, PageRequest page)
+    public List<FlashCardDto> findByQuestionLike(final String question,
+            final PageRequest page)
             throws ServiceException {
         return getDtos(flashcardService.findByQuestionLike(question, page), null);
     }
 
     @Override
-    public FlashCardDto findByQuestion(String question) throws ServiceException {
+    public FlashCardDto findByQuestion(final String question) throws ServiceException {
         return getDto(flashcardService.findByQuestion(question));
     }
 
-    private Set<Tag> getTags(Set<TagDto> tagDtos) {
+    private Set<Tag> getTags(final Set<TagDto> tagDtos) {
         List<TagDto> tagDtoList = Lists.newArrayList(tagDtos);
         List<Tag> tagList = tagFacade.getEtnties(tagDtoList);
         return Sets.newHashSet(tagList);
     }
 
     @Override
-    public FlashCardDto getDto(FlashCard entity) throws ServiceException {
+    public FlashCardDto getDto(final FlashCard entity) throws ServiceException {
         return getDto(entity, null);
     }
 
     @Override
-    public FlashCardDto getDto(FlashCard entity, Set<String> fields)
+    public FlashCardDto getDto(final FlashCard entity, final Set<String> fields)
             throws ServiceException {
         FlashCardDto flashCardDto = getMapper().map(entity, FlashCardDto.class);
         DtoUtil.filterFields(flashCardDto, fields);
@@ -95,12 +99,13 @@ public class DefaultFlashcardFacade extends
     }
 
     @Override
-    public FlashCard getEntity(FlashCardDto dto) {
+    public FlashCard getEntity(final FlashCardDto dto) {
         return getMapper().map(dto, FlashCard.class);
     }
 
     @Override
-    public List<FlashCardDto> getDtos(List<FlashCard> entities, Set<String> fields)
+    public List<FlashCardDto> getDtos(final List<FlashCard> entities,
+            final Set<String> fields)
             throws ServiceException {
         List<FlashCardDto> dtos = new ArrayList<FlashCardDto>();
         for (FlashCard entity : entities) {
@@ -110,7 +115,7 @@ public class DefaultFlashcardFacade extends
     }
 
     @Override
-    public List<FlashCard> getEtnties(List<FlashCardDto> dtos) {
+    public List<FlashCard> getEtnties(final List<FlashCardDto> dtos) {
         List<FlashCard> entities = new ArrayList<FlashCard>();
         for (FlashCardDto dto : dtos) {
             entities.add(getEntity(dto));
@@ -118,7 +123,7 @@ public class DefaultFlashcardFacade extends
         return entities;
     }
 
-    private Set<Tag> configureTags(Set<TagDto> tags) {
+    private Set<Tag> configureTags(final Set<TagDto> tags) {
 
         Set<Tag> results = new HashSet<Tag>();
         for (TagDto tagDto : tags) {

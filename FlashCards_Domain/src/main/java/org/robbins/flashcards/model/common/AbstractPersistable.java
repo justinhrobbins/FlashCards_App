@@ -58,7 +58,7 @@ public abstract class AbstractPersistable<PK extends Serializable> implements
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
 
         if (null == obj) {
             return false;

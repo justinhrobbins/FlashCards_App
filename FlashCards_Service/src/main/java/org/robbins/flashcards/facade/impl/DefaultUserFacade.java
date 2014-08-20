@@ -29,7 +29,7 @@ public class DefaultUserFacade extends AbstractCrudFacadeImpl<UserDto, User> imp
     }
 
     @Override
-    public UserDto findUserByOpenid(String openid) {
+    public UserDto findUserByOpenid(final String openid) {
         User result = service.findUserByOpenid(openid);
 
         if (result == null) {
@@ -41,7 +41,7 @@ public class DefaultUserFacade extends AbstractCrudFacadeImpl<UserDto, User> imp
     }
 
     @Override
-    public UserDto save(UserDto dto) throws ServiceException {
+    public UserDto save(final UserDto dto) throws ServiceException {
         User entity = getEntity(dto);
 
         if (!dto.isNew()) {
@@ -56,24 +56,25 @@ public class DefaultUserFacade extends AbstractCrudFacadeImpl<UserDto, User> imp
     }
 
     @Override
-    public UserDto getDto(User entity) throws ServiceException {
+    public UserDto getDto(final User entity) throws ServiceException {
         return getDto(entity, null);
     }
 
     @Override
-    public UserDto getDto(User entity, Set<String> fields) throws ServiceException {
+    public UserDto getDto(final User entity, final Set<String> fields)
+            throws ServiceException {
         UserDto userDto = getMapper().map(entity, UserDto.class);
         DtoUtil.filterFields(userDto, fields);
         return userDto;
     }
 
     @Override
-    public User getEntity(UserDto dto) {
+    public User getEntity(final UserDto dto) {
         return getMapper().map(dto, User.class);
     }
 
     @Override
-    public List<UserDto> getDtos(List<User> entities, Set<String> fields)
+    public List<UserDto> getDtos(final List<User> entities, final Set<String> fields)
             throws ServiceException {
         List<UserDto> dtos = new ArrayList<UserDto>();
         for (User entity : entities) {
@@ -83,7 +84,7 @@ public class DefaultUserFacade extends AbstractCrudFacadeImpl<UserDto, User> imp
     }
 
     @Override
-    public List<User> getEtnties(List<UserDto> dtos) {
+    public List<User> getEtnties(final List<UserDto> dtos) {
         List<User> entities = new ArrayList<User>();
         for (UserDto dto : dtos) {
             entities.add(getEntity(dto));
