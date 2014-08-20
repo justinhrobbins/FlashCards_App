@@ -17,7 +17,8 @@ public class SecurityFilter extends AbstractSecurityFilter implements RequestHan
     private static final Logger LOGGER = LoggerFactory.getLogger(SecurityFilter.class);
 
     @Override
-    public Response handleRequest(Message inputMessage, ClassResourceInfo resourceClass) {
+    public Response handleRequest(final Message inputMessage,
+            final ClassResourceInfo resourceClass) {
 
         LOGGER.debug("SecurityFilter");
 

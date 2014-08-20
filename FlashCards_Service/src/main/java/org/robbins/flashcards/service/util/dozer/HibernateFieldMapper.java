@@ -13,8 +13,9 @@ public class HibernateFieldMapper implements CustomFieldMapper {
      * subsequently mapped by Dozer as normal.
      */
     @Override
-    public boolean mapField(Object source, Object destination, Object sourceFieldValue,
-            ClassMap classMap, FieldMap fieldMapping) {
+    public boolean mapField(final Object source, final Object destination,
+            final Object sourceFieldValue, final ClassMap classMap,
+            final FieldMap fieldMapping) {
         // Check if field is a Hibernate PersistentSet
         if (!(sourceFieldValue instanceof PersistentSet)) {
             // Allow dozer to map as normal

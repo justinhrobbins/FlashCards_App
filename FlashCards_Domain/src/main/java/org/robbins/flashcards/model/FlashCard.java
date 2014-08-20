@@ -51,16 +51,17 @@ public class FlashCard extends AbstractAuditable<User, Long> implements Serializ
     public FlashCard() {
     }
 
-    public FlashCard(Long flashCardId) {
+    public FlashCard(final Long flashCardId) {
         setId(flashCardId);
     }
 
-    public FlashCard(String question, String answer) {
+    public FlashCard(final String question, final String answer) {
         this.question = question;
         this.answer = answer;
     }
 
-    public FlashCard(String question, String answer, Set<Tag> tags, List<String> links) {
+    public FlashCard(final String question, final String answer, final Set<Tag> tags,
+            final List<String> links) {
         this.question = question;
         this.answer = answer;
         this.tags = tags;
@@ -71,7 +72,7 @@ public class FlashCard extends AbstractAuditable<User, Long> implements Serializ
         return this.question;
     }
 
-    public void setQuestion(String question) {
+    public void setQuestion(final String question) {
         this.question = question;
     }
 
@@ -79,7 +80,7 @@ public class FlashCard extends AbstractAuditable<User, Long> implements Serializ
         return this.answer;
     }
 
-    public void setAnswer(String answer) {
+    public void setAnswer(final String answer) {
         this.answer = answer;
     }
 
@@ -87,7 +88,7 @@ public class FlashCard extends AbstractAuditable<User, Long> implements Serializ
         return this.tags;
     }
 
-    public void setTags(Set<Tag> tags) {
+    public void setTags(final Set<Tag> tags) {
         this.tags = tags;
     }
 
@@ -95,7 +96,7 @@ public class FlashCard extends AbstractAuditable<User, Long> implements Serializ
         return this.links;
     }
 
-    public void setLinks(List<String> links) {
+    public void setLinks(final List<String> links) {
         this.links = links;
     }
 

@@ -13,7 +13,7 @@ public abstract class AbstractCrudServiceImpl<T> implements GenericJpaService<T,
 
     @Override
     @Transactional
-    public T save(T entity) {
+    public T save(final T entity) {
         return getRepository().save(entity);
     }
 
@@ -23,19 +23,19 @@ public abstract class AbstractCrudServiceImpl<T> implements GenericJpaService<T,
     }
 
     @Override
-    public T findOne(Long id) {
+    public T findOne(final Long id) {
         return getRepository().findOne(id);
     }
 
     @Override
     @Transactional
-    public void delete(Long id) {
+    public void delete(final Long id) {
         getRepository().delete(id);
     }
 
     @Override
     @Transactional
-    public void delete(T entity) {
+    public void delete(final T entity) {
         getRepository().delete(entity);
     }
 
@@ -45,18 +45,18 @@ public abstract class AbstractCrudServiceImpl<T> implements GenericJpaService<T,
     }
 
     @Override
-    public List<T> findAll(Sort sort) {
+    public List<T> findAll(final Sort sort) {
         return getRepository().findAll(sort);
     }
 
     @Override
-    public List<T> findAll(Pageable pageable) {
+    public List<T> findAll(final Pageable pageable) {
         return getRepository().findAll(pageable).getContent();
     }
 
     @Override
     @Transactional
-    public List<T> save(Iterable<T> entities) {
+    public List<T> save(final Iterable<T> entities) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -69,14 +69,14 @@ public abstract class AbstractCrudServiceImpl<T> implements GenericJpaService<T,
 
     @Override
     @Transactional
-    public T saveAndFlush(T entity) {
+    public T saveAndFlush(final T entity) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     @Transactional
-    public void deleteInBatch(Iterable<T> entities) {
+    public void deleteInBatch(final Iterable<T> entities) {
         // TODO Auto-generated method stub
     }
 
@@ -87,20 +87,20 @@ public abstract class AbstractCrudServiceImpl<T> implements GenericJpaService<T,
     }
 
     @Override
-    public boolean exists(Long id) {
+    public boolean exists(final Long id) {
         // TODO Auto-generated method stub
         return false;
     }
 
     @Override
-    public Iterable<T> findAll(Iterable<Long> ids) {
+    public Iterable<T> findAll(final Iterable<Long> ids) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     @Transactional
-    public void delete(Iterable<? extends T> entities) {
+    public void delete(final Iterable<? extends T> entities) {
         // TODO Auto-generated method stub
     }
 

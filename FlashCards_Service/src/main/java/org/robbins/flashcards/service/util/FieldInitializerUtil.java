@@ -24,7 +24,7 @@ public class FieldInitializerUtil {
     @Inject
     private EntityManagerFactory entityManagerFactory;
 
-    private void initializeField(Object entity, String field)
+    private void initializeField(final Object entity, final String field)
             throws IllegalAccessException, InvocationTargetException,
             NoSuchMethodException {
         EntityManager em = entityManagerFactory.createEntityManager();
@@ -44,14 +44,14 @@ public class FieldInitializerUtil {
         }
     }
 
-    public void initializeEntity(Collection<?> entities, Set<String> fields)
+    public void initializeEntity(final Collection<?> entities, final Set<String> fields)
             throws ServiceException {
         for (Object entity : entities) {
             initializeEntity(entity, fields);
         }
     }
 
-    public void initializeEntity(Object[] entities, Set<String> fields)
+    public void initializeEntity(final Object[] entities, final Set<String> fields)
             throws ServiceException {
         for (Object entity : entities) {
             initializeEntity(entity, fields);
@@ -59,7 +59,7 @@ public class FieldInitializerUtil {
     }
 
     // make sure each of the requested 'fields' are initialized by Hibernate
-    public void initializeEntity(Object entity, Set<String> fields)
+    public void initializeEntity(final Object entity, final Set<String> fields)
             throws ServiceException {
 
         if (entity == null) {
@@ -83,7 +83,7 @@ public class FieldInitializerUtil {
         return;
     }
 
-    private void initializeCollection(Collection<?> collection) {
+    private void initializeCollection(final Collection<?> collection) {
         if (collection == null) {
             return;
         }

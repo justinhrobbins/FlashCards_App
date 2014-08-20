@@ -144,12 +144,12 @@
     </pluginRepositories>
     <modules>
         <module>FlashCards_Domain</module>
-        <!-- <module>FlashCards_GWT</module> -->
+        <module>FlashCards_GWT</module>
         <module>FlashCards_Service</module>
         <module>FlashCards_Service_SpringData</module>
-        <!-- <module>FlashCards_Service_Jpa</module> -->
+        <module>FlashCards_Service_Jpa</module>
         <module>FlashCards_WebServices</module>
-        <!-- <module>FlashCards_Struts</module> -->
+        <module>FlashCards_Struts</module>
         <!-- <module>FlashCards_AngularJS</module> -->
         <module>FlashCards_Test</module>
         <module>swagger_ui</module>
@@ -827,40 +827,42 @@
                         </dependency>
                     </dependencies>
                     <configuration>
-                    <webapps>
-                        <webapp> 
-                            <groupId>org.robbins.flashcards</groupId> 
-                            <artifactId>FlashCards_WebServices</artifactId> 
-                            <version>${project.version}</version> 
-                            <type>war</type>
-                            <asWebapp>true</asWebapp>
-                            <contextPath>/api</contextPath>
-                        </webapp>
-                        <webapp> 
-                            <groupId>org.robbins.flashcards</groupId> 
-                            <artifactId>FlashCards_GWT</artifactId> 
-                            <version>${project.version}</version> 
-                            <type>war</type>
-                            <asWebapp>true</asWebapp>
-                            <contextPath>/gwt</contextPath>
-                        </webapp>
-                        <webapp> 
-                            <groupId>org.robbins.flashcards</groupId> 
-                            <artifactId>FlashCards_Struts</artifactId> 
-                            <version>${project.version}</version> 
-                            <type>war</type>
-                            <asWebapp>true</asWebapp>
-                            <contextPath>/struts</contextPath>
-                        </webapp>
-                        <webapp> 
-                            <groupId>org.robbins.flashcards</groupId> 
-                            <artifactId>swagger_ui</artifactId> 
-                            <version>${project.version}</version> 
-                            <type>war</type>
-                            <asWebapp>true</asWebapp>
-                            <contextPath>/apidocs</contextPath>
-                        </webapp>
-                    </webapps>
+                        <webapps>
+<!--
+                            <webapp> 
+                                <groupId>org.robbins.flashcards</groupId> 
+                                <artifactId>FlashCards_WebServices</artifactId> 
+                                <version>${project.version}</version> 
+                                <type>war</type>
+                                <asWebapp>true</asWebapp>
+                                <contextPath>/api</contextPath>
+                            </webapp>
+ -->
+                            <webapp> 
+                                <groupId>org.robbins.flashcards</groupId> 
+                                <artifactId>FlashCards_GWT</artifactId> 
+                                <version>${project.version}</version> 
+                                <type>war</type>
+                                <asWebapp>true</asWebapp>
+                                <contextPath>/gwt</contextPath>
+                            </webapp>
+                            <webapp> 
+                                <groupId>org.robbins.flashcards</groupId> 
+                                <artifactId>FlashCards_Struts</artifactId> 
+                                <version>${project.version}</version> 
+                                <type>war</type>
+                                <asWebapp>true</asWebapp>
+                                <contextPath>/struts</contextPath>
+                            </webapp>
+                            <webapp> 
+                                <groupId>org.robbins.flashcards</groupId> 
+                                <artifactId>swagger_ui</artifactId> 
+                                <version>${project.version}</version> 
+                                <type>war</type>
+                                <asWebapp>true</asWebapp>
+                                <contextPath>/apidocs</contextPath>
+                            </webapp>
+                        </webapps>
                     </configuration>
                 </plugin>
                 <!-- Maven plugin for submitting Java code coverage reports 

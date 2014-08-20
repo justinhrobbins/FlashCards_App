@@ -14,7 +14,7 @@ public class ExecutionTimeLogger {
     private static final Logger LOGGER = LoggerFactory.getLogger(ExecutionTimeLogger.class);
 
     @Around("execution(* org.robbins.flashcards..*.*(..))")
-    public Object logTimeMethod(ProceedingJoinPoint joinPoint) throws Throwable {
+    public Object logTimeMethod(final ProceedingJoinPoint joinPoint) throws Throwable {
 
         final StopWatch stopWatch = new StopWatch();
         stopWatch.start();

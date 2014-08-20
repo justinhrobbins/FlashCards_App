@@ -35,7 +35,7 @@ public class UsersResource extends AbstractGenericResource<UserDto, Long> {
     @GET
     @Path("/search")
     @ApiOperation(value = "Find a user by their OpenId", response = UserDto.class)
-    public UserDto search(@QueryParam("openid") String openid) {
+    public UserDto search(@QueryParam("openid") final String openid) {
         return userFacade.findUserByOpenid(openid);
     }
 

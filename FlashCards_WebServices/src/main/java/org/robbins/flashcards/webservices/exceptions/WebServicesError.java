@@ -18,7 +18,8 @@ public class WebServicesError {
     public WebServicesError() {
     }
 
-    public WebServicesError(int errorId, String errorName, String errorMessage) {
+    public WebServicesError(final int errorId, final String errorName,
+            final String errorMessage) {
         this.errorId = errorId;
         this.errorName = errorName;
         this.errorMessage = errorMessage;
@@ -28,7 +29,7 @@ public class WebServicesError {
         return errorId;
     }
 
-    public void setErrorId(int errorId) {
+    public void setErrorId(final int errorId) {
         this.errorId = errorId;
     }
 
@@ -36,7 +37,7 @@ public class WebServicesError {
         return errorName;
     }
 
-    public void setErrorName(String errorName) {
+    public void setErrorName(final String errorName) {
         this.errorName = errorName;
     }
 
@@ -44,7 +45,7 @@ public class WebServicesError {
         return errorMessage;
     }
 
-    public void setErrorMessage(String errorMessage) {
+    public void setErrorMessage(final String errorMessage) {
         this.errorMessage = errorMessage;
     }
 }

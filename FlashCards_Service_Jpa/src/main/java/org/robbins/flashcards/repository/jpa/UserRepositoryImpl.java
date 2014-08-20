@@ -31,7 +31,7 @@ public class UserRepositoryImpl extends AbstractCrudRepositoryImpl<User> impleme
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<User> findAll(Sort sort) {
+    public List<User> findAll(final Sort sort) {
         String sortOder = null;
         String sortDirection = null;
 
@@ -44,7 +44,7 @@ public class UserRepositoryImpl extends AbstractCrudRepositoryImpl<User> impleme
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
-    public Page<User> findAll(Pageable page) {
+    public Page<User> findAll(final Pageable page) {
         Query query = getEm().createQuery("from User");
         query.setFirstResult((page.getPageNumber() + 1) * page.getPageSize());
         query.setMaxResults(page.getPageSize());
@@ -53,7 +53,7 @@ public class UserRepositoryImpl extends AbstractCrudRepositoryImpl<User> impleme
     }
 
     @Override
-    public User findUserByOpenid(String openid) {
+    public User findUserByOpenid(final String openid) {
         Query query = getEm().createQuery("from User where openid = :openid");
         query.setParameter("openid", openid);
         return (User) query.getSingleResult();

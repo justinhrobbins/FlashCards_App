@@ -31,7 +31,7 @@ public class TagsResourceIT extends GenericEntityRestTest<TagDto> {
     private TagDto entity = TestEntityGenerator.createTagDto("Web API Test 'Tag'");
 
     @Override
-    public void setEntity(TagDto entity) {
+    public void setEntity(final TagDto entity) {
         this.entity = entity;
     }
 

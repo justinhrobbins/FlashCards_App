@@ -18,12 +18,12 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 
     /**
      * Gets an array entities.
-     * 
+     *
      * @param url the url
      * @param clazz the clazz
      * @return the array of entities
      */
-    public E[] getEntityList(String url, Class<E[]> clazz) {
+    public E[] getEntityList(final String url, final Class<E[]> clazz) {
         // set the Authentication header
         @SuppressWarnings({ "unchecked", "rawtypes" })
         HttpEntity httpEntity = new HttpEntity(getAuthHeaders());
@@ -41,7 +41,7 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 
     /**
      * Gets a count of entities.
-     * 
+     *
      * @param url the url
      * @return the count of entities
      */
@@ -71,7 +71,7 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
      * @param clazz the clazz
      * @return the entity
      */
-    public E getEntity(String url, Long id, Class<E> clazz) {
+    public E getEntity(final String url, final Long id, final Class<E> clazz) {
         // set the Authentication header
         @SuppressWarnings({ "unchecked", "rawtypes" })
         HttpEntity httpEntity = new HttpEntity(getAuthHeaders());
@@ -92,14 +92,14 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
 
     /**
      * Search for a single entity.
-     * 
+     *
      * @param url the url
      * @param uriVariables the uri variables
      * @param clazz the clazz
      * @return the e[]
      */
-    public E searchSingleEntity(String url, Map<String, String> uriVariables,
-            Class<E> clazz) {
+    public E searchSingleEntity(final String url, final Map<String, String> uriVariables,
+            final Class<E> clazz) {
         // set the Authentication header
         @SuppressWarnings({ "unchecked", "rawtypes" })
         HttpEntity httpEntity = new HttpEntity(getAuthHeaders());
@@ -122,8 +122,8 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
      * @param clazz the clazz
      * @return the e[]
      */
-    public E[] searchEntities(String url, Map<String, String> uriVariables,
-            Class<E[]> clazz) {
+    public E[] searchEntities(final String url, final Map<String, String> uriVariables,
+            final Class<E[]> clazz) {
         // set the Authentication header
         @SuppressWarnings({ "unchecked", "rawtypes" })
         HttpEntity httpEntity = new HttpEntity(getAuthHeaders());
@@ -145,7 +145,7 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
      * @param uriVariables the uri variables
      * @return the count of entities returned by the search
      */
-    public Long searchCount(String url, Map<String, String> uriVariables) {
+    public Long searchCount(final String url, final Map<String, String> uriVariables) {
         // set the Authentication header
         @SuppressWarnings({ "unchecked", "rawtypes" })
         HttpEntity httpEntity = new HttpEntity(getAuthHeaders());
@@ -169,7 +169,7 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
      * @param clazz the clazz
      * @return the e
      */
-    public E postEntity(String url, E entity, Class<E> clazz) {
+    public E postEntity(final String url, final E entity, final Class<E> clazz) {
         // set the Authentication header
         @SuppressWarnings({ "unchecked", "rawtypes" })
         HttpEntity httpEntity = new HttpEntity(entity, getAuthHeaders());
@@ -187,8 +187,8 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
      * @param clazz the clazz
      * @return the e
      */
-    public E postEntity(String url, E entity, Map<String, String> uriVariables,
-            Class<E> clazz) {
+    public E postEntity(final String url, final E entity,
+            final Map<String, String> uriVariables, final Class<E> clazz) {
         // set the Authentication header
         @SuppressWarnings({ "unchecked", "rawtypes" })
         HttpEntity httpEntity = new HttpEntity(entity, getAuthHeaders());
@@ -205,7 +205,7 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
      * @param entity the entity
      * @return the http status
      */
-    public HttpStatus putEntity(String url, Long id, E entity) {
+    public HttpStatus putEntity(final String url, final Long id, final E entity) {
         HttpHeaders httpHeaders = getAuthHeaders();
         httpHeaders.set("Accept", "application/json");
 
@@ -231,7 +231,8 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
      * @param entity the entity
      * @return the http status
      */
-    public HttpStatus updateEntity(String url, Map<String, String> uriVariables, E entity) {
+    public HttpStatus updateEntity(final String url,
+            final Map<String, String> uriVariables, final E entity) {
 
         HttpHeaders httpHeaders = getAuthHeaders();
         httpHeaders.set("Accept", "application/json");
@@ -255,7 +256,8 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
      * @param entity the entity
      * @return the http status
      */
-    public HttpStatus putEntity(String url, Map<String, String> uriVariables, E entity) {
+    public HttpStatus putEntity(final String url, final Map<String, String> uriVariables,
+            final E entity) {
         HttpHeaders httpHeaders = getAuthHeaders();
         httpHeaders.set("Accept", "application/json");
 
@@ -277,7 +279,7 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
      * @param id the id
      * @return the http status
      */
-    public HttpStatus deleteEntity(String url, Long id) {
+    public HttpStatus deleteEntity(final String url, final Long id) {
         HttpHeaders httpHeaders = getAuthHeaders();
         httpHeaders.set("Accept", "application/json");
 

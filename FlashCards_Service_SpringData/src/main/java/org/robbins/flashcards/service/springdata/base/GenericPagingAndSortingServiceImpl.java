@@ -16,7 +16,7 @@ public abstract class GenericPagingAndSortingServiceImpl<T, ID extends Serializa
     protected abstract PagingAndSortingRepository<T, ID> getRepository();
 
     @Override
-    public List<T> findAll(Pageable pageable) {
+    public List<T> findAll(final Pageable pageable) {
         return getRepository().findAll(pageable).getContent();
     }
 }

@@ -81,7 +81,8 @@ public class LoginInterceptor extends AbstractInterceptor implements StrutsStati
         }
     }
 
-    private void saveReceivingURL(HttpServletRequest request, HttpSession session) {
+    private void saveReceivingURL(final HttpServletRequest request,
+            final HttpSession session) {
         // extract the receiving URL from the HTTP request
         final StringBuffer receivingURL = request.getRequestURL();
         final String queryString = request.getQueryString();

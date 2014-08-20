@@ -49,9 +49,10 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
     @GET
     @Path("/search")
     @ApiOperation(value = "Search for FlashCards", response = FlashCardDto.class)
-    public FlashCardDto[] search(@QueryParam("page") Integer page,
-            @DefaultValue("25") @QueryParam("size") Integer size,
-            @QueryParam("question") String question, @QueryParam("tags") String tags) {
+    public FlashCardDto[] search(@QueryParam("page") final Integer page,
+            @DefaultValue("25") @QueryParam("size") final Integer size,
+            @QueryParam("question") final String question,
+            @QueryParam("tags") final String tags) {
 
         return searchFlashCards(page, size, question, tags);
     }
@@ -59,14 +60,14 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
     @GET
     @Path("/search/count")
     @ApiOperation(value = "Get a count of FlashCards", response = Long.class)
-    public Long searchCount(@QueryParam("question") String question,
-            @QueryParam("tags") String tags) {
+    public Long searchCount(@QueryParam("question") final String question,
+            @QueryParam("tags") final String tags) {
 
         return Long.valueOf(searchFlashCards(null, null, question, tags).length);
     }
 
-    private FlashCardDto[] searchFlashCards(Integer page, Integer size, String question,
-            String tags) {
+    private FlashCardDto[] searchFlashCards(final Integer page, final Integer size,
+            final String question, final String tags) {
 
         try {
             // find by Question
@@ -110,7 +111,7 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
     @Override
     @PUT
     @Path("/{id}")
-    public Response put(@PathParam("id") Long id, FlashCardDto dto) {
+    public Response put(@PathParam("id") final Long id, final FlashCardDto dto) {
 
         // some client apps don't know the Created By and Created Date, so make
         // sure we set it

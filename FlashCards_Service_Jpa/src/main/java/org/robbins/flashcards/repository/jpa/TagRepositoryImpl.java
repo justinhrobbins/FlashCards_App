@@ -31,7 +31,7 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag> implement
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<Tag> findAll(Sort sort) {
+    public List<Tag> findAll(final Sort sort) {
         String sortOder = null;
         String sortDirection = null;
 
@@ -44,7 +44,7 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag> implement
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
-    public Page<Tag> findAll(Pageable page) {
+    public Page<Tag> findAll(final Pageable page) {
         Query query = getEm().createQuery("from Tag");
         query.setFirstResult((page.getPageNumber() + 1) * page.getPageSize());
         query.setMaxResults(page.getPageSize());
@@ -54,7 +54,7 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag> implement
 
     @SuppressWarnings("unchecked")
     @Override
-    public Tag findByName(String name) {
+    public Tag findByName(final String name) {
         Query query = getEm().createQuery("from Tag where name = :name");
         query.setParameter("name", name);
         List<Tag> results = query.getResultList();

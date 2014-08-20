@@ -16,7 +16,7 @@ public class SecurityFilter extends AbstractSecurityFilter implements
     private static final Logger LOGGER = LoggerFactory.getLogger(SecurityFilter.class);
 
     @Override
-    public ContainerRequest filter(ContainerRequest request) {
+    public ContainerRequest filter(final ContainerRequest request) {
         LOGGER.debug("SecurityFilter");
 
         configureLoggedInUser();

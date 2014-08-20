@@ -29,7 +29,7 @@ public class DefaultTagFacade extends AbstractCrudFacadeImpl<TagDto, Tag> implem
     }
 
     @Override
-    public TagDto findByName(String name) {
+    public TagDto findByName(final String name) {
         Tag result = service.findByName(name);
 
         if (result == null) {
@@ -40,24 +40,25 @@ public class DefaultTagFacade extends AbstractCrudFacadeImpl<TagDto, Tag> implem
     }
 
     @Override
-    public TagDto getDto(Tag entity) throws ServiceException {
+    public TagDto getDto(final Tag entity) throws ServiceException {
         return getDto(entity, null);
     }
 
     @Override
-    public TagDto getDto(Tag entity, Set<String> fields) throws ServiceException {
+    public TagDto getDto(final Tag entity, final Set<String> fields)
+            throws ServiceException {
         TagDto tagDto = getMapper().map(entity, TagDto.class);
         DtoUtil.filterFields(tagDto, fields);
         return tagDto;
     }
 
     @Override
-    public Tag getEntity(TagDto dto) {
+    public Tag getEntity(final TagDto dto) {
         return getMapper().map(dto, Tag.class);
     }
 
     @Override
-    public List<TagDto> getDtos(List<Tag> entities, Set<String> fields)
+    public List<TagDto> getDtos(final List<Tag> entities, final Set<String> fields)
             throws ServiceException {
         List<TagDto> dtos = new ArrayList<TagDto>();
         for (Tag entity : entities) {
@@ -67,7 +68,7 @@ public class DefaultTagFacade extends AbstractCrudFacadeImpl<TagDto, Tag> implem
     }
 
     @Override
-    public List<Tag> getEtnties(List<TagDto> dtos) {
+    public List<Tag> getEtnties(final List<TagDto> dtos) {
         List<Tag> entities = new ArrayList<Tag>();
         for (TagDto dto : dtos) {
             entities.add(getEntity(dto));

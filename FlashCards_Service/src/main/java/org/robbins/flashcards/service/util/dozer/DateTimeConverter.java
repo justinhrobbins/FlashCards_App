@@ -11,8 +11,9 @@ public class DateTimeConverter implements CustomConverter {
 
     @SuppressWarnings("rawtypes")
     @Override
-    public Object convert(Object existingDestinationFieldValue, Object sourceFieldValue,
-            Class destinationClass, Class sourceClass) {
+    public Object convert(final Object existingDestinationFieldValue,
+            final Object sourceFieldValue, final Class destinationClass,
+            final Class sourceClass) {
 
         if (sourceFieldValue == null) {
             return null;

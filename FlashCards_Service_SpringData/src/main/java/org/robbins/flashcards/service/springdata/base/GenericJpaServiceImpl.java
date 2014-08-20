@@ -20,12 +20,12 @@ public abstract class GenericJpaServiceImpl<T, ID extends Serializable> extends
     }
 
     @Override
-    public List<T> findAll(Sort sort) {
+    public List<T> findAll(final Sort sort) {
         return getRepository().findAll(sort);
     }
 
     @Override
-    public List<T> save(Iterable<T> entities) {
+    public List<T> save(final Iterable<T> entities) {
         return getRepository().save(entities);
     }
 
@@ -35,12 +35,12 @@ public abstract class GenericJpaServiceImpl<T, ID extends Serializable> extends
     }
 
     @Override
-    public T saveAndFlush(T entity) {
+    public T saveAndFlush(final T entity) {
         return getRepository().saveAndFlush(entity);
     }
 
     @Override
-    public void deleteInBatch(Iterable<T> entities) {
+    public void deleteInBatch(final Iterable<T> entities) {
         getRepository().deleteInBatch(entities);
     }
 

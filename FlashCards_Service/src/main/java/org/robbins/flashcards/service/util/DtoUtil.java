@@ -22,7 +22,7 @@ public final class DtoUtil {
     private DtoUtil() {
     };
 
-    public static void filterFields(Object obj, Set<String> fields)
+    public static void filterFields(final Object obj, final Set<String> fields)
             throws ServiceException {
         if (CollectionUtils.isEmpty(fields)) {
             return;
@@ -65,7 +65,7 @@ public final class DtoUtil {
         }
     }
 
-    private static Map<String, String> fieldsAsMap(Set<String> fields) {
+    private static Map<String, String> fieldsAsMap(final Set<String> fields) {
         Map<String, String> fieldsMap = new HashMap<String, String>();
 
         for (String field : fields) {

@@ -23,7 +23,7 @@ public class CustomObjectMapper extends ObjectMapper {
         this.setFilters(filterProvider);
     }
 
-    public void setPrettyPrint(boolean prettyPrint) {
+    public void setPrettyPrint(final boolean prettyPrint) {
         configure(SerializationFeature.INDENT_OUTPUT, prettyPrint);
     }
 }

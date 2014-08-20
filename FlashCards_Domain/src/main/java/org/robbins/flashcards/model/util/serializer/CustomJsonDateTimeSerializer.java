@@ -16,7 +16,8 @@ public class CustomJsonDateTimeSerializer extends JsonSerializer<DateTime> {
     private static final String DATE_SHORT = "MM/dd/yyyy";
 
     @Override
-    public void serialize(DateTime date, JsonGenerator gen, SerializerProvider provider)
+    public void serialize(final DateTime date, final JsonGenerator gen,
+            final SerializerProvider provider)
             throws IOException {
 
         DateTimeFormatter fmt = DateTimeFormat.forPattern(DATE_SHORT);

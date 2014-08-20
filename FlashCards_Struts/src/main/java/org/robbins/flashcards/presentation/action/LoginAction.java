@@ -184,12 +184,12 @@ public class LoginAction extends FlashCardsAppBaseAction implements Preparable,
         return openidIdentifier;
     }
 
-    public void setOpenid_identifier(String openid_identifier) {
+    public void setOpenid_identifier(final String openid_identifier) {
         this.openidIdentifier = openid_identifier;
     }
 
     @Override
-    public void setSession(Map<String, Object> httpSession) {
+    public void setSession(final Map<String, Object> httpSession) {
         this.httpSession = httpSession;
     }
 
@@ -204,7 +204,7 @@ public class LoginAction extends FlashCardsAppBaseAction implements Preparable,
     }
 
     @Override
-    public void setApplication(Map<String, Object> application) {
+    public void setApplication(final Map<String, Object> application) {
         this.application = application;
     }
 }

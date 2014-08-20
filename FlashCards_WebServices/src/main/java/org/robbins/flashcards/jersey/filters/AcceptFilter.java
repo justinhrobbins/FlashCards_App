@@ -31,7 +31,7 @@ public class AcceptFilter implements ContainerRequestFilter {
     private static String ACCEPT = "accept";
 
     @Override
-    public ContainerRequest filter(ContainerRequest request) {
+    public ContainerRequest filter(final ContainerRequest request) {
         LOGGER.debug("AcceptFilter");
 
         MultivaluedMap<String, String> queryParametersMap = request.getQueryParameters();

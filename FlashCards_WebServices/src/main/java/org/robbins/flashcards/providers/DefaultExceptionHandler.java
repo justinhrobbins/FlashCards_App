@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class DefaultExceptionHandler implements ExceptionMapper<WebApplicationException> {
 
     @Override
-    public Response toResponse(WebApplicationException webApplicationException) {
+    public Response toResponse(final WebApplicationException webApplicationException) {
         ResponseBuilder builder;
         GenericWebServiceException exception;
 

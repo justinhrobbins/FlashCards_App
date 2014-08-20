@@ -34,7 +34,7 @@ public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<FlashCard> findAll(Sort sort) {
+    public List<FlashCard> findAll(final Sort sort) {
         String sortOder = null;
         String sortDirection = null;
 
@@ -48,7 +48,7 @@ public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
-    public Page<FlashCard> findAll(Pageable page) {
+    public Page<FlashCard> findAll(final Pageable page) {
         Query query = getEm().createQuery("from FlashCard");
         query.setFirstResult((page.getPageNumber() + 1) * page.getPageSize());
         query.setMaxResults(page.getPageSize());
@@ -57,17 +57,17 @@ public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
     }
 
     @Override
-    public List<FlashCard> findByTagsIn(Set<Tag> tags) {
+    public List<FlashCard> findByTagsIn(final Set<Tag> tags) {
         return findByTags(tags, null);
     }
 
     @Override
-    public List<FlashCard> findByTagsIn(Set<Tag> tags, Pageable page) {
+    public List<FlashCard> findByTagsIn(final Set<Tag> tags, final Pageable page) {
         return findByTags(tags, page);
     }
 
     @SuppressWarnings("unchecked")
-    private List<FlashCard> findByTags(Set<Tag> tags, Pageable page) {
+    private List<FlashCard> findByTags(final Set<Tag> tags, final Pageable page) {
         List<Long> tagIds = new ArrayList<Long>();
         for (Tag tag : tags) {
             tagIds.add(tag.getId());
@@ -90,21 +90,21 @@ public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<FlashCard> findByQuestionLike(String question) {
+    public List<FlashCard> findByQuestionLike(final String question) {
         Query query = getEm().createQuery("from Flashcard where question like :question");
         query.setParameter("question", question);
         return query.getResultList();
     }
 
     @Override
-    public List<FlashCard> findByQuestionLike(String question, Pageable page) {
+    public List<FlashCard> findByQuestionLike(final String question, final Pageable page) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public FlashCard findByQuestion(String question) {
+    public FlashCard findByQuestion(final String question) {
         Query query = getEm().createQuery("from FlashCard where question = :question");
         query.setParameter("question", question);
         List<FlashCard> results = query.getResultList();

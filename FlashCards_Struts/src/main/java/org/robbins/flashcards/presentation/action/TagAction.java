@@ -146,7 +146,7 @@ public class TagAction extends FlashCardsAppBaseAction implements ModelDriven<Ta
     }
 
     @Override
-    public void setSession(Map<String, Object> httpSession) {
+    public void setSession(final Map<String, Object> httpSession) {
         this.httpSession = httpSession;
     }
 
@@ -154,7 +154,7 @@ public class TagAction extends FlashCardsAppBaseAction implements ModelDriven<Ta
         return tag;
     }
 
-    public void setTag(Tag tag) {
+    public void setTag(final Tag tag) {
         this.tag = tag;
     }
 
@@ -162,7 +162,7 @@ public class TagAction extends FlashCardsAppBaseAction implements ModelDriven<Ta
         return tagList;
     }
 
-    public void setTagList(List<Tag> tagList) {
+    public void setTagList(final List<Tag> tagList) {
         this.tagList = tagList;
     }
 }

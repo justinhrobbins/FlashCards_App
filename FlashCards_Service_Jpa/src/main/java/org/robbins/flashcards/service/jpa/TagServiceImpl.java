@@ -23,7 +23,7 @@ public class TagServiceImpl extends AbstractCrudServiceImpl<Tag> implements TagS
     }
 
     @Override
-    public Tag findByName(String name) {
+    public Tag findByName(final String name) {
         return getRepository().findByName(name);
     }
 }

@@ -15,8 +15,6 @@ import org.robbins.flashcards.tests.webservices.GenericEntityRestTest;
 import org.robbins.flashcards.util.TestEntityGenerator;
 import org.robbins.flashcards.webservices.util.ResourceUrls;
 import org.robbins.tests.IntegrationTest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -24,15 +22,13 @@ import org.springframework.test.context.ContextConfiguration;
 @ContextConfiguration(locations = { "classpath*:applicatonContext-webServices-test.xml" })
 public class UsersResourceIT extends GenericEntityRestTest<UserDto> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UsersResourceIT.class);
-
     // this entity will be created in @Before and we'll use it for our JUnit tests and
     // then delete it in @After
     private UserDto entity = TestEntityGenerator.createUserDto("Web API Test 'openid'",
             "webapitest@email.com");
 
     @Override
-    public void setEntity(UserDto entity) {
+    public void setEntity(final UserDto entity) {
         this.entity = entity;
     }
 

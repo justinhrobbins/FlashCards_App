@@ -46,7 +46,8 @@ public class PartialResponseFilter implements ResponseHandler {
     private UriInfo uriInfo;
 
     @Override
-    public Response handleResponse(Message m, OperationResourceInfo ori, Response response) {
+    public Response handleResponse(final Message m, final OperationResourceInfo ori,
+            final Response response) {
 
         if (ori == null) {
             return null;
@@ -122,8 +123,8 @@ public class PartialResponseFilter implements ResponseHandler {
     }
 
     // configure the Jackson filter for the speicified 'fields'
-    private Response applyFieldsFilter(Set<String> filterProperties, Object object,
-            Response response) {
+    private Response applyFieldsFilter(final Set<String> filterProperties,
+            final Object object, final Response response) {
         SimpleFilterProvider filterProvider = new SimpleFilterProvider();
         filterProvider.addFilter("apiFilter",
                 SimpleBeanPropertyFilter.filterOutAllExcept(filterProperties));
@@ -138,8 +139,8 @@ public class PartialResponseFilter implements ResponseHandler {
     // "ObjectWriter instances are immutable and thread-safe: they are created by ObjectMapper"
     // You should not change config settings directly on the ObjectMapper while
     // using it (changing config of ObjectMapper is not thread-safe
-    private Response applyWriter(Object object, SimpleFilterProvider filterProvider,
-            Response response) {
+    private Response applyWriter(final Object object,
+            final SimpleFilterProvider filterProvider, final Response response) {
 
         try {
             ObjectWriter writer = objectMapper.writer(filterProvider);
@@ -156,7 +157,7 @@ public class PartialResponseFilter implements ResponseHandler {
     }
 
     // Convert the vectorized 'fields' parameter to a Set<String>
-    private Set<String> getFieldsAsSet(String fields) {
+    private Set<String> getFieldsAsSet(final String fields) {
         Set<String> filterProperties = new HashSet<String>();
         StringTokenizer st = new StringTokenizer(fields, ",");
         while (st.hasMoreTokens()) {
