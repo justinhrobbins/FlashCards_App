@@ -131,7 +131,7 @@
 <a class="jxr_linenumber" name="L123" href="#L123">123</a>         }
 <a class="jxr_linenumber" name="L124" href="#L124">124</a>     }
 <a class="jxr_linenumber" name="L125" href="#L125">125</a> 
-<a class="jxr_linenumber" name="L126" href="#L126">126</a>     <strong class="jxr_keyword">private</strong> Set&lt;Tag&gt; convertToTags(String explodedTags) {
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>     <strong class="jxr_keyword">private</strong> Set&lt;Tag&gt; convertToTags(<strong class="jxr_keyword">final</strong> String explodedTags) {
 <a class="jxr_linenumber" name="L127" href="#L127">127</a>         Set&lt;Tag&gt; tags = <strong class="jxr_keyword">new</strong> HashSet&lt;Tag&gt;();
 <a class="jxr_linenumber" name="L128" href="#L128">128</a> 
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>         <strong class="jxr_keyword">if</strong> (getExplodedTags() == <strong class="jxr_keyword">null</strong>) {
@@ -149,7 +149,7 @@
 <a class="jxr_linenumber" name="L141" href="#L141">141</a>         <strong class="jxr_keyword">return</strong> tags;
 <a class="jxr_linenumber" name="L142" href="#L142">142</a>     }
 <a class="jxr_linenumber" name="L143" href="#L143">143</a> 
-<a class="jxr_linenumber" name="L144" href="#L144">144</a>     <strong class="jxr_keyword">private</strong> String convertFromTags(Collection&lt;Tag&gt; tags, <strong class="jxr_keyword">boolean</strong> addQuotes) {
+<a class="jxr_linenumber" name="L144" href="#L144">144</a>     <strong class="jxr_keyword">private</strong> String convertFromTags(<strong class="jxr_keyword">final</strong> Collection&lt;Tag&gt; tags, <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> addQuotes) {
 <a class="jxr_linenumber" name="L145" href="#L145">145</a> 
 <a class="jxr_linenumber" name="L146" href="#L146">146</a>         StringBuilder sb = <strong class="jxr_keyword">new</strong> StringBuilder();
 <a class="jxr_linenumber" name="L147" href="#L147">147</a>         String prefix = <span class="jxr_string">""</span>;
@@ -289,7 +289,7 @@
 <a class="jxr_linenumber" name="L281" href="#L281">281</a>     }
 <a class="jxr_linenumber" name="L282" href="#L282">282</a> 
 <a class="jxr_linenumber" name="L283" href="#L283">283</a>     @Override
-<a class="jxr_linenumber" name="L284" href="#L284">284</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setSession(Map&lt;String, Object&gt; httpSession) {
+<a class="jxr_linenumber" name="L284" href="#L284">284</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setSession(<strong class="jxr_keyword">final</strong> Map&lt;String, Object&gt; httpSession) {
 <a class="jxr_linenumber" name="L285" href="#L285">285</a>         <strong class="jxr_keyword">this</strong>.httpSession = httpSession;
 <a class="jxr_linenumber" name="L286" href="#L286">286</a>     }
 <a class="jxr_linenumber" name="L287" href="#L287">287</a> 
@@ -301,7 +301,7 @@
 <a class="jxr_linenumber" name="L293" href="#L293">293</a>         <strong class="jxr_keyword">return</strong> allExplodedTags;
 <a class="jxr_linenumber" name="L294" href="#L294">294</a>     }
 <a class="jxr_linenumber" name="L295" href="#L295">295</a> 
-<a class="jxr_linenumber" name="L296" href="#L296">296</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setAllExplodedTags(String allExplodedTags) {
+<a class="jxr_linenumber" name="L296" href="#L296">296</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setAllExplodedTags(<strong class="jxr_keyword">final</strong> String allExplodedTags) {
 <a class="jxr_linenumber" name="L297" href="#L297">297</a>         <strong class="jxr_keyword">this</strong>.allExplodedTags = allExplodedTags;
 <a class="jxr_linenumber" name="L298" href="#L298">298</a>     }
 <a class="jxr_linenumber" name="L299" href="#L299">299</a> 
@@ -313,7 +313,7 @@
 <a class="jxr_linenumber" name="L305" href="#L305">305</a>         <strong class="jxr_keyword">return</strong> viewType;
 <a class="jxr_linenumber" name="L306" href="#L306">306</a>     }
 <a class="jxr_linenumber" name="L307" href="#L307">307</a> 
-<a class="jxr_linenumber" name="L308" href="#L308">308</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setViewType(String viewType) {
+<a class="jxr_linenumber" name="L308" href="#L308">308</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setViewType(<strong class="jxr_keyword">final</strong> String viewType) {
 <a class="jxr_linenumber" name="L309" href="#L309">309</a>         <strong class="jxr_keyword">this</strong>.viewType = viewType;
 <a class="jxr_linenumber" name="L310" href="#L310">310</a>     }
 <a class="jxr_linenumber" name="L311" href="#L311">311</a> 
@@ -321,7 +321,7 @@
 <a class="jxr_linenumber" name="L313" href="#L313">313</a>         <strong class="jxr_keyword">return</strong> tagList;
 <a class="jxr_linenumber" name="L314" href="#L314">314</a>     }
 <a class="jxr_linenumber" name="L315" href="#L315">315</a> 
-<a class="jxr_linenumber" name="L316" href="#L316">316</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setTagList(List&lt;Tag&gt; tagList) {
+<a class="jxr_linenumber" name="L316" href="#L316">316</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setTagList(<strong class="jxr_keyword">final</strong> List&lt;Tag&gt; tagList) {
 <a class="jxr_linenumber" name="L317" href="#L317">317</a>         <strong class="jxr_keyword">this</strong>.tagList = tagList;
 <a class="jxr_linenumber" name="L318" href="#L318">318</a>     }
 <a class="jxr_linenumber" name="L319" href="#L319">319</a> 
@@ -329,7 +329,7 @@
 <a class="jxr_linenumber" name="L321" href="#L321">321</a>         <strong class="jxr_keyword">return</strong> explodedTags;
 <a class="jxr_linenumber" name="L322" href="#L322">322</a>     }
 <a class="jxr_linenumber" name="L323" href="#L323">323</a> 
-<a class="jxr_linenumber" name="L324" href="#L324">324</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setExplodedTags(String explodedTags) {
+<a class="jxr_linenumber" name="L324" href="#L324">324</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setExplodedTags(<strong class="jxr_keyword">final</strong> String explodedTags) {
 <a class="jxr_linenumber" name="L325" href="#L325">325</a>         <strong class="jxr_keyword">this</strong>.explodedTags = explodedTags;
 <a class="jxr_linenumber" name="L326" href="#L326">326</a>     }
 <a class="jxr_linenumber" name="L327" href="#L327">327</a> 
@@ -337,7 +337,7 @@
 <a class="jxr_linenumber" name="L329" href="#L329">329</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.flashCard;
 <a class="jxr_linenumber" name="L330" href="#L330">330</a>     }
 <a class="jxr_linenumber" name="L331" href="#L331">331</a> 
-<a class="jxr_linenumber" name="L332" href="#L332">332</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setFlashCard(FlashCard flashCard) {
+<a class="jxr_linenumber" name="L332" href="#L332">332</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setFlashCard(<strong class="jxr_keyword">final</strong> FlashCard flashCard) {
 <a class="jxr_linenumber" name="L333" href="#L333">333</a>         <strong class="jxr_keyword">this</strong>.flashCard = flashCard;
 <a class="jxr_linenumber" name="L334" href="#L334">334</a>     }
 <a class="jxr_linenumber" name="L335" href="#L335">335</a> 
@@ -345,7 +345,7 @@
 <a class="jxr_linenumber" name="L337" href="#L337">337</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.flashCardList;
 <a class="jxr_linenumber" name="L338" href="#L338">338</a>     }
 <a class="jxr_linenumber" name="L339" href="#L339">339</a> 
-<a class="jxr_linenumber" name="L340" href="#L340">340</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setFlashCardList(List&lt;FlashCard&gt; flashCardList) {
+<a class="jxr_linenumber" name="L340" href="#L340">340</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setFlashCardList(<strong class="jxr_keyword">final</strong> List&lt;FlashCard&gt; flashCardList) {
 <a class="jxr_linenumber" name="L341" href="#L341">341</a>         <strong class="jxr_keyword">this</strong>.flashCardList = flashCardList;
 <a class="jxr_linenumber" name="L342" href="#L342">342</a>     }
 <a class="jxr_linenumber" name="L343" href="#L343">343</a> }
