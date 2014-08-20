@@ -32,7 +32,7 @@
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>      @Inject
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>      <strong class="jxr_keyword">private</strong> EntityManagerFactory entityManagerFactory;
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> initializeField(Object entity, String field)
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> initializeField(<strong class="jxr_keyword">final</strong> Object entity, <strong class="jxr_keyword">final</strong> String field)
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>              <strong class="jxr_keyword">throws</strong> IllegalAccessException, InvocationTargetException,
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>              NoSuchMethodException {
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>          EntityManager em = entityManagerFactory.createEntityManager();
@@ -52,14 +52,14 @@
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>          }
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>      }
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> initializeEntity(Collection&lt;?&gt; entities, Set&lt;String&gt; fields)
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> initializeEntity(<strong class="jxr_keyword">final</strong> Collection&lt;?&gt; entities, <strong class="jxr_keyword">final</strong> Set&lt;String&gt; fields)
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>              <strong class="jxr_keyword">throws</strong> <a href="../../../../../org/robbins/flashcards/exceptions/ServiceException.html">ServiceException</a> {
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>          <strong class="jxr_keyword">for</strong> (Object entity : entities) {
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>              initializeEntity(entity, fields);
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>          }
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>      }
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> initializeEntity(Object[] entities, Set&lt;String&gt; fields)
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> initializeEntity(<strong class="jxr_keyword">final</strong> Object[] entities, <strong class="jxr_keyword">final</strong> Set&lt;String&gt; fields)
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>              <strong class="jxr_keyword">throws</strong> <a href="../../../../../org/robbins/flashcards/exceptions/ServiceException.html">ServiceException</a> {
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>          <strong class="jxr_keyword">for</strong> (Object entity : entities) {
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>              initializeEntity(entity, fields);
@@ -67,7 +67,7 @@
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>      }
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>  
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>      <em class="jxr_comment">// make sure each of the requested 'fields' are initialized by Hibernate</em>
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> initializeEntity(Object entity, Set&lt;String&gt; fields)
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> initializeEntity(<strong class="jxr_keyword">final</strong> Object entity, <strong class="jxr_keyword">final</strong> Set&lt;String&gt; fields)
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>              <strong class="jxr_keyword">throws</strong> <a href="../../../../../org/robbins/flashcards/exceptions/ServiceException.html">ServiceException</a> {
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>          <strong class="jxr_keyword">if</strong> (entity == <strong class="jxr_keyword">null</strong>) {
@@ -91,7 +91,7 @@
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>          <strong class="jxr_keyword">return</strong>;
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>      }
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>  
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> initializeCollection(Collection&lt;?&gt; collection) {
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> initializeCollection(<strong class="jxr_keyword">final</strong> Collection&lt;?&gt; collection) {
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>          <strong class="jxr_keyword">if</strong> (collection == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>              <strong class="jxr_keyword">return</strong>;
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>          }

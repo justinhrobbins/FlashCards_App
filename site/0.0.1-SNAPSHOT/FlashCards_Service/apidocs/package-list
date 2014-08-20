@@ -4,6 +4,7 @@ org.robbins.flashcards.exceptions
 org.robbins.flashcards.facade
 org.robbins.flashcards.facade.base
 org.robbins.flashcards.facade.impl
+org.robbins.flashcards.security
 org.robbins.flashcards.service
 org.robbins.flashcards.service.base
 org.robbins.flashcards.service.util

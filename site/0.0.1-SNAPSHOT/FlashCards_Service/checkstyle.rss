@@ -8,8 +8,8 @@
     <language>en-us</language>
     <copyright>&#169;2011 - 2014</copyright>
     <item>
-      <title>File: 23,
-             Errors: 233,
+      <title>File: 24,
+             Errors: 160,
              Warnings: 0,
              Infos: 0
       </title>
@@ -66,7 +66,7 @@
                   0
                 </td>
                 <td>
-                  19
+                  10
                 </td>
               </tr>
                           <tr>
@@ -80,7 +80,7 @@
                   0
                 </td>
                 <td>
-                  6
+                  5
                 </td>
               </tr>
                           <tr>
@@ -94,7 +94,7 @@
                   0
                 </td>
                 <td>
-                  13
+                  8
                 </td>
               </tr>
                           <tr>
@@ -127,6 +127,20 @@
               </tr>
                           <tr>
                 <td>
+                  <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service/checkstyle.html#org.robbins.flashcards.security.CustomUserDetailsService.java">org/robbins/flashcards/security/CustomUserDetailsService.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  7
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="https://github.com/justinhrobbins/FlashCards_App/FlashCards_Service/checkstyle.html#org.robbins.flashcards.facade.FlashcardFacade.java">org/robbins/flashcards/facade/FlashcardFacade.java</a>
                 </td>
                 <td>
@@ -150,7 +164,7 @@
                   0
                 </td>
                 <td>
-                  35
+                  18
                 </td>
               </tr>
                           <tr>
@@ -164,7 +178,7 @@
                   0
                 </td>
                 <td>
-                  42
+                  21
                 </td>
               </tr>
                           <tr>
@@ -220,7 +234,7 @@
                   0
                 </td>
                 <td>
-                  17
+                  9
                 </td>
               </tr>
                           <tr>
@@ -248,7 +262,7 @@
                   0
                 </td>
                 <td>
-                  8
+                  5
                 </td>
               </tr>
                           <tr>
@@ -276,7 +290,7 @@
                   0
                 </td>
                 <td>
-                  10
+                  7
                 </td>
               </tr>
                           <tr>
@@ -290,7 +304,7 @@
                   0
                 </td>
                 <td>
-                  7
+                  3
                 </td>
               </tr>
                           <tr>
@@ -318,7 +332,7 @@
                   0
                 </td>
                 <td>
-                  20
+                  11
                 </td>
               </tr>
                           <tr>
