@@ -22,14 +22,15 @@
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String DATE_FORMAT = <span class="jxr_string">"yyyy-MM-dd'T'HH:mm:ss.SSSZ"</span>;
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>      @Override
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> serialize(Date date, JsonGenerator gen, SerializerProvider provider)
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>              <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>          SimpleDateFormat dateFormat = <strong class="jxr_keyword">new</strong> SimpleDateFormat(DATE_FORMAT);
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>          String formattedDate = dateFormat.format(date);
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>          gen.writeString(formattedDate);
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>      }
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>  }
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> serialize(<strong class="jxr_keyword">final</strong> Date date, <strong class="jxr_keyword">final</strong> JsonGenerator gen,
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>              <strong class="jxr_keyword">final</strong> SerializerProvider provider)
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>              <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>          SimpleDateFormat dateFormat = <strong class="jxr_keyword">new</strong> SimpleDateFormat(DATE_FORMAT);
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>          String formattedDate = dateFormat.format(date);
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>          gen.writeString(formattedDate);
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>      }
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2011&#x2013;2014. All rights reserved.</div>

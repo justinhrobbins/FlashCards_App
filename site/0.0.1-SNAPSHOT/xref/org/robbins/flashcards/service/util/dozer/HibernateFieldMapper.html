@@ -21,24 +21,25 @@
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_javadoccomment">     * subsequently mapped by Dozer as normal.</em>
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>      @Override
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> mapField(Object source, Object destination, Object sourceFieldValue,
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>              ClassMap classMap, FieldMap fieldMapping) {
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>          <em class="jxr_comment">// Check if field is a Hibernate PersistentSet</em>
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>          <strong class="jxr_keyword">if</strong> (!(sourceFieldValue instanceof PersistentSet)) {
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>              <em class="jxr_comment">// Allow dozer to map as normal</em>
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>              <strong class="jxr_keyword">return</strong> false;
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>          }
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>  
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>          <em class="jxr_comment">// Check if field is already initialized</em>
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>          <strong class="jxr_keyword">if</strong> (((PersistentSet) sourceFieldValue).wasInitialized()) {
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>              <em class="jxr_comment">// Allow dozer to map as normal</em>
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>              <strong class="jxr_keyword">return</strong> false;
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>          }
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>  
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>          <em class="jxr_comment">// tell dozer that the field is mapped</em>
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>      }
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>  }
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> mapField(<strong class="jxr_keyword">final</strong> Object source, <strong class="jxr_keyword">final</strong> Object destination,
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>              <strong class="jxr_keyword">final</strong> Object sourceFieldValue, <strong class="jxr_keyword">final</strong> ClassMap classMap,
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>              <strong class="jxr_keyword">final</strong> FieldMap fieldMapping) {
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>          <em class="jxr_comment">// Check if field is a Hibernate PersistentSet</em>
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>          <strong class="jxr_keyword">if</strong> (!(sourceFieldValue instanceof PersistentSet)) {
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>              <em class="jxr_comment">// Allow dozer to map as normal</em>
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>              <strong class="jxr_keyword">return</strong> false;
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>          }
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>          <em class="jxr_comment">// Check if field is already initialized</em>
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>          <strong class="jxr_keyword">if</strong> (((PersistentSet) sourceFieldValue).wasInitialized()) {
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>              <em class="jxr_comment">// Allow dozer to map as normal</em>
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>              <strong class="jxr_keyword">return</strong> false;
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>          }
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>          <em class="jxr_comment">// tell dozer that the field is mapped</em>
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>      }
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2011&#x2013;2014. All rights reserved.</div>

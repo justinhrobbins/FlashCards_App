@@ -24,7 +24,7 @@
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>      <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">abstract</strong> PagingAndSortingRepository&lt;T, ID&gt; getRepository();
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>      @Override
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>      <strong class="jxr_keyword">public</strong> List&lt;T&gt; findAll(Pageable pageable) {
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>      <strong class="jxr_keyword">public</strong> List&lt;T&gt; findAll(<strong class="jxr_keyword">final</strong> Pageable pageable) {
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>          <strong class="jxr_keyword">return</strong> getRepository().findAll(pageable).getContent();
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>      }
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  }

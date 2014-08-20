@@ -39,7 +39,7 @@
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>      @SuppressWarnings(<span class="jxr_string">"unchecked"</span>)
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>      @Override
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>      <strong class="jxr_keyword">public</strong> List&lt;Tag&gt; findAll(Sort sort) {
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>      <strong class="jxr_keyword">public</strong> List&lt;Tag&gt; findAll(<strong class="jxr_keyword">final</strong> Sort sort) {
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>          String sortOder = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>          String sortDirection = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  
@@ -52,7 +52,7 @@
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>      @SuppressWarnings({ <span class="jxr_string">"unchecked"</span>, <span class="jxr_string">"rawtypes"</span> })
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>      @Override
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">public</strong> Page&lt;Tag&gt; findAll(Pageable page) {
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">public</strong> Page&lt;Tag&gt; findAll(<strong class="jxr_keyword">final</strong> Pageable page) {
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>          Query query = getEm().createQuery(<span class="jxr_string">"from Tag"</span>);
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>          query.setFirstResult((page.getPageNumber() + 1) * page.getPageSize());
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>          query.setMaxResults(page.getPageSize());
@@ -62,7 +62,7 @@
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>      @SuppressWarnings(<span class="jxr_string">"unchecked"</span>)
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>      @Override
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../../org/robbins/flashcards/model/Tag.html">Tag</a> findByName(String name) {
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../../org/robbins/flashcards/model/Tag.html">Tag</a> findByName(<strong class="jxr_keyword">final</strong> String name) {
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>          Query query = getEm().createQuery(<span class="jxr_string">"from Tag where name = :name"</span>);
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>          query.setParameter(<span class="jxr_string">"name"</span>, name);
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>          List&lt;Tag&gt; results = query.getResultList();

@@ -31,6 +31,7 @@ org.robbins.flashcards.providers
 org.robbins.flashcards.repository.jpa
 org.robbins.flashcards.repository.jpa.base
 org.robbins.flashcards.repository.springdata
+org.robbins.flashcards.security
 org.robbins.flashcards.server
 org.robbins.flashcards.service
 org.robbins.flashcards.service.base
@@ -38,7 +39,6 @@ org.robbins.flashcards.service.jpa
 org.robbins.flashcards.service.jpa.base
 org.robbins.flashcards.service.springdata
 org.robbins.flashcards.service.springdata.base
-org.robbins.flashcards.service.springdata.security
 org.robbins.flashcards.service.util
 org.robbins.flashcards.service.util.dozer
 org.robbins.flashcards.tests.webservices

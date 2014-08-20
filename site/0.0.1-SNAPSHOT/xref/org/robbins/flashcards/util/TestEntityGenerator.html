@@ -21,30 +21,31 @@
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../org/robbins/flashcards/util/TestEntityGenerator.html">TestEntityGenerator</a>() {
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>      };
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../org/robbins/flashcards/model/Tag.html">Tag</a> createTag(String name) {
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../org/robbins/flashcards/model/Tag.html">Tag</a> createTag(<strong class="jxr_keyword">final</strong> String name) {
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../org/robbins/flashcards/model/Tag.html">Tag</a>(name);
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>      }
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../org/robbins/flashcards/dto/TagDto.html">TagDto</a> createTagDto(String name) {
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../org/robbins/flashcards/dto/TagDto.html">TagDto</a> createTagDto(<strong class="jxr_keyword">final</strong> String name) {
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../org/robbins/flashcards/dto/TagDto.html">TagDto</a>(name);
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>      }
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../org/robbins/flashcards/model/FlashCard.html">FlashCard</a> createFlashCard(String question, String answer) {
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../org/robbins/flashcards/model/FlashCard.html">FlashCard</a> createFlashCard(<strong class="jxr_keyword">final</strong> String question, <strong class="jxr_keyword">final</strong> String answer) {
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../org/robbins/flashcards/model/FlashCard.html">FlashCard</a>(question, answer);
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>      }
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../org/robbins/flashcards/model/User.html">User</a> createUser(String openid, String email) {
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../org/robbins/flashcards/model/User.html">User</a> createUser(<strong class="jxr_keyword">final</strong> String openid, <strong class="jxr_keyword">final</strong> String email) {
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../org/robbins/flashcards/model/User.html">User</a>(openid, email);
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>      }
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../org/robbins/flashcards/dto/UserDto.html">UserDto</a> createUserDto(String openid, String email) {
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../org/robbins/flashcards/dto/UserDto.html">UserDto</a> createUserDto(<strong class="jxr_keyword">final</strong> String openid, <strong class="jxr_keyword">final</strong> String email) {
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../org/robbins/flashcards/dto/UserDto.html">UserDto</a>(openid, email);
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>      }
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../org/robbins/flashcards/dto/FlashCardDto.html">FlashCardDto</a> createFlashCardDto(String question, String answer) {
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../org/robbins/flashcards/dto/FlashCardDto.html">FlashCardDto</a>(question, answer);
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>      }
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>  }
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../org/robbins/flashcards/dto/FlashCardDto.html">FlashCardDto</a> createFlashCardDto(<strong class="jxr_keyword">final</strong> String question,
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>              <strong class="jxr_keyword">final</strong> String answer) {
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../org/robbins/flashcards/dto/FlashCardDto.html">FlashCardDto</a>(question, answer);
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>      }
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2011&#x2013;2014. All rights reserved.</div>
