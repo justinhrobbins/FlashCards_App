@@ -1,4 +1,3 @@
 org.robbins.flashcards.repository.springdata
 org.robbins.flashcards.service.springdata
 org.robbins.flashcards.service.springdata.base
-org.robbins.flashcards.service.springdata.security
