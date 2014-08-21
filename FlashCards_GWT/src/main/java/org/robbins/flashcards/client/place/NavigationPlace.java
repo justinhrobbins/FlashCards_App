@@ -6,9 +6,9 @@ import com.google.gwt.place.shared.PlaceTokenizer;
 
 public class NavigationPlace extends Place {
 
-    private String placeName;
+    private final String placeName;
 
-    public NavigationPlace(String token) {
+    public NavigationPlace(final String token) {
         this.placeName = token;
     }
 
@@ -19,12 +19,12 @@ public class NavigationPlace extends Place {
     public static class Tokenizer implements PlaceTokenizer<NavigationPlace> {
 
         @Override
-        public String getToken(NavigationPlace place) {
+        public String getToken(final NavigationPlace place) {
             return place.getPlaceName();
         }
 
         @Override
-        public NavigationPlace getPlace(String token) {
+        public NavigationPlace getPlace(final String token) {
             return new NavigationPlace(token);
         }
     }

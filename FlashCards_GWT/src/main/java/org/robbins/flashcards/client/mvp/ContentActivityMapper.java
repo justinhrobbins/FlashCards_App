@@ -23,15 +23,15 @@ import com.google.gwt.place.shared.Place;
 
 public class ContentActivityMapper implements ActivityMapper {
 
-    private ClientFactory clientFactory;
+    private final ClientFactory clientFactory;
 
-    public ContentActivityMapper(ClientFactory clientFactory) {
+    public ContentActivityMapper(final ClientFactory clientFactory) {
         super();
         this.clientFactory = clientFactory;
     }
 
     @Override
-    public Activity getActivity(Place place) {
+    public Activity getActivity(final Place place) {
         GWT.log("ContentActivityMapper - Place called: " + place);
 
         if (place instanceof ListTagsPlace) {

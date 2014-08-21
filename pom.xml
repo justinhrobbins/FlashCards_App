@@ -828,7 +828,6 @@
                     </dependencies>
                     <configuration>
                         <webapps>
-<!--
                             <webapp> 
                                 <groupId>org.robbins.flashcards</groupId> 
                                 <artifactId>FlashCards_WebServices</artifactId> 
@@ -837,8 +836,7 @@
                                 <asWebapp>true</asWebapp>
                                 <contextPath>/api</contextPath>
                             </webapp>
- -->
-                            <webapp> 
+                             <webapp> 
                                 <groupId>org.robbins.flashcards</groupId> 
                                 <artifactId>FlashCards_GWT</artifactId> 
                                 <version>${project.version}</version> 

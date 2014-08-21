@@ -20,8 +20,8 @@ public class LoadTagEvent extends Event<LoadTagEventHandler> {
      * @param handler an {@link LoadTagEvent.Handler} instance
      * @return an {@link HandlerRegistration} instance
      */
-    public static HandlerRegistration register(EventBus eventBus,
-            LoadTagEventHandler handler) {
+    public static HandlerRegistration register(final EventBus eventBus,
+            final LoadTagEventHandler handler) {
         return eventBus.addHandler(TYPE, handler);
     }
 
@@ -31,7 +31,7 @@ public class LoadTagEvent extends Event<LoadTagEventHandler> {
 
     private final Long tagId;
 
-    public LoadTagEvent(Long tagId) {
+    public LoadTagEvent(final Long tagId) {
         this.tagId = tagId;
     }
 
@@ -41,7 +41,7 @@ public class LoadTagEvent extends Event<LoadTagEventHandler> {
     }
 
     @Override
-    protected void dispatch(LoadTagEventHandler handler) {
+    protected void dispatch(final LoadTagEventHandler handler) {
         handler.onLoadTag(this);
     }
 }

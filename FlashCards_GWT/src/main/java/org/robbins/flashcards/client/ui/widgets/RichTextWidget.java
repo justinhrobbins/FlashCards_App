@@ -60,7 +60,7 @@ public class RichTextWidget extends AbstractWidget implements HasText, HasHTML {
         richTextArea.addFocusHandler(new FocusHandler() {
 
             @Override
-            public void onFocus(FocusEvent event) {
+            public void onFocus(final FocusEvent event) {
                 hideValidationMessage();
             }
         });
@@ -72,7 +72,7 @@ public class RichTextWidget extends AbstractWidget implements HasText, HasHTML {
     }
 
     @Override
-    public void setHTML(String html) {
+    public void setHTML(final String html) {
         richTextArea.setHTML(html);
 
     }
@@ -83,12 +83,12 @@ public class RichTextWidget extends AbstractWidget implements HasText, HasHTML {
     }
 
     @Override
-    public void setText(String text) {
+    public void setText(final String text) {
         richTextArea.setText(text);
     }
 
     @Override
-    public void dispayValidationMessage(String message) {
+    public void dispayValidationMessage(final String message) {
         label.dispayValidationMessage(message);
         setBorderStyle(richTextArea,
                 FormStyleResource.INSTANCE.formStyles().borderError());
@@ -102,12 +102,12 @@ public class RichTextWidget extends AbstractWidget implements HasText, HasHTML {
     }
 
     @Override
-    public void setLabel(String text) {
+    public void setLabel(final String text) {
         label.setText(text);
     }
 
     @Override
-    public void isRequired(boolean required) {
+    public void isRequired(final boolean required) {
         label.isRequired(required);
     }
 }

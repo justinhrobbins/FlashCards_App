@@ -12,7 +12,7 @@ public abstract class AbstractWidget extends Composite implements IsRequired,
     public abstract void setLabel(String text);
 
     @Override
-    public void dispayValidationMessage(String message) {
+    public void dispayValidationMessage(final String message) {
         // TODO Auto-generated method stub
     }
 
@@ -21,7 +21,7 @@ public abstract class AbstractWidget extends Composite implements IsRequired,
         // TODO Auto-generated method stub
     }
 
-    protected void setBorderStyle(UIObject uiObject, String styleName) {
+    protected void setBorderStyle(final UIObject uiObject, final String styleName) {
         uiObject.removeStyleName(FormStyleResource.INSTANCE.formStyles().borderOk());
         uiObject.removeStyleName(FormStyleResource.INSTANCE.formStyles().borderError());
         uiObject.removeStyleName(FormStyleResource.INSTANCE.formStyles().borderHidden());

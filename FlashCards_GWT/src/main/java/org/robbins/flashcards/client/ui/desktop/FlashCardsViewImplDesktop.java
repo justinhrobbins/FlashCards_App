@@ -41,7 +41,7 @@ public class FlashCardsViewImplDesktop extends CellTable<FlashCardDto> implement
 
     private final AppConstants constants;
 
-    private DateTimeFormat dateFormat = DateTimeFormat.getFormat("MM/dd/yyyy");
+    private final DateTimeFormat dateFormat = DateTimeFormat.getFormat("MM/dd/yyyy");
 
     private LinkCell questionCell;
 
@@ -71,10 +71,10 @@ public class FlashCardsViewImplDesktop extends CellTable<FlashCardDto> implement
 
     private List<FlashCardDto> flashCardsList;
 
-    private Images images = (Images) GWT.create(Images.class);
+    private final Images images = (Images) GWT.create(Images.class);
 
-    public FlashCardsViewImplDesktop(EventBus eventBus, int pageSize,
-            CellTable.Resources resources, ClientFactory clientFactory) {
+    public FlashCardsViewImplDesktop(final EventBus eventBus, final int pageSize,
+            final CellTable.Resources resources, final ClientFactory clientFactory) {
         super(pageSize, resources);
 
         GWT.log("Creating 'FlashCardsViewImplDesktop'");
@@ -90,7 +90,7 @@ public class FlashCardsViewImplDesktop extends CellTable<FlashCardDto> implement
         formatCellTable();
     }
 
-    private void bindData(List<FlashCardDto> tags) {
+    private void bindData(final List<FlashCardDto> tags) {
         dataProvider = new ListDataProvider<FlashCardDto>();
 
         // Connect the table to the data provider.
@@ -123,7 +123,7 @@ public class FlashCardsViewImplDesktop extends CellTable<FlashCardDto> implement
                 new Comparator<FlashCardDto>() {
 
                     @Override
-                    public int compare(FlashCardDto o1, FlashCardDto o2) {
+                    public int compare(final FlashCardDto o1, final FlashCardDto o2) {
                         if (o1 == o2) {
                             return 0;
                         }
@@ -146,7 +146,7 @@ public class FlashCardsViewImplDesktop extends CellTable<FlashCardDto> implement
                 new Comparator<FlashCardDto>() {
 
                     @Override
-                    public int compare(FlashCardDto o1, FlashCardDto o2) {
+                    public int compare(final FlashCardDto o1, final FlashCardDto o2) {
                         if (o1 == o2) {
                             return 0;
                         }
@@ -169,7 +169,7 @@ public class FlashCardsViewImplDesktop extends CellTable<FlashCardDto> implement
                 new Comparator<FlashCardDto>() {
 
                     @Override
-                    public int compare(FlashCardDto o1, FlashCardDto o2) {
+                    public int compare(final FlashCardDto o1, final FlashCardDto o2) {
                         if (o1 == o2) {
                             return 0;
                         }
@@ -195,7 +195,7 @@ public class FlashCardsViewImplDesktop extends CellTable<FlashCardDto> implement
         questionColumn = new Column<FlashCardDto, String>(questionCell) {
 
             @Override
-            public String getValue(FlashCardDto object) {
+            public String getValue(final FlashCardDto object) {
                 return object.getQuestion();
             }
         };
@@ -206,7 +206,8 @@ public class FlashCardsViewImplDesktop extends CellTable<FlashCardDto> implement
         questionColumn.setFieldUpdater(new FieldUpdater<FlashCardDto, String>() {
 
             @Override
-            public void update(int index, FlashCardDto object, String value) {
+            public void update(final int index, final FlashCardDto object,
+                    final String value) {
                 eventBus.fireEvent(new LoadFlashCardEvent(object.getId()));
             }
         });
@@ -215,7 +216,7 @@ public class FlashCardsViewImplDesktop extends CellTable<FlashCardDto> implement
         tagsColumn = new Column<FlashCardDto, List<TagDto>>(tagsCell) {
 
             @Override
-            public List<TagDto> getValue(FlashCardDto object) {
+            public List<TagDto> getValue(final FlashCardDto object) {
                 return object.getTagsAsList();
             }
         };
@@ -226,7 +227,8 @@ public class FlashCardsViewImplDesktop extends CellTable<FlashCardDto> implement
         tagsColumn.setFieldUpdater(new FieldUpdater<FlashCardDto, List<TagDto>>() {
 
             @Override
-            public void update(int index, FlashCardDto object, List<TagDto> tagList) {
+            public void update(final int index, final FlashCardDto object,
+                    final List<TagDto> tagList) {
                 GWT.log("update: " + tagList.get(0).getId());
                 eventBus.fireEvent(new LoadTagEvent(tagList.get(0).getId()));
             }
@@ -236,14 +238,14 @@ public class FlashCardsViewImplDesktop extends CellTable<FlashCardDto> implement
         editColumn = new Column<FlashCardDto, ImageResource>(editCell) {
 
             @Override
-            public void onBrowserEvent(Context context, Element elem,
-                    FlashCardDto object, NativeEvent event) {
+            public void onBrowserEvent(final Context context, final Element elem,
+                    final FlashCardDto object, final NativeEvent event) {
                 GWT.log("Click on Edit cell for: " + object.getId());
                 eventBus.fireEvent(new LoadFlashCardEvent(object.getId()));
             }
 
             @Override
-            public ImageResource getValue(FlashCardDto object) {
+            public ImageResource getValue(final FlashCardDto object) {
                 return images.edit();
             }
         };
@@ -254,14 +256,14 @@ public class FlashCardsViewImplDesktop extends CellTable<FlashCardDto> implement
         deleteColumn = new Column<FlashCardDto, ImageResource>(deleteCell) {
 
             @Override
-            public void onBrowserEvent(Context context, Element elem,
-                    FlashCardDto object, NativeEvent event) {
+            public void onBrowserEvent(final Context context, final Element elem,
+                    final FlashCardDto object, final NativeEvent event) {
                 GWT.log("Click on Delete cell for: " + object.getId());
                 eventBus.fireEvent(new DeleteFlashCardEvent(object.getId()));
             }
 
             @Override
-            public ImageResource getValue(FlashCardDto object) {
+            public ImageResource getValue(final FlashCardDto object) {
                 return images.delete();
             }
         };
@@ -272,7 +274,7 @@ public class FlashCardsViewImplDesktop extends CellTable<FlashCardDto> implement
         dateCreatedColumn = new Column<FlashCardDto, Date>(dateCreatedCell) {
 
             @Override
-            public Date getValue(FlashCardDto flashCard) {
+            public Date getValue(final FlashCardDto flashCard) {
                 return flashCard.getCreatedDate();
             }
         };
@@ -283,7 +285,7 @@ public class FlashCardsViewImplDesktop extends CellTable<FlashCardDto> implement
         dateUpdatedColumn = new Column<FlashCardDto, Date>(dateUpdatedCell) {
 
             @Override
-            public Date getValue(FlashCardDto flashCard) {
+            public Date getValue(final FlashCardDto flashCard) {
                 return flashCard.getLastModifiedDate();
             }
         };
@@ -298,7 +300,7 @@ public class FlashCardsViewImplDesktop extends CellTable<FlashCardDto> implement
     }
 
     @Override
-    public void setData(List<FlashCardDto> data) {
+    public void setData(final List<FlashCardDto> data) {
         bindData(data);
 
         createColumnSorting();
@@ -309,7 +311,7 @@ public class FlashCardsViewImplDesktop extends CellTable<FlashCardDto> implement
     }
 
     @Override
-    public int getClickedRow(LoadFlashCardEvent event) {
+    public int getClickedRow(final LoadFlashCardEvent event) {
         // TODO Auto-generated method stub
         return 0;
     }

@@ -40,7 +40,7 @@ public class TagsActivity extends AppAbstractActivity {
 
     private final PlaceController placeController;
 
-    public TagsActivity(ClientFactory clientFactory) {
+    public TagsActivity(final ClientFactory clientFactory) {
         super(clientFactory);
 
         GWT.log("Creating 'TagsActivity'");
@@ -113,20 +113,20 @@ public class TagsActivity extends AppAbstractActivity {
         fetchTagDetails(fields);
     }
 
-    private void fetchTagDetails(String fields) {
+    private void fetchTagDetails(final String fields) {
 
         // load the table with data
         tagService.getTags(ConstsUtil.DEFAULT_AUTH_HEADER, fields,
                 new MethodCallback<List<TagDto>>() {
 
                     @Override
-                    public void onFailure(Method method, Throwable caught) {
+                    public void onFailure(final Method method, final Throwable caught) {
                         GWT.log("TagsActivity: Error loading data");
                         Window.alert(getConstants().errorLoadingTags());
                     }
 
                     @Override
-                    public void onSuccess(Method method, List<TagDto> result) {
+                    public void onSuccess(final Method method, final List<TagDto> result) {
                         tags = result;
                         GWT.log("TagsActivity: Loading Tag list: " + tags.size()
                                 + " tags");

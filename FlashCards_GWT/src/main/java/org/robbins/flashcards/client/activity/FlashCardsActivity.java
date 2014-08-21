@@ -38,9 +38,9 @@ public class FlashCardsActivity extends AppAbstractActivity {
 
     private final FlashCardsView display;
 
-    private PlaceController placeController;
+    private final PlaceController placeController;
 
-    public FlashCardsActivity(ClientFactory clientFactory) {
+    public FlashCardsActivity(final ClientFactory clientFactory) {
         super(clientFactory);
 
         GWT.log("Creating 'FlashCardsActivity'");
@@ -57,7 +57,7 @@ public class FlashCardsActivity extends AppAbstractActivity {
                         new LoadFlashCardEventHandler() {
 
                             @Override
-                            public void onLoadFlashCard(LoadFlashCardEvent event) {
+                            public void onLoadFlashCard(final LoadFlashCardEvent event) {
                                 GWT.log("FlashCardsActivity: 'Load FlashCard' event");
                                 FlashCardsActivity.this.placeController.goTo(new EditFlashCardPlace(
                                         Long.toString(event.getFlashCardId())));
@@ -68,7 +68,7 @@ public class FlashCardsActivity extends AppAbstractActivity {
                 LoadTagEvent.register(this.eventBus, new LoadTagEventHandler() {
 
                     @Override
-                    public void onLoadTag(LoadTagEvent event) {
+                    public void onLoadTag(final LoadTagEvent event) {
                         GWT.log("TagsActivity: 'Load Tag' event");
                         FlashCardsActivity.this.placeController.goTo(new EditTagPlace(
                                 Long.toString(event.getTagId())));
@@ -80,7 +80,7 @@ public class FlashCardsActivity extends AppAbstractActivity {
                         new DeleteFlashCardEventHandler() {
 
                             @Override
-                            public void onDeleteFlashcard(DeleteFlashCardEvent event) {
+                            public void onDeleteFlashcard(final DeleteFlashCardEvent event) {
                                 GWT.log("FlashCardsActivity: 'Delete FlashCard' event");
 
                                 flashCardService.deleteFlashCards(
@@ -89,15 +89,15 @@ public class FlashCardsActivity extends AppAbstractActivity {
                                         new MethodCallback<java.lang.Void>() {
 
                                             @Override
-                                            public void onFailure(Method method,
-                                                    Throwable caught) {
+                                            public void onFailure(final Method method,
+                                                    final Throwable caught) {
                                                 GWT.log("DeleteTagActivity: Error deleting data");
                                                 Window.alert(getConstants().errorDeletingTag());
                                             }
 
                                             @Override
-                                            public void onSuccess(Method method,
-                                                    java.lang.Void result) {
+                                            public void onSuccess(final Method method,
+                                                    final java.lang.Void result) {
                                                 GWT.log("DeleteTagActivity: Tag Deleted");
                                                 FlashCardsActivity.this.placeController.goTo(new ListFlashCardsPlace(
                                                         ""));
@@ -108,27 +108,28 @@ public class FlashCardsActivity extends AppAbstractActivity {
     }
 
     @Override
-    public void start(AcceptsOneWidget container, EventBus eventBus) {
+    public void start(final AcceptsOneWidget container, final EventBus eventBus) {
         container.setWidget(display.asWidget());
 
         String fields = ConstsUtil.DEFAULT_FLASHCARDS_LIST_FIELDS;
         fetchFlashCardDetails(fields);
     }
 
-    private void fetchFlashCardDetails(String fields) {
+    private void fetchFlashCardDetails(final String fields) {
 
         // load the table with data
         flashCardService.getFlashCards(ConstsUtil.DEFAULT_AUTH_HEADER, fields,
                 new MethodCallback<List<FlashCardDto>>() {
 
                     @Override
-                    public void onFailure(Method method, Throwable caught) {
+                    public void onFailure(final Method method, final Throwable caught) {
                         GWT.log("FlashCardsActivity: Error loading data");
                         Window.alert(getConstants().errorLoadingFlashCard());
                     }
 
                     @Override
-                    public void onSuccess(Method method, List<FlashCardDto> result) {
+                    public void onSuccess(final Method method,
+                            final List<FlashCardDto> result) {
                         flashCards = result;
                         GWT.log("FlashCardsActivity: Loading FlashCard list: "
                                 + flashCards.size() + " flashCards");

@@ -5,9 +5,9 @@ import com.google.gwt.place.shared.Place;
 
 public class ListFlashCardsPlace extends Place {
 
-    private String placeName;
+    private final String placeName;
 
-    public ListFlashCardsPlace(String token) {
+    public ListFlashCardsPlace(final String token) {
         this.placeName = token;
     }
 

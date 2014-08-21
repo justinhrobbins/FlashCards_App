@@ -32,9 +32,9 @@ public class EditTagActivity extends AppAbstractActivity {
 
     private final FlashCardRestService flashCardService;
 
-    private EditTagView display;
+    private final EditTagView display;
 
-    public EditTagActivity(ClientFactory clientFactory) {
+    public EditTagActivity(final ClientFactory clientFactory) {
         super(clientFactory);
         GWT.log("Creating 'EditTagActivity'");
 
@@ -52,7 +52,7 @@ public class EditTagActivity extends AppAbstractActivity {
         bind();
     }
 
-    public EditTagActivity(NewTagPlace place, ClientFactory clientFactory) {
+    public EditTagActivity(final NewTagPlace place, final ClientFactory clientFactory) {
         this(clientFactory);
 
         setTag(new TagDto());
@@ -60,7 +60,7 @@ public class EditTagActivity extends AppAbstractActivity {
         this.display.setTagData(null);
     }
 
-    public EditTagActivity(EditTagPlace place, ClientFactory clientFactory) {
+    public EditTagActivity(final EditTagPlace place, final ClientFactory clientFactory) {
         this(clientFactory);
 
         Long tagId = Long.parseLong(place.getPlaceName());
@@ -70,7 +70,7 @@ public class EditTagActivity extends AppAbstractActivity {
                 new MethodCallback<TagDto>() {
 
                     @Override
-                    public void onSuccess(Method method, TagDto tag) {
+                    public void onSuccess(final Method method, final TagDto tag) {
                         GWT.log("EditTagActivity: 'Load Tag' TagId: " + tag.getId());
                         setTag(tag);
                         EditTagActivity.this.display.setTagData(tag);
@@ -78,7 +78,7 @@ public class EditTagActivity extends AppAbstractActivity {
                     }
 
                     @Override
-                    public void onFailure(Method method, Throwable caught) {
+                    public void onFailure(final Method method, final Throwable caught) {
                         GWT.log("EditTagActivity: Error loading data");
                         Window.alert(getConstants().errorLoadingTag());
                     }
@@ -90,7 +90,7 @@ public class EditTagActivity extends AppAbstractActivity {
                 display.getSaveButton().addClickHandler(new ClickHandler() {
 
                     @Override
-                    public void onClick(ClickEvent event) {
+                    public void onClick(final ClickEvent event) {
                         GWT.log("EditTagActivity: 'Submit' button clicked");
                         if (!display.validate()) {
                             return;
@@ -104,7 +104,7 @@ public class EditTagActivity extends AppAbstractActivity {
                 display.getCancelButton().addClickHandler(new ClickHandler() {
 
                     @Override
-                    public void onClick(ClickEvent event) {
+                    public void onClick(final ClickEvent event) {
                         GWT.log("EditTagActivity: 'Cancel' button clicked");
                         History.back();
                     }
@@ -115,12 +115,12 @@ public class EditTagActivity extends AppAbstractActivity {
         return this.tag;
     }
 
-    private void setTag(TagDto tag) {
+    private void setTag(final TagDto tag) {
         this.tag = tag;
     }
 
     @Override
-    public void start(AcceptsOneWidget container, EventBus eventBus) {
+    public void start(final AcceptsOneWidget container, final EventBus eventBus) {
         container.setWidget(display.asWidget());
     }
 
@@ -137,7 +137,7 @@ public class EditTagActivity extends AppAbstractActivity {
                     new MethodCallback<TagDto>() {
 
                         @Override
-                        public void onSuccess(Method method, TagDto tag) {
+                        public void onSuccess(final Method method, final TagDto tag) {
                             if (tag == null) {
                                 GWT.log("EditTagActivity: Tag does not exist.  Creating new Tag");
                                 saveTag(getTag());
@@ -149,7 +149,7 @@ public class EditTagActivity extends AppAbstractActivity {
                         }
 
                         @Override
-                        public void onFailure(Method method, Throwable caught) {
+                        public void onFailure(final Method method, final Throwable caught) {
                             // server may return a 404 if the Tag is not found
                             // this is not really a problem but we handle it here
                             if (caught instanceof FailedStatusCodeException) {
@@ -168,19 +168,19 @@ public class EditTagActivity extends AppAbstractActivity {
         }
     }
 
-    private void saveTag(TagDto tag) {
+    private void saveTag(final TagDto tag) {
         tagService.postTags(ConstsUtil.DEFAULT_AUTH_HEADER, tag,
                 new MethodCallback<TagDto>() {
 
                     @Override
-                    public void onSuccess(Method method, TagDto result) {
+                    public void onSuccess(final Method method, final TagDto result) {
                         GWT.log("EditTagActivity: Tag Saved:" + result);
                         EditTagActivity.this.display.getSubmitEnabled().setEnabled(true);
                         getPlaceController().goTo(new ListTagsPlace(""));
                     }
 
                     @Override
-                    public void onFailure(Method method, Throwable caught) {
+                    public void onFailure(final Method method, final Throwable caught) {
                         GWT.log("EditTagActivity: Error saving data");
                         Window.alert(getConstants().errorSavingTag());
                         EditTagActivity.this.display.getSubmitEnabled().setEnabled(true);
@@ -188,19 +188,19 @@ public class EditTagActivity extends AppAbstractActivity {
                 });
     }
 
-    private void updateTag(TagDto tag) {
+    private void updateTag(final TagDto tag) {
         tagService.putTag(ConstsUtil.DEFAULT_AUTH_HEADER, tag.getId(), tag,
                 new MethodCallback<java.lang.Void>() {
 
                     @Override
-                    public void onSuccess(Method method, java.lang.Void result) {
+                    public void onSuccess(final Method method, final java.lang.Void result) {
                         GWT.log("EditTagActivity: Tag updated");
                         EditTagActivity.this.display.getSubmitEnabled().setEnabled(true);
                         getPlaceController().goTo(new ListTagsPlace(""));
                     }
 
                     @Override
-                    public void onFailure(Method method, Throwable caught) {
+                    public void onFailure(final Method method, final Throwable caught) {
                         GWT.log("EditTagActivity: Error saving data");
                         Window.alert(getConstants().errorSavingTag());
                         EditTagActivity.this.display.getSubmitEnabled().setEnabled(true);

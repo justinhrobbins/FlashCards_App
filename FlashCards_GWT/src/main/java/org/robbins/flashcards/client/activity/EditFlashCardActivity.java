@@ -38,7 +38,7 @@ public class EditFlashCardActivity extends AppAbstractActivity {
 
     private final EditFlashCardView display;
 
-    public EditFlashCardActivity(ClientFactory clientFactory) {
+    public EditFlashCardActivity(final ClientFactory clientFactory) {
         super(clientFactory);
         GWT.log("Creating 'EditFlashCardActivity'");
 
@@ -60,13 +60,13 @@ public class EditFlashCardActivity extends AppAbstractActivity {
                 new MethodCallback<List<TagDto>>() {
 
                     @Override
-                    public void onFailure(Method method, Throwable caught) {
+                    public void onFailure(final Method method, final Throwable caught) {
                         GWT.log("EditFlashCardActivity: Error loading Tags");
                         Window.alert(getConstants().errorLoadingTags());
                     }
 
                     @Override
-                    public void onSuccess(Method method, List<TagDto> result) {
+                    public void onSuccess(final Method method, final List<TagDto> result) {
                         GWT.log("TagsActivity: Loading Tag list: " + result.size()
                                 + " tags");
                         EditFlashCardActivity.this.display.setTagsData(result);
@@ -74,14 +74,16 @@ public class EditFlashCardActivity extends AppAbstractActivity {
                 });
     }
 
-    public EditFlashCardActivity(NewFlashCardPlace place, ClientFactory clientFactory) {
+    public EditFlashCardActivity(final NewFlashCardPlace place,
+            final ClientFactory clientFactory) {
         this(clientFactory);
         setFlashCard(new FlashCardDto());
 
         EditFlashCardActivity.this.display.setFlashCardData(null);
     }
 
-    public EditFlashCardActivity(EditFlashCardPlace place, ClientFactory clientFactory) {
+    public EditFlashCardActivity(final EditFlashCardPlace place,
+            final ClientFactory clientFactory) {
         this(clientFactory);
 
         Long id = Long.parseLong(place.getPlaceName());
@@ -91,13 +93,14 @@ public class EditFlashCardActivity extends AppAbstractActivity {
                 new MethodCallback<FlashCardDto>() {
 
                     @Override
-                    public void onFailure(Method method, Throwable caught) {
+                    public void onFailure(final Method method, final Throwable caught) {
                         GWT.log("EditFlashCardActivity: Error loading data");
                         Window.alert(getConstants().errorLoadingTag());
                     }
 
                     @Override
-                    public void onSuccess(Method method, FlashCardDto flashCard) {
+                    public void onSuccess(final Method method,
+                            final FlashCardDto flashCard) {
                         GWT.log("EditFlashCardActivity: 'Load FlashCard' FlashCardId: "
                                 + flashCard.getId());
                         EditFlashCardActivity.this.setFlashCard(flashCard);
@@ -111,7 +114,7 @@ public class EditFlashCardActivity extends AppAbstractActivity {
                 display.getSaveButton().addClickHandler(new ClickHandler() {
 
                     @Override
-                    public void onClick(ClickEvent event) {
+                    public void onClick(final ClickEvent event) {
                         GWT.log("EditFlashCardActivity: 'Submit' button clicked");
                         if (!display.validate()) {
                             return;
@@ -126,7 +129,7 @@ public class EditFlashCardActivity extends AppAbstractActivity {
                 display.getCancelButton().addClickHandler(new ClickHandler() {
 
                     @Override
-                    public void onClick(ClickEvent event) {
+                    public void onClick(final ClickEvent event) {
                         GWT.log("EditFlashCardActivity: 'Cancel' button clicked");
                         History.back();
                     }
@@ -137,12 +140,12 @@ public class EditFlashCardActivity extends AppAbstractActivity {
         return flashCard;
     }
 
-    public void setFlashCard(FlashCardDto flashCard) {
+    public void setFlashCard(final FlashCardDto flashCard) {
         this.flashCard = flashCard;
     }
 
     @Override
-    public void start(AcceptsOneWidget container, EventBus eventBus) {
+    public void start(final AcceptsOneWidget container, final EventBus eventBus) {
         container.setWidget(display.asWidget());
     }
 
@@ -161,12 +164,12 @@ public class EditFlashCardActivity extends AppAbstractActivity {
         }
     }
 
-    private void saveFlashCard(FlashCardDto flashcard) {
+    private void saveFlashCard(final FlashCardDto flashcard) {
         flashCardService.postFlashCards(ConstsUtil.DEFAULT_AUTH_HEADER, flashcard,
                 new MethodCallback<FlashCardDto>() {
 
                     @Override
-                    public void onFailure(Method method, Throwable caught) {
+                    public void onFailure(final Method method, final Throwable caught) {
                         GWT.log("EditFlashCardActivity: Error saving data");
                         Window.alert(getConstants().errorSavingTag());
                         EditFlashCardActivity.this.display.getSubmitEnabled().setEnabled(
@@ -174,7 +177,7 @@ public class EditFlashCardActivity extends AppAbstractActivity {
                     }
 
                     @Override
-                    public void onSuccess(Method method, FlashCardDto result) {
+                    public void onSuccess(final Method method, final FlashCardDto result) {
                         GWT.log("EditFlashCardActivity: FlashCard Saved:" + result);
                         EditFlashCardActivity.this.display.getSubmitEnabled().setEnabled(
                                 true);
@@ -183,12 +186,12 @@ public class EditFlashCardActivity extends AppAbstractActivity {
                 });
     }
 
-    private void updateFlashCard(FlashCardDto flashcard) {
+    private void updateFlashCard(final FlashCardDto flashcard) {
         flashCardService.putFlashCard(ConstsUtil.DEFAULT_AUTH_HEADER, flashcard.getId(),
                 flashcard, new MethodCallback<java.lang.Void>() {
 
                     @Override
-                    public void onFailure(Method method, Throwable caught) {
+                    public void onFailure(final Method method, final Throwable caught) {
                         GWT.log("EditFlashCardActivity: Error saving data");
                         Window.alert(getConstants().errorSavingTag());
                         EditFlashCardActivity.this.display.getSubmitEnabled().setEnabled(
@@ -196,7 +199,7 @@ public class EditFlashCardActivity extends AppAbstractActivity {
                     }
 
                     @Override
-                    public void onSuccess(Method method, java.lang.Void result) {
+                    public void onSuccess(final Method method, final java.lang.Void result) {
                         GWT.log("EditFlashCardActivity: FlashCard updated");
                         EditFlashCardActivity.this.display.getSubmitEnabled().setEnabled(
                                 true);
@@ -205,7 +208,7 @@ public class EditFlashCardActivity extends AppAbstractActivity {
                 });
     }
 
-    private Set<TagDto> getTags(List<String> tagsList) {
+    private Set<TagDto> getTags(final List<String> tagsList) {
         Set<TagDto> tags = new HashSet<TagDto>();
 
         if (tagsList.size() > 0) {

@@ -49,8 +49,8 @@ public class FlashCardListCell extends AbstractCell<List<FlashCardDto>> {
     }
 
     @Override
-    public void render(com.google.gwt.cell.client.Cell.Context context,
-            List<FlashCardDto> flashCardList, SafeHtmlBuilder sb) {
+    public void render(final com.google.gwt.cell.client.Cell.Context context,
+            final List<FlashCardDto> flashCardList, final SafeHtmlBuilder sb) {
         /*
          * Always do a null check on the value. Cell widgets can pass null to cells if the
          * underlying data contains a null, or if the data arrives out of order.
@@ -61,8 +61,6 @@ public class FlashCardListCell extends AbstractCell<List<FlashCardDto>> {
         }
 
         // generate the cell
-        // SafeStyles tagStyle =
-        // SafeStylesUtils.fromTrustedString("float:left; cursor:hand; cursor:pointer; text-decoration:none; color: #0066cc;");
         SafeStyles tagStyle = SafeStylesUtils.fromTrustedString("float:none;");
         String toRender = "";
 
@@ -79,9 +77,9 @@ public class FlashCardListCell extends AbstractCell<List<FlashCardDto>> {
      * that the Cell rendered.
      */
     @Override
-    public void onBrowserEvent(Context context, Element parent,
-            List<FlashCardDto> flashCardList, NativeEvent event,
-            ValueUpdater<List<FlashCardDto>> valueUpdater) {
+    public void onBrowserEvent(final Context context, final Element parent,
+            final List<FlashCardDto> flashCardList, final NativeEvent event,
+            final ValueUpdater<List<FlashCardDto>> valueUpdater) {
         // Let AbstractCell handle the keydown event.
         super.onBrowserEvent(context, parent, flashCardList, event, valueUpdater);
 
@@ -102,7 +100,8 @@ public class FlashCardListCell extends AbstractCell<List<FlashCardDto>> {
         }
     }
 
-    private void doAction(String value, ValueUpdater<List<FlashCardDto>> valueUpdater) {
+    private void doAction(final String value,
+            final ValueUpdater<List<FlashCardDto>> valueUpdater) {
         GWT.log("Cell clicked: " + value);
 
         // Trigger a value updater. In this case, the value doesn't actually

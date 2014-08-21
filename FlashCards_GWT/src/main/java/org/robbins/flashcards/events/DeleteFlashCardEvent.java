@@ -20,8 +20,8 @@ public class DeleteFlashCardEvent extends Event<DeleteFlashCardEventHandler> {
      * @param handler an {@link DeleteFlashCardEvent.Handler} instance
      * @return an {@link HandlerRegistration} instance
      */
-    public static HandlerRegistration register(EventBus eventBus,
-            DeleteFlashCardEventHandler handler) {
+    public static HandlerRegistration register(final EventBus eventBus,
+            final DeleteFlashCardEventHandler handler) {
         return eventBus.addHandler(TYPE, handler);
     }
 
@@ -31,7 +31,7 @@ public class DeleteFlashCardEvent extends Event<DeleteFlashCardEventHandler> {
 
     private final Long FlashCardId;
 
-    public DeleteFlashCardEvent(Long FlashCardId) {
+    public DeleteFlashCardEvent(final Long FlashCardId) {
         this.FlashCardId = FlashCardId;
     }
 
@@ -41,7 +41,7 @@ public class DeleteFlashCardEvent extends Event<DeleteFlashCardEventHandler> {
     }
 
     @Override
-    protected void dispatch(DeleteFlashCardEventHandler handler) {
+    protected void dispatch(final DeleteFlashCardEventHandler handler) {
         handler.onDeleteFlashcard(this);
     }
 }

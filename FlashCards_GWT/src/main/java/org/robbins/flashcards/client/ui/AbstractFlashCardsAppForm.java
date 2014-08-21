@@ -8,9 +8,9 @@ import com.google.gwt.user.client.ui.Composite;
 public abstract class AbstractFlashCardsAppForm extends Composite implements
         IsValidatable {
 
-    private AppConstants constants;
+    private final AppConstants constants;
 
-    public AbstractFlashCardsAppForm(ClientFactory clientFactory) {
+    public AbstractFlashCardsAppForm(final ClientFactory clientFactory) {
         constants = clientFactory.getConstants();
     }
 

@@ -22,8 +22,8 @@ public class SaveTagEvent extends Event<SaveTagEventHandler> {
      * @param handler an {@link SaveTagEvent.Handler} instance
      * @return an {@link HandlerRegistration} instance
      */
-    public static HandlerRegistration register(EventBus eventBus,
-            SaveTagEventHandler handler) {
+    public static HandlerRegistration register(final EventBus eventBus,
+            final SaveTagEventHandler handler) {
         return eventBus.addHandler(TYPE, handler);
     }
 
@@ -33,7 +33,7 @@ public class SaveTagEvent extends Event<SaveTagEventHandler> {
 
     private final TagDto tag;
 
-    public SaveTagEvent(TagDto tag) {
+    public SaveTagEvent(final TagDto tag) {
         this.tag = tag;
     }
 
@@ -43,7 +43,7 @@ public class SaveTagEvent extends Event<SaveTagEventHandler> {
     }
 
     @Override
-    protected void dispatch(SaveTagEventHandler handler) {
+    protected void dispatch(final SaveTagEventHandler handler) {
         handler.onSaveTag(this);
     }
 }

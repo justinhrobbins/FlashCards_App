@@ -14,7 +14,7 @@ public class Span extends HTML implements HasText {
         super(DOM.createElement("span"));
     }
 
-    public Span(String text) {
+    public Span(final String text) {
         this();
         setText(text);
     }

@@ -7,9 +7,9 @@ import com.google.gwt.place.shared.Prefix;
 
 public class EditTagPlace extends Place {
 
-    private String placeName;
+    private final String placeName;
 
-    public EditTagPlace(String token) {
+    public EditTagPlace(final String token) {
         this.placeName = token;
     }
 
@@ -21,12 +21,12 @@ public class EditTagPlace extends Place {
     public static class Tokenizer implements PlaceTokenizer<EditTagPlace> {
 
         @Override
-        public String getToken(EditTagPlace place) {
+        public String getToken(final EditTagPlace place) {
             return place.getPlaceName();
         }
 
         @Override
-        public EditTagPlace getPlace(String token) {
+        public EditTagPlace getPlace(final String token) {
             return new EditTagPlace(token);
         }
     }

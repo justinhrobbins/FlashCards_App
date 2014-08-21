@@ -43,8 +43,8 @@ public class LinkCell extends AbstractCell<String> {
     }
 
     @Override
-    public void render(com.google.gwt.cell.client.Cell.Context context, String value,
-            SafeHtmlBuilder sb) {
+    public void render(final com.google.gwt.cell.client.Cell.Context context,
+            final String value, final SafeHtmlBuilder sb) {
         /*
          * Always do a null check on the value. Cell widgets can pass null to cells if the
          * underlying data contains a null, or if the data arrives out of order.
@@ -67,8 +67,9 @@ public class LinkCell extends AbstractCell<String> {
      * that the Cell rendered.
      */
     @Override
-    public void onBrowserEvent(Context context, Element parent, String value,
-            NativeEvent event, ValueUpdater<String> valueUpdater) {
+    public void onBrowserEvent(final Context context, final Element parent,
+            final String value, final NativeEvent event,
+            final ValueUpdater<String> valueUpdater) {
         // Let AbstractCell handle the keydown event.
         super.onBrowserEvent(context, parent, value, event, valueUpdater);
 
@@ -89,12 +90,13 @@ public class LinkCell extends AbstractCell<String> {
      * that allows your cell to respond to key events.
      */
     @Override
-    protected void onEnterKeyDown(Context context, Element parent, String value,
-            NativeEvent event, ValueUpdater<String> valueUpdater) {
+    protected void onEnterKeyDown(final Context context, final Element parent,
+            final String value, final NativeEvent event,
+            final ValueUpdater<String> valueUpdater) {
         doAction(value, valueUpdater);
     }
 
-    private void doAction(String value, ValueUpdater<String> valueUpdater) {
+    private void doAction(final String value, final ValueUpdater<String> valueUpdater) {
         // Trigger a value updater. In this case, the value doesn't actually
         // change, but we use a ValueUpdater to let the app know that a value
         // was clicked.

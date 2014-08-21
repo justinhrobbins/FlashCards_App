@@ -18,15 +18,15 @@ public class TagDto extends AbstractAuditable<UserDto, Long> implements Serializ
     public TagDto() {
     }
 
-    public TagDto(Long id) {
+    public TagDto(final Long id) {
         setId(id);
     }
 
-    public TagDto(String name) {
+    public TagDto(final String name) {
         this.name = name;
     }
 
-    public TagDto(String name, Set<FlashCardDto> flashcards) {
+    public TagDto(final String name, final Set<FlashCardDto> flashcards) {
         this.name = name;
         this.flashcards = flashcards;
     }
@@ -35,7 +35,7 @@ public class TagDto extends AbstractAuditable<UserDto, Long> implements Serializ
         return this.name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -43,7 +43,7 @@ public class TagDto extends AbstractAuditable<UserDto, Long> implements Serializ
         return this.flashcards;
     }
 
-    public void setFlashcards(Set<FlashCardDto> flashcards) {
+    public void setFlashcards(final Set<FlashCardDto> flashcards) {
         this.flashcards = flashcards;
     }
 

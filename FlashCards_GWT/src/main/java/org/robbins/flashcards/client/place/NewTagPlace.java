@@ -5,9 +5,9 @@ import com.google.gwt.place.shared.Place;
 
 public class NewTagPlace extends Place {
 
-    private String placeName;
+    private final String placeName;
 
-    public NewTagPlace(String token) {
+    public NewTagPlace(final String token) {
         this.placeName = token;
     }
 

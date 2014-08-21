@@ -17,7 +17,7 @@ public class FlashCardFlexTable extends FlexTable {
 
     private final AppConstants constants;
 
-    public FlashCardFlexTable(ClientFactory clientFactory) {
+    public FlashCardFlexTable(final ClientFactory clientFactory) {
         super();
 
         this.constants = clientFactory.getConstants();
@@ -26,7 +26,7 @@ public class FlashCardFlexTable extends FlexTable {
         this.setWidth("100%");
     }
 
-    public void setInput(List<FlashCardDto> flashCards) {
+    public void setInput(final List<FlashCardDto> flashCards) {
         for (int i = this.getRowCount(); i > 0; i--) {
             this.removeRow(0);
         }

@@ -16,7 +16,7 @@ public class Paragraph extends Widget implements HasText {
         setElement(DOM.createElement("p"));
     }
 
-    public Paragraph(String text) {
+    public Paragraph(final String text) {
         this();
         setText(text);
     }
@@ -27,7 +27,7 @@ public class Paragraph extends Widget implements HasText {
     }
 
     @Override
-    public void setText(String text) {
+    public void setText(final String text) {
         getElement().setInnerText(text);
     }
 }

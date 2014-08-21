@@ -57,7 +57,7 @@ public class EditTagViewImplDesktop extends AbstractFlashCardsAppForm implements
     @UiField(provided = true)
     FlashCardFlexTable flashCards;
 
-    public EditTagViewImplDesktop(ClientFactory clientFactory) {
+    public EditTagViewImplDesktop(final ClientFactory clientFactory) {
         super(clientFactory);
 
         GWT.log("Creating 'EditTagViewImplDesktop'");
@@ -71,7 +71,7 @@ public class EditTagViewImplDesktop extends AbstractFlashCardsAppForm implements
         tagName.addKeyDownHandler(new KeyDownHandler() {
 
             @Override
-            public void onKeyDown(KeyDownEvent event) {
+            public void onKeyDown(final KeyDownEvent event) {
                 if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
                     submit.click();
                 }
@@ -110,7 +110,7 @@ public class EditTagViewImplDesktop extends AbstractFlashCardsAppForm implements
     }
 
     @Override
-    public void setTagData(TagDto tag) {
+    public void setTagData(final TagDto tag) {
         // getSubmitEnabled().setEnabled(true);
 
         if (tag == null) {
@@ -148,7 +148,7 @@ public class EditTagViewImplDesktop extends AbstractFlashCardsAppForm implements
     }
 
     @Override
-    public void setFlashCardsData(List<FlashCardDto> flashCards) {
+    public void setFlashCardsData(final List<FlashCardDto> flashCards) {
         this.flashCards.setInput(flashCards);
 
     }
@@ -165,7 +165,7 @@ public class EditTagViewImplDesktop extends AbstractFlashCardsAppForm implements
     }
 
     @Override
-    public void displayTagNameValidationMessage(String message) {
+    public void displayTagNameValidationMessage(final String message) {
         tagName.dispayValidationMessage(message);
     }
 

@@ -11,11 +11,11 @@ public class SimpleWidgetPanel extends LayoutPanel implements AcceptsOneWidget {
     private Widget widget;
 
     @Override
-    public void setWidget(IsWidget w) {
+    public void setWidget(final IsWidget w) {
         setOneWidget(asWidgetOrNull(w));
     }
 
-    private void setOneWidget(Widget w) {
+    private void setOneWidget(final Widget w) {
         // validate
         if (w == widget) {
             return;

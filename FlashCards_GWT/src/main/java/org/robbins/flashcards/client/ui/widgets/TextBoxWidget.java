@@ -36,12 +36,12 @@ public class TextBoxWidget extends AbstractWidget implements HasText, HasKeyDown
     }
 
     @UiHandler("textBox")
-    public void textBoxHasFocus(FocusEvent event) {
+    public void textBoxHasFocus(final FocusEvent event) {
         hideValidationMessage();
     }
 
     @Override
-    public void dispayValidationMessage(String message) {
+    public void dispayValidationMessage(final String message) {
         label.dispayValidationMessage(message);
         setBorderStyle(textBox, FormStyleResource.INSTANCE.formStyles().borderError());
     }
@@ -58,22 +58,22 @@ public class TextBoxWidget extends AbstractWidget implements HasText, HasKeyDown
     }
 
     @Override
-    public void setText(String text) {
+    public void setText(final String text) {
         textBox.setText(text);
     }
 
     @Override
-    public void setLabel(String text) {
+    public void setLabel(final String text) {
         label.setText(text);
     }
 
     @Override
-    public void setWidth(String width) {
+    public void setWidth(final String width) {
         textBox.setWidth(width);
     }
 
     @Override
-    public void isRequired(boolean required) {
+    public void isRequired(final boolean required) {
         label.isRequired(required);
     }
 
@@ -84,18 +84,18 @@ public class TextBoxWidget extends AbstractWidget implements HasText, HasKeyDown
     }
 
     @Override
-    public void setAccessKey(char key) {
+    public void setAccessKey(final char key) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void setFocus(boolean focused) {
+    public void setFocus(final boolean focused) {
         textBox.setFocus(true);
     }
 
     @Override
-    public void setTabIndex(int index) {
+    public void setTabIndex(final int index) {
         // TODO Auto-generated method stub
     }
 
@@ -104,7 +104,7 @@ public class TextBoxWidget extends AbstractWidget implements HasText, HasKeyDown
     }
 
     @Override
-    public HandlerRegistration addKeyDownHandler(KeyDownHandler handler) {
+    public HandlerRegistration addKeyDownHandler(final KeyDownHandler handler) {
         return textBox.addKeyDownHandler(handler);
     }
 }

@@ -69,7 +69,7 @@ public class EditFlashCardViewImplDesktop extends AbstractFlashCardsAppForm impl
     @UiField
     Button cancel;
 
-    public EditFlashCardViewImplDesktop(ClientFactory clientFactory) {
+    public EditFlashCardViewImplDesktop(final ClientFactory clientFactory) {
         super(clientFactory);
 
         GWT.log("Creating 'EditFlashCardViewImplDesktop'");
@@ -84,7 +84,7 @@ public class EditFlashCardViewImplDesktop extends AbstractFlashCardsAppForm impl
         question.addKeyDownHandler(new KeyDownHandler() {
 
             @Override
-            public void onKeyDown(KeyDownEvent event) {
+            public void onKeyDown(final KeyDownEvent event) {
                 if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
                     submit.click();
                 }
@@ -112,7 +112,7 @@ public class EditFlashCardViewImplDesktop extends AbstractFlashCardsAppForm impl
     }
 
     @Override
-    public void setFlashCardData(FlashCardDto flashCard) {
+    public void setFlashCardData(final FlashCardDto flashCard) {
         tagsWidget.removeItems();
         // getSubmitEnabled().setEnabled(true);
 
@@ -152,7 +152,7 @@ public class EditFlashCardViewImplDesktop extends AbstractFlashCardsAppForm impl
         question.setFocus(true);
     }
 
-    private void setTags(Set<TagDto> tags) {
+    private void setTags(final Set<TagDto> tags) {
         List<String> tagList = new ArrayList<String>();
         if (tags.size() > 0) {
             for (TagDto tag : tags) {
@@ -163,7 +163,7 @@ public class EditFlashCardViewImplDesktop extends AbstractFlashCardsAppForm impl
     }
 
     @Override
-    public void setTagsData(List<TagDto> tags) {
+    public void setTagsData(final List<TagDto> tags) {
         if (tags == null) {
             return;
         }
@@ -220,7 +220,7 @@ public class EditFlashCardViewImplDesktop extends AbstractFlashCardsAppForm impl
     }
 
     @Override
-    public void displayQuestionValidationMessage(String message) {
+    public void displayQuestionValidationMessage(final String message) {
         question.dispayValidationMessage(message);
     }
 

@@ -23,9 +23,9 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class ShellViewImplDesktop extends Composite implements ShellView {
 
-    private ClientFactory clientFactory;
+    private final ClientFactory clientFactory;
 
-    private AppConstants constants;
+    private final AppConstants constants;
 
     private static MyDockLayoutPanelUiBinder uiBinder = GWT.create(MyDockLayoutPanelUiBinder.class);
 
@@ -47,7 +47,7 @@ public class ShellViewImplDesktop extends Composite implements ShellView {
     @UiField
     InlineHyperlink loginLogoutLink;
 
-    public ShellViewImplDesktop(ClientFactory clientFactory) {
+    public ShellViewImplDesktop(final ClientFactory clientFactory) {
         GWT.log("Creating 'ShellViewImplDesktop'");
 
         this.clientFactory = clientFactory;
@@ -76,12 +76,12 @@ public class ShellViewImplDesktop extends Composite implements ShellView {
     }
 
     @Override
-    public void setLogoutToken(String token) {
+    public void setLogoutToken(final String token) {
         loginLogoutLink.setTargetHistoryToken(token);
     }
 
     @Override
-    public void setLoggedInUser(UserDto user) {
+    public void setLoggedInUser(final UserDto user) {
         if (user == null) {
             loginLogoutLink.setText(constants.login());
             loggedInUser.setText("");
