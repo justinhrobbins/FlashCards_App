@@ -23,7 +23,7 @@ import com.google.gwt.view.client.ListDataProvider;
 
 public class FlashCardCellTable extends CellTable<FlashCardDto> {
 
-    private DateTimeFormat dateFormat = DateTimeFormat.getFormat("MM/dd/yyyy");
+    private final DateTimeFormat dateFormat = DateTimeFormat.getFormat("MM/dd/yyyy");
 
     private LinkCell questionCell;
 
@@ -56,7 +56,7 @@ public class FlashCardCellTable extends CellTable<FlashCardDto> {
         formatCellTable();
     }
 
-    public void setInput(List<FlashCardDto> tags) {
+    public void setInput(final List<FlashCardDto> tags) {
 
         bindData(tags);
 
@@ -65,7 +65,7 @@ public class FlashCardCellTable extends CellTable<FlashCardDto> {
         this.setRowCount(flashCardsList.size(), true);
     }
 
-    private void bindData(List<FlashCardDto> tags) {
+    private void bindData(final List<FlashCardDto> tags) {
         dataProvider = new ListDataProvider<FlashCardDto>();
 
         // Connect the table to the data provider.
@@ -96,7 +96,7 @@ public class FlashCardCellTable extends CellTable<FlashCardDto> {
                 new Comparator<FlashCardDto>() {
 
                     @Override
-                    public int compare(FlashCardDto o1, FlashCardDto o2) {
+                    public int compare(final FlashCardDto o1, final FlashCardDto o2) {
                         if (o1 == o2) {
                             return 0;
                         }
@@ -119,7 +119,7 @@ public class FlashCardCellTable extends CellTable<FlashCardDto> {
                 new Comparator<FlashCardDto>() {
 
                     @Override
-                    public int compare(FlashCardDto o1, FlashCardDto o2) {
+                    public int compare(final FlashCardDto o1, final FlashCardDto o2) {
                         if (o1 == o2) {
                             return 0;
                         }
@@ -142,7 +142,7 @@ public class FlashCardCellTable extends CellTable<FlashCardDto> {
                 new Comparator<FlashCardDto>() {
 
                     @Override
-                    public int compare(FlashCardDto o1, FlashCardDto o2) {
+                    public int compare(final FlashCardDto o1, final FlashCardDto o2) {
                         if (o1 == o2) {
                             return 0;
                         }
@@ -168,7 +168,7 @@ public class FlashCardCellTable extends CellTable<FlashCardDto> {
         questionColumn = new Column<FlashCardDto, String>(questionCell) {
 
             @Override
-            public String getValue(FlashCardDto object) {
+            public String getValue(final FlashCardDto object) {
                 return object.getQuestion();
             }
         };
@@ -179,7 +179,8 @@ public class FlashCardCellTable extends CellTable<FlashCardDto> {
         questionColumn.setFieldUpdater(new FieldUpdater<FlashCardDto, String>() {
 
             @Override
-            public void update(int index, FlashCardDto object, String value) {
+            public void update(final int index, final FlashCardDto object,
+                    final String value) {
                 AppUtils.EVENT_BUS.fireEvent(new LoadFlashCardEvent(object.getId()));
             }
         });
@@ -188,7 +189,7 @@ public class FlashCardCellTable extends CellTable<FlashCardDto> {
         tagsColumn = new Column<FlashCardDto, List<TagDto>>(tagsCell) {
 
             @Override
-            public List<TagDto> getValue(FlashCardDto object) {
+            public List<TagDto> getValue(final FlashCardDto object) {
                 return object.getTagsAsList();
             }
         };
@@ -199,7 +200,8 @@ public class FlashCardCellTable extends CellTable<FlashCardDto> {
         tagsColumn.setFieldUpdater(new FieldUpdater<FlashCardDto, List<TagDto>>() {
 
             @Override
-            public void update(int index, FlashCardDto object, List<TagDto> tagList) {
+            public void update(final int index, final FlashCardDto object,
+                    final List<TagDto> tagList) {
                 GWT.log("update: " + tagList.get(0).getId());
                 AppUtils.EVENT_BUS.fireEvent(new LoadTagEvent(tagList.get(0).getId()));
             }
@@ -209,7 +211,7 @@ public class FlashCardCellTable extends CellTable<FlashCardDto> {
         dateCreatedColumn = new Column<FlashCardDto, Date>(dateCreatedCell) {
 
             @Override
-            public Date getValue(FlashCardDto tag) {
+            public Date getValue(final FlashCardDto tag) {
                 return tag.getCreatedDate();
             }
         };
@@ -220,7 +222,7 @@ public class FlashCardCellTable extends CellTable<FlashCardDto> {
         dateUpdatedColumn = new Column<FlashCardDto, Date>(dateUpdatedCell) {
 
             @Override
-            public Date getValue(FlashCardDto tag) {
+            public Date getValue(final FlashCardDto tag) {
                 return tag.getLastModifiedDate();
             }
         };

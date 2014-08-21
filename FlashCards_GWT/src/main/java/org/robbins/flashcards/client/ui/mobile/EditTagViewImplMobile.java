@@ -83,7 +83,7 @@ public class EditTagViewImplMobile extends Composite implements EditTagView {
     }
 
     @Override
-    public void setTagData(TagDto tag) {
+    public void setTagData(final TagDto tag) {
 
         if (tag == null) {
             getName().setText("");
@@ -107,9 +107,8 @@ public class EditTagViewImplMobile extends Composite implements EditTagView {
     }
 
     @Override
-    public void setFlashCardsData(List<FlashCardDto> flashCards) {
+    public void setFlashCardsData(final List<FlashCardDto> flashCards) {
         this.flashCards.setInput(flashCards);
-
     }
 
     @Override
@@ -124,7 +123,7 @@ public class EditTagViewImplMobile extends Composite implements EditTagView {
     }
 
     @Override
-    public void displayTagNameValidationMessage(String message) {
+    public void displayTagNameValidationMessage(final String message) {
         // TODO Auto-generated method stub
     }
 

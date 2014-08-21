@@ -23,13 +23,13 @@ public class ShellActivity extends AppAbstractActivity {
 
     private final ShellView shellView;
 
-    private ClientFactory clientFactory;
+    private final ClientFactory clientFactory;
 
     private final UserRestService userService;
 
     private final AppPlaceHistoryMapper historyMapper;
 
-    public ShellActivity(ShellPlace place, ClientFactory clientFactory) {
+    public ShellActivity(final ShellPlace place, final ClientFactory clientFactory) {
         super(clientFactory);
 
         GWT.log("Creating 'ShellActivity'");
@@ -45,7 +45,7 @@ public class ShellActivity extends AppAbstractActivity {
     }
 
     @Override
-    public void start(AcceptsOneWidget container, EventBus eventBus) {
+    public void start(final AcceptsOneWidget container, final EventBus eventBus) {
         container.setWidget(shellView);
     }
 
@@ -70,13 +70,13 @@ public class ShellActivity extends AppAbstractActivity {
                 clientFactory.getLoggedInUser().getId(), new MethodCallback<UserDto>() {
 
                     @Override
-                    public void onFailure(Method method, Throwable caught) {
+                    public void onFailure(final Method method, final Throwable caught) {
                         GWT.log("ShellActivity: Error loading data");
                         Window.alert(getConstants().errorLoadingTags());
                     }
 
                     @Override
-                    public void onSuccess(Method method, UserDto user) {
+                    public void onSuccess(final Method method, final UserDto user) {
                         GWT.log("ShellActivity: Loading User: " + user.getEmail());
 
                         // now that we have the full user info, update the user logged in

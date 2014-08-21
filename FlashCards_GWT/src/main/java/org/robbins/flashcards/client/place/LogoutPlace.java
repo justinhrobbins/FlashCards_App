@@ -5,9 +5,9 @@ import com.google.gwt.place.shared.Place;
 
 public class LogoutPlace extends Place {
 
-    private String placeName;
+    private final String placeName;
 
-    public LogoutPlace(String token) {
+    public LogoutPlace(final String token) {
         this.placeName = token;
     }
 

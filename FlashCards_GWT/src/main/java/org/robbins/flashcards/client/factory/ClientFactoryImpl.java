@@ -82,7 +82,7 @@ public class ClientFactoryImpl implements ClientFactory {
     }
 
     @Override
-    public void setLoggedInUser(UserDto loggedInUser) {
+    public void setLoggedInUser(final UserDto loggedInUser) {
         this.loggedInUser = loggedInUser;
     }
 

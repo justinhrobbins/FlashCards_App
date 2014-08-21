@@ -49,8 +49,8 @@ public class TagListCell extends AbstractCell<List<TagDto>> {
     }
 
     @Override
-    public void render(com.google.gwt.cell.client.Cell.Context context,
-            List<TagDto> tagList, SafeHtmlBuilder sb) {
+    public void render(final com.google.gwt.cell.client.Cell.Context context,
+            final List<TagDto> tagList, final SafeHtmlBuilder sb) {
         /*
          * Always do a null check on the value. Cell widgets can pass null to cells if the
          * underlying data contains a null, or if the data arrives out of order.
@@ -82,8 +82,9 @@ public class TagListCell extends AbstractCell<List<TagDto>> {
      * that the Cell rendered.
      */
     @Override
-    public void onBrowserEvent(Context context, Element parent, List<TagDto> tagList,
-            NativeEvent event, ValueUpdater<List<TagDto>> valueUpdater) {
+    public void onBrowserEvent(final Context context, final Element parent,
+            final List<TagDto> tagList, final NativeEvent event,
+            final ValueUpdater<List<TagDto>> valueUpdater) {
         // Let AbstractCell handle the keydown event.
         super.onBrowserEvent(context, parent, tagList, event, valueUpdater);
 
@@ -104,7 +105,8 @@ public class TagListCell extends AbstractCell<List<TagDto>> {
         }
     }
 
-    private void doAction(String value, ValueUpdater<List<TagDto>> valueUpdater) {
+    private void doAction(final String value,
+            final ValueUpdater<List<TagDto>> valueUpdater) {
         GWT.log("Cell clicked: " + value);
 
         // Trigger a value updater. In this case, the value doesn't actually

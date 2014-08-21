@@ -27,11 +27,11 @@ public class ListItem extends ComplexPanel implements HasText, HasHTML, HasClick
     }
 
     @Override
-    public void add(Widget w) {
+    public void add(final Widget w) {
         super.add(w, getElement());
     }
 
-    public void insert(Widget w, int beforeIndex) {
+    public void insert(final Widget w, final int beforeIndex) {
         super.insert(w, getElement(), beforeIndex, true);
     }
 
@@ -41,11 +41,11 @@ public class ListItem extends ComplexPanel implements HasText, HasHTML, HasClick
     }
 
     @Override
-    public void setText(String text) {
+    public void setText(final String text) {
         DOM.setInnerText(getElement(), (text == null) ? "" : text);
     }
 
-    public void setId(String id) {
+    public void setId(final String id) {
         DOM.setElementAttribute(getElement(), "id", id);
     }
 
@@ -55,22 +55,22 @@ public class ListItem extends ComplexPanel implements HasText, HasHTML, HasClick
     }
 
     @Override
-    public void setHTML(String html) {
+    public void setHTML(final String html) {
         DOM.setInnerHTML(getElement(), (html == null) ? "" : html);
     }
 
     @Override
-    public HandlerRegistration addClickHandler(ClickHandler handler) {
+    public HandlerRegistration addClickHandler(final ClickHandler handler) {
         return addDomHandler(handler, ClickEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addKeyDownHandler(KeyDownHandler handler) {
+    public HandlerRegistration addKeyDownHandler(final KeyDownHandler handler) {
         return addDomHandler(handler, KeyDownEvent.getType());
     }
 
     @Override
-    public HandlerRegistration addBlurHandler(BlurHandler handler) {
+    public HandlerRegistration addBlurHandler(final BlurHandler handler) {
         return addDomHandler(handler, BlurEvent.getType());
     }
 }

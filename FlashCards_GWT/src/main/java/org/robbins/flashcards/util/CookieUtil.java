@@ -12,7 +12,7 @@ public final class CookieUtil {
 
     public static final int dayInSeconds = 86400;
 
-    public static Cookie findCookie(HttpServletRequest request, String name) {
+    public static Cookie findCookie(final HttpServletRequest request, final String name) {
         final Cookie[] cookies = request.getCookies();
 
         if (cookies == null) {
@@ -28,14 +28,15 @@ public final class CookieUtil {
         return null;
     }
 
-    public static String getCookieValue(HttpServletRequest request, String name) {
+    public static String getCookieValue(final HttpServletRequest request,
+            final String name) {
         Cookie cookie = findCookie(request, name);
 
         return cookie != null ? cookie.getValue() : null;
     }
 
-    public static void resetCookie(HttpServletRequest request,
-            HttpServletResponse response, String name) {
+    public static void resetCookie(final HttpServletRequest request,
+            final HttpServletResponse response, final String name) {
         Cookie cookie = findCookie(request, name);
         if (cookie != null) {
             cookie.setMaxAge(0);
@@ -43,8 +44,9 @@ public final class CookieUtil {
         }
     }
 
-    public static void setCookie(HttpServletRequest request,
-            HttpServletResponse response, final String cookieName, String cookieValue) {
+    public static void setCookie(final HttpServletRequest request,
+            final HttpServletResponse response, final String cookieName,
+            final String cookieValue) {
         Cookie cookie = findCookie(request, cookieName);
 
         if (cookie == null) {

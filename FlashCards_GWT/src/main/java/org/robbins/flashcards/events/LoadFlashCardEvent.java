@@ -20,8 +20,8 @@ public class LoadFlashCardEvent extends Event<LoadFlashCardEventHandler> {
      * @param handler an {@link LoadTagEvent.Handler} instance
      * @return an {@link HandlerRegistration} instance
      */
-    public static HandlerRegistration register(EventBus eventBus,
-            LoadFlashCardEventHandler handler) {
+    public static HandlerRegistration register(final EventBus eventBus,
+            final LoadFlashCardEventHandler handler) {
         return eventBus.addHandler(TYPE, handler);
     }
 
@@ -31,7 +31,7 @@ public class LoadFlashCardEvent extends Event<LoadFlashCardEventHandler> {
 
     private final Long flashCardId;
 
-    public LoadFlashCardEvent(Long flashCardId) {
+    public LoadFlashCardEvent(final Long flashCardId) {
         this.flashCardId = flashCardId;
     }
 
@@ -41,7 +41,7 @@ public class LoadFlashCardEvent extends Event<LoadFlashCardEventHandler> {
     }
 
     @Override
-    protected void dispatch(LoadFlashCardEventHandler handler) {
+    protected void dispatch(final LoadFlashCardEventHandler handler) {
         handler.onLoadFlashCard(this);
     }
 }

@@ -12,7 +12,7 @@ import com.google.gwt.place.shared.Prefix;
 public class AppTokenizer implements PlaceTokenizer<Place> {
 
     @Override
-    public Place getPlace(String token) {
+    public Place getPlace(final String token) {
         GWT.log("AppTokenizer - Token: " + token);
 
         if (token.equals(ConstsUtil.TAG_FORM)) {
@@ -40,7 +40,7 @@ public class AppTokenizer implements PlaceTokenizer<Place> {
     }
 
     @Override
-    public String getToken(Place place) {
+    public String getToken(final Place place) {
 
         if (place instanceof NewTagPlace) {
             return ((NewTagPlace) place).getPlaceName();

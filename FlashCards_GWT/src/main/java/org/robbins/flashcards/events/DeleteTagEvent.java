@@ -20,8 +20,8 @@ public class DeleteTagEvent extends Event<DeleteTagEventHandler> {
      * @param handler an {@link DeleteTagEvent.Handler} instance
      * @return an {@link HandlerRegistration} instance
      */
-    public static HandlerRegistration register(EventBus eventBus,
-            DeleteTagEventHandler handler) {
+    public static HandlerRegistration register(final EventBus eventBus,
+            final DeleteTagEventHandler handler) {
         return eventBus.addHandler(TYPE, handler);
     }
 
@@ -31,7 +31,7 @@ public class DeleteTagEvent extends Event<DeleteTagEventHandler> {
 
     private final Long tagId;
 
-    public DeleteTagEvent(Long tagId) {
+    public DeleteTagEvent(final Long tagId) {
         this.tagId = tagId;
     }
 
@@ -41,7 +41,7 @@ public class DeleteTagEvent extends Event<DeleteTagEventHandler> {
     }
 
     @Override
-    protected void dispatch(DeleteTagEventHandler handler) {
+    protected void dispatch(final DeleteTagEventHandler handler) {
         handler.onDeleteTag(this);
     }
 }

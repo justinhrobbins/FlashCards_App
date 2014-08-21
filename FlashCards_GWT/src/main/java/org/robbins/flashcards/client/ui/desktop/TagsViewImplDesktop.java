@@ -58,10 +58,10 @@ public class TagsViewImplDesktop extends CellTable<TagDto> implements TagsView {
 
     private List<TagDto> tagsList;
 
-    private Images images = (Images) GWT.create(Images.class);
+    private final Images images = (Images) GWT.create(Images.class);
 
-    public TagsViewImplDesktop(EventBus eventBus, int pageSize,
-            CellTable.Resources resources, ClientFactory clientFactory) {
+    public TagsViewImplDesktop(final EventBus eventBus, final int pageSize,
+            final CellTable.Resources resources, final ClientFactory clientFactory) {
         super(pageSize, resources);
 
         GWT.log("Creating 'TagsViewImplDesktop'");
@@ -76,7 +76,7 @@ public class TagsViewImplDesktop extends CellTable<TagDto> implements TagsView {
         formatCellTable();
     }
 
-    private void bindData(List<TagDto> tags) {
+    private void bindData(final List<TagDto> tags) {
         dataProvider = new ListDataProvider<TagDto>();
 
         // Connect the table to the data provider.
@@ -105,7 +105,7 @@ public class TagsViewImplDesktop extends CellTable<TagDto> implements TagsView {
         nameColumnSortHandler.setComparator(nameColumn, new Comparator<TagDto>() {
 
             @Override
-            public int compare(TagDto o1, TagDto o2) {
+            public int compare(final TagDto o1, final TagDto o2) {
                 if (o1 == o2) {
                     return 0;
                 }
@@ -130,7 +130,7 @@ public class TagsViewImplDesktop extends CellTable<TagDto> implements TagsView {
         nameColumn = new Column<TagDto, String>(tagNameCell) {
 
             @Override
-            public String getValue(TagDto object) {
+            public String getValue(final TagDto object) {
                 return object.getName();
             }
         };
@@ -141,7 +141,7 @@ public class TagsViewImplDesktop extends CellTable<TagDto> implements TagsView {
         nameColumn.setFieldUpdater(new FieldUpdater<TagDto, String>() {
 
             @Override
-            public void update(int index, TagDto object, String value) {
+            public void update(final int index, final TagDto object, final String value) {
                 eventBus.fireEvent(new LoadTagEvent(object.getId()));
             }
         });
@@ -150,7 +150,7 @@ public class TagsViewImplDesktop extends CellTable<TagDto> implements TagsView {
         flashCardsColumn = new Column<TagDto, List<FlashCardDto>>(flashCardsCell) {
 
             @Override
-            public List<FlashCardDto> getValue(TagDto object) {
+            public List<FlashCardDto> getValue(final TagDto object) {
                 return object.getFlashcardsAsList();
             }
         };
@@ -161,7 +161,8 @@ public class TagsViewImplDesktop extends CellTable<TagDto> implements TagsView {
         flashCardsColumn.setFieldUpdater(new FieldUpdater<TagDto, List<FlashCardDto>>() {
 
             @Override
-            public void update(int index, TagDto object, List<FlashCardDto> flashCardList) {
+            public void update(final int index, final TagDto object,
+                    final List<FlashCardDto> flashCardList) {
                 GWT.log("update: " + flashCardList.get(0).getId());
                 eventBus.fireEvent(new LoadFlashCardEvent(flashCardList.get(0).getId()));
             }
@@ -171,14 +172,14 @@ public class TagsViewImplDesktop extends CellTable<TagDto> implements TagsView {
         editColumn = new Column<TagDto, ImageResource>(editCell) {
 
             @Override
-            public void onBrowserEvent(Context context, Element elem, TagDto object,
-                    NativeEvent event) {
+            public void onBrowserEvent(final Context context, final Element elem,
+                    final TagDto object, final NativeEvent event) {
                 GWT.log("Click on Edit cell for: " + object.getId());
                 eventBus.fireEvent(new LoadTagEvent(object.getId()));
             }
 
             @Override
-            public ImageResource getValue(TagDto object) {
+            public ImageResource getValue(final TagDto object) {
                 return images.edit();
             }
         };
@@ -189,8 +190,8 @@ public class TagsViewImplDesktop extends CellTable<TagDto> implements TagsView {
         deleteColumn = new Column<TagDto, TagDto>(deleteCell) {
 
             @Override
-            public void onBrowserEvent(Context context, Element elem, TagDto object,
-                    NativeEvent event) {
+            public void onBrowserEvent(final Context context, final Element elem,
+                    final TagDto object, final NativeEvent event) {
                 if (object.getFlashcards().size() == 0) {
                     GWT.log("Click on Delete cell for: " + object.getId());
                     eventBus.fireEvent(new DeleteTagEvent(object.getId()));
@@ -198,7 +199,7 @@ public class TagsViewImplDesktop extends CellTable<TagDto> implements TagsView {
             }
 
             @Override
-            public TagDto getValue(TagDto object) {
+            public TagDto getValue(final TagDto object) {
                 return object;
             }
         };
@@ -213,7 +214,7 @@ public class TagsViewImplDesktop extends CellTable<TagDto> implements TagsView {
     }
 
     @Override
-    public void setData(List<TagDto> data) {
+    public void setData(final List<TagDto> data) {
         bindData(data);
 
         createColumnSorting();
@@ -224,7 +225,7 @@ public class TagsViewImplDesktop extends CellTable<TagDto> implements TagsView {
     }
 
     @Override
-    public int getClickedRow(LoadTagEvent event) {
+    public int getClickedRow(final LoadTagEvent event) {
         // TODO Auto-generated method stub
         return 0;
     }

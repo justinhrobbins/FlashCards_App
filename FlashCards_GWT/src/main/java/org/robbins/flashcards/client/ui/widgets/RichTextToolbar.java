@@ -129,7 +129,7 @@ public class RichTextToolbar extends Composite {
     private class EventHandler implements ClickHandler, ChangeHandler, KeyUpHandler {
 
         @Override
-        public void onChange(ChangeEvent event) {
+        public void onChange(final ChangeEvent event) {
             Widget sender = (Widget) event.getSource();
 
             if (sender == backColors) {
@@ -148,7 +148,7 @@ public class RichTextToolbar extends Composite {
         }
 
         @Override
-        public void onClick(ClickEvent event) {
+        public void onClick(final ClickEvent event) {
             Widget sender = (Widget) event.getSource();
 
             if (sender.equals(bold)) {
@@ -202,7 +202,7 @@ public class RichTextToolbar extends Composite {
         }
 
         @Override
-        public void onKeyUp(KeyUpEvent event) {
+        public void onKeyUp(final KeyUpEvent event) {
             Widget sender = (Widget) event.getSource();
             if (sender.equals(richText)) {
                 // We use the RichTextArea's onKeyUp event to update the toolbar status.
@@ -219,23 +219,23 @@ public class RichTextToolbar extends Composite {
         RichTextArea.FontSize.LARGE, RichTextArea.FontSize.X_LARGE,
         RichTextArea.FontSize.XX_LARGE };
 
-    private Images images = (Images) GWT.create(Images.class);
+    private final Images images = (Images) GWT.create(Images.class);
 
-    private Strings strings = (Strings) GWT.create(Strings.class);
+    private final Strings strings = (Strings) GWT.create(Strings.class);
 
-    private EventHandler handler = new EventHandler();
+    private final EventHandler handler = new EventHandler();
 
-    private RichTextArea richText;
+    private final RichTextArea richText;
 
-    private RichTextArea.BasicFormatter basic;
+    private final RichTextArea.BasicFormatter basic;
 
-    private RichTextArea.ExtendedFormatter extended;
+    private final RichTextArea.ExtendedFormatter extended;
 
-    private VerticalPanel outer = new VerticalPanel();
+    private final VerticalPanel outer = new VerticalPanel();
 
-    private HorizontalPanel topPanel = new HorizontalPanel();
+    private final HorizontalPanel topPanel = new HorizontalPanel();
 
-    private HorizontalPanel bottomPanel = new HorizontalPanel();
+    private final HorizontalPanel bottomPanel = new HorizontalPanel();
 
     private ToggleButton bold;
 
@@ -286,7 +286,7 @@ public class RichTextToolbar extends Composite {
      *
      * @param richText the rich text area to be controlled
      */
-    public RichTextToolbar(RichTextArea richText) {
+    public RichTextToolbar(final RichTextArea richText) {
         this.richText = richText;
         this.basic = richText.getBasicFormatter();
         this.extended = richText.getExtendedFormatter();
@@ -348,7 +348,7 @@ public class RichTextToolbar extends Composite {
         }
     }
 
-    private ListBox createColorList(String caption) {
+    private ListBox createColorList(final String caption) {
         ListBox lb = new ListBox();
         lb.addChangeHandler(handler);
         lb.setVisibleItemCount(1);
@@ -395,14 +395,14 @@ public class RichTextToolbar extends Composite {
         return lb;
     }
 
-    private PushButton createPushButton(ImageResource img, String tip) {
+    private PushButton createPushButton(final ImageResource img, final String tip) {
         PushButton pb = new PushButton(new Image(img));
         pb.addClickHandler(handler);
         pb.setTitle(tip);
         return pb;
     }
 
-    private ToggleButton createToggleButton(ImageResource img, String tip) {
+    private ToggleButton createToggleButton(final ImageResource img, final String tip) {
         ToggleButton tb = new ToggleButton(new Image(img));
         tb.addClickHandler(handler);
         tb.setTitle(tip);

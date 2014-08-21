@@ -12,11 +12,11 @@ public class BulletList extends ComplexPanel {
     }
 
     @Override
-    public void add(Widget w) {
+    public void add(final Widget w) {
         super.add(w, getElement());
     }
 
-    public void insert(Widget w, int beforeIndex) {
+    public void insert(final Widget w, final int beforeIndex) {
         super.insert(w, getElement(), beforeIndex, true);
     }
 }

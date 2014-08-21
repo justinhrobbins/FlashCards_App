@@ -5,9 +5,9 @@ import com.google.gwt.place.shared.Place;
 
 public class ListTagsPlace extends Place {
 
-    private String placeName;
+    private final String placeName;
 
-    public ListTagsPlace(String token) {
+    public ListTagsPlace(final String token) {
         this.placeName = token;
     }
 

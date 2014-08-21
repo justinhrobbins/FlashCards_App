@@ -34,18 +34,18 @@ public class LinkPanelWidget extends Composite {
     @UiField
     Anchor addLink;
 
-    public LinkPanelWidget(ClientFactory clientFactory) {
+    public LinkPanelWidget(final ClientFactory clientFactory) {
         this.constants = clientFactory.getConstants();
         initWidget(uiBinder.createAndBindUi(this));
     }
 
     @UiHandler("addLink")
-    void onClick(ClickEvent event) {
+    void onClick(final ClickEvent event) {
         GWT.log("LinkPanelWidget: 'Add Link' clicked");
         addLink(null);
     }
 
-    public void addLinks(List<String> linksList) {
+    public void addLinks(final List<String> linksList) {
         clearLinks();
 
         if ((linksList == null) || (linksList.size() < 1)) {
@@ -62,7 +62,7 @@ public class LinkPanelWidget extends Composite {
         linksPanel.clear();
     }
 
-    private void addLink(String linkUrl) {
+    private void addLink(final String linkUrl) {
         int linkCount = getLinkCount(linksPanel);
         LinkWidget linkWidget = new LinkWidget();
 
@@ -74,7 +74,7 @@ public class LinkPanelWidget extends Composite {
         linksPanel.add(linkWidget);
     }
 
-    private int getLinkCount(HasWidgets linksPanel) {
+    private int getLinkCount(final HasWidgets linksPanel) {
         int counter = 0;
         Iterator<Widget> iterator = linksPanel.iterator();
         while (iterator.hasNext()) {

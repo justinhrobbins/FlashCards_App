@@ -32,7 +32,7 @@ public class NavigationViewImplDesktop extends Composite implements NavigationVi
     @UiField
     Hyperlink listTags;
 
-    public NavigationViewImplDesktop(ClientFactory clientFactory) {
+    public NavigationViewImplDesktop(final ClientFactory clientFactory) {
         GWT.log("Creating 'NavigationViewImplDesktop'");
 
         initWidget(uiBinder.createAndBindUi(this));
@@ -46,23 +46,23 @@ public class NavigationViewImplDesktop extends Composite implements NavigationVi
     }
 
     @Override
-    public void setNewFlashCardToken(String token) {
+    public void setNewFlashCardToken(final String token) {
         newFlashCard.setTargetHistoryToken(token);
 
     }
 
     @Override
-    public void setListFlashCardsToken(String token) {
+    public void setListFlashCardsToken(final String token) {
         listFlashCards.setTargetHistoryToken(token);
     }
 
     @Override
-    public void setNewTagToken(String token) {
+    public void setNewTagToken(final String token) {
         newTag.setTargetHistoryToken(token);
     }
 
     @Override
-    public void setListTagsToken(String token) {
+    public void setListTagsToken(final String token) {
         listTags.setTargetHistoryToken(token);
     }
 }

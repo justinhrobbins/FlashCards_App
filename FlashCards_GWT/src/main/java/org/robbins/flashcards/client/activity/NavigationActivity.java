@@ -34,7 +34,7 @@ public class NavigationActivity extends AbstractActivity {
 
     private final NavigationView navigationView;
 
-    public NavigationActivity(ClientFactory clientFactory) {
+    public NavigationActivity(final ClientFactory clientFactory) {
         GWT.log("Creating 'NavigationActivity'");
 
         this.navigationView = clientFactory.getNavigationView();
@@ -43,7 +43,7 @@ public class NavigationActivity extends AbstractActivity {
     }
 
     @Override
-    public void start(AcceptsOneWidget panel, EventBus eventBus) {
+    public void start(final AcceptsOneWidget panel, final EventBus eventBus) {
         panel.setWidget(navigationView.asWidget());
     }
 

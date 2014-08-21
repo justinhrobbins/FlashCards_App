@@ -49,19 +49,19 @@ public class LinkWidget extends Composite {
     }
 
     @UiHandler("linkTextBox")
-    void onKeyUp(KeyUpEvent event) {
+    void onKeyUp(final KeyUpEvent event) {
         this.link = this.linkTextBox.getText();
         this.linkAnchor.setText(this.linkTextBox.getText());
     }
 
     @UiHandler("editImage")
-    void onEditClick(ClickEvent event) {
+    void onEditClick(final ClickEvent event) {
         linkContainer.getStyle().setDisplay(Display.NONE);
         linkTextBox.setVisible(true);
     }
 
     @UiHandler("deleteImage")
-    void onDeleteClick(ClickEvent event) {
+    void onDeleteClick(final ClickEvent event) {
         LinkWidget.this.removeFromParent();
     }
 
@@ -69,7 +69,7 @@ public class LinkWidget extends Composite {
         return link;
     }
 
-    public void setLink(String link) {
+    public void setLink(final String link) {
         this.link = link;
 
         this.linkContainer.getStyle().setDisplay(Display.INLINE_BLOCK);

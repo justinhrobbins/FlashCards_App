@@ -18,7 +18,7 @@ public class TagFlexTable extends FlexTable {
         this.setWidth("100%");
     }
 
-    public void setInput(List<TagDto> tags) {
+    public void setInput(final List<TagDto> tags) {
         for (int i = this.getRowCount(); i > 0; i--) {
             this.removeRow(0);
         }

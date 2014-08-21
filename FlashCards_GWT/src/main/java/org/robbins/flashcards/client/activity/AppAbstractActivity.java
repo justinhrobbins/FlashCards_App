@@ -22,11 +22,11 @@ public abstract class AppAbstractActivity extends AbstractActivity {
 
     private final PlaceController placeController;
 
-    private UserDto loggedInUser;
+    private final UserDto loggedInUser;
 
-    private List<HandlerRegistration> registrations = new ArrayList<HandlerRegistration>();
+    private final List<HandlerRegistration> registrations = new ArrayList<HandlerRegistration>();
 
-    public AppAbstractActivity(ClientFactory clientFactory) {
+    public AppAbstractActivity(final ClientFactory clientFactory) {
         this.constants = clientFactory.getConstants();
         this.placeController = clientFactory.getPlaceController();
         this.loggedInUser = clientFactory.getLoggedInUser();
@@ -48,7 +48,7 @@ public abstract class AppAbstractActivity extends AbstractActivity {
         return loggedInUser;
     }
 
-    public void requireLogin(RequiresLogin display) {
+    public void requireLogin(final RequiresLogin display) {
         if (getLoggedInUser() == null) {
             GWT.log("User is NOT logged in. Redicting to Login page");
             Cookies.setCookie("desitinationURL", Window.Location.getHref());

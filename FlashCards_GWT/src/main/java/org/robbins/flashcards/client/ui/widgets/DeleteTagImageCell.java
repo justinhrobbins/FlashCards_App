@@ -38,14 +38,14 @@ public class DeleteTagImageCell extends AbstractCell<TagDto> {
      */
     private static Templates templates = GWT.create(Templates.class);
 
-    private Images images = (Images) GWT.create(Images.class);
+    private final Images images = (Images) GWT.create(Images.class);
 
     public DeleteTagImageCell() {
         super("click");
     }
 
     @Override
-    public void render(Context context, TagDto tag, SafeHtmlBuilder sb) {
+    public void render(final Context context, final TagDto tag, final SafeHtmlBuilder sb) {
         if (tag != null) {
             if ((tag.getFlashcards() != null) && (tag.getFlashcards().size() > 0)) {
                 sb.append(SafeHtmlUtils.fromTrustedString(AbstractImagePrototype.create(

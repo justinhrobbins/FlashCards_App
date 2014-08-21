@@ -51,7 +51,7 @@ public class ProxyServlet extends HttpServlet {
     }
 
     @Override
-    public void init(ServletConfig config) throws ServletException {
+    public void init(final ServletConfig config) throws ServletException {
 
         super.init();
 
@@ -75,7 +75,8 @@ public class ProxyServlet extends HttpServlet {
     }
 
     @Override
-    protected void service(HttpServletRequest request, HttpServletResponse response)
+    protected void service(final HttpServletRequest request,
+            final HttpServletResponse response)
             throws IOException, ServletException {
 
         // Construct the URL

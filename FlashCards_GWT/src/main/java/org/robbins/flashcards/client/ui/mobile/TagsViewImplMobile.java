@@ -32,7 +32,7 @@ public class TagsViewImplMobile extends CellTable<TagDto> implements TagsView {
 
     private List<TagDto> tagsList;
 
-    public TagsViewImplMobile(EventBus eventBus) {
+    public TagsViewImplMobile(final EventBus eventBus) {
         super();
 
         GWT.log("Creating 'TagsViewImplMobile'");
@@ -41,7 +41,8 @@ public class TagsViewImplMobile extends CellTable<TagDto> implements TagsView {
         init();
     }
 
-    public TagsViewImplMobile(EventBus eventBus, ProvidesKey<TagDto> keyProvider) {
+    public TagsViewImplMobile(final EventBus eventBus,
+            final ProvidesKey<TagDto> keyProvider) {
         super(keyProvider);
 
         GWT.log("Creating 'TagsViewImplMobile'");
@@ -55,7 +56,7 @@ public class TagsViewImplMobile extends CellTable<TagDto> implements TagsView {
         formatCellTable();
     }
 
-    private void bindData(List<TagDto> tags) {
+    private void bindData(final List<TagDto> tags) {
         dataProvider = new ListDataProvider<TagDto>();
 
         // Connect the table to the data provider.
@@ -81,7 +82,7 @@ public class TagsViewImplMobile extends CellTable<TagDto> implements TagsView {
         nameColumnSortHandler.setComparator(nameColumn, new Comparator<TagDto>() {
 
             @Override
-            public int compare(TagDto o1, TagDto o2) {
+            public int compare(final TagDto o1, final TagDto o2) {
                 if (o1 == o2) {
                     return 0;
                 }
@@ -106,7 +107,7 @@ public class TagsViewImplMobile extends CellTable<TagDto> implements TagsView {
         nameColumn = new Column<TagDto, String>(nameCell) {
 
             @Override
-            public String getValue(TagDto object) {
+            public String getValue(final TagDto object) {
                 return object.getName();
             }
         };
@@ -117,7 +118,7 @@ public class TagsViewImplMobile extends CellTable<TagDto> implements TagsView {
         nameColumn.setFieldUpdater(new FieldUpdater<TagDto, String>() {
 
             @Override
-            public void update(int index, TagDto object, String value) {
+            public void update(final int index, final TagDto object, final String value) {
                 eventBus.fireEvent(new LoadTagEvent(object.getId()));
             }
         });
@@ -130,7 +131,7 @@ public class TagsViewImplMobile extends CellTable<TagDto> implements TagsView {
     }
 
     @Override
-    public void setData(List<TagDto> data) {
+    public void setData(final List<TagDto> data) {
         bindData(data);
 
         createColumnSorting();
@@ -141,7 +142,7 @@ public class TagsViewImplMobile extends CellTable<TagDto> implements TagsView {
     }
 
     @Override
-    public int getClickedRow(LoadTagEvent event) {
+    public int getClickedRow(final LoadTagEvent event) {
         // TODO Auto-generated method stub
         return 0;
     }

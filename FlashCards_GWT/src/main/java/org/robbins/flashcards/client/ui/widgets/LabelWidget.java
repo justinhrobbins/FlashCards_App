@@ -37,11 +37,11 @@ public class LabelWidget extends Composite implements HasText, IsRequired {
         initWidget(uiBinder.createAndBindUi(this));
     }
 
-    public LabelWidget(String text) {
+    public LabelWidget(final String text) {
         this();
     }
 
-    public void dispayValidationMessage(String message) {
+    public void dispayValidationMessage(final String message) {
         validationText.setText(message);
         validationContainer.removeClassName(FormStyleResource.INSTANCE.formStyles().hidden());
     }
@@ -57,12 +57,12 @@ public class LabelWidget extends Composite implements HasText, IsRequired {
     }
 
     @Override
-    public void setText(String text) {
+    public void setText(final String text) {
         displayName.setText(text);
     }
 
     @Override
-    public void isRequired(boolean required) {
+    public void isRequired(final boolean required) {
         if (required) {
             this.required.getStyle().setDisplay(Display.INLINE);
         } else {

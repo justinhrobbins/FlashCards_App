@@ -47,7 +47,7 @@ public class InputListWidget extends AbstractWidget {
     interface InputListWidgetUiBinder extends UiBinder<Widget, InputListWidget> {
     }
 
-    private List<String> itemsSelected = new ArrayList<String>();
+    private final List<String> itemsSelected = new ArrayList<String>();
 
     private MultiWordSuggestOracle suggestionsOracle = new MultiWordSuggestOracle();
 
@@ -87,7 +87,7 @@ public class InputListWidget extends AbstractWidget {
         textBox.addKeyDownHandler(new KeyDownHandler() {
 
             @Override
-            public void onKeyDown(KeyDownEvent event) {
+            public void onKeyDown(final KeyDownEvent event) {
                 if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
                     // only allow manual entries with @ signs (assumed email addresses)
                     if (textBox.getValue().contains("@")) {
@@ -121,7 +121,7 @@ public class InputListWidget extends AbstractWidget {
 
             @Override
             public void onSelection(
-                    SelectionEvent<SuggestOracle.Suggestion> selectionEvent) {
+                    final SelectionEvent<SuggestOracle.Suggestion> selectionEvent) {
                 selectItem(textBox, bulletList);
             }
         });
@@ -137,11 +137,11 @@ public class InputListWidget extends AbstractWidget {
         return itemsSelected;
     }
 
-    public void setSuggestions(MultiWordSuggestOracle suggestions) {
+    public void setSuggestions(final MultiWordSuggestOracle suggestions) {
         this.suggestionsOracle = suggestions;
     }
 
-    public void setSuggestions(List<String> suggestions) {
+    public void setSuggestions(final List<String> suggestions) {
         this.suggestionsOracle.clear();
         for (String suggestion : suggestions) {
             this.suggestionsOracle.add(suggestion);
@@ -171,7 +171,7 @@ public class InputListWidget extends AbstractWidget {
             span.addClickHandler(new ClickHandler() {
 
                 @Override
-                public void onClick(ClickEvent clickEvent) {
+                public void onClick(final ClickEvent clickEvent) {
                     removeListItem(displayItem, list);
                 }
             });
@@ -190,7 +190,7 @@ public class InputListWidget extends AbstractWidget {
         }
     }
 
-    private void removeListItem(ListItem displayItem, BulletList list) {
+    private void removeListItem(final ListItem displayItem, final BulletList list) {
         GWT.log("Removing: " + displayItem.getWidget(0).getElement().getInnerHTML(), null);
         itemsSelected.remove(displayItem.getWidget(0).getElement().getInnerHTML());
         list.remove(displayItem);
@@ -213,16 +213,16 @@ public class InputListWidget extends AbstractWidget {
     }
 
     @Override
-    public void setLabel(String text) {
+    public void setLabel(final String text) {
         label.setText(text);
     }
 
     @Override
-    public void isRequired(boolean required) {
+    public void isRequired(final boolean required) {
         label.isRequired(required);
     }
 
-    public void setSelected(List<String> list) {
+    public void setSelected(final List<String> list) {
         for (String name : list) {
             this.textBox.setValue(name);
             selectItem(this.textBox, bulletList);

@@ -6,9 +6,9 @@ import com.google.gwt.place.shared.PlaceTokenizer;
 
 public class ShellPlace extends Place {
 
-    private String shellName;
+    private final String shellName;
 
-    public ShellPlace(String token) {
+    public ShellPlace(final String token) {
         this.shellName = token;
     }
 
@@ -19,12 +19,12 @@ public class ShellPlace extends Place {
     public static class Tokenizer implements PlaceTokenizer<ShellPlace> {
 
         @Override
-        public String getToken(ShellPlace place) {
+        public String getToken(final ShellPlace place) {
             return place.getShellName();
         }
 
         @Override
-        public ShellPlace getPlace(String token) {
+        public ShellPlace getPlace(final String token) {
             return new ShellPlace(token);
         }
     }

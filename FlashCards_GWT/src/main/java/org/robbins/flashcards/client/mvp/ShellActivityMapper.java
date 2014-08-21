@@ -15,15 +15,15 @@ import com.google.gwt.place.shared.Place;
 
 public class ShellActivityMapper implements ActivityMapper {
 
-    private ClientFactory clientFactory;
+    private final ClientFactory clientFactory;
 
-    public ShellActivityMapper(ClientFactory clientFactory) {
+    public ShellActivityMapper(final ClientFactory clientFactory) {
         super();
         this.clientFactory = clientFactory;
     }
 
     @Override
-    public Activity getActivity(Place place) {
+    public Activity getActivity(final Place place) {
         GWT.log("ShellActivityMapper - Place called: " + place);
 
         if (place instanceof LoginPlace) {
