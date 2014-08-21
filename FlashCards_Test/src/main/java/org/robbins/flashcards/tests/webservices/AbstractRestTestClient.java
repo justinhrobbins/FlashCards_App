@@ -219,7 +219,7 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
         // make the REST call
         @SuppressWarnings("rawtypes")
         ResponseEntity response = getRestTemplate().exchange(url, HttpMethod.PUT,
-                httpEntity, null, vars);
+                httpEntity, ResponseEntity.class, vars);
         return response.getStatusCode();
     }
 
@@ -244,7 +244,7 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
         // make the REST call
         @SuppressWarnings("rawtypes")
         ResponseEntity response = getRestTemplate().exchange(url, HttpMethod.POST,
-                httpEntity, null, uriVariables);
+                httpEntity, ResponseEntity.class, uriVariables);
         return response.getStatusCode();
     }
 
@@ -268,7 +268,7 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
         // make the REST call
         @SuppressWarnings("rawtypes")
         ResponseEntity response = getRestTemplate().exchange(url, HttpMethod.PUT,
-                httpEntity, null, uriVariables);
+                httpEntity, ResponseEntity.class, uriVariables);
         return response.getStatusCode();
     }
 
@@ -293,7 +293,7 @@ public abstract class AbstractRestTestClient<E> extends BaseRestTest {
         // make the REST call
         @SuppressWarnings("rawtypes")
         ResponseEntity response = getRestTemplate().exchange(url, HttpMethod.DELETE,
-                httpEntity, null, vars);
+                httpEntity, ResponseEntity.class, vars);
         return response.getStatusCode();
     }
 }
