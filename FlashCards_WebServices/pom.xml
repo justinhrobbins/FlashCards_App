@@ -33,12 +33,6 @@
             <artifactId>FlashCards_Service</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.robbins.flashcards</groupId>
-            <artifactId>FlashCards_Service_SpringData</artifactId>
-            <version>${project.version}</version>
-            <scope>runtime</scope>
-        </dependency>
 
         <dependency>
             <groupId>javax.ws.rs</groupId>
@@ -189,7 +183,29 @@
     </dependencies>
 
     <profiles>
-        <!-- default plugin which is activated by default -->
+        <!-- REPOSITORY PROFILES -->
+        <profile>
+            <id>jpa</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.robbins.flashcards</groupId>
+                    <artifactId>FlashCards_Repository_Jpa</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>spring-data</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.robbins.flashcards</groupId>
+                    <artifactId>FlashCards_Repository_SpringData</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
+        
+        <!-- default profile which is activated by default -->
         <profile>
             <id>default</id>
             <activation>
