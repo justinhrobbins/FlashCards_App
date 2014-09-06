@@ -17,9 +17,11 @@ import org.robbins.flashcards.facade.base.AbstractCrudFacadeImpl;
 import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.service.FlashCardService;
+import org.robbins.flashcards.service.TagService;
 import org.robbins.flashcards.service.util.DtoUtil;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -32,7 +34,10 @@ public class DefaultFlashcardFacade extends
     private FlashCardService flashcardService;
 
     @Inject
-    private TagFacade tagFacade;
+    private TagService tagService;
+
+    @Inject
+    TagFacade tagFacade;
 
     @Override
     public FlashCardService getService() {
@@ -40,9 +45,10 @@ public class DefaultFlashcardFacade extends
     }
 
     @Override
+    @Transactional
     public FlashCardDto save(final FlashCardDto dto) throws ServiceException {
         FlashCard entity = getEntity(dto);
-        entity.setTags(configureTags(dto.getTags()));
+        entity.setTags(configureTags(entity, dto.getTags()));
         FlashCard resultEntity = getService().save(entity);
         FlashCardDto resultDto = getDto(resultEntity);
         return resultDto;
@@ -123,25 +129,26 @@ public class DefaultFlashcardFacade extends
         return entities;
     }
 
-    private Set<Tag> configureTags(final Set<TagDto> tags) {
+    private Set<Tag> configureTags(final FlashCard flashCard, final Set<TagDto> tags) {
 
         Set<Tag> results = new HashSet<Tag>();
         for (TagDto tagDto : tags) {
+            Tag tag;
             // if we don't have the id of the Tag
             if (tagDto.getId() == null || tagDto.getId() == 0) {
                 // try to get the existing Tag
-                TagDto existingTag = tagFacade.findByName(tagDto.getName());
+                tag = tagService.findByName(tagDto.getName());
 
                 // does the Tag exist?
-                if (existingTag != null) {
-                    results.add(tagFacade.getEntity(existingTag));
-                } else {
+                if (tag == null) {
                     // tag doesn't exist, re-add the Tag as-as
-                    results.add(tagFacade.getEntity(tagDto));
+                    tag = tagFacade.getEntity(tagDto);
                 }
             } else {
-                results.add(tagFacade.getEntity(tagDto));
+                tag = tagFacade.getEntity(tagDto);
             }
+            results.add(tag);
+            // tag.getFlashcards().add(flashCard);
         }
         return results;
     }

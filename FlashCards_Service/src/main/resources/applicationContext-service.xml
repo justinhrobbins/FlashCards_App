@@ -16,5 +16,8 @@
     <bean id="dozerCustomFieldMapper"
         class="org.robbins.flashcards.service.util.dozer.HibernateFieldMapper" />
 
-    <context:component-scan base-package="org.robbins.flashcards.facade.impl, org.robbins.flashcards.security" />
+    <context:component-scan base-package="
+        org.robbins.flashcards.facade, 
+        org.robbins.flashcards.security,
+        org.robbins.flashcards.service" />
 </beans>

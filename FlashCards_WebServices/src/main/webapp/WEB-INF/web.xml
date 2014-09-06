@@ -21,13 +21,13 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            <!-- classpath*:applicatonContext-aop.xml -->
-            <!-- classpath*:applicationContext-service-jpa.xml -->
+            classpath*:applicationContext-repository.xml
             classpath*:applicationContext-service.xml
-            classpath*:applicationContext-service-springdata.xml
             classpath*:applicationContext-webServices.xml
-            <!-- classpath*:applicationContext-shiro.xml -->
             classpath*:applicationContext-springSecurity.xml
+
+            <!-- classpath*:applicationContext-shiro.xml -->
+            <!-- classpath*:applicatonContext-aop.xml -->
             <!-- classpath*:applicationContext-cxf.xml -->
         </param-value>
     </context-param>

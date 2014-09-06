@@ -66,7 +66,8 @@
         <spring.version>3.2.10.RELEASE</spring.version>
         <spring.security.version>3.1.1.RELEASE</spring.security.version>
         <springdata.version>1.6.2.RELEASE</springdata.version>
-        <springdata.commons.version>1.4.1.RELEASE</springdata.commons.version>
+        <springdata.commons.core.version>1.4.1.RELEASE</springdata.commons.core.version>
+        <springdata.commons.version>1.8.4.RELEASE</springdata.commons.version>
         <spring.test.dbunit.version>1.1.0</spring.test.dbunit.version>
         <struts.version>2.3.4.1</struts.version>
         <swagger.version>1.3.0</swagger.version>
@@ -145,20 +146,45 @@
     </pluginRepositories>
     <modules>
         <module>FlashCards_Domain</module>
-        <!-- <module>FlashCards_GWT</module> -->
+        <module>FlashCards_Repository</module>
+        <module>FlashCards_Repository_Jpa_Commons</module>
+        <module>FlashCards_Repository_Jpa</module>
+        <module>FlashCards_Repository_SpringData</module>
         <module>FlashCards_Service</module>
-        <module>FlashCards_Service_SpringData</module>
-        <module>FlashCards_Service_Jpa</module>
         <module>FlashCards_WebServices</module>
-        <module>FlashCards_Struts</module>
-        <!-- <module>FlashCards_AngularJS</module> -->
         <module>FlashCards_Test</module>
         <module>swagger_ui</module>
+
+        <!-- <module>FlashCards_GWT</module> -->
+        <!-- <module>FlashCards_Struts</module> -->
+        <!-- <module>FlashCards_AngularJS</module> -->
     </modules>
     <profiles>
+        <!-- REPOSITORY PROFILES -->
+        <profile>
+            <id>jpa</id>
+            <modules>
+                <module>FlashCards_Repository_Jpa</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>spring-data</id>
+            <modules>
+                <module>FlashCards_Repository_SpringData</module>
+            </modules>
+        </profile>
+    
+        <!-- TEST PROFILES -->
         <!-- run only unit tests -->
         <profile>
-            <id>dev</id>
+            <id>skip-tests</id>
+            <properties>
+                <skip.integration.tests>true</skip.integration.tests>
+                <skip.unit.tests>true</skip.unit.tests>
+            </properties>
+        </profile>
+        <profile>
+            <id>unit-tests</id>
         </profile>
         <!-- run only integration tests -->
         <profile>
@@ -179,6 +205,77 @@
                 <skip.integration.tests>false</skip.integration.tests>
                 <skip.unit.tests>false</skip.unit.tests>
             </properties>
+        </profile>
+        
+        <profile>
+            <id>all-wars</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.tomcat.maven</groupId>
+                        <artifactId>tomcat7-maven-plugin</artifactId>
+                        <configuration>
+                            <webapps>
+                                <webapp> 
+                                    <groupId>org.robbins.flashcards</groupId> 
+                                    <artifactId>FlashCards_WebServices</artifactId> 
+                                    <version>${project.version}</version> 
+                                    <type>war</type>
+                                    <asWebapp>true</asWebapp>
+                                    <contextPath>/api</contextPath>
+                                </webapp>
+                                 <webapp> 
+                                    <groupId>org.robbins.flashcards</groupId> 
+                                    <artifactId>FlashCards_GWT</artifactId> 
+                                    <version>${project.version}</version> 
+                                    <type>war</type>
+                                    <asWebapp>true</asWebapp>
+                                    <contextPath>/gwt</contextPath>
+                                </webapp>
+                                <webapp> 
+                                    <groupId>org.robbins.flashcards</groupId> 
+                                    <artifactId>FlashCards_Struts</artifactId> 
+                                    <version>${project.version}</version> 
+                                    <type>war</type>
+                                    <asWebapp>true</asWebapp>
+                                    <contextPath>/struts</contextPath>
+                                </webapp>
+                                <webapp> 
+                                    <groupId>org.robbins.flashcards</groupId> 
+                                    <artifactId>swagger_ui</artifactId> 
+                                    <version>${project.version}</version> 
+                                    <type>war</type>
+                                    <asWebapp>true</asWebapp>
+                                    <contextPath>/apidocs</contextPath>
+                                </webapp>
+                            </webapps>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>api-war</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.tomcat.maven</groupId>
+                        <artifactId>tomcat7-maven-plugin</artifactId>
+                        <configuration>
+                            <webapps>
+                                <webapp> 
+                                    <groupId>org.robbins.flashcards</groupId> 
+                                    <artifactId>FlashCards_WebServices</artifactId> 
+                                    <version>${project.version}</version> 
+                                    <type>war</type>
+                                    <asWebapp>true</asWebapp>
+                                    <contextPath>/api</contextPath>
+                                </webapp>
+                            </webapps>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
     <dependencyManagement>
@@ -380,6 +477,11 @@
             <dependency>
                 <groupId>org.springframework.data</groupId>
                 <artifactId>spring-data-commons-core</artifactId>
+                <version>${springdata.commons.core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-commons</artifactId>
                 <version>${springdata.commons.version}</version>
             </dependency>
 
@@ -827,44 +929,6 @@
                             <version>${h2.version}</version>
                         </dependency>
                     </dependencies>
-                    <configuration>
-                        <webapps>
-<!--
-                            <webapp> 
-                                <groupId>org.robbins.flashcards</groupId> 
-                                <artifactId>FlashCards_WebServices</artifactId> 
-                                <version>${project.version}</version> 
-                                <type>war</type>
-                                <asWebapp>true</asWebapp>
-                                <contextPath>/api</contextPath>
-                            </webapp>
--->
-                             <webapp> 
-                                <groupId>org.robbins.flashcards</groupId> 
-                                <artifactId>FlashCards_GWT</artifactId> 
-                                <version>${project.version}</version> 
-                                <type>war</type>
-                                <asWebapp>true</asWebapp>
-                                <contextPath>/gwt</contextPath>
-                            </webapp>
-                            <webapp> 
-                                <groupId>org.robbins.flashcards</groupId> 
-                                <artifactId>FlashCards_Struts</artifactId> 
-                                <version>${project.version}</version> 
-                                <type>war</type>
-                                <asWebapp>true</asWebapp>
-                                <contextPath>/struts</contextPath>
-                            </webapp>
-                            <webapp> 
-                                <groupId>org.robbins.flashcards</groupId> 
-                                <artifactId>swagger_ui</artifactId> 
-                                <version>${project.version}</version> 
-                                <type>war</type>
-                                <asWebapp>true</asWebapp>
-                                <contextPath>/apidocs</contextPath>
-                            </webapp>
-                        </webapps>
-                    </configuration>
                 </plugin>
                 <!-- Maven plugin for submitting Java code coverage reports 
                     to Coveralls web service -->
