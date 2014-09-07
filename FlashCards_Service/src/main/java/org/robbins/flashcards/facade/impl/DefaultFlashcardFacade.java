@@ -26,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
+@Transactional
 @Component
 public class DefaultFlashcardFacade extends
         AbstractCrudFacadeImpl<FlashCardDto, FlashCard> implements FlashcardFacade {
@@ -45,7 +46,6 @@ public class DefaultFlashcardFacade extends
     }
 
     @Override
-    @Transactional
     public FlashCardDto save(final FlashCardDto dto) throws ServiceException {
         FlashCard entity = getEntity(dto);
         entity.setTags(configureTags(entity, dto.getTags()));

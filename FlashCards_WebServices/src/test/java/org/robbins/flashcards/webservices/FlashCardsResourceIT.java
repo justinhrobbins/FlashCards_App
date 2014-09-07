@@ -95,7 +95,7 @@ public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto> {
     @Test
     public void testSearchByTagsIn() {
         Map<String, String> uriVariables = setupSearchUriVariables();
-        uriVariables.put("tags", "2,3");
+        uriVariables.put("tags", "2,20");
 
         // search result
         FlashCardDto[] searchResult = searchEntities(searchUrl(), uriVariables,

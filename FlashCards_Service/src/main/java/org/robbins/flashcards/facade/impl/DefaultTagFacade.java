@@ -15,7 +15,9 @@ import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.service.TagService;
 import org.robbins.flashcards.service.util.DtoUtil;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 @Component
 public class DefaultTagFacade extends AbstractCrudFacadeImpl<TagDto, Tag> implements
         TagFacade {

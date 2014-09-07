@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.persistence.Query;
 
+import org.joda.time.DateTime;
 import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
 import org.springframework.data.domain.Page;
@@ -23,6 +24,19 @@ public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
     @Override
     public Class<FlashCard> getClazz() {
         return FlashCard.class;
+    }
+
+    @Override
+    public FlashCard save(final FlashCard flashCard) {
+        for (Tag tag : flashCard.getTags()) {
+            if ((tag.getId() == null) || (tag.getId() == 0)) {
+                tag.setCreatedBy(getAuditorAware().getCurrentAuditor());
+                tag.setCreatedDate(new DateTime());
+                tag.setLastModifiedBy(getAuditorAware().getCurrentAuditor());
+                tag.setLastModifiedDate(new DateTime());
+            }
+        }
+        return super.save(flashCard);
     }
 
     @SuppressWarnings("unchecked")

@@ -928,6 +928,11 @@
                             <artifactId>h2</artifactId>
                             <version>${h2.version}</version>
                         </dependency>
+                        <dependency>
+                            <groupId>mysql</groupId>
+                            <artifactId>mysql-connector-java</artifactId>
+                            <version>${mysql.version}</version>
+                        </dependency>
                     </dependencies>
                 </plugin>
                 <!-- Maven plugin for submitting Java code coverage reports 
