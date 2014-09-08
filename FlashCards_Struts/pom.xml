@@ -22,6 +22,29 @@
         <url>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</url>
         <developerConnection>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</developerConnection>
     </scm>
+    <profiles>
+        <!-- REPOSITORY PROFILES -->
+        <profile>
+            <id>jpa</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.robbins.flashcards</groupId>
+                    <artifactId>FlashCards_Repository_Jpa</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>spring-data</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.robbins.flashcards</groupId>
+                    <artifactId>FlashCards_Repository_SpringData</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
     <dependencies>
         <dependency>
             <groupId>org.robbins.flashcards</groupId>
@@ -55,6 +78,10 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
         </dependency>
         <dependency>
             <groupId>com.jgeppert.struts2.jquery</groupId>
