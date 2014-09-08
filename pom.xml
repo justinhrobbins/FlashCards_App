@@ -188,7 +188,7 @@
         </profile>
         <!-- run only integration tests -->
         <profile>
-            <id>integration-test</id>
+            <id>integration-tests</id>
             <properties>
                 <!-- Used to locate the profile specific configuration file. -->
                 <build.profile.id>integration-test</build.profile.id>
