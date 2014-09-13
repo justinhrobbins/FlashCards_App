@@ -1,30 +1,27 @@
 
 package org.robbins.flashcards.facade.impl;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.inject.Inject;
-
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
+import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.flashcards.facade.FlashcardFacade;
-import org.robbins.flashcards.facade.TagFacade;
 import org.robbins.flashcards.facade.base.AbstractCrudFacadeImpl;
 import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.service.FlashCardService;
 import org.robbins.flashcards.service.TagService;
-import org.robbins.flashcards.service.util.DtoUtil;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
+import javax.inject.Inject;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Transactional
 @Component
@@ -38,7 +35,18 @@ public class DefaultFlashcardFacade extends
     private TagService tagService;
 
     @Inject
-    TagFacade tagFacade;
+    @Qualifier("flashcardDtoConverter")
+    private DtoConverter<FlashCardDto, FlashCard> flashcardConverter;
+
+    @Inject
+    @Qualifier("tagDtoConverter")
+    private DtoConverter<TagDto, Tag> tagConverter;
+
+    @Override
+    public DtoConverter<FlashCardDto, FlashCard> getConverter()
+    {
+        return flashcardConverter;
+    }
 
     @Override
     public FlashCardService getService() {
@@ -47,91 +55,52 @@ public class DefaultFlashcardFacade extends
 
     @Override
     public FlashCardDto save(final FlashCardDto dto) throws ServiceException {
-        FlashCard entity = getEntity(dto);
-        entity.setTags(configureTags(entity, dto.getTags()));
+        FlashCard entity = getConverter().getEntity(dto);
+        entity.setTags(configureTags(dto.getTags()));
         FlashCard resultEntity = getService().save(entity);
-        FlashCardDto resultDto = getDto(resultEntity);
+        FlashCardDto resultDto = getConverter().getDto(resultEntity);
         return resultDto;
     }
 
     @Override
     public List<FlashCardDto> findByTagsIn(final Set<TagDto> tagDtos)
             throws ServiceException {
-        return getDtos(flashcardService.findByTagsIn(getTags(tagDtos)), null);
+        return getConverter().getDtos(flashcardService.findByTagsIn(getTags(tagDtos)), null);
     }
 
     @Override
     public List<FlashCardDto> findByTagsIn(final Set<TagDto> tagDtos,
-            final PageRequest page)
-            throws ServiceException {
-        return getDtos(flashcardService.findByTagsIn(getTags(tagDtos), page), null);
+            final PageRequest page) throws ServiceException {
+        return getConverter().getDtos(flashcardService.findByTagsIn(getTags(tagDtos), page), null);
     }
 
     @Override
     public List<FlashCardDto> findByQuestionLike(final String question)
             throws ServiceException {
-        return getDtos(flashcardService.findByQuestionLike(question), null);
+        return getConverter().getDtos(flashcardService.findByQuestionLike(question), null);
     }
 
     @Override
     public List<FlashCardDto> findByQuestionLike(final String question,
             final PageRequest page)
             throws ServiceException {
-        return getDtos(flashcardService.findByQuestionLike(question, page), null);
+        return getConverter().getDtos(flashcardService.findByQuestionLike(question, page), null);
     }
 
     @Override
     public FlashCardDto findByQuestion(final String question) throws ServiceException {
-        return getDto(flashcardService.findByQuestion(question));
+        return getConverter().getDto(flashcardService.findByQuestion(question));
     }
 
     private Set<Tag> getTags(final Set<TagDto> tagDtos) {
         List<TagDto> tagDtoList = Lists.newArrayList(tagDtos);
-        List<Tag> tagList = tagFacade.getEtnties(tagDtoList);
+        List<Tag> tagList = tagConverter.getEtnties(tagDtoList);
         return Sets.newHashSet(tagList);
     }
 
-    @Override
-    public FlashCardDto getDto(final FlashCard entity) throws ServiceException {
-        return getDto(entity, null);
-    }
+    private Set<Tag> configureTags(final Set<TagDto> tags) {
 
-    @Override
-    public FlashCardDto getDto(final FlashCard entity, final Set<String> fields)
-            throws ServiceException {
-        FlashCardDto flashCardDto = getMapper().map(entity, FlashCardDto.class);
-        DtoUtil.filterFields(flashCardDto, fields);
-        return flashCardDto;
-    }
-
-    @Override
-    public FlashCard getEntity(final FlashCardDto dto) {
-        return getMapper().map(dto, FlashCard.class);
-    }
-
-    @Override
-    public List<FlashCardDto> getDtos(final List<FlashCard> entities,
-            final Set<String> fields)
-            throws ServiceException {
-        List<FlashCardDto> dtos = new ArrayList<FlashCardDto>();
-        for (FlashCard entity : entities) {
-            dtos.add(getDto(entity));
-        }
-        return dtos;
-    }
-
-    @Override
-    public List<FlashCard> getEtnties(final List<FlashCardDto> dtos) {
-        List<FlashCard> entities = new ArrayList<FlashCard>();
-        for (FlashCardDto dto : dtos) {
-            entities.add(getEntity(dto));
-        }
-        return entities;
-    }
-
-    private Set<Tag> configureTags(final FlashCard flashCard, final Set<TagDto> tags) {
-
-        Set<Tag> results = new HashSet<Tag>();
+        Set<Tag> results = new HashSet<>();
         for (TagDto tagDto : tags) {
             Tag tag;
             // if we don't have the id of the Tag
@@ -142,13 +111,12 @@ public class DefaultFlashcardFacade extends
                 // does the Tag exist?
                 if (tag == null) {
                     // tag doesn't exist, re-add the Tag as-as
-                    tag = tagFacade.getEntity(tagDto);
+                    tag = tagConverter.getEntity(tagDto);
                 }
             } else {
-                tag = tagFacade.getEntity(tagDto);
+                tag = tagConverter.getEntity(tagDto);
             }
             results.add(tag);
-            // tag.getFlashcards().add(flashCard);
         }
         return results;
     }

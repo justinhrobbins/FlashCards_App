@@ -15,7 +15,7 @@ import org.junit.experimental.categories.Category;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.tests.webservices.GenericEntityRestTest;
-import org.robbins.flashcards.util.TestEntityGenerator;
+import org.robbins.flashcards.util.TestDtoGenerator;
 import org.robbins.flashcards.webservices.util.ResourceUrls;
 import org.robbins.tests.IntegrationTest;
 import org.springframework.http.HttpStatus;
@@ -27,7 +27,7 @@ public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto> {
 
     // this entity will be created in @Before and we'll use it for our JUnit tests and
     // then delete it in @After
-    private FlashCardDto entity = TestEntityGenerator.createFlashCardDto(
+    private FlashCardDto entity = TestDtoGenerator.createFlashCardDto(
             "Web API Test 'Question'", "Web API Test 'Answer'");
 
     @Override

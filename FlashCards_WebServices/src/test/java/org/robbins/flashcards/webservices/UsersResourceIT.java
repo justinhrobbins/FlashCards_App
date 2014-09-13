@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.robbins.flashcards.dto.UserDto;
 import org.robbins.flashcards.tests.webservices.GenericEntityRestTest;
-import org.robbins.flashcards.util.TestEntityGenerator;
+import org.robbins.flashcards.util.TestDtoGenerator;
 import org.robbins.flashcards.webservices.util.ResourceUrls;
 import org.robbins.tests.IntegrationTest;
 import org.springframework.http.HttpStatus;
@@ -24,7 +24,7 @@ public class UsersResourceIT extends GenericEntityRestTest<UserDto> {
 
     // this entity will be created in @Before and we'll use it for our JUnit tests and
     // then delete it in @After
-    private UserDto entity = TestEntityGenerator.createUserDto("Web API Test 'openid'",
+    private UserDto entity = TestDtoGenerator.createUserDto("Web API Test 'openid'",
             "webapitest@email.com");
 
     @Override

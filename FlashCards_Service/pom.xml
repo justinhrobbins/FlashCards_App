@@ -28,6 +28,16 @@
 		</dependency>
         <dependency>
             <groupId>org.robbins.flashcards</groupId>
+            <artifactId>FlashCards_DTO</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.robbins.flashcards</groupId>
+            <artifactId>FlashCards_API</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.robbins.flashcards</groupId>
             <artifactId>FlashCards_Repository</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>

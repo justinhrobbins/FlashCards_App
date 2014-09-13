@@ -10,7 +10,9 @@ import javax.inject.Inject;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapper;
+import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.exceptions.ServiceException;
+import org.robbins.flashcards.facade.JpaFacade;
 import org.robbins.flashcards.service.util.FieldInitializerUtil;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -19,27 +21,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 public abstract class AbstractCrudFacadeImpl<D, E> implements GenericCrudFacade<D>,
-        CrudFacade<D, E> {
-
-    @Inject
-    private Mapper mapper;
+        JpaFacade<D, E> {
 
     @Inject
     private FieldInitializerUtil fieldInitializer;
 
-    public Mapper getMapper() {
-        return mapper;
-    }
-
-    public void setMapper(final Mapper mapper) {
-        this.mapper = mapper;
-    }
-
     @Override
     public D save(final D dto) throws ServiceException {
-        E entity = getEntity(dto);
+        E entity = getConverter().getEntity(dto);
         E resultEntity = getService().save(entity);
-        D resultDto = getDto(resultEntity);
+        D resultDto = getConverter().getDto(resultEntity);
         return resultDto;
     }
 
@@ -83,7 +74,7 @@ public abstract class AbstractCrudFacadeImpl<D, E> implements GenericCrudFacade<
 
         List<D> dtos = new ArrayList<D>();
         for (E entity : entities) {
-            dtos.add(getDto(entity, fields));
+            dtos.add(getConverter().getDto(entity, fields));
         }
 
         return dtos;
@@ -111,7 +102,7 @@ public abstract class AbstractCrudFacadeImpl<D, E> implements GenericCrudFacade<
             fieldInitializer.initializeEntity(resultEntity, fields);
         }
 
-        return getDto(resultEntity, fields);
+        return getConverter().getDto(resultEntity, fields);
     }
 
     @Override
@@ -136,10 +127,6 @@ public abstract class AbstractCrudFacadeImpl<D, E> implements GenericCrudFacade<
         } else if (order.equals("desc")) {
             return new Sort(Direction.DESC, order);
         } else {
-            // throw new GenericWebServiceException(Response.Status.BAD_REQUEST,
-            // "Sort order must be 'asc' or 'desc'.  '" + order +
-            // "' is not an acceptable sort order");
-
             throw new IllegalArgumentException("Sort order must be 'asc' or 'desc'.  '"
                     + order + "' is not an acceptable sort order");
         }

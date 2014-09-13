@@ -17,6 +17,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
+import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.exceptions.ServiceException;
@@ -40,7 +41,10 @@ public class DefaultFlashcardFacadeUT extends BaseMockingTest {
     private TagService mockTagService;
 
     @Mock
-    private Mapper mockMapper;
+    private DtoConverter<FlashCardDto, FlashCard> mockFlashcardConverter;
+
+    @Mock
+    private DtoConverter<TagDto, Tag> mockTagConverter;
 
     @Mock
     private FlashCard mockFlashcard;
@@ -54,24 +58,21 @@ public class DefaultFlashcardFacadeUT extends BaseMockingTest {
     @Mock
     private Tag mockTag;
 
-    @Mock
-    private TagFacade mockTagFacade;
-
     private FlashcardFacade flashCardFacade;
 
     @Before
     public void before() {
         flashCardFacade = new DefaultFlashcardFacade();
         ReflectionTestUtils.setField(flashCardFacade, "flashcardService", mockService);
-        ReflectionTestUtils.setField(flashCardFacade, "mapper", mockMapper);
-        ReflectionTestUtils.setField(flashCardFacade, "tagFacade", mockTagFacade);
+        ReflectionTestUtils.setField(flashCardFacade, "flashcardConverter", mockFlashcardConverter);
+        ReflectionTestUtils.setField(flashCardFacade, "tagConverter", mockTagConverter);
         ReflectionTestUtils.setField(flashCardFacade, "tagService", mockTagService);
     }
 
     @Test
     public void findByQuestion() throws ServiceException {
         when(mockService.findByQuestion(any(String.class))).thenReturn(mockFlashcard);
-        when(mockMapper.map(mockFlashcard, FlashCardDto.class)).thenReturn(
+        when(mockFlashcardConverter.getDto(mockFlashcard)).thenReturn(
                 mockFlashcardDto);
 
         FlashCardDto result = flashCardFacade.findByQuestion(any(String.class));
@@ -86,7 +87,7 @@ public class DefaultFlashcardFacadeUT extends BaseMockingTest {
 
         when(mockService.findByQuestionLike(any(String.class))).thenReturn(
                 mockFlashCardList);
-        when(mockMapper.map(mockFlashcard, FlashCardDto.class)).thenReturn(
+        when(mockFlashcardConverter.getDto(mockFlashcard)).thenReturn(
                 mockFlashcardDto);
 
         List<FlashCardDto> results = flashCardFacade.findByQuestionLike(any(String.class));
@@ -99,13 +100,13 @@ public class DefaultFlashcardFacadeUT extends BaseMockingTest {
     @Test
     public void findByTagsIn() throws ServiceException {
         List<FlashCard> mockFlashCardList = Arrays.asList(mockFlashcard);
-        Set<TagDto> mockTagDtos = new HashSet<TagDto>(Arrays.asList(mockTagDto));
+        Set<TagDto> mockTagDtos = new HashSet<>(Arrays.asList(mockTagDto));
         List<Tag> mockTagList = Arrays.asList(mockTag);
 
         when(mockService.findByTagsIn(any(Set.class))).thenReturn(mockFlashCardList);
-        when(mockMapper.map(mockFlashcard, FlashCardDto.class)).thenReturn(
+        when(mockFlashcardConverter.getDto(mockFlashcard)).thenReturn(
                 mockFlashcardDto);
-        when(mockTagFacade.getEtnties(any(List.class))).thenReturn(mockTagList);
+        when(mockTagConverter.getEtnties(any(List.class))).thenReturn(mockTagList);
 
         List<FlashCardDto> results = flashCardFacade.findByTagsIn(mockTagDtos);
 
@@ -118,23 +119,14 @@ public class DefaultFlashcardFacadeUT extends BaseMockingTest {
 
         when(mockService.save(any(FlashCard.class))).thenReturn(mockFlashcard);
         when(mockTagService.findByName(any(String.class))).thenReturn(mockTag);
-        when(mockMapper.map(mockFlashcardDto, FlashCard.class)).thenReturn(mockFlashcard);
-        when(mockMapper.map(mockFlashcard, FlashCardDto.class)).thenReturn(
-                mockFlashcardDto);
+        when(mockFlashcardConverter.getEntity(mockFlashcardDto)).thenReturn(mockFlashcard);
+        when(mockFlashcardConverter.getDto(mockFlashcard)).thenReturn(mockFlashcardDto);
         when(mockFlashcardDto.getTags()).thenReturn(
-                new HashSet<TagDto>(Arrays.asList(mockTagDto)));
+                new HashSet<>(Arrays.asList(mockTagDto)));
 
         FlashCardDto result = flashCardFacade.save(mockFlashcardDto);
 
         verify(mockService).save(any(FlashCard.class));
         assertThat(result, is(FlashCardDto.class));
-    }
-
-    @Test
-    public void getEntities() {
-        List<FlashCardDto> flashCardDtos = Arrays.asList(mockFlashcardDto);
-        List<FlashCard> results = flashCardFacade.getEtnties(flashCardDtos);
-
-        assertThat(results, is(List.class));
     }
 }

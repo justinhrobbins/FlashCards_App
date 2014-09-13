@@ -1,15 +1,12 @@
 
-package org.robbins.flashcards.facade.base;
+package org.robbins.flashcards.conversion;
+
+import org.robbins.flashcards.exceptions.ServiceException;
 
 import java.util.List;
 import java.util.Set;
 
-import org.robbins.flashcards.exceptions.ServiceException;
-import org.robbins.flashcards.service.base.GenericJpaService;
-
-public interface CrudFacade<D, E> {
-
-    GenericJpaService<E, Long> getService();
+public interface DtoConverter<D, E> {
 
     D getDto(E entity) throws ServiceException;
 

@@ -39,7 +39,7 @@ public class UsersResourceUT extends BaseMockingTest {
     }
 
     @Test
-    public void search() {
+    public void search() throws ServiceException {
         when(mockUserFacade.findUserByOpenid(any(String.class))).thenReturn(mockUserDto);
 
         UserDto result = resource.search(any(String.class));

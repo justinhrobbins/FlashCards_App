@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
 import org.robbins.flashcards.dto.UserDto;
+import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.flashcards.facade.UserFacade;
 import org.robbins.flashcards.model.User;
 import org.robbins.tests.BaseMockingTest;
@@ -48,7 +49,7 @@ public class SecurityFilterUT extends BaseMockingTest {
     }
 
     @Test
-    public void handleRequest() {
+    public void handleRequest() throws ServiceException {
         org.springframework.security.core.userdetails.User principal = mock(org.springframework.security.core.userdetails.User.class);
         String mockOpenId = new String("open_id");
         UserDto mockUserDto = new UserDto(1L);
