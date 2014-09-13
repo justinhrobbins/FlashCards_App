@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.tests.webservices.GenericEntityRestTest;
-import org.robbins.flashcards.util.TestEntityGenerator;
+import org.robbins.flashcards.util.TestDtoGenerator;
 import org.robbins.flashcards.webservices.util.ResourceUrls;
 import org.robbins.tests.IntegrationTest;
 import org.springframework.http.HttpStatus;
@@ -24,7 +24,7 @@ public class TagsResourceIT extends GenericEntityRestTest<TagDto> {
 
     // this entity will be created in @Before and we'll use it for our JUnit tests and
     // then delete it in @After
-    private TagDto entity = TestEntityGenerator.createTagDto("Web API Test 'Tag'");
+    private TagDto entity = TestDtoGenerator.createTagDto("Web API Test 'Tag'");
 
     @Override
     public void setEntity(final TagDto entity) {

@@ -42,8 +42,15 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long> {
     @ApiOperation(value = "Find Tag by Name", response = TagDto.class)
     public TagDto searchByName(@QueryParam("name") final String name) {
 
-        TagDto tagDto = tagFacade.findByName(name);
-
+        TagDto tagDto;
+        try {
+            tagDto = tagFacade.findByName(name);
+        }
+        catch(ServiceException e)
+        {
+            throw new GenericWebServiceException(
+                    Response.Status.INTERNAL_SERVER_ERROR, e);
+        }
         if (tagDto == null) {
             throw new GenericWebServiceException(Response.Status.NOT_FOUND,
                     "Entity not found: " + name);

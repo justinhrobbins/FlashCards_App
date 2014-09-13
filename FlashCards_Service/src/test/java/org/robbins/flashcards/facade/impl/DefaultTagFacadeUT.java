@@ -1,23 +1,11 @@
 
 package org.robbins.flashcards.facade.impl;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.core.IsNull.nullValue;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import org.dozer.Mapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
+import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.flashcards.facade.TagFacade;
@@ -30,6 +18,18 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.core.IsNull.nullValue;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 @Category(UnitTest.class)
 public class DefaultTagFacadeUT extends BaseMockingTest {
 
@@ -37,7 +37,7 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
     private TagService mockService;
 
     @Mock
-    private Mapper mockMapper;
+    private DtoConverter<TagDto, Tag> converter;
 
     @Mock
     private Tag mockTag;
@@ -56,14 +56,14 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
     public void before() {
         tagFacade = new DefaultTagFacade();
         ReflectionTestUtils.setField(tagFacade, "service", mockService);
-        ReflectionTestUtils.setField(tagFacade, "mapper", mockMapper);
+        ReflectionTestUtils.setField(tagFacade, "converter", converter);
         ReflectionTestUtils.setField(tagFacade, "fieldInitializer", fieldInitializer);
     }
 
     @Test
-    public void findByName() {
+    public void findByName() throws ServiceException {
         when(mockService.findByName(any(String.class))).thenReturn(mockTag);
-        when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
+        when(converter.getDto(mockTag)).thenReturn(mockTagDto);
 
         TagDto result = tagFacade.findByName(any(String.class));
 
@@ -72,31 +72,13 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
     }
 
     @Test
-    public void findByName_ReturnNull() {
+    public void findByName_ReturnNull() throws ServiceException {
         when(mockService.findByName(any(String.class))).thenReturn(null);
 
         TagDto result = tagFacade.findByName(any(String.class));
 
         verify(mockService).findByName(any(String.class));
         assertThat(result, is(nullValue()));
-    }
-
-    @Test
-    public void getDtos() throws ServiceException {
-        List<Tag> mockTagList = Arrays.asList(mockTag);
-
-        List<TagDto> results = tagFacade.getDtos(mockTagList, null);
-
-        assertThat(results, is(List.class));
-    }
-
-    @Test
-    public void getEntities() throws ServiceException {
-        List<TagDto> mockTagDtoList = Arrays.asList(mockTagDto);
-
-        List<Tag> results = tagFacade.getEtnties(mockTagDtoList);
-
-        assertThat(results, is(List.class));
     }
 
     @Test
@@ -112,11 +94,12 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
     @Test
     public void findOne() throws ServiceException {
         when(mockService.findOne(any(Long.class))).thenReturn(mockTag);
-        when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
+        when(converter.getDto(mockTag, null)).thenReturn(mockTagDto);
 
         TagDto result = tagFacade.findOne(any(Long.class));
 
         verify(mockService).findOne(any(Long.class));
+        verify(converter).getDto(mockTag, null);
         assertThat(result, is(TagDto.class));
     }
 
@@ -126,11 +109,12 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
         Set<String> fields = new HashSet<String>(Arrays.asList("flashcards"));
 
         when(mockService.findOne(any(Long.class))).thenReturn(mockTag);
-        when(mockMapper.map(mockTag, TagDto.class)).thenReturn(tagDto);
+        when(converter.getDto(mockTag, fields)).thenReturn(tagDto);
 
         TagDto result = tagFacade.findOne(any(Long.class), fields);
 
         verify(mockService).findOne(any(Long.class));
+        verify(converter).getDto(mockTag, fields);
         assertThat(result, is(TagDto.class));
     }
 
@@ -154,8 +138,8 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
     @Test
     public void save() throws ServiceException {
         when(mockService.save(any(Tag.class))).thenReturn(mockTag);
-        when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
-        when(mockMapper.map(mockTagDto, Tag.class)).thenReturn(mockTag);
+        when(converter.getDto(mockTag)).thenReturn(mockTagDto);
+        when(converter.getEntity(mockTagDto)).thenReturn(mockTag);
 
         TagDto result = tagFacade.save(mockTagDto);
 
@@ -167,7 +151,7 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
     public void list() throws ServiceException {
         List<Tag> mockTagList = Arrays.asList(mockTag);
 
-        when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
+        when(converter.getDto(mockTag)).thenReturn(mockTagDto);
         when(mockService.findAll()).thenReturn(mockTagList);
 
         List<TagDto> results = tagFacade.list(null, null, null, null);
@@ -180,7 +164,7 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
     public void list_WithSortAsc() throws ServiceException {
         List<Tag> mockTagList = Arrays.asList(mockTag);
 
-        when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
+        when(converter.getDto(mockTag)).thenReturn(mockTagDto);
         when(mockService.findAll(any(Sort.class))).thenReturn(mockTagList);
 
         List<TagDto> results = tagFacade.list(null, null, "name", "asc");
@@ -193,7 +177,7 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
     public void list_WithSortDesc() throws ServiceException {
         List<Tag> mockTagList = Arrays.asList(mockTag);
 
-        when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
+        when(converter.getDto(mockTag)).thenReturn(mockTagDto);
         when(mockService.findAll(any(Sort.class))).thenReturn(mockTagList);
 
         List<TagDto> results = tagFacade.list(null, null, "name", "desc");
@@ -216,7 +200,7 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
     public void list_WithPageAndSort() throws ServiceException {
         List<Tag> mockTagList = Arrays.asList(mockTag);
 
-        when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
+        when(converter.getDto(mockTag)).thenReturn(mockTagDto);
         when(mockService.findAll(any(PageRequest.class))).thenReturn(mockTagList);
 
         List<TagDto> results = tagFacade.list(1, PAGE_SIZE, "name", "asc");
@@ -229,7 +213,7 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
     public void list_WithPageNoSort() throws ServiceException {
         List<Tag> mockTagList = Arrays.asList(mockTag);
 
-        when(mockMapper.map(mockTag, TagDto.class)).thenReturn(mockTagDto);
+        when(converter.getDto(mockTag)).thenReturn(mockTagDto);
         when(mockService.findAll(any(PageRequest.class))).thenReturn(mockTagList);
 
         List<TagDto> results = tagFacade.list(1, PAGE_SIZE, null, null);

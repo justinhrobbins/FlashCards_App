@@ -15,11 +15,6 @@ public class GenericWebServiceException extends WebApplicationException {
         this.setError(error);
     }
 
-    // public GenericWebServiceException(Response.Status status, List<WebServicesError>
-    // errors) {
-    // throwError(status, errors);
-    // }
-
     public GenericWebServiceException(final Response.Status status,
             final String customMessage) {
         this.setError(new WebServicesError(status.getStatusCode(),

@@ -41,7 +41,7 @@ public class TagsResourceUT extends BaseMockingTest {
     }
 
     @Test
-    public void search() {
+    public void search() throws ServiceException {
         when(mockTagFacade.findByName(any(String.class))).thenReturn(mockTagDto);
 
         TagDto result = resource.searchByName(any(String.class));
@@ -51,7 +51,7 @@ public class TagsResourceUT extends BaseMockingTest {
     }
 
     @Test(expected = GenericWebServiceException.class)
-    public void search_NotFound() {
+    public void search_NotFound() throws ServiceException {
         when(mockTagFacade.findByName(any(String.class))).thenReturn(null);
 
         resource.searchByName(any(String.class));

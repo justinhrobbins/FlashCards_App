@@ -1,21 +1,19 @@
 
 package org.robbins.flashcards.webservices;
 
-import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 import org.robbins.flashcards.dto.UserDto;
+import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.flashcards.facade.UserFacade;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.webservices.base.AbstractGenericResource;
+import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.springframework.stereotype.Component;
 
-import com.wordnik.swagger.annotations.Api;
-import com.wordnik.swagger.annotations.ApiOperation;
+import javax.inject.Inject;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
 
 @Path("/v1/users/")
 @Component("usersResource")
@@ -36,19 +34,11 @@ public class UsersResource extends AbstractGenericResource<UserDto, Long> {
     @Path("/search")
     @ApiOperation(value = "Find a user by their OpenId", response = UserDto.class)
     public UserDto search(@QueryParam("openid") final String openid) {
-        return userFacade.findUserByOpenid(openid);
+        try {
+            return userFacade.findUserByOpenid(openid);
+        } catch (ServiceException e) {
+            throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
+        }
     }
 
-    // @Override
-    // @ApiOperation(value = "Replace a user", responseClass =
-    // "javax.ws.rs.core.Response")
-    // public Response put(@PathParam("id") Long id, UserDto dto) {
-    //
-    // if (dto.getCreatedBy() == null) {
-    // UserDto orig = userFacade.findOne(id);
-    // dto.setCreatedBy(orig.getCreatedBy());
-    // dto.setCreatedDate(orig.getCreatedDate());
-    // }
-    // return super.put(id, dto);
-    // }
 }

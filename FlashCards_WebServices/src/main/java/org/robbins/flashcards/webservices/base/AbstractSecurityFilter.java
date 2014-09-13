@@ -2,10 +2,13 @@
 package org.robbins.flashcards.webservices.base;
 
 import javax.inject.Inject;
+import javax.ws.rs.core.Response;
 
 import org.robbins.flashcards.dto.UserDto;
+import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.flashcards.facade.UserFacade;
 import org.robbins.flashcards.model.User;
+import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -49,13 +52,19 @@ public class AbstractSecurityFilter {
         org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
         String openId = principal.getUsername();
 
-        UserDto user = userFacade.findUserByOpenid(openId);
+        try {
+            UserDto user = userFacade.findUserByOpenid(openId);
 
-        if (user != null) {
-            // set the user id on the autowired loggedInUser
-            getLoggedInUser().setId(user.getId());
-            LOGGER.debug("AbstractSecurityFilter - Logged In User Id: "
-                    + getLoggedInUser().getId());
+            if (user != null) {
+                // set the user id on the autowired loggedInUser
+                getLoggedInUser().setId(user.getId());
+                LOGGER.debug("AbstractSecurityFilter - Logged In User Id: "
+                        + getLoggedInUser().getId());
+            }
+        }
+        catch (ServiceException e)
+        {
+            throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
     }
 }
