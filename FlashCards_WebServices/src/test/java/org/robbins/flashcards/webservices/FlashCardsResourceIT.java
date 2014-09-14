@@ -1,28 +1,29 @@
 
 package org.robbins.flashcards.webservices;
 
-import static org.hamcrest.Matchers.greaterThan;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.robbins.flashcards.client.DefaultFlashcardClient;
+import org.robbins.flashcards.client.FlashcardClient;
+import org.robbins.flashcards.client.GenericRestCrudFacade;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
+import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.flashcards.tests.webservices.GenericEntityRestTest;
 import org.robbins.flashcards.util.TestDtoGenerator;
-import org.robbins.flashcards.webservices.util.ResourceUrls;
 import org.robbins.tests.IntegrationTest;
-import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
 
+import javax.inject.Inject;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static org.hamcrest.Matchers.greaterThan;
+import static org.junit.Assert.*;
+
 @Category(IntegrationTest.class)
-@ContextConfiguration(locations = { "classpath*:applicatonContext-webServices-test.xml" })
+@ContextConfiguration(locations = {"classpath*:applicatonContext-client.xml"})
 public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto> {
 
     // this entity will be created in @Before and we'll use it for our JUnit tests and
@@ -40,100 +41,50 @@ public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto> {
         return entity;
     }
 
-    @Override
-    public String getEntityListUrl() {
-        return getServerAddress() + ResourceUrls.flashCards;
-    }
+    @Inject
+    private FlashcardClient client;
 
     @Override
-    public String getEntityUrl() {
-        return getServerAddress() + ResourceUrls.flashCard;
-    }
-
-    @Override
-    public String postEntityUrl() {
-        return getServerAddress() + ResourceUrls.flashCards;
-    }
-
-    @Override
-    public String putEntityUrl() {
-        return getServerAddress() + ResourceUrls.flashCard;
-    }
-
-    @Override
-    public String deleteEntityUrl() {
-        return getServerAddress() + ResourceUrls.flashCard;
-    }
-
-    @Override
-    public String searchUrl() {
-        return getServerAddress() + ResourceUrls.flashCardsSearch;
-    }
-
-    @Override
-    public Class<FlashCardDto> getClazz() {
-        return FlashCardDto.class;
-    }
-
-    @Override
-    public Class<FlashCardDto[]> getClazzArray() {
-        return FlashCardDto[].class;
-    }
-
-    private Map<String, String> setupSearchUriVariables() {
-        Map<String, String> searchUriVariables = new HashMap<String, String>();
-
-        searchUriVariables.put("question", "");
-        searchUriVariables.put("tags", "");
-
-        return searchUriVariables;
+    public GenericRestCrudFacade<FlashCardDto> getClient() {
+        return client;
     }
 
     /**
      * Test search by facility in.
      */
     @Test
-    public void testSearchByTagsIn() {
-        Map<String, String> uriVariables = setupSearchUriVariables();
-        uriVariables.put("tags", "2,20");
+    public void testSearchByTagsIn() throws ServiceException {
+        Set<TagDto> tags = new HashSet<>();
+        tags.add(new TagDto(2L));
+        tags.add(new TagDto(20L));
 
         // search result
-        FlashCardDto[] searchResult = searchEntities(searchUrl(), uriVariables,
-                FlashCardDto[].class);
+        List<FlashCardDto> searchResult = client.findByTagsIn(tags);
 
         // test that our get worked
-        assertTrue(searchResult.length > 0);
+        assertTrue(searchResult.size() > 0);
     }
 
     /**
      * Execute updateEntity.
      */
     @Test
-    public void testUpdateEntity() {
-        Long id = getEntity().getId();
-        String updatedValue = "updated value";
+    public void testUpdateEntity() throws ServiceException {
+        final Long id = getEntity().getId();
+        final String UPDATED_VALUE = "updated value";
 
-        FlashCardDto entity = new FlashCardDto();
-        entity.setQuestion(updatedValue);
+        final FlashCardDto entity = new FlashCardDto(id);
+        entity.setQuestion(UPDATED_VALUE);
 
-        // build the URL
-        String apiUrl = getServerAddress() + ResourceUrls.flashCardUpdate;
-
-        // set the URL parameter
-        Map<String, String> vars = Collections.singletonMap("id", String.valueOf(id));
-
-        // make the REST call
-        HttpStatus status = updateEntity(apiUrl, vars, entity);
-        assertEquals(status.toString(), "204");
+        client.update(entity);
 
         // double-check the Entity info was updated by re-pulling the Entity
-        FlashCardDto retrievedEntity = getEntity(getEntityUrl(), getEntity().getId(),
-                getClazz());
-        assertEquals(updatedValue, retrievedEntity.getQuestion());
+        final FlashCardDto retrievedEntity = client.findOne(id);
+        assertEquals(UPDATED_VALUE, retrievedEntity.getQuestion());
     }
 
     @Test
-    public void createNewFlashCard_WithNewTag() {
+    public void createNewFlashCard_WithNewTag() throws ServiceException {
 
         FlashCardDto flashCard = new FlashCardDto();
         flashCard.setQuestion("Question4");
@@ -145,11 +96,11 @@ public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto> {
         flashCard.getTags().add(tag);
 
         // make the REST call
-        FlashCardDto newFlashCard = postEntity(postEntityUrl(), flashCard, getClazz());
+        FlashCardDto newFlashCard = client.save(flashCard);
 
         assertThat(newFlashCard.getId(), greaterThan(0L));
         assertThat(newFlashCard.getTags().size(), greaterThan(0));
 
-        deleteEntity(deleteEntityUrl(), newFlashCard.getId());
+        client.delete(newFlashCard.getId());
     }
 }

@@ -6,7 +6,11 @@ import java.util.Set;
 
 import org.robbins.flashcards.exceptions.ServiceException;
 
+import javax.xml.ws.Service;
+
 public interface GenericCrudFacade<D> {
+
+    List<D> list() throws ServiceException;
 
     List<D> list(Integer page, Integer size, String sort, String direction)
             throws ServiceException;

@@ -1,5 +1,5 @@
 
-package org.robbins.flashcards.webservices.util;
+package org.robbins.flashcards.client.util;
 
 public final class ResourceUrls {
 

@@ -1,20 +1,18 @@
 
-package org.robbins.flashcards.tests.webservices;
-
-import org.apache.geronimo.mail.util.Base64;
-import org.junit.Before;
-import org.robbins.tests.jackson.CustomObjectMapper;
-import org.robbins.tests.jackson.MappingJackson2HttpMessageConverter;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
-import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
-import org.springframework.web.client.RestTemplate;
+package org.robbins.flashcards.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
+import org.apache.geronimo.mail.util.Base64;
 
-public abstract class BaseRestTest extends AbstractJUnit4SpringContextTests {
+import org.robbins.flashcards.client.jackson.CustomObjectMapper;
+import org.robbins.flashcards.client.jackson.MappingJackson2HttpMessageConverter;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.web.client.RestTemplate;
+
+public abstract class AbstractClient {
 
     @Value("${server.address}")
     private String serverAddress;
@@ -27,11 +25,7 @@ public abstract class BaseRestTest extends AbstractJUnit4SpringContextTests {
 
     private RestTemplate restTemplate = new RestTemplate();
 
-    /**
-     * Before test.
-     */
-    @Before
-    public void beforeTest() {
+    public AbstractClient() {
         // although this is only strictly required with a POST or PUT there's no
         // harm in doing for every HTTP method
         configureRestTemplate();

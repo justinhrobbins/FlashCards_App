@@ -1,16 +1,8 @@
 
 package org.robbins.flashcards.facade.base;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
-import javax.inject.Inject;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.dozer.Mapper;
-import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.flashcards.facade.JpaFacade;
 import org.robbins.flashcards.service.util.FieldInitializerUtil;
@@ -18,6 +10,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Transactional
 public abstract class AbstractCrudFacadeImpl<D, E> implements GenericCrudFacade<D>,
@@ -30,8 +27,12 @@ public abstract class AbstractCrudFacadeImpl<D, E> implements GenericCrudFacade<
     public D save(final D dto) throws ServiceException {
         E entity = getConverter().getEntity(dto);
         E resultEntity = getService().save(entity);
-        D resultDto = getConverter().getDto(resultEntity);
-        return resultDto;
+        return getConverter().getDto(resultEntity);
+    }
+
+    @Override
+    public List<D> list() throws ServiceException {
+        return list(null, null, null, null);
     }
 
     @Override
@@ -72,7 +73,7 @@ public abstract class AbstractCrudFacadeImpl<D, E> implements GenericCrudFacade<
             fieldInitializer.initializeEntity(entities, fields);
         }
 
-        List<D> dtos = new ArrayList<D>();
+        List<D> dtos = new ArrayList<>();
         for (E entity : entities) {
             dtos.add(getConverter().getDto(entity, fields));
         }
