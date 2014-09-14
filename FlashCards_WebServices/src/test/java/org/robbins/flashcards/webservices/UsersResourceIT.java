@@ -1,31 +1,35 @@
 
 package org.robbins.flashcards.webservices;
 
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.robbins.flashcards.client.GenericRestCrudFacade;
+import org.robbins.flashcards.client.UserClient;
+import org.robbins.flashcards.dto.UserDto;
+import org.robbins.flashcards.exceptions.ServiceException;
+import org.robbins.flashcards.tests.webservices.GenericEntityRestTest;
+import org.robbins.flashcards.util.TestDtoGenerator;
+import org.robbins.tests.IntegrationTest;
+import org.springframework.test.context.ContextConfiguration;
+
+import javax.inject.Inject;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-import org.robbins.flashcards.dto.UserDto;
-import org.robbins.flashcards.tests.webservices.GenericEntityRestTest;
-import org.robbins.flashcards.util.TestDtoGenerator;
-import org.robbins.flashcards.webservices.util.ResourceUrls;
-import org.robbins.tests.IntegrationTest;
-import org.springframework.http.HttpStatus;
-import org.springframework.test.context.ContextConfiguration;
-
 @Category(IntegrationTest.class)
-@ContextConfiguration(locations = { "classpath*:applicatonContext-webServices-test.xml" })
+@ContextConfiguration(locations = {"classpath*:applicatonContext-client.xml"})
 public class UsersResourceIT extends GenericEntityRestTest<UserDto> {
+
+    private static final String OPEN_ID = "Web API Test 'openid'";
 
     // this entity will be created in @Before and we'll use it for our JUnit tests and
     // then delete it in @After
-    private UserDto entity = TestDtoGenerator.createUserDto("Web API Test 'openid'",
+    private UserDto entity = TestDtoGenerator.createUserDto(OPEN_ID,
             "webapitest@email.com");
+
+    @Inject
+    private UserClient client;
 
     @Override
     public void setEntity(final UserDto entity) {
@@ -38,60 +42,17 @@ public class UsersResourceIT extends GenericEntityRestTest<UserDto> {
     }
 
     @Override
-    public String getEntityListUrl() {
-        return getServerAddress() + ResourceUrls.users;
-    }
-
-    @Override
-    public String getEntityUrl() {
-        return getServerAddress() + ResourceUrls.user;
-    }
-
-    @Override
-    public String postEntityUrl() {
-        return getServerAddress() + ResourceUrls.users;
-    }
-
-    @Override
-    public String putEntityUrl() {
-        return getServerAddress() + ResourceUrls.user;
-    }
-
-    @Override
-    public String deleteEntityUrl() {
-        return getServerAddress() + ResourceUrls.user;
-    }
-
-    @Override
-    public String searchUrl() {
-        return getServerAddress() + ResourceUrls.usersSearch;
-    }
-
-    @Override
-    public Class<UserDto> getClazz() {
-        return UserDto.class;
-    }
-
-    @Override
-    public Class<UserDto[]> getClazzArray() {
-        return UserDto[].class;
+    public GenericRestCrudFacade<UserDto> getClient() {
+        return client;
     }
 
     /**
      * Test search by facility in.
      */
     @Test
-    public void testSearchByOpenId() {
-        Map<String, String> uriVariables = new HashMap<String, String>();
+    public void testSearchByOpenId() throws ServiceException {
+        final UserDto searchResult = client.findUserByOpenid(OPEN_ID);
 
-        String openid = "Web API Test 'openid'";
-        uriVariables.put("openid", openid);
-
-        // search results
-        UserDto searchResult = searchSingleEntity(searchUrl(), uriVariables,
-                UserDto.class);
-
-        // test that our get worked
         assertTrue(searchResult != null);
     }
 
@@ -99,26 +60,17 @@ public class UsersResourceIT extends GenericEntityRestTest<UserDto> {
      * Execute updateEntity.
      */
     @Test
-    public void testUpdateEntity() {
-        Long id = getEntity().getId();
-        String updatedValue = "updated value";
+    public void testUpdateEntity() throws ServiceException {
+        final Long id = getEntity().getId();
+        final String UPDATED_VALUE = "updated value";
 
-        UserDto entity = new UserDto();
-        entity.setFirstName(updatedValue);
+        final UserDto entity = new UserDto(id);
+        entity.setFirstName(UPDATED_VALUE);
 
-        // build the URL
-        String apiUrl = getServerAddress() + ResourceUrls.userUpdate;
-
-        // set the URL parameter
-        Map<String, String> vars = Collections.singletonMap("id", String.valueOf(id));
-
-        // make the REST call
-        HttpStatus status = updateEntity(apiUrl, vars, entity);
-        assertEquals(status.toString(), "204");
+        client.update(entity);
 
         // double-check the Entity info was updated by re-pulling the Entity
-        UserDto retrievedEntity = getEntity(getEntityUrl(), getEntity().getId(),
-                getClazz());
-        assertEquals(updatedValue, retrievedEntity.getFirstName());
+        final UserDto retrievedEntity = client.findOne(id);
+        assertEquals(UPDATED_VALUE, retrievedEntity.getFirstName());
     }
 }

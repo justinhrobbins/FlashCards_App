@@ -1,28 +1,31 @@
 
 package org.robbins.flashcards.webservices;
 
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.robbins.flashcards.client.FlashcardsAppClient;
+import org.robbins.tests.IntegrationTest;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import javax.inject.Inject;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.Assert.assertThat;
 
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-import org.robbins.flashcards.tests.webservices.BaseRestTest;
-import org.robbins.flashcards.webservices.util.ResourceUrls;
-import org.robbins.tests.IntegrationTest;
-import org.springframework.test.context.ContextConfiguration;
-
 @Category(IntegrationTest.class)
-@ContextConfiguration(locations = { "classpath*:applicatonContext-webServices-test.xml" })
-public class FlashCardsAppResourceIT extends BaseRestTest {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath*:applicatonContext-client.xml"})
+public class FlashCardsAppResourceIT {
 
-    private String getStatusUrl() {
-        return getServerAddress() + ResourceUrls.status;
-    }
+    @Inject
+    private FlashcardsAppClient client;
 
     @Test
     public void status_FoundManifestAndVerson() {
-        String result = getRestTemplate().getForObject(getStatusUrl(), String.class);
+        String result = client.getStatus();
 
         assertThat(result, is(String.class));
         assertThat(result.length(), greaterThan(1));

@@ -180,6 +180,12 @@
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.robbins.flashcards</groupId>
+            <artifactId>FlashCards_Client</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <profiles>
@@ -224,7 +230,7 @@
             Moved this into it's own profile because otherwise Tomcat was getting started 
             in all cases and wasting time, even when we were skipping tests 'DskipTests=true' -->
         <profile>
-            <id>integration-test</id>
+            <id>integration-tests</id>
             <build>
                 <plugins>
                     <plugin>

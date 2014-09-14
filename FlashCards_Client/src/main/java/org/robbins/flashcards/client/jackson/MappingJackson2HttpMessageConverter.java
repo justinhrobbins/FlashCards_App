@@ -1,5 +1,5 @@
 
-package org.robbins.tests.jackson;
+package org.robbins.flashcards.client.jackson;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
