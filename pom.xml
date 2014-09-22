@@ -161,20 +161,7 @@
         <module>FlashCards_Struts</module>
     </modules>
     <profiles>
-        <!-- REPOSITORY PROFILES -->
-        <profile>
-            <id>jpa</id>
-            <modules>
-                <module>FlashCards_Repository_Jpa</module>
-            </modules>
-        </profile>
-        <profile>
-            <id>spring-data</id>
-            <modules>
-                <module>FlashCards_Repository_SpringData</module>
-            </modules>
-        </profile>
-    
+
         <!-- TEST PROFILES -->
         <!-- run only unit tests -->
         <profile>
@@ -557,14 +544,6 @@
                 <version>${guava.version}</version>
             </dependency>
 
-            <!-- used for Base64 encoding could probably find a different 
-                library for this -->
-            <dependency>
-                <groupId>org.apache.geronimo.specs</groupId>
-                <artifactId>geronimo-j2ee_1.4_spec</artifactId>
-                <version>${geronimo.j2ee.1.4_spec.version}</version>
-            </dependency>
-
             <!-- Apache CXF -->
             <dependency>
                 <groupId>org.apache.cxf</groupId>
@@ -801,7 +780,11 @@
                 <version>${spring.version}</version>
                 <scope>test</scope>
             </dependency>
-
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>1.9</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>

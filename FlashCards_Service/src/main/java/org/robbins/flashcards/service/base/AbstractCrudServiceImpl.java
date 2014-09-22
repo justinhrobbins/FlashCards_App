@@ -3,6 +3,9 @@ package org.robbins.flashcards.service.base;
 
 import java.util.List;
 
+import org.robbins.flashcards.exceptions.DataIntegrityException;
+import org.robbins.flashcards.exceptions.ServiceException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
@@ -11,7 +14,14 @@ public abstract class AbstractCrudServiceImpl<T> implements GenericJpaService<T,
 
     @Override
     public T save(final T entity) {
-        return getRepository().save(entity);
+        try {
+            T result = getRepository().save(entity);
+            return result;
+        }
+        catch (DataIntegrityViolationException integrityException)
+        {
+            throw new DataIntegrityException("Could save '" + entity.getClass().getSimpleName() + "' due to DataIntegrityViolationException");
+        }
     }
 
     @Override

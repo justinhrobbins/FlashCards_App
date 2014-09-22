@@ -57,6 +57,12 @@
         </bean>
     </beans>
 
+    <beans profile="minimal-test-data">
+        <jdbc:initialize-database>
+            <jdbc:script location="classpath:sql/user.sql" />
+        </jdbc:initialize-database>
+    </beans>
+
     <beans profile="test-data">
         <jdbc:initialize-database>
             <jdbc:script location="classpath:sql/user.sql" />

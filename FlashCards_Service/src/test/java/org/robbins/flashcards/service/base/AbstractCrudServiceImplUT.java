@@ -15,6 +15,7 @@ import org.junit.experimental.categories.Category;
 import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.repository.TagRepository;
 import org.robbins.flashcards.service.TagServiceImpl;
@@ -46,7 +47,7 @@ public class AbstractCrudServiceImplUT extends BaseMockingTest {
     }
 
     @Test
-    public void save() {
+    public void save() throws ServiceException {
         when(repository.save(tag)).thenReturn(tag);
 
         Tag result = tagService.save(tag);

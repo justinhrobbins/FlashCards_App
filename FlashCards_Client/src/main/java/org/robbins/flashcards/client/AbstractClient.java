@@ -4,7 +4,7 @@ package org.robbins.flashcards.client;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
-import org.apache.geronimo.mail.util.Base64;
+import org.apache.commons.codec.binary.Base64;
 
 import org.robbins.flashcards.client.jackson.CustomObjectMapper;
 import org.robbins.flashcards.client.jackson.MappingJackson2HttpMessageConverter;
@@ -94,7 +94,7 @@ public abstract class AbstractClient {
     protected String encodedCreds() {
         String creds = this.loggedInUserName + ":" + this.loggedInPassword;
         byte[] bytes = creds.getBytes();
-        byte[] encodingBytes = Base64.encode(bytes);
+        byte[] encodingBytes = Base64.encodeBase64(bytes);
         return "Basic " + new String(encodingBytes);
     }
 }

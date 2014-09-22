@@ -23,6 +23,19 @@
         <developerConnection>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</developerConnection>
     </scm>
     <profiles>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.robbins.flashcards</groupId>
+                    <artifactId>FlashCards_Repository_SpringData</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
         <!-- REPOSITORY PROFILES -->
         <profile>
             <id>jpa</id>

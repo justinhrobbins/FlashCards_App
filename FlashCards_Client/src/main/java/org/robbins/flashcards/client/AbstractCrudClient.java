@@ -2,10 +2,9 @@ package org.robbins.flashcards.client;
 
 import org.robbins.flashcards.dto.AbstractPersistableDto;
 import org.robbins.flashcards.exceptions.ServiceException;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientException;
 
 import java.util.*;
 
@@ -75,12 +74,12 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto> exten
     public abstract Class<E[]> getClazzArray();
 
     @Override
-    public List<E> list() throws ServiceException {
+    public List<E> list() {
         return list(null, null, null, null, null);
     }
 
     @Override
-    public List<E> list(Integer page, Integer size, String sort, String direction, Set<String> fields) throws ServiceException {
+    public List<E> list(Integer page, Integer size, String sort, String direction, Set<String> fields) {
         // set the Authentication header
         @SuppressWarnings({ "unchecked", "rawtypes" })
         final HttpEntity httpEntity = new HttpEntity(getAuthHeaders());
@@ -88,13 +87,12 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto> exten
         final ResponseEntity<E[]> response = getRestTemplate().exchange(getEntityListUrl(), HttpMethod.GET,
                 httpEntity, getClazzArray());
 
-        // retrieve the entities from the Response
         final E[] entityList = response.getBody();
         return Arrays.asList(entityList);
     }
 
     @Override
-    public List<E> list(Integer page, Integer size, String sort, String direction) throws ServiceException {
+    public List<E> list(Integer page, Integer size, String sort, String direction) {
         return list(page, size, sort, direction, null);
     }
 
@@ -109,17 +107,16 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto> exten
         final ResponseEntity<Long> response = getRestTemplate().exchange(url, HttpMethod.GET,
                 httpEntity, Long.class);
 
-        // retrieve the entity count from the Response
         return response.getBody();
     }
 
     @Override
-    public E findOne(Long id) throws ServiceException {
+    public E findOne(Long id) {
         return findOne(id, null);
     }
 
     @Override
-    public E findOne(Long id, Set<String> fields) throws ServiceException {
+    public E findOne(Long id, Set<String> fields) {
         // set the Authentication header
         @SuppressWarnings({ "unchecked", "rawtypes" })
         final HttpEntity httpEntity = new HttpEntity(getAuthHeaders());
@@ -129,7 +126,6 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto> exten
         final ResponseEntity<E> response = getRestTemplate().exchange(getEntityUrl(), HttpMethod.GET,
                 httpEntity, getClazz(), vars);
 
-        // retrieve the entity from the Response
         return response.getBody();
     }
 
@@ -139,8 +135,16 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto> exten
         @SuppressWarnings({ "unchecked", "rawtypes" })
         final HttpEntity httpEntity = new HttpEntity(entity, getAuthHeaders());
 
-        // make the REST call
-        return getRestTemplate().postForObject(postEntityUrl(), httpEntity, getClazz());
+        try {
+            E result = getRestTemplate().postForObject(postEntityUrl(), httpEntity, getClazz());
+            return result;
+        }
+        catch (HttpClientErrorException e) {
+            throw new ServiceException("Unble to save '" + entity.getClass().getSimpleName() + "' " + e.getMessage());
+        }
+        catch (Exception e) {
+            throw new ServiceException("Unexpected exception" + e.getMessage());
+        }
     }
 
     @Override
@@ -154,7 +158,6 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto> exten
 
         final Map<String, String> vars = Collections.singletonMap("id", String.valueOf(id));
 
-        // make the REST call
         @SuppressWarnings("rawtypes")
         final ResponseEntity response = getRestTemplate().exchange(deleteEntityUrl(), HttpMethod.DELETE,
                 httpEntity, ResponseEntity.class, vars);
@@ -162,30 +165,27 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto> exten
     }
 
     @Override
-    public void update(E entity) throws ServiceException {
+    public void update(E entity) {
         final  HttpHeaders httpHeaders = getAuthHeaders();
         httpHeaders.set("Accept", "application/json");
 
         final Map<String, String> uriVariables = Collections.singletonMap("id", String.valueOf(entity.getId()));
 
-        // set the Authentication header
         @SuppressWarnings({ "unchecked", "rawtypes" })
         final  HttpEntity httpEntity = new HttpEntity(entity, httpHeaders);
 
-        // make the REST call
         @SuppressWarnings("rawtypes")
         final ResponseEntity response = getRestTemplate().exchange(updateUrl(), HttpMethod.POST,
                 httpEntity, ResponseEntity.class, uriVariables);
     }
 
     @Override
-    public void put(E entity) throws ServiceException {
+    public void put(E entity) {
         final  HttpHeaders httpHeaders = getAuthHeaders();
         httpHeaders.set("Accept", "application/json");
 
         final Map<String, String> uriVariables = Collections.singletonMap("id", String.valueOf(entity.getId()));
 
-        // set the Authentication header
         @SuppressWarnings({ "unchecked", "rawtypes" })
         final HttpEntity httpEntity = new HttpEntity(entity, httpHeaders);
 
@@ -224,7 +224,6 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto> exten
         final ResponseEntity<E[]> response = getRestTemplate().exchange(url, HttpMethod.GET,
                 httpEntity, clazz, uriVariables);
 
-        // retrieve the entities from the Response
         return response.getBody();
     }
 }

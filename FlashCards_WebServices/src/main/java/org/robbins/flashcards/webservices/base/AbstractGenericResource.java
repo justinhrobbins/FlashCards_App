@@ -5,6 +5,7 @@ import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.DELETE;
@@ -17,6 +18,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
+import org.robbins.flashcards.exceptions.DataIntegrityException;
 import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
@@ -44,7 +46,7 @@ public abstract class AbstractGenericResource<T, Serializable> extends AbstractR
             @DefaultValue("asc") @QueryParam("direction") final String direction,
             @QueryParam("fields") final String fields) {
 
-        List<T> entities = null;
+        List<T> entities;
 
         try {
             entities = getFacade().list(page, size, sort, direction,
@@ -59,8 +61,7 @@ public abstract class AbstractGenericResource<T, Serializable> extends AbstractR
 
         // did we get any results?
         if ((entities == null) || (entities.size() == 0)) {
-            throw new GenericWebServiceException(Response.Status.NOT_FOUND,
-                    "Entities not found");
+            entities = new ArrayList<>();
         }
 
         return JResponse.ok(entities).build();
@@ -101,7 +102,10 @@ public abstract class AbstractGenericResource<T, Serializable> extends AbstractR
     public T post(final T entity) {
         try {
             return getFacade().save(entity);
-        } catch (ServiceException e) {
+        } catch (DataIntegrityException e) {
+            throw new GenericWebServiceException(Response.Status.BAD_REQUEST, e);
+        }
+        catch (ServiceException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
     }

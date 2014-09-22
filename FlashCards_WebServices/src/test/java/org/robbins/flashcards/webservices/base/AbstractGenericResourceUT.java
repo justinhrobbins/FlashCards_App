@@ -63,11 +63,15 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
         assertThat(results.getEntity(), is(List.class));
     }
 
-    @Test(expected = GenericWebServiceException.class)
+    @Test
     public void list_NullResult() throws ServiceException {
         when(mockTagFacade.list(null, null, null, null)).thenReturn(null);
 
-        resource.list(null, null, null, null, null);
+        JResponse<List<TagDto>> results = resource.list(null, null, null, null, null);
+
+        verify(mockTagFacade).list(null, null, null, null, null);
+        assertThat(results.getEntity(), is(List.class));
+        assertThat(results.getEntity().size(), is(0));
     }
 
     @Test(expected = WebApplicationException.class)

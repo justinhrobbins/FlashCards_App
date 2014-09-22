@@ -58,7 +58,6 @@ public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto> {
         tags.add(new TagDto(2L));
         tags.add(new TagDto(20L));
 
-        // search result
         List<FlashCardDto> searchResult = client.findByTagsIn(tags);
 
         // test that our get worked
@@ -92,10 +91,8 @@ public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto> {
 
         TagDto tag = new TagDto();
         tag.setName("tag4");
-
         flashCard.getTags().add(tag);
 
-        // make the REST call
         FlashCardDto newFlashCard = client.save(flashCard);
 
         assertThat(newFlashCard.getId(), greaterThan(0L));
