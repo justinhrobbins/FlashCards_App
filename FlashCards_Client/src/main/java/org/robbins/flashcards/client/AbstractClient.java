@@ -25,6 +25,18 @@ public abstract class AbstractClient {
 
     private RestTemplate restTemplate = new RestTemplate();
 
+    public void setServerAddress(String serverAddress) {
+        this.serverAddress = serverAddress;
+    }
+
+    public void setLoggedInUserName(String loggedInUserName) {
+        this.loggedInUserName = loggedInUserName;
+    }
+
+    public void setLoggedInPassword(String loggedInPassword) {
+        this.loggedInPassword = loggedInPassword;
+    }
+
     public AbstractClient() {
         // although this is only strictly required with a POST or PUT there's no
         // harm in doing for every HTTP method
