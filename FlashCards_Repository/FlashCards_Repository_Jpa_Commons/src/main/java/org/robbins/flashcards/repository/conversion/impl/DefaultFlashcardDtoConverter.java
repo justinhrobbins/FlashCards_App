@@ -8,7 +8,7 @@ import java.util.Set;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.exceptions.RepositoryException;
 import org.robbins.flashcards.model.FlashCard;
-import org.robbins.flashcards.repository.conversion.DtoConverter;
+import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.repository.util.DtoUtil;
 import org.springframework.stereotype.Component;
 
@@ -31,6 +31,11 @@ public class DefaultFlashcardDtoConverter extends AbstractDtoConverter implement
     @Override
     public FlashCard getEntity(final FlashCardDto dto) {
         return getMapper().map(dto, FlashCard.class);
+    }
+
+    @Override
+    public List<FlashCardDto> getDtos(List<FlashCard> entities) throws RepositoryException {
+        return getDtos(entities, null);
     }
 
     @Override

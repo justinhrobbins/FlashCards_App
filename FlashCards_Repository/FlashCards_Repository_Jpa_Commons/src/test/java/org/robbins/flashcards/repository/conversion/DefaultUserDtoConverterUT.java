@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.dto.UserDto;
 import org.robbins.flashcards.exceptions.RepositoryException;
 import org.robbins.flashcards.exceptions.ServiceException;

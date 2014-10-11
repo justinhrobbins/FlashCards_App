@@ -7,7 +7,7 @@ import java.util.Set;
 import org.robbins.flashcards.dto.UserDto;
 import org.robbins.flashcards.exceptions.RepositoryException;
 import org.robbins.flashcards.model.User;
-import org.robbins.flashcards.repository.conversion.DtoConverter;
+import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.repository.util.DtoUtil;
 import org.springframework.stereotype.Component;
 
@@ -30,6 +30,11 @@ public class DefaultUserDtoConverter extends AbstractDtoConverter implements Dto
     @Override
     public User getEntity(final UserDto dto) {
         return getMapper().map(dto, User.class);
+    }
+
+    @Override
+    public List<UserDto> getDtos(List<User> entities) throws RepositoryException {
+        return getDtos(entities, null);
     }
 
     @Override

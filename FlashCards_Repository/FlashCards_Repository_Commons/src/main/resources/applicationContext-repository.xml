@@ -12,4 +12,8 @@
         <import resource="classpath:applicationContext-repository-jpa.xml" />
     </beans>
 
+    <beans profile="cassandra">
+        <import resource="classpath:applicationContext-repository-cassandra.xml" />
+    </beans>
+
 </beans>

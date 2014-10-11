@@ -23,7 +23,7 @@ import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.flashcards.facade.TagFacade;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.repository.TagRepository;
-import org.robbins.flashcards.repository.conversion.DtoConverter;
+import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.repository.util.FieldInitializerUtil;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;

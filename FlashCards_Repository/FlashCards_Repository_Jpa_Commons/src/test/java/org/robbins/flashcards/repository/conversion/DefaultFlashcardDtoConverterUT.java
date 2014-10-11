@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.repository.conversion.impl.DefaultFlashcardDtoConverter;
