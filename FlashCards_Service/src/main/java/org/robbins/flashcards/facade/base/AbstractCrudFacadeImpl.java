@@ -4,7 +4,7 @@ package org.robbins.flashcards.facade.base;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.robbins.flashcards.exceptions.ServiceException;
-import org.robbins.flashcards.facade.JpaFacade;
+import org.robbins.flashcards.facade.PagingAndSortingFacade;
 import org.robbins.flashcards.service.util.FieldInitializerUtil;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -18,7 +18,8 @@ import java.util.Set;
 
 @Transactional
 public abstract class AbstractCrudFacadeImpl<D, E> implements GenericCrudFacade<D>,
-        JpaFacade<D, E> {
+		PagingAndSortingFacade<D, E>
+{
 
     @Inject
     private FieldInitializerUtil fieldInitializer;

@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * A custom {@link UserDetailsService} where user information is retrieved from a JPA
+ * A custom {@link UserDetailsService} where user information is retrieved from a
  * repository.
  */
 @Service

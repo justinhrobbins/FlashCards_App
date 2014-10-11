@@ -6,10 +6,11 @@ import java.util.Set;
 
 import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
-import org.robbins.flashcards.service.base.GenericJpaService;
+import org.robbins.flashcards.service.base.GenericPagingAndSortingService;
 import org.springframework.data.domain.PageRequest;
 
-public interface FlashCardService extends GenericJpaService<FlashCard, Long> {
+public interface FlashCardService extends GenericPagingAndSortingService<FlashCard, Long>
+{
 
     List<FlashCard> findByTagsIn(Set<Tag> tags);
 
