@@ -16,7 +16,7 @@ import org.mockito.Mock;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.dto.UserDto;
 import org.robbins.flashcards.exceptions.ServiceException;
-import org.robbins.flashcards.facade.TagFacade;
+import org.robbins.flashcards.repository.facade.TagFacade;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;

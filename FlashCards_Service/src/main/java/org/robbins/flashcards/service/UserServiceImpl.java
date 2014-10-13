@@ -3,25 +3,29 @@ package org.robbins.flashcards.service;
 
 import javax.inject.Inject;
 
-import org.robbins.flashcards.model.User;
+import org.robbins.flashcards.dto.TagDto;
+import org.robbins.flashcards.dto.UserDto;
+import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.facade.UserFacade;
+import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.repository.UserRepository;
 import org.robbins.flashcards.service.base.AbstractCrudServiceImpl;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl extends AbstractCrudServiceImpl<User> implements
+public class UserServiceImpl extends AbstractCrudServiceImpl<UserDto> implements
         UserService {
 
     @Inject
-    private UserRepository repository;
+    private UserFacade facade;
 
     @Override
-    public UserRepository getRepository() {
-        return repository;
+    public GenericCrudFacade<UserDto> getFacade() {
+        return facade;
     }
 
     @Override
-    public User findUserByOpenid(final String openid) {
-        return getRepository().findUserByOpenid(openid);
+    public UserDto findUserByOpenid(final String openid) throws FlashcardsException {
+        return facade.findUserByOpenid(openid);
     }
 }

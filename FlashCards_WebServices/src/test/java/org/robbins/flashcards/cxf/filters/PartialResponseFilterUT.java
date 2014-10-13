@@ -29,7 +29,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
 import org.robbins.flashcards.jackson.CustomObjectMapper;
-import org.robbins.flashcards.service.util.FieldInitializerUtil;
+import org.robbins.flashcards.repository.util.FieldInitializerUtil;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.test.util.ReflectionTestUtils;

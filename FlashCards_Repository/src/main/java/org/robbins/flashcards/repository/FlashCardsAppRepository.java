@@ -8,21 +8,21 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-public interface FlashCardsAppRepository<T, ID extends Serializable> {
+public interface FlashCardsAppRepository<E, ID extends Serializable> {
 
     long count();
 
-    T save(T entity);
+    E save(E entity);
 
-    T findOne(ID id);
+    E findOne(ID id);
 
     void delete(ID id);
 
-    void delete(T entity);
+    void delete(E dto);
 
-    List<T> findAll();
+    List<E> findAll();
 
-    List<T> findAll(Sort sort);
+    List<E> findAll(Sort sort);
 
-    Page<T> findAll(Pageable page);
+    Page<E> findAll(Pageable page);
 }

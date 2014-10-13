@@ -21,7 +21,7 @@ import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.exceptions.ServiceException;
-import org.robbins.flashcards.facade.TagFacade;
+import org.robbins.flashcards.repository.facade.TagFacade;
 import org.robbins.flashcards.webservices.TagsResource;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.robbins.tests.BaseMockingTest;

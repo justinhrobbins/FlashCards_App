@@ -8,21 +8,7 @@
 
     <tx:annotation-driven />
 
-    <bean id="mapper" class="org.dozer.DozerBeanMapper">
-        <property name="mappingFiles">
-            <list>
-                <value>dozer-mappings.xml</value>
-            </list>
-        </property>
-        <property name="customFieldMapper" ref="dozerCustomFieldMapper" />
-    </bean>
-
-    <bean id="dozerCustomFieldMapper"
-        class="org.robbins.flashcards.service.util.dozer.HibernateFieldMapper" />
-
     <context:component-scan base-package="
-        org.robbins.flashcards.conversion,
-        org.robbins.flashcards.facade, 
         org.robbins.flashcards.security,
         org.robbins.flashcards.service" />
 

@@ -1,11 +1,11 @@
 
 package org.robbins.flashcards.service;
 
-import org.robbins.flashcards.model.Tag;
+import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.service.base.GenericPagingAndSortingService;
 
-public interface TagService extends GenericPagingAndSortingService<Tag, Long>
+public interface TagService extends GenericPagingAndSortingService<TagDto, Long>
 {
 
-    Tag findByName(String name);
+    TagDto findByName(String name);
 }

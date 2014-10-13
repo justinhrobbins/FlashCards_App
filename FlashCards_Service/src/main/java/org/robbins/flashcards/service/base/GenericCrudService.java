@@ -4,6 +4,8 @@ package org.robbins.flashcards.service.base;
 import java.io.Serializable;
 import java.util.List;
 
+import org.robbins.flashcards.exceptions.FlashcardsException;
+
 public interface GenericCrudService<T, ID extends Serializable> {
 
     /**
@@ -13,7 +15,7 @@ public interface GenericCrudService<T, ID extends Serializable> {
      * @param entity
      * @return the saved entity
      */
-    T save(T entity);
+    T save(T entity) throws FlashcardsException;
 
     /**
      * Retrives an entity by its id.
@@ -21,7 +23,7 @@ public interface GenericCrudService<T, ID extends Serializable> {
      * @param id must not be {@literal null}.
      * @return the entity with the given id or {@literal null} if none found
      */
-    T findOne(ID id);
+    T findOne(ID id) throws FlashcardsException;
 
     /**
      * Returns the number of entities available.
@@ -37,12 +39,5 @@ public interface GenericCrudService<T, ID extends Serializable> {
      */
     void delete(ID id);
 
-    /**
-     * Deletes a given entity.
-     *
-     * @param entity
-     */
-    void delete(T entity);
-
-	List<T> findAll();
+	List<T> findAll() throws FlashcardsException;
 }

@@ -19,7 +19,7 @@ import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.exceptions.ServiceException;
-import org.robbins.flashcards.facade.FlashcardFacade;
+import org.robbins.flashcards.repository.facade.FlashcardFacade;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;

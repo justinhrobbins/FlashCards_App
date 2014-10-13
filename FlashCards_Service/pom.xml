@@ -21,11 +21,6 @@
 	</scm>
 	<dependencies>
 		<!-- FlashCards project module dependencies -->
-		<dependency>
-			<groupId>org.robbins.flashcards</groupId>
-			<artifactId>FlashCards_Domain</artifactId>
-			<version>${project.version}</version>
-		</dependency>
         <dependency>
             <groupId>org.robbins.flashcards</groupId>
             <artifactId>FlashCards_DTO</artifactId>
@@ -106,12 +101,6 @@
             <artifactId>aspectjrt</artifactId>
         </dependency>
 
-		<!-- Hibernate -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-        </dependency>
-
         <!-- dependency for 'javax.persistence' packages -->
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
@@ -139,12 +128,6 @@
         <dependency>  
           <groupId>ch.qos.logback</groupId>  
           <artifactId>logback-classic</artifactId>
-        </dependency>
-
-        <!-- Dozer for mapping @Entities to DTOs -->
-        <dependency>
-            <groupId>net.sf.dozer</groupId>
-            <artifactId>dozer</artifactId>
         </dependency>
 
 		<!-- test dependencies -->

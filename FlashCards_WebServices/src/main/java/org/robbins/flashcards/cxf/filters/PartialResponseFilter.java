@@ -21,7 +21,7 @@ import org.apache.cxf.jaxrs.model.Parameter;
 import org.apache.cxf.message.Message;
 import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.flashcards.jackson.CustomObjectMapper;
-import org.robbins.flashcards.service.util.FieldInitializerUtil;
+import org.robbins.flashcards.repository.util.FieldInitializerUtil;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
