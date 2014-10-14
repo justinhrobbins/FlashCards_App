@@ -4,7 +4,7 @@ package org.robbins.flashcards.presentation.facade.impl;
 import javax.inject.Inject;
 
 import org.robbins.flashcards.dto.TagDto;
-import org.robbins.flashcards.exceptions.ServiceException;
+import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.TagFacade;
 import org.robbins.flashcards.presentation.facade.base.AbstractCrudFacadeImpl;
 import org.robbins.flashcards.service.TagService;
@@ -25,7 +25,8 @@ public class DefaultTagFacade extends AbstractCrudFacadeImpl<TagDto> implements
     }
 
     @Override
-    public TagDto findByName(final String name) throws ServiceException {
+    public TagDto findByName(final String name) throws FlashcardsException
+	{
         return service.findByName(name);
     }
 }

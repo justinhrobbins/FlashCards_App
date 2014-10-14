@@ -1,5 +1,5 @@
 
-package org.robbins.flashcards.service.util;
+package org.robbins.flashcards.repository.util;
 
 import static org.mockito.Mockito.when;
 
@@ -18,7 +18,7 @@ import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
-import org.robbins.flashcards.exceptions.ServiceException;
+import org.robbins.flashcards.exceptions.RepositoryException;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -62,14 +62,15 @@ public class FieldInitializerUtilUT extends BaseMockingTest {
 
     @Test
     public void initializeEntity() throws IllegalAccessException,
-            InvocationTargetException, NoSuchMethodException, ServiceException {
+            InvocationTargetException, NoSuchMethodException, RepositoryException
+	{
         fieldInitializerUtil.initializeEntity(tagDto,
                 new HashSet<String>(Arrays.asList(COLLECTION_FIELD_NAME)));
     }
 
     @Test
     public void initializeEntity_collection() throws IllegalAccessException,
-            InvocationTargetException, NoSuchMethodException, ServiceException {
+            InvocationTargetException, NoSuchMethodException, RepositoryException {
         List<TagDto> tagList = Arrays.asList(tagDto);
 
         fieldInitializerUtil.initializeEntity(tagList,
@@ -78,7 +79,7 @@ public class FieldInitializerUtilUT extends BaseMockingTest {
 
     @Test
     public void initializeEntity_array() throws IllegalAccessException,
-            InvocationTargetException, NoSuchMethodException, ServiceException {
+            InvocationTargetException, NoSuchMethodException, RepositoryException {
         TagDto[] tagArray = { tagDto };
 
         fieldInitializerUtil.initializeEntity(tagArray,
@@ -87,7 +88,7 @@ public class FieldInitializerUtilUT extends BaseMockingTest {
 
     @Test
     public void initializeEntity_nullEntity() throws IllegalAccessException,
-            InvocationTargetException, NoSuchMethodException, ServiceException {
+            InvocationTargetException, NoSuchMethodException, RepositoryException {
         tagDto = null;
 
         fieldInitializerUtil.initializeEntity(tagDto,

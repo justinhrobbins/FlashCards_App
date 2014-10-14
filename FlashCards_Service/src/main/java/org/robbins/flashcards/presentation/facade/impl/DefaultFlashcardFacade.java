@@ -41,31 +41,31 @@ public class DefaultFlashcardFacade extends
 
     @Override
     public List<FlashCardDto> findByTagsIn(final Set<TagDto> tagDtos)
-            throws ServiceException {
+            throws FlashcardsException {
         return flashcardService.findByTagsIn(tagDtos);
     }
 
     @Override
     public List<FlashCardDto> findByTagsIn(final Set<TagDto> tagDtos,
-            final PageRequest page) throws ServiceException {
+            final PageRequest page) throws FlashcardsException {
         return flashcardService.findByTagsIn(tagDtos);
     }
 
     @Override
     public List<FlashCardDto> findByQuestionLike(final String question)
-            throws ServiceException {
+            throws FlashcardsException {
         return flashcardService.findByQuestionLike(question);
     }
 
     @Override
     public List<FlashCardDto> findByQuestionLike(final String question,
             final PageRequest page)
-            throws ServiceException {
+            throws FlashcardsException {
         return flashcardService.findByQuestionLike(question, page);
     }
 
     @Override
-    public FlashCardDto findByQuestion(final String question) throws ServiceException {
+    public FlashCardDto findByQuestion(final String question) throws FlashcardsException {
         return flashcardService.findByQuestion(question);
     }
 }

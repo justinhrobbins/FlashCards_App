@@ -1,5 +1,5 @@
 
-package org.robbins.flashcards.service.util;
+package org.robbins.flashcards.repository.util;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsNull.nullValue;
@@ -12,7 +12,7 @@ import java.util.Set;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.robbins.flashcards.dto.TagDto;
-import org.robbins.flashcards.exceptions.ServiceException;
+import org.robbins.flashcards.exceptions.RepositoryException;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 
@@ -20,7 +20,8 @@ import org.robbins.tests.UnitTest;
 public class DtoUtilUT extends BaseMockingTest {
 
     @Test
-    public void filterFields() throws ServiceException {
+    public void filterFields() throws RepositoryException
+	{
         String NAME = "TEST_NAME";
         TagDto tagDto = new TagDto();
         tagDto.setName(NAME);
@@ -32,7 +33,7 @@ public class DtoUtilUT extends BaseMockingTest {
     }
 
     @Test
-    public void filterFields_WithFields() throws ServiceException {
+    public void filterFields_WithFields() throws RepositoryException {
         String NAME = "TEST_NAME";
         TagDto tagDto = new TagDto(1L);
         tagDto.setName(NAME);
@@ -44,7 +45,7 @@ public class DtoUtilUT extends BaseMockingTest {
     }
 
     @Test
-    public void filterFields_WithNullFields() throws ServiceException {
+    public void filterFields_WithNullFields() throws RepositoryException {
         String NAME = "TEST_NAME";
         TagDto tagDto = new TagDto();
         tagDto.setName(NAME);
