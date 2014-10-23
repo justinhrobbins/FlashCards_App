@@ -49,7 +49,7 @@ public class FlashCardServiceImplUT extends BaseMockingTest {
         FlashCardDto flashCard = flashCardService.findByQuestion("Question");
 
         Mockito.verify(facade, Mockito.times(1)).findByQuestion("Question");
-        assertThat(flashCard, is(FlashCard.class));
+        assertThat(flashCard, is(FlashCardDto.class));
     }
 
     @Test

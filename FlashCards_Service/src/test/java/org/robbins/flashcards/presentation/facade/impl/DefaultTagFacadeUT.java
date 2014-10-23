@@ -24,8 +24,6 @@ import org.robbins.flashcards.facade.TagFacade;
 import org.robbins.flashcards.service.TagService;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @Category(UnitTest.class)
@@ -132,69 +130,77 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
     public void list() throws FlashcardsException {
         List<TagDto> mockTagList = Arrays.asList(mockTag);
 
-        when(mockService.findAll()).thenReturn(mockTagList);
+        when(mockService.findAll(null, null, null, null, null)).thenReturn(mockTagList);
 
-        List<TagDto> results = tagFacade.list(null, null, null, null);
+        List<TagDto> results = tagFacade.list();
 
-        verify(mockService).findAll();
+        verify(mockService).findAll(null, null, null, null, null);
         assertThat(results, is(List.class));
     }
 
     @Test
     public void list_WithSortAsc() throws FlashcardsException {
-        List<TagDto> mockTagList = Arrays.asList(mockTag);
+		final String SORT = "SORT";
+		final String DIRECTION = "ASC";
+        final List<TagDto> mockTagList = Arrays.asList(mockTag);
 
-        when(mockService.findAll(any(Sort.class))).thenReturn(mockTagList);
+		when(mockService.findAll(null, null, SORT, DIRECTION, null)).thenReturn(mockTagList);
 
-        List<TagDto> results = tagFacade.list(null, null, "name", "asc");
+        List<TagDto> results = tagFacade.list(null, null, SORT, DIRECTION);
 
-        verify(mockService).findAll(any(Sort.class));
+		verify(mockService).findAll(null, null, SORT, DIRECTION, null);
         assertThat(results, is(List.class));
     }
 
     @Test
     public void list_WithSortDesc() throws FlashcardsException {
-        List<TagDto> mockTagList = Arrays.asList(mockTag);
+		final String SORT = "SORT";
+		final String DIRECTION = "DESC";
+        final List<TagDto> mockTagList = Arrays.asList(mockTag);
 
-        when(mockService.findAll(any(Sort.class))).thenReturn(mockTagList);
+		when(mockService.findAll(null, null, SORT, DIRECTION, null)).thenReturn(mockTagList);
 
-        List<TagDto> results = tagFacade.list(null, null, "name", "desc");
+        final List<TagDto> results = tagFacade.list(null, null, SORT, DIRECTION);
 
-        verify(mockService).findAll(any(Sort.class));
+        verify(mockService).findAll(null, null, SORT, DIRECTION, null);
         assertThat(results, is(List.class));
     }
 
     @Test
     public void list_ReturnNull() throws FlashcardsException {
-        when(mockService.findAll()).thenReturn(null);
+        when(mockService.findAll(null, null, null, null, null)).thenReturn(null);
 
-        List<TagDto> results = tagFacade.list(null, null, null, null);
+        final List<TagDto> results = tagFacade.list(null, null, null, null);
 
-        verify(mockService).findAll();
+        verify(mockService).findAll(null, null, null, null, null);
         assertThat(results, is(nullValue()));
     }
 
     @Test
     public void list_WithPageAndSort() throws FlashcardsException {
-        List<TagDto> mockTagList = Arrays.asList(mockTag);
+		final Integer PAGE = 1;
+		final String SORT = "SORT";
+		final String DIRECTION = "ASC";
+        final List<TagDto> mockTagList = Arrays.asList(mockTag);
 
-        when(mockService.findAll(any(PageRequest.class))).thenReturn(mockTagList);
+        when(mockService.findAll(PAGE, PAGE_SIZE, SORT, DIRECTION, null)).thenReturn(mockTagList);
 
-        List<TagDto> results = tagFacade.list(1, PAGE_SIZE, "name", "asc");
+        final List<TagDto> results = tagFacade.list(PAGE, PAGE_SIZE, SORT, DIRECTION);
 
-        verify(mockService).findAll(any(PageRequest.class));
+        verify(mockService).findAll(PAGE, PAGE_SIZE, SORT, DIRECTION, null);
         assertThat(results, is(List.class));
     }
 
     @Test
     public void list_WithPageNoSort() throws FlashcardsException {
-        List<TagDto> mockTagList = Arrays.asList(mockTag);
+		final Integer PAGE = 1;
+        final List<TagDto> mockTagList = Arrays.asList(mockTag);
 
-        when(mockService.findAll(any(PageRequest.class))).thenReturn(mockTagList);
+		when(mockService.findAll(PAGE, PAGE_SIZE, null, null, null)).thenReturn(mockTagList);
 
-        List<TagDto> results = tagFacade.list(1, PAGE_SIZE, null, null);
+        final List<TagDto> results = tagFacade.list(PAGE, PAGE_SIZE, null, null);
 
-        verify(mockService).findAll(any(PageRequest.class));
+        verify(mockService).findAll(PAGE, PAGE_SIZE, null, null, null);
         assertThat(results, is(List.class));
     }
 }

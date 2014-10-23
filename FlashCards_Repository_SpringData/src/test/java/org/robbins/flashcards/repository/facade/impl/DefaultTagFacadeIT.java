@@ -10,8 +10,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.robbins.flashcards.dto.TagDto;
-import org.robbins.flashcards.exceptions.ServiceException;
-import org.robbins.flashcards.repository.facade.TagFacade;
+import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.facade.TagFacade;
 import org.robbins.tests.BaseIntegrationTest;
 import org.robbins.tests.IntegrationTest;
 import org.springframework.test.context.ContextConfiguration;
@@ -31,7 +31,8 @@ public class DefaultTagFacadeIT extends BaseIntegrationTest {
     private static String TAG_NAME = "tag1";
 
     @Test
-    public void findByName() throws ServiceException {
+    public void findByName() throws FlashcardsException
+	{
         TagDto result = tagFacade.findByName(TAG_NAME);
         assertThat(result, is(TagDto.class));
         assertThat(result.getName(), is(TAG_NAME));
