@@ -8,11 +8,10 @@ import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.TagFacade;
 import org.robbins.flashcards.presentation.facade.base.AbstractCrudFacadeImpl;
 import org.robbins.flashcards.service.TagService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
-@Transactional
-@Component
+@Component("presentationTagFacade")
 public class DefaultTagFacade extends AbstractCrudFacadeImpl<TagDto> implements
         TagFacade {
 

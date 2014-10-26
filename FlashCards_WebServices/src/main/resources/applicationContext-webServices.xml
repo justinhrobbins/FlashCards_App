@@ -8,12 +8,6 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
 
-<!--
-    <import resource="classpath:applicatonContext-shiro.xml" />
-    <import resource="classpath:applicatonContext-springSecurity.xml" />
-    <import resource="classpath:applicatonContext-cxf.xml" />
- -->
-
     <bean id="loggedInUser" class="org.robbins.flashcards.model.User" scope="request" >
         <aop:scoped-proxy/>
     </bean>

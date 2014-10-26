@@ -17,6 +17,7 @@ import org.robbins.flashcards.facade.TagFacade;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.webservices.base.AbstractGenericResource;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.wordnik.swagger.annotations.Api;
@@ -30,6 +31,7 @@ import com.wordnik.swagger.annotations.ApiOperation;
 public class TagsResource extends AbstractGenericResource<TagDto, Long> {
 
     @Inject
+	@Qualifier("presentationTagFacade")
     private TagFacade tagFacade;
 
     @Override

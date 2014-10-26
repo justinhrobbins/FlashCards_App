@@ -8,6 +8,7 @@ import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.TagFacade;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.service.base.AbstractCrudServiceImpl;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,6 +16,7 @@ public class TagServiceImpl extends AbstractCrudServiceImpl<TagDto> implements
         TagService {
 
     @Inject
+	@Qualifier("tagRepositoryFacade")
     private TagFacade facade;
 
 	@Override

@@ -9,17 +9,14 @@ import javax.inject.Inject;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
-import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.flashcards.facade.FlashcardFacade;
 import org.robbins.flashcards.presentation.facade.base.AbstractCrudFacadeImpl;
 import org.robbins.flashcards.service.FlashCardService;
 import org.robbins.flashcards.service.TagService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
-@Transactional
-@Component
+@Component("presentationFlashcardFacade")
 public class DefaultFlashcardFacade extends
         AbstractCrudFacadeImpl<FlashCardDto> implements FlashcardFacade {
 

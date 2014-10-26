@@ -7,9 +7,7 @@ import java.util.Set;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.presentation.facade.PagingAndSortingFacade;
-import org.springframework.transaction.annotation.Transactional;
 
-@Transactional
 public abstract class AbstractCrudFacadeImpl<D> implements GenericCrudFacade<D>, PagingAndSortingFacade<D>
 {
     @Override
@@ -48,7 +46,7 @@ public abstract class AbstractCrudFacadeImpl<D> implements GenericCrudFacade<D>,
 
     @Override
     public D findOne(final Long id, final Set<String> fields) throws FlashcardsException {
-        return getService().findOne(id);
+        return getService().findOne(id, fields);
     }
 
     @Override

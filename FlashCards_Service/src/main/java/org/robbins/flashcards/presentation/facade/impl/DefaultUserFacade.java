@@ -9,10 +9,8 @@ import org.robbins.flashcards.facade.UserFacade;
 import org.robbins.flashcards.presentation.facade.base.AbstractCrudFacadeImpl;
 import org.robbins.flashcards.service.UserService;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
-@Transactional
-@Component
+@Component("presentationUserFacade")
 public class DefaultUserFacade extends AbstractCrudFacadeImpl<UserDto> implements
         UserFacade {
 

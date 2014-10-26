@@ -6,12 +6,14 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
+
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.FlashcardFacade;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.service.base.AbstractCrudServiceImpl;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,7 @@ public class FlashCardServiceImpl extends AbstractCrudServiceImpl<FlashCardDto>
         implements FlashCardService {
 
     @Inject
+	@Qualifier("flashcardRepositoryFacade")
     private FlashcardFacade facade;
 
 	@Override

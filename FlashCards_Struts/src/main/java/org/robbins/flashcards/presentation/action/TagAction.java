@@ -9,34 +9,37 @@ import javax.inject.Inject;
 
 import org.apache.struts2.interceptor.SessionAware;
 import org.apache.struts2.interceptor.validation.SkipValidation;
-import org.robbins.flashcards.model.Tag;
-import org.robbins.flashcards.service.TagService;
+import org.robbins.flashcards.dto.TagDto;
+import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.facade.TagFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
 
-public class TagAction extends FlashCardsAppBaseAction implements ModelDriven<Tag>,
+public class TagAction extends FlashCardsAppBaseAction implements ModelDriven<TagDto>,
         Preparable, SessionAware {
 
     private static final long serialVersionUID = 2900181619806808497L;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TagAction.class);
 
-    private Tag tag = new Tag();
+    private TagDto tag = new TagDto();
 
     @Inject
-    private transient TagService tagService;
+	@Qualifier("presentationTagFacade")
+    private transient TagFacade tagFacade;
 
     private Map<String, Object> httpSession;
 
-    private List<Tag> tagList = new ArrayList<Tag>();
+    private List<TagDto> tagList = new ArrayList<>();
 
     @SkipValidation
     public String list() {
         try {
-            tagList = tagService.findAll();
+            tagList = tagFacade.list();
 
             LOGGER.debug("listTags found '" + tagList.size() + "' tags");
 
@@ -51,14 +54,14 @@ public class TagAction extends FlashCardsAppBaseAction implements ModelDriven<Ta
     public String saveOrUpdate() {
         try {
             if ((this.tag.getId() != null) && (this.tag.getId() != 0)) {
-                Tag existingTag = tagService.findOne(this.tag.getId());
+                TagDto existingTag = tagFacade.findOne(this.tag.getId());
                 existingTag.setName(this.tag.getName());
-                tagService.save(existingTag);
+                tagFacade.save(existingTag);
 
                 LOGGER.debug("Tag updated successfully");
                 this.addActionMessage(getText("actionmessage.tag.updated"));
             } else {
-                tagService.save(this.tag);
+                tagFacade.save(this.tag);
 
                 LOGGER.debug("Tag created successfully");
                 this.addActionMessage(getText("actionmessage.tag.created"));
@@ -73,7 +76,7 @@ public class TagAction extends FlashCardsAppBaseAction implements ModelDriven<Ta
     @SkipValidation
     public String delete() {
         try {
-            tagService.delete(this.tag.getId());
+            tagFacade.delete(this.tag.getId());
 
             LOGGER.debug("Tag deleted successfully");
 
@@ -99,9 +102,9 @@ public class TagAction extends FlashCardsAppBaseAction implements ModelDriven<Ta
     public String display() {
         try {
             if ((this.tag.getId() != null) && (this.tag.getId() != 0)) {
-                this.tag = tagService.findOne(this.tag.getId());
+                this.tag = tagFacade.findOne(this.tag.getId());
             } else if (this.tag.getName() != null) {
-                this.tag = tagService.findByName(this.tag.getName());
+                this.tag = tagFacade.findByName(this.tag.getName());
             }
             return "success";
         } catch (Exception e) {
@@ -120,20 +123,28 @@ public class TagAction extends FlashCardsAppBaseAction implements ModelDriven<Ta
         // Tag name cannot be empty
         if (tag.getName().length() == 0) {
             LOGGER.debug("Tag name is empty. Adding Field Error for 'Name'");
-            addFieldError("tag.name", getText("error.tag.name"));
+            addFieldError("tag.name", getText("error.tag.name.required"));
         } // Prevent duplicate Tag
         else {
-            LOGGER.debug("Confirming Tag does not already exist");
-            Tag tempTag = tagService.findByName(tag.getName());
-            if (tempTag != null) {
-                LOGGER.debug("Tag already exists.  Adding Field Error for 'Name'");
-                addFieldError("tag.name", getText("error.tag.exists"));
-            }
+            LOGGER.debug("Confirming Tag does not already exist") ;
+			try
+			{
+				TagDto tempTag = tagFacade.findByName(tag.getName());
+				if (tempTag != null) {
+					LOGGER.debug("Tag already exists.  Adding Field Error for 'Name'");
+					addFieldError("tag.name", getText("error.tag.exists"));
+				}
+			}
+            catch (FlashcardsException e)
+			{
+				LOGGER.error("Exception in display():", e);
+				addFieldError("tag.name", getText("error.tag.validation.failure"));
+			}
         }
     }
 
     @Override
-    public Tag getModel() {
+    public TagDto getModel() {
         return tag;
     }
 
@@ -150,19 +161,19 @@ public class TagAction extends FlashCardsAppBaseAction implements ModelDriven<Ta
         this.httpSession = httpSession;
     }
 
-    public Tag getTag() {
+    public TagDto getTag() {
         return tag;
     }
 
-    public void setTag(final Tag tag) {
+    public void setTag(final TagDto tag) {
         this.tag = tag;
     }
 
-    public List<Tag> getTagList() {
+    public List<TagDto> getTagList() {
         return tagList;
     }
 
-    public void setTagList(final List<Tag> tagList) {
+    public void setTagList(final List<TagDto> tagList) {
         this.tagList = tagList;
     }
 }

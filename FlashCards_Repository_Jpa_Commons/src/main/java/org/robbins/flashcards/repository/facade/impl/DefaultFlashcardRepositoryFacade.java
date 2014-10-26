@@ -26,7 +26,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 @Transactional
-@Component
+@Component("flashcardRepositoryFacade")
 public class DefaultFlashcardRepositoryFacade extends
 		AbstractCrudRepositoryFacadeImpl<FlashCardDto, FlashCard> implements FlashcardFacade {
 

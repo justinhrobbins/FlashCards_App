@@ -10,6 +10,7 @@ import org.robbins.flashcards.facade.UserFacade;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.repository.UserRepository;
 import org.robbins.flashcards.service.base.AbstractCrudServiceImpl;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,6 +18,7 @@ public class UserServiceImpl extends AbstractCrudServiceImpl<UserDto> implements
         UserService {
 
     @Inject
+	@Qualifier("userRepositoryFacade")
     private UserFacade facade;
 
     @Override

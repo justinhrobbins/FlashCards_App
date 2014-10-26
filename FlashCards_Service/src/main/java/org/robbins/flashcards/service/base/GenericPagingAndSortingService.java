@@ -17,4 +17,6 @@ public interface GenericPagingAndSortingService<D, ID extends Serializable> exte
 
 	List<D> findAll(Integer page, Integer size, String sort, String direction,
 			Set<String> fields) throws FlashcardsException;
+
+	D findOne(ID id, Set<String> fields) throws FlashcardsException;
 }

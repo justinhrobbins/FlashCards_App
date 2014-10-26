@@ -19,8 +19,8 @@ import org.springframework.test.context.ContextConfiguration;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 @Ignore
-@ContextConfiguration({ "classpath:applicationContext-service.xml",
-    "classpath:test-applicationContext-service-springdata.xml" })
+@ContextConfiguration({ "classpath:applicationContext-repository-jpa-commons.xml",
+    "classpath:test-applicationContext-repository-springdata.xml" })
 @DatabaseSetup("classpath:test-flashCardsAppRepository.xml")
 @Category(IntegrationTest.class)
 public class DefaultTagFacadeIT extends BaseIntegrationTest {

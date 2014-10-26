@@ -1,21 +1,21 @@
 
 package org.robbins.flashcards.webservices;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import javax.inject.Inject;
+
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.robbins.flashcards.client.GenericRestCrudFacade;
 import org.robbins.flashcards.client.TagClient;
 import org.robbins.flashcards.dto.TagDto;
-import org.robbins.flashcards.exceptions.ServiceException;
+import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.tests.webservices.GenericEntityRestTest;
 import org.robbins.flashcards.util.TestDtoGenerator;
 import org.robbins.tests.IntegrationTest;
 import org.springframework.test.context.ContextConfiguration;
-
-import javax.inject.Inject;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 @Category(IntegrationTest.class)
 @ContextConfiguration(locations = {"classpath*:applicatonContext-client.xml"})
@@ -48,7 +48,8 @@ public class TagsResourceIT extends GenericEntityRestTest<TagDto> {
      * Test search by facility in.
      */
     @Test
-    public void testSearchByName() throws ServiceException {
+    public void testSearchByName() throws FlashcardsException
+	{
         final TagDto searchResult = client.findByName(TAG_NAME);
 
         // test that our get worked
@@ -60,7 +61,7 @@ public class TagsResourceIT extends GenericEntityRestTest<TagDto> {
      * Execute updateEntity.
      */
     @Test
-    public void testUpdateEntity() throws ServiceException {
+    public void testUpdateEntity() throws FlashcardsException {
         final Long id = getEntity().getId();
         final String UPDATED_VALUE = "updated value";
 

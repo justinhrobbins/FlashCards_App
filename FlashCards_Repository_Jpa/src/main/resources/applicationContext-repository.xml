@@ -4,7 +4,7 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
-    <import resource="applicationContext-repository-jpa-commons.xml" />
+    <import resource="classpath:applicationContext-repository-jpa-commons.xml" />
 	<import resource="classpath:infrastructure.xml" />
 
     <bean id="auditorAware" class="org.robbins.flashcards.auditing.AuditingAwareUser" />

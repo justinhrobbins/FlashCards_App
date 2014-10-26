@@ -78,34 +78,35 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
 
     @Test
     public void findOne() throws FlashcardsException {
-        when(mockService.findOne(any(Long.class))).thenReturn(mockTag);
+		Long id = 1L;
+        when(mockService.findOne(id, null)).thenReturn(mockTag);
 
-        TagDto result = tagFacade.findOne(any(Long.class));
+        TagDto result = tagFacade.findOne(id);
 
-        verify(mockService).findOne(any(Long.class));
+        verify(mockService).findOne(id, null);
         assertThat(result, is(TagDto.class));
     }
 
     @Test
     public void findOne_WithFields() throws FlashcardsException {
-        TagDto tagDto = new TagDto();
-        Set<String> fields = new HashSet<String>(Arrays.asList("flashcards"));
 
-        when(mockService.findOne(any(Long.class))).thenReturn(mockTag);
+        when(mockService.findOne(any(Long.class), any(Set.class))).thenReturn(mockTag);
 
-        TagDto result = tagFacade.findOne(any(Long.class), fields);
+        TagDto result = tagFacade.findOne(any(Long.class), any(Set.class));
 
-        verify(mockService).findOne(any(Long.class));
+        verify(mockService).findOne(any(Long.class), any(Set.class));
         assertThat(result, is(TagDto.class));
     }
 
     @Test
     public void findOne_ReturnsNull() throws FlashcardsException {
-        when(mockService.findOne(any(Long.class))).thenReturn(null);
+		Long id = 1L;
 
-        TagDto result = tagFacade.findOne(any(Long.class));
+        when(mockService.findOne(id, null)).thenReturn(null);
 
-        verify(mockService).findOne(any(Long.class));
+        TagDto result = tagFacade.findOne(id);
+
+        verify(mockService).findOne(id, null);
         assertThat(result, is(nullValue()));
     }
 

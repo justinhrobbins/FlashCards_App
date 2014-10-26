@@ -35,7 +35,13 @@ public abstract class AbstractCrudServiceImpl<D> implements GenericPagingAndSort
         return getFacade().findOne(id);
     }
 
-    @Override
+	@Override
+	public D findOne(final Long id, final Set<String> fields) throws FlashcardsException
+	{
+		return getFacade().findOne(id, fields);
+	}
+
+	@Override
     public void delete(final Long id) {
 		getFacade().delete(id);
     }

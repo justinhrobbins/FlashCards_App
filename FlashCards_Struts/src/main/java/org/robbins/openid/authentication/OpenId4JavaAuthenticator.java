@@ -23,7 +23,7 @@ import org.openid4java.message.ax.FetchRequest;
 import org.openid4java.message.ax.FetchResponse;
 import org.openid4java.message.sreg.SRegMessage;
 import org.openid4java.message.sreg.SRegResponse;
-import org.robbins.flashcards.model.User;
+import org.robbins.flashcards.dto.UserDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -127,7 +127,7 @@ public final class OpenId4JavaAuthenticator {
         return authReq.getDestinationUrl(true);
     }
 
-    public static User getAuthenticatedUser(final Map<String, String[]> parmList,
+    public static UserDto getAuthenticatedUser(final Map<String, String[]> parmList,
             final StringBuffer receivingURL, final Map<String, Object> httpSession,
             final Map<String, Object> application) throws MessageException,
             DiscoveryException,
@@ -155,7 +155,7 @@ public final class OpenId4JavaAuthenticator {
 
         AuthSuccess authSuccess = (AuthSuccess) verification.getAuthResponse();
 
-        User user = new User();
+		UserDto user = new UserDto();
         user.setOpenid(authSuccess.getIdentity());
 
         if (authSuccess.hasExtension(AxMessage.OPENID_NS_AX)) {

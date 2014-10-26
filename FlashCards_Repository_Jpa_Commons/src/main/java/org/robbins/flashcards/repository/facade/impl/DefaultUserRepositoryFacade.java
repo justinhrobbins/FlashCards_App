@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
-@Component
+@Component("userRepositoryFacade")
 public class DefaultUserRepositoryFacade extends AbstractCrudRepositoryFacadeImpl<UserDto, User> implements
         UserFacade {
 
