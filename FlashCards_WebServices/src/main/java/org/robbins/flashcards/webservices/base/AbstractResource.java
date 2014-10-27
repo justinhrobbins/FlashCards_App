@@ -5,7 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.StringTokenizer;
 
-import org.apache.cxf.common.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
+
 
 public abstract class AbstractResource {
 

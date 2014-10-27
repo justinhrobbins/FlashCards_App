@@ -5,12 +5,15 @@ import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 
 import org.robbins.flashcards.dto.UserDto;
+import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.exceptions.ServiceException;
+
 import org.robbins.flashcards.facade.UserFacade;
 import org.robbins.flashcards.model.User;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,6 +26,7 @@ public class AbstractSecurityFilter {
     private User loggedInUser;
 
     @Inject
+	@Qualifier("presentationUserFacade")
     private UserFacade userFacade;
 
     /**
@@ -62,7 +66,7 @@ public class AbstractSecurityFilter {
                         + getLoggedInUser().getId());
             }
         }
-        catch (ServiceException e)
+        catch (FlashcardsException e)
         {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }

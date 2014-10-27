@@ -3,25 +3,29 @@ package org.robbins.flashcards.service;
 
 import javax.inject.Inject;
 
-import org.robbins.flashcards.model.Tag;
-import org.robbins.flashcards.repository.TagRepository;
+import org.robbins.flashcards.dto.TagDto;
+import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.facade.TagFacade;
+import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.service.base.AbstractCrudServiceImpl;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TagServiceImpl extends AbstractCrudServiceImpl<Tag> implements
+public class TagServiceImpl extends AbstractCrudServiceImpl<TagDto> implements
         TagService {
 
     @Inject
-    private TagRepository repository;
+	@Qualifier("tagRepositoryFacade")
+    private TagFacade facade;
+
+	@Override
+	public GenericCrudFacade<TagDto> getFacade() {
+		return facade;
+	}
 
     @Override
-    public TagRepository getRepository() {
-        return repository;
-    }
-
-    @Override
-    public Tag findByName(final String name) {
-        return getRepository().findByName(name);
+    public TagDto findByName(final String name) throws FlashcardsException {
+        return facade.findByName(name);
     }
 }

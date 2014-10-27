@@ -11,6 +11,9 @@ import org.junit.experimental.categories.Category;
 import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.robbins.flashcards.dto.UserDto;
+import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.facade.UserFacade;
 import org.robbins.flashcards.model.User;
 import org.robbins.flashcards.repository.UserRepository;
 import org.robbins.tests.BaseMockingTest;
@@ -21,23 +24,23 @@ import org.springframework.test.util.ReflectionTestUtils;
 public class UserServiceImplUT extends BaseMockingTest {
 
     @Mock
-    private UserRepository repository;
+    private UserFacade facade;
 
     private UserServiceImpl userService;
 
     @Before
     public void before() {
         userService = new UserServiceImpl();
-        ReflectionTestUtils.setField(userService, "repository", repository);
+        ReflectionTestUtils.setField(userService, "facade", facade);
     }
 
     @Test
-    public void testFindUserByOpenid() {
-        when(repository.findUserByOpenid(Matchers.anyString())).thenReturn(new User());
+    public void testFindUserByOpenid() throws FlashcardsException {
+        when(facade.findUserByOpenid(Matchers.anyString())).thenReturn(new UserDto());
 
-        User user = userService.findUserByOpenid("open_id");
+		UserDto user = userService.findUserByOpenid("open_id");
 
-        Mockito.verify(repository, Mockito.times(1)).findUserByOpenid("open_id");
-        assertThat(user, is(User.class));
+        Mockito.verify(facade, Mockito.times(1)).findUserByOpenid("open_id");
+        assertThat(user, is(UserDto.class));
     }
 }

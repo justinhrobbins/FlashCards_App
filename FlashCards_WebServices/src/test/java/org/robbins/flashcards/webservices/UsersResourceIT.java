@@ -1,21 +1,21 @@
 
 package org.robbins.flashcards.webservices;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import javax.inject.Inject;
+
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.robbins.flashcards.client.GenericRestCrudFacade;
 import org.robbins.flashcards.client.UserClient;
 import org.robbins.flashcards.dto.UserDto;
-import org.robbins.flashcards.exceptions.ServiceException;
+import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.tests.webservices.GenericEntityRestTest;
 import org.robbins.flashcards.util.TestDtoGenerator;
 import org.robbins.tests.IntegrationTest;
 import org.springframework.test.context.ContextConfiguration;
-
-import javax.inject.Inject;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 @Category(IntegrationTest.class)
 @ContextConfiguration(locations = {"classpath*:applicatonContext-client.xml"})
@@ -50,7 +50,8 @@ public class UsersResourceIT extends GenericEntityRestTest<UserDto> {
      * Test search by facility in.
      */
     @Test
-    public void testSearchByOpenId() throws ServiceException {
+    public void testSearchByOpenId() throws FlashcardsException
+	{
         final UserDto searchResult = client.findUserByOpenid(OPEN_ID);
 
         assertTrue(searchResult != null);
@@ -60,7 +61,7 @@ public class UsersResourceIT extends GenericEntityRestTest<UserDto> {
      * Execute updateEntity.
      */
     @Test
-    public void testUpdateEntity() throws ServiceException {
+    public void testUpdateEntity() throws FlashcardsException {
         final Long id = getEntity().getId();
         final String UPDATED_VALUE = "updated value";
 

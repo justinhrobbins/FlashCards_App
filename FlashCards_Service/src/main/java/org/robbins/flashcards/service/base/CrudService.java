@@ -3,9 +3,10 @@ package org.robbins.flashcards.service.base;
 
 import java.io.Serializable;
 
-import org.robbins.flashcards.repository.FlashCardsAppRepository;
+import org.robbins.flashcards.facade.base.GenericCrudFacade;
+
 
 public interface CrudService<T, ID extends Serializable> {
 
-    FlashCardsAppRepository<T, ID> getRepository();
+	GenericCrudFacade<T> getFacade();
 }

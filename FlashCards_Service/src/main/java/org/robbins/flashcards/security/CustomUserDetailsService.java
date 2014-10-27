@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import org.robbins.flashcards.dto.UserDto;
 import org.robbins.flashcards.facade.UserFacade;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Inject
+	@Qualifier("userRepositoryFacade")
     private UserFacade userFacade;
 
     /**

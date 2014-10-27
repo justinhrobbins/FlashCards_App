@@ -1,5 +1,6 @@
 
 package org.robbins.flashcards.webservices;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
@@ -18,7 +19,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
 import org.robbins.flashcards.dto.FlashCardDto;
-import org.robbins.flashcards.exceptions.ServiceException;
+import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.FlashcardFacade;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.robbins.tests.BaseMockingTest;
@@ -49,12 +50,13 @@ public class FlashCardsResourceUT extends BaseMockingTest {
     }
 
     @Test(expected = GenericWebServiceException.class)
-    public void search() throws ServiceException {
+    public void search() {
         resource.search(null, null, null, null);
     }
 
     @Test
-    public void searchCount() throws ServiceException {
+    public void searchCount() throws FlashcardsException
+	{
         when(mockFlashCardFacade.findByQuestionLike(any(String.class))).thenReturn(
                 mockFlashCardDtoList);
 
@@ -65,7 +67,7 @@ public class FlashCardsResourceUT extends BaseMockingTest {
     }
 
     @Test
-    public void search_byQuestion() throws ServiceException {
+    public void search_byQuestion() throws FlashcardsException {
         when(mockFlashCardFacade.findByQuestionLike(any(String.class))).thenReturn(
                 mockFlashCardDtoList);
 
@@ -76,7 +78,7 @@ public class FlashCardsResourceUT extends BaseMockingTest {
     }
 
     @Test
-    public void search_byQuestion_withPage() throws ServiceException {
+    public void search_byQuestion_withPage() throws FlashcardsException {
         when(
                 mockFlashCardFacade.findByQuestionLike(any(String.class),
                         any(PageRequest.class))).thenReturn(
@@ -90,7 +92,7 @@ public class FlashCardsResourceUT extends BaseMockingTest {
 
     @SuppressWarnings("unchecked")
     @Test
-    public void search_byTags() throws ServiceException {
+    public void search_byTags() throws FlashcardsException {
         when(mockFlashCardFacade.findByTagsIn(any(Set.class))).thenReturn(
                 mockFlashCardDtoList);
 
@@ -102,7 +104,7 @@ public class FlashCardsResourceUT extends BaseMockingTest {
 
     @SuppressWarnings("unchecked")
     @Test
-    public void search_byTags_withPage() throws ServiceException {
+    public void search_byTags_withPage() throws FlashcardsException {
         when(mockFlashCardFacade.findByTagsIn(any(Set.class), any(PageRequest.class))).thenReturn(
                 mockFlashCardDtoList);
 
@@ -113,7 +115,7 @@ public class FlashCardsResourceUT extends BaseMockingTest {
     }
 
     @Test
-    public void put_withCreatedBy() throws ServiceException {
+    public void put_withCreatedBy() throws FlashcardsException {
         when(mockFlashCardFacade.findOne(1L, null)).thenReturn(
                 mockFlashCardDto);
         when(mockFlashCardFacade.save(any(FlashCardDto.class))).thenReturn(
@@ -126,9 +128,9 @@ public class FlashCardsResourceUT extends BaseMockingTest {
     }
 
     @Test(expected = GenericWebServiceException.class)
-    public void put_withGenericWebServiceException() throws ServiceException {
+    public void put_withGenericWebServiceException() throws FlashcardsException {
         when(mockFlashCardFacade.findOne(1L, null)).thenThrow(
-                new ServiceException("ERROR"));
+                new FlashcardsException("ERROR"));
 
         resource.put(1L, mockFlashCardDto);
     }

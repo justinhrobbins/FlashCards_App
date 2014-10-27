@@ -11,8 +11,9 @@ import org.junit.experimental.categories.Category;
 import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.robbins.flashcards.model.Tag;
-import org.robbins.flashcards.repository.TagRepository;
+import org.robbins.flashcards.dto.TagDto;
+import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.facade.TagFacade;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -21,23 +22,23 @@ import org.springframework.test.util.ReflectionTestUtils;
 public class TagServiceImplUT extends BaseMockingTest {
 
     @Mock
-    private TagRepository repository;
+    private TagFacade facade;
 
     private TagServiceImpl tagService;
 
     @Before
     public void before() {
         tagService = new TagServiceImpl();
-        ReflectionTestUtils.setField(tagService, "repository", repository);
+        ReflectionTestUtils.setField(tagService, "facade", facade);
     }
 
     @Test
-    public void testFindByName() {
-        when(repository.findByName(Matchers.anyString())).thenReturn(new Tag("EJB"));
+    public void testFindByName() throws FlashcardsException {
+        when(facade.findByName(Matchers.anyString())).thenReturn(new TagDto("EJB"));
 
-        Tag tag = tagService.findByName("EJB");
+        TagDto tag = tagService.findByName("EJB");
 
-        Mockito.verify(repository, Mockito.times(1)).findByName("EJB");
-        assertThat(tag, is(Tag.class));
+        Mockito.verify(facade, Mockito.times(1)).findByName("EJB");
+        assertThat(tag, is(TagDto.class));
     }
 }

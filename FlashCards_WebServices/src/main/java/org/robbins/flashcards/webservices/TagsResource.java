@@ -12,11 +12,12 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import org.robbins.flashcards.dto.TagDto;
-import org.robbins.flashcards.exceptions.ServiceException;
+import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.TagFacade;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.webservices.base.AbstractGenericResource;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.wordnik.swagger.annotations.Api;
@@ -30,6 +31,7 @@ import com.wordnik.swagger.annotations.ApiOperation;
 public class TagsResource extends AbstractGenericResource<TagDto, Long> {
 
     @Inject
+	@Qualifier("presentationTagFacade")
     private TagFacade tagFacade;
 
     @Override
@@ -46,7 +48,7 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long> {
         try {
             tagDto = tagFacade.findByName(name);
         }
-        catch(ServiceException e)
+        catch(FlashcardsException e)
         {
             throw new GenericWebServiceException(
                     Response.Status.INTERNAL_SERVER_ERROR, e);
@@ -68,7 +70,7 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long> {
             TagDto orig;
             try {
                 orig = tagFacade.findOne(id);
-            } catch (ServiceException e) {
+            } catch (FlashcardsException e) {
                 throw new GenericWebServiceException(
                         Response.Status.INTERNAL_SERVER_ERROR, e);
             }

@@ -5,5 +5,5 @@ import org.robbins.flashcards.model.Tag;
 
 public interface TagRepository extends FlashCardsAppRepository<Tag, Long> {
 
-    Tag findByName(String name);
+	Tag findByName(String name);
 }

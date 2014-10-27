@@ -3,6 +3,7 @@ package org.robbins.flashcards.repository;
 
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import org.robbins.flashcards.model.User;
@@ -55,7 +56,15 @@ public class UserRepositoryImpl extends AbstractCrudRepositoryImpl<User> impleme
     public User findUserByOpenid(final String openid) {
         Query query = getEm().createQuery("from User where openid = :openid");
         query.setParameter("openid", openid);
-        return (User) query.getSingleResult();
+        try
+		{
+			return (User) query.getSingleResult();
+		}
+		catch (NoResultException e)
+		{
+			return null;
+		}
+
     }
 
     @Override

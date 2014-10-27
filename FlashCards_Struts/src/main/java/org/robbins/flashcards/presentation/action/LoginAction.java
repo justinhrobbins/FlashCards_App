@@ -11,11 +11,13 @@ import org.apache.struts2.interceptor.ApplicationAware;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import org.apache.struts2.interceptor.SessionAware;
+import org.robbins.flashcards.dto.UserDto;
+import org.robbins.flashcards.facade.UserFacade;
 import org.robbins.flashcards.model.User;
-import org.robbins.flashcards.service.UserService;
 import org.robbins.openid.authentication.OpenId4JavaAuthenticator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.opensymphony.xwork2.Preparable;
 
@@ -26,11 +28,12 @@ public class LoginAction extends FlashCardsAppBaseAction implements Preparable,
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginAction.class);
 
-    @Inject
-    private transient User loggedInUser;
+	@Inject
+    private User loggedInUser;
 
     @Inject
-    private UserService userService;
+	@Qualifier("presentationUserFacade")
+    private UserFacade userFacade;
 
     // this is the only form field we will be looking for from OpenID Selector on the
     // front end
@@ -96,15 +99,13 @@ public class LoginAction extends FlashCardsAppBaseAction implements Preparable,
 
         // verify the user has authenticated with the Open Id provider and
         // get a reference to the authenticated User
-        User authenticatingUser = OpenId4JavaAuthenticator.getAuthenticatedUser(parmList,
+        UserDto authenticatingUser = OpenId4JavaAuthenticator.getAuthenticatedUser(parmList,
                 receivingURL, httpSession, application);
 
         // does the user already exist?
-        User existingUser = userService.findUserByOpenid(authenticatingUser.getOpenid());
+        UserDto existingUser = userFacade.findUserByOpenid(authenticatingUser.getOpenid());
         if (existingUser != null) {
             authenticatingUser.setId(existingUser.getId());
-            authenticatingUser.setCreatedBy(existingUser.getCreatedBy());
-            authenticatingUser.setCreatedDate(existingUser.getCreatedDate());
 
             loggedInUser.setId(existingUser.getId());
         } else {
@@ -114,7 +115,7 @@ public class LoginAction extends FlashCardsAppBaseAction implements Preparable,
         }
 
         // save the user
-        User persistedUser = userService.save(authenticatingUser);
+        UserDto persistedUser = userFacade.save(authenticatingUser);
 
         httpSession.put("user", persistedUser);
 

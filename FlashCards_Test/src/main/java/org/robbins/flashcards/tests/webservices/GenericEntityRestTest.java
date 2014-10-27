@@ -1,21 +1,21 @@
 
 package org.robbins.flashcards.tests.webservices;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robbins.flashcards.client.GenericRestCrudFacade;
-import org.robbins.flashcards.exceptions.ServiceException;
+import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Persistable;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public abstract class GenericEntityRestTest<E extends Persistable<Long>> {
@@ -42,7 +42,7 @@ public abstract class GenericEntityRestTest<E extends Persistable<Long>> {
      * Test get entity list.
      */
     @Test
-    public void testGetEntityList() throws ServiceException {
+    public void testGetEntityList() throws FlashcardsException {
         final List<E> entityList = getClient().list();
 
         assertTrue(entityList.size() > 0);
@@ -62,7 +62,7 @@ public abstract class GenericEntityRestTest<E extends Persistable<Long>> {
      * Test get entity.
      */
     @Test
-    public void testGetEntity() throws ServiceException {
+    public void testGetEntity() throws FlashcardsException {
         final E retrievedEntity = getClient().findOne(getEntity().getId());
 
         assertEquals(retrievedEntity.getId(), getEntity().getId());
@@ -81,7 +81,7 @@ public abstract class GenericEntityRestTest<E extends Persistable<Long>> {
      * Test put entity.
      */
     @Test
-    public void testPutEntity() throws ServiceException {
+    public void testPutEntity() throws FlashcardsException {
 
         getClient().put(getEntity());
 
@@ -104,7 +104,7 @@ public abstract class GenericEntityRestTest<E extends Persistable<Long>> {
     /**
      * Post entity.
      */
-    public void postEntity() throws ServiceException {
+    public void postEntity() throws FlashcardsException {
         setEntity(getClient().save(getEntity()));
     }
 
@@ -112,7 +112,7 @@ public abstract class GenericEntityRestTest<E extends Persistable<Long>> {
      * Before.
      */
     @Before
-    public void before() throws ServiceException{
+    public void before() throws FlashcardsException{
         LOGGER.info("******************** BEFORE TEST ********************");
 
         postEntity();

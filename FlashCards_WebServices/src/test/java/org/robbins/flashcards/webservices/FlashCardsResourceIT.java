@@ -1,26 +1,28 @@
 
 package org.robbins.flashcards.webservices;
 
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-import org.robbins.flashcards.client.DefaultFlashcardClient;
-import org.robbins.flashcards.client.FlashcardClient;
-import org.robbins.flashcards.client.GenericRestCrudFacade;
-import org.robbins.flashcards.dto.FlashCardDto;
-import org.robbins.flashcards.dto.TagDto;
-import org.robbins.flashcards.exceptions.ServiceException;
-import org.robbins.flashcards.tests.webservices.GenericEntityRestTest;
-import org.robbins.flashcards.util.TestDtoGenerator;
-import org.robbins.tests.IntegrationTest;
-import org.springframework.test.context.ContextConfiguration;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
-import javax.inject.Inject;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.hamcrest.Matchers.greaterThan;
-import static org.junit.Assert.*;
+import javax.inject.Inject;
+
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.robbins.flashcards.client.FlashcardClient;
+import org.robbins.flashcards.client.GenericRestCrudFacade;
+import org.robbins.flashcards.dto.FlashCardDto;
+import org.robbins.flashcards.dto.TagDto;
+import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.tests.webservices.GenericEntityRestTest;
+import org.robbins.flashcards.util.TestDtoGenerator;
+import org.robbins.tests.IntegrationTest;
+import org.springframework.test.context.ContextConfiguration;
 
 @Category(IntegrationTest.class)
 @ContextConfiguration(locations = {"classpath*:applicatonContext-client.xml"})
@@ -53,7 +55,8 @@ public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto> {
      * Test search by facility in.
      */
     @Test
-    public void testSearchByTagsIn() throws ServiceException {
+    public void testSearchByTagsIn() throws FlashcardsException
+	{
         Set<TagDto> tags = new HashSet<>();
         tags.add(new TagDto(2L));
         tags.add(new TagDto(20L));
@@ -68,7 +71,7 @@ public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto> {
      * Execute updateEntity.
      */
     @Test
-    public void testUpdateEntity() throws ServiceException {
+    public void testUpdateEntity() throws FlashcardsException {
         final Long id = getEntity().getId();
         final String UPDATED_VALUE = "updated value";
 
@@ -83,7 +86,7 @@ public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto> {
     }
 
     @Test
-    public void createNewFlashCard_WithNewTag() throws ServiceException {
+    public void createNewFlashCard_WithNewTag() throws FlashcardsException {
 
         FlashCardDto flashCard = new FlashCardDto();
         flashCard.setQuestion("Question4");

@@ -20,11 +20,14 @@ import javax.ws.rs.core.Response;
 import org.apache.commons.lang3.StringUtils;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
+import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.exceptions.ServiceException;
+
 import org.robbins.flashcards.facade.FlashcardFacade;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.webservices.base.AbstractGenericResource;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
@@ -39,6 +42,7 @@ import com.wordnik.swagger.annotations.ApiOperation;
 public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Long> {
 
     @Inject
+	@Qualifier("presentationFlashcardFacade")
     private FlashcardFacade flashcardFacade;
 
     @Override
@@ -103,7 +107,7 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
                 throw new GenericWebServiceException(Response.Status.BAD_REQUEST,
                         "Invalid 'search' parameters");
             }
-        } catch (ServiceException e) {
+        } catch (FlashcardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
     }
@@ -119,7 +123,7 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
             FlashCardDto orig;
             try {
                 orig = flashcardFacade.findOne(id, null);
-            } catch (ServiceException e) {
+            } catch (FlashcardsException e) {
                 throw new GenericWebServiceException(
                         Response.Status.INTERNAL_SERVER_ERROR, e);
             }

@@ -19,7 +19,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import org.robbins.flashcards.exceptions.DataIntegrityException;
-import org.robbins.flashcards.exceptions.ServiceException;
+import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.slf4j.Logger;
@@ -55,7 +55,7 @@ public abstract class AbstractGenericResource<T, Serializable> extends AbstractR
             LOGGER.error(e.getMessage(), e);
             throw new GenericWebServiceException(Response.Status.BAD_REQUEST,
                     "Inavlid sort parameter: '" + sort + "'", e);
-        } catch (ServiceException e) {
+        } catch (FlashcardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
 
@@ -85,7 +85,7 @@ public abstract class AbstractGenericResource<T, Serializable> extends AbstractR
         T entity;
         try {
             entity = getFacade().findOne(id, this.getFieldsAsSet(fields));
-        } catch (ServiceException e) {
+        } catch (FlashcardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
 
@@ -105,7 +105,7 @@ public abstract class AbstractGenericResource<T, Serializable> extends AbstractR
         } catch (DataIntegrityException e) {
             throw new GenericWebServiceException(Response.Status.BAD_REQUEST, e);
         }
-        catch (ServiceException e) {
+        catch (FlashcardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
     }
@@ -117,7 +117,7 @@ public abstract class AbstractGenericResource<T, Serializable> extends AbstractR
     public Response put(@PathParam("id") final Long id, final T entity) {
         try {
             getFacade().save(entity);
-        } catch (ServiceException e) {
+        } catch (FlashcardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
 
@@ -143,7 +143,7 @@ public abstract class AbstractGenericResource<T, Serializable> extends AbstractR
         T originalEntity;
         try {
             originalEntity = getFacade().findOne(id);
-        } catch (ServiceException e) {
+        } catch (FlashcardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
 
@@ -153,7 +153,7 @@ public abstract class AbstractGenericResource<T, Serializable> extends AbstractR
         // persist the entity back to the db
         try {
             getFacade().save(originalEntity);
-        } catch (ServiceException e) {
+        } catch (FlashcardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
 

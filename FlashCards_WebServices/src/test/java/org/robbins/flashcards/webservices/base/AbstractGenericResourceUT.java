@@ -20,7 +20,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
 import org.robbins.flashcards.dto.TagDto;
-import org.robbins.flashcards.exceptions.ServiceException;
+import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.TagFacade;
 import org.robbins.flashcards.webservices.TagsResource;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
@@ -54,7 +54,8 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
     }
 
     @Test
-    public void list() throws ServiceException {
+    public void list() throws FlashcardsException
+	{
         when(mockTagFacade.list(null, null, null, null, null)).thenReturn(tagDtoList);
 
         JResponse<List<TagDto>> results = resource.list(null, null, null, null, null);
@@ -64,7 +65,7 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
     }
 
     @Test
-    public void list_NullResult() throws ServiceException {
+    public void list_NullResult() throws FlashcardsException {
         when(mockTagFacade.list(null, null, null, null)).thenReturn(null);
 
         JResponse<List<TagDto>> results = resource.list(null, null, null, null, null);
@@ -75,7 +76,7 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
     }
 
     @Test(expected = WebApplicationException.class)
-    public void listWithInvalidSortParameter() throws ServiceException {
+    public void listWithInvalidSortParameter() throws FlashcardsException {
         when(mockTagFacade.list(null, null, "bad_parameter", "asc", null)).thenThrow(
                 new InvalidDataAccessApiUsageException("error"));
 
@@ -83,7 +84,7 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
     }
 
     @Test
-    public void listWithSort() throws ServiceException {
+    public void listWithSort() throws FlashcardsException {
         when(mockTagFacade.list(null, null, "name", "asc", null)).thenReturn(tagDtoList);
 
         JResponse<List<TagDto>> results = resource.list(null, null, "name", "asc", null);
@@ -93,7 +94,7 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
     }
 
     @Test
-    public void listWithPagingAndSort() throws ServiceException {
+    public void listWithPagingAndSort() throws FlashcardsException {
         when(mockTagFacade.list(0, 1, "name", "desc", null)).thenReturn(tagDtoList);
 
         JResponse<List<TagDto>> results = resource.list(0, 1, "name", "desc", null);
@@ -103,7 +104,7 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
     }
 
     @Test
-    public void listWithPagingNoSort() throws ServiceException {
+    public void listWithPagingNoSort() throws FlashcardsException {
         when(mockTagFacade.list(0, 1, null, null, null)).thenReturn(tagDtoList);
 
         JResponse<List<TagDto>> results = resource.list(0, 1, null, null, null);
@@ -124,7 +125,7 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
 
     @SuppressWarnings("unchecked")
     @Test
-    public void findOne() throws ServiceException {
+    public void findOne() throws FlashcardsException {
         when(mockTagFacade.findOne(anyLong(), anySet())).thenReturn(new TagDto(1L));
 
         TagDto result = resource.findOne(1L, null);
@@ -135,7 +136,7 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
 
     @SuppressWarnings("unchecked")
     @Test
-    public void findOne_WithFields() throws ServiceException {
+    public void findOne_WithFields() throws FlashcardsException {
         String fields = "name,flashcards,userpassword";
         when(mockTagFacade.findOne(anyLong(), anySet())).thenReturn(new TagDto(1L));
 
@@ -147,14 +148,14 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
 
     @SuppressWarnings("unchecked")
     @Test(expected = GenericWebServiceException.class)
-    public void findOne_ReturnsNull() throws ServiceException {
+    public void findOne_ReturnsNull() throws FlashcardsException {
         when(mockTagFacade.findOne(anyLong(), anySet())).thenReturn(null);
 
         resource.findOne(1L, null);
     }
 
     @Test
-    public void post() throws ServiceException {
+    public void post() throws FlashcardsException {
         when(mockTagFacade.save(any(TagDto.class))).thenReturn(new TagDto(1L));
 
         TagDto result = resource.post(new TagDto());
@@ -172,7 +173,7 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
     }
 
     @Test
-    public void update() throws ServiceException {
+    public void update() throws FlashcardsException {
         when(mockTagFacade.findOne(any(Long.class))).thenReturn(mockTagDto);
         when(mockTagFacade.save(any(TagDto.class))).thenReturn(mockTagDto);
 

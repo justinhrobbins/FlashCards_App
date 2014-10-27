@@ -13,30 +13,34 @@ import javax.inject.Inject;
 
 import org.apache.struts2.interceptor.SessionAware;
 import org.apache.struts2.interceptor.validation.SkipValidation;
-import org.robbins.flashcards.model.FlashCard;
-import org.robbins.flashcards.model.Tag;
-import org.robbins.flashcards.service.FlashCardService;
-import org.robbins.flashcards.service.TagService;
+import org.robbins.flashcards.dto.FlashCardDto;
+import org.robbins.flashcards.dto.TagDto;
+import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.facade.FlashcardFacade;
+import org.robbins.flashcards.facade.TagFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
 
 public class FlashCardAction extends FlashCardsAppBaseAction implements
-        ModelDriven<FlashCard>, Preparable, SessionAware {
+        ModelDriven<FlashCardDto>, Preparable, SessionAware {
 
     private static final long serialVersionUID = -6246981237373738037L;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FlashCardAction.class);
 
     @Inject
-    private transient FlashCardService flashcardService;
+	@Qualifier("presentationFlashcardFacade")
+    private transient FlashcardFacade flashcardFacade;
 
     @Inject
-    private transient TagService tagService;
+	@Qualifier("presentationTagFacade")
+    private transient TagFacade tagFacade;
 
-    private FlashCard flashCard = new FlashCard();
+    private FlashCardDto flashCard = new FlashCardDto();
 
     // the exploded string (tag1, tag2, etc.) of the current Flashcard's Tags
     private String explodedTags;
@@ -47,11 +51,11 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
     private Map<String, Object> httpSession;
 
     // a list of Flashcards used in List and Browse mode
-    private List<FlashCard> flashCardList = new ArrayList<FlashCard>();
+    private List<FlashCardDto> flashCardList = new ArrayList<>();
 
     // a separate list of Tags not belonging directly to the Flashcard
     // usually a list of All the Tags in the DB
-    private List<Tag> tagList = new ArrayList<Tag>();
+    private List<TagDto> tagList = new ArrayList<>();
 
     // the exploded string (tag1, tag2, ect) of the Tags in the tagList
     // this is not the same as the "explodedTags" which is an exploded list of the
@@ -64,7 +68,7 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
         this.flashCardList = null;
 
         try {
-            this.flashCardList = flashcardService.findAll();
+            this.flashCardList = flashcardFacade.list();
 
             return "success";
         } catch (Exception e) {
@@ -94,24 +98,24 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
     }
 
     public String saveOrUpdate() {
-        // workaround that converts that Tags passed by the form to Tag objects on the
-        // FlashCard
-        this.flashCard.setTags(convertToTags(getExplodedTags()));
-
         try {
+			// workaround that converts that Tags passed by the form to Tag objects on the
+			// FlashCard
+			this.flashCard.setTags(convertToTags(getExplodedTags()));
+
             if ((this.flashCard.getId() != null) && (this.flashCard.getId() != 0)) {
-                FlashCard existingFlashCard = flashcardService.findOne(this.flashCard.getId());
+				FlashCardDto existingFlashCard = flashcardFacade.findOne(this.flashCard.getId());
                 existingFlashCard.setQuestion(this.flashCard.getQuestion());
                 existingFlashCard.setAnswer(this.flashCard.getAnswer());
                 existingFlashCard.setTags(this.flashCard.getTags());
                 existingFlashCard.setLinks(this.flashCard.getLinks());
 
-                flashcardService.save(existingFlashCard);
+                flashcardFacade.save(existingFlashCard);
 
                 LOGGER.debug("Flash Card updated successfully");
                 this.addActionMessage(getText("actionmessage.flashcard.updated"));
             } else {
-                flashcardService.save(this.flashCard);
+                flashcardFacade.save(this.flashCard);
 
                 LOGGER.debug("Flash Card created successfully");
                 this.addActionMessage(getText("actionmessage.flashcard.created"));
@@ -123,8 +127,9 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
         }
     }
 
-    private Set<Tag> convertToTags(final String explodedTags) {
-        Set<Tag> tags = new HashSet<Tag>();
+    private Set<TagDto> convertToTags(final String explodedTags) throws FlashcardsException
+	{
+        Set<TagDto> tags = new HashSet<>();
 
         if (getExplodedTags() == null) {
             return null;
@@ -134,19 +139,19 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
         String[] tokens = explodedTags.split(",");
         for (String token : tokens) {
             if (token.length() > 0) {
-                Tag tag = tagService.findByName(token);
+                TagDto tag = tagFacade.findByName(token);
                 tags.add(tag);
             }
         }
         return tags;
     }
 
-    private String convertFromTags(final Collection<Tag> tags, final boolean addQuotes) {
+    private String convertFromTags(final Collection<TagDto> tags, final boolean addQuotes) {
 
         StringBuilder sb = new StringBuilder();
         String prefix = "";
 
-        for (Tag tempTag : tags) {
+        for (TagDto tempTag : tags) {
             sb.append(prefix);
             prefix = ", ";
 
@@ -163,7 +168,7 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
     @SkipValidation
     public String delete() {
         try {
-            flashcardService.delete(this.flashCard.getId());
+            flashcardFacade.delete(this.flashCard.getId());
 
             LOGGER.debug("Flash Card deleted successfully");
 
@@ -180,16 +185,16 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
     public String display() {
         try {
             if ((this.flashCard.getId() != null) && (this.flashCard.getId() != 0)) {
-                this.flashCard = flashcardService.findOne(this.flashCard.getId());
+                this.flashCard = flashcardFacade.findOne(this.flashCard.getId());
             } else if (this.flashCard.getQuestion() != null) {
-                this.flashCard = flashcardService.findByQuestion(this.flashCard.getQuestion());
+                this.flashCard = flashcardFacade.findByQuestion(this.flashCard.getQuestion());
             }
             this.setExplodedTags(convertFromTags(this.flashCard.getTags(), false));
 
             // get a list of Tags from the data tier
             this.tagList = null;
 
-            tagList = tagService.findAll();
+            tagList = tagFacade.list();
 
             this.setAllExplodedTags(convertFromTags(tagList, true));
 
@@ -233,7 +238,7 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
                 this.flashCard.setTags(convertToTags(getExplodedTags()));
 
                 // get a list of Flash Cards from the data tier
-                this.flashCardList = flashcardService.findByTagsIn(this.flashCard.getTags());
+                this.flashCardList = flashcardFacade.findByTagsIn(this.flashCard.getTags());
             } // if we have the Tag filter saved in the HTTP Session
             else if ((httpSession.containsKey("explodedTags"))
                     && (this.getExplodedTags() == null)) {
@@ -248,19 +253,19 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
                 this.flashCard.setTags(convertToTags(getExplodedTags()));
 
                 // get a list of Flash Cards from the data tier
-                this.flashCardList = flashcardService.findByTagsIn(this.flashCard.getTags());
+                this.flashCardList = flashcardFacade.findByTagsIn(this.flashCard.getTags());
             }
             // otherwise, let's grab all FlashCards for all Tags
             else {
                 LOGGER.debug("Retrieving FlashCards for all Tags");
 
                 // retrieve all the FlashCards
-                this.flashCardList = flashcardService.findAll();
+                this.flashCardList = flashcardFacade.list();
             }
 
             // get a list of Tags from the data tier
             this.tagList = null;
-            tagList = tagService.findAll();
+            tagList = tagFacade.list();
 
             return "success";
         } catch (Exception e) {
@@ -276,7 +281,7 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
     }
 
     @Override
-    public FlashCard getModel() {
+    public FlashCardDto getModel() {
         return this.flashCard;
     }
 
@@ -309,11 +314,11 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
         this.viewType = viewType;
     }
 
-    public List<Tag> getTagList() {
+    public List<TagDto> getTagList() {
         return tagList;
     }
 
-    public void setTagList(final List<Tag> tagList) {
+    public void setTagList(final List<TagDto> tagList) {
         this.tagList = tagList;
     }
 
@@ -325,19 +330,19 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
         this.explodedTags = explodedTags;
     }
 
-    public FlashCard getFlashCard() {
+    public FlashCardDto getFlashCard() {
         return this.flashCard;
     }
 
-    public void setFlashCard(final FlashCard flashCard) {
+    public void setFlashCard(final FlashCardDto flashCard) {
         this.flashCard = flashCard;
     }
 
-    public List<FlashCard> getFlashCardList() {
+    public List<FlashCardDto> getFlashCardList() {
         return this.flashCardList;
     }
 
-    public void setFlashCardList(final List<FlashCard> flashCardList) {
+    public void setFlashCardList(final List<FlashCardDto> flashCardList) {
         this.flashCardList = flashCardList;
     }
 }
