@@ -38,7 +38,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.robbins.flashcards</groupId>
-			<artifactId>FlashCards_Repository</artifactId>
+			<artifactId>FlashCards_Repository_Commons</artifactId>
 			<version>${project.version}</version>
 			<scope>provided</scope>
 		</dependency>
