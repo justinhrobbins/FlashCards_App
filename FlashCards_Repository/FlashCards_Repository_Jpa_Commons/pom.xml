@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
 		<groupId>org.robbins.flashcards</groupId>
-		<artifactId>FlashCards_App</artifactId>
+		<artifactId>FlashCards_Repository</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
@@ -38,7 +38,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.robbins.flashcards</groupId>
-			<artifactId>FlashCards_Repository</artifactId>
+			<artifactId>FlashCards_Repository_Commons</artifactId>
 			<version>${project.version}</version>
 			<scope>provided</scope>
 		</dependency>

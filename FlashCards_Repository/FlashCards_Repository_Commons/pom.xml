@@ -3,26 +3,31 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
 		<groupId>org.robbins.flashcards</groupId>
-		<artifactId>FlashCards_App</artifactId>
+		<artifactId>FlashCards_Repository</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>FlashCards_Repository</artifactId>
-	<packaging>pom</packaging>
-	<name>FlashCards_Repository</name>
+	<artifactId>FlashCards_Repository_Commons</artifactId>
+	<packaging>jar</packaging>
+	<name>FlashCards_Repository_Commons</name>
 	<description>FlashCards_Repository description</description>
 	<properties>
-		<skip.coveralls>true</skip.coveralls>
+		<skip.coveralls>false</skip.coveralls>
 	</properties>
 	<scm>
 		<connection>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</connection>
 		<url>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</url>
 		<developerConnection>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</developerConnection>
 	</scm>
-    <modules>
-        <module>FlashCards_Repository_Commons</module>
-        <module>FlashCards_Repository_Jpa_Commons</module>
-        <module>FlashCards_Repository_Jpa</module>
-        <module>FlashCards_Repository_SpringData</module>
-    </modules>
+	<dependencies>
+		<!-- FlashCards project module dependencies -->
+		<dependency>
+			<groupId>org.robbins.flashcards</groupId>
+			<artifactId>FlashCards_Domain</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<finalName>FlashCards_Repository_Commons</finalName>
+	</build>
 </project>
