@@ -23,6 +23,11 @@
 		<!-- FlashCards project module dependencies -->
         <dependency>
             <groupId>org.robbins.flashcards</groupId>
+            <artifactId>FlashCards_Domain</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.robbins.flashcards</groupId>
             <artifactId>FlashCards_DTO</artifactId>
             <version>${project.version}</version>
         </dependency>
