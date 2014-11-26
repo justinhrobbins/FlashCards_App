@@ -1,6 +1,9 @@
 package org.robbins.flashcards.repository.conversion;
 
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.dozer.Mapper;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
@@ -8,21 +11,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.robbins.flashcards.exceptions.RepositoryException;
-import org.robbins.flashcards.repository.conversion.impl.DefaultUserDtoConverter;
 import org.robbins.flashcards.dto.UserDto;
+import org.robbins.flashcards.exceptions.RepositoryException;
 import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.flashcards.model.User;
+import org.robbins.flashcards.repository.conversion.impl.DefaultUserDtoConverter;
 import org.robbins.tests.BaseMockingTest;
 import org.springframework.test.util.ReflectionTestUtils;
-
-import java.util.Arrays;
-import java.util.List;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 public class DefaultUserDtoConverterUT extends BaseMockingTest {
     private DtoConverter converter;

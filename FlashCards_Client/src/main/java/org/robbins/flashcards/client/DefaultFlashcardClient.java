@@ -1,14 +1,17 @@
 package org.robbins.flashcards.client;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.robbins.flashcards.client.util.ResourceUrls;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.exceptions.ServiceException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
-
-import java.util.*;
 
 
 @Component

@@ -7,8 +7,6 @@ import java.util.Set;
 import org.robbins.flashcards.exceptions.DataIntegrityException;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 
 public abstract class AbstractCrudServiceImpl<D> implements GenericPagingAndSortingService<D, Long>,
         CrudService<D, Long> {

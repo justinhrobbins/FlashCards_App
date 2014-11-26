@@ -21,7 +21,6 @@ import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.FlashcardFacade;
-import org.robbins.flashcards.model.FlashCard;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.data.domain.PageRequest;

@@ -12,7 +12,6 @@ import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.robbins.flashcards.exceptions.RepositoryException;
-import org.robbins.flashcards.exceptions.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

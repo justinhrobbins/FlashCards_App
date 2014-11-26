@@ -14,8 +14,6 @@ import org.mockito.Mockito;
 import org.robbins.flashcards.dto.UserDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.UserFacade;
-import org.robbins.flashcards.model.User;
-import org.robbins.flashcards.repository.UserRepository;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.test.util.ReflectionTestUtils;

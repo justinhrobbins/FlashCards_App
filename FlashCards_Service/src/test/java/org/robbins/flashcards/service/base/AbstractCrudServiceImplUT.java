@@ -3,7 +3,6 @@ package org.robbins.flashcards.service.base;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -18,7 +17,6 @@ import org.mockito.Mockito;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.TagFacade;
-import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.service.TagServiceImpl;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
@@ -114,7 +112,6 @@ public class AbstractCrudServiceImplUT extends BaseMockingTest {
         assertThat(results, is(List.class));
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Test
     public void findAllPageable() throws FlashcardsException {
 		final Integer PAGE = 1;

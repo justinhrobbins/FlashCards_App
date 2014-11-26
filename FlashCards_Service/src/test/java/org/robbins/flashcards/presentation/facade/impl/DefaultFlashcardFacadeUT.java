@@ -21,7 +21,6 @@ import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.FlashcardFacade;
 import org.robbins.flashcards.service.FlashCardService;
-import org.robbins.flashcards.service.TagService;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -31,9 +30,6 @@ public class DefaultFlashcardFacadeUT extends BaseMockingTest {
 
     @Mock
     private FlashCardService mockService;
-
-    @Mock
-    private TagService mockTagService;
 
     @Mock
     private FlashCardDto mockFlashcardDto;
@@ -47,7 +43,6 @@ public class DefaultFlashcardFacadeUT extends BaseMockingTest {
     public void before() {
         flashCardFacade = new DefaultFlashcardFacade();
         ReflectionTestUtils.setField(flashCardFacade, "flashcardService", mockService);
-        ReflectionTestUtils.setField(flashCardFacade, "tagService", mockTagService);
     }
 
     @Test
@@ -92,7 +87,6 @@ public class DefaultFlashcardFacadeUT extends BaseMockingTest {
     public void save() throws FlashcardsException {
 
         when(mockService.save(any(FlashCardDto.class))).thenReturn(mockFlashcardDto);
-        when(mockTagService.findByName(any(String.class))).thenReturn(mockTagDto);
         when(mockFlashcardDto.getTags()).thenReturn(
                 new HashSet<>(Arrays.asList(mockTagDto)));
 

@@ -12,7 +12,6 @@ import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.FlashcardFacade;
 import org.robbins.flashcards.presentation.facade.base.AbstractCrudFacadeImpl;
 import org.robbins.flashcards.service.FlashCardService;
-import org.robbins.flashcards.service.TagService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
@@ -22,9 +21,6 @@ public class DefaultFlashcardFacade extends
 
     @Inject
     private FlashCardService flashcardService;
-
-    @Inject
-    private TagService tagService;
 
     @Override
     public FlashCardService getService() {

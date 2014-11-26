@@ -6,8 +6,6 @@ import javax.ws.rs.core.Response;
 
 import org.robbins.flashcards.dto.UserDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
-import org.robbins.flashcards.exceptions.ServiceException;
-
 import org.robbins.flashcards.facade.UserFacade;
 import org.robbins.flashcards.model.User;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;

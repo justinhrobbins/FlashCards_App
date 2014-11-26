@@ -1,12 +1,18 @@
 package org.robbins.flashcards.client;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.robbins.flashcards.dto.AbstractPersistableDto;
 import org.robbins.flashcards.exceptions.ServiceException;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestClientException;
-
-import java.util.*;
 
 public abstract class AbstractCrudClient<E extends AbstractPersistableDto> extends AbstractClient implements GenericRestCrudFacade<E> {
 
@@ -158,10 +164,8 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto> exten
 
         final Map<String, String> vars = Collections.singletonMap("id", String.valueOf(id));
 
-        @SuppressWarnings("rawtypes")
-        final ResponseEntity response = getRestTemplate().exchange(deleteEntityUrl(), HttpMethod.DELETE,
+        getRestTemplate().exchange(deleteEntityUrl(), HttpMethod.DELETE,
                 httpEntity, ResponseEntity.class, vars);
-//        return response.getStatusCode();
     }
 
     @Override
@@ -174,8 +178,7 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto> exten
         @SuppressWarnings({ "unchecked", "rawtypes" })
         final  HttpEntity httpEntity = new HttpEntity(entity, httpHeaders);
 
-        @SuppressWarnings("rawtypes")
-        final ResponseEntity response = getRestTemplate().exchange(updateUrl(), HttpMethod.POST,
+        getRestTemplate().exchange(updateUrl(), HttpMethod.POST,
                 httpEntity, ResponseEntity.class, uriVariables);
     }
 
@@ -189,10 +192,8 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto> exten
         @SuppressWarnings({ "unchecked", "rawtypes" })
         final HttpEntity httpEntity = new HttpEntity(entity, httpHeaders);
 
-        @SuppressWarnings("rawtypes")
-        final ResponseEntity response = getRestTemplate().exchange(putEntityUrl(), HttpMethod.PUT,
+        getRestTemplate().exchange(putEntityUrl(), HttpMethod.PUT,
                 httpEntity, ResponseEntity.class, uriVariables);
-//        return response.getStatusCode();
     }
 
     E searchSingleEntity(final Map<String, String> uriVariables) {

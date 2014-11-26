@@ -21,8 +21,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
-import org.robbins.flashcards.exceptions.ServiceException;
-
 import org.robbins.flashcards.facade.FlashcardFacade;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.webservices.base.AbstractGenericResource;

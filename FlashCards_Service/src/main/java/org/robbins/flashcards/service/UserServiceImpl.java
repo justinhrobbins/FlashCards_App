@@ -3,12 +3,10 @@ package org.robbins.flashcards.service;
 
 import javax.inject.Inject;
 
-import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.dto.UserDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.UserFacade;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
-import org.robbins.flashcards.repository.UserRepository;
 import org.robbins.flashcards.service.base.AbstractCrudServiceImpl;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

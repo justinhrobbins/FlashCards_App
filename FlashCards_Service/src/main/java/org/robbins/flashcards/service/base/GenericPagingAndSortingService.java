@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.robbins.flashcards.exceptions.FlashcardsException;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 
 public interface GenericPagingAndSortingService<D, ID extends Serializable> extends
         GenericCrudService<D, ID> {
