@@ -39,7 +39,7 @@ public class DefaultFlashcardDtoConverter extends AbstractDtoConverter implement
             throws RepositoryException {
         List<FlashCardDto> dtos = new ArrayList<>();
         for (FlashCard entity : entities) {
-            dtos.add(getDto(entity));
+            dtos.add(getDto(entity, fields));
         }
         return dtos;
     }

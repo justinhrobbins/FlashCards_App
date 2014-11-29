@@ -1,14 +1,12 @@
 
 package org.robbins.flashcards.repository.facade.impl;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.inject.Inject;
-
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
+import org.apache.commons.collections.CollectionUtils;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
+import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.exceptions.RepositoryException;
 import org.robbins.flashcards.facade.FlashcardFacade;
 import org.robbins.flashcards.model.FlashCard;
@@ -17,18 +15,24 @@ import org.robbins.flashcards.repository.FlashCardRepository;
 import org.robbins.flashcards.repository.TagRepository;
 import org.robbins.flashcards.repository.conversion.DtoConverter;
 import org.robbins.flashcards.repository.facade.base.AbstractCrudRepositoryFacadeImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
+import javax.inject.Inject;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Transactional
 @Component("flashcardRepositoryFacade")
 public class DefaultFlashcardRepositoryFacade extends
 		AbstractCrudRepositoryFacadeImpl<FlashCardDto, FlashCard> implements FlashcardFacade {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultFlashcardRepositoryFacade.class);
 
 	@Inject
 	private FlashCardRepository repository;
@@ -92,6 +96,16 @@ public class DefaultFlashcardRepositoryFacade extends
     @Override
     public FlashCardDto findByQuestion(final String question) throws RepositoryException {
         return getConverter().getDto(getRepository().findByQuestion(question));
+    }
+
+    @Override
+    public List<FlashCardDto> findFlashcardsForTag(Long tagId, Set<String> fields) throws FlashcardsException {
+        List<FlashCard> results = getRepository().findByTags_Id(tagId);
+
+        if (CollectionUtils.isEmpty(results)) {
+            return null;
+        }
+        return getConverter().getDtos(results, fields);
     }
 
     private Set<Tag> getTags(final Set<TagDto> tagDtos) {

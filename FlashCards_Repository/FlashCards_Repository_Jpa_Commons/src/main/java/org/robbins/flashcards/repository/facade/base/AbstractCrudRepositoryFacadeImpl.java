@@ -67,7 +67,7 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E> implements GenericC
             entities = getRepository().findAll(entitySort);
         }
 
-        if (entities == null) {
+        if (CollectionUtils.isEmpty(entities)) {
             return null;
         }
 

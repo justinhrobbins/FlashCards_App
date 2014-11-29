@@ -1,17 +1,14 @@
 package org.robbins.flashcards.client;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.robbins.flashcards.client.util.ResourceUrls;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
+import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.exceptions.ServiceException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
+
+import java.util.*;
 
 
 @Component
@@ -124,5 +121,14 @@ public class DefaultFlashcardClient extends AbstractCrudClient<FlashCardDto> imp
     @Override
     public FlashCardDto findByQuestion(final String question) throws ServiceException {
         return findByQuestionLike(question, null).get(0);
+    }
+
+    @Override
+    public List<FlashCardDto> findFlashcardsForTag(Long tagId, Set<String> fields) throws FlashcardsException {
+        Map<String, String> uriVariables = new HashMap<String, String>();
+
+        uriVariables.put("id", String.valueOf(tagId));
+
+        return Arrays.asList(searchEntities(getEntityListUrl(), uriVariables, FlashCardDto[].class));
     }
 }

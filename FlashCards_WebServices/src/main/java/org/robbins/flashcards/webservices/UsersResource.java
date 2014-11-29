@@ -1,32 +1,27 @@
 
 package org.robbins.flashcards.webservices;
 
-import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Response;
-
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 import org.robbins.flashcards.dto.UserDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.UserFacade;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
-import org.robbins.flashcards.webservices.base.AbstractGenericResource;
+import org.robbins.flashcards.webservices.base.AbstractGenericListingResource;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import com.wordnik.swagger.annotations.Api;
-import com.wordnik.swagger.annotations.ApiOperation;
+import javax.inject.Inject;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
 
 @Path("/v1/users/")
 @Component("usersResource")
 @Api(value = "/v1/users", description = "Operations about Users")
 @Produces({ "application/xml", "application/json" })
 @Consumes({ "application/xml", "application/json" })
-public class UsersResource extends AbstractGenericResource<UserDto, Long> {
+public class UsersResource extends AbstractGenericListingResource<UserDto, Long> {
 
     @Inject
 	@Qualifier("presentationUserFacade")

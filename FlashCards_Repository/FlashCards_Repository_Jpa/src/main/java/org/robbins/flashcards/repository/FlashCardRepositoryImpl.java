@@ -133,4 +133,11 @@ public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
         Query query = getEm().createQuery("SELECT COUNT(*) FROM FlashCard");
         return (Long) query.getSingleResult();
     }
+
+    @Override
+    public List<FlashCard> findByTags_Id(Long tagId) {
+        Query query = getEm().createQuery("SELECT f FROM FlashCard f JOIN f.tags t WHERE t.id = :tagId");
+        query.setParameter("tagId", tagId);
+        return query.getResultList();
+    }
 }

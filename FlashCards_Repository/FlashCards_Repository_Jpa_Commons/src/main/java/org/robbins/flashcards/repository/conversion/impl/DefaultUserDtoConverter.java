@@ -37,7 +37,7 @@ public class DefaultUserDtoConverter extends AbstractDtoConverter implements Dto
             throws RepositoryException {
         List<UserDto> dtos = new ArrayList<>();
         for (User entity : entities) {
-            dtos.add(getDto(entity));
+            dtos.add(getDto(entity, fields));
         }
         return dtos;
     }

@@ -196,7 +196,7 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto> exten
                 httpEntity, ResponseEntity.class, uriVariables);
     }
 
-    E searchSingleEntity(final Map<String, String> uriVariables) {
+    public E searchSingleEntity(final Map<String, String> uriVariables) {
         // set the Authentication header
         @SuppressWarnings({ "unchecked", "rawtypes" })
         final HttpEntity httpEntity = new HttpEntity(getAuthHeaders());
