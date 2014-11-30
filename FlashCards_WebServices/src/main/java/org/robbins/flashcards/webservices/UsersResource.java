@@ -43,4 +43,13 @@ public class UsersResource extends AbstractGenericListingResource<UserDto, Long>
         }
     }
 
+    @Path("/{userId}/flashcards")
+    public Class findFlashcardsForUser() {
+        return FlashCardsResource.class;
+    }
+
+    @Path("/{userId}/tags")
+    public Class findTagsForUser() {
+        return TagsResource.class;
+    }
 }

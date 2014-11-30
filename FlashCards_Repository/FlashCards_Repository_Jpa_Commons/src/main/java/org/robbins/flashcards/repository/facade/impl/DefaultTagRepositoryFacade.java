@@ -1,7 +1,6 @@
 
 package org.robbins.flashcards.repository.facade.impl;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.exceptions.RepositoryException;
 import org.robbins.flashcards.facade.TagFacade;
@@ -47,17 +46,12 @@ public class DefaultTagRepositoryFacade extends AbstractCrudRepositoryFacadeImpl
         if (result == null) {
             return null;
         }
-        return getConverter().getDto(result);
+        return convertAndInitializeEntity(result);
     }
 
     @Override
     public List<TagDto> findTagsForFlashcard(final Long flashcardId, final Set<String> fields) throws RepositoryException {
         List<Tag> results = getRepository().findByFlashcards_Id(flashcardId);
-
-        if (CollectionUtils.isEmpty(results)) {
-            return null;
-        }
-
-        return getConverter().getDtos(results, fields);
+        return convertAndInitializeEntities(results, fields);
     }
 }

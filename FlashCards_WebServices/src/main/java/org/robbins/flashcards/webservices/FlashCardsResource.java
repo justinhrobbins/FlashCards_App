@@ -153,17 +153,28 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
     }
 
     @GET
-    public JResponse<List<FlashCardDto>> list(@PathParam("id") final Long tagId,
-                                        @QueryParam("page") final Integer page,
-                                        @DefaultValue("25") @QueryParam("size") final Integer size,
-                                        @QueryParam("sort") final String sort,
-                                        @DefaultValue("asc") @QueryParam("direction") final String direction,
-                                        @QueryParam("fields") final String fields) {
+    public JResponse<List<FlashCardDto>> list(@PathParam("tagId") final Long tagId,
+                                              @PathParam("userId") final Long userId,
+                                              @QueryParam("page") final Integer page,
+                                              @DefaultValue("25") @QueryParam("size") final Integer size,
+                                              @QueryParam("sort") final String sort,
+                                              @DefaultValue("asc") @QueryParam("direction") final String direction,
+                                              @QueryParam("fields") final String fields) {
 
-        if (tagId == null) {
+        if (tagId != null) {
+            return listFlashcardsForTag(tagId, page, size, sort, direction, fields);
+        }
+        else if (userId != null) {
+            return listFlashcardsForUser(userId, page, size, sort, direction, fields);
+        }
+        else {
             return list(page, size, sort, direction, fields);
         }
+    }
 
+    private JResponse<List<FlashCardDto>> listFlashcardsForTag(final Long tagId, final Integer page,
+                                                               final Integer size, final String sort,
+                                                               final String direction, final String fields) {
         try {
             List<FlashCardDto> entities = flashcardFacade.findFlashcardsForTag(tagId, this.getFieldsAsSet(fields));
             if (CollectionUtils.isEmpty(entities)) {
@@ -176,7 +187,22 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
         }
     }
 
-    @Path("/{id}/tags")
+    private JResponse<List<FlashCardDto>> listFlashcardsForUser(final Long userId, final Integer page,
+                                                               final Integer size, final String sort,
+                                                               final String direction, final String fields) {
+        try {
+            List<FlashCardDto> entities = flashcardFacade.findByCreatedBy(userId, this.getFieldsAsSet(fields));
+            if (CollectionUtils.isEmpty(entities)) {
+                throw new GenericWebServiceException(Response.Status.NOT_FOUND,
+                        "Flashcards not found for User: " + userId);
+            }
+            return JResponse.ok(entities).build();
+        } catch (FlashcardsException e) {
+            throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
+        }
+    }
+
+    @Path("/{flashcardId}/tags")
     public Class findTagsForFlashcard() {
         return TagsResource.class;
     }

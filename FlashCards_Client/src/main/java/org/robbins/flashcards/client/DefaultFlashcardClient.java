@@ -126,9 +126,7 @@ public class DefaultFlashcardClient extends AbstractCrudClient<FlashCardDto> imp
     @Override
     public List<FlashCardDto> findFlashcardsForTag(Long tagId, Set<String> fields) throws FlashcardsException {
         Map<String, String> uriVariables = new HashMap<String, String>();
-
-        uriVariables.put("id", String.valueOf(tagId));
-
+        uriVariables.put("tagId", String.valueOf(tagId));
         return Arrays.asList(searchEntities(getEntityListUrl(), uriVariables, FlashCardDto[].class));
     }
 }

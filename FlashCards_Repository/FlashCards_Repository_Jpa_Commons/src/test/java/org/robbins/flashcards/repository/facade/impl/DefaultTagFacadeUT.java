@@ -67,7 +67,7 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
     public void findByName() throws FlashcardsException
 	{
         when(repository.findByName(any(String.class))).thenReturn(mockTag);
-        when(converter.getDto(mockTag)).thenReturn(mockTagDto);
+        when(converter.getDto(mockTag, null)).thenReturn(mockTagDto);
 
         TagDto result = tagFacade.findByName(any(String.class));
 
@@ -142,7 +142,7 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
     @Test
     public void save() throws FlashcardsException {
         when(repository.save(any(Tag.class))).thenReturn(mockTag);
-        when(converter.getDto(mockTag)).thenReturn(mockTagDto);
+        when(converter.getDto(mockTag, null)).thenReturn(mockTagDto);
         when(converter.getEntity(mockTagDto)).thenReturn(mockTag);
 
         TagDto result = tagFacade.save(mockTagDto);

@@ -109,17 +109,31 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long> {
     }
 
     @GET
-    public JResponse<List<TagDto>> list(@PathParam("id") final Long flashcardId,
+    public JResponse<List<TagDto>> list(@PathParam("flashcardId") final Long flashcardId,
+                                        @PathParam("userId") final Long userId,
                                         @QueryParam("page") final Integer page,
                                         @DefaultValue("25") @QueryParam("size") final Integer size,
                                         @QueryParam("sort") final String sort,
                                         @DefaultValue("asc") @QueryParam("direction") final String direction,
                                         @QueryParam("fields") final String fields) {
 
-        if (flashcardId == null) {
+        LOGGER.debug("flashcardId: {}", flashcardId);
+        LOGGER.debug("userId: {}", userId);
+
+        if (flashcardId != null) {
+            return listTagsForFlashcard(flashcardId, page, size, sort, direction, fields);
+        }
+        else if (userId != null) {
+            return listTagsForUser(userId, page, size, sort, direction, fields);
+        }
+        else {
             return list(page, size, sort, direction, fields);
         }
+    }
 
+    private JResponse<List<TagDto>> listTagsForFlashcard(final Long flashcardId, final Integer page,
+                                                         final Integer size, final String sort,
+                                                         final String direction, final String fields) {
         try {
             List<TagDto> entities = tagFacade.findTagsForFlashcard(flashcardId, this.getFieldsAsSet(fields));
             if (CollectionUtils.isEmpty(entities)) {
@@ -132,7 +146,22 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long> {
         }
     }
 
-    @Path("/{id}/flashcards")
+    private JResponse<List<TagDto>> listTagsForUser(final Long userId, final Integer page,
+                                                         final Integer size, final String sort,
+                                                         final String direction, final String fields) {
+        try {
+            List<TagDto> entities = tagFacade.findByCreatedBy(userId, this.getFieldsAsSet(fields));
+            if (CollectionUtils.isEmpty(entities)) {
+                throw new GenericWebServiceException(Response.Status.NOT_FOUND,
+                        "Tags not found for User: " + userId);
+            }
+            return JResponse.ok(entities).build();
+        } catch (FlashcardsException e) {
+            throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
+        }
+    }
+
+    @Path("/{tagId}/flashcards")
     public Class findFlashcardsForTag() {
         return FlashCardsResource.class;
     }

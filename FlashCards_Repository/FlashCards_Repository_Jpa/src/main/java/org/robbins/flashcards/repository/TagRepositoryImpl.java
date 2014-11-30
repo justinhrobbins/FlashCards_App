@@ -1,6 +1,7 @@
 
 package org.robbins.flashcards.repository;
 
+import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -73,6 +74,13 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag> implement
     public List<Tag> findByFlashcards_Id(Long flashcardId) {
         Query query = getEm().createQuery("SELECT t FROM Tag t JOIN t.flashcards f WHERE f.id = :flashcardId");
         query.setParameter("flashcardId", flashcardId);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Tag> findByCreatedBy_Id(Long userId) {
+        Query query = getEm().createQuery("SELECT t FROM Tag t JOIN t.createdBy u WHERE u.id = :userId");
+        query.setParameter("userId", userId);
         return query.getResultList();
     }
 }

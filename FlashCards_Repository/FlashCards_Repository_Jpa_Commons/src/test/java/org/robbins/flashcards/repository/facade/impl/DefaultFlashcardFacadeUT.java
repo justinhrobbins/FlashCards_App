@@ -71,7 +71,7 @@ public class DefaultFlashcardFacadeUT extends BaseMockingTest {
     public void findByQuestion() throws FlashcardsException
 	{
         when(repository.findByQuestion(any(String.class))).thenReturn(mockFlashcard);
-        when(mockFlashcardConverter.getDto(mockFlashcard)).thenReturn(
+        when(mockFlashcardConverter.getDto(mockFlashcard, null)).thenReturn(
                 mockFlashcardDto);
 
         FlashCardDto result = flashCardFacade.findByQuestion(any(String.class));
@@ -119,7 +119,7 @@ public class DefaultFlashcardFacadeUT extends BaseMockingTest {
         when(repository.save(any(FlashCard.class))).thenReturn(mockFlashcard);
         when(tagRepository.findByName(any(String.class))).thenReturn(mockTag);
         when(mockFlashcardConverter.getEntity(mockFlashcardDto)).thenReturn(mockFlashcard);
-        when(mockFlashcardConverter.getDto(mockFlashcard)).thenReturn(mockFlashcardDto);
+        when(mockFlashcardConverter.getDto(mockFlashcard, null)).thenReturn(mockFlashcardDto);
         when(mockFlashcardDto.getTags()).thenReturn(
                 new HashSet<>(Arrays.asList(mockTagDto)));
 

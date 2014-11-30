@@ -2,6 +2,7 @@ package org.robbins.flashcards.client;
 
 import org.robbins.flashcards.client.util.ResourceUrls;
 import org.robbins.flashcards.dto.TagDto;
+import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.exceptions.ServiceException;
 import org.springframework.stereotype.Component;
 
@@ -56,18 +57,14 @@ public class DefaultTagClient extends AbstractCrudClient<TagDto> implements TagC
     @Override
     public TagDto findByName(final String name) throws ServiceException {
         Map<String, String> uriVariables = new HashMap<String, String>();
-
         uriVariables.put("name", name);
-
         return searchSingleEntity(uriVariables);
     }
 
     @Override
     public List<TagDto> findTagsForFlashcard(final Long flashcardId, final Set<String> fields) {
         Map<String, String> uriVariables = new HashMap<String, String>();
-
-        uriVariables.put("id", String.valueOf(flashcardId));
-
+        uriVariables.put("flashcardId", String.valueOf(flashcardId));
         return Arrays.asList(searchEntities(getEntityListUrl(), uriVariables, TagDto[].class));
     }
 }

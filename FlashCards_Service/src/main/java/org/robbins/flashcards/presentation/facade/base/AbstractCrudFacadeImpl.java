@@ -53,4 +53,9 @@ public abstract class AbstractCrudFacadeImpl<D> implements GenericCrudFacade<D>,
     public void delete(final Long id) {
         getService().delete(id);
     }
+
+    @Override
+    public List<D> findByCreatedBy(Long userId, Set<String> fields) throws FlashcardsException {
+        return getService().findByCreatedBy(userId, fields);
+    }
 }

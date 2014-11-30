@@ -60,4 +60,9 @@ public abstract class AbstractCrudServiceImpl<D> implements GenericPagingAndSort
 				Set <String> fields) throws FlashcardsException {
 		return getFacade().list(page, size, sort, direction, fields);
 	}
+
+    @Override
+    public List<D> findByCreatedBy(Long userId, Set<String> fields) throws FlashcardsException {
+        return getFacade().findByCreatedBy(userId, fields);
+    }
 }
