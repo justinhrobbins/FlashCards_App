@@ -1,8 +1,6 @@
 
 package org.robbins.flashcards.repository.facade.impl;
 
-import javax.inject.Inject;
-
 import org.robbins.flashcards.dto.UserDto;
 import org.robbins.flashcards.exceptions.RepositoryException;
 import org.robbins.flashcards.facade.UserFacade;
@@ -13,6 +11,8 @@ import org.robbins.flashcards.repository.facade.base.AbstractCrudRepositoryFacad
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.inject.Inject;
 
 @Transactional
 @Component("userRepositoryFacade")
@@ -41,13 +41,10 @@ public class DefaultUserRepositoryFacade extends AbstractCrudRepositoryFacadeImp
     public UserDto findUserByOpenid(final String openid) throws RepositoryException
 	{
         User result = getRepository().findUserByOpenid(openid);
-
         if (result == null) {
             return null;
         }
-
-        UserDto userDto = getConverter().getDto(result);
-        return userDto;
+        return convertAndInitializeEntity(result);
     }
 
     @Override
@@ -60,8 +57,7 @@ public class DefaultUserRepositoryFacade extends AbstractCrudRepositoryFacadeImp
             entity.setCreatedDate(orig.getCreatedDate());
         }
 
-        User resultEntity = getRepository().save(entity);
-        UserDto resultDto = getConverter().getDto(resultEntity);
-        return resultDto;
+        User result = getRepository().save(entity);
+        return convertAndInitializeEntity(result);
     }
 }

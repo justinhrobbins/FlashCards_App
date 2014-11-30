@@ -50,7 +50,7 @@ public class DefaultUserFacadeUT extends BaseMockingTest {
     public void findUserByOpenid() throws FlashcardsException
 	{
         when(repository.findUserByOpenid(any(String.class))).thenReturn(mockUser);
-        when(converter.getDto(mockUser)).thenReturn(mockUserDto);
+        when(converter.getDto(mockUser, null)).thenReturn(mockUserDto);
 
         UserDto result = userFacade.findUserByOpenid(any(String.class));
 
@@ -72,7 +72,7 @@ public class DefaultUserFacadeUT extends BaseMockingTest {
     public void save() throws FlashcardsException {
         when(repository.save(any(User.class))).thenReturn(mockUser);
         when(repository.findOne(any(Long.class))).thenReturn(mockUser);
-        when(converter.getDto(mockUser)).thenReturn(mockUserDto);
+        when(converter.getDto(mockUser, null)).thenReturn(mockUserDto);
         when(converter.getEntity(mockUserDto)).thenReturn(mockUser);
 
         UserDto result = userFacade.save(mockUserDto);

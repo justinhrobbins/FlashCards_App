@@ -352,10 +352,12 @@
             </plugins>
         </pluginManagement>
         <plugins>
+            <!--
             <plugin>
                 <groupId>com.github.kongchen</groupId>
                 <artifactId>swagger-maven-plugin</artifactId>
             </plugin>
+            -->
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>

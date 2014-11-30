@@ -1,14 +1,11 @@
 
 package org.robbins.flashcards.repository.facade.impl;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.inject.Inject;
-
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
+import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.exceptions.RepositoryException;
 import org.robbins.flashcards.facade.FlashcardFacade;
 import org.robbins.flashcards.model.FlashCard;
@@ -22,8 +19,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
+import javax.inject.Inject;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Transactional
 @Component("flashcardRepositoryFacade")
@@ -59,39 +58,49 @@ public class DefaultFlashcardRepositoryFacade extends
     public FlashCardDto save(final FlashCardDto dto) throws RepositoryException {
         FlashCard entity = getConverter().getEntity(dto);
         entity.setTags(configureTags(dto.getTags()));
-        FlashCard resultEntity = getRepository().save(entity);
-        FlashCardDto resultDto = getConverter().getDto(resultEntity);
-        return resultDto;
+        FlashCard result = getRepository().save(entity);
+        return convertAndInitializeEntity(result);
     }
 
     @Override
     public List<FlashCardDto> findByTagsIn(final Set<TagDto> tagDtos)
             throws RepositoryException {
-        return getConverter().getDtos(getRepository().findByTagsIn(getTags(tagDtos)), null);
+        List<FlashCard> results = getRepository().findByTagsIn(getTags(tagDtos));
+        return convertAndInitializeEntities(results);
     }
 
     @Override
     public List<FlashCardDto> findByTagsIn(final Set<TagDto> tagDtos,
             final PageRequest page) throws RepositoryException {
-        return getConverter().getDtos(getRepository().findByTagsIn(getTags(tagDtos), page), null);
+        List<FlashCard> results =  getRepository().findByTagsIn(getTags(tagDtos), page);
+        return convertAndInitializeEntities(results);
     }
 
     @Override
     public List<FlashCardDto> findByQuestionLike(final String question)
             throws RepositoryException {
-        return getConverter().getDtos(getRepository().findByQuestionLike(question), null);
+        List<FlashCard> results = getRepository().findByQuestionLike(question);
+        return convertAndInitializeEntities(results);
     }
 
     @Override
     public List<FlashCardDto> findByQuestionLike(final String question,
             final PageRequest page)
             throws RepositoryException {
-        return getConverter().getDtos(getRepository().findByQuestionLike(question, page), null);
+        List<FlashCard> results =  getRepository().findByQuestionLike(question, page);
+        return convertAndInitializeEntities(results);
     }
 
     @Override
     public FlashCardDto findByQuestion(final String question) throws RepositoryException {
-        return getConverter().getDto(getRepository().findByQuestion(question));
+        FlashCard result = getRepository().findByQuestion(question);
+        return convertAndInitializeEntity(result);
+    }
+
+    @Override
+    public List<FlashCardDto> findFlashcardsForTag(Long tagId, Set<String> fields) throws FlashcardsException {
+        List<FlashCard> results = getRepository().findByTags_Id(tagId);
+        return convertAndInitializeEntities(results, fields);
     }
 
     private Set<Tag> getTags(final Set<TagDto> tagDtos) {

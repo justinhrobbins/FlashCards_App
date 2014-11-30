@@ -56,4 +56,9 @@ public class FlashCardServiceImpl extends AbstractCrudServiceImpl<FlashCardDto>
     public FlashCardDto findByQuestion(final String question) throws FlashcardsException {
         return facade.findByQuestion(question);
     }
+
+    @Override
+    public List<FlashCardDto> findFlashcardsForTag(Long tagId, Set<String> fields) throws FlashcardsException {
+        return facade.findFlashcardsForTag(tagId, fields);
+    }
 }

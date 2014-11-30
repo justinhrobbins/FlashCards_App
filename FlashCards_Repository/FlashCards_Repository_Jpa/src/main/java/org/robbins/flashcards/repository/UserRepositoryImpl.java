@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
+import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -71,5 +72,12 @@ public class UserRepositoryImpl extends AbstractCrudRepositoryImpl<User> impleme
     public long count() {
         Query query = getEm().createQuery("SELECT COUNT(*) FROM User");
         return (Long) query.getSingleResult();
+    }
+
+    @Override
+    public List<User> findByCreatedBy_Id(Long userId) {
+        Query query = getEm().createQuery("SELECT u FROM User u JOIN u.createdBy u WHERE u.id = :userId");
+        query.setParameter("userId", userId);
+        return query.getResultList();
     }
 }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <user UserId="1" EMAIL="email@test.org" LastLoginDate="2013-01-01"
+        OPENID="my-open-id" CreatedUserId="1" />
+    <tag TagId="1" TagName="tag1" CreatedUserId="1" />
+    <tag TagId="2" TagName="tag2" CreatedUserId="1" />
+    <flashcard FlashCardId="1" Question="question1" Answer="answer1"
+        CreatedUserId="1" />
+    <flashcard_tag FlashCardId="1" TagId="1" />
+</dataset>

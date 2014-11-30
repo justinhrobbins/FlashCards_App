@@ -1,14 +1,9 @@
 
 package org.robbins.flashcards.repository.facade.base;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
-import javax.inject.Inject;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.exceptions.RepositoryException;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.repository.facade.PagingAndSortingRepositoryFacade;
@@ -17,6 +12,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.inject.Inject;
+import java.util.List;
+import java.util.Set;
 
 @Transactional
 public abstract class AbstractCrudRepositoryFacadeImpl<D, E> implements GenericCrudFacade<D>,
@@ -30,8 +29,8 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E> implements GenericC
     public D save(final D dto) throws RepositoryException
 	{
         E entity = getConverter().getEntity(dto);
-        E resultEntity = getRepository().save(entity);
-        return getConverter().getDto(resultEntity);
+        E result = getRepository().save(entity);
+        return convertAndInitializeEntity(result);
     }
 
     @Override
@@ -67,22 +66,11 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E> implements GenericC
             entities = getRepository().findAll(entitySort);
         }
 
-        if (entities == null) {
+        if (CollectionUtils.isEmpty(entities)) {
             return null;
         }
 
-        // if we are explicitly requested certain fields
-        // make sure they have been initialized
-        if (CollectionUtils.isNotEmpty(fields)) {
-            fieldInitializer.initializeEntity(entities, fields);
-        }
-
-        List<D> dtos = new ArrayList<>();
-        for (E entity : entities) {
-            dtos.add(getConverter().getDto(entity, fields));
-        }
-
-        return dtos;
+        return convertAndInitializeEntities(entities, fields);
     }
 
     @Override
@@ -97,22 +85,23 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E> implements GenericC
 
     @Override
     public D findOne(final Long id, final Set<String> fields) throws RepositoryException {
-        E resultEntity = getRepository().findOne(id);
+        E result = getRepository().findOne(id);
 
-        if (resultEntity == null) {
+        if (result == null) {
             return null;
         }
-
-        if (CollectionUtils.isNotEmpty(fields)) {
-            fieldInitializer.initializeEntity(resultEntity, fields);
-        }
-
-        return getConverter().getDto(resultEntity, fields);
+        return convertAndInitializeEntity(result, fields);
     }
 
     @Override
     public void delete(final Long id) {
 		getRepository().delete(id);
+    }
+
+    @Override
+    public List<D> findByCreatedBy(Long userId, Set<String> fields) throws FlashcardsException {
+        List<E> results = getRepository().findByCreatedBy_Id(userId);
+        return convertAndInitializeEntities(results, fields);
     }
 
     protected PageRequest getPageRequest(final Integer page, final Integer size,
@@ -135,5 +124,27 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E> implements GenericC
             throw new IllegalArgumentException("Sort order must be 'asc' or 'desc'.  '"
                     + order + "' is not an acceptable sort order");
         }
+    }
+
+    protected List<D> convertAndInitializeEntities(List<E> entities) throws RepositoryException {
+        return convertAndInitializeEntities(entities, null);
+    }
+
+    protected List<D> convertAndInitializeEntities(List<E> entities, Set<String> fields) throws RepositoryException {
+        if (CollectionUtils.isNotEmpty(fields)) {
+            fieldInitializer.initializeEntity(entities, fields);
+        }
+        return getConverter().getDtos(entities, fields);
+    }
+
+    protected D convertAndInitializeEntity(E entity, Set<String> fields) throws RepositoryException {
+        if (CollectionUtils.isNotEmpty(fields)) {
+            fieldInitializer.initializeEntity(entity, fields);
+        }
+        return getConverter().getDto(entity, fields);
+    }
+
+    protected D convertAndInitializeEntity(E entity) throws RepositoryException {
+        return convertAndInitializeEntity(entity, null);
     }
 }

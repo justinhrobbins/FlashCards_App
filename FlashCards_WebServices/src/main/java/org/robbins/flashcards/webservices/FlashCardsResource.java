@@ -1,22 +1,10 @@
 
 package org.robbins.flashcards.webservices;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.StringTokenizer;
-
-import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Response;
-
+import com.sun.jersey.api.JResponse;
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
@@ -25,12 +13,17 @@ import org.robbins.flashcards.facade.FlashcardFacade;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.webservices.base.AbstractGenericResource;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
-import com.wordnik.swagger.annotations.Api;
-import com.wordnik.swagger.annotations.ApiOperation;
+import javax.inject.Inject;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
+import java.util.*;
 
 @Path("/v1/flashcards/")
 @Component("flashCardsResource")
@@ -38,6 +31,8 @@ import com.wordnik.swagger.annotations.ApiOperation;
 @Produces({ "application/xml", "application/json" })
 @Consumes({ "application/xml", "application/json" })
 public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Long> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(FlashCardsResource.class);
 
     @Inject
 	@Qualifier("presentationFlashcardFacade")
@@ -130,5 +125,85 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
         }
 
         return super.put(id, dto);
+    }
+
+    @Override
+    public JResponse<List<FlashCardDto>> list(final Integer page,  final Integer size,
+                                        final String sort, final String direction,
+                                        final String fields) {
+
+        List<FlashCardDto> entities;
+
+        try {
+            entities = getFacade().list(page, size, sort, direction,
+                    this.getFieldsAsSet(fields));
+        } catch (InvalidDataAccessApiUsageException e) {
+            LOGGER.error(e.getMessage(), e);
+            throw new GenericWebServiceException(Response.Status.BAD_REQUEST,
+                    "Inavlid sort parameter: '" + sort + "'", e);
+        } catch (FlashcardsException e) {
+            throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
+        }
+
+        if (CollectionUtils.isEmpty(entities)) {
+            entities = new ArrayList<>();
+        }
+
+        return JResponse.ok(entities).build();
+    }
+
+    @GET
+    public JResponse<List<FlashCardDto>> list(@PathParam("tagId") final Long tagId,
+                                              @PathParam("userId") final Long userId,
+                                              @QueryParam("page") final Integer page,
+                                              @DefaultValue("25") @QueryParam("size") final Integer size,
+                                              @QueryParam("sort") final String sort,
+                                              @DefaultValue("asc") @QueryParam("direction") final String direction,
+                                              @QueryParam("fields") final String fields) {
+
+        if (tagId != null) {
+            return listFlashcardsForTag(tagId, page, size, sort, direction, fields);
+        }
+        else if (userId != null) {
+            return listFlashcardsForUser(userId, page, size, sort, direction, fields);
+        }
+        else {
+            return list(page, size, sort, direction, fields);
+        }
+    }
+
+    private JResponse<List<FlashCardDto>> listFlashcardsForTag(final Long tagId, final Integer page,
+                                                               final Integer size, final String sort,
+                                                               final String direction, final String fields) {
+        try {
+            List<FlashCardDto> entities = flashcardFacade.findFlashcardsForTag(tagId, this.getFieldsAsSet(fields));
+            if (CollectionUtils.isEmpty(entities)) {
+                throw new GenericWebServiceException(Response.Status.NOT_FOUND,
+                        "Flashcards not found for Tag: " + tagId);
+            }
+            return JResponse.ok(entities).build();
+        } catch (FlashcardsException e) {
+            throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
+        }
+    }
+
+    private JResponse<List<FlashCardDto>> listFlashcardsForUser(final Long userId, final Integer page,
+                                                               final Integer size, final String sort,
+                                                               final String direction, final String fields) {
+        try {
+            List<FlashCardDto> entities = flashcardFacade.findByCreatedBy(userId, this.getFieldsAsSet(fields));
+            if (CollectionUtils.isEmpty(entities)) {
+                throw new GenericWebServiceException(Response.Status.NOT_FOUND,
+                        "Flashcards not found for User: " + userId);
+            }
+            return JResponse.ok(entities).build();
+        } catch (FlashcardsException e) {
+            throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
+        }
+    }
+
+    @Path("/{flashcardId}/tags")
+    public Class findTagsForFlashcard() {
+        return TagsResource.class;
     }
 }

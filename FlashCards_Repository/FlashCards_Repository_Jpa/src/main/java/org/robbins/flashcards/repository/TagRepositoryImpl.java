@@ -1,10 +1,7 @@
 
 package org.robbins.flashcards.repository;
 
-import java.util.List;
-
-import javax.persistence.Query;
-
+import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -12,6 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Repository;
+
+import javax.persistence.Query;
+import java.util.List;
 
 @Repository
 public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag> implements
@@ -68,5 +68,19 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag> implement
     public long count() {
         Query query = getEm().createQuery("SELECT COUNT(*) FROM Tag");
         return (Long) query.getSingleResult();
+    }
+
+    @Override
+    public List<Tag> findByFlashcards_Id(Long flashcardId) {
+        Query query = getEm().createQuery("SELECT t FROM Tag t JOIN t.flashcards f WHERE f.id = :flashcardId");
+        query.setParameter("flashcardId", flashcardId);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Tag> findByCreatedBy_Id(Long userId) {
+        Query query = getEm().createQuery("SELECT t FROM Tag t JOIN t.createdBy u WHERE u.id = :userId");
+        query.setParameter("userId", userId);
+        return query.getResultList();
     }
 }

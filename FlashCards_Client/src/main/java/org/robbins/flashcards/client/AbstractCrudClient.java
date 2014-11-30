@@ -1,12 +1,10 @@
 package org.robbins.flashcards.client;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import org.robbins.flashcards.dto.AbstractPersistableDto;
+import org.robbins.flashcards.dto.TagDto;
+import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.exceptions.ServiceException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -196,7 +194,14 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto> exten
                 httpEntity, ResponseEntity.class, uriVariables);
     }
 
-    E searchSingleEntity(final Map<String, String> uriVariables) {
+    @Override
+    public List<E> findByCreatedBy(Long userId, Set<String> fields) throws FlashcardsException {
+        Map<String, String> uriVariables = new HashMap<String, String>();
+        uriVariables.put("userId", String.valueOf(userId));
+        return Arrays.asList(searchEntities(getEntityListUrl(), uriVariables, getClazzArray()));
+    }
+
+    public E searchSingleEntity(final Map<String, String> uriVariables) {
         // set the Authentication header
         @SuppressWarnings({ "unchecked", "rawtypes" })
         final HttpEntity httpEntity = new HttpEntity(getAuthHeaders());

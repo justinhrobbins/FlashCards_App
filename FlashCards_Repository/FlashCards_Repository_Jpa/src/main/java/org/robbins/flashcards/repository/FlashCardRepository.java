@@ -12,12 +12,9 @@ import org.springframework.data.domain.Pageable;
 public interface FlashCardRepository extends FlashCardsAppRepository<FlashCard, Long> {
 
     List<FlashCard> findByTagsIn(Set<Tag> tags);
-
     List<FlashCard> findByTagsIn(Set<Tag> tags, Pageable page);
-
     List<FlashCard> findByQuestionLike(String question);
-
     List<FlashCard> findByQuestionLike(String question, Pageable page);
-
     FlashCard findByQuestion(String question);
+    List<FlashCard> findByTags_Id(Long tagId);
 }

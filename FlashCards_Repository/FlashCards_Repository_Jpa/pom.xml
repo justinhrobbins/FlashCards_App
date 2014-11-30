@@ -44,6 +44,18 @@
             <scope>runtime</scope>
         </dependency>
 
+		<!-- JDBC Connection pooling -->
+		<dependency>
+			<groupId>c3p0</groupId>
+			<artifactId>c3p0</artifactId>
+		</dependency>
+
+		<!-- H2 driver -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
+
 		<!-- test dependencies -->
 		<dependency>
 			<groupId>org.robbins.flashcards</groupId>

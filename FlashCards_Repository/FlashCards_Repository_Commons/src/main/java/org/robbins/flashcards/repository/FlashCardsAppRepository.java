@@ -11,18 +11,12 @@ import org.springframework.data.domain.Sort;
 public interface FlashCardsAppRepository<E, ID extends Serializable> {
 
     long count();
-
     E save(E entity);
-
     E findOne(ID id);
-
     void delete(ID id);
-
     void delete(E dto);
-
     List<E> findAll();
-
     List<E> findAll(Sort sort);
-
     Page<E> findAll(Pageable page);
+    List<E> findByCreatedBy_Id(Long userId);
 }

@@ -50,14 +50,19 @@ public abstract class AbstractCrudServiceImpl<D> implements GenericPagingAndSort
     }
 
 	@Override
-	public List<D> findAll(Integer page, Integer size, String sort, String direction) throws FlashcardsException
+	public List<D> findAll(final Integer page, final Integer size, final String sort, final String direction) throws FlashcardsException
 	{
 		return getFacade().list(page, size, sort, direction);
 	}
 
 	@Override
-	public List<D> findAll(Integer page, Integer size, String sort, String direction,
+	public List<D> findAll(final Integer page, final Integer size, final String sort, final String direction,
 				Set <String> fields) throws FlashcardsException {
 		return getFacade().list(page, size, sort, direction, fields);
 	}
+
+    @Override
+    public List<D> findByCreatedBy(Long userId, Set<String> fields) throws FlashcardsException {
+        return getFacade().findByCreatedBy(userId, fields);
+    }
 }

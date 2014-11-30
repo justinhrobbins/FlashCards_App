@@ -14,12 +14,9 @@ public interface FlashCardService extends GenericPagingAndSortingService<FlashCa
 {
 
     List<FlashCardDto> findByTagsIn(Set<TagDto> tags) throws FlashcardsException;
-
     List<FlashCardDto> findByTagsIn(Set<TagDto> tags, PageRequest page) throws FlashcardsException;
-
     List<FlashCardDto> findByQuestionLike(String question) throws FlashcardsException;
-
     List<FlashCardDto> findByQuestionLike(String question, PageRequest page) throws FlashcardsException;
-
 	FlashCardDto findByQuestion(String question) throws FlashcardsException;
+    List<FlashCardDto> findFlashcardsForTag(final Long tagId, final Set<String> fields) throws FlashcardsException;
 }

@@ -61,4 +61,9 @@ public class DefaultFlashcardFacade extends
     public FlashCardDto findByQuestion(final String question) throws FlashcardsException {
         return flashcardService.findByQuestion(question);
     }
+
+    @Override
+    public List<FlashCardDto> findFlashcardsForTag(Long tagId, Set<String> fields) throws FlashcardsException {
+        return getService().findFlashcardsForTag(tagId, fields);
+    }
 }

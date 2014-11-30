@@ -1,13 +1,7 @@
 
-package org.robbins.flashcards.repository.springdata;
+package org.robbins.flashcards.repository.jpa;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.assertThat;
-
-import javax.inject.Inject;
-
+import com.github.springtestdbunit.annotation.DatabaseSetup;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.robbins.flashcards.model.Tag;
@@ -16,11 +10,13 @@ import org.robbins.tests.BaseIntegrationTest;
 import org.robbins.tests.IntegrationTest;
 import org.springframework.test.context.ContextConfiguration;
 
-import com.github.springtestdbunit.annotation.DatabaseSetup;
-
+import javax.inject.Inject;
 import java.util.List;
 
-@ContextConfiguration("classpath:test-applicationContext-repository-springdata.xml")
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.assertThat;
+
+@ContextConfiguration("classpath:test-applicationContext-repository-jpa.xml")
 @DatabaseSetup("classpath:test-flashCardsAppRepository.xml")
 @Category(IntegrationTest.class)
 public class TagRepositoryIT extends BaseIntegrationTest {
