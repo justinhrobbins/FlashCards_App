@@ -12,10 +12,12 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
+import com.google.common.collect.Sets;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.robbins.flashcards.client.FlashcardClient;
 import org.robbins.flashcards.client.GenericRestCrudFacade;
+import org.robbins.flashcards.client.TagClient;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
@@ -45,6 +47,9 @@ public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto> {
 
     @Inject
     private FlashcardClient client;
+
+    @Inject
+    private TagClient tagClient;
 
     @Override
     public GenericRestCrudFacade<FlashCardDto> getClient() {
@@ -102,5 +107,27 @@ public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto> {
         assertThat(newFlashCard.getTags().size(), greaterThan(0));
 
         client.delete(newFlashCard.getId());
+    }
+
+    @Test
+    public void testFindFlashcardsForTag() throws FlashcardsException {
+        FlashCardDto flashCard = setupFlashcard();
+
+        List<FlashCardDto> results = client.findFlashcardsForTag(flashCard.getTags().iterator().next().getId(), null);
+        assertTrue(results != null);
+        assertTrue(results.size() == 1);
+
+        cleanupFlashcard(flashCard);
+    }
+
+    private FlashCardDto setupFlashcard() throws FlashcardsException {
+        FlashCardDto flashCardDto = TestDtoGenerator.createFlashCardDto("question", "answer");
+        flashCardDto.setTags(Sets.newHashSet(new TagDto("tag_name")));
+        return client.save(flashCardDto);
+    }
+
+    private void cleanupFlashcard(FlashCardDto flashCard) {
+        client.delete(flashCard.getId());
+        tagClient.delete(flashCard.getTags().iterator().next().getId());
     }
 }
