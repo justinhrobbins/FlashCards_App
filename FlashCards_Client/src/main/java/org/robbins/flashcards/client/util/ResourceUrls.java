@@ -31,4 +31,8 @@ public final class ResourceUrls {
     public static final String userUpdate = "v1/users/{id}/update";
 
     public static final String status = "status/";
+
+    public static final String tagsForFlashcard = "v1/flashcards/{flashcardId}/tags";
+
+    public static final String flashcardsForTag = "v1/tags/{tagId}/flashcards";
 }
