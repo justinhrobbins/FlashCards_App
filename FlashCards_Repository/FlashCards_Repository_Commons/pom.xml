@@ -19,14 +19,6 @@
 		<url>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</url>
 		<developerConnection>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</developerConnection>
 	</scm>
-	<dependencies>
-		<!-- FlashCards project module dependencies -->
-		<dependency>
-			<groupId>org.robbins.flashcards</groupId>
-			<artifactId>FlashCards_Domain</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-	</dependencies>
 	<build>
 		<finalName>FlashCards_Repository_Commons</finalName>
 	</build>

@@ -1,13 +1,9 @@
 
 package org.robbins.flashcards.webservices.base;
 
-import javax.inject.Inject;
-import javax.ws.rs.core.Response;
-
 import org.robbins.flashcards.dto.UserDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.UserFacade;
-import org.robbins.flashcards.model.User;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,12 +12,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import javax.inject.Inject;
+import javax.ws.rs.core.Response;
+
 public class AbstractSecurityFilter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractSecurityFilter.class);
 
     @Inject
-    private User loggedInUser;
+    private UserDto loggedInUser;
 
     @Inject
 	@Qualifier("presentationUserFacade")
@@ -32,7 +31,7 @@ public class AbstractSecurityFilter {
      *
      * @return the logged in user
      */
-    public User getLoggedInUser() {
+    public UserDto getLoggedInUser() {
         return loggedInUser;
     }
 

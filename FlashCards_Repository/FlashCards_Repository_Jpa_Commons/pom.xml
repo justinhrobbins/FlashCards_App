@@ -23,11 +23,6 @@
 		<!-- FlashCards project module dependencies -->
 		<dependency>
 			<groupId>org.robbins.flashcards</groupId>
-			<artifactId>FlashCards_Domain</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.robbins.flashcards</groupId>
 			<artifactId>FlashCards_DTO</artifactId>
 			<version>${project.version}</version>
 		</dependency>
@@ -40,7 +35,25 @@
 			<groupId>org.robbins.flashcards</groupId>
 			<artifactId>FlashCards_Repository_Commons</artifactId>
 			<version>${project.version}</version>
-			<scope>provided</scope>
+		</dependency>
+
+		<!-- Joda-Time provides a quality replacement for the Java date and time classes. -->
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+		</dependency>
+
+		<!-- JDBC Connection pooling -->
+		<dependency>
+			<groupId>c3p0</groupId>
+			<artifactId>c3p0</artifactId>
+		</dependency>
+
+		<!-- ORM dependencies -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 
 		<!-- JSR 330: Dependency Injection for Java -->
@@ -58,6 +71,14 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+		</dependency>
 
 		<!-- Hibernate -->
 		<dependency>
@@ -65,10 +86,22 @@
 			<artifactId>hibernate-core</artifactId>
 		</dependency>
 
+		<!-- AOP dependencies -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjtools</artifactId>
+		</dependency>
+
 		<!-- Dozer for mapping @Entities to DTOs -->
 		<dependency>
 			<groupId>net.sf.dozer</groupId>
 			<artifactId>dozer</artifactId>
+		</dependency>
+
+		<!-- H2 driver -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
 		</dependency>
 
 		<dependency>
