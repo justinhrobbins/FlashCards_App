@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-                        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+                        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<bean id="mapper" class="org.dozer.DozerBeanMapper">
 		<property name="mappingFiles">
@@ -15,6 +16,8 @@
 
 	<bean id="dozerCustomFieldMapper"
 		  class="org.robbins.flashcards.repository.util.dozer.HibernateFieldMapper" />
+
+	<bean id="auditorAware" class="org.robbins.flashcards.repository.auditing.AuditingAwareUser" />
 
 	<context:component-scan base-package="
 		org.robbins.flashcards.repository.facade,

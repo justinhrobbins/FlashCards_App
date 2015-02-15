@@ -21,11 +21,6 @@
 	</scm>
 	<dependencies>
 		<!-- FlashCards project module dependencies -->
-		<dependency>
-			<groupId>org.robbins.flashcards</groupId>
-			<artifactId>FlashCards_Service</artifactId>
-			<version>${project.version}</version>
-		</dependency>
         <dependency>
             <groupId>org.robbins.flashcards</groupId>
             <artifactId>FlashCards_Repository_Jpa_Commons</artifactId>

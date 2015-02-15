@@ -23,11 +23,6 @@
 		<!-- FlashCards project module dependencies -->
         <dependency>
             <groupId>org.robbins.flashcards</groupId>
-            <artifactId>FlashCards_Domain</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.robbins.flashcards</groupId>
             <artifactId>FlashCards_DTO</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -36,12 +31,22 @@
             <artifactId>FlashCards_API</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.robbins.flashcards</groupId>
-            <artifactId>FlashCards_Repository_Commons</artifactId>
-            <version>${project.version}</version>
-            <scope>provided</scope>
-        </dependency>
+
+		<dependency>
+			<groupId>org.robbins.flashcards</groupId>
+			<artifactId>FlashCards_Repository_SpringData_JPA</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.robbins.flashcards</groupId>
+			<artifactId>FlashCards_Repository_Jpa</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.robbins.flashcards</groupId>
+			<artifactId>FlashCards_Repository_Commons</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 
 		<!-- reflection helper utils -->
 		<dependency>

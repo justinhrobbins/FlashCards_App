@@ -1,31 +1,29 @@
 
 package org.robbins.flashcards.repository.jpa.base;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
-import org.robbins.flashcards.auditing.AuditingAwareUser;
+import org.robbins.flashcards.dto.UserDto;
+import org.robbins.flashcards.jpa.repository.TagRepositoryImpl;
 import org.robbins.flashcards.model.Tag;
+import org.robbins.flashcards.model.User;
 import org.robbins.flashcards.repository.TagRepository;
-import org.robbins.flashcards.repository.TagRepositoryImpl;
+import org.robbins.flashcards.repository.auditing.AuditingAwareUser;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.test.util.ReflectionTestUtils;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.*;
 
 @Category(UnitTest.class)
 public class AbstractCrudRepositoryImplUT extends BaseMockingTest {
@@ -39,6 +37,12 @@ public class AbstractCrudRepositoryImplUT extends BaseMockingTest {
     @Mock
     private AuditingAwareUser auditorAware;
 
+    @Mock
+    private User mockUser;
+
+    @Mock
+    private UserDto mockAuditor;
+
     private Query query;
 
     private List<Tag> results;
@@ -49,13 +53,16 @@ public class AbstractCrudRepositoryImplUT extends BaseMockingTest {
     public void before() {
         repository = new TagRepositoryImpl();
         query = mock(Query.class);
-        results = new ArrayList<Tag>();
+        results = new ArrayList<>();
         results.add(new Tag());
         ReflectionTestUtils.setField(repository, "em", em);
         ReflectionTestUtils.setField(repository, "auditorAware", auditorAware);
 
         when(em.createQuery(anyString())).thenReturn(query);
         when(query.getResultList()).thenReturn(results);
+        when(auditorAware.getCurrentAuditor()).thenReturn(mockUser);
+        when(mockAuditor.getId()).thenReturn(1L);
+        when(em.find(User.class, 1L)).thenReturn(mockUser);
     }
 
     @Test

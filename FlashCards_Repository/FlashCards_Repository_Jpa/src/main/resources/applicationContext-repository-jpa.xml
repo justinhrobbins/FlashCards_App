@@ -5,7 +5,7 @@
                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
     <import resource="classpath:applicationContext-repository-jpa-commons.xml" />
-	<import resource="classpath:test-infrastructure.xml" />
+	<import resource="classpath:infrastructure.xml" />
 
     <context:component-scan base-package="org.robbins.flashcards.jpa.repository" />
 

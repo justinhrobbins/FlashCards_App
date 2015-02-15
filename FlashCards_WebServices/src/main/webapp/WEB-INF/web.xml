@@ -18,7 +18,7 @@
     <!-- set the default Spring profile.  this can be overridden with an environment variable (spring.profiles.active) -->
     <context-param>
         <param-name>spring.profiles.default</param-name>
-        <param-value>embedded,test-data</param-value>
+        <param-value>spring-data,embedded,test-data</param-value>
     </context-param>
 
     <listener>

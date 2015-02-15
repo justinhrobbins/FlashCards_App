@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<parent>
+		<groupId>org.robbins.flashcards</groupId>
+		<artifactId>FlashCards_Repository</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>FlashCards_Repository_SpringData_JPA</artifactId>
+	<packaging>jar</packaging>
+	<name>FlashCards_Repository_SpringData_JPA</name>
+	<description>FlashCards_Repository_SpringData_JPA description</description>
+	<properties>
+		<skip.coveralls>false</skip.coveralls>
+	</properties>
+	<scm>
+		<connection>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</connection>
+		<url>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</url>
+		<developerConnection>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</developerConnection>
+	</scm>
+	<dependencies>
+		<!-- FlashCards project module dependencies -->
+        <dependency>
+            <groupId>org.robbins.flashcards</groupId>
+            <artifactId>FlashCards_Repository_Jpa_Commons</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+		<dependency>
+			<groupId>org.robbins.flashcards</groupId>
+			<artifactId>FlashCards_Repository_Commons</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+        <!-- JSR 330: Dependency Injection for Java -->
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+        </dependency>
+
+		<!-- Spring dependencies -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+		</dependency>
+
+        <!-- Spring data commons for Auditable and Persistable -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-commons-core</artifactId>
+        </dependency>
+
+		<!-- AOP dependencies -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjtools</artifactId>
+		</dependency>
+
+        <!-- ORM dependencies -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- JDBC Connection pooling -->
+        <dependency>
+            <groupId>c3p0</groupId>
+            <artifactId>c3p0</artifactId>
+        </dependency>
+
+        <!-- H2 driver -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
+
+        <!-- DbUnit dependencies -->
+        <dependency>
+            <groupId>com.github.springtestdbunit</groupId>
+            <artifactId>spring-test-dbunit</artifactId>
+        </dependency>
+
+		<!-- test dependencies -->
+		<dependency>
+			<groupId>org.robbins.flashcards</groupId>
+			<artifactId>FlashCards_Test</artifactId>
+			<version>${project.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-all</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.dbunit</groupId>
+			<artifactId>dbunit</artifactId>
+		</dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+        </dependency>
+	</dependencies>
+	<build>
+		<finalName>FlashCards_Repository_SpringData_JPA</finalName>
+	</build>
+</project>
