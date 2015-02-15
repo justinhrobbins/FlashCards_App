@@ -2,7 +2,6 @@
 package org.robbins.flashcards.repository;
 
 import org.robbins.flashcards.model.Tag;
-import org.robbins.flashcards.repository.FlashCardsAppRepository;
 
 import java.util.List;
 

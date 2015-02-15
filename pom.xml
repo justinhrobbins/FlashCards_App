@@ -142,7 +142,6 @@
         </pluginRepository>
     </pluginRepositories>
     <modules>
-        <module>FlashCards_Domain</module>
         <module>FlashCards_DTO</module>
         <module>FlashCards_Repository</module>
         <module>FlashCards_API</module>

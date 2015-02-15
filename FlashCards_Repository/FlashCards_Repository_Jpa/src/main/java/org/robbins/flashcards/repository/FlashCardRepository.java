@@ -6,7 +6,6 @@ import java.util.Set;
 
 import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
-import org.robbins.flashcards.repository.FlashCardsAppRepository;
 import org.springframework.data.domain.Pageable;
 
 public interface FlashCardRepository extends FlashCardsAppRepository<FlashCard, Long> {

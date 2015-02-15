@@ -20,6 +20,7 @@
 		<developerConnection>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</developerConnection>
 	</scm>
     <modules>
+		<module>FlashCards_Domain</module>
         <module>FlashCards_Repository_Commons</module>
         <module>FlashCards_Repository_Jpa_Commons</module>
         <module>FlashCards_Repository_Jpa</module>

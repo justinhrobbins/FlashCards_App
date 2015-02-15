@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
-import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

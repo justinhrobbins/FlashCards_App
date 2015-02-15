@@ -1,7 +1,6 @@
 
 package org.robbins.flashcards.facade.base;
 
-import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 
 import java.util.List;

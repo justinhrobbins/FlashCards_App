@@ -1,7 +1,6 @@
 
 package org.robbins.flashcards.repository;
 
-import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
