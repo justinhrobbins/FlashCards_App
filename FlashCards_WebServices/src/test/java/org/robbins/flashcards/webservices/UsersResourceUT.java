@@ -21,6 +21,8 @@ import org.robbins.tests.UnitTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import java.util.UUID;
+
 @Category(UnitTest.class)
 public class UsersResourceUT extends BaseMockingTest {
 
@@ -51,10 +53,10 @@ public class UsersResourceUT extends BaseMockingTest {
 
     @Test
     public void put() throws FlashcardsException {
-        when(mockUserFacade.findOne(any(Long.class))).thenReturn(mockUserDto);
+        when(mockUserFacade.findOne(any(String.class))).thenReturn(mockUserDto);
         when(mockUserFacade.save(any(UserDto.class))).thenReturn(mockUserDto);
 
-        Response response = resource.put(1L, mockUserDto);
+        Response response = resource.put(UUID.randomUUID().toString(), mockUserDto);
 
         verify(mockUserFacade).save(any(UserDto.class));
         assertThat(response.getStatus(), is(HttpStatus.NO_CONTENT.value()));

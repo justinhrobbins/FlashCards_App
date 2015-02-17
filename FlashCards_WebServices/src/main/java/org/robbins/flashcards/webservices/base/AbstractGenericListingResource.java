@@ -12,13 +12,14 @@ import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by justinrobbins on 11/26/14.
  */
-public abstract class AbstractGenericListingResource<T, Serializable> extends AbstractGenericResource<T, Serializable> {
+public abstract class AbstractGenericListingResource<T, ID extends Serializable> extends AbstractGenericResource<T, ID> {
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGenericListingResource.class);
 
     @GET

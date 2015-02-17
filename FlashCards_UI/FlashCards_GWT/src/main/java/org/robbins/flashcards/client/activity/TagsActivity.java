@@ -59,7 +59,7 @@ public class TagsActivity extends AppAbstractActivity {
                     public void onLoadTag(final LoadTagEvent event) {
                         GWT.log("TagsActivity: 'Load Tag' event");
                         TagsActivity.this.placeController.goTo(new EditTagPlace(
-                                Long.toString(event.getTagId())));
+                                event.getTagId()));
                     }
                 }));
 
@@ -71,7 +71,7 @@ public class TagsActivity extends AppAbstractActivity {
                             public void onLoadFlashCard(final LoadFlashCardEvent event) {
                                 GWT.log("FlashCardsActivity: 'Load FlashCard' event");
                                 TagsActivity.this.placeController.goTo(new EditFlashCardPlace(
-                                        Long.toString(event.getFlashCardId())));
+                                        event.getFlashCardId()));
                             }
                         }));
 

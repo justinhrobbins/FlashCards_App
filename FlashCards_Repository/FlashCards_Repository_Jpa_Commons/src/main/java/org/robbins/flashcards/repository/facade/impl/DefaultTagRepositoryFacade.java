@@ -18,7 +18,7 @@ import java.util.Set;
 
 @Transactional
 @Component("tagRepositoryFacade")
-public class DefaultTagRepositoryFacade extends AbstractCrudRepositoryFacadeImpl<TagDto, Tag> implements
+public class DefaultTagRepositoryFacade extends AbstractCrudRepositoryFacadeImpl<TagDto, Tag, String> implements
         TagFacade {
 
     @Inject
@@ -50,7 +50,7 @@ public class DefaultTagRepositoryFacade extends AbstractCrudRepositoryFacadeImpl
     }
 
     @Override
-    public List<TagDto> findTagsForFlashcard(final Long flashcardId, final Set<String> fields) throws RepositoryException {
+    public List<TagDto> findTagsForFlashcard(final String flashcardId, final Set<String> fields) throws RepositoryException {
         List<Tag> results = getRepository().findByFlashcards_Id(flashcardId);
         return convertAndInitializeEntities(results, fields);
     }

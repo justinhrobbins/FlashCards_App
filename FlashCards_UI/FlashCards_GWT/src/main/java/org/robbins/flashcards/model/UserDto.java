@@ -6,32 +6,24 @@ import java.util.Date;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
-public class UserDto extends AbstractAuditable<UserDto, Long> implements Serializable {
+public class UserDto extends AbstractAuditable<UserDto, String> implements Serializable {
 
     private static final long serialVersionUID = 6131151516357988050L;
 
     private String openid;
-
     private String firstName;
-
     private String lastName;
-
     private String fullName;
-
     private String email;
-
     private String nickname;
-
     private String country;
-
     private String language;
-
     private Date lastLoginDate;
 
     public UserDto() {
     }
 
-    public UserDto(final Long userId) {
+    public UserDto(final String userId) {
         setId(userId);
     }
 

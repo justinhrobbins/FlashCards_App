@@ -59,7 +59,7 @@ public interface TagRestService extends RestService {
     @Consumes("application/json")
     @Produces("application/json")
     void getTag(@HeaderParam("Authorization") String authHeader,
-            @PathParam("tagId") Long tagId, @QueryParam("fields") String fields,
+            @PathParam("tagId") String tagId, @QueryParam("fields") String fields,
             MethodCallback<TagDto> callback);
 
     @POST
@@ -75,7 +75,7 @@ public interface TagRestService extends RestService {
     @Produces("application/json")
     @Options(expect = { 204, 1223 })
     void putTag(@HeaderParam("Authorization") String authHeader,
-            @PathParam("tagId") Long tagId, TagDto tag,
+            @PathParam("tagId") String tagId, TagDto tag,
             MethodCallback<java.lang.Void> callback);
 
     @DELETE
@@ -83,5 +83,5 @@ public interface TagRestService extends RestService {
     @Consumes("application/json")
     @Produces("application/json")
     void deleteTags(@HeaderParam("Authorization") String authHeader,
-            @PathParam("tagId") Long tagId, MethodCallback<java.lang.Void> callback);
+            @PathParam("tagId") String tagId, MethodCallback<java.lang.Void> callback);
 }

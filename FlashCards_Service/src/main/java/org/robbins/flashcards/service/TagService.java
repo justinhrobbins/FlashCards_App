@@ -8,9 +8,9 @@ import org.robbins.flashcards.service.base.GenericPagingAndSortingService;
 import java.util.List;
 import java.util.Set;
 
-public interface TagService extends GenericPagingAndSortingService<TagDto, Long>
+public interface TagService extends GenericPagingAndSortingService<TagDto, String>
 {
 
     TagDto findByName(final String name) throws FlashcardsException;
-    List<TagDto> findTagsForFlashcard(final Long flashcardId, final Set<String> fields) throws FlashcardsException;
+    List<TagDto> findTagsForFlashcard(final String flashcardId, final Set<String> fields) throws FlashcardsException;
 }

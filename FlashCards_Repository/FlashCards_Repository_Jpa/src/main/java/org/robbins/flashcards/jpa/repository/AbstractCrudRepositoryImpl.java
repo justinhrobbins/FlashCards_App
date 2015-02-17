@@ -10,9 +10,10 @@ import org.robbins.flashcards.repository.auditing.AuditingAwareUser;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.io.Serializable;
 
-public abstract class AbstractCrudRepositoryImpl<T extends AbstractAuditable<User, Long>>
-        implements FlashCardsAppRepository<T, Long> {
+public abstract class AbstractCrudRepositoryImpl<T extends AbstractAuditable<User, ID>, ID extends Serializable>
+        implements FlashCardsAppRepository<T, ID> {
 
     @PersistenceContext
     private EntityManager em;
@@ -36,7 +37,7 @@ public abstract class AbstractCrudRepositoryImpl<T extends AbstractAuditable<Use
         entity.setLastModifiedDate(new DateTime());
 
         // is it a new entity?
-        if ((entity.getId() == null) || (entity.getId() == 0)) {
+        if (entity.getId() == null) {
             entity.setCreatedBy(getAuditingUser());
             entity.setCreatedDate(new DateTime());
             getEm().persist(entity);
@@ -48,7 +49,7 @@ public abstract class AbstractCrudRepositoryImpl<T extends AbstractAuditable<Use
     }
 
     @Override
-    public T findOne(final Long id) {
+    public T findOne(final ID id) {
         return getEm().find(getClazz(), id);
     }
 
@@ -58,7 +59,7 @@ public abstract class AbstractCrudRepositoryImpl<T extends AbstractAuditable<Use
     }
 
     @Override
-    public void delete(final Long id) {
+    public void delete(final ID id) {
         T entity = em.find(getClazz(), id);
         em.remove(entity);
     }

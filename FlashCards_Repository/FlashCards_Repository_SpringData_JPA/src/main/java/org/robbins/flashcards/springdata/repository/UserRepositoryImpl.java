@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import javax.inject.Inject;
 
 @Repository
-public class UserRepositoryImpl extends AbstractCrudRepositoryImpl<User> implements
+public class UserRepositoryImpl extends AbstractCrudRepositoryImpl<User, String> implements
         UserRepository {
 
     @Inject

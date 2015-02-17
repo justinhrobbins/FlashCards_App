@@ -12,7 +12,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 
-public abstract class AbstractCrudClient<E extends AbstractPersistableDto> extends AbstractClient implements GenericRestCrudFacade<E> {
+public abstract class AbstractCrudClient<E extends AbstractPersistableDto, ID> extends AbstractClient implements GenericRestCrudFacade<E, ID> {
 
     /**
      * Gets the entity list url.
@@ -83,7 +83,7 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto> exten
     }
 
     @Override
-    public List<E> list(Integer page, Integer size, String sort, String direction, Set<String> fields) {
+    public List<E> list(final Integer page, final Integer size, final String sort, final String direction, final Set<String> fields) {
         // set the Authentication header
         @SuppressWarnings({ "unchecked", "rawtypes" })
         final HttpEntity httpEntity = new HttpEntity(getAuthHeaders());
@@ -96,7 +96,7 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto> exten
     }
 
     @Override
-    public List<E> list(Integer page, Integer size, String sort, String direction) {
+    public List<E> list(final Integer page, final Integer size, final String sort, final String direction) {
         return list(page, size, sort, direction, null);
     }
 
@@ -115,12 +115,12 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto> exten
     }
 
     @Override
-    public E findOne(Long id) {
+    public E findOne(final ID id) {
         return findOne(id, null);
     }
 
     @Override
-    public E findOne(Long id, Set<String> fields) {
+    public E findOne(final ID id, Set<String> fields) {
         // set the Authentication header
         @SuppressWarnings({ "unchecked", "rawtypes" })
         final HttpEntity httpEntity = new HttpEntity(getAuthHeaders());
@@ -134,7 +134,7 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto> exten
     }
 
     @Override
-    public E save(E entity) throws ServiceException {
+    public E save(final E entity) throws ServiceException {
         // set the Authentication header
         @SuppressWarnings({ "unchecked", "rawtypes" })
         final HttpEntity httpEntity = new HttpEntity(entity, getAuthHeaders());
@@ -152,7 +152,7 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto> exten
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(final ID id) {
         final HttpHeaders httpHeaders = getAuthHeaders();
         httpHeaders.set("Accept", "application/json");
 
@@ -167,7 +167,7 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto> exten
     }
 
     @Override
-    public void update(E entity) {
+    public void update(final E entity) {
         final  HttpHeaders httpHeaders = getAuthHeaders();
         httpHeaders.set("Accept", "application/json");
 
@@ -181,7 +181,7 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto> exten
     }
 
     @Override
-    public void put(E entity) {
+    public void put(final E entity) {
         final  HttpHeaders httpHeaders = getAuthHeaders();
         httpHeaders.set("Accept", "application/json");
 
@@ -195,7 +195,7 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto> exten
     }
 
     @Override
-    public List<E> findByCreatedBy(Long userId, Set<String> fields) throws FlashcardsException {
+    public List<E> findByCreatedBy(final ID userId, final Set<String> fields) throws FlashcardsException {
         Map<String, String> uriVariables = new HashMap<String, String>();
         uriVariables.put("userId", String.valueOf(userId));
         return Arrays.asList(searchEntities(getEntityListUrl(), uriVariables, getClazzArray()));

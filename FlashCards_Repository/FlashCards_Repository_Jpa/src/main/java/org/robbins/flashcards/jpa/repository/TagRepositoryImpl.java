@@ -14,7 +14,7 @@ import javax.persistence.Query;
 import java.util.List;
 
 @Repository
-public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag> implements
+public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag, String> implements
         TagRepository {
 
     @Override
@@ -71,14 +71,14 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag> implement
     }
 
     @Override
-    public List<Tag> findByFlashcards_Id(Long flashcardId) {
+    public List<Tag> findByFlashcards_Id(final String flashcardId) {
         Query query = getEm().createQuery("SELECT t FROM Tag t JOIN t.flashcards f WHERE f.id = :flashcardId");
         query.setParameter("flashcardId", flashcardId);
         return query.getResultList();
     }
 
     @Override
-    public List<Tag> findByCreatedBy_Id(Long userId) {
+    public List<Tag> findByCreatedBy_Id(final String userId) {
         Query query = getEm().createQuery("SELECT t FROM Tag t JOIN t.createdBy u WHERE u.id = :userId");
         query.setParameter("userId", userId);
         return query.getResultList();

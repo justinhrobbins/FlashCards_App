@@ -2,6 +2,7 @@
 package org.robbins.flashcards.presentation.action;
 
 import java.util.Map;
+import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -111,7 +112,7 @@ public class LoginAction extends FlashCardsAppBaseAction implements Preparable,
         } else {
             // this is a new user and he doesn't have an id yet, temporarily set it to the
             // service user (which is me)
-            loggedInUser.setId(1L);
+            loggedInUser.setId(UUID.randomUUID().toString());
         }
 
         // save the user
@@ -121,7 +122,7 @@ public class LoginAction extends FlashCardsAppBaseAction implements Preparable,
 
         // get the id of the user. if he's new then this is our first opportunity to get
         // his id
-        Long loggedInUserId = persistedUser.getId();
+        String loggedInUserId = persistedUser.getId();
 
         // set the id on the loggedInUser which we'll use for auditing
         loggedInUser.setId(loggedInUserId);

@@ -25,13 +25,13 @@ public class DeleteTagEvent extends Event<DeleteTagEventHandler> {
         return eventBus.addHandler(TYPE, handler);
     }
 
-    public Long getTagId() {
+    public String getTagId() {
         return tagId;
     }
 
-    private final Long tagId;
+    private final String tagId;
 
-    public DeleteTagEvent(final Long tagId) {
+    public DeleteTagEvent(final String tagId) {
         this.tagId = tagId;
     }
 

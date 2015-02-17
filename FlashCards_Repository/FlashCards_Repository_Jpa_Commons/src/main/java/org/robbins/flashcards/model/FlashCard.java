@@ -26,7 +26,7 @@ import org.robbins.flashcards.model.common.AbstractAuditable;
 @Entity
 @Table(name = "flashcard")
 @AttributeOverride(name = "id", column = @Column(name = "FlashCardId"))
-public class FlashCard extends AbstractAuditable<User, Long> implements Serializable {
+public class FlashCard extends AbstractAuditable<User, String> implements Serializable {
 
     private static final long serialVersionUID = -3461056579037652853L;
 
@@ -51,7 +51,7 @@ public class FlashCard extends AbstractAuditable<User, Long> implements Serializ
     public FlashCard() {
     }
 
-    public FlashCard(final Long flashCardId) {
+    public FlashCard(final String flashCardId) {
         setId(flashCardId);
     }
 

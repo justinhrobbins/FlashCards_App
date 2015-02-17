@@ -19,7 +19,7 @@ import org.robbins.flashcards.model.common.AbstractAuditable;
 @Entity
 @Table(name = "tag")
 @AttributeOverride(name = "id", column = @Column(name = "TagId"))
-public class Tag extends AbstractAuditable<User, Long> implements Serializable {
+public class Tag extends AbstractAuditable<User, String> implements Serializable {
 
     private static final long serialVersionUID = 3642775570292807703L;
 
@@ -34,12 +34,8 @@ public class Tag extends AbstractAuditable<User, Long> implements Serializable {
     public Tag() {
     }
 
-    public Tag(final Long id) {
+    public Tag(final String id) {
         setId(id);
-    }
-
-    public Tag(final String name) {
-        this.name = name;
     }
 
     public Tag(final String name, final Set<FlashCard> flashcards) {

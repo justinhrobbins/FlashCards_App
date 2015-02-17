@@ -1,16 +1,9 @@
 
 package org.robbins.flashcards.presentation.action;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.inject.Inject;
-
+import com.opensymphony.xwork2.ModelDriven;
+import com.opensymphony.xwork2.Preparable;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.interceptor.SessionAware;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 import org.robbins.flashcards.dto.FlashCardDto;
@@ -22,8 +15,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import com.opensymphony.xwork2.ModelDriven;
-import com.opensymphony.xwork2.Preparable;
+import javax.inject.Inject;
+import java.util.*;
 
 public class FlashCardAction extends FlashCardsAppBaseAction implements
         ModelDriven<FlashCardDto>, Preparable, SessionAware {
@@ -103,7 +96,7 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
 			// FlashCard
 			this.flashCard.setTags(convertToTags(getExplodedTags()));
 
-            if ((this.flashCard.getId() != null) && (this.flashCard.getId() != 0)) {
+            if ((this.flashCard.getId() != null) && (!StringUtils.isEmpty(this.flashCard.getId()))) {
 				FlashCardDto existingFlashCard = flashcardFacade.findOne(this.flashCard.getId());
                 existingFlashCard.setQuestion(this.flashCard.getQuestion());
                 existingFlashCard.setAnswer(this.flashCard.getAnswer());
@@ -184,7 +177,7 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
     @SkipValidation
     public String display() {
         try {
-            if ((this.flashCard.getId() != null) && (this.flashCard.getId() != 0)) {
+            if ((this.flashCard.getId() != null) && (!StringUtils.isEmpty(this.flashCard.getId()))) {
                 this.flashCard = flashcardFacade.findOne(this.flashCard.getId());
             } else if (this.flashCard.getQuestion() != null) {
                 this.flashCard = flashcardFacade.findByQuestion(this.flashCard.getQuestion());

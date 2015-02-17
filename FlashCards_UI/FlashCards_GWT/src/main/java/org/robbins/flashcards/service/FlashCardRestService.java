@@ -52,7 +52,7 @@ public interface FlashCardRestService extends RestService {
     @Consumes("application/json")
     @Produces("application/json")
     void getFlashCard(@HeaderParam("Authorization") String authHeader,
-            @PathParam("flashCardId") Long flashCardId,
+            @PathParam("flashCardId") String flashCardId,
             @QueryParam("fields") String fields, MethodCallback<FlashCardDto> callback);
 
     @GET
@@ -77,7 +77,7 @@ public interface FlashCardRestService extends RestService {
     @Produces("application/json")
     @Options(expect = { 204, 1223 })
     void putFlashCard(@HeaderParam("Authorization") String authHeader,
-            @PathParam("flashCardId") Long flashCardId, FlashCardDto flashCard,
+            @PathParam("flashCardId") String flashCardId, FlashCardDto flashCard,
             MethodCallback<java.lang.Void> callback);
 
     @DELETE
@@ -85,6 +85,6 @@ public interface FlashCardRestService extends RestService {
     @Consumes("application/json")
     @Produces("application/json")
     void deleteFlashCards(@HeaderParam("Authorization") String authHeader,
-            @PathParam("flashCardId") Long flashCardId,
+            @PathParam("flashCardId") String flashCardId,
             MethodCallback<java.lang.Void> callback);
 }

@@ -30,7 +30,7 @@ import java.util.*;
 @Api(value = "/v1/flashcards", description = "Operations about FlashCards")
 @Produces({ "application/xml", "application/json" })
 @Consumes({ "application/xml", "application/json" })
-public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Long> {
+public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, String> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FlashCardsResource.class);
 
@@ -39,7 +39,7 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
     private FlashcardFacade flashcardFacade;
 
     @Override
-    protected GenericCrudFacade<FlashCardDto> getFacade() {
+    protected GenericCrudFacade<FlashCardDto, String> getFacade() {
         return flashcardFacade;
     }
 
@@ -85,7 +85,7 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
                 StringTokenizer st = new StringTokenizer(tags, ",");
                 Set<TagDto> tagsSet = new HashSet<TagDto>();
                 while (st.hasMoreTokens()) {
-                    tagsSet.add(new TagDto(Long.parseLong(st.nextToken())));
+                    tagsSet.add(new TagDto(st.nextToken()));
                 }
                 // are we using Pagination?
                 if (page != null) {
@@ -108,7 +108,7 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
     @Override
     @PUT
     @Path("/{id}")
-    public Response put(@PathParam("id") final Long id, final FlashCardDto dto) {
+    public Response put(@PathParam("id") final String id, final FlashCardDto dto) {
 
         // some client apps don't know the Created By and Created Date, so make
         // sure we set it
@@ -153,8 +153,8 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
     }
 
     @GET
-    public JResponse<List<FlashCardDto>> list(@PathParam("tagId") final Long tagId,
-                                              @PathParam("userId") final Long userId,
+    public JResponse<List<FlashCardDto>> list(@PathParam("tagId") final String tagId,
+                                              @PathParam("userId") final String userId,
                                               @QueryParam("page") final Integer page,
                                               @DefaultValue("25") @QueryParam("size") final Integer size,
                                               @QueryParam("sort") final String sort,
@@ -172,7 +172,7 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
         }
     }
 
-    private JResponse<List<FlashCardDto>> listFlashcardsForTag(final Long tagId, final Integer page,
+    private JResponse<List<FlashCardDto>> listFlashcardsForTag(final String tagId, final Integer page,
                                                                final Integer size, final String sort,
                                                                final String direction, final String fields) {
         try {
@@ -187,7 +187,7 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
         }
     }
 
-    private JResponse<List<FlashCardDto>> listFlashcardsForUser(final Long userId, final Integer page,
+    private JResponse<List<FlashCardDto>> listFlashcardsForUser(final String userId, final Integer page,
                                                                final Integer size, final String sort,
                                                                final String direction, final String fields) {
         try {

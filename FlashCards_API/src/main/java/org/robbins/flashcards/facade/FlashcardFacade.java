@@ -10,7 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import java.util.List;
 import java.util.Set;
 
-public interface FlashcardFacade extends GenericCrudFacade<FlashCardDto>
+public interface FlashcardFacade extends GenericCrudFacade<FlashCardDto, String>
 {
     List<FlashCardDto> findByTagsIn(final Set<TagDto> tags) throws FlashcardsException;
     List<FlashCardDto> findByTagsIn(final Set<TagDto> tags, final PageRequest page)
@@ -19,5 +19,5 @@ public interface FlashcardFacade extends GenericCrudFacade<FlashCardDto>
     List<FlashCardDto> findByQuestionLike(final String question, final PageRequest page)
             throws FlashcardsException;
     FlashCardDto findByQuestion(final String question) throws FlashcardsException;
-    List<FlashCardDto> findFlashcardsForTag(final Long tagId, final Set<String> fields) throws FlashcardsException;
+    List<FlashCardDto> findFlashcardsForTag(final String tagId, final Set<String> fields) throws FlashcardsException;
 }

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 @Repository
-public class FlashcardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCard> implements
+public class FlashcardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCard, String> implements
         FlashCardRepository {
 
     @Inject
@@ -49,7 +49,7 @@ public class FlashcardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
     }
 
     @Override
-    public List<FlashCard> findByTags_Id(final Long tagId) {
+    public List<FlashCard> findByTags_Id(final String tagId) {
         return repository.findByTags_Id(tagId);
     }
 

@@ -1,11 +1,6 @@
 
 package org.robbins.flashcards.webservices;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import javax.inject.Inject;
-
 import com.google.common.collect.Sets;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -13,24 +8,29 @@ import org.robbins.flashcards.client.FlashcardClient;
 import org.robbins.flashcards.client.GenericRestCrudFacade;
 import org.robbins.flashcards.client.TagClient;
 import org.robbins.flashcards.dto.FlashCardDto;
+import org.robbins.flashcards.dto.FlashCardDtoBuilder;
 import org.robbins.flashcards.dto.TagDto;
+import org.robbins.flashcards.dto.TagDtoBuilder;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.tests.webservices.GenericEntityRestTest;
-import org.robbins.flashcards.util.TestDtoGenerator;
 import org.robbins.tests.IntegrationTest;
 import org.springframework.test.context.ContextConfiguration;
 
-import java.util.HashSet;
+import javax.inject.Inject;
 import java.util.List;
+import java.util.UUID;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @Category(IntegrationTest.class)
 @ContextConfiguration(locations = {"classpath*:applicatonContext-client.xml"})
-public class TagsResourceIT extends GenericEntityRestTest<TagDto> {
+public class TagsResourceIT extends GenericEntityRestTest<TagDto, String> {
 
     final static String TAG_NAME = "Web API Test 'Tag'";
     // this entity will be created in @Before and we'll use it for our JUnit tests and
     // then delete it in @After
-    private TagDto entity = TestDtoGenerator.createTagDto(TAG_NAME);
+    private TagDto entity = new TagDtoBuilder().withName(TAG_NAME).build();
 
     @Inject
     private TagClient client;
@@ -39,7 +39,7 @@ public class TagsResourceIT extends GenericEntityRestTest<TagDto> {
     private FlashcardClient flashcardClient;
 
     @Override
-    public GenericRestCrudFacade<TagDto> getClient() {
+    public GenericRestCrudFacade<TagDto, String> getClient() {
         return client;
     }
 
@@ -65,7 +65,7 @@ public class TagsResourceIT extends GenericEntityRestTest<TagDto> {
 
     @Test
     public void testUpdateEntity() throws FlashcardsException {
-        final Long id = getEntity().getId();
+        final String id = getEntity().getId();
         final String UPDATED_VALUE = "updated value";
 
         final TagDto entity = new TagDto(id);
@@ -80,7 +80,7 @@ public class TagsResourceIT extends GenericEntityRestTest<TagDto> {
 
     @Test
     public void testFindByCreatedBy() throws FlashcardsException {
-        final Long userId = 4L;
+        final String userId = UUID.randomUUID().toString();
         List<TagDto> results = client.findByCreatedBy(userId, null);
 
         assertTrue(results != null);
@@ -99,8 +99,8 @@ public class TagsResourceIT extends GenericEntityRestTest<TagDto> {
     }
 
     private FlashCardDto setupFlashcard() throws FlashcardsException {
-        FlashCardDto flashCardDto = TestDtoGenerator.createFlashCardDto("question", "answer");
-        flashCardDto.setTags(Sets.newHashSet(new TagDto("tag_name")));
+        FlashCardDto flashCardDto = new FlashCardDtoBuilder().withQuestion("question").withAnswer("answer").build();
+        flashCardDto.setTags(Sets.newHashSet(new TagDtoBuilder().withName("tag_name").build()));
         return flashcardClient.save(flashCardDto);
     }
 

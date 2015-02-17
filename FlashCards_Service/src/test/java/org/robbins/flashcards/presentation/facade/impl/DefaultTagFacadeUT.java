@@ -1,17 +1,6 @@
 
 package org.robbins.flashcards.presentation.facade.impl;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.core.IsNull.nullValue;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -24,6 +13,18 @@ import org.robbins.flashcards.service.TagService;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.test.util.ReflectionTestUtils;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.core.IsNull.nullValue;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @Category(UnitTest.class)
 public class DefaultTagFacadeUT extends BaseMockingTest {
@@ -77,7 +78,7 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
 
     @Test
     public void findOne() throws FlashcardsException {
-		Long id = 1L;
+		String id = UUID.randomUUID().toString();
         when(mockService.findOne(id, null)).thenReturn(mockTag);
 
         TagDto result = tagFacade.findOne(id);
@@ -89,17 +90,17 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
     @Test
     public void findOne_WithFields() throws FlashcardsException {
 
-        when(mockService.findOne(any(Long.class), any(Set.class))).thenReturn(mockTag);
+        when(mockService.findOne(any(String.class), any(Set.class))).thenReturn(mockTag);
 
-        TagDto result = tagFacade.findOne(any(Long.class), any(Set.class));
+        TagDto result = tagFacade.findOne(any(String.class), any(Set.class));
 
-        verify(mockService).findOne(any(Long.class), any(Set.class));
+        verify(mockService).findOne(any(String.class), any(Set.class));
         assertThat(result, is(TagDto.class));
     }
 
     @Test
     public void findOne_ReturnsNull() throws FlashcardsException {
-		Long id = 1L;
+        String id = UUID.randomUUID().toString();
 
         when(mockService.findOne(id, null)).thenReturn(null);
 
@@ -111,9 +112,9 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
 
     @Test
     public void delete() throws ServiceException {
-        tagFacade.delete(any(Long.class));
+        tagFacade.delete(any(String.class));
 
-        verify(mockService).delete(any(Long.class));
+        verify(mockService).delete(any(String.class));
     }
 
     @Test

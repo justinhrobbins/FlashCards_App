@@ -8,6 +8,7 @@ import static org.junit.Assert.assertThat;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -35,7 +36,7 @@ public class DtoUtilUT extends BaseMockingTest {
     @Test
     public void filterFields_WithFields() throws RepositoryException {
         String NAME = "TEST_NAME";
-        TagDto tagDto = new TagDto(1L);
+        TagDto tagDto = new TagDto(UUID.randomUUID().toString());
         tagDto.setName(NAME);
         Set<String> fields = new HashSet<String>(Arrays.asList("id"));
 

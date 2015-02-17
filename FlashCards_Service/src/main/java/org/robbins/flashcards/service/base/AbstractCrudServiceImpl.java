@@ -1,15 +1,16 @@
 
 package org.robbins.flashcards.service.base;
 
-import java.util.List;
-import java.util.Set;
-
 import org.robbins.flashcards.exceptions.DataIntegrityException;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.springframework.dao.DataIntegrityViolationException;
 
-public abstract class AbstractCrudServiceImpl<D> implements GenericPagingAndSortingService<D, Long>,
-        CrudService<D, Long> {
+import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
+
+public abstract class AbstractCrudServiceImpl<D, ID extends Serializable> implements GenericPagingAndSortingService<D, ID>,
+        CrudService<D, ID> {
 
     @Override
     public D save(final D entity) throws FlashcardsException {
@@ -29,18 +30,18 @@ public abstract class AbstractCrudServiceImpl<D> implements GenericPagingAndSort
     }
 
     @Override
-    public D findOne(final Long id) throws FlashcardsException {
+    public D findOne(final ID id) throws FlashcardsException {
         return getFacade().findOne(id);
     }
 
 	@Override
-	public D findOne(final Long id, final Set<String> fields) throws FlashcardsException
+	public D findOne(final ID id, final Set<String> fields) throws FlashcardsException
 	{
 		return getFacade().findOne(id, fields);
 	}
 
 	@Override
-    public void delete(final Long id) {
+    public void delete(final ID id) {
 		getFacade().delete(id);
     }
 
@@ -62,7 +63,7 @@ public abstract class AbstractCrudServiceImpl<D> implements GenericPagingAndSort
 	}
 
     @Override
-    public List<D> findByCreatedBy(Long userId, Set<String> fields) throws FlashcardsException {
+    public List<D> findByCreatedBy(final ID userId, final Set<String> fields) throws FlashcardsException {
         return getFacade().findByCreatedBy(userId, fields);
     }
 }

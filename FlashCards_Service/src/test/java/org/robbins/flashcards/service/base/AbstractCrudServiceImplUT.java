@@ -7,6 +7,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -35,6 +36,8 @@ public class AbstractCrudServiceImplUT extends BaseMockingTest {
     private List<TagDto> tags;
 
     private TagServiceImpl tagService;
+
+    private final String uuid = UUID.randomUUID().toString();
 
     @Before
     public void before() {
@@ -66,21 +69,19 @@ public class AbstractCrudServiceImplUT extends BaseMockingTest {
 
     @Test
     public void findOne() throws FlashcardsException {
-        when(facade.findOne(Matchers.anyLong())).thenReturn(tagDto);
+        when(facade.findOne(Matchers.anyString())).thenReturn(tagDto);
 
-		final TagDto result = tagService.findOne(1L);
+		final TagDto result = tagService.findOne(uuid);
 
-        verify(facade, Mockito.times(1)).findOne(1L);
+        verify(facade, Mockito.times(1)).findOne(uuid);
         assertThat(result, is(TagDto.class));
     }
 
     @Test
     public void delete() {
-		final Long id = 1L;
+        tagService.delete(uuid);
 
-        tagService.delete(id);
-
-        verify(facade, Mockito.times(1)).delete(id);
+        verify(facade, Mockito.times(1)).delete(uuid);
     }
 
     @Test

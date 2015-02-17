@@ -9,12 +9,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Set;
 
-public interface FlashCardSpringDataRepository extends JpaRepository<FlashCard, Long> {
+public interface FlashCardSpringDataRepository extends JpaRepository<FlashCard, String> {
 
-    List<FlashCard> findByTagsIn(Set<Tag> tags);
-    List<FlashCard> findByTagsIn(Set<Tag> tags, PageRequest page);
-    List<FlashCard> findByQuestionLike(String question);
-    List<FlashCard> findByQuestionLike(String question, PageRequest page);
-    FlashCard findByQuestion(String question);
-    List<FlashCard> findByTags_Id(Long tagId);
+    List<FlashCard> findByTagsIn(final Set<Tag> tags);
+    List<FlashCard> findByTagsIn(final Set<Tag> tags, final PageRequest page);
+    List<FlashCard> findByQuestionLike(final String question);
+    List<FlashCard> findByQuestionLike(final String question, final PageRequest page);
+    FlashCard findByQuestion(final String question);
+    List<FlashCard> findByTags_Id(final String tagId);
 }

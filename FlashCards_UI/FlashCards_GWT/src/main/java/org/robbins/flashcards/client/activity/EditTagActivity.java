@@ -63,7 +63,7 @@ public class EditTagActivity extends AppAbstractActivity {
     public EditTagActivity(final EditTagPlace place, final ClientFactory clientFactory) {
         this(clientFactory);
 
-        Long tagId = Long.parseLong(place.getPlaceName());
+        String tagId = place.getPlaceName();
         String fields = ConstsUtil.DEFAULT_TAGS_FIELDS;
 
         tagService.getTag(ConstsUtil.DEFAULT_AUTH_HEADER, tagId, fields,
@@ -128,7 +128,7 @@ public class EditTagActivity extends AppAbstractActivity {
         getTag().setName(display.getName().getText());
 
         // if we have a Tag Id then it's an update so go ahead and persist
-        if ((getTag().getId() != null) && (getTag().getId() != 0)) {
+        if ((getTag().getId() != null) && (getTag().getId().length() != 0)) {
             updateTag(getTag());
         } else {
             // since we don't have a Tag Id then let's see if the name exists before

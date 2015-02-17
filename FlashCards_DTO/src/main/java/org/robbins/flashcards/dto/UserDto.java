@@ -1,16 +1,15 @@
 
 package org.robbins.flashcards.dto;
 
-import java.io.Serializable;
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import java.io.Serializable;
+import java.util.Date;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(value = Include.NON_NULL)
@@ -41,7 +40,7 @@ public class UserDto extends AbstractPersistableDto implements Serializable {
     public UserDto() {
     }
 
-    public UserDto(final Long userId) {
+    public UserDto(final String userId) {
         setId(userId);
     }
 

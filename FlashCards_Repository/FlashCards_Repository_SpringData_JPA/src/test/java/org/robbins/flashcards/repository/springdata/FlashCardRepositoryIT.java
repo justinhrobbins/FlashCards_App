@@ -46,6 +46,6 @@ public class FlashCardRepositoryIT extends BaseIntegrationTest {
 
         repository.save(flashCard);
 
-        assertThat(flashCard.getId(), greaterThan(0L));
+        assertThat(flashCard.getId().length(), greaterThan(0));
     }
 }

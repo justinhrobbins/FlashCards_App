@@ -25,13 +25,13 @@ public class LoadTagEvent extends Event<LoadTagEventHandler> {
         return eventBus.addHandler(TYPE, handler);
     }
 
-    public Long getTagId() {
+    public String getTagId() {
         return tagId;
     }
 
-    private final Long tagId;
+    private final String tagId;
 
-    public LoadTagEvent(final Long tagId) {
+    public LoadTagEvent(final String tagId) {
         this.tagId = tagId;
     }
 

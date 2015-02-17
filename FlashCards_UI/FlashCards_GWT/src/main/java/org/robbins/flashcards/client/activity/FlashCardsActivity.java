@@ -60,7 +60,7 @@ public class FlashCardsActivity extends AppAbstractActivity {
                             public void onLoadFlashCard(final LoadFlashCardEvent event) {
                                 GWT.log("FlashCardsActivity: 'Load FlashCard' event");
                                 FlashCardsActivity.this.placeController.goTo(new EditFlashCardPlace(
-                                        Long.toString(event.getFlashCardId())));
+                                        event.getFlashCardId()));
                             }
                         }));
 
@@ -71,7 +71,7 @@ public class FlashCardsActivity extends AppAbstractActivity {
                     public void onLoadTag(final LoadTagEvent event) {
                         GWT.log("TagsActivity: 'Load Tag' event");
                         FlashCardsActivity.this.placeController.goTo(new EditTagPlace(
-                                Long.toString(event.getTagId())));
+                                event.getTagId()));
                     }
                 }));
 

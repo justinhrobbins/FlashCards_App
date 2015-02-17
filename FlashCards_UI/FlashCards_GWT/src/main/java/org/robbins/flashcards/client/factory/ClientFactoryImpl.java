@@ -31,31 +31,18 @@ import com.google.gwt.user.client.Cookies;
 public class ClientFactoryImpl implements ClientFactory {
 
     private final EventBus eventBus = new SimpleEventBus();
-
     private final PlaceController placeController = new PlaceController(eventBus);
-
     private UserDto loggedInUser;
-
     private final AppConstants appConstants = GWT.create(AppConstants.class);
-
     private final ShellView shellView = new ShellViewImplDesktop(this);
-
     private NavigationView navigationView;
-
     private TagsView tagsView;
-
     private EditTagView editTagView;
-
     private FlashCardsView flashCardsView;
-
     private EditFlashCardView editFlashCardView;
-
     private final TagRestService tagService = GWT.create(TagRestService.class);
-
     private final FlashCardRestService flashCardService = GWT.create(FlashCardRestService.class);
-
     private final UserRestService userService = GWT.create(UserRestService.class);
-
     private final int PAGE_SIZE = 20;
 
     @Override
@@ -74,7 +61,7 @@ public class ClientFactoryImpl implements ClientFactory {
             String userId = Cookies.getCookie(ConstsUtil.USER_ID);
 
             if (userId != null) {
-                UserDto user = new UserDto(Long.parseLong(userId));
+                UserDto user = new UserDto(userId);
                 setLoggedInUser(user);
             }
         }

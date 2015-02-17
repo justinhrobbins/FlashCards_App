@@ -25,6 +25,11 @@
         <!-- FlashCards project module dependencies -->
         <dependency>
             <groupId>org.robbins.flashcards</groupId>
+            <artifactId>FlashCards_DTO</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.robbins.flashcards</groupId>
             <artifactId>FlashCards_Service</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -169,6 +174,13 @@
             <groupId>org.robbins.flashcards</groupId>
             <artifactId>FlashCards_Client</artifactId>
             <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.robbins.flashcards</groupId>
+            <artifactId>FlashCards_DTO</artifactId>
+            <version>${project.version}</version>
+            <type>test-jar</type>
             <scope>test</scope>
         </dependency>
     </dependencies>

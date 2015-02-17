@@ -18,23 +18,13 @@
 
 package org.robbins.flashcards.service;
 
-import java.util.List;
-
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.HeaderParam;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-
 import org.fusesource.restygwt.client.MethodCallback;
 import org.fusesource.restygwt.client.Options;
 import org.fusesource.restygwt.client.RestService;
 import org.robbins.flashcards.model.UserDto;
+
+import javax.ws.rs.*;
+import java.util.List;
 
 @Path("/api/v1/users")
 public interface UserRestService extends RestService {
@@ -59,7 +49,7 @@ public interface UserRestService extends RestService {
     @Consumes("application/json")
     @Produces("application/json")
     void getUser(@HeaderParam("Authorization") String authHeader,
-            @PathParam("userId") Long userId, MethodCallback<UserDto> callback);
+            @PathParam("userId") String userId, MethodCallback<UserDto> callback);
 
     @POST
     @Path("/api/v1/users")
@@ -74,12 +64,12 @@ public interface UserRestService extends RestService {
     @Produces("application/json")
     @Options(expect = { 204, 1223 })
     void putUsers(@HeaderParam("Authorization") String authHeader,
-            @PathParam("userId") Long userId, MethodCallback<java.lang.Void> callback);
+            @PathParam("userId") String userId, MethodCallback<java.lang.Void> callback);
 
     @DELETE
     @Path("/api/v1/users/{userId}")
     @Consumes("application/json")
     @Produces("application/json")
     void deleteUsers(@HeaderParam("Authorization") String authHeader,
-            @PathParam("userId") Long userId, MethodCallback<java.lang.Void> callback);
+            @PathParam("userId") String userId, MethodCallback<java.lang.Void> callback);
 }

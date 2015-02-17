@@ -11,7 +11,6 @@ import org.robbins.flashcards.jpa.repository.FlashCardRepositoryImpl;
 import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.repository.FlashCardRepository;
-
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.data.domain.Page;
@@ -66,8 +65,10 @@ public class FlashCardRepositoryImplUT extends BaseMockingTest {
 
     @Test
     public void testFindByTagsIn() {
-        Set<Tag> tags = new HashSet<Tag>();
-        tags.add(new Tag("tag name"));
+        Set<Tag> tags = new HashSet<>();
+        Tag tag = new Tag();
+        tag.setName("tag name");
+        tags.add(tag);
         List<FlashCard> results = repository.findByTagsIn(tags);
 
         Mockito.verify(query, Mockito.times(1)).getResultList();

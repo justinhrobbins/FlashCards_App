@@ -1,23 +1,17 @@
 
 package org.robbins.flashcards.model;
 
-import java.io.Serializable;
-import java.util.Date;
-
-import javax.persistence.AttributeOverride;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 import org.joda.time.DateTime;
 import org.robbins.flashcards.model.common.AbstractAuditable;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "user")
 @AttributeOverride(name = "id", column = @Column(name = "UserId"))
-public class User extends AbstractAuditable<User, Long> implements Serializable {
+public class User extends AbstractAuditable<User, String> implements Serializable {
 
     private static final long serialVersionUID = 6131151516357988050L;
 
@@ -53,7 +47,7 @@ public class User extends AbstractAuditable<User, Long> implements Serializable 
     public User() {
     }
 
-    public User(final Long userId) {
+    public User(final String userId) {
         setId(userId);
     }
 
