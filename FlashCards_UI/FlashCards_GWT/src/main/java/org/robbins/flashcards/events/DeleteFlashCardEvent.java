@@ -25,13 +25,13 @@ public class DeleteFlashCardEvent extends Event<DeleteFlashCardEventHandler> {
         return eventBus.addHandler(TYPE, handler);
     }
 
-    public Long getFlashCardId() {
+    public String getFlashCardId() {
         return FlashCardId;
     }
 
-    private final Long FlashCardId;
+    private final String FlashCardId;
 
-    public DeleteFlashCardEvent(final Long FlashCardId) {
+    public DeleteFlashCardEvent(final String FlashCardId) {
         this.FlashCardId = FlashCardId;
     }
 

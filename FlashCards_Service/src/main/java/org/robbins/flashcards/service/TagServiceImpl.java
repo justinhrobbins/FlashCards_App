@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class TagServiceImpl extends AbstractCrudServiceImpl<TagDto> implements
+public class TagServiceImpl extends AbstractCrudServiceImpl<TagDto, String> implements
         TagService {
 
     @Inject
@@ -22,7 +22,7 @@ public class TagServiceImpl extends AbstractCrudServiceImpl<TagDto> implements
     private TagFacade facade;
 
 	@Override
-	public GenericCrudFacade<TagDto> getFacade() {
+	public GenericCrudFacade<TagDto, String> getFacade() {
 		return facade;
 	}
 
@@ -32,7 +32,7 @@ public class TagServiceImpl extends AbstractCrudServiceImpl<TagDto> implements
     }
 
     @Override
-    public List<TagDto> findTagsForFlashcard(final Long flashcardId, Set<String> fields) throws FlashcardsException {
+    public List<TagDto> findTagsForFlashcard(final String flashcardId, Set<String> fields) throws FlashcardsException {
         return facade.findTagsForFlashcard(flashcardId, fields);
     }
 }

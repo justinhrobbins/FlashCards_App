@@ -1,19 +1,20 @@
 
 package org.robbins.flashcards.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.util.Iterator;
-
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.robbins.tests.UnitTest;
 
+import java.util.Iterator;
+import java.util.UUID;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 @Category(UnitTest.class)
 public class FlashCardUT {
 
-    private final Long FLASHCARD_ID = 100L;
+    private final String FLASHCARD_ID = UUID.randomUUID().toString();
 
     @Test
     public void testSetQuestion() {
@@ -42,7 +43,8 @@ public class FlashCardUT {
 
     @Test
     public void testSetId() {
-        FlashCard fc = new FlashCard(FLASHCARD_ID);
+        FlashCard fc = new FlashCard();
+        fc.setId(FLASHCARD_ID);
 
         assertEquals(FLASHCARD_ID, fc.getId());
     }
@@ -50,11 +52,12 @@ public class FlashCardUT {
     @Test
     public void testGetTagName() {
 
-        Tag t = new Tag("test tag name");
+        Tag tag = new Tag();
+        tag.setName("test tag name");
         FlashCard fc = new FlashCard("default question", "default answer");
 
         // add the Tag to the FlashCard
-        fc.getTags().add(t);
+        fc.getTags().add(tag);
 
         // let's assume we'll fail the test
         Boolean tagExists = false;

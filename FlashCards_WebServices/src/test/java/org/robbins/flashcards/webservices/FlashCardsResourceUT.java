@@ -11,6 +11,7 @@ import static org.mockito.Mockito.when;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.ws.rs.core.Response;
 
@@ -40,6 +41,8 @@ public class FlashCardsResourceUT extends BaseMockingTest {
     private List<FlashCardDto> mockFlashCardDtoList;
 
     private FlashCardsResource resource;
+
+    private final String uuid = UUID.randomUUID().toString();
 
     @Before
     public void before() {
@@ -116,12 +119,12 @@ public class FlashCardsResourceUT extends BaseMockingTest {
 
     @Test
     public void put_withCreatedBy() throws FlashcardsException {
-        when(mockFlashCardFacade.findOne(1L, null)).thenReturn(
+        when(mockFlashCardFacade.findOne(uuid, null)).thenReturn(
                 mockFlashCardDto);
         when(mockFlashCardFacade.save(any(FlashCardDto.class))).thenReturn(
                 mockFlashCardDto);
 
-        Response response = resource.put(1L, mockFlashCardDto);
+        Response response = resource.put(uuid, mockFlashCardDto);
 
         verify(mockFlashCardFacade).save(any(FlashCardDto.class));
         assertThat(response.getStatus(), is(HttpStatus.NO_CONTENT.value()));
@@ -129,9 +132,9 @@ public class FlashCardsResourceUT extends BaseMockingTest {
 
     @Test(expected = GenericWebServiceException.class)
     public void put_withGenericWebServiceException() throws FlashcardsException {
-        when(mockFlashCardFacade.findOne(1L, null)).thenThrow(
+        when(mockFlashCardFacade.findOne(uuid, null)).thenThrow(
                 new FlashcardsException("ERROR"));
 
-        resource.put(1L, mockFlashCardDto);
+        resource.put(uuid, mockFlashCardDto);
     }
 }

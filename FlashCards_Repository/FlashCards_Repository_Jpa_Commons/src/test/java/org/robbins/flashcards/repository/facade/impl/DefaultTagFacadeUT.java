@@ -97,12 +97,12 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
 
     @Test
     public void findOne() throws FlashcardsException {
-        when(repository.findOne(any(Long.class))).thenReturn(mockTag);
+        when(repository.findOne(any(String.class))).thenReturn(mockTag);
         when(converter.getDto(mockTag, null)).thenReturn(mockTagDto);
 
-        TagDto result = tagFacade.findOne(any(Long.class));
+        TagDto result = tagFacade.findOne(any(String.class));
 
-        verify(repository).findOne(any(Long.class));
+        verify(repository).findOne(any(String.class));
         verify(converter).getDto(mockTag, null);
         assertThat(result, is(TagDto.class));
     }
@@ -112,31 +112,31 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
         TagDto tagDto = new TagDto();
         Set<String> fields = new HashSet<String>(Arrays.asList("flashcards"));
 
-        when(repository.findOne(any(Long.class))).thenReturn(mockTag);
+        when(repository.findOne(any(String.class))).thenReturn(mockTag);
         when(converter.getDto(mockTag, fields)).thenReturn(tagDto);
 
-        TagDto result = tagFacade.findOne(any(Long.class), fields);
+        TagDto result = tagFacade.findOne(any(String.class), fields);
 
-        verify(repository).findOne(any(Long.class));
+        verify(repository).findOne(any(String.class));
         verify(converter).getDto(mockTag, fields);
         assertThat(result, is(TagDto.class));
     }
 
     @Test
     public void findOne_ReturnsNull() throws FlashcardsException {
-        when(repository.findOne(any(Long.class))).thenReturn(null);
+        when(repository.findOne(any(String.class))).thenReturn(null);
 
-        TagDto result = tagFacade.findOne(any(Long.class));
+        TagDto result = tagFacade.findOne(any(String.class));
 
-        verify(repository).findOne(any(Long.class));
+        verify(repository).findOne(any(String.class));
         assertThat(result, is(nullValue()));
     }
 
     @Test
     public void delete() throws ServiceException {
-        tagFacade.delete(any(Long.class));
+        tagFacade.delete(any(String.class));
 
-        verify(repository).delete(any(Long.class));
+        verify(repository).delete(any(String.class));
     }
 
     @Test

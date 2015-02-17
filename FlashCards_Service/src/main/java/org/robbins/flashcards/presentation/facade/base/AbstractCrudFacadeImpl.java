@@ -1,6 +1,7 @@
 
 package org.robbins.flashcards.presentation.facade.base;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
@@ -8,7 +9,7 @@ import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.presentation.facade.PagingAndSortingFacade;
 
-public abstract class AbstractCrudFacadeImpl<D> implements GenericCrudFacade<D>, PagingAndSortingFacade<D>
+public abstract class AbstractCrudFacadeImpl<D, ID extends Serializable> implements GenericCrudFacade<D, ID>, PagingAndSortingFacade<D, ID>
 {
     @Override
     public D save(final D dto) throws FlashcardsException {
@@ -40,22 +41,22 @@ public abstract class AbstractCrudFacadeImpl<D> implements GenericCrudFacade<D>,
     }
 
     @Override
-    public D findOne(final Long id) throws FlashcardsException {
+    public D findOne(final ID id) throws FlashcardsException {
         return findOne(id, null);
     }
 
     @Override
-    public D findOne(final Long id, final Set<String> fields) throws FlashcardsException {
+    public D findOne(final ID id, final Set<String> fields) throws FlashcardsException {
         return getService().findOne(id, fields);
     }
 
     @Override
-    public void delete(final Long id) {
+    public void delete(final ID id) {
         getService().delete(id);
     }
 
     @Override
-    public List<D> findByCreatedBy(Long userId, Set<String> fields) throws FlashcardsException {
+    public List<D> findByCreatedBy(final ID userId, Set<String> fields) throws FlashcardsException {
         return getService().findByCreatedBy(userId, fields);
     }
 }

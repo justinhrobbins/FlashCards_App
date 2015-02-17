@@ -13,7 +13,9 @@ package org.robbins.flashcards.presentation.facade;
 
 import org.robbins.flashcards.service.base.GenericPagingAndSortingService;
 
-public interface PagingAndSortingFacade<D>
+import java.io.Serializable;
+
+public interface PagingAndSortingFacade<D, ID extends Serializable>
 {
-	GenericPagingAndSortingService<D, Long> getService();
+	GenericPagingAndSortingService<D, ID> getService();
 }

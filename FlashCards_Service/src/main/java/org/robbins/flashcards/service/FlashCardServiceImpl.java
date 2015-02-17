@@ -1,12 +1,6 @@
 
 package org.robbins.flashcards.service;
 
-import java.util.List;
-import java.util.Set;
-
-import javax.inject.Inject;
-
-
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
@@ -17,8 +11,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
+import java.util.List;
+import java.util.Set;
+
 @Service
-public class FlashCardServiceImpl extends AbstractCrudServiceImpl<FlashCardDto>
+public class FlashCardServiceImpl extends AbstractCrudServiceImpl<FlashCardDto, String>
         implements FlashCardService {
 
     @Inject
@@ -26,7 +24,7 @@ public class FlashCardServiceImpl extends AbstractCrudServiceImpl<FlashCardDto>
     private FlashcardFacade facade;
 
 	@Override
-	public GenericCrudFacade<FlashCardDto> getFacade() {
+	public GenericCrudFacade<FlashCardDto, String> getFacade() {
 		return facade;
 	}
 
@@ -58,7 +56,7 @@ public class FlashCardServiceImpl extends AbstractCrudServiceImpl<FlashCardDto>
     }
 
     @Override
-    public List<FlashCardDto> findFlashcardsForTag(Long tagId, Set<String> fields) throws FlashcardsException {
+    public List<FlashCardDto> findFlashcardsForTag(final String tagId, final Set<String> fields) throws FlashcardsException {
         return facade.findFlashcardsForTag(tagId, fields);
     }
 }

@@ -11,7 +11,7 @@ import org.robbins.flashcards.service.UserService;
 import org.springframework.stereotype.Component;
 
 @Component("presentationUserFacade")
-public class DefaultUserFacade extends AbstractCrudFacadeImpl<UserDto> implements
+public class DefaultUserFacade extends AbstractCrudFacadeImpl<UserDto, String> implements
         UserFacade {
 
     @Inject

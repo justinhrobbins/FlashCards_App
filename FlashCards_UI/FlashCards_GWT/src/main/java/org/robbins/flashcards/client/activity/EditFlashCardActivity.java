@@ -86,7 +86,7 @@ public class EditFlashCardActivity extends AppAbstractActivity {
             final ClientFactory clientFactory) {
         this(clientFactory);
 
-        Long id = Long.parseLong(place.getPlaceName());
+        String id = place.getPlaceName();
 
         String fields = ConstsUtil.DEFAULT_FLASHCARDS_FIELDS;
         flashCardService.getFlashCard(ConstsUtil.DEFAULT_AUTH_HEADER, id, fields,
@@ -157,7 +157,7 @@ public class EditFlashCardActivity extends AppAbstractActivity {
         getFlashCard().setTags(getTags(display.getTags()));
 
         // is this an existing FlashCard?
-        if ((getFlashCard().getId() != null) && (getFlashCard().getId() != 0)) {
+        if ((getFlashCard().getId() != null) && (getFlashCard().getId().length() != 0)) {
             updateFlashCard(getFlashCard());
         } else {
             saveFlashCard(getFlashCard());

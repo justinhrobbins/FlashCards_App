@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Repository
-public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag> implements
+public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag, String> implements
         TagRepository {
 
     @Inject
@@ -26,7 +26,7 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag> implement
     }
 
     @Override
-    public List<Tag> findByFlashcards_Id(final Long flashcardId) {
+    public List<Tag> findByFlashcards_Id(final String flashcardId) {
         return repository.findByFlashcards_Id(flashcardId);
     }
 }

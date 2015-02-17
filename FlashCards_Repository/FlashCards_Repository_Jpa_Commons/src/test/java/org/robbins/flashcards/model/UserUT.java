@@ -1,11 +1,13 @@
 
 package org.robbins.flashcards.model;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.robbins.tests.UnitTest;
+
+import java.util.UUID;
+
+import static org.junit.Assert.assertEquals;
 
 @Category(UnitTest.class)
 public class UserUT {
@@ -78,8 +80,9 @@ public class UserUT {
 
     @Test
     public void testSetUserId() {
-        User user = new User(1L);
+        String uuid = UUID.randomUUID().toString();
+        User user = new User(uuid);
 
-        assertEquals(new Long(1), user.getId());
+        assertEquals(uuid, user.getId());
     }
 }

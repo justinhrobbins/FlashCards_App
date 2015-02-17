@@ -1,17 +1,6 @@
 
 package org.robbins.flashcards.webservices;
 
-import static org.hamcrest.Matchers.greaterThan;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.inject.Inject;
-
 import com.google.common.collect.Sets;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -19,21 +8,29 @@ import org.robbins.flashcards.client.FlashcardClient;
 import org.robbins.flashcards.client.GenericRestCrudFacade;
 import org.robbins.flashcards.client.TagClient;
 import org.robbins.flashcards.dto.FlashCardDto;
+import org.robbins.flashcards.dto.FlashCardDtoBuilder;
 import org.robbins.flashcards.dto.TagDto;
+import org.robbins.flashcards.dto.TagDtoBuilder;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.tests.webservices.GenericEntityRestTest;
-import org.robbins.flashcards.util.TestDtoGenerator;
 import org.robbins.tests.IntegrationTest;
 import org.springframework.test.context.ContextConfiguration;
 
+import javax.inject.Inject;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static org.hamcrest.Matchers.greaterThan;
+import static org.junit.Assert.*;
+
 @Category(IntegrationTest.class)
 @ContextConfiguration(locations = {"classpath*:applicatonContext-client.xml"})
-public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto> {
+public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto, String> {
 
     // this entity will be created in @Before and we'll use it for our JUnit tests and
     // then delete it in @After
-    private FlashCardDto entity = TestDtoGenerator.createFlashCardDto(
-            "Web API Test 'Question'", "Web API Test 'Answer'");
+    private FlashCardDto entity = new FlashCardDtoBuilder().withQuestion("Web API Test 'Question'").withAnswer("Web API Test 'Answer'").build();
 
     @Override
     public void setEntity(final FlashCardDto entity) {
@@ -52,32 +49,25 @@ public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto> {
     private TagClient tagClient;
 
     @Override
-    public GenericRestCrudFacade<FlashCardDto> getClient() {
+    public GenericRestCrudFacade<FlashCardDto, String> getClient() {
         return client;
     }
 
-    /**
-     * Test search by facility in.
-     */
     @Test
     public void testSearchByTagsIn() throws FlashcardsException
 	{
         Set<TagDto> tags = new HashSet<>();
-        tags.add(new TagDto(2L));
-        tags.add(new TagDto(20L));
+        tags.add(new TagDto("2"));
+        tags.add(new TagDto("20"));
 
         List<FlashCardDto> searchResult = client.findByTagsIn(tags);
 
-        // test that our get worked
         assertTrue(searchResult.size() > 0);
     }
 
-    /**
-     * Execute updateEntity.
-     */
     @Test
     public void testUpdateEntity() throws FlashcardsException {
-        final Long id = getEntity().getId();
+        final String id = getEntity().getId();
         final String UPDATED_VALUE = "updated value";
 
         final FlashCardDto entity = new FlashCardDto(id);
@@ -103,7 +93,7 @@ public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto> {
 
         FlashCardDto newFlashCard = client.save(flashCard);
 
-        assertThat(newFlashCard.getId(), greaterThan(0L));
+        assertThat(newFlashCard.getId().length(), greaterThan(0));
         assertThat(newFlashCard.getTags().size(), greaterThan(0));
 
         client.delete(newFlashCard.getId());
@@ -121,8 +111,8 @@ public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto> {
     }
 
     private FlashCardDto setupFlashcard() throws FlashcardsException {
-        FlashCardDto flashCardDto = TestDtoGenerator.createFlashCardDto("question", "answer");
-        flashCardDto.setTags(Sets.newHashSet(new TagDto("tag_name")));
+        FlashCardDto flashCardDto = new FlashCardDtoBuilder().withQuestion("question").withAnswer("answer").build();
+        flashCardDto.setTags(Sets.newHashSet(new TagDtoBuilder().withName("tag_name").build()));
         return client.save(flashCardDto);
     }
 

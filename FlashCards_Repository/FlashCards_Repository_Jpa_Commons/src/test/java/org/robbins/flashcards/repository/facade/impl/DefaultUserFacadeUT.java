@@ -1,13 +1,6 @@
 
 package org.robbins.flashcards.repository.facade.impl;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.core.IsNull.nullValue;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -21,6 +14,13 @@ import org.robbins.flashcards.repository.conversion.DtoConverter;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.test.util.ReflectionTestUtils;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.core.IsNull.nullValue;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @Category(UnitTest.class)
 public class DefaultUserFacadeUT extends BaseMockingTest {
@@ -71,7 +71,7 @@ public class DefaultUserFacadeUT extends BaseMockingTest {
     @Test
     public void save() throws FlashcardsException {
         when(repository.save(any(User.class))).thenReturn(mockUser);
-        when(repository.findOne(any(Long.class))).thenReturn(mockUser);
+        when(repository.findOne(any(String.class))).thenReturn(mockUser);
         when(converter.getDto(mockUser, null)).thenReturn(mockUserDto);
         when(converter.getEntity(mockUserDto)).thenReturn(mockUser);
 

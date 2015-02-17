@@ -25,13 +25,13 @@ public class LoadFlashCardEvent extends Event<LoadFlashCardEventHandler> {
         return eventBus.addHandler(TYPE, handler);
     }
 
-    public Long getFlashCardId() {
+    public String getFlashCardId() {
         return flashCardId;
     }
 
-    private final Long flashCardId;
+    private final String flashCardId;
 
-    public LoadFlashCardEvent(final Long flashCardId) {
+    public LoadFlashCardEvent(final String flashCardId) {
         this.flashCardId = flashCardId;
     }
 

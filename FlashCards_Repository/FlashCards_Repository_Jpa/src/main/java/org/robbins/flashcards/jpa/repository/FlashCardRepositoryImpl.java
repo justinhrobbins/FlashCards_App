@@ -1,6 +1,7 @@
 
 package org.robbins.flashcards.jpa.repository;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 @Repository
-public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCard>
+public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCard, String>
         implements FlashCardRepository {
 
     @Override
@@ -26,7 +27,7 @@ public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
     @Override
     public FlashCard save(final FlashCard flashCard) {
         for (Tag tag : flashCard.getTags()) {
-            if ((tag.getId() == null) || (tag.getId() == 0)) {
+            if ((tag.getId() == null) || (StringUtils.isEmpty(tag.getId()))) {
                 tag.setCreatedBy(getAuditingUser());
                 tag.setCreatedDate(new DateTime());
                 tag.setLastModifiedBy(getAuditingUser());
@@ -78,7 +79,7 @@ public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
 
     @SuppressWarnings("unchecked")
     private List<FlashCard> findByTags(final Set<Tag> tags, final Pageable page) {
-        List<Long> tagIds = new ArrayList<Long>();
+        List<String> tagIds = new ArrayList<>();
         for (Tag tag : tags) {
             tagIds.add(tag.getId());
         }
@@ -132,16 +133,17 @@ public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
     }
 
     @Override
-    public List<FlashCard> findByTags_Id(Long tagId) {
+    public List<FlashCard> findByTags_Id(String tagId) {
         Query query = getEm().createQuery("SELECT f FROM FlashCard f JOIN f.tags t WHERE t.id = :tagId");
         query.setParameter("tagId", tagId);
         return query.getResultList();
     }
 
     @Override
-    public List<FlashCard> findByCreatedBy_Id(Long userId) {
+    public List<FlashCard> findByCreatedBy_Id(String userId) {
         Query query = getEm().createQuery("SELECT f FROM FlashCard f JOIN f.createdBy u WHERE u.id = :userId");
         query.setParameter("userId", userId);
         return query.getResultList();
     }
+
 }

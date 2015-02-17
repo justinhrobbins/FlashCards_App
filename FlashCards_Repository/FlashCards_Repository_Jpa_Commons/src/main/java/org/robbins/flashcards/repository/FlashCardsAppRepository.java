@@ -1,22 +1,22 @@
 
 package org.robbins.flashcards.repository;
 
-import java.io.Serializable;
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import java.io.Serializable;
+import java.util.List;
+
 public interface FlashCardsAppRepository<E, ID extends Serializable> {
 
     long count();
-    E save(E entity);
-    E findOne(ID id);
-    void delete(ID id);
-    void delete(E dto);
+    E save(final E entity);
+    E findOne(final ID id);
+    void delete(final ID id);
+    void delete(final E dto);
     List<E> findAll();
-    List<E> findAll(Sort sort);
-    Page<E> findAll(Pageable page);
-    List<E> findByCreatedBy_Id(Long userId);
+    List<E> findAll(final Sort sort);
+    Page<E> findAll(final Pageable page);
+    List<E> findByCreatedBy_Id(final ID userId);
 }

@@ -1,26 +1,27 @@
 
 package org.robbins.flashcards.webservices.base;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.ws.rs.core.Response;
 
 import com.sun.jersey.api.JResponse;
 
-public interface GenericResource<T, Serializable> {
+public interface GenericResource<T, ID extends Serializable> {
 
     JResponse<List<T>> list(Integer page, Integer size, String sort,
             String direction, String fields);
 
     Long count();
 
-    T findOne(Long id, String fields);
+    T findOne(final ID id, final String fields);
 
-    T post(T entity);
+    T post(final T entity);
 
-    Response put(Long id, T entity);
+    Response put(final ID id, final T entity);
 
-    Response delete(Long id);
+    Response delete(final ID id);
 
-    Response update(Long id, T updatedEntity);
+    Response update(final ID id, final T updatedEntity);
 }

@@ -70,7 +70,7 @@ public class TagListCell extends AbstractCell<List<TagDto>> {
              * if (toRender.length() > 0){ toRender +=
              * "<div style=\"float:left\">,&nbsp;</div>"; }
              */
-            toRender += templates.cell(Long.toString(tag.getId()), tagStyle,
+            toRender += templates.cell(tag.getId(), tagStyle,
                     tag.getName()).asString();
         }
         sb.appendHtmlConstant(toRender);
@@ -112,7 +112,7 @@ public class TagListCell extends AbstractCell<List<TagDto>> {
         // Trigger a value updater. In this case, the value doesn't actually
         // change, but we use a ValueUpdater to let the app know that a value
         // was clicked.
-        TagDto tag = new TagDto(Long.parseLong(value));
+        TagDto tag = new TagDto(value);
 
         ArrayList<TagDto> tagList = new ArrayList<TagDto>();
         tagList.add(tag);

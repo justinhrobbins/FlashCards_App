@@ -6,7 +6,7 @@ import org.robbins.flashcards.exceptions.FlashcardsException;
 import java.util.List;
 import java.util.Set;
 
-public interface GenericCrudFacade<D> {
+public interface GenericCrudFacade<D, ID> {
 
     List<D> list() throws FlashcardsException;
     List<D> list(Integer page, Integer size, String sort, String direction)
@@ -14,9 +14,9 @@ public interface GenericCrudFacade<D> {
     List<D> list(Integer page, Integer size, String sort, String direction,
             Set<String> fields) throws FlashcardsException;
     Long count();
-    D findOne(Long id) throws FlashcardsException;
-    D findOne(Long id, Set<String> fields) throws FlashcardsException;
-    D save(D entity) throws FlashcardsException;
-    void delete(Long id);
-    List<D> findByCreatedBy(final Long userId, final Set<String> fields) throws FlashcardsException;
+    D findOne(final ID id) throws FlashcardsException;
+    D findOne(final ID id, Set<String> fields) throws FlashcardsException;
+    D save(final D entity) throws FlashcardsException;
+    void delete(final ID id);
+    List<D> findByCreatedBy(final ID userId, final Set<String> fields) throws FlashcardsException;
 }

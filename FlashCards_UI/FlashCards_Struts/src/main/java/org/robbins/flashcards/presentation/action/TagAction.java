@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.interceptor.SessionAware;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 import org.robbins.flashcards.dto.TagDto;
@@ -53,7 +54,7 @@ public class TagAction extends FlashCardsAppBaseAction implements ModelDriven<Ta
 
     public String saveOrUpdate() {
         try {
-            if ((this.tag.getId() != null) && (this.tag.getId() != 0)) {
+            if ((this.tag.getId() != null) && (!StringUtils.isEmpty(this.tag.getId()))) {
                 TagDto existingTag = tagFacade.findOne(this.tag.getId());
                 existingTag.setName(this.tag.getName());
                 tagFacade.save(existingTag);
@@ -101,7 +102,7 @@ public class TagAction extends FlashCardsAppBaseAction implements ModelDriven<Ta
     @SkipValidation
     public String display() {
         try {
-            if ((this.tag.getId() != null) && (this.tag.getId() != 0)) {
+            if ((this.tag.getId() != null) && (!StringUtils.isEmpty(this.tag.getId()))) {
                 this.tag = tagFacade.findOne(this.tag.getId());
             } else if (this.tag.getName() != null) {
                 this.tag = tagFacade.findByName(this.tag.getName());

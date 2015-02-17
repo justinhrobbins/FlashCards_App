@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class TagDto extends AbstractAuditable<UserDto, Long> implements Serializable {
+public class TagDto extends AbstractAuditable<UserDto, String> implements Serializable {
 
     private static final long serialVersionUID = 3642775570292807703L;
 
@@ -16,10 +16,6 @@ public class TagDto extends AbstractAuditable<UserDto, Long> implements Serializ
     private Set<FlashCardDto> flashcards = new HashSet<FlashCardDto>(0);
 
     public TagDto() {
-    }
-
-    public TagDto(final Long id) {
-        setId(id);
     }
 
     public TagDto(final String name) {

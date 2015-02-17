@@ -18,5 +18,5 @@ public interface GenericPagingAndSortingService<D, ID extends Serializable> exte
 
 	D findOne(ID id, Set<String> fields) throws FlashcardsException;
 
-	List<D> findByCreatedBy(final Long userId, final Set<String> fields) throws FlashcardsException;
+	List<D> findByCreatedBy(final ID userId, final Set<String> fields) throws FlashcardsException;
 }

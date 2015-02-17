@@ -3,9 +3,10 @@ package org.robbins.flashcards.client;
 import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
 
+import java.net.IDN;
 import java.util.Map;
 
-public interface GenericRestCrudFacade<E> extends GenericCrudFacade<E>, GenericClient {
+public interface GenericRestCrudFacade<E, ID> extends GenericCrudFacade<E, ID>, GenericClient {
 
     void put(E entity) throws ServiceException;
     void update(E entity) throws ServiceException;

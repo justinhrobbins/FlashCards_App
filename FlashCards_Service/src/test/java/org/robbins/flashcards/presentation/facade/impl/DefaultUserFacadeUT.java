@@ -61,7 +61,7 @@ public class DefaultUserFacadeUT extends BaseMockingTest {
     @Test
     public void save() throws FlashcardsException {
         when(mockService.save(any(UserDto.class))).thenReturn(mockUserDto);
-        when(mockService.findOne(any(Long.class))).thenReturn(mockUserDto);
+        when(mockService.findOne(any(String.class))).thenReturn(mockUserDto);
 
         UserDto result = userFacade.save(mockUserDto);
 

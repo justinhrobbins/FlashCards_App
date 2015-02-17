@@ -16,7 +16,7 @@ import javax.inject.Inject;
 
 @Transactional
 @Component("userRepositoryFacade")
-public class DefaultUserRepositoryFacade extends AbstractCrudRepositoryFacadeImpl<UserDto, User> implements
+public class DefaultUserRepositoryFacade extends AbstractCrudRepositoryFacadeImpl<UserDto, User, String> implements
         UserFacade {
 
     @Inject

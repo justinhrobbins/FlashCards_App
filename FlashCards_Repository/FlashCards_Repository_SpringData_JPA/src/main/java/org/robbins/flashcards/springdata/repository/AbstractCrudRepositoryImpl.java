@@ -9,12 +9,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.io.Serializable;
 import java.util.List;
 
-public abstract class AbstractCrudRepositoryImpl<T extends AbstractAuditable<User, Long>>
-        implements FlashCardsAppRepository<T, Long> {
+public abstract class AbstractCrudRepositoryImpl<T extends AbstractAuditable<User, ID>, ID extends Serializable>
+        implements FlashCardsAppRepository<T, ID> {
 
-    public abstract JpaRepository<T, Long> getRepository();
+    public abstract JpaRepository<T, ID> getRepository();
 
     @Override
     public long count() {
@@ -27,12 +28,12 @@ public abstract class AbstractCrudRepositoryImpl<T extends AbstractAuditable<Use
     }
 
     @Override
-    public T findOne(final Long id) {
+    public T findOne(final ID id) {
         return getRepository().findOne(id);
     }
 
     @Override
-    public void delete(final Long id) {
+    public void delete(final ID id) {
         getRepository().delete(id);
     }
 
@@ -57,7 +58,7 @@ public abstract class AbstractCrudRepositoryImpl<T extends AbstractAuditable<Use
     }
 
     @Override
-    public List<T> findByCreatedBy_Id(final Long userId) {
+    public List<T> findByCreatedBy_Id(final ID userId) {
         return findByCreatedBy_Id(userId);
     }
 }

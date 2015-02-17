@@ -13,6 +13,8 @@ import org.robbins.tests.UnitTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import java.util.UUID;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
@@ -38,13 +40,14 @@ public class AuditingAwareUserUT extends BaseMockingTest {
     @Ignore
     @Test
     public void getCurrentAuditor() {
+        String uuid = UUID.randomUUID().toString();
         when(mockContext.getBean("loggedInUser")).thenReturn(mockUser);
-        when(mockUser.getId()).thenReturn(1L);
+        when(mockUser.getId()).thenReturn(uuid);
 
         User result = auditingAwareUser.getCurrentAuditor();
 
         verify(mockContext).getBean("loggedInUser");
         assertThat(result, is(User.class));
-        assertThat(result.getId(), is(1L));
+        assertThat(result.getId(), is(uuid));
     }
 }

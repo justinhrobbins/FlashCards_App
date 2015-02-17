@@ -3,6 +3,7 @@ package org.robbins.flashcards.repository.facade.impl;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import org.apache.commons.lang3.StringUtils;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
@@ -27,7 +28,7 @@ import java.util.Set;
 @Transactional
 @Component("flashcardRepositoryFacade")
 public class DefaultFlashcardRepositoryFacade extends
-		AbstractCrudRepositoryFacadeImpl<FlashCardDto, FlashCard> implements FlashcardFacade {
+		AbstractCrudRepositoryFacadeImpl<FlashCardDto, FlashCard, String> implements FlashcardFacade {
 
 	@Inject
 	private FlashCardRepository repository;
@@ -98,7 +99,7 @@ public class DefaultFlashcardRepositoryFacade extends
     }
 
     @Override
-    public List<FlashCardDto> findFlashcardsForTag(Long tagId, Set<String> fields) throws FlashcardsException {
+    public List<FlashCardDto> findFlashcardsForTag(String tagId, Set<String> fields) throws FlashcardsException {
         List<FlashCard> results = getRepository().findByTags_Id(tagId);
         return convertAndInitializeEntities(results, fields);
     }
@@ -115,7 +116,7 @@ public class DefaultFlashcardRepositoryFacade extends
         for (TagDto tagDto : tags) {
             Tag tag;
             // if we don't have the id of the Tag
-            if (tagDto.getId() == null || tagDto.getId() == 0) {
+            if (tagDto.getId() == null || StringUtils.isEmpty(tagDto.getId())) {
                 // try to get the existing Tag
                 tag = tagRepository.findByName(tagDto.getName());
 

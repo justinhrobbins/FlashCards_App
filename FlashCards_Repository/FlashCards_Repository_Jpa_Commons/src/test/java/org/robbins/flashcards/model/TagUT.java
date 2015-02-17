@@ -13,7 +13,7 @@ public class TagUT {
     @Test
     public void testSetTagName() {
 
-        Tag t = new Tag("default name");
+        Tag t = new Tag();
         t.setName("test tag name");
 
         assertEquals("test tag name", t.getName());

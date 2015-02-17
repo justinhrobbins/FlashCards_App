@@ -19,6 +19,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -49,6 +50,8 @@ public class AbstractCrudRepositoryImplUT extends BaseMockingTest {
 
     private TagRepository repository;
 
+    private final String uuid = UUID.randomUUID().toString();
+
     @Before
     public void before() {
         repository = new TagRepositoryImpl();
@@ -61,8 +64,8 @@ public class AbstractCrudRepositoryImplUT extends BaseMockingTest {
         when(em.createQuery(anyString())).thenReturn(query);
         when(query.getResultList()).thenReturn(results);
         when(auditorAware.getCurrentAuditor()).thenReturn(mockUser);
-        when(mockAuditor.getId()).thenReturn(1L);
-        when(em.find(User.class, 1L)).thenReturn(mockUser);
+        when(mockAuditor.getId()).thenReturn(uuid);
+        when(em.find(User.class, uuid)).thenReturn(mockUser);
     }
 
     @Test
@@ -75,7 +78,7 @@ public class AbstractCrudRepositoryImplUT extends BaseMockingTest {
 
     @Test
     public void update() {
-        Tag tag = new Tag(1L);
+        Tag tag = new Tag(uuid);
         Tag result = repository.save(tag);
 
         verify(em, times(1)).merge(tag);
@@ -84,13 +87,12 @@ public class AbstractCrudRepositoryImplUT extends BaseMockingTest {
 
     @Test
     public void findOne() {
-        Long id = 1L;
         Tag result = mock(Tag.class);
-        when(em.find(Tag.class, id)).thenReturn(result);
+        when(em.find(Tag.class, uuid)).thenReturn(result);
 
-        result = repository.findOne(id);
+        result = repository.findOne(uuid);
 
-        verify(em, times(1)).find(Tag.class, id);
+        verify(em, times(1)).find(Tag.class, uuid);
         assertThat(result, is(Tag.class));
     }
 
@@ -103,11 +105,10 @@ public class AbstractCrudRepositoryImplUT extends BaseMockingTest {
 
     @Test
     public void deleteById() {
-        Long id = 1L;
         Tag result = mock(Tag.class);
-        when(em.find(Tag.class, id)).thenReturn(result);
+        when(em.find(Tag.class, uuid)).thenReturn(result);
 
-        repository.delete(id);
+        repository.delete(uuid);
 
         verify(em, times(1)).remove(result);
     }

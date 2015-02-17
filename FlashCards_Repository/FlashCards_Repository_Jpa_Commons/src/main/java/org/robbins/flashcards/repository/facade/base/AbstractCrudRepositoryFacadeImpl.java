@@ -14,12 +14,13 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
 @Transactional
-public abstract class AbstractCrudRepositoryFacadeImpl<D, E> implements GenericCrudFacade<D>,
-		PagingAndSortingRepositoryFacade<D, E, Long>
+public abstract class AbstractCrudRepositoryFacadeImpl<D, E, ID extends Serializable> implements GenericCrudFacade<D, ID>,
+		PagingAndSortingRepositoryFacade<D, E, ID>
 {
 
     @Inject
@@ -79,12 +80,12 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E> implements GenericC
     }
 
     @Override
-    public D findOne(final Long id) throws RepositoryException {
+    public D findOne(final ID id) throws RepositoryException {
         return findOne(id, null);
     }
 
     @Override
-    public D findOne(final Long id, final Set<String> fields) throws RepositoryException {
+    public D findOne(final ID id, final Set<String> fields) throws RepositoryException {
         E result = getRepository().findOne(id);
 
         if (result == null) {
@@ -94,12 +95,12 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E> implements GenericC
     }
 
     @Override
-    public void delete(final Long id) {
+    public void delete(final ID id) {
 		getRepository().delete(id);
     }
 
     @Override
-    public List<D> findByCreatedBy(Long userId, Set<String> fields) throws FlashcardsException {
+    public List<D> findByCreatedBy(final ID userId, final Set<String> fields) throws FlashcardsException {
         List<E> results = getRepository().findByCreatedBy_Id(userId);
         return convertAndInitializeEntities(results, fields);
     }
@@ -126,25 +127,25 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E> implements GenericC
         }
     }
 
-    protected List<D> convertAndInitializeEntities(List<E> entities) throws RepositoryException {
+    protected List<D> convertAndInitializeEntities(final List<E> entities) throws RepositoryException {
         return convertAndInitializeEntities(entities, null);
     }
 
-    protected List<D> convertAndInitializeEntities(List<E> entities, Set<String> fields) throws RepositoryException {
+    protected List<D> convertAndInitializeEntities(final List<E> entities, final Set<String> fields) throws RepositoryException {
         if (CollectionUtils.isNotEmpty(fields)) {
             fieldInitializer.initializeEntity(entities, fields);
         }
         return getConverter().getDtos(entities, fields);
     }
 
-    protected D convertAndInitializeEntity(E entity, Set<String> fields) throws RepositoryException {
+    protected D convertAndInitializeEntity(final E entity, final Set<String> fields) throws RepositoryException {
         if (CollectionUtils.isNotEmpty(fields)) {
             fieldInitializer.initializeEntity(entity, fields);
         }
         return getConverter().getDto(entity, fields);
     }
 
-    protected D convertAndInitializeEntity(E entity) throws RepositoryException {
+    protected D convertAndInitializeEntity(final E entity) throws RepositoryException {
         return convertAndInitializeEntity(entity, null);
     }
 }

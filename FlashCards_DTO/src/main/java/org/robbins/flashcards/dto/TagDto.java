@@ -1,17 +1,16 @@
 
 package org.robbins.flashcards.dto;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(value = Include.NON_NULL)
@@ -28,12 +27,8 @@ public class TagDto extends AbstractAuditableDto implements Serializable {
     public TagDto() {
     }
 
-    public TagDto(final Long id) {
+    public TagDto(final String id) {
         setId(id);
-    }
-
-    public TagDto(final String name) {
-        this.name = name;
     }
 
     public String getName() {

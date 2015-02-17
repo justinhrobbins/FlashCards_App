@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class DefaultUserClient extends AbstractCrudClient<UserDto> implements UserClient {
+public class DefaultUserClient extends AbstractCrudClient<UserDto, String> implements UserClient {
 
     @Override
     public String getEntityListUrl() {

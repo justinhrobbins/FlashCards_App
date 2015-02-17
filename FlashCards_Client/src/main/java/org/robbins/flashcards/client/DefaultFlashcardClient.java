@@ -12,7 +12,7 @@ import java.util.*;
 
 
 @Component
-public class DefaultFlashcardClient extends AbstractCrudClient<FlashCardDto> implements FlashcardClient {
+public class DefaultFlashcardClient extends AbstractCrudClient<FlashCardDto, String> implements FlashcardClient {
     @Override
     public String getEntityListUrl() {
         return getServerAddress() + ResourceUrls.flashCards;
@@ -124,7 +124,7 @@ public class DefaultFlashcardClient extends AbstractCrudClient<FlashCardDto> imp
     }
 
     @Override
-    public List<FlashCardDto> findFlashcardsForTag(Long tagId, Set<String> fields) throws FlashcardsException {
+    public List<FlashCardDto> findFlashcardsForTag(String tagId, Set<String> fields) throws FlashcardsException {
         Map<String, String> uriVariables = new HashMap<String, String>();
         uriVariables.put("tagId", String.valueOf(tagId));
         return Arrays.asList(searchEntities(getServerAddress() + ResourceUrls.flashcardsForTag, uriVariables, FlashCardDto[].class));

@@ -65,7 +65,7 @@ public class FlashCardListCell extends AbstractCell<List<FlashCardDto>> {
         String toRender = "";
 
         for (FlashCardDto flashCard : flashCardList) {
-            toRender += templates.cell(Long.toString(flashCard.getId()), tagStyle,
+            toRender += templates.cell(flashCard.getId(), tagStyle,
                     flashCard.getQuestion()).asString();
         }
         sb.appendHtmlConstant(toRender);
@@ -107,7 +107,7 @@ public class FlashCardListCell extends AbstractCell<List<FlashCardDto>> {
         // Trigger a value updater. In this case, the value doesn't actually
         // change, but we use a ValueUpdater to let the app know that a value
         // was clicked.
-        FlashCardDto flashCard = new FlashCardDto(Long.parseLong(value));
+        FlashCardDto flashCard = new FlashCardDto(value);
 
         ArrayList<FlashCardDto> flashCardList = new ArrayList<FlashCardDto>();
         flashCardList.add(flashCard);

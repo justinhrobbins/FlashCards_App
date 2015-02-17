@@ -4,6 +4,7 @@ package org.robbins.flashcards.tests.webservices;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.junit.After;
@@ -18,7 +19,7 @@ import org.springframework.data.domain.Persistable;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-public abstract class GenericEntityRestTest<E extends Persistable<Long>> {
+public abstract class GenericEntityRestTest<E extends Persistable<ID>, ID extends Serializable> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GenericEntityRestTest.class);
 
@@ -36,7 +37,7 @@ public abstract class GenericEntityRestTest<E extends Persistable<Long>> {
      */
     public abstract E getEntity();
 
-    public abstract GenericRestCrudFacade<E> getClient();
+    public abstract GenericRestCrudFacade<E,ID> getClient();
 
     /**
      * Test get entity list.
