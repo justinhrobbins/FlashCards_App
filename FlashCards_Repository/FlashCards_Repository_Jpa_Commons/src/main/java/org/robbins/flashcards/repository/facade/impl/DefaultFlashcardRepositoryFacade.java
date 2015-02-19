@@ -13,7 +13,7 @@ import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.repository.FlashCardRepository;
 import org.robbins.flashcards.repository.TagRepository;
-import org.robbins.flashcards.repository.conversion.DtoConverter;
+import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.repository.facade.base.AbstractCrudRepositoryFacadeImpl;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.PageRequest;
@@ -106,7 +106,7 @@ public class DefaultFlashcardRepositoryFacade extends
 
     private Set<Tag> getTags(final Set<TagDto> tagDtos) {
         List<TagDto> tagDtoList = Lists.newArrayList(tagDtos);
-        List<Tag> tagList = tagConverter.getEtnties(tagDtoList);
+        List<Tag> tagList = tagConverter.getEntities(tagDtoList);
         return Sets.newHashSet(tagList);
     }
 

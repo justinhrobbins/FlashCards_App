@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.exceptions.RepositoryException;
 import org.robbins.flashcards.exceptions.ServiceException;
@@ -58,7 +59,7 @@ public class DefaultTagDtoConverterUT extends BaseMockingTest {
         List<TagDto> mockTagDtoList = Arrays.asList(tagDto);
         Mockito.when(mockMapper.map(tagDto, Tag.class)).thenReturn(tag);
 
-        List<Tag> results = converter.getEtnties(mockTagDtoList);
+        List<Tag> results = converter.getEntities(mockTagDtoList);
 
         Assert.assertThat(results, CoreMatchers.is(List.class));
         Mockito.verify(mockMapper).map(tagDto, Tag.class);

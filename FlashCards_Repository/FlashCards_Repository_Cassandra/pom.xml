@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<parent>
+		<groupId>org.robbins.flashcards</groupId>
+		<artifactId>FlashCards_Repository</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>FlashCards_Repository_Cassandra</artifactId>
+	<packaging>jar</packaging>
+	<name>FlashCards_Repository_Cassandra</name>
+	<description>FlashCards_Repository_Cassandra description</description>
+	<properties>
+		<skip.coveralls>false</skip.coveralls>
+	</properties>
+	<scm>
+		<connection>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</connection>
+		<url>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</url>
+		<developerConnection>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</developerConnection>
+	</scm>
+	<dependencies>
+        <dependency>
+            <groupId>org.robbins.flashcards</groupId>
+            <artifactId>FlashCards_Repository_Commons</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.robbins.flashcards</groupId>
+            <artifactId>FlashCards_DTO</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.robbins.flashcards</groupId>
+            <artifactId>FlashCards_API</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-cassandra</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-commons-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
+        <!-- Dozer for mapping to DTOs -->
+        <dependency>
+            <groupId>net.sf.dozer</groupId>
+            <artifactId>dozer</artifactId>
+        </dependency>
+
+        <!-- JSR 330: Dependency Injection for Java -->
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+        </dependency>
+
+        <!-- test dependencies -->
+        <dependency>
+            <groupId>org.robbins.flashcards</groupId>
+            <artifactId>FlashCards_Test</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.cassandraunit</groupId>
+            <artifactId>cassandra-unit-spring</artifactId>
+        </dependency>
+
+        <!-- logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+	</dependencies>
+	<build>
+		<finalName>FlashCards_Repository_Cassandra</finalName>
+	</build>
+</project>

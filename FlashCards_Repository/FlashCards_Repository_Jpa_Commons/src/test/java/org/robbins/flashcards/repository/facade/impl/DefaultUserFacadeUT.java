@@ -10,7 +10,7 @@ import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.UserFacade;
 import org.robbins.flashcards.model.User;
 import org.robbins.flashcards.repository.UserRepository;
-import org.robbins.flashcards.repository.conversion.DtoConverter;
+import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.test.util.ReflectionTestUtils;

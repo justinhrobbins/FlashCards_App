@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.exceptions.RepositoryException;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
-import org.robbins.flashcards.repository.facade.PagingAndSortingRepositoryFacade;
+import org.robbins.flashcards.repository.facade.RepositoryFacade;
 import org.robbins.flashcards.repository.util.FieldInitializerUtil;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -20,7 +20,7 @@ import java.util.Set;
 
 @Transactional
 public abstract class AbstractCrudRepositoryFacadeImpl<D, E, ID extends Serializable> implements GenericCrudFacade<D, ID>,
-		PagingAndSortingRepositoryFacade<D, E, ID>
+        RepositoryFacade<D, E, ID>
 {
 
     @Inject

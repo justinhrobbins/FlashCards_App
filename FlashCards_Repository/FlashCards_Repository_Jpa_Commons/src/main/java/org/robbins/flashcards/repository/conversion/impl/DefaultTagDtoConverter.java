@@ -7,7 +7,7 @@ import java.util.Set;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.exceptions.RepositoryException;
 import org.robbins.flashcards.model.Tag;
-import org.robbins.flashcards.repository.conversion.DtoConverter;
+import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.repository.util.DtoUtil;
 import org.springframework.stereotype.Component;
 
@@ -34,6 +34,11 @@ public class DefaultTagDtoConverter extends AbstractDtoConverter implements DtoC
     }
 
     @Override
+    public List<TagDto> getDtos(List<Tag> entities) throws RepositoryException {
+        return getDtos(entities, null);
+    }
+
+    @Override
     public List<TagDto> getDtos(final List<Tag> entities, final Set<String> fields)
             throws RepositoryException {
         List<TagDto> dtos = new ArrayList<>();
@@ -44,7 +49,7 @@ public class DefaultTagDtoConverter extends AbstractDtoConverter implements DtoC
     }
 
     @Override
-    public List<Tag> getEtnties(final List<TagDto> dtos) {
+    public List<Tag> getEntities(final List<TagDto> dtos) {
         List<Tag> entities = new ArrayList<>();
         for (TagDto dto : dtos) {
             entities.add(getEntity(dto));

@@ -24,7 +24,7 @@ import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.repository.FlashCardRepository;
 import org.robbins.flashcards.repository.TagRepository;
-import org.robbins.flashcards.repository.conversion.DtoConverter;
+import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -105,7 +105,7 @@ public class DefaultFlashcardFacadeUT extends BaseMockingTest {
         when(repository.findByTagsIn(any(Set.class))).thenReturn(mockFlashCardList);
         when(mockFlashcardConverter.getDto(mockFlashcard)).thenReturn(
                 mockFlashcardDto);
-        when(mockTagConverter.getEtnties(any(List.class))).thenReturn(mockTagList);
+        when(mockTagConverter.getEntities(any(List.class))).thenReturn(mockTagList);
 
         List<FlashCardDto> results = flashCardFacade.findByTagsIn(mockTagDtos);
 

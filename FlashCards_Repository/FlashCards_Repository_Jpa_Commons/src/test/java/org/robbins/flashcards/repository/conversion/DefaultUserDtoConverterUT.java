@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.dto.UserDto;
 import org.robbins.flashcards.exceptions.RepositoryException;
 import org.robbins.flashcards.exceptions.ServiceException;
@@ -58,7 +59,7 @@ public class DefaultUserDtoConverterUT extends BaseMockingTest {
         List<UserDto> mockUserDtoList = Arrays.asList(userDto);
         Mockito.when(mockMapper.map(userDto, User.class)).thenReturn(user);
 
-        List<User> results = converter.getEtnties(mockUserDtoList);
+        List<User> results = converter.getEntities(mockUserDtoList);
 
         Assert.assertThat(results, CoreMatchers.is(List.class));
         Mockito.verify(mockMapper).map(userDto, User.class);

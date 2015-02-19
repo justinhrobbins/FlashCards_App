@@ -19,6 +19,36 @@
 		<url>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</url>
 		<developerConnection>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</developerConnection>
 	</scm>
+	<dependencies>
+		<dependency>
+			<groupId>org.robbins.flashcards</groupId>
+			<artifactId>FlashCards_API</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<!-- Joda-Time provides a quality replacement for the Java date and time classes. -->
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+		</dependency>
+
+		<!-- Dozer for mapping @Entities to DTOs -->
+		<dependency>
+			<groupId>net.sf.dozer</groupId>
+			<artifactId>dozer</artifactId>
+		</dependency>
+
+		<!-- JSR 330: Dependency Injection for Java -->
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-commons-core</artifactId>
+		</dependency>
+	</dependencies>
 	<build>
 		<finalName>FlashCards_Repository_Commons</finalName>
 	</build>

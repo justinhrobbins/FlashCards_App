@@ -8,7 +8,7 @@ import java.util.Set;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.exceptions.RepositoryException;
 import org.robbins.flashcards.model.FlashCard;
-import org.robbins.flashcards.repository.conversion.DtoConverter;
+import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.repository.util.DtoUtil;
 import org.springframework.stereotype.Component;
 
@@ -34,6 +34,11 @@ public class DefaultFlashcardDtoConverter extends AbstractDtoConverter implement
     }
 
     @Override
+    public List<FlashCardDto> getDtos(List<FlashCard> entities) throws RepositoryException {
+        return getDtos(entities, null);
+    }
+
+    @Override
     public List<FlashCardDto> getDtos(final List<FlashCard> entities,
                                       final Set<String> fields)
             throws RepositoryException {
@@ -45,7 +50,7 @@ public class DefaultFlashcardDtoConverter extends AbstractDtoConverter implement
     }
 
     @Override
-    public List<FlashCard> getEtnties(final List<FlashCardDto> dtos) {
+    public List<FlashCard> getEntities(final List<FlashCardDto> dtos) {
         List<FlashCard> entities = new ArrayList<>();
         for (FlashCardDto dto : dtos) {
             entities.add(getEntity(dto));
