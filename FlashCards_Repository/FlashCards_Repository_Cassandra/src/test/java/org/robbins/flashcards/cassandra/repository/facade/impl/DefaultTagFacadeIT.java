@@ -1,12 +1,12 @@
 
-package org.robbins.flashcards.repository.facade.impl;
+package org.robbins.flashcards.cassandra.repository.facade.impl;
 
 import org.cassandraunit.spring.CassandraDataSet;
 import org.junit.Test;
+import org.robbins.flashcards.cassandra.repository.AbstractCassandraIntegrationTest;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.TagFacade;
-import org.robbins.flashcards.repository.AbstractCassandraIntegrationTest;
 
 import javax.inject.Inject;
 import java.util.List;

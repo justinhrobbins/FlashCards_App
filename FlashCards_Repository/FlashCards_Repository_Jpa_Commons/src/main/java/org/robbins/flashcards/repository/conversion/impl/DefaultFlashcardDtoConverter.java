@@ -50,7 +50,7 @@ public class DefaultFlashcardDtoConverter extends AbstractDtoConverter implement
     }
 
     @Override
-    public List<FlashCard> getEtnties(final List<FlashCardDto> dtos) {
+    public List<FlashCard> getEntities(final List<FlashCardDto> dtos) {
         List<FlashCard> entities = new ArrayList<>();
         for (FlashCardDto dto : dtos) {
             entities.add(getEntity(dto));

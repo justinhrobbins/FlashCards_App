@@ -106,7 +106,7 @@ public class DefaultFlashcardRepositoryFacade extends
 
     private Set<Tag> getTags(final Set<TagDto> tagDtos) {
         List<TagDto> tagDtoList = Lists.newArrayList(tagDtos);
-        List<Tag> tagList = tagConverter.getEtnties(tagDtoList);
+        List<Tag> tagList = tagConverter.getEntities(tagDtoList);
         return Sets.newHashSet(tagList);
     }
 

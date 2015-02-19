@@ -15,11 +15,6 @@
         </property>
     </bean>
 
-
-    <context:component-scan base-package="
-		org.robbins.flashcards.repository.facade,
-		org.robbins.flashcards.repository.conversion" />
-
     <!-- REQUIRED: The Cassandra Cluster -->
     <cassandra:cluster contact-points="localhost" />
 
@@ -35,7 +30,11 @@
 
     <!-- REQUIRED: The Cassandra Template is the building block of all Spring
       Data Cassandra -->
-    <cassandra:template id="cassandraTemplate" />
+    <cassandra:template id="cqlTemplate" />
 
-    <cassandra:repositories base-package="org.robbins.flashcards.repository" />
+    <cassandra:repositories base-package="org.robbins.flashcards.cassandra.repository" />
+
+    <context:component-scan base-package="
+		org.robbins.flashcards.cassandra.repository.facade,
+		org.robbins.flashcards.cassandra.repository.conversion" />
 </beans>

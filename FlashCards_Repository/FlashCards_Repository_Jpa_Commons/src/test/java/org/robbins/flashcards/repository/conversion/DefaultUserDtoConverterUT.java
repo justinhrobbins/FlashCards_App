@@ -59,7 +59,7 @@ public class DefaultUserDtoConverterUT extends BaseMockingTest {
         List<UserDto> mockUserDtoList = Arrays.asList(userDto);
         Mockito.when(mockMapper.map(userDto, User.class)).thenReturn(user);
 
-        List<User> results = converter.getEtnties(mockUserDtoList);
+        List<User> results = converter.getEntities(mockUserDtoList);
 
         Assert.assertThat(results, CoreMatchers.is(List.class));
         Mockito.verify(mockMapper).map(userDto, User.class);

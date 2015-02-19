@@ -49,7 +49,7 @@ public class DefaultTagDtoConverter extends AbstractDtoConverter implements DtoC
     }
 
     @Override
-    public List<Tag> getEtnties(final List<TagDto> dtos) {
+    public List<Tag> getEntities(final List<TagDto> dtos) {
         List<Tag> entities = new ArrayList<>();
         for (TagDto dto : dtos) {
             entities.add(getEntity(dto));

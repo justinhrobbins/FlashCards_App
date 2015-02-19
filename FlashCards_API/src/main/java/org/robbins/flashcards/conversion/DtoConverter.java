@@ -13,5 +13,5 @@ public interface DtoConverter<D, E> {
     E getEntity(D dto);
     List<D> getDtos(List<E> entities) throws RepositoryException;
     List<D> getDtos(List<E> entities, Set<String> fields) throws RepositoryException;
-    List<E> getEtnties(List<D> entities);
+    List<E> getEntities(List<D> entities);
 }

@@ -48,7 +48,7 @@ public class DefaultUserDtoConverter extends AbstractDtoConverter implements Dto
     }
 
     @Override
-    public List<User> getEtnties(final List<UserDto> dtos) {
+    public List<User> getEntities(final List<UserDto> dtos) {
         List<User> entities = new ArrayList<>();
         for (UserDto dto : dtos) {
             entities.add(getEntity(dto));

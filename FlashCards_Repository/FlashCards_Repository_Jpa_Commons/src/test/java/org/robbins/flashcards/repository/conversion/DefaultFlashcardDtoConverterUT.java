@@ -47,7 +47,7 @@ public class DefaultFlashcardDtoConverterUT extends BaseMockingTest {
         List<FlashCardDto> flashCardDtos = Arrays.asList(flashCardDto);
         Mockito.when(mockMapper.map(flashCardDto, FlashCard.class)).thenReturn(flashCard);
 
-        List<FlashCard> results = converter.getEtnties(flashCardDtos);
+        List<FlashCard> results = converter.getEntities(flashCardDtos);
 
         Assert.assertThat(results, CoreMatchers.is(List.class));
         Mockito.verify(mockMapper).map(flashCardDto, FlashCard.class);

@@ -1,12 +1,6 @@
 
 package org.robbins.flashcards.security;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import javax.inject.Inject;
-
 import org.robbins.flashcards.dto.UserDto;
 import org.robbins.flashcards.facade.UserFacade;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,14 +9,17 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
+import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * A custom {@link UserDetailsService} where user information is retrieved from a
  * repository.
  */
 @Service
-@Transactional(readOnly = true)
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Inject

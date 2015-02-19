@@ -1,12 +1,13 @@
-package org.robbins.flashcards.repository.domain;
+package org.robbins.flashcards.cassandra.repository.domain;
 
 import org.springframework.data.cassandra.mapping.PrimaryKey;
 import org.springframework.data.cassandra.mapping.Table;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 @Table(value = "tag")
-public class TagCassandra {
+public class TagCassandraDto implements Serializable {
 
     @PrimaryKey
     private UUID id;

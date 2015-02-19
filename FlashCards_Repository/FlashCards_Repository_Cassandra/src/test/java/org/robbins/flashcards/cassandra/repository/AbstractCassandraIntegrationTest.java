@@ -1,4 +1,4 @@
-package org.robbins.flashcards.repository;
+package org.robbins.flashcards.cassandra.repository;
 
 import org.cassandraunit.spring.CassandraUnitDependencyInjectionTestExecutionListener;
 import org.cassandraunit.spring.EmbeddedCassandra;

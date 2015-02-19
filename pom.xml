@@ -214,6 +214,7 @@
                                     <asWebapp>true</asWebapp>
                                     <contextPath>/gwt</contextPath>
                                 </webapp>
+                                <!--
                                 <webapp> 
                                     <groupId>org.robbins.flashcards</groupId> 
                                     <artifactId>FlashCards_Struts</artifactId> 
@@ -222,6 +223,7 @@
                                     <asWebapp>true</asWebapp>
                                     <contextPath>/struts</contextPath>
                                 </webapp>
+                                -->
                                 <webapp> 
                                     <groupId>org.robbins.flashcards</groupId> 
                                     <artifactId>swagger_ui</artifactId> 

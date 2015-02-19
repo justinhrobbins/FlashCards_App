@@ -47,6 +47,11 @@
 			<artifactId>FlashCards_Repository_Commons</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.robbins.flashcards</groupId>
+			<artifactId>FlashCards_Repository_Cassandra</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 
 		<!-- reflection helper utils -->
 		<dependency>

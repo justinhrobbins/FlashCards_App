@@ -105,7 +105,7 @@ public class DefaultFlashcardFacadeUT extends BaseMockingTest {
         when(repository.findByTagsIn(any(Set.class))).thenReturn(mockFlashCardList);
         when(mockFlashcardConverter.getDto(mockFlashcard)).thenReturn(
                 mockFlashcardDto);
-        when(mockTagConverter.getEtnties(any(List.class))).thenReturn(mockTagList);
+        when(mockTagConverter.getEntities(any(List.class))).thenReturn(mockTagList);
 
         List<FlashCardDto> results = flashCardFacade.findByTagsIn(mockTagDtos);
 
