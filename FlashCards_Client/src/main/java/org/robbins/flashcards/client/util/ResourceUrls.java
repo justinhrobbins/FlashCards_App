@@ -30,7 +30,7 @@ public final class ResourceUrls {
 
     public static final String userUpdate = "v1/users/{id}/update";
 
-    public static final String status = "status/";
+    public static final String status = "/v1/status/";
 
     public static final String tagsForFlashcard = "v1/flashcards/{flashcardId}/tags";
 

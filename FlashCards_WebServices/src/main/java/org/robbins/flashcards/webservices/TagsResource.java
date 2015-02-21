@@ -23,7 +23,7 @@ import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
 
-@Path("/v1/tags/")
+@Path("/tags/")
 @Component("tagsResource")
 @Api(value = "/v1/tags", description = "Operations about Tags")
 @Produces({ "application/xml", "application/json" })

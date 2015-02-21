@@ -50,8 +50,7 @@ public class AbstractSecurityFilter {
             return;
         }
 
-        org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
-        String openId = principal.getUsername();
+        String openId = findOpenId(authentication.getPrincipal());
 
         try {
             UserDto user = userFacade.findUserByOpenid(openId);
@@ -66,6 +65,20 @@ public class AbstractSecurityFilter {
         catch (FlashcardsException e)
         {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
+        }
+    }
+
+    private String findOpenId(Object principal)
+    {
+        if (principal instanceof org.springframework.security.core.userdetails.User)
+        {
+            return ((org.springframework.security.core.userdetails.User)(principal)).getUsername();
+        }
+        else if (principal instanceof String) {
+            return (String)principal;
+        }
+        else {
+            throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, "Unable to determine principal");
         }
     }
 }

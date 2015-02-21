@@ -16,7 +16,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
-@Path("/v1/users/")
+@Path("/users/")
 @Component("usersResource")
 @Api(value = "/v1/users", description = "Operations about Users")
 @Produces({ "application/xml", "application/json" })

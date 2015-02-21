@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -34,6 +35,11 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(final String username) {
         try {
             UserDto domainUser = userFacade.findUserByOpenid(username);
+
+            if (domainUser == null) {
+                throw new UsernameNotFoundException("username " + username
+                        + " not found");
+            }
 
             boolean enabled = true;
             boolean accountNonExpired = true;
