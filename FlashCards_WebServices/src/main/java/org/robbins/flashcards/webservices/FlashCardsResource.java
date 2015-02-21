@@ -25,7 +25,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.util.*;
 
-@Path("/v1/flashcards/")
+@Path("/flashcards/")
 @Component("flashCardsResource")
 @Api(value = "/v1/flashcards", description = "Operations about FlashCards")
 @Produces({ "application/xml", "application/json" })

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-    id="WebApp_ID" metadata-complete="true" version="3.0">
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         id="WebApp_ID" metadata-complete="true"
+         version="3.0">
     <display-name>FlashCards_WebServices</display-name>
     <context-param>
         <param-name>contextConfigLocation</param-name>
@@ -18,7 +19,7 @@
     <!-- set the default Spring profile.  this can be overridden with an environment variable (spring.profiles.active) -->
     <context-param>
         <param-name>spring.profiles.default</param-name>
-        <param-value>spring-data,embedded,test-data</param-value>
+        <param-value>spring-data,security-http,embedded,test-data</param-value>
     </context-param>
 
     <listener>
@@ -42,6 +43,17 @@
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+    <!-- DispatcherServlet required for Spring security oauth -->
+    <servlet>
+        <servlet-name>spring</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>spring</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
 
     <!-- JAX-RS implementation -->
     <servlet>
@@ -78,13 +90,14 @@
             <param-value>true</param-value>
         </init-param>
 
-        <load-on-startup>1</load-on-startup>
+        <load-on-startup>2</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>jersey-serlvet</servlet-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/v1/*</url-pattern>
     </servlet-mapping>
 
+    <!-- Swagger API doc implementation -->
     <servlet>
         <servlet-name>JerseyJaxrsConfig</servlet-name>
         <servlet-class>com.wordnik.swagger.jersey.config.JerseyJaxrsConfig</servlet-class>
@@ -96,6 +109,6 @@
             <param-name>swagger.api.basepath</param-name>
             <param-value>http://localhost:8080/api</param-value>
         </init-param>
-        <load-on-startup>2</load-on-startup>
+        <load-on-startup>3</load-on-startup>
     </servlet>
 </web-app>
