@@ -20,7 +20,6 @@
     <sec:authentication-manager alias="authenticationManager">
         <sec:authentication-provider
                 user-service-ref="customUserDetailsService">
-            <!--<sec:password-encoder ref="passwordEncoder" />-->
         </sec:authentication-provider>
     </sec:authentication-manager>
 
