@@ -25,7 +25,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 public class FlashCardRepositoryIT extends BaseIntegrationTest {
 
     @Inject
-    private FlashCardRepository repository;
+    private FlashCardRepository<FlashCard, Tag, String> repository;
 
     @Test
     public void findByQuestion() {

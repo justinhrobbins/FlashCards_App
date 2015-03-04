@@ -38,7 +38,7 @@ public class TagRepositoryImplUT extends BaseMockingTest {
 
     private List<Tag> results;
 
-    private TagRepository repository;
+    private TagRepository<Tag, String> repository;
 
     @Before
     public void before() {
@@ -99,7 +99,7 @@ public class TagRepositoryImplUT extends BaseMockingTest {
 
     @Test
     public void testCount() {
-        when(query.getSingleResult()).thenReturn(new Long(2));
+        when(query.getSingleResult()).thenReturn(2L);
 
         Long count = repository.count();
 

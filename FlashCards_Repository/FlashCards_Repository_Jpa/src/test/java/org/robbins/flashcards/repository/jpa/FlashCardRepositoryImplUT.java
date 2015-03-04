@@ -41,13 +41,13 @@ public class FlashCardRepositoryImplUT extends BaseMockingTest {
 
     private List<FlashCard> results;
 
-    private FlashCardRepository repository;
+    private FlashCardRepository<FlashCard, Tag, String> repository;
 
     @Before
     public void before() {
         repository = new FlashCardRepositoryImpl();
         query = Mockito.mock(Query.class);
-        results = new ArrayList<FlashCard>();
+        results = new ArrayList<>();
         results.add(new FlashCard());
         ReflectionTestUtils.setField(repository, "em", em);
 
@@ -78,7 +78,7 @@ public class FlashCardRepositoryImplUT extends BaseMockingTest {
     @Test
     public void testFindByTagsInPageable() {
         PageRequest pageRequest = new PageRequest(1, 1);
-        List<FlashCard> results = repository.findByTagsIn(new HashSet<Tag>(), pageRequest);
+        List<FlashCard> results = repository.findByTagsIn(new HashSet<>(), pageRequest);
 
         Mockito.verify(query, Mockito.times(1)).getResultList();
         assertThat(results, is(List.class));
@@ -131,7 +131,7 @@ public class FlashCardRepositoryImplUT extends BaseMockingTest {
 
     @Test
     public void testCount() {
-        when(query.getSingleResult()).thenReturn(new Long(2));
+        when(query.getSingleResult()).thenReturn(2L);
 
         Long count = repository.count();
 

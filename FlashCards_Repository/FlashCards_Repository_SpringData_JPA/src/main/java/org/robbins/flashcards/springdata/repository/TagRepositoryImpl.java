@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag, String> implements
-        TagRepository {
+        TagRepository<Tag, String> {
 
     @Inject
     private TagSpringDataRepository repository;

@@ -20,7 +20,7 @@ public class DefaultUserRepositoryFacade extends AbstractCrudRepositoryFacadeImp
         UserFacade {
 
     @Inject
-    private UserRepository repository;
+    private UserRepository<User, String> repository;
 
     @Inject
     @Qualifier("userDtoConverter")
@@ -33,14 +33,14 @@ public class DefaultUserRepositoryFacade extends AbstractCrudRepositoryFacadeImp
     }
 
     @Override
-    public UserRepository getRepository() {
+    public UserRepository<User, String> getRepository() {
 		return repository;
 	}
 
     @Override
     public UserDto findUserByOpenid(final String openid) throws RepositoryException
 	{
-        User result = getRepository().findUserByOpenid(openid);
+        User result = repository.findUserByOpenid(openid);
         if (result == null) {
             return null;
         }
@@ -52,12 +52,12 @@ public class DefaultUserRepositoryFacade extends AbstractCrudRepositoryFacadeImp
         User entity = getConverter().getEntity(dto);
 
         if (!dto.isNew()) {
-            User orig = getRepository().findOne(dto.getId());
+            User orig = repository.findOne(dto.getId());
             entity.setCreatedBy(orig.getCreatedBy());
             entity.setCreatedDate(orig.getCreatedDate());
         }
 
-        User result = getRepository().save(entity);
+        User result = repository.save(entity);
         return convertAndInitializeEntity(result);
     }
 }

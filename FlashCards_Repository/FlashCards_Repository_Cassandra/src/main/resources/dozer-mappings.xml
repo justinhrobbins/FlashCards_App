@@ -10,6 +10,11 @@
                 <class-a>org.joda.time.DateTime</class-a>
                 <class-b>java.util.Date</class-b>
             </converter>
+            <converter
+                    type="org.robbins.flashcards.repository.util.dozer.UUIDConverter">
+                <class-a>java.util.UUID</class-a>
+                <class-b>java.lang.String</class-b>
+            </converter>
         </custom-converters>
     </configuration>
 </mappings>
