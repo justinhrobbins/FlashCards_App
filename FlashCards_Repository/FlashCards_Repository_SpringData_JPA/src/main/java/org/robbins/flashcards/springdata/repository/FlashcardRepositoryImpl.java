@@ -13,7 +13,7 @@ import java.util.Set;
 
 @Repository
 public class FlashcardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCard, String> implements
-        FlashCardRepository {
+        FlashCardRepository<FlashCard, Tag, String> {
 
     @Inject
     private FlashCardSpringDataRepository repository;

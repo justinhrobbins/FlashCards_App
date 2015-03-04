@@ -23,7 +23,7 @@ import static org.junit.Assert.assertThat;
 public class TagRepositoryIT extends BaseIntegrationTest {
 
     @Inject
-    private TagRepository tagRepository;
+    private TagRepository<Tag, String> tagRepository;
 
     @Test
     public void findByName() {

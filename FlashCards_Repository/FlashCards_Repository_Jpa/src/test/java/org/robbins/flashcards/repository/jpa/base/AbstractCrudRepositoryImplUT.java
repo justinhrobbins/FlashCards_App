@@ -48,7 +48,7 @@ public class AbstractCrudRepositoryImplUT extends BaseMockingTest {
 
     private List<Tag> results;
 
-    private TagRepository repository;
+    private TagRepository<Tag, String> repository;
 
     private final String uuid = UUID.randomUUID().toString();
 

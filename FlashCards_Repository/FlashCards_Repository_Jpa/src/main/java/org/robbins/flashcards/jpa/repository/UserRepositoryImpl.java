@@ -16,7 +16,7 @@ import java.util.List;
 
 @Repository("userRepository")
 public class UserRepositoryImpl extends AbstractCrudRepositoryImpl<User, String> implements
-        UserRepository {
+        UserRepository<User, String> {
 
     @Override
     public Class<User> getClazz() {

@@ -22,7 +22,7 @@ public class UserRepositoryIT extends AbstractCassandraIntegrationTest {
     private final String OPEN_ID = "api_user_open_id";
 
     @Autowired
-    UserRepository repository;
+    UserCassandraRepository repository;
 
     @Test
     public void testFindOne() {

@@ -16,12 +16,12 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
  * Created by justinrobbins on 2/14/15.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:applicationContext-repository-cassandra.xml")
+@ContextConfiguration("classpath:test-applicationContext-repository-cassandra.xml")
 @TestExecutionListeners({CassandraUnitDependencyInjectionTestExecutionListener.class,
         DependencyInjectionTestExecutionListener.class,
         DirtiesContextTestExecutionListener.class})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-@EmbeddedCassandra(configuration = "flashcards-cassandra.yaml", clusterName = "Flashcards Cluster", host = "127.0.0.1", port = 9042)
+@EmbeddedCassandra(configuration = "flashcards-cassandra.yaml", clusterName = "Flashcards Cluster", host = "127.0.0.1")
 @Category(IntegrationTest.class)
 public class AbstractCassandraIntegrationTest {
 }

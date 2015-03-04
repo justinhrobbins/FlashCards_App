@@ -1,12 +1,12 @@
 
 package org.robbins.flashcards.repository.facade.impl;
 
+import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.exceptions.RepositoryException;
 import org.robbins.flashcards.facade.TagFacade;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.repository.TagRepository;
-import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.repository.facade.base.AbstractCrudRepositoryFacadeImpl;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -22,7 +22,7 @@ public class DefaultTagRepositoryFacade extends AbstractCrudRepositoryFacadeImpl
         TagFacade {
 
     @Inject
-	private TagRepository repository;
+	private TagRepository<Tag, String> repository;
 
     @Inject
     @Qualifier("tagDtoConverter")
@@ -35,13 +35,13 @@ public class DefaultTagRepositoryFacade extends AbstractCrudRepositoryFacadeImpl
     }
 
     @Override
-	public TagRepository getRepository() {
+	public TagRepository<Tag, String> getRepository() {
 		return repository;
 	}
 
     @Override
     public TagDto findByName(final String name) throws RepositoryException {
-        Tag result = getRepository().findByName(name);
+        Tag result = repository.findByName(name);
 
         if (result == null) {
             return null;
@@ -51,7 +51,7 @@ public class DefaultTagRepositoryFacade extends AbstractCrudRepositoryFacadeImpl
 
     @Override
     public List<TagDto> findTagsForFlashcard(final String flashcardId, final Set<String> fields) throws RepositoryException {
-        List<Tag> results = getRepository().findByFlashcards_Id(flashcardId);
+        List<Tag> results = repository.findByFlashcards_Id(flashcardId);
         return convertAndInitializeEntities(results, fields);
     }
 }

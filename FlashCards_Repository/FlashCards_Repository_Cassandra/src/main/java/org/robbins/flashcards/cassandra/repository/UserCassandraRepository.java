@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository("userRepository")
-public interface UserRepository extends TypedIdCassandraRepository<UserCassandraDto, UUID> {
+public interface UserCassandraRepository extends TypedIdCassandraRepository<UserCassandraDto, UUID> {
 
     @Query("SELECT * FROM user WHERE openid = ?0")
     public UserCassandraDto findUserByOpenid(final String openid);

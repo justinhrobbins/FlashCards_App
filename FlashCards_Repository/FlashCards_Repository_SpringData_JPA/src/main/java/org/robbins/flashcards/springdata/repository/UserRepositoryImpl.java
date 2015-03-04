@@ -9,7 +9,7 @@ import javax.inject.Inject;
 
 @Repository
 public class UserRepositoryImpl extends AbstractCrudRepositoryImpl<User, String> implements
-        UserRepository {
+        UserRepository<User, String> {
 
     @Inject
     private UserSpringDataRepository repository;

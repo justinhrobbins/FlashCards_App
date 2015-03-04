@@ -17,7 +17,7 @@ import java.util.Set;
 
 @Repository
 public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCard, String>
-        implements FlashCardRepository {
+        implements FlashCardRepository<FlashCard, Tag, String> {
 
     @Override
     public Class<FlashCard> getClazz() {

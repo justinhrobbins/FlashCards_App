@@ -38,7 +38,7 @@ public class UserRepositoryImplUT extends BaseMockingTest {
 
     private List<User> results;
 
-    private UserRepository repository;
+    private UserRepository<User, String> repository;
 
     @Before
     public void before() {
@@ -90,7 +90,7 @@ public class UserRepositoryImplUT extends BaseMockingTest {
 
     @Test
     public void testCount() {
-        when(query.getSingleResult()).thenReturn(new Long(2));
+        when(query.getSingleResult()).thenReturn(2L);
 
         Long count = repository.count();
 

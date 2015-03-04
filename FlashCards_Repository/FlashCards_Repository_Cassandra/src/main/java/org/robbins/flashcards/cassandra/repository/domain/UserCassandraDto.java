@@ -1,18 +1,13 @@
 
 package org.robbins.flashcards.cassandra.repository.domain;
 
-import org.springframework.data.cassandra.mapping.PrimaryKey;
 import org.springframework.data.cassandra.mapping.Table;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.UUID;
 
 @Table(value = "user")
-public class UserCassandraDto implements Serializable {
-
-    @PrimaryKey
-    private UUID id;
+public class UserCassandraDto extends AbstractPersistable implements Serializable {
 
     private String openid;
     private String firstName;
@@ -25,14 +20,6 @@ public class UserCassandraDto implements Serializable {
     private Date lastLoginDate;
 
     public UserCassandraDto() {
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
     }
 
     public String getOpenid() {
