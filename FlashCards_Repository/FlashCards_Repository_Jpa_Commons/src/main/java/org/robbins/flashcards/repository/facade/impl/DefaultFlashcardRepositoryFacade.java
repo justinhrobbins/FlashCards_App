@@ -115,12 +115,10 @@ public class DefaultFlashcardRepositoryFacade extends
         Set<Tag> results = new HashSet<>();
         for (TagDto tagDto : tags) {
             Tag tag;
-            // if we don't have the id of the Tag
+
             if (tagDto.getId() == null || StringUtils.isEmpty(tagDto.getId())) {
-                // try to get the existing Tag
                 tag = tagRepository.findByName(tagDto.getName());
 
-                // does the Tag exist?
                 if (tag == null) {
                     // tag doesn't exist, re-add the Tag as-as
                     tag = tagConverter.getEntity(tagDto);

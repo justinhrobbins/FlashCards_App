@@ -3,7 +3,7 @@ package org.robbins.flashcards.cassandra.repository.domain;
 import java.util.UUID;
 
 public class UserCassandraBuilder {
-    private final UserCassandraDto user = new UserCassandraDto();
+    private final UserCassandraEntity user = new UserCassandraEntity();
 
     public UserCassandraBuilder withId(final UUID id) {
         this.user.setId(id);
@@ -15,7 +15,7 @@ public class UserCassandraBuilder {
         return this;
     }
 
-    public UserCassandraDto build()
+    public UserCassandraEntity build()
     {
         return this.user;
     }

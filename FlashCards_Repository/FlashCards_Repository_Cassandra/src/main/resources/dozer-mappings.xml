@@ -4,7 +4,7 @@
         xsi:schemaLocation="http://dozer.sourceforge.net
         http://dozer.sourceforge.net/schema/beanmapping.xsd">
     <configuration>
-        <custom-converters> <!-- these are always bi-directional -->
+        <custom-converters>
             <converter
                 type="org.robbins.flashcards.repository.util.dozer.DateTimeConverter">
                 <class-a>org.joda.time.DateTime</class-a>
@@ -15,6 +15,21 @@
                 <class-a>java.util.UUID</class-a>
                 <class-b>java.lang.String</class-b>
             </converter>
+            <converter
+                    type="org.robbins.flashcards.repository.util.dozer.TagConverter">
+                <class-a>org.robbins.flashcards.dto.TagDto</class-a>
+                <class-b>org.robbins.flashcards.cassandra.repository.domain.TagCassandraEntity</class-b>
+            </converter>
         </custom-converters>
     </configuration>
+    <mapping>
+        <class-a>org.robbins.flashcards.dto.FlashCardDto</class-a>
+        <class-b>org.robbins.flashcards.cassandra.repository.domain.FlashCardCassandraEntity</class-b>
+        <field custom-converter="org.robbins.flashcards.repository.util.dozer.MapToSetConverter">
+            <a>tags</a>
+            <b>tags</b>
+            <a-hint>java.util.List</a-hint>
+            <b-hint>java.util.Map</b-hint>
+        </field>
+    </mapping>
 </mappings>

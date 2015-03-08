@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Table(value = "user")
-public class UserCassandraDto extends AbstractPersistable implements Serializable {
+public class UserCassandraEntity extends AbstractPersistable implements Serializable {
 
     private String openid;
     private String firstName;
@@ -19,7 +19,7 @@ public class UserCassandraDto extends AbstractPersistable implements Serializabl
     private String language;
     private Date lastLoginDate;
 
-    public UserCassandraDto() {
+    public UserCassandraEntity() {
     }
 
     public String getOpenid() {

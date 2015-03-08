@@ -1,7 +1,7 @@
 
 package org.robbins.flashcards.cassandra.repository.facade;
 
-import org.robbins.flashcards.cassandra.repository.domain.UserCassandraDto;
+import org.robbins.flashcards.cassandra.repository.domain.UserCassandraEntity;
 import org.robbins.flashcards.cassandra.repository.facade.base.AbstractCrudRepositoryFacadeImpl;
 import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.dto.UserDto;
@@ -15,28 +15,28 @@ import javax.inject.Inject;
 import java.util.UUID;
 
 @Component("userRepositoryFacade")
-public class DefaultUserRepositoryFacade extends AbstractCrudRepositoryFacadeImpl<UserDto, UserCassandraDto>  implements
+public class DefaultUserRepositoryFacade extends AbstractCrudRepositoryFacadeImpl<UserDto, UserCassandraEntity>  implements
         UserFacade {
 
     @Inject
-	private UserRepository<UserCassandraDto, UUID> repository;
+	private UserRepository<UserCassandraEntity, UUID> repository;
 
     @Inject
     @Qualifier("userDtoConverter")
-    private DtoConverter<UserDto, UserCassandraDto> converter;
+    private DtoConverter<UserDto, UserCassandraEntity> converter;
 
-    public DtoConverter<UserDto, UserCassandraDto> getConverter()
+    public DtoConverter<UserDto, UserCassandraEntity> getConverter()
     {
         return converter;
     }
 
-	public UserRepository<UserCassandraDto, UUID> getRepository() {
+	public UserRepository<UserCassandraEntity, UUID> getRepository() {
 		return repository;
 	}
 
     @Override
     public UserDto findUserByOpenid(final String openid) throws FlashcardsException {
-        UserCassandraDto user = repository.findUserByOpenid(openid);
+        UserCassandraEntity user = repository.findUserByOpenid(openid);
         return user == null ? null : getConverter().getDto(user);
     }
 

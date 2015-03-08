@@ -1,8 +1,5 @@
 package org.robbins.flashcards.dto;
 
-/**
- * Created by justinrobbins on 2/16/15.
- */
 public class FlashCardDtoBuilder {
     private FlashCardDto flashcard = new FlashCardDto();
 
@@ -20,6 +17,11 @@ public class FlashCardDtoBuilder {
 
     public FlashCardDtoBuilder withAnswer(final String answer) {
         flashcard.setAnswer(answer);
+        return this;
+    }
+
+    public FlashCardDtoBuilder withTag(final TagDto tag) {
+        flashcard.getTags().add(tag);
         return this;
     }
 

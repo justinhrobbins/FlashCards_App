@@ -26,9 +26,9 @@ public class FlashCardDto extends AbstractAuditableDto implements Serializable {
 
     private String answer;
 
-    private Set<TagDto> tags = new HashSet<TagDto>(0);
+    private Set<TagDto> tags = new HashSet<>(0);
 
-    private List<String> links = new ArrayList<String>(0);
+    private List<String> links = new ArrayList<>(0);
 
     public FlashCardDto() {
     }

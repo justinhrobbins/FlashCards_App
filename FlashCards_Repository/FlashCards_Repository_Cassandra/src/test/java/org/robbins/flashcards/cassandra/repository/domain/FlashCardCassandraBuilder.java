@@ -3,7 +3,7 @@ package org.robbins.flashcards.cassandra.repository.domain;
 import java.util.UUID;
 
 public class FlashCardCassandraBuilder {
-    private final FlashCardCassandraDto flashcard = new FlashCardCassandraDto();
+    private final FlashCardCassandraEntity flashcard = new FlashCardCassandraEntity();
 
     public FlashCardCassandraBuilder withId(final UUID id) {
         this.flashcard.setId(id);
@@ -20,7 +20,12 @@ public class FlashCardCassandraBuilder {
         return this;
     }
 
-    public FlashCardCassandraDto build()
+    public FlashCardCassandraBuilder withTag(final TagCassandraEntity tag) {
+        this.flashcard.getTags().put(tag.getId(), tag.getName());
+        return this;
+    }
+
+    public FlashCardCassandraEntity build()
     {
         return this.flashcard;
     }

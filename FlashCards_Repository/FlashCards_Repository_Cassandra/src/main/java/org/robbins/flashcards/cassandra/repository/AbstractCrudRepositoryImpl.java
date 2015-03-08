@@ -59,7 +59,7 @@ public abstract class AbstractCrudRepositoryImpl<T, ID extends Serializable>
 
     @Override
     public List<T> findByCreatedBy_Id(final ID userId) {
-        return findByCreatedBy_Id(userId);
+        throw new NotImplementedException("method not yet implemented in Cassandra repository");
     }
 
 
