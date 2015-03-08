@@ -2,7 +2,7 @@
 package org.robbins.flashcards.cassandra.repository.facade;
 
 import org.apache.commons.lang3.NotImplementedException;
-import org.robbins.flashcards.cassandra.repository.domain.TagCassandraDto;
+import org.robbins.flashcards.cassandra.repository.domain.TagCassandraEntity;
 import org.robbins.flashcards.cassandra.repository.facade.base.AbstractCrudRepositoryFacadeImpl;
 import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.dto.TagDto;
@@ -19,28 +19,28 @@ import java.util.Set;
 import java.util.UUID;
 
 @Component("tagRepositoryFacade")
-public class DefaultTagRepositoryFacade extends AbstractCrudRepositoryFacadeImpl<TagDto, TagCassandraDto> implements
+public class DefaultTagRepositoryFacade extends AbstractCrudRepositoryFacadeImpl<TagDto, TagCassandraEntity> implements
         TagFacade {
 
     @Inject
-	private TagRepository<TagCassandraDto, UUID> repository;
+	private TagRepository<TagCassandraEntity, UUID> repository;
 
     @Inject
     @Qualifier("tagDtoConverter")
-    private DtoConverter<TagDto, TagCassandraDto> converter;
+    private DtoConverter<TagDto, TagCassandraEntity> converter;
 
-    public DtoConverter<TagDto, TagCassandraDto> getConverter()
+    public DtoConverter<TagDto, TagCassandraEntity> getConverter()
     {
         return converter;
     }
 
-	public TagRepository<TagCassandraDto, UUID> getRepository() {
+	public TagRepository<TagCassandraEntity, UUID> getRepository() {
 		return repository;
 	}
 
     @Override
     public TagDto findByName(final String name) throws RepositoryException {
-        final TagCassandraDto tag = repository.findByName(name);
+        final TagCassandraEntity tag = repository.findByName(name);
         return tag == null ? null : getConverter().getDto(tag);
     }
 

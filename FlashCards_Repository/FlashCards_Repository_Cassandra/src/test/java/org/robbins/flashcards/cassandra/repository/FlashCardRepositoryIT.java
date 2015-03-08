@@ -2,13 +2,11 @@ package org.robbins.flashcards.cassandra.repository;
 
 
 import com.google.common.collect.Lists;
-import org.apache.commons.lang.RandomStringUtils;
-import org.cassandraunit.spring.CassandraDataSet;
 import org.junit.Test;
-import org.robbins.flashcards.cassandra.repository.domain.FlashCardCassandraBuilder;
-import org.robbins.flashcards.cassandra.repository.domain.FlashCardCassandraDto;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.robbins.flashcards.cassandra.repository.domain.*;
+import org.robbins.flashcards.repository.FlashCardRepository;
 
+import javax.inject.Inject;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,59 +14,72 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.Assert.assertThat;
 
-@CassandraDataSet(value = {"cql/FlashCardRepositoryIT.cql"}, keyspace = "flashcardsapp")
 public class FlashCardRepositoryIT extends AbstractCassandraIntegrationTest {
 
     private final String ID = "0791e3ec-c072-11e4-8dfc-aa07a5b093db";
     private final String QUESTION = "question1";
     private final String ANSWER = "answer1";
 
-    @Autowired
-    FlashCardCassandraRepository flashCardRepository;
+    @Inject
+    private FlashCardRepository<FlashCardCassandraEntity, TagCassandraEntity, UUID> flashCardRepository;
+
+    @Inject
+    private TagFlashcardCassandraRepository tagFlashcardCassandraRepository;
 
     @Test
     public void testFindOne() {
-        final FlashCardCassandraDto fc = new FlashCardCassandraBuilder()
+        final FlashCardCassandraEntity fc = new FlashCardCassandraBuilder()
                 .withId(UUID.fromString(ID)).build();
 
-        final FlashCardCassandraDto result = flashCardRepository.findOne(fc.getId());
+        final FlashCardCassandraEntity result = flashCardRepository.findOne(fc.getId());
         assertThat(result.getQuestion(), is(QUESTION));
+        assertThat(result.getAnswer(), is(ANSWER));
     }
 
     @Test
     public void testFindAll() {
-        final List<FlashCardCassandraDto> flashcards = Lists.newArrayList(flashCardRepository.findAll());
+        final List<FlashCardCassandraEntity> flashcards = Lists.newArrayList(flashCardRepository.findAll());
         assertThat(flashcards.size(), greaterThan(0));
     }
 
     @Test
     public void testSave() {
-        final FlashCardCassandraDto flashcard = new FlashCardCassandraBuilder()
+        final FlashCardCassandraEntity flashcard = new FlashCardCassandraBuilder()
                 .withId(UUID.randomUUID())
                 .withQuestion("new question")
                 .withAnswer("new answer")
                 .build();
 
-        FlashCardCassandraDto result = flashCardRepository.save(flashcard);
+        FlashCardCassandraEntity result = flashCardRepository.save(flashcard);
         assertThat(result.getId(), is(flashcard.getId()));
         assertThat(result.getQuestion(), is(flashcard.getQuestion()));
         assertThat(result.getAnswer(), is(flashcard.getAnswer()));
     }
 
     @Test
-    public void testDelete() {
-        FlashCardCassandraDto toDelete = createFlashCard();
-
-        flashCardRepository.delete(toDelete.getId());
-    }
-
-    private FlashCardCassandraDto createFlashCard() {
-        final FlashCardCassandraDto flashcard = new FlashCardCassandraBuilder()
+    public void testSave_WithTags() {
+        final TagCassandraEntity tag1 = testUtils.createTagEntity();
+        final TagCassandraEntity tag2 = testUtils.createTagEntity();
+        final FlashCardCassandraEntity flashcard = new FlashCardCassandraBuilder()
                 .withId(UUID.randomUUID())
-                .withQuestion(RandomStringUtils.random(10))
-                .withAnswer(RandomStringUtils.random(10))
+                .withQuestion("new question")
+                .withAnswer("new answer")
+                .withTag(tag1)
+                .withTag(tag2)
                 .build();
 
-        return flashCardRepository.save(flashcard);
+        FlashCardCassandraEntity result = flashCardRepository.save(flashcard);
+        assertThat(result.getId(), is(flashcard.getId()));
+        assertThat(result.getTags().size(), is(2));
+
+        List<TagFlashCardCassandraEntity> tagFlashcards = tagFlashcardCassandraRepository.findByTagId(tag1.getId());
+        assertThat(tagFlashcards.size(), is(1));
+    }
+
+    @Test
+    public void testDelete() {
+        FlashCardCassandraEntity toDelete = testUtils.createFlashCardEntity();
+
+        flashCardRepository.delete(toDelete.getId());
     }
 }

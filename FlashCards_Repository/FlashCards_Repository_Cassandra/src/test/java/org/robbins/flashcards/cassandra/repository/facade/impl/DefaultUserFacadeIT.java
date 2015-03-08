@@ -2,7 +2,6 @@
 package org.robbins.flashcards.cassandra.repository.facade.impl;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.cassandraunit.spring.CassandraDataSet;
 import org.junit.Test;
 import org.robbins.flashcards.cassandra.repository.AbstractCassandraIntegrationTest;
 import org.robbins.flashcards.dto.UserDto;
@@ -20,7 +19,6 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
 
-@CassandraDataSet(value = {"cql/UserRepositoryIT.cql"}, keyspace = "flashcardsapp")
 public class DefaultUserFacadeIT extends AbstractCassandraIntegrationTest {
 
     private final String ID = "9caa6c8e-b720-11e4-a71e-12e3f512a338";
@@ -101,7 +99,7 @@ public class DefaultUserFacadeIT extends AbstractCassandraIntegrationTest {
 
     private UserDto createUser() throws FlashcardsException {
         final UserDto dto = new UserDtoBuilder()
-                .withOpenId(RandomStringUtils.random(10)).build();
+                .withOpenId(RandomStringUtils.randomAlphabetic(10)).build();
 
         return userFacade.save(dto);
     }

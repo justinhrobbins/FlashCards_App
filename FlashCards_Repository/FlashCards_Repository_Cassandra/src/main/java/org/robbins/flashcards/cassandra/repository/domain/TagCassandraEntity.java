@@ -5,7 +5,7 @@ import org.springframework.data.cassandra.mapping.Table;
 import java.io.Serializable;
 
 @Table(value = "tag")
-public class TagCassandraDto extends AbstractPersistable implements Serializable {
+public class TagCassandraEntity extends AbstractPersistable implements Serializable {
 
     private String name;
 

@@ -1,12 +1,8 @@
 
 package org.robbins.flashcards.cassandra.repository.facade.impl;
 
-import org.apache.commons.lang.RandomStringUtils;
-import org.cassandraunit.spring.CassandraDataSet;
 import org.junit.Test;
 import org.robbins.flashcards.cassandra.repository.AbstractCassandraIntegrationTest;
-import org.robbins.flashcards.cassandra.repository.domain.TagCassandraBuilder;
-import org.robbins.flashcards.cassandra.repository.domain.TagCassandraDto;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.dto.TagDtoBuilder;
 import org.robbins.flashcards.exceptions.FlashcardsException;
@@ -21,7 +17,6 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
-@CassandraDataSet(value = {"cql/TagRepositoryIT.cql"}, keyspace = "flashcardsapp")
 public class DefaultTagFacadeIT extends AbstractCassandraIntegrationTest {
 
     private final String TAG_ID = "eaa488a0-b0d8-11e4-af90-12e3f512a338";
@@ -83,7 +78,7 @@ public class DefaultTagFacadeIT extends AbstractCassandraIntegrationTest {
     public void testUpdate() throws FlashcardsException
     {
         final String UPDATED_NAME = "updated name";
-        final TagDto tagToUpdate = createTag();
+        final TagDto tagToUpdate = testUtils.createTagDto();
         tagToUpdate.setName(UPDATED_NAME);
 
         final TagDto result =  tagFacade.save(tagToUpdate);
@@ -94,15 +89,8 @@ public class DefaultTagFacadeIT extends AbstractCassandraIntegrationTest {
 
     @Test
     public void testDelete() throws FlashcardsException {
-        final TagDto tagToDelete = createTag();
+        final TagDto tagToDelete = testUtils.createTagDto();
 
         tagFacade.delete(tagToDelete.getId());
-    }
-
-    private TagDto createTag() throws FlashcardsException {
-        final TagDto tag = new TagDtoBuilder()
-                .withName(RandomStringUtils.random(10)).build();
-
-        return tagFacade.save(tag);
     }
 }

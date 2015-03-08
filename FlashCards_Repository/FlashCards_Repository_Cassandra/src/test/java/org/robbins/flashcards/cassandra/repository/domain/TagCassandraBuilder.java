@@ -3,7 +3,7 @@ package org.robbins.flashcards.cassandra.repository.domain;
 import java.util.UUID;
 
 public class TagCassandraBuilder {
-    private final TagCassandraDto tag = new TagCassandraDto();
+    private final TagCassandraEntity tag = new TagCassandraEntity();
 
     public TagCassandraBuilder withId(final UUID id) {
         this.tag.setId(id);
@@ -15,7 +15,7 @@ public class TagCassandraBuilder {
         return this;
     }
 
-    public TagCassandraDto build()
+    public TagCassandraEntity build()
     {
         return this.tag;
     }
