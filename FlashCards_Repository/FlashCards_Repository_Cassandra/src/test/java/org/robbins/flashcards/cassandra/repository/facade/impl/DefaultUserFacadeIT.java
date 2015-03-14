@@ -22,7 +22,7 @@ import static org.junit.Assert.assertThat;
 public class DefaultUserFacadeIT extends AbstractCassandraIntegrationTest {
 
     private final String ID = "9caa6c8e-b720-11e4-a71e-12e3f512a338";
-    private final String OPEN_ID = "api_user_open_id";
+    private final String OPEN_ID = "apiuser";
 
     @Inject
     private UserFacade userFacade;
