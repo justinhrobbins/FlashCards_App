@@ -10,9 +10,12 @@ import org.robbins.flashcards.cassandra.repository.domain.FlashCardCassandraEnti
 import org.robbins.flashcards.cassandra.repository.domain.TagCassandraEntity;
 import org.robbins.flashcards.cassandra.repository.domain.TagFlashCardCassandraEntity;
 import org.robbins.flashcards.repository.TagRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.cassandra.core.CassandraOperations;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.util.List;
 import java.util.UUID;
@@ -22,6 +25,8 @@ import static com.datastax.driver.core.querybuilder.QueryBuilder.*;
 @Repository
 public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<TagCassandraEntity, UUID> implements
         TagRepository<TagCassandraEntity, UUID> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(TagRepositoryImpl.class);
 
     @Inject
     private CassandraOperations cassandraOperations;
@@ -33,6 +38,9 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<TagCassandraEn
     private TagFlashcardCassandraRepository tagFlashcardCassandraRepository;
 
     @Inject FlashCardCassandraRepository flashCardCassandraRepository;
+
+    private PreparedStatement tagStatement;
+    private PreparedStatement flashcardStatement;
 
     private static final String TAG_TABLE = "tag";
     private static final String FLASHCARD_TABLE = "flashcard";
@@ -52,27 +60,21 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<TagCassandraEn
         return tag;
     }
 
-    private void updateFlashCardTags(final TagCassandraEntity tag) {
-        List<TagFlashCardCassandraEntity> tagFlashcards = tagFlashcardCassandraRepository.findByTagId(tag.getId());
-        if (tagFlashcards != null && tagFlashcards.size() > 0) {
-            for (TagFlashCardCassandraEntity tagFlashCard : tagFlashcards) {
-                FlashCardCassandraEntity flashcard = flashCardCassandraRepository.findOne(tagFlashCard.getId().getFlashCardId());
-                if (flashcard != null && flashcard.getTags() != null) {
-                    flashcard.getTags().put(tag.getId(), tag.getName());
-                }
-            }
+    @SuppressWarnings("unused")
+    @PostConstruct
+    private void initStatements(){
+        Session session = cassandraOperations.getSession();
+        if (session == null){
+            LOGGER.error("Cassandra not available");
+        } else {
+            tagStatement = session.prepare(tagInsert());
+            flashcardStatement = session.prepare(flashcardUpdateTag());
         }
+
     }
 
     private BatchStatement tagBatch(TagCassandraEntity tag) {
-        Session session = cassandraOperations.getSession();
-
-        PreparedStatement tagStatement = session.prepare(tagInsert());
-        PreparedStatement flashcardStatement = session.prepare(flashcardUpdateTag());
-
         BatchStatement batch = new BatchStatement();
-
-        // flashcard
         batch.add(tagStatement.bind(
                 tag.getId(),
                 tag.getName()));
