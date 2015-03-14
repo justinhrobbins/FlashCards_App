@@ -1,4 +1,4 @@
-CREATE KEYSPACE flashcardsapp WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
+CREATE KEYSPACE flashcardsapp WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 3 };
 USE flashcardsapp;
 
 create table flashcard (

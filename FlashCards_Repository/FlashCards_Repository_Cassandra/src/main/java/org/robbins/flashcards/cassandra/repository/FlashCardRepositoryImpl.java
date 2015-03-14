@@ -10,10 +10,13 @@ import org.robbins.flashcards.cassandra.repository.domain.FlashCardCassandraEnti
 import org.robbins.flashcards.cassandra.repository.domain.TagCassandraEntity;
 import org.robbins.flashcards.repository.FlashCardRepository;
 import org.robbins.flashcards.repository.TagRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.cassandra.core.CassandraOperations;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +30,8 @@ import static com.datastax.driver.core.querybuilder.QueryBuilder.insertInto;
 public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCardCassandraEntity, UUID> implements
         FlashCardRepository<FlashCardCassandraEntity, TagCassandraEntity, UUID> {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(FlashCardRepositoryImpl.class);
+
     @Inject
     private CassandraOperations cassandraOperations;
 
@@ -35,6 +40,9 @@ public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
 
     @Inject
     private TagRepository<TagCassandraEntity, UUID> tagRepository;
+
+    private PreparedStatement flashcardStatement;
+    private PreparedStatement tagFlashcardStatement;
 
     private static final String TAG_FLASHCARD_TABLE = "tag_flashcard";
     private static final String FLASHCARD_TABLE = "flashcard";
@@ -50,6 +58,19 @@ public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
         return repository;
     }
 
+    @SuppressWarnings("unused")
+    @PostConstruct
+    private void initStatements(){
+        Session session = cassandraOperations.getSession();
+        if (session == null){
+            LOGGER.error("Cassandra not available");
+        } else {
+            flashcardStatement = session.prepare(flashcardInsert());
+            tagFlashcardStatement = session.prepare(tagFlashcardInsert());
+        }
+
+    }
+
     @Override
     public FlashCardCassandraEntity save(final FlashCardCassandraEntity flashcard) {
         cassandraOperations.execute(flashcardBatch(flashcard));
@@ -58,21 +79,14 @@ public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
     }
 
     private BatchStatement flashcardBatch(FlashCardCassandraEntity flashcard) {
-        Session session = cassandraOperations.getSession();
-
-        PreparedStatement flashcardStatement = session.prepare(flashcardInsert());
-        PreparedStatement tagFlashcardStatement = session.prepare(tagFlashcardInsert());
-
         BatchStatement batch = new BatchStatement();
 
-        // flashcard
         batch.add(flashcardStatement.bind(
                 flashcard.getId(),
                 flashcard.getQuestion(),
                 flashcard.getAnswer(),
                 flashcard.getTags()));
 
-        // tag flashcards
         for (Map.Entry<UUID, String> tagEntry : flashcard.getTags().entrySet()) {
             batch.add(tagFlashcardStatement.bind(
                     tagEntry.getKey(),

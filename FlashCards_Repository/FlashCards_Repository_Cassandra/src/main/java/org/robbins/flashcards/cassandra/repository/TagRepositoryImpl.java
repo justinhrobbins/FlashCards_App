@@ -53,13 +53,6 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<TagCassandraEn
         return repository;
     }
 
-    @Override
-    public TagCassandraEntity save(final TagCassandraEntity tag) {
-        cassandraOperations.execute(tagBatch(tag));
-
-        return tag;
-    }
-
     @SuppressWarnings("unused")
     @PostConstruct
     private void initStatements(){
@@ -71,6 +64,13 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<TagCassandraEn
             flashcardStatement = session.prepare(flashcardUpdateTag());
         }
 
+    }
+
+    @Override
+    public TagCassandraEntity save(final TagCassandraEntity tag) {
+        cassandraOperations.execute(tagBatch(tag));
+
+        return tag;
     }
 
     private BatchStatement tagBatch(TagCassandraEntity tag) {
