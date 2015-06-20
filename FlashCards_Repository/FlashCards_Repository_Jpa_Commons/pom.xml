@@ -79,6 +79,10 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aspects</artifactId>
 		</dependency>
+        <dependency>
+            <groupId>com.mysema.querydsl</groupId>
+            <artifactId>querydsl-jpa</artifactId>
+        </dependency>
 
 		<!-- Hibernate -->
 		<dependency>
@@ -153,6 +157,10 @@
 					</execution>
 				</executions>
 			</plugin>
+            <plugin>
+                <groupId>com.mysema.maven</groupId>
+                <artifactId>apt-maven-plugin</artifactId>
+            </plugin>
 		</plugins>
 	</build>
 </project>

@@ -1,4 +1,3 @@
-
 package org.robbins.flashcards.springdata.repository;
 
 import org.robbins.flashcards.model.Tag;
@@ -7,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import javax.inject.Inject;
 import java.util.List;
+
+import static org.robbins.flashcards.springdata.repository.predicates.TagPredicates.hasFlashcardId;
+import static org.robbins.flashcards.springdata.repository.predicates.TagPredicates.hasName;
 
 @Repository
 public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag, String> implements
@@ -22,11 +24,11 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag, String> i
 
     @Override
     public Tag findByName(final String name) {
-        return repository.findByName(name);
+        return repository.findOne(hasName(name));
     }
 
     @Override
     public List<Tag> findByFlashcards_Id(final String flashcardId) {
-        return repository.findByFlashcards_Id(flashcardId);
+        return toList(repository.findAll(hasFlashcardId(flashcardId)));
     }
 }

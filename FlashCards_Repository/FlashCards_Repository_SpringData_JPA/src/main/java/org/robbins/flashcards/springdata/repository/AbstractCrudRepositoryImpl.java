@@ -1,6 +1,7 @@
 
 package org.robbins.flashcards.springdata.repository;
 
+import com.google.common.collect.Lists;
 import org.robbins.flashcards.model.User;
 import org.robbins.flashcards.model.common.AbstractAuditable;
 import org.robbins.flashcards.repository.FlashCardsAppRepository;
@@ -60,5 +61,9 @@ public abstract class AbstractCrudRepositoryImpl<T extends AbstractAuditable<Use
     @Override
     public List<T> findByCreatedBy_Id(final ID userId) {
         return findByCreatedBy_Id(userId);
+    }
+
+    List<T> toList(Iterable<T> iterable) {
+        return Lists.newArrayList(iterable);
     }
 }
