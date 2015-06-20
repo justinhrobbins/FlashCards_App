@@ -119,7 +119,7 @@
         <!-- dependency for 'javax.persistence' packages -->
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.0-api</artifactId>
+            <artifactId>hibernate-jpa-2.1-api</artifactId>
         </dependency>
 
         <!-- Joda-Time provides a quality replacement for the Java date and time 
