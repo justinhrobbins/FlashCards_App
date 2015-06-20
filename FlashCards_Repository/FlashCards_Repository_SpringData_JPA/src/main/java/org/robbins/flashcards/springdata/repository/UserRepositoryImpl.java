@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import javax.inject.Inject;
 
+import static org.robbins.flashcards.springdata.repository.predicates.UserPredicates.hasOpenId;
+
 @Repository
 public class UserRepositoryImpl extends AbstractCrudRepositoryImpl<User, String> implements
         UserRepository<User, String> {
@@ -21,6 +23,6 @@ public class UserRepositoryImpl extends AbstractCrudRepositoryImpl<User, String>
 
     @Override
     public User findUserByOpenid(final String openid) {
-        return repository.findUserByOpenid(openid);
+        return repository.findOne(hasOpenId(openid));
     }
 }
