@@ -40,7 +40,7 @@ public class FlashCard extends AbstractAuditable<User, String> implements Serial
         CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
     @JoinTable(name = "flashcard_tag", joinColumns = @JoinColumn(name = "FlashCardId"), inverseJoinColumns = @JoinColumn(name = "TagId"))
     @OrderBy("name")
-    private Set<Tag> tags = new HashSet<Tag>(0);
+    private Set<Tag> tags = new HashSet<>(0);
 
     @ElementCollection
     @CollectionTable(name = "flashcard_link", joinColumns = @JoinColumn(name = "FlashCardId"))

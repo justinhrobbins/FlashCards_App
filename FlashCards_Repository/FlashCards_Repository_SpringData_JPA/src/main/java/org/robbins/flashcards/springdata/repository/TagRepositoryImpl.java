@@ -2,6 +2,8 @@ package org.robbins.flashcards.springdata.repository;
 
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.repository.TagRepository;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
 import javax.inject.Inject;
@@ -30,5 +32,17 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag, String> i
     @Override
     public List<Tag> findByFlashcards_Id(final String flashcardId) {
         return toList(repository.findAll(hasFlashcardId(flashcardId)));
+    }
+
+    @Override
+    @Cacheable("tagByTagId")
+    public Tag findOne(String id) {
+        return repository.findOne(id);
+    }
+
+    @Override
+    @CacheEvict(value = "tagByTagId", key = "#p0.id")
+    public Tag save(Tag entity) {
+        return repository.save(entity);
     }
 }

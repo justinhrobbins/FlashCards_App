@@ -4,6 +4,8 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <import resource="classpath:applicationContext-caching.xml" />
+
     <beans profile="spring-data">
         <import resource="classpath:applicationContext-repository-springdata.xml" />
     </beans>
@@ -15,5 +17,4 @@
     <beans profile="cassandra">
         <import resource="classpath:applicationContext-repository-cassandra.xml" />
     </beans>
-
 </beans>
