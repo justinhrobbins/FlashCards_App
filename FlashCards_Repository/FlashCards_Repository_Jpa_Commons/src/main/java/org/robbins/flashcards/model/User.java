@@ -141,28 +141,38 @@ public class User extends AbstractAuditable<User, String> implements Serializabl
         this.lastLoginDate = null == lastLoginDate ? null : lastLoginDate.toDate();
     }
 
-    /**
-     * toString
-     *
-     * @return String
-     */
     @Override
-    public String toString() {
-        StringBuffer buffer = new StringBuffer();
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
 
-        buffer.append(getClass().getName()).append("@").append(
-                Integer.toHexString(hashCode())).append(" [");
-        buffer.append("id").append("='").append(getId()).append("' ");
-        buffer.append("openid").append("='").append(getOpenid()).append("' ");
-        buffer.append("firstName").append("='").append(getFirstName()).append("' ");
-        buffer.append("lastName").append("='").append(getLastName()).append("' ");
-        buffer.append("fullName").append("='").append(getFullName()).append("' ");
-        buffer.append("email").append("='").append(getEmail()).append("' ");
-        buffer.append("nickname").append("='").append(getNickname()).append("' ");
-        buffer.append("country").append("='").append(getCountry()).append("' ");
-        buffer.append("language").append("='").append(getLanguage()).append("' ");
-        buffer.append("]");
+        User user = (User) o;
 
-        return buffer.toString();
+        if (!openid.equals(user.openid)) return false;
+        if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) return false;
+        if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
+        if (fullName != null ? !fullName.equals(user.fullName) : user.fullName != null) return false;
+        if (email != null ? !email.equals(user.email) : user.email != null) return false;
+        if (nickname != null ? !nickname.equals(user.nickname) : user.nickname != null) return false;
+        if (country != null ? !country.equals(user.country) : user.country != null) return false;
+        if (language != null ? !language.equals(user.language) : user.language != null) return false;
+        return !(lastLoginDate != null ? !lastLoginDate.equals(user.lastLoginDate) : user.lastLoginDate != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + openid.hashCode();
+        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (nickname != null ? nickname.hashCode() : 0);
+        result = 31 * result + (country != null ? country.hashCode() : 0);
+        result = 31 * result + (language != null ? language.hashCode() : 0);
+        result = 31 * result + (lastLoginDate != null ? lastLoginDate.hashCode() : 0);
+        return result;
     }
 }

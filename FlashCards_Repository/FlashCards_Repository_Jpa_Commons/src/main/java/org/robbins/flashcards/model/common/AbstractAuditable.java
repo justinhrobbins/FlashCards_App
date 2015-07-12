@@ -4,12 +4,7 @@ package org.robbins.flashcards.model.common;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 import org.joda.time.DateTime;
 import org.springframework.data.domain.Auditable;
@@ -22,7 +17,7 @@ public abstract class AbstractAuditable<U, PK extends Serializable> extends
 
     private static final long serialVersionUID = -4336679752608507624L;
 
-    @ManyToOne
+    @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name = "CreatedUserId", nullable = false)
     private U createdBy;
 
@@ -30,7 +25,7 @@ public abstract class AbstractAuditable<U, PK extends Serializable> extends
     @Column(name = "CreatedDate")
     private Date createdDate;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "ModifiedUserId")
     private U lastModifiedBy;
 

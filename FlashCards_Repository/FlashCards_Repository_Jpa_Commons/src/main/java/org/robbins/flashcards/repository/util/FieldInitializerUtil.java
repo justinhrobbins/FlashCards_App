@@ -37,6 +37,8 @@ public class FieldInitializerUtil {
             Object value = PropertyUtils.getProperty(entity, field);
             // is the 'field' a collection?
             if (value instanceof Collection<?>) {
+                LOGGER.debug("Initializing collection: {}", field);
+
                 // this is why we are here!
                 // initialize the collection
                 initializeCollection((Collection<?>) value);

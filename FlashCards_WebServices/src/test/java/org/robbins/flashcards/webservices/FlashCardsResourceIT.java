@@ -57,8 +57,8 @@ public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto, St
     public void testSearchByTagsIn() throws FlashcardsException
 	{
         Set<TagDto> tags = new HashSet<>();
-        tags.add(new TagDto("2"));
-        tags.add(new TagDto("20"));
+        tags.add(new TagDto("2", "two"));
+        tags.add(new TagDto("20", "twenty"));
 
         List<FlashCardDto> searchResult = client.findByTagsIn(tags);
 

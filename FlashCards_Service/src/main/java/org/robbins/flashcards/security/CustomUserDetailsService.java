@@ -3,6 +3,8 @@ package org.robbins.flashcards.security;
 
 import org.robbins.flashcards.dto.UserDto;
 import org.robbins.flashcards.facade.UserFacade;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,6 +24,8 @@ import java.util.List;
  */
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CustomUserDetailsService.class);
 
     @Inject
 	@Qualifier("userRepositoryFacade")
@@ -52,6 +56,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                     getAuthorities());
 
         } catch (Exception e) {
+            LOGGER.error("Unable to authenticate user", e);
             throw new RuntimeException(e);
         }
     }

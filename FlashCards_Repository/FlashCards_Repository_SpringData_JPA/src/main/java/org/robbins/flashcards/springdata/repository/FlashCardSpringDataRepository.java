@@ -4,6 +4,7 @@ package org.robbins.flashcards.springdata.repository;
 import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -17,4 +18,8 @@ public interface FlashCardSpringDataRepository extends JpaRepository<FlashCard, 
     List<FlashCard> findByQuestionLike(final String question, final PageRequest page);
     FlashCard findByQuestion(final String question);
     List<FlashCard> findByTags_Id(final String tagId);
+
+    @Override
+    @EntityGraph(value = "FlashCard.tags", type = EntityGraph.EntityGraphType.LOAD)
+    List<FlashCard> findAll();
 }

@@ -5,20 +5,15 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.robbins.flashcards.model.common.AbstractAuditable;
 
 @Entity
 @Table(name = "tag")
 @AttributeOverride(name = "id", column = @Column(name = "TagId"))
+@NamedEntityGraph(name = "Tag.flashcards",
+        attributeNodes = @NamedAttributeNode("flashcards"))
 public class Tag extends AbstractAuditable<User, String> implements Serializable {
 
     private static final long serialVersionUID = 3642775570292807703L;
@@ -59,21 +54,23 @@ public class Tag extends AbstractAuditable<User, String> implements Serializable
         this.flashcards = flashcards;
     }
 
-    /**
-     * toString
-     *
-     * @return String
-     */
     @Override
-    public String toString() {
-        StringBuffer buffer = new StringBuffer();
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
 
-        buffer.append(getClass().getName()).append("@").append(
-                Integer.toHexString(hashCode())).append(" [");
-        buffer.append("id").append("='").append(getId()).append("' ");
-        buffer.append("name").append("='").append(getName()).append("' ");
-        buffer.append("]");
+        Tag tag = (Tag) o;
 
-        return buffer.toString();
+        if (!name.equals(tag.name)) return false;
+        return !(flashcards != null ? !flashcards.equals(tag.flashcards) : tag.flashcards != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (name == null ? 0 : name.hashCode());
+        return result;
     }
 }

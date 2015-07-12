@@ -4,7 +4,10 @@ package org.robbins.flashcards.repository.util.dozer;
 import org.dozer.CustomFieldMapper;
 import org.dozer.classmap.ClassMap;
 import org.dozer.fieldmap.FieldMap;
+import org.hibernate.Hibernate;
 import org.hibernate.collection.internal.PersistentSet;
+import org.hibernate.collection.spi.PersistentCollection;
+import org.hibernate.proxy.HibernateProxy;
 
 public class HibernateFieldMapper implements CustomFieldMapper {
 
@@ -16,19 +19,13 @@ public class HibernateFieldMapper implements CustomFieldMapper {
     public boolean mapField(final Object source, final Object destination,
             final Object sourceFieldValue, final ClassMap classMap,
             final FieldMap fieldMapping) {
-        // Check if field is a Hibernate PersistentSet
-        if (!(sourceFieldValue instanceof PersistentSet)) {
+        // Check if field is a Hibernate PersistentCollection
+        if (!(sourceFieldValue instanceof PersistentCollection) && !(sourceFieldValue instanceof HibernateProxy)) {
             // Allow dozer to map as normal
             return false;
         }
-
-        // Check if field is already initialized
-        if (((PersistentSet) sourceFieldValue).wasInitialized()) {
-            // Allow dozer to map as normal
-            return false;
+        else {
+            return !Hibernate.isInitialized(sourceFieldValue);
         }
-
-        // tell dozer that the field is mapped
-        return true;
     }
 }

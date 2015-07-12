@@ -31,6 +31,11 @@ public class TagDto extends AbstractAuditableDto implements Serializable {
         setId(id);
     }
 
+    public TagDto(final String id, final String name) {
+        setId(id);
+        this.name = name;
+    }
+
     public String getName() {
         return this.name;
     }

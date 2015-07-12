@@ -1,31 +1,20 @@
 
 package org.robbins.flashcards.model;
 
+import org.robbins.flashcards.model.common.AbstractAuditable;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OrderBy;
-import javax.persistence.OrderColumn;
-import javax.persistence.Table;
-
-import org.robbins.flashcards.model.common.AbstractAuditable;
-
 @Entity
 @Table(name = "flashcard")
 @AttributeOverride(name = "id", column = @Column(name = "FlashCardId"))
+@NamedEntityGraph(name = "FlashCard.tags",
+        attributeNodes = @NamedAttributeNode("tags"))
 public class FlashCard extends AbstractAuditable<User, String> implements Serializable {
 
     private static final long serialVersionUID = -3461056579037652853L;
@@ -101,16 +90,25 @@ public class FlashCard extends AbstractAuditable<User, String> implements Serial
     }
 
     @Override
-    public String toString() {
-        StringBuffer buffer = new StringBuffer();
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
 
-        buffer.append(getClass().getName()).append("@").append(
-                Integer.toHexString(hashCode())).append(" [");
-        buffer.append("id").append("='").append(getId()).append("' ");
-        buffer.append("question").append("='").append(getQuestion()).append("' ");
-        buffer.append("answer").append("='").append(getAnswer()).append("' ");
-        buffer.append("]");
+        FlashCard flashCard = (FlashCard) o;
 
-        return buffer.toString();
+        if (!question.equals(flashCard.question)) return false;
+        if (!answer.equals(flashCard.answer)) return false;
+        if (tags != null ? !tags.equals(flashCard.tags) : flashCard.tags != null) return false;
+        return !(links != null ? !links.equals(flashCard.links) : flashCard.links != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + question.hashCode();
+        result = 31 * result + answer.hashCode();
+        return result;
     }
 }

@@ -4,6 +4,9 @@ package org.robbins.flashcards.springdata.repository;
 import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.repository.FlashCardRepository;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
@@ -53,5 +56,27 @@ public class FlashcardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
         return repository.findByTags_Id(tagId);
     }
 
+    @Override
+    @Cacheable("flashcardById")
+    public FlashCard findOne(String id) {
+        return repository.findOne(id);
+    }
 
+    @Override
+    @Caching(evict = { @CacheEvict(value = "flashcards", allEntries=true), @CacheEvict(value = "flashcardById", key = "#p0.id") })
+    public FlashCard save(FlashCard entity) {
+        return repository.save(entity);
+    }
+
+    @Override
+    @Cacheable("flashcards")
+    public List<FlashCard> findAll() {
+        return repository.findAll();
+    }
+
+    @Override
+    @Caching(evict = { @CacheEvict(value = "flashcards", allEntries=true), @CacheEvict(value = "flashcardById", key = "#p0") })
+    public void delete(String id) {
+        repository.delete(id);
+    }
 }
