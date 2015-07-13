@@ -6,7 +6,7 @@ import java.util.Date;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
-public class UserDto extends AbstractAuditable<UserDto, String> implements Serializable {
+public class UserDto extends AbstractAuditable<String, String> implements Serializable {
 
     private static final long serialVersionUID = 6131151516357988050L;
 
@@ -47,13 +47,13 @@ public class UserDto extends AbstractAuditable<UserDto, String> implements Seria
 
     @Override
     @JsonIgnore
-    public UserDto getCreatedBy() {
+    public String getCreatedBy() {
         return super.getCreatedBy();
     }
 
     @Override
     @JsonIgnore
-    public UserDto getLastModifiedBy() {
+    public String getLastModifiedBy() {
         return super.getLastModifiedBy();
     }
 

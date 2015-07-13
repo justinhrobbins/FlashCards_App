@@ -6,6 +6,7 @@ import org.robbins.flashcards.model.Tag;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Set;
@@ -21,5 +22,6 @@ public interface FlashCardSpringDataRepository extends JpaRepository<FlashCard, 
 
     @Override
     @EntityGraph(value = "FlashCard.tags", type = EntityGraph.EntityGraphType.LOAD)
+    @Query("SELECT DISTINCT f FROM FlashCard f ORDER BY f.question")
     List<FlashCard> findAll();
 }

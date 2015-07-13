@@ -9,7 +9,7 @@ import java.util.Set;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
-public class FlashCardDto extends AbstractAuditable<UserDto, String> implements
+public class FlashCardDto extends AbstractAuditable<String, String> implements
         Serializable {
 
     private static final long serialVersionUID = -3461056579037652853L;

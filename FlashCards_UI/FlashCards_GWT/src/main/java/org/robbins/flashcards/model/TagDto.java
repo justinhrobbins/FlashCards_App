@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class TagDto extends AbstractAuditable<UserDto, String> implements Serializable {
+public class TagDto extends AbstractAuditable<String, String> implements Serializable {
 
     private static final long serialVersionUID = 3642775570292807703L;
 

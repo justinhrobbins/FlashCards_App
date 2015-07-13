@@ -13,14 +13,14 @@ public abstract class AbstractCrudServiceImpl<D, ID extends Serializable> implem
         CrudService<D, ID> {
 
     @Override
-    public D save(final D entity) throws FlashcardsException {
+    public D save(final D dto) throws FlashcardsException {
         try {
-            D result = getFacade().save(entity);
+            D result = getFacade().save(dto);
             return result;
         }
         catch (DataIntegrityViolationException integrityException)
         {
-            throw new DataIntegrityException("Could NOT save '" + entity.getClass().getSimpleName() + "' due to DataIntegrityViolationException");
+            throw new DataIntegrityException("Could NOT save '" + dto.getClass().getSimpleName() + "' due to DataIntegrityViolationException");
         }
     }
 

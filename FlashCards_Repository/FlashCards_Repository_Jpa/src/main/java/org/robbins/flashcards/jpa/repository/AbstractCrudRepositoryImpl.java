@@ -2,7 +2,6 @@
 package org.robbins.flashcards.jpa.repository;
 
 import org.joda.time.DateTime;
-import org.robbins.flashcards.model.User;
 import org.robbins.flashcards.model.common.AbstractAuditable;
 import org.robbins.flashcards.repository.FlashCardsAppRepository;
 import org.robbins.flashcards.repository.auditing.AuditingAwareUser;
@@ -12,7 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.Serializable;
 
-public abstract class AbstractCrudRepositoryImpl<T extends AbstractAuditable<User, ID>, ID extends Serializable>
+public abstract class AbstractCrudRepositoryImpl<T extends AbstractAuditable<String, ID>, ID extends Serializable>
         implements FlashCardsAppRepository<T, ID> {
 
     @PersistenceContext
@@ -23,8 +22,8 @@ public abstract class AbstractCrudRepositoryImpl<T extends AbstractAuditable<Use
     @Inject
     private AuditingAwareUser auditorAware;
 
-    public User getAuditingUser() {
-        return getEm().find(User.class, auditorAware.getCurrentAuditor().getId());
+    public String getAuditingUser() {
+        return auditorAware.getCurrentAuditor();
     }
 
     public EntityManager getEm() {

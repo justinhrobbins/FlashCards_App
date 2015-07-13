@@ -44,10 +44,10 @@ public class AuditingAwareUserUT extends BaseMockingTest {
         when(mockContext.getBean("loggedInUser")).thenReturn(mockUser);
         when(mockUser.getId()).thenReturn(uuid);
 
-        User result = auditingAwareUser.getCurrentAuditor();
+        String result = auditingAwareUser.getCurrentAuditor();
 
         verify(mockContext).getBean("loggedInUser");
         assertThat(result, is(User.class));
-        assertThat(result.getId(), is(uuid));
+        assertThat(result, is(uuid));
     }
 }

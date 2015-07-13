@@ -7,19 +7,19 @@ public abstract class AbstractAuditableDto extends AbstractPersistableDto {
 
     private static final long serialVersionUID = -6807342050233167498L;
 
-    private UserDto createdBy;
+    private String createdBy;
 
     private Date createdDate;
 
-    private UserDto lastModifiedBy;
+    private String lastModifiedBy;
 
     private Date lastModifiedDate;
 
-    public UserDto getCreatedBy() {
+    public String getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(final UserDto createdBy) {
+    public void setCreatedBy(final String createdBy) {
         this.createdBy = createdBy;
     }
 
@@ -31,11 +31,11 @@ public abstract class AbstractAuditableDto extends AbstractPersistableDto {
         this.createdDate = createdDate == null ? null : (Date) createdDate.clone();
     }
 
-    public UserDto getLastModifiedBy() {
+    public String getLastModifiedBy() {
         return lastModifiedBy;
     }
 
-    public void setLastModifiedBy(final UserDto lastModifiedBy) {
+    public void setLastModifiedBy(final String lastModifiedBy) {
         this.lastModifiedBy = lastModifiedBy;
     }
 

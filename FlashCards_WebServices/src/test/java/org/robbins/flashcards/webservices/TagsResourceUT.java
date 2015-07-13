@@ -73,7 +73,7 @@ public class TagsResourceUT extends BaseMockingTest {
 
     @Test
     public void put_WithCreatedBy() throws FlashcardsException {
-        when(mockTagDto.getCreatedBy()).thenReturn(new UserDto());
+        when(mockTagDto.getCreatedBy()).thenReturn(new String());
         when(mockTagFacade.save(any(TagDto.class))).thenReturn(mockTagDto);
 
         Response response = resource.put(UUID.randomUUID().toString(), mockTagDto);

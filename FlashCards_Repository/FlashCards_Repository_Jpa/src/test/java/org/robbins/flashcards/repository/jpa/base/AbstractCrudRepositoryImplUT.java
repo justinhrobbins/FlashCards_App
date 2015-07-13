@@ -39,9 +39,6 @@ public class AbstractCrudRepositoryImplUT extends BaseMockingTest {
     private AuditingAwareUser auditorAware;
 
     @Mock
-    private User mockUser;
-
-    @Mock
     private UserDto mockAuditor;
 
     private Query query;
@@ -63,9 +60,9 @@ public class AbstractCrudRepositoryImplUT extends BaseMockingTest {
 
         when(em.createQuery(anyString())).thenReturn(query);
         when(query.getResultList()).thenReturn(results);
-        when(auditorAware.getCurrentAuditor()).thenReturn(mockUser);
+        when(auditorAware.getCurrentAuditor()).thenReturn(new String());
         when(mockAuditor.getId()).thenReturn(uuid);
-        when(em.find(User.class, uuid)).thenReturn(mockUser);
+        when(em.find(String.class, uuid)).thenReturn(new String());
     }
 
     @Test

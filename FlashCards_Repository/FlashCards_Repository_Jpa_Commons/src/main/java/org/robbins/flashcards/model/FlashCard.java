@@ -15,7 +15,7 @@ import java.util.Set;
 @AttributeOverride(name = "id", column = @Column(name = "FlashCardId"))
 @NamedEntityGraph(name = "FlashCard.tags",
         attributeNodes = @NamedAttributeNode("tags"))
-public class FlashCard extends AbstractAuditable<User, String> implements Serializable {
+public class FlashCard extends AbstractAuditable<String, String> implements Serializable {
 
     private static final long serialVersionUID = -3461056579037652853L;
 
