@@ -90,22 +90,38 @@ public class FlashCard extends AbstractAuditable<String, String> implements Seri
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+    public boolean equals(final Object o)
+    {
+        if (this == o)
+        {
+            return true;
+        }
+        if (!(o instanceof FlashCard))
+        {
+            return false;
+        }
+        if (!super.equals(o))
+        {
+            return false;
+        }
 
-        FlashCard flashCard = (FlashCard) o;
+        final FlashCard flashCard = (FlashCard) o;
 
-        if (!question.equals(flashCard.question)) return false;
-        if (!answer.equals(flashCard.answer)) return false;
-        if (tags != null ? !tags.equals(flashCard.tags) : flashCard.tags != null) return false;
-        return !(links != null ? !links.equals(flashCard.links) : flashCard.links != null);
+        if (!answer.equals(flashCard.answer))
+        {
+            return false;
+        }
+        if (!question.equals(flashCard.question))
+        {
+            return false;
+        }
 
+        return true;
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         int result = super.hashCode();
         result = 31 * result + question.hashCode();
         result = 31 * result + answer.hashCode();

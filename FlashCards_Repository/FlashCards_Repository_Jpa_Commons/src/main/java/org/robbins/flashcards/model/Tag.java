@@ -55,22 +55,36 @@ public class Tag extends AbstractAuditable<String, String> implements Serializab
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+    public boolean equals(final Object o)
+    {
+        if (this == o)
+        {
+            return true;
+        }
+        if (!(o instanceof Tag))
+        {
+            return false;
+        }
+        if (!super.equals(o))
+        {
+            return false;
+        }
 
-        Tag tag = (Tag) o;
+        final Tag tag = (Tag) o;
 
-        if (!name.equals(tag.name)) return false;
-        return !(flashcards != null ? !flashcards.equals(tag.flashcards) : tag.flashcards != null);
+        if (!name.equals(tag.name))
+        {
+            return false;
+        }
 
+        return true;
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         int result = super.hashCode();
-        result = 31 * result + (name == null ? 0 : name.hashCode());
+        result = 31 * result + name.hashCode();
         return result;
     }
 }
