@@ -150,14 +150,7 @@ public class User extends AbstractAuditable<String, String> implements Serializa
         User user = (User) o;
 
         if (!openid.equals(user.openid)) return false;
-        if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) return false;
-        if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
-        if (fullName != null ? !fullName.equals(user.fullName) : user.fullName != null) return false;
-        if (email != null ? !email.equals(user.email) : user.email != null) return false;
-        if (nickname != null ? !nickname.equals(user.nickname) : user.nickname != null) return false;
-        if (country != null ? !country.equals(user.country) : user.country != null) return false;
-        if (language != null ? !language.equals(user.language) : user.language != null) return false;
-        return !(lastLoginDate != null ? !lastLoginDate.equals(user.lastLoginDate) : user.lastLoginDate != null);
+        return true;
 
     }
 
@@ -165,14 +158,6 @@ public class User extends AbstractAuditable<String, String> implements Serializa
     public int hashCode() {
         int result = super.hashCode();
         result = 31 * result + openid.hashCode();
-        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (nickname != null ? nickname.hashCode() : 0);
-        result = 31 * result + (country != null ? country.hashCode() : 0);
-        result = 31 * result + (language != null ? language.hashCode() : 0);
-        result = 31 * result + (lastLoginDate != null ? lastLoginDate.hashCode() : 0);
         return result;
     }
 }

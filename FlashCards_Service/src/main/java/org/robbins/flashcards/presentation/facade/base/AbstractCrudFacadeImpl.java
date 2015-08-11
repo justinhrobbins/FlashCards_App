@@ -1,19 +1,24 @@
 
 package org.robbins.flashcards.presentation.facade.base;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.Set;
-
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.presentation.facade.PagingAndSortingFacade;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
 public abstract class AbstractCrudFacadeImpl<D, ID extends Serializable> implements GenericCrudFacade<D, ID>, PagingAndSortingFacade<D, ID>
 {
     @Override
     public D save(final D dto) throws FlashcardsException {
         return getService().save(dto);
+    }
+
+    @Override
+    public void save(List<D> entities) throws FlashcardsException {
+        getService().save(entities);
     }
 
     @Override

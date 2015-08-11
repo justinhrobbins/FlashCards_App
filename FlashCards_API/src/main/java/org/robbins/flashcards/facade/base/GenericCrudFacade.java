@@ -17,6 +17,7 @@ public interface GenericCrudFacade<D, ID> {
     D findOne(final ID id) throws FlashcardsException;
     D findOne(final ID id, Set<String> fields) throws FlashcardsException;
     D save(final D entity) throws FlashcardsException;
+    void save(final List<D> entities) throws FlashcardsException;
     void delete(final ID id);
     List<D> findByCreatedBy(final ID userId, final Set<String> fields) throws FlashcardsException;
 }

@@ -24,6 +24,11 @@ public class DefaultTagClient extends AbstractCrudClient<TagDto, String> impleme
     public String postEntityUrl() { return getServerAddress() + ResourceUrls.tags; }
 
     @Override
+    public String postBulkEntitiesUrl() {
+        return getServerAddress() + ResourceUrls.tags + BULK;
+    }
+
+    @Override
     public String putEntityUrl() {
         return getServerAddress() + ResourceUrls.tag;
     }

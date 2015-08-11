@@ -4,7 +4,7 @@ package org.robbins.flashcards.client.util;
 public final class ResourceUrls {
 
     private ResourceUrls() {
-    };
+    }
 
     public static final String tag = "v1/tags/{id}";
 

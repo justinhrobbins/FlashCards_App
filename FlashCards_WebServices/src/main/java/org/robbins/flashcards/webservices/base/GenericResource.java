@@ -19,6 +19,8 @@ public interface GenericResource<T, ID extends Serializable> {
 
     T post(final T entity);
 
+    Response post(final List<T> entity);
+
     Response put(final ID id, final T entity);
 
     Response delete(final ID id);
