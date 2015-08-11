@@ -84,7 +84,7 @@ public class Tag extends AbstractAuditable<String, String> implements Serializab
     public int hashCode()
     {
         int result = super.hashCode();
-        result = 31 * result + name.hashCode();
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }
 }

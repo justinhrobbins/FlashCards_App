@@ -58,6 +58,13 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E extends AbstractPers
     }
 
     @Override
+    public void save(List<D> entities) throws FlashcardsException {
+        for (D entity : entities) {
+            save(entity);
+        }
+    }
+
+    @Override
     public void delete(final String id) {
         getRepository().delete(UUID.fromString(id));
     }

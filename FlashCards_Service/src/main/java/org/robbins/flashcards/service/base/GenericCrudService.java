@@ -17,6 +17,8 @@ public interface GenericCrudService<T, ID extends Serializable> {
      */
     T save(T entity) throws FlashcardsException;
 
+    void save(List<T> entities) throws FlashcardsException;
+
     /**
      * Retrives an entity by its id.
      *

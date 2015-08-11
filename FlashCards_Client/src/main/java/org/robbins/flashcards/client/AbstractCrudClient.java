@@ -14,6 +14,8 @@ import org.springframework.web.client.HttpClientErrorException;
 
 public abstract class AbstractCrudClient<E extends AbstractPersistableDto, ID> extends AbstractClient implements GenericRestCrudFacade<E, ID> {
 
+    public static final String BULK = "bulk/";
+
     /**
      * Gets the entity list url.
      *
@@ -34,6 +36,13 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto, ID> e
      * @return the string
      */
     public abstract String postEntityUrl();
+
+    /**
+     * Post entity url.
+     *
+     * @return the string
+     */
+    public abstract String postBulkEntitiesUrl();
 
     /**
      * Put entity url.
@@ -145,6 +154,24 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto, ID> e
         }
         catch (HttpClientErrorException e) {
             throw new ServiceException("Unble to save '" + entity.getClass().getSimpleName() + "' " + e.getMessage());
+        }
+        catch (Exception e) {
+            throw new ServiceException("Unexpected exception" + e.getMessage());
+        }
+    }
+
+    @Override
+    public void save(List<E> entities) throws FlashcardsException {
+        // set the Authentication header
+        @SuppressWarnings({ "unchecked", "rawtypes" })
+        final HttpEntity httpEntity = new HttpEntity(entities, getAuthHeaders());
+
+        try {
+            getRestTemplate().exchange(postBulkEntitiesUrl(), HttpMethod.POST,
+                    httpEntity, ResponseEntity.class);
+        }
+        catch (HttpClientErrorException e) {
+            throw new ServiceException("Unble to save '" + entities.getClass().getSimpleName() + "' " + e.getMessage());
         }
         catch (Exception e) {
             throw new ServiceException("Unexpected exception" + e.getMessage());

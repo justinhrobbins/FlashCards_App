@@ -25,6 +25,13 @@ public abstract class AbstractCrudServiceImpl<D, ID extends Serializable> implem
     }
 
     @Override
+    public void save(List<D> entities) throws FlashcardsException {
+        for (D entity : entities) {
+            save(entity);
+        }
+    }
+
+    @Override
     public Long count() {
         return getFacade().count();
     }

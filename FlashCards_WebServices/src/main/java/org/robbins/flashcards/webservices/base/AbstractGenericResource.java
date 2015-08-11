@@ -81,6 +81,22 @@ public abstract class AbstractGenericResource<T, ID extends Serializable> extend
     }
 
     @Override
+    @Path("/bulk")
+    @POST
+    @ApiOperation(value = "Create in bulk")
+    public Response post(final List<T> entities) {
+        try {
+            getFacade().save(entities);
+            return Response.ok().build();
+        } catch (DataIntegrityException e) {
+            throw new GenericWebServiceException(Response.Status.BAD_REQUEST, e);
+        }
+        catch (FlashcardsException e) {
+            throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
+        }
+    }
+
+    @Override
     @PUT
     @Path("/{id}")
     @ApiOperation(value = "Replace")
