@@ -1,0 +1,52 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.robbins.flashcards</groupId>
+        <artifactId>FlashCards_App</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>FlashCards_Load_Tester</artifactId>
+    <name>FlashCards_Load_Tester</name>
+    <description>FlashCards_Load_Tester</description>
+    <properties>
+        <skip.coveralls>true</skip.coveralls>
+        <skip.cobertura>true</skip.cobertura>
+    </properties>
+    <scm>
+        <connection>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</connection>
+        <url>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</url>
+        <developerConnection>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</developerConnection>
+    </scm>
+    <dependencies>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.typesafe.akka</groupId>
+            <artifactId>akka-actor_2.10</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+        </dependency>
+
+        <!-- test dependencies -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+        </dependency>
+
+    </dependencies>
+    <build>
+        <finalName>FlashCards_Load_Tester</finalName>
+    </build>
+</project>
