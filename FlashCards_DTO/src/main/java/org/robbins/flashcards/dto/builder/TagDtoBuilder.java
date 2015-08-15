@@ -1,4 +1,6 @@
-package org.robbins.flashcards.dto;
+package org.robbins.flashcards.dto.builder;
+
+import org.robbins.flashcards.dto.TagDto;
 
 /**
  * Created by justinrobbins on 2/16/15.

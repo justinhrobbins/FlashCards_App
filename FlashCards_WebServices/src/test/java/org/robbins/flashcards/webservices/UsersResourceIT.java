@@ -6,7 +6,7 @@ import org.junit.experimental.categories.Category;
 import org.robbins.flashcards.client.GenericRestCrudFacade;
 import org.robbins.flashcards.client.UserClient;
 import org.robbins.flashcards.dto.UserDto;
-import org.robbins.flashcards.dto.UserDtoBuilder;
+import org.robbins.flashcards.dto.builder.UserDtoBuilder;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.tests.webservices.GenericEntityRestTest;
 import org.robbins.tests.IntegrationTest;

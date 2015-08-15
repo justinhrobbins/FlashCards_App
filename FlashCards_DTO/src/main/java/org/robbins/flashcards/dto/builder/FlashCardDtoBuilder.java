@@ -1,4 +1,7 @@
-package org.robbins.flashcards.dto;
+package org.robbins.flashcards.dto.builder;
+
+import org.robbins.flashcards.dto.FlashCardDto;
+import org.robbins.flashcards.dto.TagDto;
 
 public class FlashCardDtoBuilder {
     private FlashCardDto flashcard = new FlashCardDto();

@@ -4,8 +4,8 @@ package org.robbins.flashcards.cassandra.repository.facade.impl;
 import org.junit.Test;
 import org.robbins.flashcards.cassandra.repository.AbstractCassandraIntegrationTest;
 import org.robbins.flashcards.dto.FlashCardDto;
-import org.robbins.flashcards.dto.FlashCardDtoBuilder;
-import org.robbins.flashcards.dto.TagDtoBuilder;
+import org.robbins.flashcards.dto.builder.FlashCardDtoBuilder;
+import org.robbins.flashcards.dto.builder.TagDtoBuilder;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.FlashcardFacade;
 
