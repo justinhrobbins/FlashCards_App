@@ -25,7 +25,7 @@ public class TagLoadTesterIT {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TagLoadTesterIT.class);
 
-    private final Long numberOfRequests = 50000L;
+    private final Long numberOfRequests = 100000L;
     private final String ENDPOINT_NAME = "tagClient";
     private StopWatch stopWatch;
 
