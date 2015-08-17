@@ -19,6 +19,16 @@
         <developerConnection>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</developerConnection>
     </scm>
     <dependencies>
+        <dependency>
+            <groupId>org.robbins.flashcards</groupId>
+            <artifactId>FlashCards_Client</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.robbins.flashcards</groupId>
+            <artifactId>FlashCards_DTO</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>
@@ -27,12 +37,22 @@
 
         <dependency>
             <groupId>com.typesafe.akka</groupId>
-            <artifactId>akka-actor_2.10</artifactId>
+            <artifactId>akka-actor_2.11</artifactId>
         </dependency>
 
         <dependency>
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
+        </dependency>
+
+        <!-- logging -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
         </dependency>
 
         <!-- test dependencies -->
