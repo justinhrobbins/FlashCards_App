@@ -24,6 +24,7 @@ import javax.inject.Inject;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Transactional
 @Component("flashcardRepositoryFacade")
@@ -111,23 +112,17 @@ public class DefaultFlashcardRepositoryFacade extends
     }
 
     private Set<Tag> configureTags(final Set<TagDto> tags) {
+        return tags.stream()
+                .map(this::configureTag)
+                .collect(Collectors.toSet());
+    }
 
-        Set<Tag> results = new HashSet<>();
-        for (TagDto tagDto : tags) {
-            Tag tag;
-
-            if (tagDto.getId() == null || StringUtils.isEmpty(tagDto.getId())) {
-                tag = tagRepository.findByName(tagDto.getName());
-
-                if (tag == null) {
-                    // tag doesn't exist, re-add the Tag as-as
-                    tag = tagConverter.getEntity(tagDto);
-                }
-            } else {
-                tag = tagConverter.getEntity(tagDto);
-            }
-            results.add(tag);
+    private Tag configureTag(TagDto tagDto) {
+        if (StringUtils.isEmpty(tagDto.getId())) {
+            Tag tag = tagRepository.findByName(tagDto.getName());
+            return tag == null ? tagConverter.getEntity(tagDto) : tag;
+        } else {
+            return tagConverter.getEntity(tagDto);
         }
-        return results;
     }
 }

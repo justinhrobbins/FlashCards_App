@@ -63,7 +63,10 @@ public class FlashcardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
     }
 
     @Override
-    @Caching(evict = { @CacheEvict(value = "flashcards", allEntries=true), @CacheEvict(value = "flashcardById", key = "#p0.id") })
+    @Caching(evict = {
+            @CacheEvict(value = "flashcards", allEntries = true),
+            @CacheEvict(value = "flashcardById", key = "#p0.id"),
+            @CacheEvict(value = "tags", allEntries = true)})
     public FlashCard save(FlashCard entity) {
         return repository.save(entity);
     }
@@ -75,7 +78,7 @@ public class FlashcardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
     }
 
     @Override
-    @Caching(evict = { @CacheEvict(value = "flashcards", allEntries=true), @CacheEvict(value = "flashcardById", key = "#p0") })
+    @Caching(evict = {@CacheEvict(value = "flashcards", allEntries = true), @CacheEvict(value = "flashcardById", key = "#p0"), @CacheEvict(value = "tags", allEntries = true)})
     public void delete(String id) {
         repository.delete(id);
     }

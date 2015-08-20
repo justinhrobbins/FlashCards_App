@@ -140,7 +140,7 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, St
         } catch (InvalidDataAccessApiUsageException e) {
             LOGGER.error(e.getMessage(), e);
             throw new GenericWebServiceException(Response.Status.BAD_REQUEST,
-                    "Inavlid sort parameter: '" + sort + "'", e);
+                    "Invalid sort parameter: '" + sort + "'", e);
         } catch (FlashcardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
