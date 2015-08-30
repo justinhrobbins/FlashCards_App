@@ -11,7 +11,7 @@
  */
 package org.robbins.flashcards.exceptions;
 
-public class FlashcardsException extends Exception
+public class FlashcardsException extends RuntimeException
 {
 	public FlashcardsException(final String message) {
 		super(message);

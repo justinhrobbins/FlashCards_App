@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component("userDtoConverter")
 public class DefaultUserDtoConverter extends AbstractDtoConverter implements DtoConverter<UserDto, UserCassandraEntity> {
@@ -34,11 +35,7 @@ public class DefaultUserDtoConverter extends AbstractDtoConverter implements Dto
 
     @Override
     public List<UserDto> getDtos(List<UserCassandraEntity> entities) throws RepositoryException {
-        List<UserDto> dtos = new ArrayList<>();
-        for (UserCassandraEntity entity : entities) {
-            dtos.add(getDto(entity));
-        }
-        return dtos;
+        return entities.stream().map(this::getDto).collect(Collectors.toList());
     }
 
     @Override
@@ -48,10 +45,8 @@ public class DefaultUserDtoConverter extends AbstractDtoConverter implements Dto
 
     @Override
     public List<UserCassandraEntity> getEntities(final List<UserDto> dtos) {
-        List<UserCassandraEntity> entities = new ArrayList<>();
-        for (UserDto dto : dtos) {
-            entities.add(getEntity(dto));
-        }
-        return entities;
+        return dtos.stream()
+                .map(this::getEntity)
+                .collect(Collectors.toList());
     }
 }

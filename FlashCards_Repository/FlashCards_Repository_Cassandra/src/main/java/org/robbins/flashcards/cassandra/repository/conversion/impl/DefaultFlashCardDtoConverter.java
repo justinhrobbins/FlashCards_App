@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component("flashcardDtoConverter")
 public class DefaultFlashCardDtoConverter extends AbstractDtoConverter implements DtoConverter<FlashCardDto, FlashCardCassandraEntity> {
@@ -34,11 +35,9 @@ public class DefaultFlashCardDtoConverter extends AbstractDtoConverter implement
 
     @Override
     public List<FlashCardDto> getDtos(List<FlashCardCassandraEntity> entities) throws RepositoryException {
-        List<FlashCardDto> dtos = new ArrayList<>();
-        for (FlashCardCassandraEntity entity : entities) {
-            dtos.add(getDto(entity));
-        }
-        return dtos;
+        return entities.stream()
+                .map(this::getDto)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -48,10 +47,9 @@ public class DefaultFlashCardDtoConverter extends AbstractDtoConverter implement
 
     @Override
     public List<FlashCardCassandraEntity> getEntities(final List<FlashCardDto> dtos) {
-        List<FlashCardCassandraEntity> entities = new ArrayList<>();
-        for (FlashCardDto dto : dtos) {
-            entities.add(getEntity(dto));
-        }
-        return entities;
+
+       return dtos.stream()
+                .map(this::getEntity)
+                .collect(Collectors.toList());
     }
 }

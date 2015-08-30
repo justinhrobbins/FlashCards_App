@@ -1,6 +1,7 @@
 
 package org.robbins.flashcards.model;
 
+import org.apache.commons.lang3.StringUtils;
 import org.robbins.flashcards.model.common.AbstractAuditable;
 
 import javax.persistence.*;
@@ -87,6 +88,11 @@ public class FlashCard extends AbstractAuditable<String, String> implements Seri
 
     public void setLinks(final List<String> links) {
         this.links = links;
+    }
+
+    public boolean containsNewTag() {
+        return getTags().stream()
+                .anyMatch(tag -> StringUtils.isEmpty(tag.getId()));
     }
 
     @Override

@@ -37,7 +37,8 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<TagCassandraEn
     @Inject
     private TagFlashcardCassandraRepository tagFlashcardCassandraRepository;
 
-    @Inject FlashCardCassandraRepository flashCardCassandraRepository;
+    @Inject
+    FlashCardCassandraRepository flashCardCassandraRepository;
 
     private PreparedStatement tagStatement;
     private PreparedStatement flashcardStatement;
@@ -55,9 +56,9 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<TagCassandraEn
 
     @SuppressWarnings("unused")
     @PostConstruct
-    private void initStatements(){
+    private void initStatements() {
         Session session = cassandraOperations.getSession();
-        if (session == null){
+        if (session == null) {
             LOGGER.error("Cassandra not available");
         } else {
             tagStatement = session.prepare(tagInsert());

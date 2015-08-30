@@ -13,8 +13,10 @@ import org.springframework.test.context.ContextConfiguration;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Optional;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 @ContextConfiguration("classpath:test-applicationContext-repository-springdata.xml")
@@ -52,11 +54,11 @@ public class TagRepositoryIT extends BaseIntegrationTest {
 
     private String findFirstFlashCardId() {
         List<Tag> tags = tagRepository.findAll();
-        for (Tag tag : tags) {
-            if (tag.getFlashcards().size() > 0) {
-                return tag.getFlashcards().iterator().next().getId();
-            }
-        }
-        return null;
+
+        Optional<Tag> firstTag = tags.stream()
+                .filter(tag -> tag.getFlashcards().size() > 0)
+                .findFirst();
+
+        return firstTag.isPresent() ? firstTag.get().getFlashcards().iterator().next().getId() : null;
     }
 }

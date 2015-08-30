@@ -1,6 +1,7 @@
 package org.robbins.flashcards.client;
 
 import org.robbins.flashcards.client.util.ResourceUrls;
+import org.robbins.flashcards.dto.AbstractPersistableDto;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Component
@@ -72,21 +74,12 @@ public class DefaultFlashcardClient extends AbstractCrudClient<FlashCardDto, Str
     public List<FlashCardDto> findByTagsIn(final Set<TagDto> tags, final PageRequest page) throws ServiceException {
         final Map<String, String> uriVariables = setupSearchUriVariables();
 
-        String tagNames = "";
-        for (TagDto tag : tags)
-        {
-            if (tagNames.length() == 0)
-            {
-                tagNames = tag.getId().toString();
-            }
-            else
-            {
-                tagNames += "," + tag.getId().toString();
-            }
-        }
+        final String tagNames = tags.stream()
+                .map(AbstractPersistableDto::getId)
+                .collect(Collectors.joining(","));
+
         uriVariables.put("tags", tagNames);
-        if (page != null)
-        {
+        if (page != null) {
             uriVariables.put("page", Integer.toString(page.getPageNumber()));
             uriVariables.put("size", Integer.toString(page.getPageSize()));
         }
@@ -96,7 +89,7 @@ public class DefaultFlashcardClient extends AbstractCrudClient<FlashCardDto, Str
     }
 
     private Map<String, String> setupSearchUriVariables() {
-        Map<String, String> searchUriVariables = new HashMap<String, String>();
+        final Map<String, String> searchUriVariables = new HashMap<String, String>();
 
         searchUriVariables.put("question", "");
         searchUriVariables.put("tags", "");
@@ -130,7 +123,7 @@ public class DefaultFlashcardClient extends AbstractCrudClient<FlashCardDto, Str
 
     @Override
     public List<FlashCardDto> findFlashcardsForTag(String tagId, Set<String> fields) throws FlashcardsException {
-        Map<String, String> uriVariables = new HashMap<String, String>();
+        final Map<String, String> uriVariables = new HashMap<String, String>();
         uriVariables.put("tagId", String.valueOf(tagId));
         return Arrays.asList(searchEntities(getServerAddress() + ResourceUrls.flashcardsForTag, uriVariables, FlashCardDto[].class));
     }

@@ -1,9 +1,12 @@
 
 package org.robbins.flashcards.client.jackson;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
-
+import com.fasterxml.jackson.core.JsonEncoding;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
@@ -12,12 +15,10 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.util.Assert;
 
-import com.fasterxml.jackson.core.JsonEncoding;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.TypeFactory;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.Arrays;
+import java.util.Optional;
 
 public class MappingJackson2HttpMessageConverter extends
         AbstractHttpMessageConverter<Object> {
@@ -81,8 +82,8 @@ public class MappingJackson2HttpMessageConverter extends
             final HttpOutputMessage outputMessage)
             throws IOException {
 
-        JsonEncoding encoding = getJsonEncoding(outputMessage.getHeaders().getContentType());
-        JsonGenerator jsonGenerator = this.objectMapper.getJsonFactory().createJsonGenerator(
+        final JsonEncoding encoding = getJsonEncoding(outputMessage.getHeaders().getContentType());
+        final JsonGenerator jsonGenerator = this.objectMapper.getJsonFactory().createJsonGenerator(
                 outputMessage.getBody(), encoding);
         try {
             if (this.prefixJson) {
@@ -102,11 +103,13 @@ public class MappingJackson2HttpMessageConverter extends
     protected JsonEncoding getJsonEncoding(final MediaType contentType) {
         if (contentType != null && contentType.getCharSet() != null) {
             Charset charset = contentType.getCharSet();
-            for (JsonEncoding encoding : JsonEncoding.values()) {
-                if (charset.name().equals(encoding.getJavaName())) {
-                    return encoding;
-                }
-            }
+
+            Optional<JsonEncoding> encoding = Arrays.stream(JsonEncoding.values())
+                    .filter(value ->
+                            charset.name().equals(value.getJavaName()))
+                    .findFirst();
+
+            return encoding.isPresent() ? encoding.get() : null;
         }
         return JsonEncoding.UTF8;
     }

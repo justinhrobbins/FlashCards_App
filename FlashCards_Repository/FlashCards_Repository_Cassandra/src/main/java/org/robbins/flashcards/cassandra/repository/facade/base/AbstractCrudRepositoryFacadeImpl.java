@@ -58,10 +58,8 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E extends AbstractPers
     }
 
     @Override
-    public void save(List<D> entities) throws FlashcardsException {
-        for (D entity : entities) {
-            save(entity);
-        }
+    public void save(final List<D> entities) throws FlashcardsException {
+        entities.forEach(this::save);
     }
 
     @Override

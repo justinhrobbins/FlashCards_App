@@ -7,6 +7,7 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.ws.rs.DELETE;
@@ -106,7 +107,6 @@ public abstract class AbstractGenericResource<T, ID extends Serializable> extend
         } catch (FlashcardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
-
         return Response.noContent().build();
     }
 
@@ -158,34 +158,35 @@ public abstract class AbstractGenericResource<T, ID extends Serializable> extend
                     e.getMessage(), e);
         }
 
-        // Iterate over all the attributes
-        for (PropertyDescriptor descriptor : beanInfo.getPropertyDescriptors()) {
+        Arrays.stream(beanInfo.getPropertyDescriptors())
+                .forEach(descriptor -> mergeField(source, target, descriptor));
+    }
 
-            // Only copy writable attributes
-            if (descriptor.getWriteMethod() != null) {
-                Object newValue;
+    private void mergeField(T source, T target, PropertyDescriptor descriptor) {
+        // Only copy writable attributes
+        if (descriptor.getWriteMethod() != null) {
+            Object newValue;
+            try {
+                newValue = descriptor.getReadMethod().invoke(source);
+            } catch (Exception e) {
+                LOGGER.error(e.getMessage(), e);
+                throw new GenericWebServiceException(
+                        Response.Status.INTERNAL_SERVER_ERROR, e.getMessage(), e);
+            }
+
+            // Only copy values values where the destination values is not null
+            // Don't bother updating the 'identity' and 'version' fields
+            // which are part of the AbstractPersistentObject
+            if ((newValue != null) && (!descriptor.getName().equals("identity"))
+                    && (!descriptor.getName().equals("version"))) {
+                LOGGER.debug("Updating field '" + descriptor.getName() + "' to: '"
+                        + newValue + "'");
                 try {
-                    newValue = descriptor.getReadMethod().invoke(source);
+                    descriptor.getWriteMethod().invoke(target, newValue);
                 } catch (Exception e) {
                     LOGGER.error(e.getMessage(), e);
                     throw new GenericWebServiceException(
                             Response.Status.INTERNAL_SERVER_ERROR, e.getMessage(), e);
-                }
-
-                // Only copy values values where the destination values is not null
-                // Don't bother updating the 'identity' and 'version' fields
-                // which are part of the AbstractPersistentObject
-                if ((newValue != null) && (!descriptor.getName().equals("identity"))
-                        && (!descriptor.getName().equals("version"))) {
-                    LOGGER.debug("Updating field '" + descriptor.getName() + "' to: '"
-                            + newValue + "'");
-                    try {
-                        descriptor.getWriteMethod().invoke(target, newValue);
-                    } catch (Exception e) {
-                        LOGGER.error(e.getMessage(), e);
-                        throw new GenericWebServiceException(
-                                Response.Status.INTERNAL_SERVER_ERROR, e.getMessage(), e);
-                    }
                 }
             }
         }

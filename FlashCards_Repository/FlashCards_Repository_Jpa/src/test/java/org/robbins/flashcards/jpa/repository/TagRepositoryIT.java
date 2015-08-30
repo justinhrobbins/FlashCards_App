@@ -1,5 +1,5 @@
 
-package org.robbins.flashcards.repository.jpa;
+package org.robbins.flashcards.jpa.repository;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import org.junit.Test;
@@ -13,7 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 import javax.inject.Inject;
 import java.util.List;
-import java.util.UUID;
+import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
@@ -58,12 +58,11 @@ public class TagRepositoryIT extends BaseIntegrationTest {
     }
 
     private String findFirstFlashCardId() {
-        List<Tag> tags = tagRepository.findAll();
-        for (Tag tag : tags) {
-            if (tag.getFlashcards().size() > 0) {
-                return tag.getFlashcards().iterator().next().getId();
-            }
-        }
-        return null;
+        Optional<Tag> firstTag = tagRepository.findAll()
+                .stream()
+                .filter(tag -> tag.getFlashcards().size() > 0)
+                .findFirst();
+
+        return firstTag.isPresent() ? firstTag.get().getId() : null;
     }
 }

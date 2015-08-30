@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.inject.Inject;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class FlashCardAction extends FlashCardsAppBaseAction implements
         ModelDriven<FlashCardDto>, Preparable, SessionAware {
@@ -122,40 +123,26 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
 
     private Set<TagDto> convertToTags(final String explodedTags) throws FlashcardsException
 	{
-        Set<TagDto> tags = new HashSet<>();
-
         if (getExplodedTags() == null) {
             return null;
         }
-
         // create an array of strings with a space (",") as their delimiter
-        String[] tokens = explodedTags.split(",");
-        for (String token : tokens) {
-            if (token.length() > 0) {
-                TagDto tag = tagFacade.findByName(token);
-                tags.add(tag);
-            }
-        }
-        return tags;
+        String[] tokens = getExplodedTags().split(",");
+        return Arrays.stream(tokens)
+                .filter(token -> token.length() > 0)
+                .map(tagFacade::findByName)
+                .collect(Collectors.toSet());
     }
 
     private String convertFromTags(final Collection<TagDto> tags, final boolean addQuotes) {
 
-        StringBuilder sb = new StringBuilder();
-        String prefix = "";
+        return tags.stream()
+                .map(tag -> tagNameAsString(tag, addQuotes))
+                .collect(Collectors.joining(", "));
+    }
 
-        for (TagDto tempTag : tags) {
-            sb.append(prefix);
-            prefix = ", ";
-
-            if (addQuotes) {
-                sb.append("'" + tempTag.getName() + "'");
-            } else {
-                sb.append(tempTag.getName());
-            }
-        }
-
-        return sb.toString();
+    private String tagNameAsString(final TagDto tag, final boolean addQuotes) {
+        return addQuotes ? "'" + tag.getName() + "'" : tag.getName();
     }
 
     @SkipValidation

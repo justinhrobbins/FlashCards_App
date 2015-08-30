@@ -15,20 +15,15 @@ public abstract class AbstractCrudServiceImpl<D, ID extends Serializable> implem
     @Override
     public D save(final D dto) throws FlashcardsException {
         try {
-            D result = getFacade().save(dto);
-            return result;
-        }
-        catch (DataIntegrityViolationException integrityException)
-        {
+            return getFacade().save(dto);
+        } catch (DataIntegrityViolationException integrityException) {
             throw new DataIntegrityException("Could NOT save '" + dto.getClass().getSimpleName() + "' due to DataIntegrityViolationException");
         }
     }
 
     @Override
     public void save(List<D> entities) throws FlashcardsException {
-        for (D entity : entities) {
-            save(entity);
-        }
+        entities.forEach(this::save);
     }
 
     @Override
@@ -41,15 +36,14 @@ public abstract class AbstractCrudServiceImpl<D, ID extends Serializable> implem
         return getFacade().findOne(id);
     }
 
-	@Override
-	public D findOne(final ID id, final Set<String> fields) throws FlashcardsException
-	{
-		return getFacade().findOne(id, fields);
-	}
+    @Override
+    public D findOne(final ID id, final Set<String> fields) throws FlashcardsException {
+        return getFacade().findOne(id, fields);
+    }
 
-	@Override
+    @Override
     public void delete(final ID id) {
-		getFacade().delete(id);
+        getFacade().delete(id);
     }
 
     @Override
@@ -57,17 +51,16 @@ public abstract class AbstractCrudServiceImpl<D, ID extends Serializable> implem
         return getFacade().list();
     }
 
-	@Override
-	public List<D> findAll(final Integer page, final Integer size, final String sort, final String direction) throws FlashcardsException
-	{
-		return getFacade().list(page, size, sort, direction);
-	}
+    @Override
+    public List<D> findAll(final Integer page, final Integer size, final String sort, final String direction) throws FlashcardsException {
+        return getFacade().list(page, size, sort, direction);
+    }
 
-	@Override
-	public List<D> findAll(final Integer page, final Integer size, final String sort, final String direction,
-				Set <String> fields) throws FlashcardsException {
-		return getFacade().list(page, size, sort, direction, fields);
-	}
+    @Override
+    public List<D> findAll(final Integer page, final Integer size, final String sort, final String direction,
+                           Set<String> fields) throws FlashcardsException {
+        return getFacade().list(page, size, sort, direction, fields);
+    }
 
     @Override
     public List<D> findByCreatedBy(final ID userId, final Set<String> fields) throws FlashcardsException {

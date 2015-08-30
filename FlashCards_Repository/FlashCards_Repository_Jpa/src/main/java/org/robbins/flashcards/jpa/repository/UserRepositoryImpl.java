@@ -1,13 +1,13 @@
 
 package org.robbins.flashcards.jpa.repository;
 
+import org.robbins.flashcards.jpa.repository.util.JpqlUtil;
 import org.robbins.flashcards.model.User;
 import org.robbins.flashcards.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
@@ -32,14 +32,7 @@ public class UserRepositoryImpl extends AbstractCrudRepositoryImpl<User, String>
     @SuppressWarnings("unchecked")
     @Override
     public List<User> findAll(final Sort sort) {
-        String sortOder = null;
-        String sortDirection = null;
-
-        for (Order order : sort) {
-            sortOder = order.getProperty();
-            sortDirection = order.getDirection().toString();
-        }
-        return getEm().createQuery("from User order by " + sortOder + " " + sortDirection).getResultList();
+        return getEm().createQuery("from User order by " + JpqlUtil.sortAsString(sort)).getResultList();
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })

@@ -3,6 +3,7 @@ package org.robbins.flashcards.jpa.repository;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
+import org.robbins.flashcards.jpa.repository.util.JpqlUtil;
 import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.repository.FlashCardRepository;
@@ -14,6 +15,7 @@ import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Repository
 public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCard, String>
@@ -26,14 +28,13 @@ public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
 
     @Override
     public FlashCard save(final FlashCard flashCard) {
-        for (Tag tag : flashCard.getTags()) {
-            if ((tag.getId() == null) || (StringUtils.isEmpty(tag.getId()))) {
-                tag.setCreatedBy(getAuditingUser());
-                tag.setCreatedDate(new DateTime());
-                tag.setLastModifiedBy(getAuditingUser());
-                tag.setLastModifiedDate(new DateTime());
-            }
-        }
+        flashCard.getTags().stream()
+                .filter(tag -> (tag.getId() == null) || (StringUtils.isEmpty(tag.getId()))).forEach(tag -> {
+            tag.setCreatedBy(getAuditingUser());
+            tag.setCreatedDate(new DateTime());
+            tag.setLastModifiedBy(getAuditingUser());
+            tag.setLastModifiedDate(new DateTime());
+        });
         return super.save(flashCard);
     }
 
@@ -46,15 +47,8 @@ public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
     @SuppressWarnings("unchecked")
     @Override
     public List<FlashCard> findAll(final Sort sort) {
-        String sortOder = null;
-        String sortDirection = null;
-
-        for (Order order : sort) {
-            sortOder = order.getProperty();
-            sortDirection = order.getDirection().toString();
-        }
         return getEm().createQuery(
-                "from FlashCard order by " + sortOder + " " + sortDirection).getResultList();
+                "from FlashCard order by " + JpqlUtil.sortAsString(sort)).getResultList();
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -79,16 +73,13 @@ public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
 
     @SuppressWarnings("unchecked")
     private List<FlashCard> findByTags(final Set<Tag> tags, final Pageable page) {
-        List<String> tagIds = new ArrayList<>();
-        for (Tag tag : tags) {
-            tagIds.add(tag.getId());
-        }
+        List<String> tagIds = tags.stream().map(Tag::getId).collect(Collectors.toList());
 
-        String jpql = "select fc from FlashCard fc " + "join fc.tags t "
+        final String jpql = "select fc from FlashCard fc " + "join fc.tags t "
                 + "where t.id in (:tagIds) " + "group by fc "
                 + "having count(t)=:tag_count " + "order by fc.question";
 
-        Query query = getEm().createQuery(jpql);
+        final Query query = getEm().createQuery(jpql);
 
         if (page != null) {
             query.setFirstResult((page.getPageNumber() + 1) * page.getPageSize());
@@ -102,7 +93,7 @@ public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
     @SuppressWarnings("unchecked")
     @Override
     public List<FlashCard> findByQuestionLike(final String question) {
-        Query query = getEm().createQuery("from Flashcard where question like :question");
+        final Query query = getEm().createQuery("from Flashcard where question like :question");
         query.setParameter("question", question);
         return query.getResultList();
     }

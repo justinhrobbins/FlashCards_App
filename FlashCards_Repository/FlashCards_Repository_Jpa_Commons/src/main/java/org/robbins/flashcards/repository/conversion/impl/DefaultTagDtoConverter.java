@@ -1,15 +1,16 @@
 package org.robbins.flashcards.repository.conversion.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
+import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.exceptions.RepositoryException;
 import org.robbins.flashcards.model.Tag;
-import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.repository.util.DtoUtil;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component("tagDtoConverter")
 public class DefaultTagDtoConverter extends AbstractDtoConverter implements DtoConverter<TagDto, Tag> {
@@ -23,7 +24,7 @@ public class DefaultTagDtoConverter extends AbstractDtoConverter implements DtoC
     public TagDto getDto(final Tag entity, final Set<String> fields)
             throws RepositoryException
 	{
-        TagDto tagDto = getMapper().map(entity, TagDto.class);
+        final TagDto tagDto = getMapper().map(entity, TagDto.class);
         DtoUtil.filterFields(tagDto, fields);
         return tagDto;
     }
@@ -41,19 +42,15 @@ public class DefaultTagDtoConverter extends AbstractDtoConverter implements DtoC
     @Override
     public List<TagDto> getDtos(final List<Tag> entities, final Set<String> fields)
             throws RepositoryException {
-        List<TagDto> dtos = new ArrayList<>();
-        for (Tag entity : entities) {
-            dtos.add(getDto(entity, fields));
-        }
-        return dtos;
-    }
+
+        return entities.stream()
+                .map(this::getDto)
+                .collect(Collectors.toList());
+     }
 
     @Override
     public List<Tag> getEntities(final List<TagDto> dtos) {
-        List<Tag> entities = new ArrayList<>();
-        for (TagDto dto : dtos) {
-            entities.add(getEntity(dto));
-        }
+        List<Tag> entities = dtos.stream().map(this::getEntity).collect(Collectors.toList());
         return entities;
     }
 }

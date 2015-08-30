@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component("tagDtoConverter")
 public class DefaultTagDtoConverter extends AbstractDtoConverter implements DtoConverter<TagDto, TagCassandraEntity> {
@@ -34,11 +35,9 @@ public class DefaultTagDtoConverter extends AbstractDtoConverter implements DtoC
 
     @Override
     public List<TagDto> getDtos(List<TagCassandraEntity> entities) throws RepositoryException {
-        List<TagDto> dtos = new ArrayList<>();
-        for (TagCassandraEntity entity : entities) {
-            dtos.add(getDto(entity));
-        }
-        return dtos;
+        return entities.stream()
+                .map(this::getDto)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -48,10 +47,8 @@ public class DefaultTagDtoConverter extends AbstractDtoConverter implements DtoC
 
     @Override
     public List<TagCassandraEntity> getEntities(final List<TagDto> dtos) {
-        List<TagCassandraEntity> entities = new ArrayList<>();
-        for (TagDto dto : dtos) {
-            entities.add(getEntity(dto));
-        }
-        return entities;
+        return dtos.stream()
+                .map(this::getEntity)
+                .collect(Collectors.toList());
     }
 }

@@ -1,16 +1,17 @@
 package org.robbins.flashcards.repository.conversion.impl;
 
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
+import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.exceptions.RepositoryException;
 import org.robbins.flashcards.model.FlashCard;
-import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.repository.util.DtoUtil;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component("flashcardDtoConverter")
 public class DefaultFlashcardDtoConverter extends AbstractDtoConverter implements DtoConverter<FlashCardDto, FlashCard> {
@@ -42,19 +43,16 @@ public class DefaultFlashcardDtoConverter extends AbstractDtoConverter implement
     public List<FlashCardDto> getDtos(final List<FlashCard> entities,
                                       final Set<String> fields)
             throws RepositoryException {
-        List<FlashCardDto> dtos = new ArrayList<>();
-        for (FlashCard entity : entities) {
-            dtos.add(getDto(entity, fields));
-        }
-        return dtos;
+
+        return entities.stream()
+                .map(entity -> getDto(entity, fields))
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<FlashCard> getEntities(final List<FlashCardDto> dtos) {
-        List<FlashCard> entities = new ArrayList<>();
-        for (FlashCardDto dto : dtos) {
-            entities.add(getEntity(dto));
-        }
-        return entities;
+        return dtos.stream()
+                .map(this::getEntity)
+                .collect((Collectors.toList()));
     }
 }

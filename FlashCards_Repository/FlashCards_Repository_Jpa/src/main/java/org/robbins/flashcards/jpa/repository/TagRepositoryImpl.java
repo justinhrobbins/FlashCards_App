@@ -1,13 +1,13 @@
 
 package org.robbins.flashcards.jpa.repository;
 
+import org.robbins.flashcards.jpa.repository.util.JpqlUtil;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.repository.TagRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
@@ -31,14 +31,7 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag, String> i
     @SuppressWarnings("unchecked")
     @Override
     public List<Tag> findAll(final Sort sort) {
-        String sortOder = null;
-        String sortDirection = null;
-
-        for (Order order : sort) {
-            sortOder = order.getProperty();
-            sortDirection = order.getDirection().toString();
-        }
-        return getEm().createQuery("from Tag order by " + sortOder + " " + sortDirection).getResultList();
+        return getEm().createQuery("from Tag order by " + JpqlUtil.sortAsString(sort)).getResultList();
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })

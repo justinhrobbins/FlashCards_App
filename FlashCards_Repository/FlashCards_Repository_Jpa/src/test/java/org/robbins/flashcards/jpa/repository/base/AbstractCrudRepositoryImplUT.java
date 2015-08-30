@@ -1,5 +1,5 @@
 
-package org.robbins.flashcards.repository.jpa.base;
+package org.robbins.flashcards.jpa.repository.base;
 
 import org.junit.Before;
 import org.junit.Test;

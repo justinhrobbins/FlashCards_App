@@ -14,9 +14,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * A custom {@link UserDetailsService} where user information is retrieved from a
@@ -45,10 +46,10 @@ public class CustomUserDetailsService implements UserDetailsService {
                         + " not found");
             }
 
-            boolean enabled = true;
-            boolean accountNonExpired = true;
-            boolean credentialsNonExpired = true;
-            boolean accountNonLocked = true;
+            final boolean enabled = true;
+            final boolean accountNonExpired = true;
+            final boolean credentialsNonExpired = true;
+            final boolean accountNonLocked = true;
 
             return new org.springframework.security.core.userdetails.User(
                     domainUser.getOpenid(), "apiuserpassword", enabled,
@@ -68,8 +69,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
      */
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authList = getGrantedAuthorities(getRoles());
-        return authList;
+       return getGrantedAuthorities(getRoles());
     }
 
     /**
@@ -78,11 +78,7 @@ public class CustomUserDetailsService implements UserDetailsService {
      * @return list of roles as as a list of {@link String}
      */
     public List<String> getRoles() {
-        List<String> roles = new ArrayList<String>();
-
-        roles.add("ROLE_USER");
-
-        return roles;
+        return Collections.singletonList("ROLE_USER");
     }
 
     /**
@@ -92,10 +88,9 @@ public class CustomUserDetailsService implements UserDetailsService {
      * @return list of granted authorities
      */
     public static List<GrantedAuthority> getGrantedAuthorities(final List<String> roles) {
-        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        for (String role : roles) {
-            authorities.add(new SimpleGrantedAuthority(role));
-        }
+        List<GrantedAuthority> authorities = roles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
         return authorities;
     }
 }

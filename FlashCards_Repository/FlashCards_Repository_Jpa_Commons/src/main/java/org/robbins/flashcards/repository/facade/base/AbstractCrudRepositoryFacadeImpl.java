@@ -36,9 +36,7 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E, ID extends Serializ
 
     @Override
     public void save(List<D> entities) throws FlashcardsException {
-        for (D entity : entities) {
-            save(entity);
-        }
+        entities.forEach(this::save);
     }
 
     @Override
