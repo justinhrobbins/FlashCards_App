@@ -161,6 +161,7 @@
         <module>swagger_ui</module>
         <module>FlashCards_UI</module>
         <module>FlashCards_Load_Tester</module>
+        <module>FlashCards_Feature_Tests</module>
     </modules>
     <profiles>
 

@@ -81,7 +81,7 @@ public class TagsResourceIT extends GenericEntityRestTest<TagDto, String> {
     @Test
     public void testFindByCreatedBy() throws FlashcardsException {
         final String userId = UUID.randomUUID().toString();
-        List<TagDto> results = client.findByCreatedBy(userId, null);
+        final List<TagDto> results = client.findByCreatedBy(userId, null);
 
         assertTrue(results != null);
         assertTrue(results.size() > 0);
@@ -89,9 +89,9 @@ public class TagsResourceIT extends GenericEntityRestTest<TagDto, String> {
 
     @Test
     public void testFindTagsForFlashcard() throws FlashcardsException {
-        FlashCardDto flashCard = setupFlashcard();
+        final FlashCardDto flashCard = setupFlashcard();
 
-        List<TagDto> results = client.findTagsForFlashcard(flashCard.getId(), null);
+        final List<TagDto> results = client.findTagsForFlashcard(flashCard.getId(), null);
         assertTrue(results != null);
         assertTrue(results.size() == 1);
 
@@ -99,7 +99,7 @@ public class TagsResourceIT extends GenericEntityRestTest<TagDto, String> {
     }
 
     private FlashCardDto setupFlashcard() throws FlashcardsException {
-        FlashCardDto flashCardDto = new FlashCardDtoBuilder().withQuestion("question").withAnswer("answer").build();
+        final FlashCardDto flashCardDto = new FlashCardDtoBuilder().withQuestion("question").withAnswer("answer").build();
         flashCardDto.setTags(Sets.newHashSet(new TagDtoBuilder().withName("tag_name").build()));
         return flashcardClient.save(flashCardDto);
     }

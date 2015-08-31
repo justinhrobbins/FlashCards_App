@@ -114,7 +114,7 @@ public abstract class GenericEntityRestTest<E extends Persistable<ID>, ID extend
      */
     @Before
     public void before() throws FlashcardsException{
-        LOGGER.info("******************** BEFORE TEST ********************");
+        LOGGER.debug("******************** BEFORE TEST ********************");
 
         postEntity();
     }
@@ -124,7 +124,7 @@ public abstract class GenericEntityRestTest<E extends Persistable<ID>, ID extend
      */
     @After
     public void after() {
-        LOGGER.info("******************** AFTER TEST ********************");
+        LOGGER.debug("******************** AFTER TEST ********************");
 
         if (getEntity() != null) {
             getClient().delete(getEntity().getId());

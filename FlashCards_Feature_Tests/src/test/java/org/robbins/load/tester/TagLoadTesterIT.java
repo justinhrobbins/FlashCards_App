@@ -2,6 +2,7 @@ package org.robbins.load.tester;
 
 import akka.actor.ActorSystem;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,15 +18,13 @@ import org.springframework.util.StopWatch;
 
 import javax.inject.Inject;
 
-import static org.junit.Assert.assertEquals;
-
 @ContextConfiguration(locations = {"classpath*:test-applicatonContext-loadTester.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class TagLoadTesterIT {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TagLoadTesterIT.class);
 
-    private final Long numberOfRequests = 100000L;
+    private final Long numberOfRequests = 10000L;
     private final String ENDPOINT_NAME = "tagClient";
     private StopWatch stopWatch;
 
@@ -55,14 +54,14 @@ public class TagLoadTesterIT {
     @Test
     public void testAkkaLoadTest() throws Exception {
 
-        LoadTestResult result = akkaLoadTestingService.doLoadTest(new LoadTestStart(numberOfRequests, ENDPOINT_NAME));
-        assertEquals(numberOfRequests, result.getEndPointInvocationCount());
+        final LoadTestResult result = akkaLoadTestingService.doLoadTest(new LoadTestStart(numberOfRequests, ENDPOINT_NAME));
+        Assert.assertEquals(numberOfRequests, result.getEndPointInvocationCount());
     }
 
     @Test
     public void testDefaultLoadTest() throws Exception {
 
-        LoadTestResult result = defaultLoadTestingService.doLoadTest(new LoadTestStart(numberOfRequests, ENDPOINT_NAME));
-        assertEquals(numberOfRequests, result.getEndPointInvocationCount());
+        final LoadTestResult result = defaultLoadTestingService.doLoadTest(new LoadTestStart(numberOfRequests, ENDPOINT_NAME));
+        Assert.assertEquals(numberOfRequests, result.getEndPointInvocationCount());
     }
 }
