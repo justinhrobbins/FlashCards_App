@@ -21,6 +21,7 @@
 
         <!-- Dependency versions -->
         <aspectj.version>1.7.4</aspectj.version>
+        <akka.version>2.3.12</akka.version>
         <cassandra-unit-spring.version>2.0.2.2</cassandra-unit-spring.version>
         <cglib.version>2.2.2</cglib.version>
         <checkstyle.version>2.10</checkstyle.version>
@@ -159,6 +160,8 @@
         <module>FlashCards_Test</module>
         <module>swagger_ui</module>
         <module>FlashCards_UI</module>
+        <module>FlashCards_Load_Tester</module>
+        <module>FlashCards_Feature_Tests</module>
     </modules>
     <profiles>
 
@@ -270,6 +273,13 @@
     </profiles>
     <dependencyManagement>
         <dependencies>
+            <!-- akka -->
+            <dependency>
+                <groupId>com.typesafe.akka</groupId>
+                <artifactId>akka-actor_2.11</artifactId>
+                <version>${akka.version}</version>
+            </dependency>
+
             <!-- dependency for 'javax.persistence' packages -->
             <dependency>
                 <groupId>org.hibernate.javax.persistence</groupId>

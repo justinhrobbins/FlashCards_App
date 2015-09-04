@@ -1,6 +1,7 @@
 
 package org.robbins.flashcards.webservices;
 
+import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -12,7 +13,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.inject.Inject;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.Assert.assertThat;
 
 @Category(IntegrationTest.class)
@@ -25,9 +25,9 @@ public class FlashCardsAppResourceIT {
 
     @Test
     public void status_FoundManifestAndVerson() {
-        String result = client.getStatus();
+        final String result = client.getStatus();
 
         assertThat(result, is(String.class));
-        assertThat(result.length(), greaterThan(1));
+        assertThat(result.length(), Matchers.greaterThan(1));
     }
 }

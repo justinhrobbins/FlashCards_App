@@ -72,6 +72,7 @@ public abstract class AbstractGenericResource<T, ID extends Serializable> extend
     @ApiOperation(value = "Create")
     public T post(final T entity) {
         try {
+            LOGGER.debug("Received post request for {}", entity.getClass().getSimpleName());
             return getFacade().save(entity);
         } catch (DataIntegrityException e) {
             throw new GenericWebServiceException(Response.Status.BAD_REQUEST, e);

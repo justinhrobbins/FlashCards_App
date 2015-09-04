@@ -5,7 +5,7 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.junit.Test;
 import org.robbins.flashcards.cassandra.repository.AbstractCassandraIntegrationTest;
 import org.robbins.flashcards.dto.UserDto;
-import org.robbins.flashcards.dto.UserDtoBuilder;
+import org.robbins.flashcards.dto.builder.UserDtoBuilder;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.UserFacade;
 

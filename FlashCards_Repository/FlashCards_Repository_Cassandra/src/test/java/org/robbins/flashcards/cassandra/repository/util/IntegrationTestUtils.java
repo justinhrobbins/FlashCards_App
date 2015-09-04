@@ -8,9 +8,9 @@ import org.robbins.flashcards.cassandra.repository.domain.FlashCardCassandraEnti
 import org.robbins.flashcards.cassandra.repository.domain.TagCassandraBuilder;
 import org.robbins.flashcards.cassandra.repository.domain.TagCassandraEntity;
 import org.robbins.flashcards.dto.FlashCardDto;
-import org.robbins.flashcards.dto.FlashCardDtoBuilder;
+import org.robbins.flashcards.dto.builder.FlashCardDtoBuilder;
 import org.robbins.flashcards.dto.TagDto;
-import org.robbins.flashcards.dto.TagDtoBuilder;
+import org.robbins.flashcards.dto.builder.TagDtoBuilder;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.FlashcardFacade;
 import org.robbins.flashcards.facade.TagFacade;
