@@ -1,11 +1,14 @@
 
 package org.robbins.flashcards.service.base;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.robbins.flashcards.dto.BulkLoadingReceiptDto;
 import org.robbins.flashcards.exceptions.DataIntegrityException;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -22,8 +25,8 @@ public abstract class AbstractCrudServiceImpl<D, ID extends Serializable> implem
     }
 
     @Override
-    public void save(List<D> entities) throws FlashcardsException {
-        entities.forEach(this::save);
+    public BulkLoadingReceiptDto save(List<D> entities) throws FlashcardsException {
+        return getFacade().save(entities);
     }
 
     @Override

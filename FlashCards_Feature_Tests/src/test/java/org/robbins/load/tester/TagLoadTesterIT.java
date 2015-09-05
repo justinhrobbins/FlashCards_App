@@ -1,10 +1,7 @@
 package org.robbins.load.tester;
 
 import akka.actor.ActorSystem;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.robbins.load.tester.message.LoadTestResult;
 import org.robbins.load.tester.message.LoadTestStart;
@@ -24,7 +21,8 @@ public class TagLoadTesterIT {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TagLoadTesterIT.class);
 
-    private final Long numberOfRequests = 10000L;
+    private final Integer totalLoadCount = 1000000;
+    private final Integer batchSize = 10000;
     private final String ENDPOINT_NAME = "tagClient";
     private StopWatch stopWatch;
 
@@ -48,20 +46,36 @@ public class TagLoadTesterIT {
     @After
     public void after() {
         stopWatch.stop();
-        LOGGER.info("Test duration: {} seconds",  Math.ceil(stopWatch.getLastTaskTimeMillis()/1000));
+        LOGGER.info("Test duration: {} seconds", Math.ceil(stopWatch.getLastTaskTimeMillis() / 1000));
     }
 
+    @Ignore
     @Test
     public void testAkkaLoadTest() throws Exception {
 
-        final LoadTestResult result = akkaLoadTestingService.doLoadTest(new LoadTestStart(numberOfRequests, ENDPOINT_NAME));
-        Assert.assertEquals(numberOfRequests, result.getEndPointInvocationCount());
+        final LoadTestResult result = akkaLoadTestingService.doLoadTest(new LoadTestStart(totalLoadCount, 1, ENDPOINT_NAME));
+        Assert.assertEquals(totalLoadCount, result.getGetTotalLoadCount());
     }
 
+    @Ignore
     @Test
     public void testDefaultLoadTest() throws Exception {
 
-        final LoadTestResult result = defaultLoadTestingService.doLoadTest(new LoadTestStart(numberOfRequests, ENDPOINT_NAME));
-        Assert.assertEquals(numberOfRequests, result.getEndPointInvocationCount());
+        final LoadTestResult result = defaultLoadTestingService.doLoadTest(new LoadTestStart(totalLoadCount, 1, ENDPOINT_NAME));
+        Assert.assertEquals(totalLoadCount, result.getGetTotalLoadCount());
+    }
+
+    @Test
+    public void testDefaultLoadTestInBatch() throws Exception {
+
+        final LoadTestResult result = defaultLoadTestingService.doLoadTest(new LoadTestStart(totalLoadCount, batchSize, ENDPOINT_NAME));
+        Assert.assertEquals(totalLoadCount, result.getGetTotalLoadCount());
+    }
+
+    @Test
+    public void testAkkaLoadTestInBatch() throws Exception {
+
+        final LoadTestResult result = akkaLoadTestingService.doLoadTest(new LoadTestStart(totalLoadCount, batchSize, ENDPOINT_NAME));
+        Assert.assertEquals(totalLoadCount, result.getGetTotalLoadCount());
     }
 }

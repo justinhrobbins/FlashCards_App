@@ -3,11 +3,18 @@ package org.robbins.flashcards.repository.facade.base;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.robbins.flashcards.conversion.DtoConverter;
+import org.robbins.flashcards.dto.BulkLoadingReceiptDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.exceptions.RepositoryException;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
+import org.robbins.flashcards.model.BulkLoadingReceipt;
+import org.robbins.flashcards.repository.BulkLoadingReceiptRepository;
 import org.robbins.flashcards.repository.facade.RepositoryFacade;
 import org.robbins.flashcards.repository.util.FieldInitializerUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -15,28 +22,61 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
 @Transactional
 public abstract class AbstractCrudRepositoryFacadeImpl<D, E, ID extends Serializable> implements GenericCrudFacade<D, ID>,
-        RepositoryFacade<D, E, ID>
-{
+        RepositoryFacade<D, E, ID> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractCrudRepositoryFacadeImpl.class);
 
     @Inject
     private FieldInitializerUtil fieldInitializer;
 
+    @Inject
+    private BulkLoadingReceiptRepository<BulkLoadingReceipt, String> receiptRepository;
+
+    @Inject
+    @Qualifier("bulkLoadingReceiptDtoConverter")
+    private DtoConverter<BulkLoadingReceiptDto, BulkLoadingReceipt> converter;
+
     @Override
-    public D save(final D dto) throws RepositoryException
-	{
+    public D save(final D dto) throws RepositoryException {
         E entity = getConverter().getEntity(dto);
         E result = getRepository().save(entity);
         return convertAndInitializeEntity(result);
     }
 
     @Override
-    public void save(List<D> entities) throws FlashcardsException {
+    public BulkLoadingReceiptDto save(List<D> entities) throws FlashcardsException {
+        if (CollectionUtils.isEmpty(entities))
+            throw new FlashcardsException("Expected list with at least one element");
+
+        //TODO Receipt should be persisted prior to persisting entities, may need to adjust transaction boundaries
+        BulkLoadingReceipt receipt = createBulkLoadingReceipt(entities.get(0).getClass().getSimpleName());
+
+        // TODO Handle failures
         entities.forEach(this::save);
+
+        receipt = completeBulkLoadingReceipt(entities.size(), 0L, receipt);
+        LOGGER.trace(receipt.toString());
+        return converter.getDto(receipt);
+    }
+
+    private BulkLoadingReceipt createBulkLoadingReceipt(final String type) {
+        BulkLoadingReceipt receipt = new BulkLoadingReceipt();
+        receipt.setType(type);
+        receipt.setStartTime(new Date());
+        return receiptRepository.save(receipt);
+    }
+
+    private BulkLoadingReceipt completeBulkLoadingReceipt(final long successCount, final long failureCount, final BulkLoadingReceipt receipt) {
+        receipt.setSuccessCount(successCount);
+        receipt.setFailureCount(failureCount);
+        receipt.setEndTime(new Date());
+        return receiptRepository.save(receipt);
     }
 
     @Override
@@ -46,14 +86,14 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E, ID extends Serializ
 
     @Override
     public List<D> list(final Integer page, final Integer size, final String sort,
-            final String direction)
+                        final String direction)
             throws RepositoryException {
         return this.list(page, size, sort, direction, null);
     }
 
     @Override
     public List<D> list(final Integer page, final Integer size, final String sort,
-            final String direction, final Set<String> fields) throws RepositoryException {
+                        final String direction, final Set<String> fields) throws RepositoryException {
 
         List<E> entities = null;
 
@@ -101,7 +141,7 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E, ID extends Serializ
 
     @Override
     public void delete(final ID id) {
-		getRepository().delete(id);
+        getRepository().delete(id);
     }
 
     @Override
@@ -111,7 +151,7 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E, ID extends Serializ
     }
 
     protected PageRequest getPageRequest(final Integer page, final Integer size,
-            final String sortOrder, final String sortDirection) {
+                                         final String sortOrder, final String sortDirection) {
         // are we Sorting too?
         if (!StringUtils.isEmpty(sortOrder)) {
             Sort sort = getSort(sortOrder, sortDirection);

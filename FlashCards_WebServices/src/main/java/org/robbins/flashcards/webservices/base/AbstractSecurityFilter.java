@@ -58,7 +58,7 @@ public class AbstractSecurityFilter {
             if (user != null) {
                 // set the user id on the autowired loggedInUser
                 getLoggedInUser().setId(user.getId());
-                LOGGER.debug("AbstractSecurityFilter - Logged In User Id: "
+                LOGGER.trace("AbstractSecurityFilter - Logged In User Id: "
                         + getLoggedInUser().getId());
             }
         }

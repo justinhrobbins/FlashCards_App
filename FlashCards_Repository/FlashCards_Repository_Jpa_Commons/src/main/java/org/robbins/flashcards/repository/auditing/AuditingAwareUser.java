@@ -20,7 +20,7 @@ public class AuditingAwareUser implements AuditorAware<String> {
     public String getCurrentAuditor() {
         String auditor = ((UserDto) context.getBean("loggedInUser")).getId();
 
-        LOGGER.debug("Logged In User Id: " + auditor);
+        LOGGER.trace("Logged In User Id: " + auditor);
 
         return auditor;
     }

@@ -1,9 +1,7 @@
 package org.robbins.flashcards.client;
 
-import java.util.*;
-
 import org.robbins.flashcards.dto.AbstractPersistableDto;
-import org.robbins.flashcards.dto.TagDto;
+import org.robbins.flashcards.dto.BulkLoadingReceiptDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.exceptions.ServiceException;
 import org.springframework.http.HttpEntity;
@@ -11,6 +9,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
+
+import java.util.*;
 
 public abstract class AbstractCrudClient<E extends AbstractPersistableDto, ID> extends AbstractClient implements GenericRestCrudFacade<E, ID> {
 
@@ -149,8 +149,7 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto, ID> e
         final HttpEntity httpEntity = new HttpEntity(entity, getAuthHeaders());
 
         try {
-            E result = getRestTemplate().postForObject(postEntityUrl(), httpEntity, getClazz());
-            return result;
+            return getRestTemplate().postForObject(postEntityUrl(), httpEntity, getClazz());
         }
         catch (HttpClientErrorException e) {
             throw new ServiceException("Unble to save '" + entity.getClass().getSimpleName() + "' " + e.getMessage());
@@ -161,17 +160,16 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto, ID> e
     }
 
     @Override
-    public void save(List<E> entities) throws FlashcardsException {
+    public BulkLoadingReceiptDto save(List<E> entities) throws FlashcardsException {
         // set the Authentication header
         @SuppressWarnings({ "unchecked", "rawtypes" })
         final HttpEntity httpEntity = new HttpEntity(entities, getAuthHeaders());
 
         try {
-            getRestTemplate().exchange(postBulkEntitiesUrl(), HttpMethod.POST,
-                    httpEntity, ResponseEntity.class);
+            return getRestTemplate().postForObject(postBulkEntitiesUrl(), httpEntity, BulkLoadingReceiptDto.class);
         }
         catch (HttpClientErrorException e) {
-            throw new ServiceException("Unble to save '" + entities.getClass().getSimpleName() + "' " + e.getMessage());
+            throw new ServiceException("Unable to save '" + entities.getClass().getSimpleName() + "' " + e.getMessage());
         }
         catch (Exception e) {
             throw new ServiceException("Unexpected exception" + e.getMessage());

@@ -49,7 +49,7 @@
         <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
             destroy-method="close">
             <property name="driverClass" value="org.h2.Driver" />
-            <property name="jdbcUrl" value="jdbc:h2:mem:flashcardsDb" />
+            <property name="jdbcUrl" value="jdbc:h2:mem:flashcardsDb;MVCC=true" />
         </bean>
     </beans>
 

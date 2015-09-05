@@ -35,6 +35,7 @@ public class AkkaLoadTestingService implements LoadTestingService {
     @Override
     public LoadTestResult doLoadTest(LoadTestStart testStart) throws Exception {
         LOGGER.info("Sending StartLoadTest message to LoadTestingCoordinator");
+
         ActorRef loadTestingCoordinator = system.actorOf(
                 SpringExtProvider.get(system).props("loadTestingCoordinator"), "load-testing-coordinator");
 

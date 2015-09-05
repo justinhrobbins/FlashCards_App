@@ -9,7 +9,8 @@ import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.dto.builder.TagDtoBuilder;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.load.tester.message.TestStart;
-import org.robbins.load.tester.message.TestResult;
+import org.robbins.load.tester.message.SingleTestResult;
+import org.robbins.load.tester.util.LoadingTestingUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StopWatch;
@@ -25,7 +26,7 @@ public class LoadTester extends AbstractActor {
     private final TagClient tagClient;
 
     public LoadTester(final TagClient tagClient) {
-        LOGGER.debug("Creating LoadTestingActor");
+        LOGGER.info("Creating LoadTestingActor");
 
         this.tagClient = tagClient;
     }
@@ -43,18 +44,18 @@ public class LoadTester extends AbstractActor {
     }
 
     private void doLoadTest(final TestStart testStartMessage, final ActorRef sender) {
-        LOGGER.debug("Received TestStart message: {}", testStartMessage.toString());
+        LOGGER.info("Received TestStart message: {}", testStartMessage.toString());
 
-        final TagDto tag = new TagDtoBuilder().withName("load-tester-" + UUID.randomUUID().toString() + "-" + testStartMessage.getTestId()).build();
-        TestResult result = saveItem(testStartMessage, tag);
+        final TagDto tag = LoadingTestingUtil.createTagDto("load-tester-" + UUID.randomUUID().toString() + "-" + testStartMessage.getTestId());
+        SingleTestResult result = saveItem(testStartMessage, tag);
 
-        LOGGER.debug("Sending TestResult message: {}", result.toString());
+        LOGGER.info("Sending TestResult message: {}", result.toString());
         sender.tell(result, self());
     }
 
-    private TestResult saveItem(final TestStart testStartMessage, final TagDto tag) {
+    private SingleTestResult saveItem(final TestStart testStartMessage, final TagDto tag) {
         long duration;
-        TestResult.TestResultStatus resultStatus = TestResult.TestResultStatus.SUCCESS;
+        SingleTestResult.TestResultStatus resultStatus = SingleTestResult.TestResultStatus.SUCCESS;
 
         final StopWatch stopWatch = new StopWatch();
         stopWatch.start();
@@ -64,12 +65,12 @@ public class LoadTester extends AbstractActor {
 
         } catch (FlashcardsException e) {
             LOGGER.error("Unable to create Tag {}, error: {}", tag.toString(), e.getMessage());
-            resultStatus = TestResult.TestResultStatus.FAILURE;
+            resultStatus = SingleTestResult.TestResultStatus.FAILURE;
         }
 
         stopWatch.stop();
         duration = stopWatch.getLastTaskTimeMillis();
 
-        return new TestResult(testStartMessage.getEndPointName(), duration, resultStatus);
+        return new SingleTestResult(testStartMessage.getEndPointName(), duration, resultStatus);
     }
 }

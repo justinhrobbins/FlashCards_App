@@ -3,20 +3,36 @@ package org.robbins.load.tester.message;
 import java.io.Serializable;
 
 public class LoadTestStart implements Serializable {
-    private final Long endPointInvocationCount;
-    private final String endPointName;
 
-    public LoadTestStart(Long endPointInvocationCount, String endPointName) {
-        this.endPointInvocationCount = endPointInvocationCount;
+    private final Integer totalLoadCount;
+    private final String endPointName;
+    private final Integer batchSize;
+
+    public LoadTestStart(Integer totalLoadCount, Integer batchSize, String endPointName) {
+        this.totalLoadCount = totalLoadCount;
         this.endPointName = endPointName;
+        this.batchSize = batchSize;
     }
 
-    public Long getEndPointInvocationCount() {
-        return endPointInvocationCount;
+    public Integer getTotalLoadCount() {
+        return totalLoadCount;
     }
 
     public String getEndPointName() {
         return endPointName;
+    }
+
+    public Integer getBatchSize() {
+        return batchSize;
+    }
+
+    @Override
+    public String toString() {
+        return "LoadTestStart{" +
+                "totalLoadCount=" + totalLoadCount +
+                ", endPointName='" + endPointName + '\'' +
+                ", batchSize=" + batchSize +
+                '}';
     }
 
     @Override
@@ -26,15 +42,17 @@ public class LoadTestStart implements Serializable {
 
         LoadTestStart that = (LoadTestStart) o;
 
-        if (!endPointInvocationCount.equals(that.endPointInvocationCount)) return false;
-        return endPointName.equals(that.endPointName);
+        if (!totalLoadCount.equals(that.totalLoadCount)) return false;
+        if (!endPointName.equals(that.endPointName)) return false;
+        return batchSize.equals(that.batchSize);
 
     }
 
     @Override
     public int hashCode() {
-        int result = endPointInvocationCount.hashCode();
+        int result = totalLoadCount.hashCode();
         result = 31 * result + endPointName.hashCode();
+        result = 31 * result + batchSize.hashCode();
         return result;
     }
 }
