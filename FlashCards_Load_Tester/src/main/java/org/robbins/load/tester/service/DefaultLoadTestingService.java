@@ -1,7 +1,7 @@
 package org.robbins.load.tester.service;
 
 import org.robbins.flashcards.client.TagClient;
-import org.robbins.flashcards.dto.BulkLoadingReceiptDto;
+import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.load.tester.message.LoadTestResult;
@@ -39,7 +39,7 @@ public class DefaultLoadTestingService implements LoadTestingService {
 
     private LoadTestResult saveItemsInBatches(final LoadTestStart loadTestStartMessage) {
         final List<List<TagDto>> batches = LoadingTestingUtil.createTagDtosInBatches(loadTestStartMessage.getTotalLoadCount(), loadTestStartMessage.getBatchSize());
-        final List<BulkLoadingReceiptDto> results =  batches.stream()
+        final List<BatchLoadingReceiptDto> results =  batches.stream()
                 .map(tagClient::save)
                 .collect(Collectors.toList());
 
@@ -48,11 +48,11 @@ public class DefaultLoadTestingService implements LoadTestingService {
                 .sum();
 
         final int successCount = results.stream()
-                .mapToInt(BulkLoadingReceiptDto::getSuccessCount)
+                .mapToInt(BatchLoadingReceiptDto::getSuccessCount)
                 .sum();
 
         final int failureCount = results.stream()
-                .mapToInt(BulkLoadingReceiptDto::getFailureCount)
+                .mapToInt(BatchLoadingReceiptDto::getFailureCount)
                 .sum();
 
         LoadTestResult result = new LoadTestResult(loadTestStartMessage.getTotalLoadCount(), loadTestStartMessage.getEndPointName(),

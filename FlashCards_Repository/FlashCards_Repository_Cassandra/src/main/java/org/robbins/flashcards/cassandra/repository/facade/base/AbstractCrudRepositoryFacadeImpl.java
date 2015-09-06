@@ -5,7 +5,7 @@ import com.google.common.collect.Lists;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.NotImplementedException;
 import org.robbins.flashcards.cassandra.repository.domain.AbstractPersistable;
-import org.robbins.flashcards.dto.BulkLoadingReceiptDto;
+import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.repository.facade.RepositoryFacade;
@@ -61,11 +61,11 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E extends AbstractPers
     }
 
     @Override
-    public BulkLoadingReceiptDto save(final List<D> entities) throws FlashcardsException {
+    public BatchLoadingReceiptDto save(final List<D> entities) throws FlashcardsException {
 
         if (CollectionUtils.isEmpty(entities)) throw new FlashcardsException("Expected list with at least one element");
 
-        BulkLoadingReceiptDto receipt = new BulkLoadingReceiptDto();
+        BatchLoadingReceiptDto receipt = new BatchLoadingReceiptDto();
         receipt.setType(entities.get(0).getClass().getSimpleName());
         receipt.setStartTime(new Date());
 

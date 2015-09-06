@@ -4,7 +4,7 @@ package org.robbins.flashcards.service.base;
 import java.io.Serializable;
 import java.util.List;
 
-import org.robbins.flashcards.dto.BulkLoadingReceiptDto;
+import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 
 public interface GenericCrudService<T, ID extends Serializable> {
@@ -18,7 +18,7 @@ public interface GenericCrudService<T, ID extends Serializable> {
      */
     T save(T entity) throws FlashcardsException;
 
-    BulkLoadingReceiptDto save(List<T> entities) throws FlashcardsException;
+    BatchLoadingReceiptDto save(List<T> entities) throws FlashcardsException;
 
     /**
      * Retrives an entity by its id.

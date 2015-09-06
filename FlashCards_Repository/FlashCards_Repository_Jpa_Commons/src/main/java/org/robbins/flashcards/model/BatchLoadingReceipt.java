@@ -11,9 +11,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "bulkloadingreceipt")
-@AttributeOverride(name = "id", column = @Column(name = "BulkLoadingId"))
-public class BulkLoadingReceipt extends AbstractAuditable<String, String> implements Serializable {
+@Table(name = "batchloadingreceipt")
+@AttributeOverride(name = "id", column = @Column(name = "BatchLoadingId"))
+public class BatchLoadingReceipt extends AbstractAuditable<String, String> implements Serializable {
 
     @Column(name = "Type", nullable = false)
     private String type;
@@ -30,10 +30,10 @@ public class BulkLoadingReceipt extends AbstractAuditable<String, String> implem
     @Column(name = "EndTime", nullable = true)
     private Date endTime;
 
-    public BulkLoadingReceipt() {
+    public BatchLoadingReceipt() {
     }
 
-    public BulkLoadingReceipt(final String id) {
+    public BatchLoadingReceipt(final String id) {
         setId(id);
     }
 
@@ -79,7 +79,7 @@ public class BulkLoadingReceipt extends AbstractAuditable<String, String> implem
 
     @Override
     public String toString() {
-        return "BulkLoadingReceipt{" +
+        return "BatchLoadingReceipt{" +
                 "type='" + type + '\'' +
                 ", successCount=" + successCount +
                 ", failureCount=" + failureCount +

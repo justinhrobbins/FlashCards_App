@@ -1,7 +1,7 @@
 package org.robbins.flashcards.client;
 
 import org.robbins.flashcards.dto.AbstractPersistableDto;
-import org.robbins.flashcards.dto.BulkLoadingReceiptDto;
+import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.exceptions.ServiceException;
 import org.springframework.http.HttpEntity;
@@ -14,7 +14,7 @@ import java.util.*;
 
 public abstract class AbstractCrudClient<E extends AbstractPersistableDto, ID> extends AbstractClient implements GenericRestCrudFacade<E, ID> {
 
-    public static final String BULK = "bulk/";
+    public static final String BATCH = "batch/";
 
     /**
      * Gets the entity list url.
@@ -42,7 +42,7 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto, ID> e
      *
      * @return the string
      */
-    public abstract String postBulkEntitiesUrl();
+    public abstract String postBatchEntitiesUrl();
 
     /**
      * Put entity url.
@@ -160,13 +160,13 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto, ID> e
     }
 
     @Override
-    public BulkLoadingReceiptDto save(List<E> entities) throws FlashcardsException {
+    public BatchLoadingReceiptDto save(List<E> entities) throws FlashcardsException {
         // set the Authentication header
         @SuppressWarnings({ "unchecked", "rawtypes" })
         final HttpEntity httpEntity = new HttpEntity(entities, getAuthHeaders());
 
         try {
-            return getRestTemplate().postForObject(postBulkEntitiesUrl(), httpEntity, BulkLoadingReceiptDto.class);
+            return getRestTemplate().postForObject(postBatchEntitiesUrl(), httpEntity, BatchLoadingReceiptDto.class);
         }
         catch (HttpClientErrorException e) {
             throw new ServiceException("Unable to save '" + entities.getClass().getSimpleName() + "' " + e.getMessage());

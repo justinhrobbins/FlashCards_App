@@ -31,8 +31,8 @@ public class DefaultFlashcardClient extends AbstractCrudClient<FlashCardDto, Str
     }
 
     @Override
-    public String postBulkEntitiesUrl() {
-        return getServerAddress() + ResourceUrls.flashCards + BULK;
+    public String postBatchEntitiesUrl() {
+        return getServerAddress() + ResourceUrls.flashCards + BATCH;
     }
 
     @Override

@@ -7,7 +7,7 @@ import java.util.List;
 import javax.ws.rs.core.Response;
 
 import com.sun.jersey.api.JResponse;
-import org.robbins.flashcards.dto.BulkLoadingReceiptDto;
+import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
 
 public interface GenericResource<T, ID extends Serializable> {
 
@@ -20,7 +20,7 @@ public interface GenericResource<T, ID extends Serializable> {
 
     T post(final T entity);
 
-    BulkLoadingReceiptDto post(final List<T> entity);
+    BatchLoadingReceiptDto post(final List<T> entity);
 
     Response put(final ID id, final T entity);
 

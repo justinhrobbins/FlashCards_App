@@ -4,12 +4,12 @@ package org.robbins.flashcards.repository.facade.base;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.robbins.flashcards.conversion.DtoConverter;
-import org.robbins.flashcards.dto.BulkLoadingReceiptDto;
+import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.exceptions.RepositoryException;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
-import org.robbins.flashcards.model.BulkLoadingReceipt;
-import org.robbins.flashcards.repository.BulkLoadingReceiptRepository;
+import org.robbins.flashcards.model.BatchLoadingReceipt;
+import org.robbins.flashcards.repository.BatchLoadingReceiptRepository;
 import org.robbins.flashcards.repository.facade.RepositoryFacade;
 import org.robbins.flashcards.repository.util.FieldInitializerUtil;
 import org.slf4j.Logger;
@@ -36,11 +36,11 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E, ID extends Serializ
     private FieldInitializerUtil fieldInitializer;
 
     @Inject
-    private BulkLoadingReceiptRepository<BulkLoadingReceipt, String> receiptRepository;
+    private BatchLoadingReceiptRepository<BatchLoadingReceipt, String> receiptRepository;
 
     @Inject
-    @Qualifier("bulkLoadingReceiptDtoConverter")
-    private DtoConverter<BulkLoadingReceiptDto, BulkLoadingReceipt> converter;
+    @Qualifier("batchLoadingReceiptDtoConverter")
+    private DtoConverter<BatchLoadingReceiptDto, BatchLoadingReceipt> converter;
 
     @Override
     public D save(final D dto) throws RepositoryException {
@@ -50,29 +50,29 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E, ID extends Serializ
     }
 
     @Override
-    public BulkLoadingReceiptDto save(List<D> entities) throws FlashcardsException {
+    public BatchLoadingReceiptDto save(List<D> entities) throws FlashcardsException {
         if (CollectionUtils.isEmpty(entities))
             throw new FlashcardsException("Expected list with at least one element");
 
         //TODO Receipt should be persisted prior to persisting entities, may need to adjust transaction boundaries
-        BulkLoadingReceipt receipt = createBulkLoadingReceipt(entities.get(0).getClass().getSimpleName());
+        BatchLoadingReceipt receipt = createBatchLoadingReceipt(entities.get(0).getClass().getSimpleName());
 
         // TODO Handle failures
         entities.forEach(this::save);
 
-        receipt = completeBulkLoadingReceipt(entities.size(), 0L, receipt);
+        receipt = completeBatchLoadingReceipt(entities.size(), 0L, receipt);
         LOGGER.trace(receipt.toString());
         return converter.getDto(receipt);
     }
 
-    private BulkLoadingReceipt createBulkLoadingReceipt(final String type) {
-        BulkLoadingReceipt receipt = new BulkLoadingReceipt();
+    private BatchLoadingReceipt createBatchLoadingReceipt(final String type) {
+        BatchLoadingReceipt receipt = new BatchLoadingReceipt();
         receipt.setType(type);
         receipt.setStartTime(new Date());
         return receiptRepository.save(receipt);
     }
 
-    private BulkLoadingReceipt completeBulkLoadingReceipt(final long successCount, final long failureCount, final BulkLoadingReceipt receipt) {
+    private BatchLoadingReceipt completeBatchLoadingReceipt(final long successCount, final long failureCount, final BatchLoadingReceipt receipt) {
         receipt.setSuccessCount(successCount);
         receipt.setFailureCount(failureCount);
         receipt.setEndTime(new Date());

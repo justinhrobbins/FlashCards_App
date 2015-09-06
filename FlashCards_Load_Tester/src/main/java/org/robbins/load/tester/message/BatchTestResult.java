@@ -1,14 +1,14 @@
 package org.robbins.load.tester.message;
 
-import org.robbins.flashcards.dto.BulkLoadingReceiptDto;
+import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
 
 import java.io.Serializable;
 
 public class BatchTestResult implements Serializable {
     private final String endPointName;
-    private final BulkLoadingReceiptDto receipt;
+    private final BatchLoadingReceiptDto receipt;
 
-    public BatchTestResult(String endPointName, BulkLoadingReceiptDto receipt) {
+    public BatchTestResult(String endPointName, BatchLoadingReceiptDto receipt) {
         this.endPointName = endPointName;
         this.receipt = receipt;
     }
@@ -17,7 +17,7 @@ public class BatchTestResult implements Serializable {
         return endPointName;
     }
 
-    public BulkLoadingReceiptDto getReceipt() {
+    public BatchLoadingReceiptDto getReceipt() {
         return receipt;
     }
 

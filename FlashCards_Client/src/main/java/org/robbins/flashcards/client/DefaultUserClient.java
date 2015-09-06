@@ -27,8 +27,8 @@ public class DefaultUserClient extends AbstractCrudClient<UserDto, String> imple
     }
 
     @Override
-    public String postBulkEntitiesUrl() {
-        return getServerAddress() + ResourceUrls.users + BULK;
+    public String postBatchEntitiesUrl() {
+        return getServerAddress() + ResourceUrls.users + BATCH;
     }
 
     @Override

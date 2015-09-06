@@ -4,9 +4,8 @@ import akka.actor.AbstractActor;
 import akka.actor.ActorRef;
 import akka.japi.pf.ReceiveBuilder;
 import akka.routing.FromConfig;
-import com.google.common.collect.Lists;
 import org.robbins.flashcards.client.TagClient;
-import org.robbins.flashcards.dto.BulkLoadingReceiptDto;
+import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.load.tester.message.*;
 import org.robbins.load.tester.util.LoadingTestingUtil;
@@ -19,8 +18,6 @@ import scala.runtime.BoxedUnit;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 
 @Named("loadTestingCoordinator")
@@ -108,7 +105,7 @@ public class LoadTestingCoordinator extends AbstractActor {
     private void batchLoadTestFinish(final BatchTestResult testResult) {
         LOGGER.debug("Received BatchTestResult message: {}", testResult.toString());
 
-        final BulkLoadingReceiptDto receipt = testResult.getReceipt();
+        final BatchLoadingReceiptDto receipt = testResult.getReceipt();
 
         totalDuration += LoadingTestingUtil.calculateLoadingDuration(receipt.getStartTime(), receipt.getEndTime());
         completedTestCount += (receipt.getSuccessCount() + receipt.getFailureCount());

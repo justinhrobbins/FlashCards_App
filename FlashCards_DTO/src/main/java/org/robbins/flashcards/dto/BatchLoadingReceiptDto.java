@@ -13,9 +13,9 @@ import java.util.Date;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(value = Include.NON_NULL)
-@XmlRootElement(name = "bulkloadingreceipt")
+@XmlRootElement(name = "batchloadingreceipt")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class BulkLoadingReceiptDto extends AbstractAuditableDto implements Serializable {
+public class BatchLoadingReceiptDto extends AbstractAuditableDto implements Serializable {
 
     private String type;
     private int successCount;
@@ -23,10 +23,10 @@ public class BulkLoadingReceiptDto extends AbstractAuditableDto implements Seria
     private Date startTime;
     private Date endTime;
 
-    public BulkLoadingReceiptDto() {
+    public BatchLoadingReceiptDto() {
     }
 
-    public BulkLoadingReceiptDto(final String id) {
+    public BatchLoadingReceiptDto(final String id) {
         setId(id);
     }
 
@@ -72,7 +72,7 @@ public class BulkLoadingReceiptDto extends AbstractAuditableDto implements Seria
 
     @Override
     public String toString() {
-        return "BulkLoadingReceiptDto{" +
+        return "BatchLoadingReceiptDto{" +
                 "type='" + type + '\'' +
                 ", successCount=" + successCount +
                 ", failureCount=" + failureCount +

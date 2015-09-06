@@ -18,7 +18,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
-import org.robbins.flashcards.dto.BulkLoadingReceiptDto;
+import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
 import org.robbins.flashcards.exceptions.DataIntegrityException;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
@@ -80,11 +80,11 @@ public abstract class AbstractGenericResource<T, ID extends Serializable> extend
     }
 
     @Override
-    @Path("/bulk")
+    @Path("/batch")
     @POST
-    @ApiOperation(value = "Create in bulk")
-    public BulkLoadingReceiptDto post(final List<T> entities) {
-        LOGGER.debug("Received bulk load request for {} {}", entities.size(), entities.get(0).getClass().getSimpleName());
+    @ApiOperation(value = "Create in batch")
+    public BatchLoadingReceiptDto post(final List<T> entities) {
+        LOGGER.debug("Received batch load request for {} {}", entities.size(), entities.get(0).getClass().getSimpleName());
         try {
             return getFacade().save(entities);
         } catch (DataIntegrityException e) {
