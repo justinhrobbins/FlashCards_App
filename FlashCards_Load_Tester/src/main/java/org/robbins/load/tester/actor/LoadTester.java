@@ -26,7 +26,7 @@ public class LoadTester extends AbstractActor {
     private final TagClient tagClient;
 
     public LoadTester(final TagClient tagClient) {
-        LOGGER.info("Creating LoadTestingActor");
+        LOGGER.debug("Creating LoadTestingActor");
 
         this.tagClient = tagClient;
     }
@@ -44,12 +44,12 @@ public class LoadTester extends AbstractActor {
     }
 
     private void doLoadTest(final TestStart testStartMessage, final ActorRef sender) {
-        LOGGER.info("Received TestStart message: {}", testStartMessage.toString());
+        LOGGER.debug("Received TestStart message: {}", testStartMessage.toString());
 
         final TagDto tag = LoadingTestingUtil.createTagDto("load-tester-" + UUID.randomUUID().toString() + "-" + testStartMessage.getTestId());
         SingleTestResult result = saveItem(testStartMessage, tag);
 
-        LOGGER.info("Sending TestResult message: {}", result.toString());
+        LOGGER.debug("Sending TestResult message: {}", result.toString());
         sender.tell(result, self());
     }
 

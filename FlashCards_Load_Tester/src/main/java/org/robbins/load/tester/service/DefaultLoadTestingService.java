@@ -27,7 +27,7 @@ public class DefaultLoadTestingService implements LoadTestingService {
 
     @Override
     public LoadTestResult doLoadTest(final LoadTestStart loadTestStartMessage) throws Exception {
-        LOGGER.info("Starting load test");
+        LOGGER.debug("Starting load test");
 
         if (loadTestStartMessage.getBatchSize().equals(1)) {
             return saveItemsIndividually(loadTestStartMessage);
@@ -58,7 +58,7 @@ public class DefaultLoadTestingService implements LoadTestingService {
         LoadTestResult result = new LoadTestResult(loadTestStartMessage.getTotalLoadCount(), loadTestStartMessage.getEndPointName(),
                 successCount, failureCount, totalDuration);
 
-        LOGGER.info("LoadTestResult: {}", result);
+        LOGGER.debug("LoadTestResult: {}", result);
         return result;
     }
 
@@ -81,7 +81,7 @@ public class DefaultLoadTestingService implements LoadTestingService {
 
         LoadTestResult result = new LoadTestResult(loadTestStartMessage.getTotalLoadCount(), loadTestStartMessage.getEndPointName(),
                 successCount, failureCount, totalDuration);
-        LOGGER.info("LoadTestResult: {}", result);
+        LOGGER.debug("LoadTestResult: {}", result);
         return result;
     }
 

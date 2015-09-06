@@ -40,7 +40,7 @@ public class LoadTestingCoordinator extends AbstractActor {
     private Integer failureCount = 0;
 
     public LoadTestingCoordinator() {
-        LOGGER.info("Creating LoadTestingCoordinator");
+        LOGGER.debug("Creating LoadTestingCoordinator");
     }
 
     @Override
@@ -54,7 +54,7 @@ public class LoadTestingCoordinator extends AbstractActor {
     }
 
     private void loadTestStart(final LoadTestStart loadTestStartMessage) {
-        LOGGER.info("Received LoadTestStart message: {}", loadTestStartMessage.toString());
+        LOGGER.debug("Received LoadTestStart message: {}", loadTestStartMessage.toString());
 
         parent = sender();
         totalTestsToInvoke = loadTestStartMessage.getTotalLoadCount();
@@ -68,18 +68,18 @@ public class LoadTestingCoordinator extends AbstractActor {
     }
 
     private void saveItemsInBatches(final LoadTestStart loadTestStartMessage) {
-        LOGGER.info("Starting batch load test");
+        LOGGER.debug("Starting batch load test");
 
         final List<List<TagDto>> batches = LoadingTestingUtil.createTagDtosInBatches(
                 loadTestStartMessage.getTotalLoadCount(), loadTestStartMessage.getBatchSize());
 
-        ActorRef batchLoadTestingActor = context().actorOf(FromConfig.getInstance().props(BatchLoadTester.props(tagClient)), "load-tester");
+        ActorRef batchLoadTestingActor = context().actorOf(FromConfig.getInstance().props(BatchLoadTester.props(tagClient)), "batch-load-tester");
 
         batches.forEach(batch -> batchLoadTestingActor.tell(new BatchTestStart(loadTestStartMessage.getEndPointName(), batch), self()));
     }
 
     private void saveItemsIndividually(final LoadTestStart loadTestStartMessage) {
-        LOGGER.info("Starting load test");
+        LOGGER.debug("Starting load test");
 
         ActorRef loadTestingActor = context().actorOf(FromConfig.getInstance().props(LoadTester.props(tagClient)), "load-tester");
 
@@ -114,7 +114,7 @@ public class LoadTestingCoordinator extends AbstractActor {
         completedTestCount += (receipt.getSuccessCount() + receipt.getFailureCount());
         successCount += receipt.getSuccessCount();
         failureCount += receipt.getFailureCount();
-
+        LOGGER.debug("completedTestCount: {}, totalTestsToInvoke: {}", completedTestCount, totalTestsToInvoke);
         if (completedTestCount.equals(totalTestsToInvoke)) {
             completeLoadTest(testResult.getEndPointName());
         }
@@ -123,7 +123,8 @@ public class LoadTestingCoordinator extends AbstractActor {
     private void completeLoadTest(final String endPointName) {
         LoadTestResult loadTestResult = new LoadTestResult(this.completedTestCount, endPointName,
                 this.successCount, this.failureCount, this.totalDuration);
-        LOGGER.info("LoadTestResult: {}", loadTestResult);
+        LOGGER.debug("LoadTestResult: {}", loadTestResult);
         parent.tell(loadTestResult, self());
+        context().stop(self());
     }
 }

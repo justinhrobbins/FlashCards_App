@@ -13,7 +13,7 @@ import java.util.stream.LongStream;
 
 public class LoadingTestingUtil {
 
-    public static final String prefix = "load-tester";
+    private static final String prefix = "load-tester";
 
     public static TagDto createTagDto(final String name) {
         return new TagDtoBuilder().withName(name).build();

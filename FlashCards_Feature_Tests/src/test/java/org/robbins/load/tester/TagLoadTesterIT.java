@@ -2,6 +2,7 @@ package org.robbins.load.tester;
 
 import akka.actor.ActorSystem;
 import org.junit.*;
+import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.robbins.load.tester.message.LoadTestResult;
 import org.robbins.load.tester.message.LoadTestStart;
@@ -21,8 +22,8 @@ public class TagLoadTesterIT {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TagLoadTesterIT.class);
 
-    private final Integer totalLoadCount = 1000000;
-    private final Integer batchSize = 10000;
+    private final Integer totalLoadCount = 10000;
+    private final Integer batchSize = 1000;
     private final String ENDPOINT_NAME = "tagClient";
     private StopWatch stopWatch;
 
@@ -37,6 +38,8 @@ public class TagLoadTesterIT {
     @Inject
     private ActorSystem system;
 
+    @Rule public TestName testName = new TestName();
+
     @Before
     public void before() {
         stopWatch = new StopWatch();
@@ -46,10 +49,9 @@ public class TagLoadTesterIT {
     @After
     public void after() {
         stopWatch.stop();
-        LOGGER.info("Test duration: {} seconds", Math.ceil(stopWatch.getLastTaskTimeMillis() / 1000));
+        LOGGER.info("Test '{}' duration: {} seconds", testName.getMethodName(), Math.ceil(stopWatch.getLastTaskTimeMillis() / 1000));
     }
 
-    @Ignore
     @Test
     public void testAkkaLoadTest() throws Exception {
 
@@ -57,7 +59,6 @@ public class TagLoadTesterIT {
         Assert.assertEquals(totalLoadCount, result.getGetTotalLoadCount());
     }
 
-    @Ignore
     @Test
     public void testDefaultLoadTest() throws Exception {
 
