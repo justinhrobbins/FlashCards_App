@@ -153,6 +153,7 @@
     <modules>
         <module>FlashCards_DTO</module>
         <module>FlashCards_Repository</module>
+        <module>FlashCards_Akka</module>
         <module>FlashCards_API</module>
         <module>FlashCards_Service</module>
         <module>FlashCards_Client</module>

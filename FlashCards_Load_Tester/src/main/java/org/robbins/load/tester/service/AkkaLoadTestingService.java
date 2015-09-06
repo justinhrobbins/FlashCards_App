@@ -4,6 +4,7 @@ import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.japi.Util;
 import akka.util.Timeout;
+import org.robbins.flashcards.akka.SpringExtension;
 import org.robbins.flashcards.client.TagClient;
 import org.robbins.load.tester.message.LoadTestResult;
 import org.robbins.load.tester.message.LoadTestStart;
@@ -19,7 +20,7 @@ import javax.inject.Named;
 import java.util.concurrent.TimeUnit;
 
 import static akka.pattern.Patterns.ask;
-import static org.robbins.load.tester.SpringExtension.SpringExtProvider;
+
 
 @Named("akkaLoadTestingService")
 public class AkkaLoadTestingService implements LoadTestingService {
@@ -37,7 +38,7 @@ public class AkkaLoadTestingService implements LoadTestingService {
         LOGGER.debug("Sending StartLoadTest message to LoadTestingCoordinator");
 
         ActorRef loadTestingCoordinator = system.actorOf(
-                SpringExtProvider.get(system).props("loadTestingCoordinator"), "load-testing-coordinator");
+                SpringExtension.SpringExtProvider.get(system).props("loadTestingCoordinator"), "load-testing-coordinator");
 
         FiniteDuration duration = FiniteDuration.create(1, TimeUnit.HOURS);
 
