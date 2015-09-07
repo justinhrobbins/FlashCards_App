@@ -4,7 +4,7 @@ import akka.actor.AbstractActor;
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.japi.pf.ReceiveBuilder;
-import org.robbins.flashcards.client.TagClient;
+import org.robbins.flashcards.client.GenericRestCrudFacade;
 import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
 import org.robbins.load.tester.message.BatchTestResult;
 import org.robbins.load.tester.message.BatchTestStart;
@@ -17,16 +17,16 @@ public class BatchLoadTester extends AbstractActor {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BatchLoadTester.class);
 
-    private final TagClient tagClient;
+    private final GenericRestCrudFacade client;
 
-    public BatchLoadTester(final TagClient tagClient) {
+    public BatchLoadTester(final GenericRestCrudFacade client) {
         LOGGER.debug("Creating BatchLoadTester");
 
-        this.tagClient = tagClient;
+        this.client = client;
     }
 
-    public static Props props(final TagClient tagClient) {
-        return Props.create(BatchLoadTester.class, () -> new BatchLoadTester(tagClient));
+    public static Props props(final GenericRestCrudFacade client) {
+        return Props.create(BatchLoadTester.class, () -> new BatchLoadTester(client));
     }
 
     @Override
@@ -40,7 +40,7 @@ public class BatchLoadTester extends AbstractActor {
     private void doLoadTest(final BatchTestStart testStartMessage, final ActorRef sender) {
         LOGGER.debug("Received BatchTestStart message: {}", testStartMessage.toString());
 
-        final BatchLoadingReceiptDto receipt = tagClient.save(testStartMessage.getBatch());
+        final BatchLoadingReceiptDto receipt = client.save(testStartMessage.getBatch());
         final BatchTestResult testResult = new BatchTestResult(testStartMessage.getEndPointName(), receipt);
 
         LOGGER.debug("Sending BatchTestResult message: {}", testResult.toString());

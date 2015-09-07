@@ -13,7 +13,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 
-@Component
+@Component("flashcardClient")
 public class DefaultFlashcardClient extends AbstractCrudClient<FlashCardDto, String> implements FlashcardClient {
     @Override
     public String getEntityListUrl() {
@@ -32,7 +32,7 @@ public class DefaultFlashcardClient extends AbstractCrudClient<FlashCardDto, Str
 
     @Override
     public String postBatchEntitiesUrl() {
-        return getServerAddress() + ResourceUrls.flashCards + BATCH;
+        return getServerAddress() + ResourceUrls.flashCards + ResourceUrls.batch;
     }
 
     @Override

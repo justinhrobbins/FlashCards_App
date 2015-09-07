@@ -1,8 +1,8 @@
 package org.robbins.load.tester.service;
 
-import org.robbins.flashcards.client.TagClient;
+import org.robbins.flashcards.client.GenericRestCrudFacade;
+import org.robbins.flashcards.dto.AbstractAuditableDto;
 import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
-import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.load.tester.message.LoadTestResult;
 import org.robbins.load.tester.message.LoadTestStart;
@@ -12,9 +12,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StopWatch;
 
-import javax.inject.Inject;
+import javax.annotation.Resource;
 import javax.inject.Named;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Named("defaultLoadTestingService")
@@ -22,8 +23,8 @@ public class DefaultLoadTestingService implements LoadTestingService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultLoadTestingService.class);
 
-    @Inject
-    private TagClient tagClient;
+    @Resource(name="dtoToClientMap")
+    Map<String, GenericRestCrudFacade> clients;
 
     @Override
     public LoadTestResult doLoadTest(final LoadTestStart loadTestStartMessage) throws Exception {
@@ -37,10 +38,15 @@ public class DefaultLoadTestingService implements LoadTestingService {
         }
     }
 
+    private GenericRestCrudFacade getClient(final Class<? extends AbstractAuditableDto> dtoClass) {
+        return clients.get(dtoClass.getSimpleName());
+    }
+
     private LoadTestResult saveItemsInBatches(final LoadTestStart loadTestStartMessage) {
-        final List<List<TagDto>> batches = LoadingTestingUtil.createTagDtosInBatches(loadTestStartMessage.getTotalLoadCount(), loadTestStartMessage.getBatchSize());
+        final GenericRestCrudFacade client = getClient(loadTestStartMessage.getDtoClass());
+        final List<List<AbstractAuditableDto>> batches = LoadingTestingUtil.createDtosInBatches(loadTestStartMessage.getTotalLoadCount(), loadTestStartMessage.getBatchSize(), loadTestStartMessage.getDtoClass());
         final List<BatchLoadingReceiptDto> results =  batches.stream()
-                .map(tagClient::save)
+                .map(batch -> client.save(batch))
                 .collect(Collectors.toList());
 
         final long totalDuration = results.stream()
@@ -63,10 +69,11 @@ public class DefaultLoadTestingService implements LoadTestingService {
     }
 
     private LoadTestResult saveItemsIndividually(final LoadTestStart loadTestStartMessage) {
-        final List<TagDto> tags = LoadingTestingUtil.createTagDtos(loadTestStartMessage.getTotalLoadCount());
+        final GenericRestCrudFacade client = getClient(loadTestStartMessage.getDtoClass());
+        final List<AbstractAuditableDto> dtos = LoadingTestingUtil.createDtos(loadTestStartMessage.getTotalLoadCount(), loadTestStartMessage.getDtoClass());
 
-        final List<SingleTestResult> results = tags.stream()
-                .map(tagDto -> saveItem(loadTestStartMessage.getEndPointName(), tagDto))
+        final List<SingleTestResult> results = dtos.stream()
+                .map(dto -> saveItem(loadTestStartMessage.getEndPointName(), client, dto))
                 .collect(Collectors.toList());
 
         final long totalDuration = results.stream().collect(Collectors.summingLong(SingleTestResult::getDuration));
@@ -85,7 +92,7 @@ public class DefaultLoadTestingService implements LoadTestingService {
         return result;
     }
 
-    private SingleTestResult saveItem(final String endPointName, final TagDto tag) {
+    private <D extends AbstractAuditableDto> SingleTestResult saveItem(final String endPointName, final GenericRestCrudFacade client, final D dto) {
         long duration;
         SingleTestResult.TestResultStatus resultStatus = SingleTestResult.TestResultStatus.SUCCESS;
 
@@ -93,10 +100,10 @@ public class DefaultLoadTestingService implements LoadTestingService {
         stopWatch.start();
 
         try {
-            tagClient.save(tag);
+            client.save(dto);
 
         } catch (FlashcardsException e) {
-            LOGGER.error("Unable to create Tag {}, error: {}", tag.toString(), e.getMessage());
+            LOGGER.error("Unable to create Dto {}, error: {}", dto.toString(), e.getMessage());
             resultStatus = SingleTestResult.TestResultStatus.FAILURE;
         }
 

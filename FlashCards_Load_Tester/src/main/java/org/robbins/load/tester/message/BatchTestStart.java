@@ -1,25 +1,31 @@
 package org.robbins.load.tester.message;
 
-import org.robbins.flashcards.dto.TagDto;
+import org.robbins.flashcards.dto.AbstractAuditableDto;
 
 import java.io.Serializable;
 import java.util.List;
 
 public class BatchTestStart implements Serializable {
     private final String endPointName;
-    private final List<TagDto> batch;
+    private final List<AbstractAuditableDto> batch;
+    private final Class<? extends AbstractAuditableDto> dtoClass;
 
-    public BatchTestStart(final String endPointName, final List<TagDto> batch) {
+    public BatchTestStart(final String endPointName, final List<AbstractAuditableDto> batch, final Class<? extends AbstractAuditableDto> dtoClass) {
         this.endPointName = endPointName;
         this.batch = batch;
+        this.dtoClass = dtoClass;
     }
 
     public String getEndPointName() {
         return endPointName;
     }
 
-    public List<TagDto> getBatch() {
+    public List<AbstractAuditableDto> getBatch() {
         return batch;
+    }
+
+    public Class<? extends AbstractAuditableDto> getDtoClass() {
+        return dtoClass;
     }
 
     @Override
@@ -27,6 +33,7 @@ public class BatchTestStart implements Serializable {
         return "BatchTestStart{" +
                 "endPointName='" + endPointName + '\'' +
                 ", batch=" + batch +
+                ", dtoClass=" + dtoClass +
                 '}';
     }
 
@@ -38,7 +45,8 @@ public class BatchTestStart implements Serializable {
         BatchTestStart that = (BatchTestStart) o;
 
         if (!endPointName.equals(that.endPointName)) return false;
-        return batch.equals(that.batch);
+        if (!batch.equals(that.batch)) return false;
+        return dtoClass.equals(that.dtoClass);
 
     }
 
@@ -46,6 +54,7 @@ public class BatchTestStart implements Serializable {
     public int hashCode() {
         int result = endPointName.hashCode();
         result = 31 * result + batch.hashCode();
+        result = 31 * result + dtoClass.hashCode();
         return result;
     }
 }

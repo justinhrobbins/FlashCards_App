@@ -14,8 +14,6 @@ import java.util.*;
 
 public abstract class AbstractCrudClient<E extends AbstractPersistableDto, ID> extends AbstractClient implements GenericRestCrudFacade<E, ID> {
 
-    public static final String BATCH = "batch/";
-
     /**
      * Gets the entity list url.
      *

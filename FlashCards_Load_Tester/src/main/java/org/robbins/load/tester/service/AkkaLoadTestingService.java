@@ -5,7 +5,6 @@ import akka.actor.ActorSystem;
 import akka.japi.Util;
 import akka.util.Timeout;
 import org.robbins.flashcards.akka.SpringExtension;
-import org.robbins.flashcards.client.TagClient;
 import org.robbins.load.tester.message.LoadTestResult;
 import org.robbins.load.tester.message.LoadTestStart;
 import org.slf4j.Logger;
@@ -28,26 +27,23 @@ public class AkkaLoadTestingService implements LoadTestingService {
     private static final Logger LOGGER = LoggerFactory.getLogger(AkkaLoadTestingService.class);
 
     @Inject
-    private TagClient tagClient;
-
-    @Inject
     private ActorSystem system;
 
     @Override
-    public LoadTestResult doLoadTest(LoadTestStart testStart) throws Exception {
+    public LoadTestResult doLoadTest(final LoadTestStart testStart) throws Exception {
         LOGGER.debug("Sending StartLoadTest message to LoadTestingCoordinator");
 
-        ActorRef loadTestingCoordinator = system.actorOf(
+        final ActorRef loadTestingCoordinator = system.actorOf(
                 SpringExtension.SpringExtProvider.get(system).props("loadTestingCoordinator"), "load-testing-coordinator");
 
-        FiniteDuration duration = FiniteDuration.create(1, TimeUnit.HOURS);
+        final FiniteDuration duration = FiniteDuration.create(1, TimeUnit.HOURS);
 
-        ClassTag<LoadTestResult> classTag = Util.classTag(LoadTestResult.class);
-        Future<LoadTestResult> resultFuture = ask(loadTestingCoordinator, testStart,
+        final ClassTag<LoadTestResult> classTag = Util.classTag(LoadTestResult.class);
+        final Future<LoadTestResult> resultFuture = ask(loadTestingCoordinator, testStart,
                 Timeout.durationToTimeout(duration))
                 .mapTo(classTag);
 
-        LoadTestResult result = Await.result(resultFuture, duration);
+        final LoadTestResult result = Await.result(resultFuture, duration);
         return result;
     }
 }

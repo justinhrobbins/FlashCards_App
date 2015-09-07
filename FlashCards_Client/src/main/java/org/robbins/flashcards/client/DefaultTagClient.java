@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
-@Component
+@Component("tagClient")
 public class DefaultTagClient extends AbstractCrudClient<TagDto, String> implements TagClient {
 
     @Override
@@ -25,7 +25,7 @@ public class DefaultTagClient extends AbstractCrudClient<TagDto, String> impleme
 
     @Override
     public String postBatchEntitiesUrl() {
-        return getServerAddress() + ResourceUrls.tags + BATCH;
+        return getServerAddress() + ResourceUrls.tags + ResourceUrls.batch;
     }
 
     @Override

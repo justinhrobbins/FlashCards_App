@@ -4,9 +4,9 @@ import akka.actor.AbstractActor;
 import akka.actor.ActorRef;
 import akka.japi.pf.ReceiveBuilder;
 import akka.routing.FromConfig;
-import org.robbins.flashcards.client.TagClient;
+import org.robbins.flashcards.client.GenericRestCrudFacade;
+import org.robbins.flashcards.dto.AbstractAuditableDto;
 import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
-import org.robbins.flashcards.dto.TagDto;
 import org.robbins.load.tester.message.*;
 import org.robbins.load.tester.util.LoadingTestingUtil;
 import org.slf4j.Logger;
@@ -15,9 +15,10 @@ import org.springframework.context.annotation.Scope;
 import scala.PartialFunction;
 import scala.runtime.BoxedUnit;
 
-import javax.inject.Inject;
+import javax.annotation.Resource;
 import javax.inject.Named;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.LongStream;
 
 @Named("loadTestingCoordinator")
@@ -26,8 +27,8 @@ public class LoadTestingCoordinator extends AbstractActor {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoadTestingCoordinator.class);
 
-    @Inject
-    private TagClient tagClient;
+    @Resource(name="dtoToClientMap")
+    Map<String, GenericRestCrudFacade> clients;
 
     private ActorRef parent;
     private Integer totalTestsToInvoke;
@@ -67,22 +68,24 @@ public class LoadTestingCoordinator extends AbstractActor {
     private void saveItemsInBatches(final LoadTestStart loadTestStartMessage) {
         LOGGER.debug("Starting batch load test");
 
-        final List<List<TagDto>> batches = LoadingTestingUtil.createTagDtosInBatches(
-                loadTestStartMessage.getTotalLoadCount(), loadTestStartMessage.getBatchSize());
+        final GenericRestCrudFacade client = getClient(loadTestStartMessage.getDtoClass());
+        final List<List<AbstractAuditableDto>> batches = LoadingTestingUtil.createDtosInBatches(
+                loadTestStartMessage.getTotalLoadCount(), loadTestStartMessage.getBatchSize(), loadTestStartMessage.getDtoClass());
 
-        ActorRef batchLoadTestingActor = context().actorOf(FromConfig.getInstance().props(BatchLoadTester.props(tagClient)), "batch-load-tester");
+        ActorRef batchLoadTestingActor = context().actorOf(FromConfig.getInstance().props(BatchLoadTester.props(client)), "batch-load-tester");
 
-        batches.forEach(batch -> batchLoadTestingActor.tell(new BatchTestStart(loadTestStartMessage.getEndPointName(), batch), self()));
+        batches.forEach(batch -> batchLoadTestingActor.tell(new BatchTestStart(loadTestStartMessage.getEndPointName(), batch, loadTestStartMessage.getDtoClass()), self()));
     }
 
     private void saveItemsIndividually(final LoadTestStart loadTestStartMessage) {
         LOGGER.debug("Starting load test");
 
-        ActorRef loadTestingActor = context().actorOf(FromConfig.getInstance().props(LoadTester.props(tagClient)), "load-tester");
+        final GenericRestCrudFacade client = getClient(loadTestStartMessage.getDtoClass());
+        ActorRef loadTestingActor = context().actorOf(FromConfig.getInstance().props(LoadTester.props(client)), "load-tester");
 
         LongStream.range(1, loadTestStartMessage.getTotalLoadCount() + 1)
                 .forEach(i ->
-                                loadTestingActor.tell(new TestStart(loadTestStartMessage.getEndPointName(), i), self())
+                                loadTestingActor.tell(new TestStart(loadTestStartMessage.getEndPointName(), i, loadTestStartMessage.getDtoClass()), self())
                 );
     }
 
@@ -115,6 +118,10 @@ public class LoadTestingCoordinator extends AbstractActor {
         if (completedTestCount.equals(totalTestsToInvoke)) {
             completeLoadTest(testResult.getEndPointName());
         }
+    }
+
+    private GenericRestCrudFacade getClient(final Class<? extends AbstractAuditableDto> dtoClass) {
+        return clients.get(dtoClass.getSimpleName());
     }
 
     private void completeLoadTest(final String endPointName) {

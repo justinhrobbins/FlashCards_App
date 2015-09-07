@@ -4,6 +4,8 @@ import akka.actor.ActorSystem;
 import org.junit.*;
 import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
+import org.robbins.flashcards.dto.FlashCardDto;
+import org.robbins.flashcards.dto.TagDto;
 import org.robbins.load.tester.message.LoadTestResult;
 import org.robbins.load.tester.message.LoadTestStart;
 import org.robbins.load.tester.service.LoadTestingService;
@@ -22,9 +24,9 @@ public class TagLoadTesterIT {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TagLoadTesterIT.class);
 
-    private final Integer totalLoadCount = 10000;
-    private final Integer batchSize = 1000;
-    private final String ENDPOINT_NAME = "tagClient";
+    private final Integer totalLoadCount = 1000;
+    private final Integer batchSize = 100;
+    private final String endPointName = "tagClient";
     private StopWatch stopWatch;
 
     @Qualifier("akkaLoadTestingService")
@@ -53,30 +55,45 @@ public class TagLoadTesterIT {
     }
 
     @Test
-    public void testAkkaLoadTest() throws Exception {
+         public void testAkkaLoadTest_WithTag() throws Exception {
 
-        final LoadTestResult result = akkaLoadTestingService.doLoadTest(new LoadTestStart(totalLoadCount, 1, ENDPOINT_NAME));
+        final LoadTestResult result = akkaLoadTestingService.doLoadTest(new LoadTestStart(endPointName, totalLoadCount, 1, TagDto.class));
         Assert.assertEquals(totalLoadCount, result.getGetTotalLoadCount());
     }
 
     @Test
-    public void testDefaultLoadTest() throws Exception {
+    public void testDefaultLoadTest_WithTag() throws Exception {
 
-        final LoadTestResult result = defaultLoadTestingService.doLoadTest(new LoadTestStart(totalLoadCount, 1, ENDPOINT_NAME));
+        final LoadTestResult result = defaultLoadTestingService.doLoadTest(new LoadTestStart(endPointName, totalLoadCount, 1, TagDto.class));
         Assert.assertEquals(totalLoadCount, result.getGetTotalLoadCount());
     }
 
     @Test
-    public void testDefaultLoadTestInBatch() throws Exception {
+    public void testDefaultLoadTestInBatch_WithFlashcard() throws Exception {
 
-        final LoadTestResult result = defaultLoadTestingService.doLoadTest(new LoadTestStart(totalLoadCount, batchSize, ENDPOINT_NAME));
+        final LoadTestResult result = defaultLoadTestingService.doLoadTest(new LoadTestStart(endPointName, totalLoadCount, batchSize, FlashCardDto.class));
         Assert.assertEquals(totalLoadCount, result.getGetTotalLoadCount());
     }
 
     @Test
-    public void testAkkaLoadTestInBatch() throws Exception {
+    public void testAkkaLoadTestInBatch_WithFlashcard() throws Exception {
 
-        final LoadTestResult result = akkaLoadTestingService.doLoadTest(new LoadTestStart(totalLoadCount, batchSize, ENDPOINT_NAME));
+        final LoadTestResult result = akkaLoadTestingService.doLoadTest(new LoadTestStart(endPointName, totalLoadCount, batchSize, FlashCardDto.class));
         Assert.assertEquals(totalLoadCount, result.getGetTotalLoadCount());
     }
+
+    @Test
+    public void testAkkaLoadTest_WithFlashcard() throws Exception {
+
+        final LoadTestResult result = akkaLoadTestingService.doLoadTest(new LoadTestStart(endPointName, totalLoadCount, 1, FlashCardDto.class));
+        Assert.assertEquals(totalLoadCount, result.getGetTotalLoadCount());
+    }
+
+    @Test
+    public void testDefaultLoadTest_WithFlashcard() throws Exception {
+
+        final LoadTestResult result = defaultLoadTestingService.doLoadTest(new LoadTestStart(endPointName, totalLoadCount, 1, FlashCardDto.class));
+        Assert.assertEquals(totalLoadCount, result.getGetTotalLoadCount());
+    }
+
 }

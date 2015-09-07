@@ -1,5 +1,7 @@
 package org.robbins.load.tester.message;
 
+import org.robbins.flashcards.dto.AbstractAuditableDto;
+
 import java.io.Serializable;
 
 public class LoadTestStart implements Serializable {
@@ -7,11 +9,13 @@ public class LoadTestStart implements Serializable {
     private final Integer totalLoadCount;
     private final String endPointName;
     private final Integer batchSize;
+    private final Class<? extends AbstractAuditableDto> dtoClass;
 
-    public LoadTestStart(Integer totalLoadCount, Integer batchSize, String endPointName) {
+    public LoadTestStart(final String endPointName, final Integer totalLoadCount, final Integer batchSize, final Class<? extends AbstractAuditableDto> dtoClass) {
         this.totalLoadCount = totalLoadCount;
         this.endPointName = endPointName;
         this.batchSize = batchSize;
+        this.dtoClass = dtoClass;
     }
 
     public Integer getTotalLoadCount() {
@@ -26,12 +30,17 @@ public class LoadTestStart implements Serializable {
         return batchSize;
     }
 
+    public Class<? extends AbstractAuditableDto> getDtoClass() {
+        return dtoClass;
+    }
+
     @Override
     public String toString() {
         return "LoadTestStart{" +
                 "totalLoadCount=" + totalLoadCount +
                 ", endPointName='" + endPointName + '\'' +
                 ", batchSize=" + batchSize +
+                ", dtoClass=" + dtoClass +
                 '}';
     }
 
@@ -44,7 +53,8 @@ public class LoadTestStart implements Serializable {
 
         if (!totalLoadCount.equals(that.totalLoadCount)) return false;
         if (!endPointName.equals(that.endPointName)) return false;
-        return batchSize.equals(that.batchSize);
+        if (!batchSize.equals(that.batchSize)) return false;
+        return dtoClass.equals(that.dtoClass);
 
     }
 
@@ -53,6 +63,7 @@ public class LoadTestStart implements Serializable {
         int result = totalLoadCount.hashCode();
         result = 31 * result + endPointName.hashCode();
         result = 31 * result + batchSize.hashCode();
+        result = 31 * result + dtoClass.hashCode();
         return result;
     }
 }

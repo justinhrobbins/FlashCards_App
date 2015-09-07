@@ -4,12 +4,11 @@ import akka.actor.AbstractActor;
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.japi.pf.ReceiveBuilder;
-import org.robbins.flashcards.client.TagClient;
-import org.robbins.flashcards.dto.TagDto;
-import org.robbins.flashcards.dto.builder.TagDtoBuilder;
+import org.robbins.flashcards.client.GenericRestCrudFacade;
+import org.robbins.flashcards.dto.AbstractAuditableDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
-import org.robbins.load.tester.message.TestStart;
 import org.robbins.load.tester.message.SingleTestResult;
+import org.robbins.load.tester.message.TestStart;
 import org.robbins.load.tester.util.LoadingTestingUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,16 +22,16 @@ public class LoadTester extends AbstractActor {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoadTester.class);
 
-    private final TagClient tagClient;
+    private final GenericRestCrudFacade client;
 
-    public LoadTester(final TagClient tagClient) {
+    public LoadTester(final GenericRestCrudFacade client) {
         LOGGER.debug("Creating LoadTestingActor");
 
-        this.tagClient = tagClient;
+        this.client = client;
     }
 
-    public static Props props(final TagClient tagClient) {
-        return Props.create(LoadTester.class, () -> new LoadTester(tagClient));
+    public static Props props(final GenericRestCrudFacade client) {
+        return Props.create(LoadTester.class, () -> new LoadTester(client));
     }
 
     @Override
@@ -46,14 +45,14 @@ public class LoadTester extends AbstractActor {
     private void doLoadTest(final TestStart testStartMessage, final ActorRef sender) {
         LOGGER.debug("Received TestStart message: {}", testStartMessage.toString());
 
-        final TagDto tag = LoadingTestingUtil.createTagDto("load-tester-" + UUID.randomUUID().toString() + "-" + testStartMessage.getTestId());
-        SingleTestResult result = saveItem(testStartMessage, tag);
+        final AbstractAuditableDto dto = LoadingTestingUtil.createDto("load-tester-" + UUID.randomUUID().toString() + "-" + testStartMessage.getTestId(), testStartMessage.getDtoClass());
+        SingleTestResult result = saveItem(testStartMessage, dto);
 
         LOGGER.debug("Sending TestResult message: {}", result.toString());
         sender.tell(result, self());
     }
 
-    private SingleTestResult saveItem(final TestStart testStartMessage, final TagDto tag) {
+    private <D extends AbstractAuditableDto> SingleTestResult saveItem(final TestStart testStartMessage, final D dto) {
         long duration;
         SingleTestResult.TestResultStatus resultStatus = SingleTestResult.TestResultStatus.SUCCESS;
 
@@ -61,10 +60,10 @@ public class LoadTester extends AbstractActor {
         stopWatch.start();
 
         try {
-            tagClient.save(tag);
+            client.save(dto);
 
         } catch (FlashcardsException e) {
-            LOGGER.error("Unable to create Tag {}, error: {}", tag.toString(), e.getMessage());
+            LOGGER.error("Unable to create Dto {}, error: {}", dto.toString(), e.getMessage());
             resultStatus = SingleTestResult.TestResultStatus.FAILURE;
         }
 
