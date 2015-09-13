@@ -6,8 +6,10 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.robbins.flashcards.dto.AbstractAuditableDto;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
+import org.robbins.flashcards.dto.UserDto;
 import org.robbins.flashcards.dto.builder.FlashCardDtoBuilder;
 import org.robbins.flashcards.dto.builder.TagDtoBuilder;
+import org.robbins.flashcards.dto.builder.UserDtoBuilder;
 
 import java.util.Date;
 import java.util.List;
@@ -33,12 +35,13 @@ public class LoadingTestingUtil {
     }
 
     public static AbstractAuditableDto createDto(final String name, final Class<? extends AbstractAuditableDto> dtoClass) {
-        if (dtoClass.getSimpleName().equals(tagDto)) {
-            return createTagDto(name);
-        } else if (dtoClass.getSimpleName().equals(flashcardDto)) {
-            return createFlashcardDto(name);
-        } else {
-            throw new IllegalArgumentException("dtoClass does not match expected: " + dtoClass.getSimpleName());
+        switch (dtoClass.getSimpleName()) {
+            case tagDto:
+                return createTagDto(name);
+            case flashcardDto:
+                return createFlashcardDto(name);
+            default:
+                throw new IllegalArgumentException("dtoClass does not match expected: " + dtoClass.getSimpleName());
         }
     }
 

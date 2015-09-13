@@ -12,8 +12,6 @@
 
     <context:component-scan base-package="org.robbins.flashcards.springdata.repository" />
 
-    <jpa:auditing auditor-aware-ref="auditorAware" />
-
     <jpa:repositories base-package="org.robbins.flashcards.springdata.repository" />
 
 </beans>

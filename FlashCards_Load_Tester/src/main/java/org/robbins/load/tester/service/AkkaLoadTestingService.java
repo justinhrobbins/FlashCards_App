@@ -43,7 +43,6 @@ public class AkkaLoadTestingService implements LoadTestingService {
                 Timeout.durationToTimeout(duration))
                 .mapTo(classTag);
 
-        final LoadTestResult result = Await.result(resultFuture, duration);
-        return result;
+        return Await.result(resultFuture, duration);
     }
 }

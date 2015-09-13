@@ -26,6 +26,14 @@ public class BatchLoadingReceiptDto extends AbstractAuditableDto implements Seri
     public BatchLoadingReceiptDto() {
     }
 
+    public BatchLoadingReceiptDto(final String type, final int successCount, final int failureCount, final Date startTime, final Date endTime) {
+        this.type = type;
+        this.successCount = successCount;
+        this.failureCount = failureCount;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
     public BatchLoadingReceiptDto(final String id) {
         setId(id);
     }

@@ -21,7 +21,7 @@
 
         <!-- Dependency versions -->
         <aspectj.version>1.7.4</aspectj.version>
-        <akka.version>2.3.12</akka.version>
+        <akka.version>2.3.13</akka.version>
         <cassandra-unit-spring.version>2.0.2.2</cassandra-unit-spring.version>
         <cglib.version>2.2.2</cglib.version>
         <checkstyle.version>2.10</checkstyle.version>
@@ -54,7 +54,8 @@
         <joda.time.version>2.1</joda.time.version>
         <jspapi.version>2.0</jspapi.version>
         <jsr311.api.version>1.1</jsr311.api.version>
-        <junit.version>4.10</junit.version>
+        <junit.version>4.12</junit.version>
+        <junitparams.version>1.0.4</junitparams.version>
         <jxr.version>2.4</jxr.version>
         <logback.classic.version>1.0.13</logback.classic.version>
         <log4j.version>1.2.14</log4j.version> <!-- only used by GWT module, all other modules using logback -->
@@ -277,7 +278,7 @@
             <!-- akka -->
             <dependency>
                 <groupId>com.typesafe.akka</groupId>
-                <artifactId>akka-actor_2.11</artifactId>
+                <artifactId>akka-actor_2.10</artifactId>
                 <version>${akka.version}</version>
             </dependency>
 
@@ -826,6 +827,12 @@
                 <groupId>org.dbunit</groupId>
                 <artifactId>dbunit</artifactId>
                 <version>${dbunit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>pl.pragmatists</groupId>
+                <artifactId>JUnitParams</artifactId>
+                <version>${junitparams.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>

@@ -3,15 +3,15 @@ package org.robbins.load.tester.message;
 import java.io.Serializable;
 
 public class LoadTestResult implements Serializable {
-    private final Integer getTotalLoadCount;
+    private final Integer totalLoadCount;
     private final String endPointName;
     private final Integer successCount;
     private final Integer failureCount;
     private final Long loadTestDuration;
 
-    public LoadTestResult(final Integer getTotalLoadCount, final String endPointName,
+    public LoadTestResult(final Integer totalLoadCount, final String endPointName,
                           final Integer successCount, final Integer failureCount, final Long loadTestDuration) {
-        this.getTotalLoadCount = getTotalLoadCount;
+        this.totalLoadCount = totalLoadCount;
         this.endPointName = endPointName;
         this.successCount = successCount;
         this.failureCount = failureCount;
@@ -19,7 +19,7 @@ public class LoadTestResult implements Serializable {
     }
 
     public Integer getGetTotalLoadCount() {
-        return getTotalLoadCount;
+        return totalLoadCount;
     }
 
     public String getEndPointName() {
@@ -41,7 +41,7 @@ public class LoadTestResult implements Serializable {
     @Override
     public String toString() {
         return "LoadTestResult{" +
-                "getTotalLoadCount=" + getTotalLoadCount +
+                "totalLoadCount=" + totalLoadCount +
                 ", endPointName='" + endPointName + '\'' +
                 ", successCount=" + successCount +
                 ", failureCount=" + failureCount +
@@ -56,7 +56,7 @@ public class LoadTestResult implements Serializable {
 
         LoadTestResult result = (LoadTestResult) o;
 
-        if (!getTotalLoadCount.equals(result.getTotalLoadCount)) return false;
+        if (!totalLoadCount.equals(result.totalLoadCount)) return false;
         if (!endPointName.equals(result.endPointName)) return false;
         if (!successCount.equals(result.successCount)) return false;
         if (!failureCount.equals(result.failureCount)) return false;
@@ -66,7 +66,7 @@ public class LoadTestResult implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = getTotalLoadCount.hashCode();
+        int result = totalLoadCount.hashCode();
         result = 31 * result + endPointName.hashCode();
         result = 31 * result + successCount.hashCode();
         result = 31 * result + failureCount.hashCode();

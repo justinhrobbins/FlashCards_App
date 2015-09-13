@@ -19,10 +19,10 @@ public class BatchLoadingReceipt extends AbstractAuditable<String, String> imple
     private String type;
 
     @Column(name = "SuccessCount", nullable = false)
-    private long successCount;
+    private int successCount;
 
     @Column(name = "FailureCount", nullable = false)
-    private long failureCount;
+    private int failureCount;
 
     @Column(name = "StartTime", nullable = false)
     private Date startTime;
@@ -45,19 +45,19 @@ public class BatchLoadingReceipt extends AbstractAuditable<String, String> imple
         this.type = type;
     }
 
-    public long getSuccessCount() {
+    public int getSuccessCount() {
         return successCount;
     }
 
-    public void setSuccessCount(long successCount) {
+    public void setSuccessCount(int successCount) {
         this.successCount = successCount;
     }
 
-    public long getFailureCount() {
+    public int getFailureCount() {
         return failureCount;
     }
 
-    public void setFailureCount(long failureCount) {
+    public void setFailureCount(int failureCount) {
         this.failureCount = failureCount;
     }
 
