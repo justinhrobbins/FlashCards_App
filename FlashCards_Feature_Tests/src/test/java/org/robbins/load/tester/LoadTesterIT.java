@@ -7,7 +7,6 @@ import org.junit.*;
 import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.robbins.flashcards.dto.AbstractAuditableDto;
-import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.load.tester.message.LoadTestResult;
 import org.robbins.load.tester.message.LoadTestStart;
@@ -23,13 +22,13 @@ import javax.inject.Inject;
 
 @ContextConfiguration(locations = {"classpath*:applicatonContext-loadtester.xml"})
 @RunWith(JUnitParamsRunner.class)
-public class TagLoadTesterIT {
+public class LoadTesterIT {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TagLoadTesterIT.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoadTesterIT.class);
 
     private TestContextManager testContextManager;
-    private final Integer totalLoadCount = 1000000;
-    private final Integer batchSize = 1000;
+    private final Integer totalLoadCount = 100000;
+    private final Integer batchSize = 10000;
     private final String endPointName = "tagClient";
     private StopWatch stopWatch;
 

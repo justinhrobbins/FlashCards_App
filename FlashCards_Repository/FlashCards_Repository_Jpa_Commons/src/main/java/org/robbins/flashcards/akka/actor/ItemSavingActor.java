@@ -4,30 +4,29 @@ import akka.actor.AbstractActor;
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.japi.pf.ReceiveBuilder;
-import org.joda.time.DateTime;
 import org.robbins.flashcards.akka.message.SingleSaveResultMessage;
 import org.robbins.flashcards.akka.message.SingleSaveStartMessage;
 import org.robbins.flashcards.conversion.DtoConverter;
-import org.robbins.flashcards.dto.AbstractAuditableDto;
 import org.robbins.flashcards.dto.AbstractPersistableDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.model.common.AbstractAuditable;
+import org.robbins.flashcards.model.util.AuditingUtil;
 import org.robbins.flashcards.repository.FlashCardsAppRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import scala.PartialFunction;
 import scala.runtime.BoxedUnit;
 
-public class ItemSaver extends AbstractActor {
+public class ItemSavingActor extends AbstractActor {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ItemSaver.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ItemSavingActor.class);
 
     private final FlashCardsAppRepository repository;
     private final DtoConverter converter;
     private final String auditingUserId;
 
-    public ItemSaver(final FlashCardsAppRepository repository, final DtoConverter converter, final String auditingUserId) {
-        LOGGER.trace("Creating LoadTestingActor");
+    public ItemSavingActor(final FlashCardsAppRepository repository, final DtoConverter converter, final String auditingUserId) {
+        LOGGER.trace("Creating ItemSaver");
 
         this.repository = repository;
         this.converter = converter;
@@ -36,7 +35,7 @@ public class ItemSaver extends AbstractActor {
 
     public static Props props(final FlashCardsAppRepository repository,
                               final DtoConverter converter, final String auditingUserId) {
-        return Props.create(ItemSaver.class, () -> new ItemSaver(repository, converter, auditingUserId));
+        return Props.create(ItemSavingActor.class, () -> new ItemSavingActor(repository, converter, auditingUserId));
     }
 
     @Override
@@ -56,12 +55,12 @@ public class ItemSaver extends AbstractActor {
         sender.tell(result, self());
     }
 
-    private <D extends AbstractAuditableDto> SingleSaveResultMessage saveItem(final AbstractPersistableDto dto) {
+    private SingleSaveResultMessage saveItem(final AbstractPersistableDto dto) {
         SingleSaveResultMessage.SaveResultStatus resultStatus = SingleSaveResultMessage.SaveResultStatus.SUCCESS;
 
         try {
             final AbstractAuditable entity = (AbstractAuditable) converter.getEntity(dto);
-            configureCreatedByAndTime(entity);
+            AuditingUtil.configureCreatedByAndTime(entity, auditingUserId);
             repository.save(entity);
 
         } catch (FlashcardsException e) {
@@ -70,10 +69,5 @@ public class ItemSaver extends AbstractActor {
         }
 
         return new SingleSaveResultMessage(resultStatus);
-    }
-
-    private void configureCreatedByAndTime(final AbstractAuditable entity) {
-        entity.setCreatedBy(auditingUserId);
-        entity.setCreatedDate(new DateTime());
     }
 }

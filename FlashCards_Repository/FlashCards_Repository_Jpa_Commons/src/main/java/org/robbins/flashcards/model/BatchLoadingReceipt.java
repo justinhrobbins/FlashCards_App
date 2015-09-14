@@ -33,6 +33,14 @@ public class BatchLoadingReceipt extends AbstractAuditable<String, String> imple
     public BatchLoadingReceipt() {
     }
 
+    public BatchLoadingReceipt(final String type, final int successCount, final int failureCount, final Date startTime, final Date endTime) {
+        this.type = type;
+        this.successCount = successCount;
+        this.failureCount = failureCount;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
     public BatchLoadingReceipt(final String id) {
         setId(id);
     }

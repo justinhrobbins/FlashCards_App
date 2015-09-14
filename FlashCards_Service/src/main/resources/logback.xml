@@ -12,6 +12,8 @@
     <logger name="org.hibernate.tool.hbm2ddl" level="info" />
 
     <logger name="org.springframework" level="info" />
+    <logger name="org.springframework.transaction" level="info" />
+    <logger name="org.springframework.orm.jpa" level="info" />
     <logger name="org.springsource" level="info" />
     <logger name="org.springframework.data" level="info" />
 

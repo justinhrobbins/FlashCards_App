@@ -3,29 +3,34 @@ package org.robbins.flashcards.akka.message;
 import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.dto.AbstractPersistableDto;
 import org.robbins.flashcards.repository.FlashCardsAppRepository;
+import org.springframework.transaction.support.TransactionTemplate;
 
+import javax.persistence.EntityManager;
 import java.io.Serializable;
 import java.util.List;
 
-public class StartBatchSaveMessage implements Serializable {
+public class BatchSaveStartMessage implements Serializable {
     private final FlashCardsAppRepository repository;
     private final DtoConverter converter;
     private final String auditingUserId;
     private final List<AbstractPersistableDto> dtos;
+    private final TransactionTemplate txTemplate;
+    private final EntityManager em;
 
-    public StartBatchSaveMessage(final FlashCardsAppRepository repository, final DtoConverter converter, final String auditingUserId, final List<AbstractPersistableDto> dtos) {
+    public BatchSaveStartMessage(FlashCardsAppRepository repository,
+                                 DtoConverter converter, String auditingUserId,
+                                 List<AbstractPersistableDto> dtos, TransactionTemplate txTemplate,
+                                 EntityManager em) {
         this.repository = repository;
         this.converter = converter;
         this.auditingUserId = auditingUserId;
         this.dtos = dtos;
+        this.txTemplate = txTemplate;
+        this.em = em;
     }
 
     public FlashCardsAppRepository getRepository() {
         return repository;
-    }
-
-    public List<AbstractPersistableDto> getDtos() {
-        return dtos;
     }
 
     public DtoConverter getConverter() {
@@ -36,13 +41,21 @@ public class StartBatchSaveMessage implements Serializable {
         return auditingUserId;
     }
 
+    public List<AbstractPersistableDto> getDtos() {
+        return dtos;
+    }
+
+    public TransactionTemplate getTxTemplate() {
+        return txTemplate;
+    }
+
+    public EntityManager getEm() {
+        return em;
+    }
+
     @Override
     public String toString() {
-        return "StartBatchSaveMessage{" +
-                "repository=" + repository +
-                ", converter=" + converter +
-                ", auditingUserId='" + auditingUserId + '\'' +
-                '}';
+        return "BatchSaveStartMessage{}";
     }
 
     @Override
@@ -50,12 +63,14 @@ public class StartBatchSaveMessage implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        StartBatchSaveMessage that = (StartBatchSaveMessage) o;
+        BatchSaveStartMessage that = (BatchSaveStartMessage) o;
 
         if (!repository.equals(that.repository)) return false;
         if (!converter.equals(that.converter)) return false;
         if (!auditingUserId.equals(that.auditingUserId)) return false;
-        return dtos.equals(that.dtos);
+        if (!dtos.equals(that.dtos)) return false;
+        if (!txTemplate.equals(that.txTemplate)) return false;
+        return em.equals(that.em);
 
     }
 
@@ -65,6 +80,8 @@ public class StartBatchSaveMessage implements Serializable {
         result = 31 * result + converter.hashCode();
         result = 31 * result + auditingUserId.hashCode();
         result = 31 * result + dtos.hashCode();
+        result = 31 * result + txTemplate.hashCode();
+        result = 31 * result + em.hashCode();
         return result;
     }
 }

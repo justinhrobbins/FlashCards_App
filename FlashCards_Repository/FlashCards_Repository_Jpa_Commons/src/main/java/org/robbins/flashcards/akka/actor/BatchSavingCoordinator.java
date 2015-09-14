@@ -2,22 +2,22 @@ package org.robbins.flashcards.akka.actor;
 
 import akka.actor.AbstractActor;
 import akka.actor.ActorRef;
+import akka.actor.Props;
 import akka.japi.pf.ReceiveBuilder;
-import akka.routing.FromConfig;
 import akka.routing.RoundRobinPool;
+import com.google.common.collect.Lists;
 import org.robbins.flashcards.akka.message.BatchSaveResultMessage;
-import org.robbins.flashcards.akka.message.SingleSaveResultMessage;
-import org.robbins.flashcards.akka.message.SingleSaveStartMessage;
-import org.robbins.flashcards.akka.message.StartBatchSaveMessage;
+import org.robbins.flashcards.akka.message.BatchSaveStartMessage;
+import org.robbins.flashcards.akka.message.SingleBatchSaveResultMessage;
+import org.robbins.flashcards.akka.message.SingleBatchSaveStartMessage;
+import org.robbins.flashcards.dto.AbstractPersistableDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 import scala.PartialFunction;
 import scala.runtime.BoxedUnit;
 
-@Component("batchSavingCoordinator")
-@Scope("prototype")
+import java.util.List;
+
 public class BatchSavingCoordinator extends AbstractActor {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BatchSavingCoordinator.class);
@@ -27,45 +27,51 @@ public class BatchSavingCoordinator extends AbstractActor {
     private Integer completedTestCount = 0;
     private Integer successCount = 0;
     private Integer failureCount = 0;
+    private final int batchSize = 1000;
 
     public BatchSavingCoordinator() {
         LOGGER.debug("Creating BatchSavingCoordinator");
     }
 
+    public static Props props() {
+        return Props.create(BatchSavingCoordinator.class, BatchSavingCoordinator::new);
+    }
+
     @Override
     public PartialFunction<Object, BoxedUnit> receive() {
         return ReceiveBuilder
-                .match(StartBatchSaveMessage.class, this::batchSaveStart)
-                .match(SingleSaveResultMessage.class, this::individualSaveFinish)
+                .match(BatchSaveStartMessage.class, this::batchSaveStart)
+                .match(SingleBatchSaveResultMessage.class, this::batchSaveFinish)
                 .matchAny(o -> LOGGER.info("Received Unknown message"))
                 .build();
     }
 
-    private void batchSaveStart(final StartBatchSaveMessage startMessage) {
-        LOGGER.debug("Received StartBatchSaveMessage message: {}", startMessage.toString());
+    private void batchSaveStart(final BatchSaveStartMessage startMessage) {
+        LOGGER.debug("Received BatchSaveStartMessage message: {}", startMessage.toString());
 
         parent = sender();
 
         totalItemsToSave = startMessage.getDtos().size();
 
-        ActorRef singleSavingTestingActor = context()
-                .actorOf(new RoundRobinPool(8)
-                        .props(ItemSaver.props(startMessage.getRepository(), startMessage.getConverter(),
-                                startMessage.getAuditingUserId())), "item-saver-router");
+        ActorRef batchSavingActor = context()
+                .actorOf(new RoundRobinPool(4)
+                        .props(BatchSavingActor.props(startMessage.getRepository(), startMessage.getConverter(),
+                                startMessage.getAuditingUserId())), "batch-saving-router");
 
-        startMessage.getDtos().stream()
-                .forEach(dto -> singleSavingTestingActor.tell(new SingleSaveStartMessage(dto), self()));
+        List<List<AbstractPersistableDto>> batches = Lists.partition(startMessage.getDtos(), batchSize);
+        LOGGER.debug("Splitting bath of {} into {} sub-batches", startMessage.getDtos().size(), batches.size());
+
+        batches.stream()
+                .forEach(batch -> batchSavingActor.tell(new SingleBatchSaveStartMessage(batch,
+                        startMessage.getTxTemplate(), startMessage.getEm()), self()));
     }
 
-    private void individualSaveFinish(SingleSaveResultMessage testResult) {
-        LOGGER.trace("Received SingleSaveResult message: {}", testResult.toString());
+    private void batchSaveFinish(SingleBatchSaveResultMessage saveResult) {
+        LOGGER.debug("Received SingleBatchSaveResultMessage message: {}", saveResult.toString());
 
-        completedTestCount++;
-        if (testResult.getResultStatus().equals(SingleSaveResultMessage.SaveResultStatus.SUCCESS)) {
-            successCount++;
-        } else {
-            failureCount++;
-        }
+        completedTestCount += (saveResult.getSuccessCount() + saveResult.getFailureCount());
+        successCount += saveResult.getSuccessCount();
+        failureCount += saveResult.getFailureCount();
 
         if (completedTestCount.equals(totalItemsToSave)) {
             completeBatchSave();

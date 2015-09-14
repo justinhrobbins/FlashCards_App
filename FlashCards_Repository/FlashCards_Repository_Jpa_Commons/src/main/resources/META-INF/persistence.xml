@@ -6,13 +6,12 @@
     version="2.0">
     <persistence-unit name="jpa"
         transaction-type="RESOURCE_LOCAL">
-        <class>org.robbins.flashcards.model.FlashCard</class>
-        <class>org.robbins.flashcards.model.Tag</class>
-        <class>org.robbins.flashcards.model.User</class>
         <properties>
-            <property name="hibernate.hbm2ddl.auto" value="create" />
+            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
             <property name="hibernate.show_sql" value="false" />
             <property name="hibernate.format_sql" value="false" />
+            <property name="hibernate.jdbc.batch_size property" value="1000" />
+            <property name="org.hibernate.flushMode" value="COMMIT" />
             <property name="use_sql_comments" value="false" />
         </properties>
     </persistence-unit>
