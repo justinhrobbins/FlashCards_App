@@ -8,7 +8,7 @@
 
     <logger name="org.robbins.flashcards" level="debug" />
 
-    <logger name="org.hibernate" level="info" />
+    <logger name="org.hibernate" level="error" />
     <logger name="org.hibernate.tool.hbm2ddl" level="info" />
 
     <logger name="org.springframework" level="info" />
