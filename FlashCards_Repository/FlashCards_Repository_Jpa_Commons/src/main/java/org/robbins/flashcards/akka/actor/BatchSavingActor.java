@@ -65,16 +65,10 @@ public class BatchSavingActor extends AbstractActor {
     private SingleBatchSaveResultMessage saveBatch(final EntityManager em,
                                                    final List<AbstractPersistableDto> batch) {
         batch.stream().forEach(dto -> saveItem(dto));
-        resetEntityManager(em);
 
         final SingleBatchSaveResultMessage result = new SingleBatchSaveResultMessage(successCount, failureCount);
         resetCounters();
         return result;
-    }
-
-    private void resetEntityManager(final EntityManager em) {
-        em.flush();
-        em.clear();
     }
 
     private void resetCounters() {

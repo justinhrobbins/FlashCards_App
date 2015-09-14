@@ -27,7 +27,7 @@ public class LoadTesterIT {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoadTesterIT.class);
 
     private TestContextManager testContextManager;
-    private final Integer totalLoadCount = 100000;
+    private final Integer totalLoadCount = 1000000;
     private final Integer batchSize = 10000;
     private final String endPointName = "tagClient";
     private StopWatch stopWatch;
