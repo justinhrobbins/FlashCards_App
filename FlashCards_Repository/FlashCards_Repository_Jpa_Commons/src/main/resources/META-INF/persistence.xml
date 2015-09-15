@@ -11,6 +11,7 @@
             <property name="hibernate.show_sql" value="false" />
             <property name="hibernate.format_sql" value="false" />
             <property name="hibernate.jdbc.batch_size property" value="1000" />
+            <property name="hibernate.order_inserts" value="true" />
             <property name="org.hibernate.flushMode" value="COMMIT" />
             <property name="use_sql_comments" value="false" />
         </properties>
