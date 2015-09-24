@@ -27,6 +27,7 @@ public class BatchSavingActor extends AbstractActor {
     private final FlashCardsAppRepository repository;
     private final DtoConverter converter;
     private final String auditingUserId;
+    private String batchId;
     private Integer successCount = 0;
     private Integer failureCount = 0;
 
@@ -46,20 +47,23 @@ public class BatchSavingActor extends AbstractActor {
     @Override
     public PartialFunction<Object, BoxedUnit> receive() {
         return ReceiveBuilder
-                .match(SingleBatchSaveStartMessage.class, startSave -> doStartSave(startSave, sender()))
+                .match(SingleBatchSaveStartMessage.class, startSave -> doSave(startSave, sender()))
                 .matchAny(o -> LOGGER.error("Received Unknown message"))
                 .build();
     }
 
-    private void doStartSave(final SingleBatchSaveStartMessage startSaveMessage, final ActorRef sender) {
+    private void doSave(final SingleBatchSaveStartMessage startSaveMessage, final ActorRef sender) {
         LOGGER.trace("Received SingleBatchSaveStartMessage message: {}", startSaveMessage.toString());
 
+        batchId = startSaveMessage.getBatchId();
+        
         SingleBatchSaveResultMessage result = startSaveMessage.getTxTemplate().execute(
                 status -> saveBatch(startSaveMessage.getEm(), startSaveMessage.getDtos())
         );
 
         LOGGER.trace("Sending SingleBatchSaveResultMessage message: {}", result.toString());
         sender.tell(result, self());
+        context().stop(self());
     }
 
     private SingleBatchSaveResultMessage saveBatch(final EntityManager em,
@@ -67,7 +71,7 @@ public class BatchSavingActor extends AbstractActor {
         batch.stream().forEach(dto -> saveItem(dto));
         resetEntityManager(em);
 
-        final SingleBatchSaveResultMessage result = new SingleBatchSaveResultMessage(successCount, failureCount);
+        final SingleBatchSaveResultMessage result = new SingleBatchSaveResultMessage(successCount, failureCount, batchId);
         resetCounters();
         return result;
     }

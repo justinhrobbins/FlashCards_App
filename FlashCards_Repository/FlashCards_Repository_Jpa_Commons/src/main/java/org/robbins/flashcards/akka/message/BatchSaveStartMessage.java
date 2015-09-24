@@ -2,6 +2,7 @@ package org.robbins.flashcards.akka.message;
 
 import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.dto.AbstractPersistableDto;
+import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
 import org.robbins.flashcards.repository.FlashCardsAppRepository;
 import org.springframework.transaction.support.TransactionTemplate;
 
@@ -10,6 +11,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class BatchSaveStartMessage implements Serializable {
+    private final BatchLoadingReceiptDto receipt;
     private final FlashCardsAppRepository repository;
     private final DtoConverter converter;
     private final String auditingUserId;
@@ -17,16 +19,21 @@ public class BatchSaveStartMessage implements Serializable {
     private final TransactionTemplate txTemplate;
     private final EntityManager em;
 
-    public BatchSaveStartMessage(FlashCardsAppRepository repository,
+    public BatchSaveStartMessage(BatchLoadingReceiptDto receipt, FlashCardsAppRepository repository,
                                  DtoConverter converter, String auditingUserId,
                                  List<AbstractPersistableDto> dtos, TransactionTemplate txTemplate,
                                  EntityManager em) {
+        this.receipt = receipt;
         this.repository = repository;
         this.converter = converter;
         this.auditingUserId = auditingUserId;
         this.dtos = dtos;
         this.txTemplate = txTemplate;
         this.em = em;
+    }
+
+    public BatchLoadingReceiptDto getReceipt() {
+        return receipt;
     }
 
     public FlashCardsAppRepository getRepository() {
@@ -65,6 +72,7 @@ public class BatchSaveStartMessage implements Serializable {
 
         BatchSaveStartMessage that = (BatchSaveStartMessage) o;
 
+        if (!receipt.equals(that.receipt)) return false;
         if (!repository.equals(that.repository)) return false;
         if (!converter.equals(that.converter)) return false;
         if (!auditingUserId.equals(that.auditingUserId)) return false;
@@ -76,7 +84,8 @@ public class BatchSaveStartMessage implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = repository.hashCode();
+        int result = receipt.hashCode();
+        result = 31 * result + repository.hashCode();
         result = 31 * result + converter.hashCode();
         result = 31 * result + auditingUserId.hashCode();
         result = 31 * result + dtos.hashCode();

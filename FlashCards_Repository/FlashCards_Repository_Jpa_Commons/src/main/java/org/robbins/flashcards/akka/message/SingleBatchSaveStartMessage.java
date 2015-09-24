@@ -8,14 +8,20 @@ import java.io.Serializable;
 import java.util.List;
 
 public class SingleBatchSaveStartMessage implements Serializable {
+    private final String batchId;
     private final List<AbstractPersistableDto> dtos;
     private final TransactionTemplate txTemplate;
     private final EntityManager em;
 
-    public SingleBatchSaveStartMessage(List<AbstractPersistableDto> dtos, TransactionTemplate txTemplate, EntityManager em) {
+    public SingleBatchSaveStartMessage(String batchId, List<AbstractPersistableDto> dtos, TransactionTemplate txTemplate, EntityManager em) {
+        this.batchId = batchId;
         this.dtos = dtos;
         this.txTemplate = txTemplate;
         this.em = em;
+    }
+
+    public String getBatchId() {
+        return batchId;
     }
 
     public List<AbstractPersistableDto> getDtos() {
@@ -32,7 +38,9 @@ public class SingleBatchSaveStartMessage implements Serializable {
 
     @Override
     public String toString() {
-        return "SingleBatchSaveStartMessage{}";
+        return "SingleBatchSaveStartMessage{" +
+                "batchId='" + batchId + '\'' +
+                '}';
     }
 
     @Override
@@ -42,17 +50,12 @@ public class SingleBatchSaveStartMessage implements Serializable {
 
         SingleBatchSaveStartMessage that = (SingleBatchSaveStartMessage) o;
 
-        if (!dtos.equals(that.dtos)) return false;
-        if (!txTemplate.equals(that.txTemplate)) return false;
-        return em.equals(that.em);
+        return batchId.equals(that.batchId);
 
     }
 
     @Override
     public int hashCode() {
-        int result = dtos.hashCode();
-        result = 31 * result + txTemplate.hashCode();
-        result = 31 * result + em.hashCode();
-        return result;
+        return batchId.hashCode();
     }
 }

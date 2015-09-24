@@ -1,30 +1,23 @@
 package org.robbins.flashcards.akka.message;
 
+import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
+
 import java.io.Serializable;
 
 public class BatchSaveResultMessage implements Serializable {
-    private final Integer successCount;
-    private final Integer failureCount;
+    private final BatchLoadingReceiptDto receiptDto;
 
-    public BatchSaveResultMessage(Integer successCount, Integer failureCount) {
-        this.successCount = successCount;
-        this.failureCount = failureCount;
+    public BatchSaveResultMessage(BatchLoadingReceiptDto receiptDto) {
+        this.receiptDto = receiptDto;
     }
 
-    public Integer getSuccessCount() {
-        return successCount;
-    }
-
-    public Integer getFailureCount() {
-        return failureCount;
+    public BatchLoadingReceiptDto getReceiptDto() {
+        return receiptDto;
     }
 
     @Override
     public String toString() {
-        return "BatchSaveResult{" +
-                "successCount=" + successCount +
-                ", failureCount=" + failureCount +
-                '}';
+        return "BatchSaveResultMessage";
     }
 
     @Override
@@ -34,15 +27,12 @@ public class BatchSaveResultMessage implements Serializable {
 
         BatchSaveResultMessage that = (BatchSaveResultMessage) o;
 
-        if (!successCount.equals(that.successCount)) return false;
-        return failureCount.equals(that.failureCount);
+        return receiptDto.equals(that.receiptDto);
 
     }
 
     @Override
     public int hashCode() {
-        int result = successCount.hashCode();
-        result = 31 * result + failureCount.hashCode();
-        return result;
+        return receiptDto.hashCode();
     }
 }

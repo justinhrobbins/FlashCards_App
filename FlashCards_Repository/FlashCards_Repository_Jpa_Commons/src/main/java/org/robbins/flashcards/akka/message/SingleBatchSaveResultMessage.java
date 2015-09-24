@@ -5,10 +5,12 @@ import java.io.Serializable;
 public class SingleBatchSaveResultMessage implements Serializable {
     private final Integer successCount;
     private final Integer failureCount;
+    private final String batchId;
 
-    public SingleBatchSaveResultMessage(Integer successCount, Integer failureCount) {
+    public SingleBatchSaveResultMessage(Integer successCount, Integer failureCount, String batchId) {
         this.successCount = successCount;
         this.failureCount = failureCount;
+        this.batchId = batchId;
     }
 
     public Integer getSuccessCount() {
@@ -19,11 +21,16 @@ public class SingleBatchSaveResultMessage implements Serializable {
         return failureCount;
     }
 
+    public String getBatchId() {
+        return batchId;
+    }
+
     @Override
     public String toString() {
         return "SingleBatchSaveResultMessage{" +
                 "successCount=" + successCount +
                 ", failureCount=" + failureCount +
+                ", batchId='" + batchId + '\'' +
                 '}';
     }
 
@@ -35,7 +42,8 @@ public class SingleBatchSaveResultMessage implements Serializable {
         SingleBatchSaveResultMessage that = (SingleBatchSaveResultMessage) o;
 
         if (!successCount.equals(that.successCount)) return false;
-        return failureCount.equals(that.failureCount);
+        if (!failureCount.equals(that.failureCount)) return false;
+        return batchId.equals(that.batchId);
 
     }
 
@@ -43,6 +51,7 @@ public class SingleBatchSaveResultMessage implements Serializable {
     public int hashCode() {
         int result = successCount.hashCode();
         result = 31 * result + failureCount.hashCode();
+        result = 31 * result + batchId.hashCode();
         return result;
     }
 }

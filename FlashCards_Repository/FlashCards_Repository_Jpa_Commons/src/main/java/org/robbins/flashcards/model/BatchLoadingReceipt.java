@@ -33,7 +33,9 @@ public class BatchLoadingReceipt extends AbstractAuditable<String, String> imple
     public BatchLoadingReceipt() {
     }
 
-    public BatchLoadingReceipt(final String type, final int successCount, final int failureCount, final Date startTime, final Date endTime) {
+    public BatchLoadingReceipt(final String type, final int successCount,
+                               final int failureCount, final Date startTime,
+                               final Date endTime) {
         this.type = type;
         this.successCount = successCount;
         this.failureCount = failureCount;
@@ -94,5 +96,23 @@ public class BatchLoadingReceipt extends AbstractAuditable<String, String> imple
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BatchLoadingReceipt that = (BatchLoadingReceipt) o;
+
+        return !(getId() != null ? !getId().equals(that.getId()) : that.getId() != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (getId() != null ? getId().hashCode() : 0);
+        return result;
     }
 }
