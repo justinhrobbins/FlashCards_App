@@ -64,7 +64,10 @@ public class LoadTesterIT {
     private Object[] testParams() {
         return new Object[]{
                 new Object[]{TagDto.class}
-//                ,new Object[]{FlashCardDto.class}
+                , new Object[]{TagDto.class}
+                , new Object[]{TagDto.class}
+                , new Object[]{TagDto.class}
+                , new Object[]{TagDto.class}
         };
     }
 

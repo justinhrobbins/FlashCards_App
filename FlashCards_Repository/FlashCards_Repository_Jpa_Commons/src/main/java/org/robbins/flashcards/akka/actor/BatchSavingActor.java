@@ -24,24 +24,26 @@ public class BatchSavingActor extends AbstractActor {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BatchSavingActor.class);
 
-    private final FlashCardsAppRepository repository;
-    private final DtoConverter converter;
-    private final String auditingUserId;
+    private FlashCardsAppRepository repository;
+    private DtoConverter converter;
+    private String auditingUserId;
     private String batchId;
     private Integer successCount = 0;
     private Integer failureCount = 0;
 
-    public BatchSavingActor(final FlashCardsAppRepository repository, final DtoConverter converter, final String auditingUserId) {
+    public BatchSavingActor() {
         LOGGER.debug("Creating BatchSavingActor");
-
-        this.repository = repository;
-        this.converter = converter;
-        this.auditingUserId = auditingUserId;
     }
 
-    public static Props props(final FlashCardsAppRepository repository,
-                              final DtoConverter converter, final String auditingUserId) {
-        return Props.create(BatchSavingActor.class, () -> new BatchSavingActor(repository, converter, auditingUserId));
+    public static Props props() {
+        return Props.create(BatchSavingActor.class, BatchSavingActor::new);
+    }
+
+    @Override
+    public void preStart() throws Exception
+    {
+        super.preStart();
+        context().parent().tell(new BatchSavingCoordinator.GiveMeWork(), self());
     }
 
     @Override
@@ -55,7 +57,10 @@ public class BatchSavingActor extends AbstractActor {
     private void doSave(final SingleBatchSaveStartMessage startSaveMessage, final ActorRef sender) {
         LOGGER.trace("Received SingleBatchSaveStartMessage message: {}", startSaveMessage.toString());
 
-        batchId = startSaveMessage.getBatchId();
+        this.repository = startSaveMessage.getRepository();
+        this.converter = startSaveMessage.getConverter();
+        this.auditingUserId = startSaveMessage.getAuditingUserId();
+        this.batchId = startSaveMessage.getBatchId();
         
         SingleBatchSaveResultMessage result = startSaveMessage.getTxTemplate().execute(
                 status -> saveBatch(startSaveMessage.getEm(), startSaveMessage.getDtos())
@@ -63,12 +68,11 @@ public class BatchSavingActor extends AbstractActor {
 
         LOGGER.trace("Sending SingleBatchSaveResultMessage message: {}", result.toString());
         sender.tell(result, self());
-        context().stop(self());
     }
 
     private SingleBatchSaveResultMessage saveBatch(final EntityManager em,
                                                    final List<AbstractPersistableDto> batch) {
-        batch.stream().forEach(dto -> saveItem(dto));
+        batch.stream().forEach(this::saveItem);
         resetEntityManager(em);
 
         final SingleBatchSaveResultMessage result = new SingleBatchSaveResultMessage(successCount, failureCount, batchId);
