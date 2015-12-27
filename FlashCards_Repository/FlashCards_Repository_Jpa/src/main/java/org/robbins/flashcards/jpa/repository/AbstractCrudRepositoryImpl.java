@@ -1,6 +1,7 @@
 
 package org.robbins.flashcards.jpa.repository;
 
+import org.apache.commons.lang3.NotImplementedException;
 import org.joda.time.DateTime;
 import org.robbins.flashcards.model.common.AbstractAuditable;
 import org.robbins.flashcards.repository.FlashCardsAppRepository;
@@ -10,6 +11,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.Serializable;
+import java.util.List;
 
 public abstract class AbstractCrudRepositoryImpl<T extends AbstractAuditable<Long, ID>, ID extends Serializable>
         implements FlashCardsAppRepository<T, ID> {
@@ -61,5 +63,11 @@ public abstract class AbstractCrudRepositoryImpl<T extends AbstractAuditable<Lon
     public void delete(final ID id) {
         T entity = em.find(getClazz(), id);
         em.remove(entity);
+    }
+
+    @Override
+    public int batchSave(final List<T> records)
+    {
+        throw new NotImplementedException("method not yet implemented");
     }
 }

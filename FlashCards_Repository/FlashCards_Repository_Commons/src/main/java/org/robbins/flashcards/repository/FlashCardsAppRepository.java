@@ -1,6 +1,7 @@
 
 package org.robbins.flashcards.repository;
 
+import org.robbins.flashcards.repository.batch.BatchSavingRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -8,7 +9,8 @@ import org.springframework.data.domain.Sort;
 import java.io.Serializable;
 import java.util.List;
 
-public interface FlashCardsAppRepository<E, ID extends Serializable> {
+public interface FlashCardsAppRepository<E, ID extends Serializable> extends BatchSavingRepository<E>
+{
 
     long count();
     E save(final E entity);

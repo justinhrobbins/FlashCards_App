@@ -2,6 +2,7 @@ package org.robbins.flashcards.springdata.repository;
 
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.repository.TagRepository;
+import org.robbins.flashcards.repository.batch.BatchSavingRepository;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
@@ -15,10 +16,13 @@ import static org.robbins.flashcards.springdata.repository.predicates.TagPredica
 
 @Repository
 public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag, Long> implements
-        TagRepository<Tag, Long> {
-
+        TagRepository<Tag, Long>, BatchSavingRepository<Tag>
+{
     @Inject
     private TagSpringDataRepository repository;
+
+    @Inject
+    private BatchSavingRepository<Tag> batchTagRepository;
 
     @Override
     public TagSpringDataRepository getRepository() {
@@ -57,5 +61,11 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag, Long> imp
     @Caching(evict = { @CacheEvict(value = "tags", allEntries=true), @CacheEvict(value = "tagById", key = "#p0") })
     public void delete(Long id) {
         repository.delete(id);
+    }
+
+    @Override
+    public int batchSave(final List<Tag> records)
+    {
+        return batchTagRepository.batchSave(records);
     }
 }
