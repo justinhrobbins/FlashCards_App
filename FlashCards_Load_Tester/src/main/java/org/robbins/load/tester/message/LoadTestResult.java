@@ -3,34 +3,34 @@ package org.robbins.load.tester.message;
 import java.io.Serializable;
 
 public class LoadTestResult implements Serializable {
-    private final Long endPointInvocationCount;
+    private final Integer totalLoadCount;
     private final String endPointName;
-    private final Long successCount;
-    private final Long failureCount;
+    private final Integer successCount;
+    private final Integer failureCount;
     private final Long loadTestDuration;
 
-    public LoadTestResult(final Long endPointInvocationCount, final String endPointName,
-                          final Long successCount, final Long failureCount, final Long loadTestDuration) {
-        this.endPointInvocationCount = endPointInvocationCount;
+    public LoadTestResult(final Integer totalLoadCount, final String endPointName,
+                          final Integer successCount, final Integer failureCount, final Long loadTestDuration) {
+        this.totalLoadCount = totalLoadCount;
         this.endPointName = endPointName;
         this.successCount = successCount;
         this.failureCount = failureCount;
         this.loadTestDuration = loadTestDuration;
     }
 
-    public Long getEndPointInvocationCount() {
-        return endPointInvocationCount;
+    public Integer getGetTotalLoadCount() {
+        return totalLoadCount;
     }
 
     public String getEndPointName() {
         return endPointName;
     }
 
-    public Long getSuccessCount() {
+    public Integer getSuccessCount() {
         return successCount;
     }
 
-    public Long getFailureCount() {
+    public Integer getFailureCount() {
         return failureCount;
     }
 
@@ -41,12 +41,11 @@ public class LoadTestResult implements Serializable {
     @Override
     public String toString() {
         return "LoadTestResult{" +
-                "endPointInvocationCount=" + endPointInvocationCount +
+                "totalLoadCount=" + totalLoadCount +
                 ", endPointName='" + endPointName + '\'' +
                 ", successCount=" + successCount +
                 ", failureCount=" + failureCount +
                 ", loadTestDuration=" + loadTestDuration +
-                ", averageDuration=" + (Math.ceil(loadTestDuration/endPointInvocationCount)) + " milliseconds" +
                 '}';
     }
 
@@ -57,7 +56,7 @@ public class LoadTestResult implements Serializable {
 
         LoadTestResult result = (LoadTestResult) o;
 
-        if (!endPointInvocationCount.equals(result.endPointInvocationCount)) return false;
+        if (!totalLoadCount.equals(result.totalLoadCount)) return false;
         if (!endPointName.equals(result.endPointName)) return false;
         if (!successCount.equals(result.successCount)) return false;
         if (!failureCount.equals(result.failureCount)) return false;
@@ -67,7 +66,7 @@ public class LoadTestResult implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = endPointInvocationCount.hashCode();
+        int result = totalLoadCount.hashCode();
         result = 31 * result + endPointName.hashCode();
         result = 31 * result + successCount.hashCode();
         result = 31 * result + failureCount.hashCode();

@@ -19,7 +19,8 @@ import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
 public class DefaultTagFacadeIT extends AbstractCassandraIntegrationTest {
 
-    private final String TAG_ID = "eaa488a0-b0d8-11e4-af90-12e3f512a338";
+    private final Long TAG_ID = 1L;
+    private final Long NON_EXISTING_TAG_ID = 2L;
     private final String TAG_NAME = "tag1";
 
     @Inject
@@ -44,7 +45,7 @@ public class DefaultTagFacadeIT extends AbstractCassandraIntegrationTest {
     @Test
     public void testFindOne_ShouldReturnNull_WhenIdDoesNotExist() throws FlashcardsException {
 
-        final TagDto result = tagFacade.findOne(UUID.randomUUID().toString());
+        final TagDto result = tagFacade.findOne(NON_EXISTING_TAG_ID);
         assertThat(result, is(nullValue()));
     }
 

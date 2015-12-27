@@ -31,7 +31,7 @@ public class MapToSetConverter extends DozerConverter<Map, Set> implements Mappe
         final Set<Map.Entry> entries = source.entrySet();
         for (Map.Entry<Object, Object> entry : entries) {
             TagCassandraEntity item = new TagCassandraEntity();
-            item.setId((UUID) entry.getKey());
+            item.setId((Long) entry.getKey());
             item.setName((String) entry.getValue());
             TagDto mappedItem = mapper.map(item, TagDto.class);
             convertedSet.add(mappedItem);

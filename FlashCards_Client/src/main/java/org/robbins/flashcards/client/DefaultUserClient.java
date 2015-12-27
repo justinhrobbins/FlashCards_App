@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
 
-@Component
-public class DefaultUserClient extends AbstractCrudClient<UserDto, String> implements UserClient {
+@Component("userClient")
+public class DefaultUserClient extends AbstractCrudClient<UserDto, Long> implements UserClient {
 
     @Override
     public String getEntityListUrl() {
@@ -27,8 +27,8 @@ public class DefaultUserClient extends AbstractCrudClient<UserDto, String> imple
     }
 
     @Override
-    public String postBulkEntitiesUrl() {
-        return getServerAddress() + ResourceUrls.users + BULK;
+    public String postBatchEntitiesUrl() {
+        return getServerAddress() + ResourceUrls.users + ResourceUrls.batch;
     }
 
     @Override

@@ -4,7 +4,7 @@ import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.japi.Util;
 import akka.util.Timeout;
-import org.robbins.flashcards.client.TagClient;
+import org.robbins.flashcards.akka.SpringExtension;
 import org.robbins.load.tester.message.LoadTestResult;
 import org.robbins.load.tester.message.LoadTestStart;
 import org.slf4j.Logger;
@@ -19,7 +19,7 @@ import javax.inject.Named;
 import java.util.concurrent.TimeUnit;
 
 import static akka.pattern.Patterns.ask;
-import static org.robbins.load.tester.SpringExtension.SpringExtProvider;
+
 
 @Named("akkaLoadTestingService")
 public class AkkaLoadTestingService implements LoadTestingService {
@@ -27,32 +27,22 @@ public class AkkaLoadTestingService implements LoadTestingService {
     private static final Logger LOGGER = LoggerFactory.getLogger(AkkaLoadTestingService.class);
 
     @Inject
-    private TagClient tagClient;
-
-    @Inject
     private ActorSystem system;
 
     @Override
-    public LoadTestResult doLoadTest(LoadTestStart testStart) throws Exception {
-        LOGGER.info("Sending StartLoadTest message to LoadTestingCoordinator");
-        ActorRef loadTestingCoordinator = system.actorOf(
-                SpringExtProvider.get(system).props("loadTestingCoordinator"), "load-testing-coordinator");
+    public LoadTestResult doLoadTest(final LoadTestStart testStart) throws Exception {
+        LOGGER.debug("Sending StartLoadTest message to LoadTestingCoordinator");
 
-        FiniteDuration duration = FiniteDuration.create(1, TimeUnit.HOURS);
+        final ActorRef loadTestingCoordinator = system.actorOf(
+                SpringExtension.SpringExtProvider.get(system).props("loadTestingCoordinator"), "load-testing-coordinator");
 
-        ClassTag<LoadTestResult> classTag = Util.classTag(LoadTestResult.class);
-        Future<LoadTestResult> resultFuture = ask(loadTestingCoordinator, testStart,
+        final FiniteDuration duration = FiniteDuration.create(1, TimeUnit.HOURS);
+
+        final ClassTag<LoadTestResult> classTag = Util.classTag(LoadTestResult.class);
+        final Future<LoadTestResult> resultFuture = ask(loadTestingCoordinator, testStart,
                 Timeout.durationToTimeout(duration))
                 .mapTo(classTag);
 
-        LoadTestResult result = Await.result(resultFuture, duration);
-        shutdownSystem(loadTestingCoordinator);
-        return result;
-    }
-
-    private void shutdownSystem(final ActorRef loadTestingCoordinator) {
-        system.stop(loadTestingCoordinator);
-        system.shutdown();
-        system.awaitTermination();
+        return Await.result(resultFuture, duration);
     }
 }

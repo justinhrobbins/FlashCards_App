@@ -25,7 +25,7 @@ public class DefaultFlashCardRepositoryFacade extends AbstractCrudRepositoryFaca
         FlashcardFacade {
 
     @Inject
-	private FlashCardRepository<FlashCardCassandraEntity, TagCassandraEntity, UUID> repository;
+	private FlashCardRepository<FlashCardCassandraEntity, TagCassandraEntity, Long> repository;
 
     @Inject
     private TagRepository<TagCassandraEntity, UUID> tagRepository;
@@ -43,7 +43,7 @@ public class DefaultFlashCardRepositoryFacade extends AbstractCrudRepositoryFaca
         return converter;
     }
 
-	public FlashCardRepository<FlashCardCassandraEntity, TagCassandraEntity, UUID> getRepository() {
+	public FlashCardRepository<FlashCardCassandraEntity, TagCassandraEntity, Long> getRepository() {
 		return repository;
 	}
 
@@ -51,25 +51,27 @@ public class DefaultFlashCardRepositoryFacade extends AbstractCrudRepositoryFaca
     public FlashCardDto save(final FlashCardDto dto) throws FlashcardsException {
         FlashCardCassandraEntity entity = getConverter().getEntity(dto);
         if (entity.getId() == null) {
-            entity.setId(UUID.randomUUID());
+            // TODO fix for Cassandra
+//            entity.setId(UUID.randomUUID());
         }
         entity.setTags(configureTags(dto.getTags()));
         FlashCardCassandraEntity result = getRepository().save(entity);
         return getConverter().getDto(result);
     }
 
-    private Map<UUID, String> configureTags(final Set<TagDto> tags) {
+    private Map<Long, String> configureTags(final Set<TagDto> tags) {
 
-        Map<UUID, String> results = new HashMap<>();
+        Map<Long, String> results = new HashMap<>();
         for (TagDto tagDto : tags) {
             TagCassandraEntity tag;
 
-            if (tagDto.getId() == null || StringUtils.isEmpty(tagDto.getId())) {
+            if (tagDto.getId() == null || tagDto.getId().equals(0L)) {
                 tag = tagRepository.findByName(tagDto.getName());
 
                 if (tag == null) {
                     // tag doesn't exist, create it
-                    tagDto.setId(UUID.randomUUID().toString());
+                    // TODO fix for Cassandra
+//                    tagDto.setId(UUID.randomUUID().toString());
                     tag = tagRepository.save(tagConverter.getEntity(tagDto));
                 }
             } else {
@@ -81,37 +83,37 @@ public class DefaultFlashCardRepositoryFacade extends AbstractCrudRepositoryFaca
     }
 
     @Override
-    public List<FlashCardDto> findByTagsIn(Set<TagDto> tags) throws FlashcardsException {
+    public List<FlashCardDto> findByTagsIn(final Set<TagDto> tags) throws FlashcardsException {
         throw new NotImplementedException("method not yet implemented in Cassandra repository");
     }
 
     @Override
-    public List<FlashCardDto> findByTagsIn(Set<TagDto> tags, PageRequest page) throws FlashcardsException {
+    public List<FlashCardDto> findByTagsIn(final Set<TagDto> tags, PageRequest page) throws FlashcardsException {
         throw new NotImplementedException("method not yet implemented in Cassandra repository");
     }
 
     @Override
-    public List<FlashCardDto> findByQuestionLike(String question) throws FlashcardsException {
+    public List<FlashCardDto> findByQuestionLike(final String question) throws FlashcardsException {
         throw new NotImplementedException("method not yet implemented in Cassandra repository");
     }
 
     @Override
-    public List<FlashCardDto> findByQuestionLike(String question, PageRequest page) throws FlashcardsException {
+    public List<FlashCardDto> findByQuestionLike(final String question, PageRequest page) throws FlashcardsException {
         throw new NotImplementedException("method not yet implemented in Cassandra repository");
     }
 
     @Override
-    public FlashCardDto findByQuestion(String question) throws FlashcardsException {
+    public FlashCardDto findByQuestion(final String question) throws FlashcardsException {
         throw new NotImplementedException("method not yet implemented in Cassandra repository");
     }
 
     @Override
-    public List<FlashCardDto> findFlashcardsForTag(String tagId, Set<String> fields) throws FlashcardsException {
+    public List<FlashCardDto> findFlashcardsForTag(final Long tagId, final Set<String> fields) throws FlashcardsException {
         throw new NotImplementedException("method not yet implemented in Cassandra repository");
     }
 
     @Override
-    public List<FlashCardDto> findByCreatedBy(String userId, Set<String> fields) throws FlashcardsException {
+    public List<FlashCardDto> findByCreatedBy(final Long userId, final Set<String> fields) throws FlashcardsException {
         throw new NotImplementedException("method not yet implemented in Cassandra repository");
     }
 }

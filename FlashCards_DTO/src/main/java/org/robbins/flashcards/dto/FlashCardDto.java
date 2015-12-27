@@ -33,7 +33,7 @@ public class FlashCardDto extends AbstractAuditableDto implements Serializable {
     public FlashCardDto() {
     }
 
-    public FlashCardDto(final String flashCardId) {
+    public FlashCardDto(final Long flashCardId) {
         setId(flashCardId);
     }
 

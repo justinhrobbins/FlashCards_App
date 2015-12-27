@@ -24,6 +24,7 @@ import org.robbins.flashcards.facade.TagFacade;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.repository.TagRepository;
 import org.robbins.flashcards.conversion.DtoConverter;
+import org.robbins.flashcards.repository.auditing.AuditingAwareUser;
 import org.robbins.flashcards.repository.util.FieldInitializerUtil;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
@@ -49,6 +50,9 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
     private TagDto mockTagDto;
 
     @Mock
+    private AuditingAwareUser auditorAware;
+
+    @Mock
     private FieldInitializerUtil fieldInitializer;
 
     private TagFacade tagFacade;
@@ -58,6 +62,7 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
     @Before
     public void before() {
         tagFacade = new DefaultTagRepositoryFacade();
+        ReflectionTestUtils.setField(tagFacade, "auditorAware", auditorAware);
         ReflectionTestUtils.setField(tagFacade, "repository", repository);
         ReflectionTestUtils.setField(tagFacade, "converter", converter);
         ReflectionTestUtils.setField(tagFacade, "fieldInitializer", fieldInitializer);
@@ -100,7 +105,7 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
         when(repository.findOne(any(String.class))).thenReturn(mockTag);
         when(converter.getDto(mockTag, null)).thenReturn(mockTagDto);
 
-        TagDto result = tagFacade.findOne(any(String.class));
+        TagDto result = tagFacade.findOne(any(Long.class));
 
         verify(repository).findOne(any(String.class));
         verify(converter).getDto(mockTag, null);
@@ -115,7 +120,7 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
         when(repository.findOne(any(String.class))).thenReturn(mockTag);
         when(converter.getDto(mockTag, fields)).thenReturn(tagDto);
 
-        TagDto result = tagFacade.findOne(any(String.class), fields);
+        TagDto result = tagFacade.findOne(any(Long.class), fields);
 
         verify(repository).findOne(any(String.class));
         verify(converter).getDto(mockTag, fields);
@@ -126,7 +131,7 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
     public void findOne_ReturnsNull() throws FlashcardsException {
         when(repository.findOne(any(String.class))).thenReturn(null);
 
-        TagDto result = tagFacade.findOne(any(String.class));
+        TagDto result = tagFacade.findOne(any(Long.class));
 
         verify(repository).findOne(any(String.class));
         assertThat(result, is(nullValue()));
@@ -134,7 +139,7 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
 
     @Test
     public void delete() throws ServiceException {
-        tagFacade.delete(any(String.class));
+        tagFacade.delete(any(Long.class));
 
         verify(repository).delete(any(String.class));
     }

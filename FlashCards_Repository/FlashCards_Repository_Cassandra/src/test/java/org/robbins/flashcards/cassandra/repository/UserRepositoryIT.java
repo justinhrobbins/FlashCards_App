@@ -1,27 +1,29 @@
 package org.robbins.flashcards.cassandra.repository;
 
 
-import com.google.common.collect.Lists;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.junit.Assert.assertThat;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.apache.commons.lang.math.RandomUtils;
 import org.junit.Test;
 import org.robbins.flashcards.cassandra.repository.domain.UserCassandraBuilder;
 import org.robbins.flashcards.cassandra.repository.domain.UserCassandraEntity;
 import org.robbins.flashcards.repository.UserRepository;
 
-import javax.inject.Inject;
-import java.util.List;
-import java.util.UUID;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.junit.Assert.assertThat;
+import com.google.common.collect.Lists;
 
 public class UserRepositoryIT extends AbstractCassandraIntegrationTest {
 
-    private final UUID ID = UUID.fromString("9caa6c8e-b720-11e4-a71e-12e3f512a338");
+    private final Long ID = 1L;
     private final String OPEN_ID = "apiuser";
 
     @Inject
-    private UserRepository<UserCassandraEntity, UUID> repository;
+    private UserRepository<UserCassandraEntity, Long> repository;
 
     @Test
     public void testFindOne() {
@@ -38,7 +40,7 @@ public class UserRepositoryIT extends AbstractCassandraIntegrationTest {
 
     @Test
     public void insertTag() {
-        UserCassandraEntity user = new UserCassandraBuilder().withId(UUID.randomUUID()).withOpenId(OPEN_ID).build();
+        UserCassandraEntity user = new UserCassandraBuilder().withId(RandomUtils.nextLong()).withOpenId(OPEN_ID).build();
 
         UserCassandraEntity result = repository.save(user);
         assertThat(result.getId(), is(user.getId()));

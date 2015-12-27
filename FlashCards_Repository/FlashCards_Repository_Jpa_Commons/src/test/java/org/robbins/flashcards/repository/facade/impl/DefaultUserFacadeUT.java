@@ -11,6 +11,7 @@ import org.robbins.flashcards.facade.UserFacade;
 import org.robbins.flashcards.model.User;
 import org.robbins.flashcards.repository.UserRepository;
 import org.robbins.flashcards.conversion.DtoConverter;
+import org.robbins.flashcards.repository.auditing.AuditingAwareUser;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -37,6 +38,9 @@ public class DefaultUserFacadeUT extends BaseMockingTest {
     @Mock
     private UserDto mockUserDto;
 
+    @Mock
+    private AuditingAwareUser auditorAware;
+
     private UserFacade userFacade;
 
     @Before
@@ -44,6 +48,7 @@ public class DefaultUserFacadeUT extends BaseMockingTest {
         userFacade = new DefaultUserRepositoryFacade();
         ReflectionTestUtils.setField(userFacade, "repository", repository);
         ReflectionTestUtils.setField(userFacade, "converter", converter);
+        ReflectionTestUtils.setField(userFacade, "auditorAware", auditorAware);
     }
 
     @Test

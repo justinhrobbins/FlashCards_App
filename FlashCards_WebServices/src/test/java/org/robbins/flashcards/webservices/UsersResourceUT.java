@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 
 import javax.ws.rs.core.Response;
 
+import org.apache.commons.lang3.RandomUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -53,10 +54,10 @@ public class UsersResourceUT extends BaseMockingTest {
 
     @Test
     public void put() throws FlashcardsException {
-        when(mockUserFacade.findOne(any(String.class))).thenReturn(mockUserDto);
+        when(mockUserFacade.findOne(any(Long.class))).thenReturn(mockUserDto);
         when(mockUserFacade.save(any(UserDto.class))).thenReturn(mockUserDto);
 
-        Response response = resource.put(UUID.randomUUID().toString(), mockUserDto);
+        Response response = resource.put(RandomUtils.nextLong(0L, Long.MAX_VALUE), mockUserDto);
 
         verify(mockUserFacade).save(any(UserDto.class));
         assertThat(response.getStatus(), is(HttpStatus.NO_CONTENT.value()));

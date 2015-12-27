@@ -1,6 +1,7 @@
 package org.robbins.flashcards.cassandra.repository.util;
 
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.math.RandomUtils;
 import org.robbins.flashcards.cassandra.repository.FlashCardCassandraRepository;
 import org.robbins.flashcards.cassandra.repository.TagCassandraRepository;
 import org.robbins.flashcards.cassandra.repository.domain.FlashCardCassandraBuilder;
@@ -36,7 +37,7 @@ public class IntegrationTestUtils {
 
     public final FlashCardCassandraEntity createFlashCardEntity() {
         final FlashCardCassandraEntity flashcard = new FlashCardCassandraBuilder()
-                .withId(UUID.randomUUID())
+                .withId(RandomUtils.nextLong())
                 .withQuestion(RandomStringUtils.randomAlphabetic(10))
                 .withAnswer(RandomStringUtils.randomAlphabetic(10))
                 .build();
@@ -46,7 +47,7 @@ public class IntegrationTestUtils {
 
     public final TagCassandraEntity createTagEntity() {
         final TagCassandraEntity tag = new TagCassandraBuilder()
-                .withId(UUID.randomUUID())
+                .withId(RandomUtils.nextLong())
                 .withName(RandomStringUtils.randomAlphabetic(10)).build();
 
         return tagRepository.save(tag);

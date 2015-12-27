@@ -23,7 +23,7 @@ public class DefaultTagRepositoryFacade extends AbstractCrudRepositoryFacadeImpl
         TagFacade {
 
     @Inject
-	private TagRepository<TagCassandraEntity, UUID> repository;
+	private TagRepository<TagCassandraEntity, Long> repository;
 
     @Inject
     @Qualifier("tagDtoConverter")
@@ -34,7 +34,7 @@ public class DefaultTagRepositoryFacade extends AbstractCrudRepositoryFacadeImpl
         return converter;
     }
 
-	public TagRepository<TagCassandraEntity, UUID> getRepository() {
+	public TagRepository<TagCassandraEntity, Long> getRepository() {
 		return repository;
 	}
 
@@ -45,12 +45,12 @@ public class DefaultTagRepositoryFacade extends AbstractCrudRepositoryFacadeImpl
     }
 
     @Override
-    public List<TagDto> findTagsForFlashcard(final String flashcardId, final Set<String> fields) throws RepositoryException {
+    public List<TagDto> findTagsForFlashcard(final Long flashcardId, final Set<String> fields) throws RepositoryException {
         throw new NotImplementedException("method not yet implemented in Cassandra repository");
     }
 
     @Override
-    public List<TagDto> findByCreatedBy(final String userId, final Set<String> fields) throws FlashcardsException {
+    public List<TagDto> findByCreatedBy(final Long userId, final Set<String> fields) throws FlashcardsException {
         throw new NotImplementedException("method not yet implemented in Cassandra repository");
     }
 }

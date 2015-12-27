@@ -24,7 +24,7 @@ import static org.junit.Assert.assertThat;
 public class TagRepositoryIT extends BaseIntegrationTest {
 
     @Inject
-    private TagRepository<Tag, String> tagRepository;
+    private TagRepository<Tag, Long> tagRepository;
 
     @Test
     public void findByName_noSuchTag() {
@@ -40,7 +40,7 @@ public class TagRepositoryIT extends BaseIntegrationTest {
 
     @Test
     public void findById() {
-        final String uuid = findFirstTagId();
+        final Long uuid = findFirstTagId();
         final Tag tag = tagRepository.findOne(uuid);
         assertThat(tag, is(instanceOf(Tag.class)));
         assertThat(tag.getId(), is(uuid));
@@ -48,16 +48,16 @@ public class TagRepositoryIT extends BaseIntegrationTest {
 
     @Test
     public void findByFlashCardsId() {
-        final String flashCardId = findFirstFlashCardId();
+        final Long flashCardId = findFirstFlashCardId();
         final List<Tag> tags = tagRepository.findByFlashcards_Id(flashCardId);
         assertThat(tags.size(), is(1));
     }
 
-    private String findFirstTagId() {
+    private Long findFirstTagId() {
         return tagRepository.findAll(new PageRequest(0, 1)).iterator().next().getId();
     }
 
-    private String findFirstFlashCardId() {
+    private Long findFirstFlashCardId() {
         Optional<Tag> firstTag = tagRepository.findAll()
                 .stream()
                 .filter(tag -> tag.getFlashcards().size() > 0)

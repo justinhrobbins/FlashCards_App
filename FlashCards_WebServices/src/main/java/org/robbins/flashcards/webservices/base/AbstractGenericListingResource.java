@@ -16,9 +16,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by justinrobbins on 11/26/14.
- */
 public abstract class AbstractGenericListingResource<T, ID extends Serializable> extends AbstractGenericResource<T, ID> {
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGenericListingResource.class);
 

@@ -1,11 +1,9 @@
 package org.robbins.flashcards.cassandra.repository.domain;
 
-import java.util.UUID;
-
 public class TagCassandraBuilder {
     private final TagCassandraEntity tag = new TagCassandraEntity();
 
-    public TagCassandraBuilder withId(final UUID id) {
+    public TagCassandraBuilder withId(final Long id) {
         this.tag.setId(id);
         return this;
     }

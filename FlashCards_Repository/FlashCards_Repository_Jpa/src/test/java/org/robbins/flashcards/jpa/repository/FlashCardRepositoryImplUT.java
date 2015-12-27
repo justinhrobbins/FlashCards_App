@@ -41,7 +41,7 @@ public class FlashCardRepositoryImplUT extends BaseMockingTest {
 
     private List<FlashCard> results;
 
-    private FlashCardRepository<FlashCard, Tag, String> repository;
+    private FlashCardRepository<FlashCard, Tag, Long> repository;
 
     @Before
     public void before() {

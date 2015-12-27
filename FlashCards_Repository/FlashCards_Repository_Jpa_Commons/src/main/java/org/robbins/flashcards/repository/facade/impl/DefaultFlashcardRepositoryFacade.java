@@ -12,6 +12,8 @@ import org.robbins.flashcards.exceptions.RepositoryException;
 import org.robbins.flashcards.facade.FlashcardFacade;
 import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
+import org.robbins.flashcards.model.common.AbstractAuditable;
+import org.robbins.flashcards.model.util.AuditingUtil;
 import org.robbins.flashcards.repository.FlashCardRepository;
 import org.robbins.flashcards.repository.TagRepository;
 import org.robbins.flashcards.repository.facade.base.AbstractCrudRepositoryFacadeImpl;
@@ -29,13 +31,13 @@ import java.util.stream.Collectors;
 @Transactional
 @Component("flashcardRepositoryFacade")
 public class DefaultFlashcardRepositoryFacade extends
-		AbstractCrudRepositoryFacadeImpl<FlashCardDto, FlashCard, String> implements FlashcardFacade {
+		AbstractCrudRepositoryFacadeImpl<FlashCardDto, FlashCard, Long> implements FlashcardFacade {
 
 	@Inject
-	private FlashCardRepository<FlashCard, Tag, String> repository;
+	private FlashCardRepository<FlashCard, Tag, Long> repository;
 
     @Inject
-    private TagRepository<Tag, String> tagRepository;
+    private TagRepository<Tag, Long> tagRepository;
 
     @Inject
     @Qualifier("flashcardDtoConverter")
@@ -52,13 +54,14 @@ public class DefaultFlashcardRepositoryFacade extends
     }
 
 	@Override
-	public FlashCardRepository<FlashCard, Tag, String> getRepository() {
+	public FlashCardRepository<FlashCard, Tag, Long> getRepository() {
 		return repository;
 	}
 
     @Override
     public FlashCardDto save(final FlashCardDto dto) throws RepositoryException {
         FlashCard entity = getConverter().getEntity(dto);
+        AuditingUtil.configureCreatedByAndTime(entity, getAuditingUserId());
         entity.setTags(configureTags(dto.getTags()));
         FlashCard result = repository.save(entity);
         return convertAndInitializeEntity(result);
@@ -100,7 +103,7 @@ public class DefaultFlashcardRepositoryFacade extends
     }
 
     @Override
-    public List<FlashCardDto> findFlashcardsForTag(String tagId, Set<String> fields) throws FlashcardsException {
+    public List<FlashCardDto> findFlashcardsForTag(Long tagId, Set<String> fields) throws FlashcardsException {
         List<FlashCard> results = repository.findByTags_Id(tagId);
         return convertAndInitializeEntities(results, fields);
     }
@@ -118,9 +121,15 @@ public class DefaultFlashcardRepositoryFacade extends
     }
 
     private Tag configureTag(TagDto tagDto) {
-        if (StringUtils.isEmpty(tagDto.getId())) {
-            Tag tag = tagRepository.findByName(tagDto.getName());
-            return tag == null ? tagConverter.getEntity(tagDto) : tag;
+        if (tagDto.getId() == null) {
+            final Tag existingTag = tagRepository.findByName(tagDto.getName());
+            if (existingTag == null) {
+                final Tag newTag = tagConverter.getEntity(tagDto);
+                AuditingUtil.configureCreatedByAndTime(newTag, getAuditingUserId());
+                return newTag;
+            } else {
+				return existingTag;
+            }
         } else {
             return tagConverter.getEntity(tagDto);
         }

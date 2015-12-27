@@ -18,7 +18,7 @@ public class FlashCardCassandraEntity extends AbstractPersistable implements Ser
     private String answer;
 
     @Column("tags")
-    private Map<UUID, String> tags = new HashMap<>();
+    private Map<Long, String> tags = new HashMap<>();
 
     public String getQuestion() {
         return question;
@@ -34,10 +34,10 @@ public class FlashCardCassandraEntity extends AbstractPersistable implements Ser
         this.answer = answer;
     }
 
-    public Map<UUID, String> getTags() {
+    public Map<Long, String> getTags() {
         return tags;
     }
-    public void setTags(Map<UUID, String> tags) {
+    public void setTags(Map<Long, String> tags) {
         this.tags = tags;
     }
 }

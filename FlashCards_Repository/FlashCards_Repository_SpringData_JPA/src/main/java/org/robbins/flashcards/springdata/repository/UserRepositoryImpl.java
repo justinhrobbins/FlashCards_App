@@ -14,8 +14,8 @@ import java.util.List;
 import static org.robbins.flashcards.springdata.repository.predicates.UserPredicates.hasOpenId;
 
 @Repository
-public class UserRepositoryImpl extends AbstractCrudRepositoryImpl<User, String> implements
-        UserRepository<User, String> {
+public class UserRepositoryImpl extends AbstractCrudRepositoryImpl<User, Long> implements
+        UserRepository<User, Long> {
 
     @Inject
     private UserSpringDataRepository repository;
@@ -33,7 +33,7 @@ public class UserRepositoryImpl extends AbstractCrudRepositoryImpl<User, String>
 
     @Override
     @Cacheable("userById")
-    public User findOne(String id) {
+    public User findOne(Long id) {
         return repository.findOne(id);
     }
 

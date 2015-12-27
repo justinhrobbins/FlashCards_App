@@ -68,7 +68,7 @@ public class FlashCardServiceImplUT extends BaseMockingTest {
                 new ArrayList<>());
 
         Set<TagDto> tags = new HashSet<>();
-        tags.add(new TagDto("EJB"));
+        tags.add(new TagDto(1L));
 
         List<FlashCardDto> flashCards = flashCardService.findByTagsIn(tags);
 
@@ -82,7 +82,7 @@ public class FlashCardServiceImplUT extends BaseMockingTest {
                 new ArrayList<>());
 
         Set<TagDto> tags = new HashSet<>();
-        tags.add(new TagDto("EJB"));
+        tags.add(new TagDto(1L));
         PageRequest page = mock(PageRequest.class);
 
         List<FlashCardDto> flashCards = flashCardService.findByTagsIn(tags, page);

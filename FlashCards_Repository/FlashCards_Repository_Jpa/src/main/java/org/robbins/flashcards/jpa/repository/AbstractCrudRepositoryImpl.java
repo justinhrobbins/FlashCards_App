@@ -11,7 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.Serializable;
 
-public abstract class AbstractCrudRepositoryImpl<T extends AbstractAuditable<String, ID>, ID extends Serializable>
+public abstract class AbstractCrudRepositoryImpl<T extends AbstractAuditable<Long, ID>, ID extends Serializable>
         implements FlashCardsAppRepository<T, ID> {
 
     @PersistenceContext
@@ -22,7 +22,7 @@ public abstract class AbstractCrudRepositoryImpl<T extends AbstractAuditable<Str
     @Inject
     private AuditingAwareUser auditorAware;
 
-    public String getAuditingUser() {
+    public Long getAuditingUser() {
         return auditorAware.getCurrentAuditor();
     }
 

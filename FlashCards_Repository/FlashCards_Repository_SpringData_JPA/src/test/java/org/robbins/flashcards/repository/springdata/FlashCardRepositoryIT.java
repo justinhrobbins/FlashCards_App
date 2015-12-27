@@ -25,7 +25,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 public class FlashCardRepositoryIT extends BaseIntegrationTest {
 
     @Inject
-    private FlashCardRepository<FlashCard, Tag, String> repository;
+    private FlashCardRepository<FlashCard, Tag, Long> repository;
 
     @Test
     public void findByQuestion() {
@@ -38,14 +38,16 @@ public class FlashCardRepositoryIT extends BaseIntegrationTest {
         FlashCard flashCard = new FlashCard();
         flashCard.setQuestion("Question2");
         flashCard.setAnswer("Answer2");
+        flashCard.setCreatedBy(1L);
 
         Tag tag = new Tag();
         tag.setName("tag3");
+        tag.setCreatedBy(1L);
 
         flashCard.getTags().add(tag);
 
         repository.save(flashCard);
 
-        assertThat(flashCard.getId().length(), greaterThan(0));
+        assertThat(flashCard.getId(), greaterThan(0L));
     }
 }

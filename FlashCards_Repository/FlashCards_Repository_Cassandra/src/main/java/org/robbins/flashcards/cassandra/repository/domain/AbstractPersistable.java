@@ -6,13 +6,13 @@ import java.util.UUID;
 
 public class AbstractPersistable {
     @PrimaryKey
-    private UUID id;
+    private Long id;
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 }

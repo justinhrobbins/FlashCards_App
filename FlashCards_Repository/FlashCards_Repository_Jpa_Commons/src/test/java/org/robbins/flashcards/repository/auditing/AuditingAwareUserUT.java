@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
 import org.robbins.flashcards.dto.UserDto;
-import org.robbins.flashcards.model.User;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.context.ApplicationContext;
@@ -40,14 +39,13 @@ public class AuditingAwareUserUT extends BaseMockingTest {
     @Ignore
     @Test
     public void getCurrentAuditor() {
-        String uuid = UUID.randomUUID().toString();
+        Long id = 1L;
         when(mockContext.getBean("loggedInUser")).thenReturn(mockUser);
-        when(mockUser.getId()).thenReturn(uuid);
+        when(mockUser.getId()).thenReturn(id);
 
-        String result = auditingAwareUser.getCurrentAuditor();
+        Long result = auditingAwareUser.getCurrentAuditor();
 
         verify(mockContext).getBean("loggedInUser");
-        assertThat(result, is(User.class));
-        assertThat(result, is(uuid));
+        assertThat(result, is(id));
     }
 }

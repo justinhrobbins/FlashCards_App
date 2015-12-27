@@ -1,26 +1,25 @@
 package org.robbins.flashcards.cassandra.repository;
 
 
-import com.google.common.collect.Lists;
-import org.junit.Test;
-import org.robbins.flashcards.cassandra.repository.domain.FlashCardCassandraBuilder;
-import org.robbins.flashcards.cassandra.repository.domain.FlashCardCassandraEntity;
-import org.robbins.flashcards.cassandra.repository.domain.TagFlashCardCassandraEntity;
-import org.robbins.flashcards.cassandra.repository.domain.TagFlashCardKey;
-
-import javax.inject.Inject;
-import java.util.List;
-import java.util.UUID;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.junit.Test;
+import org.robbins.flashcards.cassandra.repository.domain.TagFlashCardCassandraEntity;
+import org.robbins.flashcards.cassandra.repository.domain.TagFlashCardKey;
+
+import com.google.common.collect.Lists;
+
 public class TagFlashCardRepositoryIT extends AbstractCassandraIntegrationTest {
 
-    private static final UUID TAG_ID = UUID.fromString("eaa488a0-b0d8-11e4-af90-12e3f512a338");
-    private static final UUID FLASHCARD_ID = UUID.fromString("0791e3ec-c072-11e4-8dfc-aa07a5b093db");
+    private static final Long TAG_ID = 1L;
+    private static final Long FLASHCARD_ID = 1L;
 
     @Inject
     private TagFlashcardCassandraRepository repository;

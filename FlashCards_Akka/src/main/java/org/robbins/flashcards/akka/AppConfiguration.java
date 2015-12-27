@@ -1,4 +1,4 @@
-package org.robbins.load.tester;
+package org.robbins.flashcards.akka;
 
 
 import akka.actor.ActorSystem;
@@ -7,8 +7,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-
-import static org.robbins.load.tester.SpringExtension.SpringExtProvider;
 
 /**
  * The application configuration.
@@ -28,7 +26,7 @@ public class AppConfiguration {
     public ActorSystem actorSystem() {
         ActorSystem system = ActorSystem.create("AkkaJavaSpring");
         // initialize the application context in the Akka Spring Extension
-        SpringExtProvider.get(system).initialize(applicationContext);
+        SpringExtension.SpringExtProvider.get(system).initialize(applicationContext);
         return system;
     }
 }

@@ -1,4 +1,4 @@
-package org.robbins.load.tester;
+package org.robbins.flashcards.akka;
 
 import akka.actor.AbstractExtensionId;
 import akka.actor.ExtendedActorSystem;

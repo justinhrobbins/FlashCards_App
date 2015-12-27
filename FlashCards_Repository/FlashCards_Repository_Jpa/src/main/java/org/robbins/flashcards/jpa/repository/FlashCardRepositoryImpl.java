@@ -18,8 +18,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Repository
-public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCard, String>
-        implements FlashCardRepository<FlashCard, Tag, String> {
+public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCard, Long>
+        implements FlashCardRepository<FlashCard, Tag, Long> {
 
     @Override
     public Class<FlashCard> getClazz() {
@@ -29,7 +29,7 @@ public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
     @Override
     public FlashCard save(final FlashCard flashCard) {
         flashCard.getTags().stream()
-                .filter(tag -> (tag.getId() == null) || (StringUtils.isEmpty(tag.getId()))).forEach(tag -> {
+                .filter(tag -> (tag.getId() == null)).forEach(tag -> {
             tag.setCreatedBy(getAuditingUser());
             tag.setCreatedDate(new DateTime());
             tag.setLastModifiedBy(getAuditingUser());
@@ -73,7 +73,7 @@ public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
 
     @SuppressWarnings("unchecked")
     private List<FlashCard> findByTags(final Set<Tag> tags, final Pageable page) {
-        List<String> tagIds = tags.stream().map(Tag::getId).collect(Collectors.toList());
+        List<Long> tagIds = tags.stream().map(Tag::getId).collect(Collectors.toList());
 
         final String jpql = "select fc from FlashCard fc " + "join fc.tags t "
                 + "where t.id in (:tagIds) " + "group by fc "
@@ -124,14 +124,14 @@ public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
     }
 
     @Override
-    public List<FlashCard> findByTags_Id(String tagId) {
+    public List<FlashCard> findByTags_Id(Long tagId) {
         Query query = getEm().createQuery("SELECT f FROM FlashCard f JOIN f.tags t WHERE t.id = :tagId");
         query.setParameter("tagId", tagId);
         return query.getResultList();
     }
 
     @Override
-    public List<FlashCard> findByCreatedBy_Id(String userId) {
+    public List<FlashCard> findByCreatedBy_Id(Long userId) {
         Query query = getEm().createQuery("SELECT f FROM FlashCard f JOIN f.createdBy u WHERE u.id = :userId");
         query.setParameter("userId", userId);
         return query.getResultList();

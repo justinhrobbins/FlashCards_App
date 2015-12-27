@@ -36,6 +36,11 @@
 			<artifactId>FlashCards_Repository_Commons</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.robbins.flashcards</groupId>
+			<artifactId>FlashCards_Akka</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 
 		<!-- Joda-Time provides a quality replacement for the Java date and time classes. -->
 		<dependency>
@@ -47,6 +52,10 @@
 		<dependency>
 			<groupId>c3p0</groupId>
 			<artifactId>c3p0</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
 		</dependency>
 
 		<!-- ORM dependencies -->

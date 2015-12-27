@@ -21,14 +21,14 @@ import javax.ws.rs.core.Response;
 @Api(value = "/v1/users", description = "Operations about Users")
 @Produces({ "application/xml", "application/json" })
 @Consumes({ "application/xml", "application/json" })
-public class UsersResource extends AbstractGenericListingResource<UserDto, String> {
+public class UsersResource extends AbstractGenericListingResource<UserDto, Long> {
 
     @Inject
 	@Qualifier("presentationUserFacade")
     private UserFacade userFacade;
 
     @Override
-    protected GenericCrudFacade<UserDto, String> getFacade() {
+    protected GenericCrudFacade<UserDto, Long> getFacade() {
         return userFacade;
     }
 

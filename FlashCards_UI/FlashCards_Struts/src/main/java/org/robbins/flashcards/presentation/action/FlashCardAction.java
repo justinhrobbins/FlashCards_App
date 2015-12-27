@@ -97,7 +97,7 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
 			// FlashCard
 			this.flashCard.setTags(convertToTags(getExplodedTags()));
 
-            if ((this.flashCard.getId() != null) && (!StringUtils.isEmpty(this.flashCard.getId()))) {
+            if ((this.flashCard.getId() != null) && this.flashCard.getId().equals(0L)) {
 				FlashCardDto existingFlashCard = flashcardFacade.findOne(this.flashCard.getId());
                 existingFlashCard.setQuestion(this.flashCard.getQuestion());
                 existingFlashCard.setAnswer(this.flashCard.getAnswer());
@@ -164,7 +164,7 @@ public class FlashCardAction extends FlashCardsAppBaseAction implements
     @SkipValidation
     public String display() {
         try {
-            if ((this.flashCard.getId() != null) && (!StringUtils.isEmpty(this.flashCard.getId()))) {
+            if ((this.flashCard.getId() != null) && this.flashCard.getId().equals(0L)) {
                 this.flashCard = flashcardFacade.findOne(this.flashCard.getId());
             } else if (this.flashCard.getQuestion() != null) {
                 this.flashCard = flashcardFacade.findByQuestion(this.flashCard.getQuestion());

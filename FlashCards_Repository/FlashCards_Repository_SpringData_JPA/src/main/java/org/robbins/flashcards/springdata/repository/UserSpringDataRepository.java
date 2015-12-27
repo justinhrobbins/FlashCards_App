@@ -5,7 +5,7 @@ import org.robbins.flashcards.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 
-public interface UserSpringDataRepository extends JpaRepository<User, String>, QueryDslPredicateExecutor<User> {
+public interface UserSpringDataRepository extends JpaRepository<User, Long>, QueryDslPredicateExecutor<User> {
 
     User findUserByOpenid(String openid);
 }

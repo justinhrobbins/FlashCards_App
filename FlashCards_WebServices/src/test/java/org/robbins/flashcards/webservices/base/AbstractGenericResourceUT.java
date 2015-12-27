@@ -3,17 +3,19 @@ package org.robbins.flashcards.webservices.base;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyLong;
+import static org.mockito.Matchers.anySet;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
+import org.apache.commons.lang3.RandomUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -44,7 +46,7 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
 
     private TagsResource resource;
 
-    private final String uuid = UUID.randomUUID().toString();
+    private final Long uuid = RandomUtils.nextLong(0L, Long.MAX_VALUE);
 
     @Before
     public void before() {
@@ -127,11 +129,11 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
     @SuppressWarnings("unchecked")
     @Test
     public void findOne() throws FlashcardsException {
-        when(mockTagFacade.findOne(anyString(), anySet())).thenReturn(new TagDto(uuid));
+        when(mockTagFacade.findOne(anyLong(), anySet())).thenReturn(new TagDto(uuid));
 
         TagDto result = resource.findOne(uuid, null);
 
-        verify(mockTagFacade).findOne(anyString(), anySet());
+        verify(mockTagFacade).findOne(anyLong(), anySet());
         assertThat(result, is(TagDto.class));
     }
 
@@ -139,18 +141,18 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
     @Test
     public void findOne_WithFields() throws FlashcardsException {
         String fields = "name,flashcards,userpassword";
-        when(mockTagFacade.findOne(anyString(), anySet())).thenReturn(new TagDto(uuid));
+        when(mockTagFacade.findOne(anyLong(), anySet())).thenReturn(new TagDto(uuid));
 
         TagDto result = resource.findOne(uuid, fields);
 
-        verify(mockTagFacade).findOne(anyString(), anySet());
+        verify(mockTagFacade).findOne(anyLong(), anySet());
         assertThat(result, is(TagDto.class));
     }
 
     @SuppressWarnings("unchecked")
     @Test(expected = GenericWebServiceException.class)
     public void findOne_ReturnsNull() throws FlashcardsException {
-        when(mockTagFacade.findOne(anyString(), anySet())).thenReturn(null);
+        when(mockTagFacade.findOne(anyLong(), anySet())).thenReturn(null);
 
         resource.findOne(uuid, null);
     }
@@ -167,20 +169,20 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
 
     @Test
     public void delete() {
-        Response response = resource.delete(anyString());
+        Response response = resource.delete(anyLong());
 
-        verify(mockTagFacade).delete(anyString());
+        verify(mockTagFacade).delete(anyLong());
         assertThat(response.getStatus(), is(HttpStatus.NO_CONTENT.value()));
     }
 
     @Test
     public void update() throws FlashcardsException {
-        when(mockTagFacade.findOne(any(String.class))).thenReturn(mockTagDto);
+        when(mockTagFacade.findOne(any(Long.class))).thenReturn(mockTagDto);
         when(mockTagFacade.save(any(TagDto.class))).thenReturn(mockTagDto);
 
         Response response = resource.update(uuid, mockTagDto);
 
-        verify(mockTagFacade).findOne(any(String.class));
+        verify(mockTagFacade).findOne(any(Long.class));
         verify(mockTagFacade).save(any(TagDto.class));
         assertThat(response.getStatus(), is(HttpStatus.NO_CONTENT.value()));
     }

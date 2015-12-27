@@ -2,6 +2,8 @@
 package org.robbins.flashcards.webservices;
 
 import com.google.common.collect.Sets;
+
+import org.apache.commons.lang3.RandomUtils;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.robbins.flashcards.client.FlashcardClient;
@@ -25,7 +27,7 @@ import static org.junit.Assert.assertTrue;
 
 @Category(IntegrationTest.class)
 @ContextConfiguration(locations = {"classpath*:applicatonContext-client.xml"})
-public class TagsResourceIT extends GenericEntityRestTest<TagDto, String> {
+public class TagsResourceIT extends GenericEntityRestTest<TagDto, Long> {
 
     final static String TAG_NAME = "Web API Test 'Tag'";
     // this entity will be created in @Before and we'll use it for our JUnit tests and
@@ -39,7 +41,7 @@ public class TagsResourceIT extends GenericEntityRestTest<TagDto, String> {
     private FlashcardClient flashcardClient;
 
     @Override
-    public GenericRestCrudFacade<TagDto, String> getClient() {
+    public GenericRestCrudFacade<TagDto, Long> getClient() {
         return client;
     }
 
@@ -65,7 +67,7 @@ public class TagsResourceIT extends GenericEntityRestTest<TagDto, String> {
 
     @Test
     public void testUpdateEntity() throws FlashcardsException {
-        final String id = getEntity().getId();
+        final Long id = getEntity().getId();
         final String UPDATED_VALUE = "updated value";
 
         final TagDto entity = new TagDto(id);
@@ -80,7 +82,7 @@ public class TagsResourceIT extends GenericEntityRestTest<TagDto, String> {
 
     @Test
     public void testFindByCreatedBy() throws FlashcardsException {
-        final String userId = UUID.randomUUID().toString();
+        final Long userId = RandomUtils.nextLong(0L, Long.MAX_VALUE);
         final List<TagDto> results = client.findByCreatedBy(userId, null);
 
         assertTrue(results != null);

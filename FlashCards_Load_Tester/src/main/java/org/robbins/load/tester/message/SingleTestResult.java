@@ -2,12 +2,12 @@ package org.robbins.load.tester.message;
 
 import java.io.Serializable;
 
-public class TestResult implements Serializable {
+public class SingleTestResult implements Serializable {
     private final Long duration;
     private final String endPointName;
     private final TestResultStatus resultStatus;
 
-    public TestResult(final String endPointName, final Long duration, final TestResultStatus resultStatus) {
+    public SingleTestResult(final String endPointName, final Long duration, final TestResultStatus resultStatus) {
         this.duration = duration;
         this.endPointName = endPointName;
         this.resultStatus = resultStatus;

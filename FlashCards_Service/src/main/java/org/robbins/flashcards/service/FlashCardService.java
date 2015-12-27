@@ -10,7 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import java.util.List;
 import java.util.Set;
 
-public interface FlashCardService extends GenericPagingAndSortingService<FlashCardDto, String>
+public interface FlashCardService extends GenericPagingAndSortingService<FlashCardDto, Long>
 {
 
     List<FlashCardDto> findByTagsIn(final Set<TagDto> tags) throws FlashcardsException;
@@ -18,5 +18,5 @@ public interface FlashCardService extends GenericPagingAndSortingService<FlashCa
     List<FlashCardDto> findByQuestionLike(final String question) throws FlashcardsException;
     List<FlashCardDto> findByQuestionLike(final String question, PageRequest page) throws FlashcardsException;
 	FlashCardDto findByQuestion(final String question) throws FlashcardsException;
-    List<FlashCardDto> findFlashcardsForTag(final String tagId, final Set<String> fields) throws FlashcardsException;
+    List<FlashCardDto> findFlashcardsForTag(final Long tagId, final Set<String> fields) throws FlashcardsException;
 }

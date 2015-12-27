@@ -2,16 +2,13 @@ package org.robbins.flashcards.dto.builder;
 
 import org.robbins.flashcards.dto.UserDto;
 
-/**
- * Created by justinrobbins on 2/16/15.
- */
 public class UserDtoBuilder {
 
     private UserDto user = new UserDto();
 
     public UserDtoBuilder() {}
 
-    public UserDtoBuilder withId(final String id) {
+    public UserDtoBuilder withId(final Long id) {
         user.setId(id);
         return this;
     }

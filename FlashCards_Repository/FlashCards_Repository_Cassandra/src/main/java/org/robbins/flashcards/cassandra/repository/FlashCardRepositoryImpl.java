@@ -1,10 +1,17 @@
 
 package org.robbins.flashcards.cassandra.repository;
 
-import com.datastax.driver.core.BatchStatement;
-import com.datastax.driver.core.PreparedStatement;
-import com.datastax.driver.core.RegularStatement;
-import com.datastax.driver.core.Session;
+import static com.datastax.driver.core.querybuilder.QueryBuilder.bindMarker;
+import static com.datastax.driver.core.querybuilder.QueryBuilder.insertInto;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
+
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+
 import org.apache.commons.lang3.NotImplementedException;
 import org.robbins.flashcards.cassandra.repository.domain.FlashCardCassandraEntity;
 import org.robbins.flashcards.cassandra.repository.domain.TagCassandraEntity;
@@ -16,19 +23,14 @@ import org.springframework.data.cassandra.core.CassandraOperations;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
-
-import static com.datastax.driver.core.querybuilder.QueryBuilder.bindMarker;
-import static com.datastax.driver.core.querybuilder.QueryBuilder.insertInto;
+import com.datastax.driver.core.BatchStatement;
+import com.datastax.driver.core.PreparedStatement;
+import com.datastax.driver.core.RegularStatement;
+import com.datastax.driver.core.Session;
 
 @Repository
-public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCardCassandraEntity, UUID> implements
-        FlashCardRepository<FlashCardCassandraEntity, TagCassandraEntity, UUID> {
+public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCardCassandraEntity, Long> implements
+        FlashCardRepository<FlashCardCassandraEntity, TagCassandraEntity, Long> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FlashCardRepositoryImpl.class);
 
@@ -39,7 +41,7 @@ public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
     private FlashCardCassandraRepository repository;
 
     @Inject
-    private TagRepository<TagCassandraEntity, UUID> tagRepository;
+    private TagRepository<TagCassandraEntity, Long> tagRepository;
 
     private PreparedStatement flashcardStatement;
     private PreparedStatement tagFlashcardStatement;
@@ -87,7 +89,7 @@ public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
                 flashcard.getAnswer(),
                 flashcard.getTags()));
 
-        for (Map.Entry<UUID, String> tagEntry : flashcard.getTags().entrySet()) {
+        for (Map.Entry<Long, String> tagEntry : flashcard.getTags().entrySet()) {
             batch.add(tagFlashcardStatement.bind(
                     tagEntry.getKey(),
                     flashcard.getId(),
@@ -140,7 +142,7 @@ public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
     }
 
     @Override
-    public List<FlashCardCassandraEntity> findByTags_Id(UUID tagId) {
+    public List<FlashCardCassandraEntity> findByTags_Id(Long tagId) {
         throw new NotImplementedException("method not yet implemented in Cassandra repository");
     }
 }

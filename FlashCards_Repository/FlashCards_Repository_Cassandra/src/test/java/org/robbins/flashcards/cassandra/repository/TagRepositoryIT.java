@@ -2,6 +2,8 @@ package org.robbins.flashcards.cassandra.repository;
 
 
 import com.google.common.collect.Lists;
+
+import org.apache.commons.lang.math.RandomUtils;
 import org.junit.Test;
 import org.robbins.flashcards.cassandra.repository.domain.FlashCardCassandraEntity;
 import org.robbins.flashcards.cassandra.repository.domain.TagCassandraBuilder;
@@ -19,15 +21,15 @@ import static org.junit.Assert.assertThat;
 
 public class TagRepositoryIT extends AbstractCassandraIntegrationTest {
 
-    private final UUID TAG_ID = UUID.fromString("eaa488a0-b0d8-11e4-af90-12e3f512a338");
+    private final Long TAG_ID = 1L;
     private final String TAG_NAME = "tag1";
-    private final UUID FLASHCARD_ID = UUID.fromString("0791e3ec-c072-11e4-8dfc-aa07a5b093db");
+    private final Long FLASHCARD_ID = 1L;
 
     @Inject
-    private TagRepository<TagCassandraEntity, UUID> tagRepository;
+    private TagRepository<TagCassandraEntity, Long> tagRepository;
 
     @Inject
-    private FlashCardRepository<FlashCardCassandraEntity, TagCassandraEntity, UUID> flashCardRepository;
+    private FlashCardRepository<FlashCardCassandraEntity, TagCassandraEntity, Long> flashCardRepository;
 
     @Test
     public void testFindOne() {
@@ -50,7 +52,7 @@ public class TagRepositoryIT extends AbstractCassandraIntegrationTest {
 
     @Test
     public void testSave() {
-        final TagCassandraEntity tag = new TagCassandraBuilder().withId(UUID.randomUUID()).withName("new name").build();
+        final TagCassandraEntity tag = new TagCassandraBuilder().withId(RandomUtils.nextLong()).withName("new name").build();
 
         TagCassandraEntity result = tagRepository.save(tag);
         assertThat(result.getId(), is(tag.getId()));

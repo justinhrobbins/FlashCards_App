@@ -2,6 +2,8 @@ package org.robbins.flashcards.cassandra.repository;
 
 
 import com.google.common.collect.Lists;
+
+import org.apache.commons.lang.math.RandomUtils;
 import org.junit.Test;
 import org.robbins.flashcards.cassandra.repository.domain.*;
 import org.robbins.flashcards.repository.FlashCardRepository;
@@ -16,12 +18,12 @@ import static org.junit.Assert.assertThat;
 
 public class FlashCardRepositoryIT extends AbstractCassandraIntegrationTest {
 
-    private final String ID = "0791e3ec-c072-11e4-8dfc-aa07a5b093db";
+    private final Long ID = 1L;
     private final String QUESTION = "question1";
     private final String ANSWER = "answer1";
 
     @Inject
-    private FlashCardRepository<FlashCardCassandraEntity, TagCassandraEntity, UUID> flashCardRepository;
+    private FlashCardRepository<FlashCardCassandraEntity, TagCassandraEntity, Long> flashCardRepository;
 
     @Inject
     private TagFlashcardCassandraRepository tagFlashcardCassandraRepository;
@@ -29,7 +31,7 @@ public class FlashCardRepositoryIT extends AbstractCassandraIntegrationTest {
     @Test
     public void testFindOne() {
         final FlashCardCassandraEntity fc = new FlashCardCassandraBuilder()
-                .withId(UUID.fromString(ID)).build();
+                .withId(ID).build();
 
         final FlashCardCassandraEntity result = flashCardRepository.findOne(fc.getId());
         assertThat(result.getQuestion(), is(QUESTION));
@@ -45,7 +47,7 @@ public class FlashCardRepositoryIT extends AbstractCassandraIntegrationTest {
     @Test
     public void testSave() {
         final FlashCardCassandraEntity flashcard = new FlashCardCassandraBuilder()
-                .withId(UUID.randomUUID())
+                .withId(RandomUtils.nextLong())
                 .withQuestion("new question")
                 .withAnswer("new answer")
                 .build();
@@ -61,7 +63,7 @@ public class FlashCardRepositoryIT extends AbstractCassandraIntegrationTest {
         final TagCassandraEntity tag1 = testUtils.createTagEntity();
         final TagCassandraEntity tag2 = testUtils.createTagEntity();
         final FlashCardCassandraEntity flashcard = new FlashCardCassandraBuilder()
-                .withId(UUID.randomUUID())
+                .withId(RandomUtils.nextLong())
                 .withQuestion("new question")
                 .withAnswer("new answer")
                 .withTag(tag1)
