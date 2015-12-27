@@ -8,7 +8,6 @@ import org.mockito.Mock;
 import org.robbins.flashcards.dto.UserDto;
 import org.robbins.flashcards.jpa.repository.TagRepositoryImpl;
 import org.robbins.flashcards.model.Tag;
-import org.robbins.flashcards.model.User;
 import org.robbins.flashcards.repository.TagRepository;
 import org.robbins.flashcards.repository.auditing.AuditingAwareUser;
 import org.robbins.tests.BaseMockingTest;
@@ -45,9 +44,10 @@ public class AbstractCrudRepositoryImplUT extends BaseMockingTest {
 
     private List<Tag> results;
 
-    private TagRepository<Tag, String> repository;
+    private TagRepository<Tag, Long> repository;
 
-    private final String uuid = UUID.randomUUID().toString();
+    private final Long id = 1L;
+    private final Long uuid = 1L;
 
     @Before
     public void before() {
@@ -60,9 +60,9 @@ public class AbstractCrudRepositoryImplUT extends BaseMockingTest {
 
         when(em.createQuery(anyString())).thenReturn(query);
         when(query.getResultList()).thenReturn(results);
-        when(auditorAware.getCurrentAuditor()).thenReturn(new String());
+        when(auditorAware.getCurrentAuditor()).thenReturn(1L);
         when(mockAuditor.getId()).thenReturn(uuid);
-        when(em.find(String.class, uuid)).thenReturn(new String());
+        when(em.find(String.class, id)).thenReturn("");
     }
 
     @Test
@@ -75,7 +75,7 @@ public class AbstractCrudRepositoryImplUT extends BaseMockingTest {
 
     @Test
     public void update() {
-        Tag tag = new Tag(uuid);
+        Tag tag = new Tag(id);
         Tag result = repository.save(tag);
 
         verify(em, times(1)).merge(tag);
@@ -85,11 +85,11 @@ public class AbstractCrudRepositoryImplUT extends BaseMockingTest {
     @Test
     public void findOne() {
         Tag result = mock(Tag.class);
-        when(em.find(Tag.class, uuid)).thenReturn(result);
+        when(em.find(Tag.class, id)).thenReturn(result);
 
-        result = repository.findOne(uuid);
+        result = repository.findOne(id);
 
-        verify(em, times(1)).find(Tag.class, uuid);
+        verify(em, times(1)).find(Tag.class, id);
         assertThat(result, is(Tag.class));
     }
 
@@ -103,9 +103,9 @@ public class AbstractCrudRepositoryImplUT extends BaseMockingTest {
     @Test
     public void deleteById() {
         Tag result = mock(Tag.class);
-        when(em.find(Tag.class, uuid)).thenReturn(result);
+        when(em.find(Tag.class, id)).thenReturn(result);
 
-        repository.delete(uuid);
+        repository.delete(id);
 
         verify(em, times(1)).remove(result);
     }

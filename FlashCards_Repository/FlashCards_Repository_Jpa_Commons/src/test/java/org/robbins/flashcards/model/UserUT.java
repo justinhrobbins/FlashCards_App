@@ -80,9 +80,9 @@ public class UserUT {
 
     @Test
     public void testSetUserId() {
-        String uuid = UUID.randomUUID().toString();
-        User user = new User(uuid);
+        Long id = 1L;
+        User user = new User(id);
 
-        assertEquals(uuid, user.getId());
+        assertEquals(id, user.getId());
     }
 }

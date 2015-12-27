@@ -53,6 +53,11 @@
 
 		<!-- test dependencies -->
 		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-all</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>org.robbins.flashcards</groupId>
 			<artifactId>FlashCards_Test</artifactId>
 			<version>${project.version}</version>

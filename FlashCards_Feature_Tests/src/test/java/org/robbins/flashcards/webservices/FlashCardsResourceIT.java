@@ -26,7 +26,7 @@ import static org.junit.Assert.*;
 
 @Category(IntegrationTest.class)
 @ContextConfiguration(locations = {"classpath*:applicatonContext-client.xml"})
-public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto, String> {
+public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto, Long> {
 
     // this entity will be created in @Before and we'll use it for our JUnit tests and
     // then delete it in @After
@@ -49,7 +49,7 @@ public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto, St
     private TagClient tagClient;
 
     @Override
-    public GenericRestCrudFacade<FlashCardDto, String> getClient() {
+    public GenericRestCrudFacade<FlashCardDto, Long> getClient() {
         return client;
     }
 
@@ -57,8 +57,8 @@ public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto, St
     public void testSearchByTagsIn() throws FlashcardsException
 	{
         final Set<TagDto> tags = new HashSet<>();
-        tags.add(new TagDto("2", "two"));
-        tags.add(new TagDto("20", "twenty"));
+        tags.add(new TagDto(2L, "two"));
+        tags.add(new TagDto(20L, "twenty"));
 
         final List<FlashCardDto> searchResult = client.findByTagsIn(tags);
 
@@ -67,7 +67,7 @@ public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto, St
 
     @Test
     public void testUpdateEntity() throws FlashcardsException {
-        final String id = getEntity().getId();
+        final Long id = getEntity().getId();
         final String UPDATED_VALUE = "updated value";
 
         final FlashCardDto entity = new FlashCardDto(id);
@@ -93,7 +93,7 @@ public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto, St
 
         final FlashCardDto newFlashCard = client.save(flashCard);
 
-        assertThat(newFlashCard.getId().length(), Matchers.greaterThan(0));
+        assertThat(newFlashCard.getId(), Matchers.greaterThan(0L));
         assertThat(newFlashCard.getTags().size(), Matchers.greaterThan(0));
 
         client.delete(newFlashCard.getId());

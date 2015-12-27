@@ -16,7 +16,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
-import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.exceptions.RepositoryException;
 import org.robbins.tests.BaseMockingTest;
@@ -48,7 +47,7 @@ public class FieldInitializerUtilUT extends BaseMockingTest {
         fieldInitializerUtil = new FieldInitializerUtil();
 
         tagDto = new TagDto();
-        tagDto.setFlashcards(new HashSet<FlashCardDto>());
+        tagDto.setFlashcards(new HashSet<>());
 
         when(mockEntityManager.getEntityManagerFactory()).thenReturn(
                 mockEntityManagerFactory);
@@ -56,8 +55,8 @@ public class FieldInitializerUtilUT extends BaseMockingTest {
                 mockPersistenceUnitUtil);
         when(mockEntityManagerFactory.createEntityManager()).thenReturn(mockEntityManager);
 
-        ReflectionTestUtils.setField(fieldInitializerUtil, "entityManagerFactory",
-                mockEntityManagerFactory);
+        ReflectionTestUtils.setField(fieldInitializerUtil, "em",
+                mockEntityManager);
     }
 
     @Test
@@ -65,7 +64,7 @@ public class FieldInitializerUtilUT extends BaseMockingTest {
             InvocationTargetException, NoSuchMethodException, RepositoryException
 	{
         fieldInitializerUtil.initializeEntity(tagDto,
-                new HashSet<String>(Arrays.asList(COLLECTION_FIELD_NAME)));
+                new HashSet<>(Arrays.asList(COLLECTION_FIELD_NAME)));
     }
 
     @Test
@@ -74,7 +73,7 @@ public class FieldInitializerUtilUT extends BaseMockingTest {
         List<TagDto> tagList = Arrays.asList(tagDto);
 
         fieldInitializerUtil.initializeEntity(tagList,
-                new HashSet<String>(Arrays.asList(FIELD_NAME)));
+                new HashSet<>(Arrays.asList(FIELD_NAME)));
     }
 
     @Test
@@ -83,7 +82,7 @@ public class FieldInitializerUtilUT extends BaseMockingTest {
         TagDto[] tagArray = { tagDto };
 
         fieldInitializerUtil.initializeEntity(tagArray,
-                new HashSet<String>(Arrays.asList(FIELD_NAME)));
+                new HashSet<>(Arrays.asList(FIELD_NAME)));
     }
 
     @Test
@@ -92,6 +91,6 @@ public class FieldInitializerUtilUT extends BaseMockingTest {
         tagDto = null;
 
         fieldInitializerUtil.initializeEntity(tagDto,
-                new HashSet<String>(Arrays.asList(FIELD_NAME)));
+                new HashSet<>(Arrays.asList(FIELD_NAME)));
     }
 }

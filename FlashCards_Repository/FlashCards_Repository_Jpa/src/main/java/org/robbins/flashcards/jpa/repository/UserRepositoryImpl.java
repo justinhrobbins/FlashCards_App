@@ -15,8 +15,8 @@ import javax.persistence.Query;
 import java.util.List;
 
 @Repository("userRepository")
-public class UserRepositoryImpl extends AbstractCrudRepositoryImpl<User, String> implements
-        UserRepository<User, String> {
+public class UserRepositoryImpl extends AbstractCrudRepositoryImpl<User, Long> implements
+        UserRepository<User, Long> {
 
     @Override
     public Class<User> getClazz() {
@@ -67,7 +67,7 @@ public class UserRepositoryImpl extends AbstractCrudRepositoryImpl<User, String>
     }
 
     @Override
-    public List<User> findByCreatedBy_Id(final String userId) {
+    public List<User> findByCreatedBy_Id(final Long userId) {
         Query query = getEm().createQuery("SELECT u FROM User u JOIN u.createdBy u WHERE u.id = :userId");
         query.setParameter("userId", userId);
         return query.getResultList();

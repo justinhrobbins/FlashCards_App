@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface TagCassandraRepository extends TypedIdCassandraRepository<TagCassandraEntity, UUID> {
+public interface TagCassandraRepository extends TypedIdCassandraRepository<TagCassandraEntity, Long> {
 
     @Query("SELECT * FROM tag WHERE name = ?0")
     public TagCassandraEntity findByName(final String name);

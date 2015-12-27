@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 import javax.inject.Inject;
 
 @Repository
-public class BatchLoadingReceiptRepositoryImpl extends AbstractCrudRepositoryImpl<BatchLoadingReceipt, String> implements
-        BatchLoadingReceiptRepository<BatchLoadingReceipt, String> {
+public class BatchLoadingReceiptRepositoryImpl extends AbstractCrudRepositoryImpl<BatchLoadingReceipt, Long> implements
+        BatchLoadingReceiptRepository<BatchLoadingReceipt, Long> {
 
     @Inject
     private BatchLoadingReceiptSpringDataRepository repository;

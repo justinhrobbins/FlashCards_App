@@ -9,8 +9,8 @@ import javax.inject.Inject;
 import java.util.UUID;
 
 @Repository
-public class UserRepositoryImpl extends AbstractCrudRepositoryImpl<UserCassandraEntity, UUID> implements
-        UserRepository<UserCassandraEntity, UUID> {
+public class UserRepositoryImpl extends AbstractCrudRepositoryImpl<UserCassandraEntity, Long> implements
+        UserRepository<UserCassandraEntity, Long> {
 
     @Inject
     private UserCassandraRepository repository;

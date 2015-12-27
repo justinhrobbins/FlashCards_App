@@ -34,7 +34,7 @@ public class TagServiceImplUT extends BaseMockingTest {
 
     @Test
     public void testFindByName() throws FlashcardsException {
-        when(facade.findByName(Matchers.anyString())).thenReturn(new TagDto("EJB"));
+        when(facade.findByName(Matchers.anyString())).thenReturn(new TagDto(1L));
 
         TagDto tag = tagService.findByName("EJB");
 

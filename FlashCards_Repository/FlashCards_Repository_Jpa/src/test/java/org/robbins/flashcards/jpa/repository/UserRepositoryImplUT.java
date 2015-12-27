@@ -38,7 +38,7 @@ public class UserRepositoryImplUT extends BaseMockingTest {
 
     private List<User> results;
 
-    private UserRepository<User, String> repository;
+    private UserRepository<User, Long> repository;
 
     @Before
     public void before() {

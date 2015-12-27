@@ -21,7 +21,8 @@ import static org.junit.Assert.assertThat;
 
 public class DefaultUserFacadeIT extends AbstractCassandraIntegrationTest {
 
-    private final String ID = "9caa6c8e-b720-11e4-a71e-12e3f512a338";
+    private final Long ID = 1L;
+    private final Long NON_EXISTING_ID = 2L;
     private final String OPEN_ID = "apiuser";
 
     @Inject
@@ -47,7 +48,7 @@ public class DefaultUserFacadeIT extends AbstractCassandraIntegrationTest {
     @Test
     public void testFindOne_ShouldReturnNull_WhenIdDoesNotExist() throws FlashcardsException {
 
-        final UserDto result = userFacade.findOne(UUID.randomUUID().toString());
+        final UserDto result = userFacade.findOne(NON_EXISTING_ID);
         assertThat(result, is(nullValue()));
     }
 

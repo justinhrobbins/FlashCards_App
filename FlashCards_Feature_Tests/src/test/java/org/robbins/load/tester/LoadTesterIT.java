@@ -1,9 +1,12 @@
 package org.robbins.load.tester;
 
-import akka.actor.ActorSystem;
-import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
-import org.junit.*;
+import javax.inject.Inject;
+
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.robbins.flashcards.dto.AbstractAuditableDto;
@@ -18,7 +21,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestContextManager;
 import org.springframework.util.StopWatch;
 
-import javax.inject.Inject;
+import akka.actor.ActorSystem;
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 
 @ContextConfiguration(locations = {"classpath*:applicatonContext-loadtester.xml"})
 @RunWith(JUnitParamsRunner.class)
@@ -27,7 +32,7 @@ public class LoadTesterIT {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoadTesterIT.class);
 
     private TestContextManager testContextManager;
-    private final Integer totalLoadCount = 1000000;
+    private final Integer totalLoadCount = 5000000;
     private final Integer batchSize = 10000;
     private final String endPointName = "tagClient";
     private StopWatch stopWatch;
@@ -64,10 +69,10 @@ public class LoadTesterIT {
     private Object[] testParams() {
         return new Object[]{
                 new Object[]{TagDto.class}
-                , new Object[]{TagDto.class}
-                , new Object[]{TagDto.class}
-                , new Object[]{TagDto.class}
-                , new Object[]{TagDto.class}
+//                , new Object[]{TagDto.class}
+//                , new Object[]{TagDto.class}
+//                , new Object[]{TagDto.class}
+//                , new Object[]{TagDto.class}
         };
     }
 
@@ -102,5 +107,4 @@ public class LoadTesterIT {
         final LoadTestResult result = akkaLoadTestingService.doLoadTest(new LoadTestStart(endPointName, totalLoadCount, batchSize, dtoClass));
         Assert.assertEquals(totalLoadCount, result.getGetTotalLoadCount());
     }
-
 }

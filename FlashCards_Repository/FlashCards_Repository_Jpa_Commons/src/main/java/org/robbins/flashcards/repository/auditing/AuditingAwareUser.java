@@ -9,7 +9,7 @@ import org.springframework.data.domain.AuditorAware;
 
 import javax.inject.Inject;
 
-public class AuditingAwareUser implements AuditorAware<String> {
+public class AuditingAwareUser implements AuditorAware<Long> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AuditingAwareUser.class);
 
@@ -17,8 +17,8 @@ public class AuditingAwareUser implements AuditorAware<String> {
     private ApplicationContext context;
 
     @Override
-    public String getCurrentAuditor() {
-        String auditor = ((UserDto) context.getBean("loggedInUser")).getId();
+    public Long getCurrentAuditor() {
+        Long auditor = ((UserDto) context.getBean("loggedInUser")).getId();
 
         LOGGER.trace("Logged In User Id: " + auditor);
 

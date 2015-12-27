@@ -9,8 +9,8 @@ import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import java.util.List;
 import java.util.Set;
 
-public interface TagFacade extends GenericCrudFacade<TagDto, String> {
+public interface TagFacade extends GenericCrudFacade<TagDto, Long> {
 
     TagDto findByName(final String name) throws FlashcardsException;
-    List<TagDto> findTagsForFlashcard(final String flashcardId, final Set<String> fields) throws FlashcardsException;
+    List<TagDto> findTagsForFlashcard(final Long flashcardId, final Set<String> fields) throws FlashcardsException;
 }

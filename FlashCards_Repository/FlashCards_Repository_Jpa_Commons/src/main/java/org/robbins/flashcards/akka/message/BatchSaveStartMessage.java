@@ -14,13 +14,13 @@ public class BatchSaveStartMessage implements Serializable {
     private final BatchLoadingReceiptDto receipt;
     private final FlashCardsAppRepository repository;
     private final DtoConverter converter;
-    private final String auditingUserId;
+    private final Long auditingUserId;
     private final List<AbstractPersistableDto> dtos;
     private final TransactionTemplate txTemplate;
     private final EntityManager em;
 
     public BatchSaveStartMessage(BatchLoadingReceiptDto receipt, FlashCardsAppRepository repository,
-                                 DtoConverter converter, String auditingUserId,
+                                 DtoConverter converter, Long auditingUserId,
                                  List<AbstractPersistableDto> dtos, TransactionTemplate txTemplate,
                                  EntityManager em) {
         this.receipt = receipt;
@@ -44,7 +44,7 @@ public class BatchSaveStartMessage implements Serializable {
         return converter;
     }
 
-    public String getAuditingUserId() {
+    public Long getAuditingUserId() {
         return auditingUserId;
     }
 

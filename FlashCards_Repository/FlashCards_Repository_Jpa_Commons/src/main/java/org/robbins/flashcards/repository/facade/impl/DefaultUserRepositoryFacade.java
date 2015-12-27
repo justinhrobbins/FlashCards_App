@@ -16,11 +16,11 @@ import javax.inject.Inject;
 
 @Transactional
 @Component("userRepositoryFacade")
-public class DefaultUserRepositoryFacade extends AbstractCrudRepositoryFacadeImpl<UserDto, User, String> implements
+public class DefaultUserRepositoryFacade extends AbstractCrudRepositoryFacadeImpl<UserDto, User, Long> implements
         UserFacade {
 
     @Inject
-    private UserRepository<User, String> repository;
+    private UserRepository<User, Long> repository;
 
     @Inject
     @Qualifier("userDtoConverter")
@@ -33,7 +33,7 @@ public class DefaultUserRepositoryFacade extends AbstractCrudRepositoryFacadeImp
     }
 
     @Override
-    public UserRepository<User, String> getRepository() {
+    public UserRepository<User, Long> getRepository() {
 		return repository;
 	}
 
@@ -57,7 +57,6 @@ public class DefaultUserRepositoryFacade extends AbstractCrudRepositoryFacadeImp
             entity.setCreatedDate(orig.getCreatedDate());
         }
 
-        User result = repository.save(entity);
-        return convertAndInitializeEntity(result);
+        return super.save(dto);
     }
 }

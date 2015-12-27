@@ -13,7 +13,7 @@ import java.util.Set;
 @Entity
 @Table(name = "batchloadingreceipt")
 @AttributeOverride(name = "id", column = @Column(name = "BatchLoadingId"))
-public class BatchLoadingReceipt extends AbstractAuditable<String, String> implements Serializable {
+public class BatchLoadingReceipt extends AbstractAuditable<Long, Long> implements Serializable {
 
     @Column(name = "Type", nullable = false)
     private String type;
@@ -43,7 +43,7 @@ public class BatchLoadingReceipt extends AbstractAuditable<String, String> imple
         this.endTime = endTime;
     }
 
-    public BatchLoadingReceipt(final String id) {
+    public BatchLoadingReceipt(final Long id) {
         setId(id);
     }
 

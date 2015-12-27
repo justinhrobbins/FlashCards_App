@@ -14,5 +14,5 @@ import java.util.UUID;
 public interface TagFlashcardCassandraRepository extends TypedIdCassandraRepository<TagFlashCardCassandraEntity, TagFlashCardKey> {
 
     @Query("SELECT * FROM tag_flashcard WHERE tag_id = ?0")
-    public List<TagFlashCardCassandraEntity> findByTagId(final UUID tagId);
+    public List<TagFlashCardCassandraEntity> findByTagId(final Long tagId);
 }

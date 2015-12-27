@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 @Component("tagClient")
-public class DefaultTagClient extends AbstractCrudClient<TagDto, String> implements TagClient {
+public class DefaultTagClient extends AbstractCrudClient<TagDto, Long> implements TagClient {
 
     @Override
     public String getEntityListUrl() {
@@ -66,7 +66,7 @@ public class DefaultTagClient extends AbstractCrudClient<TagDto, String> impleme
     }
 
     @Override
-    public List<TagDto> findTagsForFlashcard(final String flashcardId, final Set<String> fields) {
+    public List<TagDto> findTagsForFlashcard(final Long flashcardId, final Set<String> fields) {
         Map<String, String> uriVariables = new HashMap<String, String>();
         uriVariables.put("flashcardId", String.valueOf(flashcardId));
         return Arrays.asList(searchEntities(getServerAddress() + ResourceUrls.tagsForFlashcard, uriVariables, TagDto[].class));

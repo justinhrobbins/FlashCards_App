@@ -15,6 +15,7 @@ import java.util.UUID;
 
 import javax.ws.rs.core.Response;
 
+import org.apache.commons.lang3.RandomUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -42,7 +43,7 @@ public class FlashCardsResourceUT extends BaseMockingTest {
 
     private FlashCardsResource resource;
 
-    private final String uuid = UUID.randomUUID().toString();
+    private final Long uuid = RandomUtils.nextLong(0L, Long.MAX_VALUE);
 
     @Before
     public void before() {

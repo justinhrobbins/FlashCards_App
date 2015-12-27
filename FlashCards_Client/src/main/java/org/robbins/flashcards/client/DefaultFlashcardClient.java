@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 
 @Component("flashcardClient")
-public class DefaultFlashcardClient extends AbstractCrudClient<FlashCardDto, String> implements FlashcardClient {
+public class DefaultFlashcardClient extends AbstractCrudClient<FlashCardDto, Long> implements FlashcardClient {
     @Override
     public String getEntityListUrl() {
         return getServerAddress() + ResourceUrls.flashCards;
@@ -75,7 +75,7 @@ public class DefaultFlashcardClient extends AbstractCrudClient<FlashCardDto, Str
         final Map<String, String> uriVariables = setupSearchUriVariables();
 
         final String tagNames = tags.stream()
-                .map(AbstractPersistableDto::getId)
+                .map(tag -> tag.getId().toString())
                 .collect(Collectors.joining(","));
 
         uriVariables.put("tags", tagNames);
@@ -122,7 +122,7 @@ public class DefaultFlashcardClient extends AbstractCrudClient<FlashCardDto, Str
     }
 
     @Override
-    public List<FlashCardDto> findFlashcardsForTag(String tagId, Set<String> fields) throws FlashcardsException {
+    public List<FlashCardDto> findFlashcardsForTag(Long tagId, Set<String> fields) throws FlashcardsException {
         final Map<String, String> uriVariables = new HashMap<String, String>();
         uriVariables.put("tagId", String.valueOf(tagId));
         return Arrays.asList(searchEntities(getServerAddress() + ResourceUrls.flashcardsForTag, uriVariables, FlashCardDto[].class));

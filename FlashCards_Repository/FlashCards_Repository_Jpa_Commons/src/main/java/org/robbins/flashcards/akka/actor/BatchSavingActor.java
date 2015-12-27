@@ -26,8 +26,8 @@ public class BatchSavingActor extends AbstractActor {
 
     private FlashCardsAppRepository repository;
     private DtoConverter converter;
-    private String auditingUserId;
-    private String batchId;
+    private Long auditingUserId;
+    private Long batchId;
     private Integer successCount = 0;
     private Integer failureCount = 0;
 

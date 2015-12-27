@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 
 @Component("presentationFlashcardFacade")
 public class DefaultFlashcardFacade extends
-        AbstractCrudFacadeImpl<FlashCardDto, String> implements FlashcardFacade {
+        AbstractCrudFacadeImpl<FlashCardDto, Long> implements FlashcardFacade {
 
     @Inject
     private FlashCardService flashcardService;
@@ -63,7 +63,7 @@ public class DefaultFlashcardFacade extends
     }
 
     @Override
-    public List<FlashCardDto> findFlashcardsForTag(final String tagId, Set<String> fields) throws FlashcardsException {
+    public List<FlashCardDto> findFlashcardsForTag(final Long tagId, Set<String> fields) throws FlashcardsException {
         return getService().findFlashcardsForTag(tagId, fields);
     }
 }

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 @Component("presentationTagFacade")
-public class DefaultTagFacade extends AbstractCrudFacadeImpl<TagDto, String> implements
+public class DefaultTagFacade extends AbstractCrudFacadeImpl<TagDto, Long> implements
         TagFacade {
 
     @Inject
@@ -31,7 +31,7 @@ public class DefaultTagFacade extends AbstractCrudFacadeImpl<TagDto, String> imp
     }
 
     @Override
-    public List<TagDto> findTagsForFlashcard(final String flashcardId, final Set<String> fields) throws FlashcardsException {
+    public List<TagDto> findTagsForFlashcard(final Long flashcardId, final Set<String> fields) throws FlashcardsException {
         return getService().findTagsForFlashcard(flashcardId, fields);
     }
 }

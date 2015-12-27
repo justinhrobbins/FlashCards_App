@@ -2,16 +2,13 @@ package org.robbins.flashcards.dto.builder;
 
 import org.robbins.flashcards.dto.TagDto;
 
-/**
- * Created by justinrobbins on 2/16/15.
- */
 public class TagDtoBuilder {
 
     private TagDto tag = new TagDto();
 
     public TagDtoBuilder() {}
 
-    public TagDtoBuilder withId(final String id) {
+    public TagDtoBuilder withId(final Long id) {
         tag.setId(id);
         return this;
     }

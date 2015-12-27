@@ -23,9 +23,9 @@ public class ItemSavingActor extends AbstractActor {
 
     private final FlashCardsAppRepository repository;
     private final DtoConverter converter;
-    private final String auditingUserId;
+    private final Long auditingUserId;
 
-    public ItemSavingActor(final FlashCardsAppRepository repository, final DtoConverter converter, final String auditingUserId) {
+    public ItemSavingActor(final FlashCardsAppRepository repository, final DtoConverter converter, final Long auditingUserId) {
         LOGGER.trace("Creating ItemSaver");
 
         this.repository = repository;
@@ -34,7 +34,7 @@ public class ItemSavingActor extends AbstractActor {
     }
 
     public static Props props(final FlashCardsAppRepository repository,
-                              final DtoConverter converter, final String auditingUserId) {
+                              final DtoConverter converter, final Long auditingUserId) {
         return Props.create(ItemSavingActor.class, () -> new ItemSavingActor(repository, converter, auditingUserId));
     }
 

@@ -5,9 +5,9 @@ import java.io.Serializable;
 public class SingleBatchSaveResultMessage implements Serializable {
     private final Integer successCount;
     private final Integer failureCount;
-    private final String batchId;
+    private final Long batchId;
 
-    public SingleBatchSaveResultMessage(Integer successCount, Integer failureCount, String batchId) {
+    public SingleBatchSaveResultMessage(Integer successCount, Integer failureCount, Long batchId) {
         this.successCount = successCount;
         this.failureCount = failureCount;
         this.batchId = batchId;
@@ -21,7 +21,7 @@ public class SingleBatchSaveResultMessage implements Serializable {
         return failureCount;
     }
 
-    public String getBatchId() {
+    public Long getBatchId() {
         return batchId;
     }
 

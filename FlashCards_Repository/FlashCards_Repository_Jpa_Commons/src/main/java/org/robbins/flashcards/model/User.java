@@ -11,7 +11,7 @@ import java.util.Date;
 @Entity
 @Table(name = "user")
 @AttributeOverride(name = "id", column = @Column(name = "UserId"))
-public class User extends AbstractAuditable<String, String> implements Serializable {
+public class User extends AbstractAuditable<Long, Long> implements Serializable {
 
     private static final long serialVersionUID = 6131151516357988050L;
 
@@ -47,7 +47,7 @@ public class User extends AbstractAuditable<String, String> implements Serializa
     public User() {
     }
 
-    public User(final String userId) {
+    public User(final Long userId) {
         setId(userId);
     }
 

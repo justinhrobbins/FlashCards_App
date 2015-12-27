@@ -5,7 +5,6 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.StrutsStatics;
 import org.robbins.flashcards.model.User;
@@ -39,7 +38,7 @@ public class LoginInterceptor extends AbstractInterceptor implements StrutsStati
         // Is there a "user" object stored in the user's HttpSession?
         User user = (User) applicationContext.getBean("loggedInUser");
 
-        if ((user.getId() == null) || (!StringUtils.isEmpty(user.getId()))) {
+        if (user.getId() == null) {
             // The user has not logged in yet.
             LOGGER.debug("User NOT found in the Session");
 

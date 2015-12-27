@@ -31,8 +31,8 @@ public class BatchSavingCoordinator extends AbstractActor
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(BatchSavingCoordinator.class);
 
-	private final Map<String, ActorRef> parents = new ConcurrentHashMap<>();
-	private final Map<String, BatchLoadingReceiptDto> batchesInProgress = new ConcurrentHashMap<>();
+	private final Map<Long, ActorRef> parents = new ConcurrentHashMap<>();
+	private final Map<Long, BatchLoadingReceiptDto> batchesInProgress = new ConcurrentHashMap<>();
 
 	final private List<WorkQueueItem> workQueue = new ArrayList<>();
 	final private Map<ActorRef, BatchSaveStartMessage> workInProgress = new HashMap<>();
@@ -174,12 +174,12 @@ public class BatchSavingCoordinator extends AbstractActor
 
 	public static class WorkQueueItem
 	{
-		final String batchId;
+		final Long batchId;
 		final ActorRef sender;
 		final BatchSaveStartMessage startMessage;
 		final List<AbstractPersistableDto> batchPartition;
 
-		public WorkQueueItem(final List<AbstractPersistableDto> batchPartition, final BatchSaveStartMessage startMessage, final ActorRef sender, final String batchId)
+		public WorkQueueItem(final List<AbstractPersistableDto> batchPartition, final BatchSaveStartMessage startMessage, final ActorRef sender, final Long batchId)
 		{
 			this.batchPartition = batchPartition;
 			this.startMessage = startMessage;

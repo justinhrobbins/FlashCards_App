@@ -11,29 +11,29 @@ import java.util.UUID;
 public class TagFlashCardKey implements Serializable {
 
     @PrimaryKeyColumn(name = "tag_id", ordinal = 0, type = PrimaryKeyType.PARTITIONED)
-    private UUID tagId;
+    private Long tagId;
 
     @PrimaryKeyColumn(name = "flashcard_id", ordinal = 1, type = PrimaryKeyType.CLUSTERED, ordering = Ordering.DESCENDING)
-    private UUID flashCardId;
+    private Long flashCardId;
 
-    public TagFlashCardKey(UUID tagId, UUID flashCardId) {
+    public TagFlashCardKey(Long tagId, Long flashCardId) {
         this.tagId = tagId;
         this.flashCardId = flashCardId;
     }
 
-    public UUID getTagId() {
+    public Long getTagId() {
         return tagId;
     }
 
-    public void setTagId(UUID tagId) {
+    public void setTagId(Long tagId) {
         this.tagId = tagId;
     }
 
-    public UUID getFlashCardId() {
+    public Long getFlashCardId() {
         return flashCardId;
     }
 
-    public void setFlashCardId(UUID flashCardId) {
+    public void setFlashCardId(Long flashCardId) {
         this.flashCardId = flashCardId;
     }
 

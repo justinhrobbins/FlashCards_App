@@ -14,8 +14,8 @@ import javax.persistence.Query;
 import java.util.List;
 
 @Repository
-public class BatchLoadingReceiptRepositoryImpl extends AbstractCrudRepositoryImpl<BatchLoadingReceipt, String> implements
-        BatchLoadingReceiptRepository<BatchLoadingReceipt, String> {
+public class BatchLoadingReceiptRepositoryImpl extends AbstractCrudRepositoryImpl<BatchLoadingReceipt, Long> implements
+        BatchLoadingReceiptRepository<BatchLoadingReceipt, Long> {
 
     @Override
     public Class<BatchLoadingReceipt> getClazz() {
@@ -33,7 +33,7 @@ public class BatchLoadingReceiptRepositoryImpl extends AbstractCrudRepositoryImp
     }
 
     @Override
-    public List<BatchLoadingReceipt> findByCreatedBy_Id(final String userId) {
+    public List<BatchLoadingReceipt> findByCreatedBy_Id(final Long userId) {
         Query query = getEm().createQuery("SELECT t FROM BatchLoadingReceipt r JOIN r.createdBy u WHERE u.id = :userId");
         query.setParameter("userId", userId);
         return query.getResultList();

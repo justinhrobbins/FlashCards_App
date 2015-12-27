@@ -1,11 +1,9 @@
 package org.robbins.flashcards.cassandra.repository.domain;
 
-import java.util.UUID;
-
 public class FlashCardCassandraBuilder {
     private final FlashCardCassandraEntity flashcard = new FlashCardCassandraEntity();
 
-    public FlashCardCassandraBuilder withId(final UUID id) {
+    public FlashCardCassandraBuilder withId(final Long id) {
         this.flashcard.setId(id);
         return this;
     }

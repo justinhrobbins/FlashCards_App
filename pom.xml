@@ -28,7 +28,7 @@
         <cobertura.version>2.6</cobertura.version>
         <commons.beanutils.version>1.8.3</commons.beanutils.version>
         <commons.collections.version>3.2.1</commons.collections.version>
-        <commons.lang3.version>3.2</commons.lang3.version>
+        <commons.lang3.version>3.3</commons.lang3.version>
         <coveralls.version>2.1.0</coveralls.version>
         <c3p0.version>0.9.1</c3p0.version>
         <dbunit.version>2.4.9</dbunit.version>

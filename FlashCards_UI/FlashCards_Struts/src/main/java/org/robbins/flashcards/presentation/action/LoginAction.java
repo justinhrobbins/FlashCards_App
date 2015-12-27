@@ -108,11 +108,11 @@ public class LoginAction extends FlashCardsAppBaseAction implements Preparable,
         if (existingUser != null) {
             authenticatingUser.setId(existingUser.getId());
 
-            loggedInUser.setId(existingUser.getId());
+            loggedInUser.setId(Long.valueOf(existingUser.getId()));
         } else {
             // this is a new user and he doesn't have an id yet, temporarily set it to the
             // service user (which is me)
-            loggedInUser.setId(UUID.randomUUID().toString());
+            loggedInUser.setId(1L);
         }
 
         // save the user
@@ -122,7 +122,7 @@ public class LoginAction extends FlashCardsAppBaseAction implements Preparable,
 
         // get the id of the user. if he's new then this is our first opportunity to get
         // his id
-        String loggedInUserId = persistedUser.getId();
+        Long loggedInUserId = Long.valueOf(persistedUser.getId());
 
         // set the id on the loggedInUser which we'll use for auditing
         loggedInUser.setId(loggedInUserId);

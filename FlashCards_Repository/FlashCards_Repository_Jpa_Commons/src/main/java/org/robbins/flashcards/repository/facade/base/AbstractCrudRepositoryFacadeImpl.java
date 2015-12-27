@@ -47,7 +47,7 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E, ID extends Serializ
     private AkkaBatchSavingService batchSavingService;
 
     @Inject
-    private BatchLoadingReceiptRepository<BatchLoadingReceipt, String> receiptRepository;
+    private BatchLoadingReceiptRepository<BatchLoadingReceipt, Long> receiptRepository;
 
     @Inject
     @Qualifier("batchLoadingReceiptDtoConverter")
@@ -56,10 +56,9 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E, ID extends Serializ
     @Inject
     private AuditingAwareUser auditorAware;
 
-    public String getAuditingUserId() {
+    public Long getAuditingUserId() {
         return auditorAware.getCurrentAuditor();
     }
-
 
     @Override
     public D save(final D dto) throws RepositoryException {

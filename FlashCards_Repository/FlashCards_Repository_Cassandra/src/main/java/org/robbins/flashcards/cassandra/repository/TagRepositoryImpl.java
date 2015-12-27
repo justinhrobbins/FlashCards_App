@@ -23,8 +23,8 @@ import java.util.UUID;
 import static com.datastax.driver.core.querybuilder.QueryBuilder.*;
 
 @Repository
-public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<TagCassandraEntity, UUID> implements
-        TagRepository<TagCassandraEntity, UUID> {
+public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<TagCassandraEntity, Long> implements
+        TagRepository<TagCassandraEntity, Long> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TagRepositoryImpl.class);
 
@@ -113,7 +113,7 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<TagCassandraEn
     }
 
     @Override
-    public List<TagCassandraEntity> findByFlashcards_Id(UUID flashcardId) {
+    public List<TagCassandraEntity> findByFlashcards_Id(Long flashcardId) {
         throw new NotImplementedException("method not yet implemented in Cassandra repository");
     }
 }

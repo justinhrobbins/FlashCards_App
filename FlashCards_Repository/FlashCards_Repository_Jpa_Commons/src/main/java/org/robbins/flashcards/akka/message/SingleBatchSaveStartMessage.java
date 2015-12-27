@@ -10,15 +10,17 @@ import java.io.Serializable;
 import java.util.List;
 
 public class SingleBatchSaveStartMessage implements Serializable {
-    private final String batchId;
+    private final Long batchId;
     private final List<AbstractPersistableDto> dtos;
     private final TransactionTemplate txTemplate;
     private final EntityManager em;
     private FlashCardsAppRepository repository;
     private DtoConverter converter;
-    private String auditingUserId;
+    private Long auditingUserId;
 
-    public SingleBatchSaveStartMessage(final String batchId, final List<AbstractPersistableDto> dtos, final TransactionTemplate txTemplate, final EntityManager em, final FlashCardsAppRepository repository, final DtoConverter converter, final String auditingUserId)
+    public SingleBatchSaveStartMessage(final Long batchId, final List<AbstractPersistableDto> dtos,
+            final TransactionTemplate txTemplate, final EntityManager em, final FlashCardsAppRepository repository,
+            final DtoConverter converter, final Long auditingUserId)
     {
         this.batchId = batchId;
         this.dtos = dtos;
@@ -29,7 +31,7 @@ public class SingleBatchSaveStartMessage implements Serializable {
         this.auditingUserId = auditingUserId;
     }
 
-    public String getBatchId()
+    public Long getBatchId()
     {
         return batchId;
     }
@@ -59,7 +61,7 @@ public class SingleBatchSaveStartMessage implements Serializable {
         return converter;
     }
 
-    public String getAuditingUserId()
+    public Long getAuditingUserId()
     {
         return auditingUserId;
     }

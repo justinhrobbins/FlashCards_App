@@ -18,8 +18,7 @@ public abstract class AbstractPersistable<PK extends Serializable> implements
     private static final long serialVersionUID = -5554308939380869754L;
 
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private PK id;
 
     /*
