@@ -19,7 +19,7 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-@ContextConfiguration("classpath:test-applicationContext-repository-springdata.xml")
+@ContextConfiguration("classpath:META-INF/test-applicationContext-repository-springdata.xml")
 @DatabaseSetup("classpath:test-flashCardsAppRepository.xml")
 @Category(IntegrationTest.class)
 public class TagRepositoryIT extends BaseIntegrationTest {

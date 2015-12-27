@@ -19,8 +19,8 @@ import javax.inject.Inject;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-@ContextConfiguration({ "classpath:applicationContext-repository-jpa-commons.xml",
-    "classpath:test-applicationContext-repository-jpa-commons.xml" })
+@ContextConfiguration({"classpath:META-INF/applicationContext-repository-jpa-commons.xml",
+    "classpath:META-INF/test-applicationContext-repository-jpa-commons.xml" })
 @DatabaseSetup("classpath:test-flashCardsAppRepository.xml")
 @Profile("spring-data")
 @Category(IntegrationTest.class)

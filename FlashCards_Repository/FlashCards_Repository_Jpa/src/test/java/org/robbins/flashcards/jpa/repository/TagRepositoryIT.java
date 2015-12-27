@@ -18,7 +18,7 @@ import java.util.Optional;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
-@ContextConfiguration("classpath:test-applicationContext-repository-jpa.xml")
+@ContextConfiguration("classpath:META-INF/test-applicationContext-repository-jpa.xml")
 @DatabaseSetup("classpath:test-flashCardsAppRepository.xml")
 @Category(IntegrationTest.class)
 public class TagRepositoryIT extends BaseIntegrationTest {

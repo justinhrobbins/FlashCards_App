@@ -25,7 +25,7 @@ import java.util.Set;
 import static org.junit.Assert.*;
 
 @Category(IntegrationTest.class)
-@ContextConfiguration(locations = {"classpath*:applicatonContext-client.xml"})
+@ContextConfiguration(locations = {"classpath*:META-INF/applicatonContext-client.xml"})
 public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto, Long> {
 
     // this entity will be created in @Before and we'll use it for our JUnit tests and

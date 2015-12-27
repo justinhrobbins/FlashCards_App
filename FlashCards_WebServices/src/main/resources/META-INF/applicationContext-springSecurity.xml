@@ -5,11 +5,11 @@
     http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <beans profile="security-http">
-        <import resource="classpath:applicationContext-springSecurity-http.xml" />
+        <import resource="classpath:META-INF/applicationContext-springSecurity-http.xml" />
     </beans>
 
     <beans profile="security-oauth">
-        <import resource="classpath:applicationContext-springSecurity-oauth.xml" />
+        <import resource="classpath:META-INF/applicationContext-springSecurity-oauth.xmloauth.xml" />
     </beans>
 
 </beans>

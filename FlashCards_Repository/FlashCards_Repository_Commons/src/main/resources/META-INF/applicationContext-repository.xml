@@ -4,17 +4,17 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <import resource="classpath:applicationContext-caching.xml" />
+    <import resource="classpath:META-INF/applicationContext-caching.xml" />
 
     <beans profile="spring-data">
-        <import resource="classpath:applicationContext-repository-springdata.xml" />
+        <import resource="classpath:META-INF/applicationContext-repository-springdata.xml" />
     </beans>
 
     <beans profile="jpa">
-        <import resource="classpath:applicationContext-repository-jpa.xml" />
+        <import resource="classpath:META-INF/applicationContext-repository-jpa.xml" />
     </beans>
 
     <beans profile="cassandra">
-        <import resource="classpath:applicationContext-repository-cassandra.xml" />
+        <import resource="classpath:META-INF/applicationContext-repository-cassandra.xml" />
     </beans>
 </beans>

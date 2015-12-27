@@ -17,7 +17,7 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
 import javax.inject.Inject;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:test-applicationContext-repository-cassandra.xml")
+@ContextConfiguration("classpath:META-INF/test-applicationContext-repository-cassandra.xml")
 @TestExecutionListeners({CassandraUnitDependencyInjectionTestExecutionListener.class,
         DependencyInjectionTestExecutionListener.class,
         DirtiesContextTestExecutionListener.class})
