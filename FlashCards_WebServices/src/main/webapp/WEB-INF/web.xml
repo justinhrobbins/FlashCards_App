@@ -8,11 +8,10 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            classpath*:applicationContext-repository.xml
-            classpath*:applicationContext-service.xml
-            classpath*:applicationContext-webServices.xml
-            classpath*:applicationContext-springSecurity.xml
-            <!-- classpath*:applicatonContext-aop.xml -->
+            classpath*:META-INF/applicationContext-repository.xml
+            classpath*:META-INF/applicationContext-service.xml
+            classpath*:META-INF/applicationContext-webServices.xml
+            classpath*:META-INF/applicationContext-springSecurity.xml
         </param-value>
     </context-param>
 

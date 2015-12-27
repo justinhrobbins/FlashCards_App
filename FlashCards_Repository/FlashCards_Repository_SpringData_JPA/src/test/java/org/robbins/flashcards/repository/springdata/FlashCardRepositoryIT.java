@@ -19,7 +19,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
-@ContextConfiguration("classpath:test-applicationContext-repository-springdata.xml")
+@ContextConfiguration("classpath:META-INF/test-applicationContext-repository-springdata.xml")
 @DatabaseSetup("classpath:test-flashCardsAppRepository.xml")
 @Category(IntegrationTest.class)
 public class FlashCardRepositoryIT extends BaseIntegrationTest {

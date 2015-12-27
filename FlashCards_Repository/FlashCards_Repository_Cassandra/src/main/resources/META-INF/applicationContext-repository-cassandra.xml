@@ -7,6 +7,6 @@
 
     <context:property-placeholder location="classpath:cassandra.properties" />
 
-    <import resource="classpath:applicationContext-repository-cassandraNamespace.xml" />
+    <import resource="classpath:META-INF/applicationContext-repository-cassandraNamespace.xmlspace.xml" />
 
 </beans>
