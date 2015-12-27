@@ -25,6 +25,7 @@
 		org.robbins.flashcards.repository.facade,
         org.robbins.flashcards.repository.conversion,
         org.robbins.flashcards.repository.util,
+        org.robbins.flashcards.repository.batch,
         org.robbins.flashcards.akka" />
 
 </beans>

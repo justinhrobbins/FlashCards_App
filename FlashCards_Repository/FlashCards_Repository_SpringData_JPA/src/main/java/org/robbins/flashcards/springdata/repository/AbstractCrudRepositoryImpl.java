@@ -2,6 +2,8 @@
 package org.robbins.flashcards.springdata.repository;
 
 import com.google.common.collect.Lists;
+
+import org.apache.commons.lang3.NotImplementedException;
 import org.robbins.flashcards.model.User;
 import org.robbins.flashcards.model.common.AbstractAuditable;
 import org.robbins.flashcards.repository.FlashCardsAppRepository;
@@ -65,5 +67,11 @@ public abstract class AbstractCrudRepositoryImpl<T extends AbstractAuditable<Lon
 
     List<T> toList(Iterable<T> iterable) {
         return Lists.newArrayList(iterable);
+    }
+
+    @Override
+    public int batchSave(final List<T> records)
+    {
+        throw new NotImplementedException("method not yet implemented");
     }
 }

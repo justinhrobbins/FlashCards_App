@@ -114,9 +114,8 @@ public class BatchSavingCoordinator extends AbstractActor
 
 			LOGGER.debug("Sending SingleBatchSaveStartMessage message with batch id: '{}' to worker '{}'", workQueueItem.batchId, worker.toString());
 			worker.tell(new SingleBatchSaveStartMessage(workQueueItem.batchId, workQueueItem.batchPartition,
-					workQueueItem.startMessage.getTxTemplate(), workQueueItem.startMessage.getEm(),
-					workQueueItem.startMessage.getRepository(), workQueueItem.startMessage.getConverter(),
-					workQueueItem.startMessage.getAuditingUserId()), self());
+					workQueueItem.startMessage.getTxTemplate(), workQueueItem.startMessage.getRepository(),
+					workQueueItem.startMessage.getConverter(), workQueueItem.startMessage.getAuditingUserId()), self());
 		}
 
 		if (!workQueue.isEmpty() && !idleWorkers.isEmpty())

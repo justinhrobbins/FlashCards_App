@@ -1,10 +1,13 @@
 package org.robbins.flashcards.akka;
 
-import akka.actor.ActorRef;
-import akka.actor.ActorSystem;
-import akka.japi.Util;
-import akka.util.Timeout;
-import org.joda.time.DateTime;
+import static akka.pattern.Patterns.ask;
+
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import javax.inject.Inject;
+
 import org.robbins.flashcards.akka.actor.BatchSavingCoordinator;
 import org.robbins.flashcards.akka.message.BatchSaveResultMessage;
 import org.robbins.flashcards.akka.message.BatchSaveStartMessage;
@@ -24,22 +27,15 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
+
+import akka.actor.ActorRef;
+import akka.actor.ActorSystem;
+import akka.japi.Util;
+import akka.util.Timeout;
 import scala.concurrent.Await;
 import scala.concurrent.Future;
 import scala.concurrent.duration.FiniteDuration;
 import scala.reflect.ClassTag;
-
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
-
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
-
-import static akka.pattern.Patterns.ask;
 
 
 @Component
@@ -52,9 +48,6 @@ public class AkkaBatchSavingService implements InitializingBean {
 
     @Inject
     private PlatformTransactionManager txManager;
-
-    @PersistenceContext
-    private EntityManager em;
 
     @Inject
     private BatchLoadingReceiptRepository<BatchLoadingReceipt, Long> receiptRepository;
@@ -95,7 +88,7 @@ public class AkkaBatchSavingService implements InitializingBean {
         final BatchLoadingReceiptDto batchLoadingReceiptDto = createBatchLoadingReceipt(type, entities);
         final BatchSaveStartMessage startBatchSaveMessage = new BatchSaveStartMessage(batchLoadingReceiptDto, repository,
                 converter, auditingUserId, entities,
-                new TransactionTemplate(txManager), em);
+                new TransactionTemplate(txManager));
         final FiniteDuration duration = FiniteDuration.create(1, TimeUnit.HOURS);
         final ClassTag<BatchSaveResultMessage> classTag = Util.classTag(BatchSaveResultMessage.class);
         final Future<BatchSaveResultMessage> receiptFuture = ask(batchSavingCoordinator, startBatchSaveMessage,

@@ -22,7 +22,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestContextManager;
 import org.springframework.util.StopWatch;
 
-import akka.actor.ActorSystem;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
@@ -36,6 +35,8 @@ public class LoadTesterIT {
     private TestContextManager testContextManager;
     private final Integer totalLoadCount = 5000000;
     private final Integer batchSize = 10000;
+//    private final Integer totalLoadCount = 10;
+//    private final Integer batchSize = 10;
     private final String endPointName = "tagClient";
     private StopWatch stopWatch;
 
@@ -46,9 +47,6 @@ public class LoadTesterIT {
     @Qualifier("defaultLoadTestingService")
     @Inject
     private LoadTestingService defaultLoadTestingService;
-
-    @Inject
-    private ActorSystem system;
 
     @Rule
     public TestName testName = new TestName();
