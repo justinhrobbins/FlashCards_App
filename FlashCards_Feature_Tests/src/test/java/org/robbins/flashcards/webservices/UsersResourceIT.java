@@ -19,7 +19,7 @@ import static org.junit.Assert.assertTrue;
 
 @Category(IntegrationTest.class)
 @ContextConfiguration(locations = {"classpath*:applicatonContext-client.xml"})
-public class UsersResourceIT extends GenericEntityRestTest<UserDto, String> {
+public class UsersResourceIT extends GenericEntityRestTest<UserDto, Long> {
 
     private static final String OPEN_ID = "Web API Test 'openid'";
 
@@ -41,7 +41,7 @@ public class UsersResourceIT extends GenericEntityRestTest<UserDto, String> {
     }
 
     @Override
-    public GenericRestCrudFacade<UserDto, String> getClient() {
+    public GenericRestCrudFacade<UserDto, Long> getClient() {
         return client;
     }
 
@@ -55,7 +55,7 @@ public class UsersResourceIT extends GenericEntityRestTest<UserDto, String> {
 
     @Test
     public void testUpdateEntity() throws FlashcardsException {
-        final String id = getEntity().getId();
+        final Long id = getEntity().getId();
         final String UPDATED_VALUE = "updated value";
 
         final UserDto entity = new UserDto(id);

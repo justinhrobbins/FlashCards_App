@@ -1,6 +1,8 @@
 
 package org.robbins.flashcards.presentation.facade.impl;
 
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.RandomUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -78,7 +80,7 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
 
     @Test
     public void findOne() throws FlashcardsException {
-		String id = UUID.randomUUID().toString();
+		final Long id = RandomUtils.nextLong(0, Long.MAX_VALUE);
         when(mockService.findOne(id, null)).thenReturn(mockTag);
 
         TagDto result = tagFacade.findOne(id);
@@ -90,17 +92,17 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
     @Test
     public void findOne_WithFields() throws FlashcardsException {
 
-        when(mockService.findOne(any(String.class), any(Set.class))).thenReturn(mockTag);
+        when(mockService.findOne(any(Long.class), any(Set.class))).thenReturn(mockTag);
 
-        TagDto result = tagFacade.findOne(any(String.class), any(Set.class));
+        TagDto result = tagFacade.findOne(any(Long.class), any(Set.class));
 
-        verify(mockService).findOne(any(String.class), any(Set.class));
+        verify(mockService).findOne(any(Long.class), any(Set.class));
         assertThat(result, is(TagDto.class));
     }
 
     @Test
     public void findOne_ReturnsNull() throws FlashcardsException {
-        String id = UUID.randomUUID().toString();
+        final Long id = RandomUtils.nextLong(0, Long.MAX_VALUE);
 
         when(mockService.findOne(id, null)).thenReturn(null);
 
@@ -112,9 +114,9 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
 
     @Test
     public void delete() throws ServiceException {
-        tagFacade.delete(any(String.class));
+        tagFacade.delete(any(Long.class));
 
-        verify(mockService).delete(any(String.class));
+        verify(mockService).delete(any(Long.class));
     }
 
     @Test

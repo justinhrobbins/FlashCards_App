@@ -1,22 +1,36 @@
 
 package org.robbins.flashcards.model;
 
-import org.apache.commons.lang3.StringUtils;
-import org.robbins.flashcards.model.common.AbstractAuditable;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
+import javax.persistence.OrderBy;
+import javax.persistence.OrderColumn;
+import javax.persistence.Table;
+
+import org.robbins.flashcards.model.common.AbstractAuditable;
+
 @Entity
 @Table(name = "flashcard")
 @AttributeOverride(name = "id", column = @Column(name = "FlashCardId"))
 @NamedEntityGraph(name = "FlashCard.tags",
         attributeNodes = @NamedAttributeNode("tags"))
-public class FlashCard extends AbstractAuditable<String, String> implements Serializable {
+public class FlashCard extends AbstractAuditable<Long, Long> implements Serializable {
 
     private static final long serialVersionUID = -3461056579037652853L;
 
@@ -41,7 +55,7 @@ public class FlashCard extends AbstractAuditable<String, String> implements Seri
     public FlashCard() {
     }
 
-    public FlashCard(final String flashCardId) {
+    public FlashCard(final Long flashCardId) {
         setId(flashCardId);
     }
 
@@ -88,11 +102,6 @@ public class FlashCard extends AbstractAuditable<String, String> implements Seri
 
     public void setLinks(final List<String> links) {
         this.links = links;
-    }
-
-    public boolean containsNewTag() {
-        return getTags().stream()
-                .anyMatch(tag -> StringUtils.isEmpty(tag.getId()));
     }
 
     @Override

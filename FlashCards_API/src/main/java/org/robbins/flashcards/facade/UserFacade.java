@@ -5,7 +5,7 @@ import org.robbins.flashcards.dto.UserDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
 
-public interface UserFacade extends GenericCrudFacade<UserDto, String> {
+public interface UserFacade extends GenericCrudFacade<UserDto, Long> {
 
     UserDto findUserByOpenid(String openid) throws FlashcardsException;
 }

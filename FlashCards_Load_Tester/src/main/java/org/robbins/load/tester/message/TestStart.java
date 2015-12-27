@@ -1,14 +1,18 @@
 package org.robbins.load.tester.message;
 
+import org.robbins.flashcards.dto.AbstractAuditableDto;
+
 import java.io.Serializable;
 
 public class TestStart implements Serializable {
     private final String endPointName;
     private final Long testId;
+    private final Class<? extends AbstractAuditableDto> dtoClass;
 
-    public TestStart(String endPointName, Long testId) {
+    public TestStart(final String endPointName, final Long testId, final Class<? extends AbstractAuditableDto> dtoClass) {
         this.endPointName = endPointName;
         this.testId = testId;
+        this.dtoClass = dtoClass;
     }
 
     public String getEndPointName() {
@@ -19,11 +23,16 @@ public class TestStart implements Serializable {
         return testId;
     }
 
+    public Class<? extends AbstractAuditableDto> getDtoClass() {
+        return dtoClass;
+    }
+
     @Override
     public String toString() {
-        return "LoadTest{" +
+        return "TestStart{" +
                 "endPointName='" + endPointName + '\'' +
                 ", testId=" + testId +
+                ", dtoClass=" + dtoClass +
                 '}';
     }
 
@@ -35,7 +44,8 @@ public class TestStart implements Serializable {
         TestStart testStart = (TestStart) o;
 
         if (!endPointName.equals(testStart.endPointName)) return false;
-        return testId.equals(testStart.testId);
+        if (!testId.equals(testStart.testId)) return false;
+        return dtoClass.equals(testStart.dtoClass);
 
     }
 
@@ -43,6 +53,7 @@ public class TestStart implements Serializable {
     public int hashCode() {
         int result = endPointName.hashCode();
         result = 31 * result + testId.hashCode();
+        result = 31 * result + dtoClass.hashCode();
         return result;
     }
 }

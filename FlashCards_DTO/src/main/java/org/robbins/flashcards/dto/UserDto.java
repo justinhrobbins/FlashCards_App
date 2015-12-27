@@ -40,7 +40,7 @@ public class UserDto extends AbstractPersistableDto implements Serializable {
     public UserDto() {
     }
 
-    public UserDto(final String userId) {
+    public UserDto(final Long userId) {
         setId(userId);
     }
 

@@ -25,6 +25,7 @@ import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.repository.FlashCardRepository;
 import org.robbins.flashcards.repository.TagRepository;
 import org.robbins.flashcards.conversion.DtoConverter;
+import org.robbins.flashcards.repository.auditing.AuditingAwareUser;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -56,6 +57,9 @@ public class DefaultFlashcardFacadeUT extends BaseMockingTest {
     @Mock
     private Tag mockTag;
 
+    @Mock
+    private AuditingAwareUser auditorAware;
+
     private FlashcardFacade flashCardFacade;
 
     @Before
@@ -65,6 +69,7 @@ public class DefaultFlashcardFacadeUT extends BaseMockingTest {
         ReflectionTestUtils.setField(flashCardFacade, "flashcardConverter", mockFlashcardConverter);
         ReflectionTestUtils.setField(flashCardFacade, "tagConverter", mockTagConverter);
         ReflectionTestUtils.setField(flashCardFacade, "tagRepository", tagRepository);
+        ReflectionTestUtils.setField(flashCardFacade, "auditorAware", auditorAware);
     }
 
     @Test

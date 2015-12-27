@@ -21,7 +21,8 @@ import static org.junit.Assert.assertThat;
 
 public class DefaultFlashCardFacadeIT extends AbstractCassandraIntegrationTest {
 
-    private final String ID = "0791e3ec-c072-11e4-8dfc-aa07a5b093db";
+    private final Long ID = 1L;
+    private final Long NON_EXISTING_ID = 2L;
     final String NEW_QUESTION = "new question";
     final String NEW_ANSWER = "new answer";
 
@@ -48,7 +49,7 @@ public class DefaultFlashCardFacadeIT extends AbstractCassandraIntegrationTest {
     @Test
     public void testFindOne_ShouldReturnNull_WhenIdDoesNotExist() throws FlashcardsException {
 
-        final FlashCardDto result = facade.findOne(UUID.randomUUID().toString());
+        final FlashCardDto result = facade.findOne(NON_EXISTING_ID);
         assertThat(result, is(nullValue()));
     }
 

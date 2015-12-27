@@ -1,6 +1,7 @@
 
 package org.robbins.flashcards.presentation.facade.base;
 
+import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.presentation.facade.PagingAndSortingFacade;
@@ -17,8 +18,8 @@ public abstract class AbstractCrudFacadeImpl<D, ID extends Serializable> impleme
     }
 
     @Override
-    public void save(List<D> entities) throws FlashcardsException {
-        getService().save(entities);
+    public BatchLoadingReceiptDto save(List<D> entities) throws FlashcardsException {
+        return getService().save(entities);
     }
 
     @Override

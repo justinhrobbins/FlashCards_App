@@ -6,12 +6,10 @@ import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.ws.rs.DELETE;
-import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -20,15 +18,14 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
+import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
 import org.robbins.flashcards.exceptions.DataIntegrityException;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
 
-import com.sun.jersey.api.JResponse;
 import com.wordnik.swagger.annotations.ApiOperation;
 
 public abstract class AbstractGenericResource<T, ID extends Serializable> extends AbstractResource
@@ -83,13 +80,13 @@ public abstract class AbstractGenericResource<T, ID extends Serializable> extend
     }
 
     @Override
-    @Path("/bulk")
+    @Path("/batch")
     @POST
-    @ApiOperation(value = "Create in bulk")
-    public Response post(final List<T> entities) {
+    @ApiOperation(value = "Create in batch")
+    public BatchLoadingReceiptDto post(final List<T> entities) {
+        LOGGER.debug("Received batch load request for {} {}", entities.size(), entities.get(0).getClass().getSimpleName());
         try {
-            getFacade().save(entities);
-            return Response.ok().build();
+            return getFacade().save(entities);
         } catch (DataIntegrityException e) {
             throw new GenericWebServiceException(Response.Status.BAD_REQUEST, e);
         }

@@ -9,7 +9,7 @@ import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 
 import java.util.List;
 
-public interface TagSpringDataRepository extends JpaRepository<Tag, String>, QueryDslPredicateExecutor<Tag> {
+public interface TagSpringDataRepository extends JpaRepository<Tag, Long>, QueryDslPredicateExecutor<Tag> {
 
     Tag findByName(String name);
     List<Tag> findByFlashcards_Id(String flashcardId);

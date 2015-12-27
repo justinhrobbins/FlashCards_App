@@ -9,12 +9,12 @@ import static org.mockito.Mockito.when;
 
 import javax.ws.rs.core.Response;
 
+import org.apache.commons.lang3.RandomUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
 import org.robbins.flashcards.dto.TagDto;
-import org.robbins.flashcards.dto.UserDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.TagFacade;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
@@ -22,8 +22,6 @@ import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.util.ReflectionTestUtils;
-
-import java.util.UUID;
 
 @Category(UnitTest.class)
 public class TagsResourceUT extends BaseMockingTest {
@@ -62,10 +60,10 @@ public class TagsResourceUT extends BaseMockingTest {
 
     @Test
     public void put() throws FlashcardsException {
-        when(mockTagFacade.findOne(any(String.class))).thenReturn(mockTagDto);
+        when(mockTagFacade.findOne(any(Long.class))).thenReturn(mockTagDto);
         when(mockTagFacade.save(any(TagDto.class))).thenReturn(mockTagDto);
 
-        Response response = resource.put(UUID.randomUUID().toString(), mockTagDto);
+        Response response = resource.put(RandomUtils.nextLong(0L, Long.MAX_VALUE), mockTagDto);
 
         verify(mockTagFacade).save(any(TagDto.class));
         assertThat(response.getStatus(), is(HttpStatus.NO_CONTENT.value()));
@@ -73,10 +71,10 @@ public class TagsResourceUT extends BaseMockingTest {
 
     @Test
     public void put_WithCreatedBy() throws FlashcardsException {
-        when(mockTagDto.getCreatedBy()).thenReturn(new String());
+        when(mockTagDto.getCreatedBy()).thenReturn("");
         when(mockTagFacade.save(any(TagDto.class))).thenReturn(mockTagDto);
 
-        Response response = resource.put(UUID.randomUUID().toString(), mockTagDto);
+        Response response = resource.put(RandomUtils.nextLong(0L, Long.MAX_VALUE), mockTagDto);
 
         verify(mockTagFacade).save(any(TagDto.class));
         assertThat(response.getStatus(), is(HttpStatus.NO_CONTENT.value()));

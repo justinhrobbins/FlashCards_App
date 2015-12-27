@@ -13,7 +13,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.io.Serializable;
 import java.util.List;
 
-public abstract class AbstractCrudRepositoryImpl<T extends AbstractAuditable<String, ID>, ID extends Serializable>
+public abstract class AbstractCrudRepositoryImpl<T extends AbstractAuditable<Long, ID>, ID extends Serializable>
         implements FlashCardsAppRepository<T, ID> {
 
     public abstract JpaRepository<T, ID> getRepository();

@@ -1,8 +1,11 @@
 
 package org.robbins.flashcards.service.base;
 
+import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
 import org.robbins.flashcards.exceptions.DataIntegrityException;
 import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import java.io.Serializable;
@@ -12,18 +15,22 @@ import java.util.Set;
 public abstract class AbstractCrudServiceImpl<D, ID extends Serializable> implements GenericPagingAndSortingService<D, ID>,
         CrudService<D, ID> {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractCrudServiceImpl.class);
+
     @Override
     public D save(final D dto) throws FlashcardsException {
         try {
             return getFacade().save(dto);
         } catch (DataIntegrityViolationException integrityException) {
-            throw new DataIntegrityException("Could NOT save '" + dto.getClass().getSimpleName() + "' due to DataIntegrityViolationException");
+            final String errorMessage = "Could NOT save '" + dto.getClass().getSimpleName() + "' due to DataIntegrityViolationException";
+            LOGGER.error(errorMessage, integrityException);
+            throw new DataIntegrityException(errorMessage, integrityException);
         }
     }
 
     @Override
-    public void save(List<D> entities) throws FlashcardsException {
-        entities.forEach(this::save);
+    public BatchLoadingReceiptDto save(List<D> entities) throws FlashcardsException {
+        return getFacade().save(entities);
     }
 
     @Override

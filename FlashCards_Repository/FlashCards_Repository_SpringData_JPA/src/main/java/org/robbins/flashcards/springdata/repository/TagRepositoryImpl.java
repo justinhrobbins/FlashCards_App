@@ -14,8 +14,8 @@ import static org.robbins.flashcards.springdata.repository.predicates.TagPredica
 import static org.robbins.flashcards.springdata.repository.predicates.TagPredicates.hasName;
 
 @Repository
-public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag, String> implements
-        TagRepository<Tag, String> {
+public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag, Long> implements
+        TagRepository<Tag, Long> {
 
     @Inject
     private TagSpringDataRepository repository;
@@ -31,13 +31,13 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag, String> i
     }
 
     @Override
-    public List<Tag> findByFlashcards_Id(final String flashcardId) {
+    public List<Tag> findByFlashcards_Id(final Long flashcardId) {
         return toList(repository.findAll(hasFlashcardId(flashcardId)));
     }
 
     @Override
     @Cacheable("tagById")
-    public Tag findOne(String id) {
+    public Tag findOne(Long id) {
         return repository.findOne(id);
     }
 
@@ -55,7 +55,7 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag, String> i
 
     @Override
     @Caching(evict = { @CacheEvict(value = "tags", allEntries=true), @CacheEvict(value = "tagById", key = "#p0") })
-    public void delete(String id) {
+    public void delete(Long id) {
         repository.delete(id);
     }
 }

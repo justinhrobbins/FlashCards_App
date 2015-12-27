@@ -36,7 +36,7 @@ public class DtoUtilUT extends BaseMockingTest {
     @Test
     public void filterFields_WithFields() throws RepositoryException {
         String NAME = "TEST_NAME";
-        TagDto tagDto = new TagDto(UUID.randomUUID().toString());
+        TagDto tagDto = new TagDto(1L);
         tagDto.setName(NAME);
         Set<String> fields = new HashSet<String>(Arrays.asList("id"));
 

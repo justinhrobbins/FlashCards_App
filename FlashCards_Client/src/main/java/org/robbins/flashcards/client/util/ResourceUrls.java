@@ -35,4 +35,6 @@ public final class ResourceUrls {
     public static final String tagsForFlashcard = "v1/flashcards/{flashcardId}/tags";
 
     public static final String flashcardsForTag = "v1/tags/{tagId}/flashcards";
+
+    public static final String batch = "batch/";
 }

@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl extends AbstractCrudServiceImpl<UserDto, String> implements
+public class UserServiceImpl extends AbstractCrudServiceImpl<UserDto, Long> implements
         UserService {
 
     @Inject
@@ -20,7 +20,7 @@ public class UserServiceImpl extends AbstractCrudServiceImpl<UserDto, String> im
     private UserFacade facade;
 
     @Override
-    public GenericCrudFacade<UserDto, String> getFacade() {
+    public GenericCrudFacade<UserDto, Long> getFacade() {
         return facade;
     }
 

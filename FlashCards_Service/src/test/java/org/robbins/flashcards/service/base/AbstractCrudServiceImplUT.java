@@ -7,8 +7,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
-import java.util.UUID;
 
+import org.apache.commons.lang3.RandomUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -37,7 +37,7 @@ public class AbstractCrudServiceImplUT extends BaseMockingTest {
 
     private TagServiceImpl tagService;
 
-    private final String uuid = UUID.randomUUID().toString();
+    private final Long uuid = RandomUtils.nextLong(0L, Long.MAX_VALUE);
 
     @Before
     public void before() {
@@ -69,7 +69,7 @@ public class AbstractCrudServiceImplUT extends BaseMockingTest {
 
     @Test
     public void findOne() throws FlashcardsException {
-        when(facade.findOne(Matchers.anyString())).thenReturn(tagDto);
+        when(facade.findOne(Matchers.anyLong())).thenReturn(tagDto);
 
 		final TagDto result = tagService.findOne(uuid);
 

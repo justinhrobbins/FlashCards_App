@@ -32,7 +32,7 @@ public class AcceptFilter implements ContainerRequestFilter {
 
     @Override
     public ContainerRequest filter(final ContainerRequest request) {
-        LOGGER.debug("AcceptFilter");
+        LOGGER.trace("AcceptFilter");
 
         MultivaluedMap<String, String> queryParametersMap = request.getQueryParameters();
 

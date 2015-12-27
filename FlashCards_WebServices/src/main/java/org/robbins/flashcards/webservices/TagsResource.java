@@ -28,7 +28,7 @@ import java.util.List;
 @Api(value = "/v1/tags", description = "Operations about Tags")
 @Produces({ "application/xml", "application/json" })
 @Consumes({ "application/xml", "application/json" })
-public class TagsResource extends AbstractGenericResource<TagDto, String> {
+public class TagsResource extends AbstractGenericResource<TagDto, Long> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TagsResource.class);
 
@@ -37,7 +37,7 @@ public class TagsResource extends AbstractGenericResource<TagDto, String> {
     private TagFacade tagFacade;
 
     @Override
-    protected GenericCrudFacade<TagDto, String> getFacade() {
+    protected GenericCrudFacade<TagDto, Long> getFacade() {
         return tagFacade;
     }
 
@@ -66,7 +66,7 @@ public class TagsResource extends AbstractGenericResource<TagDto, String> {
     @PUT
     @Path("/{id}")
     @ApiOperation(value = "Replace a Tag")
-    public Response put(@PathParam("id") final String id, final TagDto dto) {
+    public Response put(@PathParam("id") final Long id, final TagDto dto) {
 
         if (dto.getCreatedBy() == null) {
             TagDto orig;
@@ -109,8 +109,8 @@ public class TagsResource extends AbstractGenericResource<TagDto, String> {
     }
 
     @GET
-    public JResponse<List<TagDto>> list(@PathParam("flashcardId") final String flashcardId,
-                                        @PathParam("userId") final String userId,
+    public JResponse<List<TagDto>> list(@PathParam("flashcardId") final Long flashcardId,
+                                        @PathParam("userId") final Long userId,
                                         @QueryParam("page") final Integer page,
                                         @DefaultValue("25") @QueryParam("size") final Integer size,
                                         @QueryParam("sort") final String sort,
@@ -131,7 +131,7 @@ public class TagsResource extends AbstractGenericResource<TagDto, String> {
         }
     }
 
-    private JResponse<List<TagDto>> listTagsForFlashcard(final String flashcardId, final Integer page,
+    private JResponse<List<TagDto>> listTagsForFlashcard(final Long flashcardId, final Integer page,
                                                          final Integer size, final String sort,
                                                          final String direction, final String fields) {
         try {
@@ -146,7 +146,7 @@ public class TagsResource extends AbstractGenericResource<TagDto, String> {
         }
     }
 
-    private JResponse<List<TagDto>> listTagsForUser(final String userId, final Integer page,
+    private JResponse<List<TagDto>> listTagsForUser(final Long userId, final Integer page,
                                                          final Integer size, final String sort,
                                                          final String direction, final String fields) {
         try {

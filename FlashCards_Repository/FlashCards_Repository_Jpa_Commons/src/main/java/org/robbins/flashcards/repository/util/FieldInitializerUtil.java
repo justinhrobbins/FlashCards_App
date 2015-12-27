@@ -1,28 +1,28 @@
 
 package org.robbins.flashcards.repository.util;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Set;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUnitUtil;
+
 import org.apache.commons.beanutils.PropertyUtils;
 import org.robbins.flashcards.exceptions.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnitUtil;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Set;
-
 @Component
 public class FieldInitializerUtil {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FieldInitializerUtil.class);
 
-    @Inject
-    private EntityManagerFactory entityManagerFactory;
+    @PersistenceContext
+    private EntityManager em;
 
     // Initialize the current 'field'
     // This is needed since Hibernate will not auto-initialize most
@@ -30,8 +30,6 @@ public class FieldInitializerUtil {
     // Therefore, if we want to return the field in the response, we
     // need to make sure it is loaded
     private void initializeField(final Object entity, final String field) {
-        EntityManager em = entityManagerFactory.createEntityManager();
-
         PersistenceUnitUtil unitUtil = em.getEntityManagerFactory().getPersistenceUnitUtil();
 
         try {

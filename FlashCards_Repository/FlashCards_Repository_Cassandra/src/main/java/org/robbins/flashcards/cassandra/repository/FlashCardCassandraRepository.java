@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface FlashCardCassandraRepository extends TypedIdCassandraRepository<FlashCardCassandraEntity, UUID> {
+public interface FlashCardCassandraRepository extends TypedIdCassandraRepository<FlashCardCassandraEntity, Long> {
 
 }

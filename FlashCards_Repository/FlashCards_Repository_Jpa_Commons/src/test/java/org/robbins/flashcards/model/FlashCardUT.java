@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
 @Category(UnitTest.class)
 public class FlashCardUT {
 
-    private final String FLASHCARD_ID = UUID.randomUUID().toString();
+    private final Long FLASHCARD_ID = 1L;
 
     @Test
     public void testSetQuestion() {

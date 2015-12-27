@@ -8,7 +8,7 @@ public class FlashCardDtoBuilder {
 
     public FlashCardDtoBuilder() {}
 
-    public FlashCardDtoBuilder withId(final String id) {
+    public FlashCardDtoBuilder withId(final Long id) {
         flashcard.setId(id);
         return this;
     }

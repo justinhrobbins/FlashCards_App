@@ -54,7 +54,7 @@ public class TagAction extends FlashCardsAppBaseAction implements ModelDriven<Ta
 
     public String saveOrUpdate() {
         try {
-            if ((this.tag.getId() != null) && (!StringUtils.isEmpty(this.tag.getId()))) {
+            if ((this.tag.getId() != null) && this.tag.getId().equals(0L)) {
                 TagDto existingTag = tagFacade.findOne(this.tag.getId());
                 existingTag.setName(this.tag.getName());
                 tagFacade.save(existingTag);
@@ -102,7 +102,7 @@ public class TagAction extends FlashCardsAppBaseAction implements ModelDriven<Ta
     @SkipValidation
     public String display() {
         try {
-            if ((this.tag.getId() != null) && (!StringUtils.isEmpty(this.tag.getId()))) {
+            if ((this.tag.getId() != null) && this.tag.getId().equals(0L)) {
                 this.tag = tagFacade.findOne(this.tag.getId());
             } else if (this.tag.getName() != null) {
                 this.tag = tagFacade.findByName(this.tag.getName());

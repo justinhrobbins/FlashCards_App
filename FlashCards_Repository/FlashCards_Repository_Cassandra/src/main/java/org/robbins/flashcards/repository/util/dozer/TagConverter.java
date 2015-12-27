@@ -23,14 +23,14 @@ public class TagConverter implements CustomConverter {
         if (sourceFieldValue instanceof TagCassandraEntity) {
             TagCassandraEntity entity = (TagCassandraEntity)sourceFieldValue;
             TagDto dto = new TagDto();
-            dto.setId(entity.getId().toString());
+            dto.setId(entity.getId());
             dto.setName(entity.getName());
             return dto;
         } else if (sourceFieldValue instanceof TagDto) {
             TagDto dto = (TagDto)sourceFieldValue;
             TagCassandraEntity entity = new TagCassandraEntity();
             if (dto.getId() != null) {
-                entity.setId(UUID.fromString(dto.getId()));
+                entity.setId(dto.getId());
             }
             entity.setName(dto.getName());
             return entity;

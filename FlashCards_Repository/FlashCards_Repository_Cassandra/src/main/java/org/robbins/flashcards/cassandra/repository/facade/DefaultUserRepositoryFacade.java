@@ -19,7 +19,7 @@ public class DefaultUserRepositoryFacade extends AbstractCrudRepositoryFacadeImp
         UserFacade {
 
     @Inject
-	private UserRepository<UserCassandraEntity, UUID> repository;
+	private UserRepository<UserCassandraEntity, Long> repository;
 
     @Inject
     @Qualifier("userDtoConverter")
@@ -30,7 +30,7 @@ public class DefaultUserRepositoryFacade extends AbstractCrudRepositoryFacadeImp
         return converter;
     }
 
-	public UserRepository<UserCassandraEntity, UUID> getRepository() {
+	public UserRepository<UserCassandraEntity, Long> getRepository() {
 		return repository;
 	}
 
