@@ -20,6 +20,8 @@ import org.springframework.stereotype.Component;
 import javax.inject.Inject;
 import java.util.*;
 
+import com.datastax.driver.core.utils.UUIDs;
+
 @Component("flashcardRepositoryFacade")
 public class DefaultFlashCardRepositoryFacade extends AbstractCrudRepositoryFacadeImpl<FlashCardDto, FlashCardCassandraEntity> implements
         FlashcardFacade {
@@ -28,7 +30,7 @@ public class DefaultFlashCardRepositoryFacade extends AbstractCrudRepositoryFaca
 	private FlashCardRepository<FlashCardCassandraEntity, TagCassandraEntity, Long> repository;
 
     @Inject
-    private TagRepository<TagCassandraEntity, UUID> tagRepository;
+    private TagRepository<TagCassandraEntity, Long> tagRepository;
 
     @Inject
     @Qualifier("flashcardDtoConverter")
@@ -51,8 +53,7 @@ public class DefaultFlashCardRepositoryFacade extends AbstractCrudRepositoryFaca
     public FlashCardDto save(final FlashCardDto dto) throws FlashcardsException {
         FlashCardCassandraEntity entity = getConverter().getEntity(dto);
         if (entity.getId() == null) {
-            // TODO fix for Cassandra
-//            entity.setId(UUID.randomUUID());
+            entity.setId(UUIDs.timeBased().timestamp());
         }
         entity.setTags(configureTags(dto.getTags()));
         FlashCardCassandraEntity result = getRepository().save(entity);
@@ -70,8 +71,7 @@ public class DefaultFlashCardRepositoryFacade extends AbstractCrudRepositoryFaca
 
                 if (tag == null) {
                     // tag doesn't exist, create it
-                    // TODO fix for Cassandra
-//                    tagDto.setId(UUID.randomUUID().toString());
+                    tagDto.setId(UUIDs.timeBased().timestamp());
                     tag = tagRepository.save(tagConverter.getEntity(tagDto));
                 }
             } else {

@@ -24,6 +24,6 @@
         <module>FlashCards_Repository_Jpa_Commons</module>
         <module>FlashCards_Repository_Jpa</module>
 		<module>FlashCards_Repository_SpringData_JPA</module>
-        <!--<module>FlashCards_Repository_Cassandra</module>-->
+        <module>FlashCards_Repository_Cassandra</module>
     </modules>
 </project>

@@ -1,5 +1,5 @@
 create table user (
-    id uuid,
+    id bigint,
     country varchar,
     createddate timestamp,
     email varchar,
@@ -11,8 +11,8 @@ create table user (
     nickname varchar,
     openid varchar,
     updateddate timestamp,
-    createduserid uuid,
-    modifieduserid uuid,
+    createduserid bigint,
+    modifieduserid bigint,
     PRIMARY KEY (id));
 create index user_open_id on user (openid);
-insert into user (id, country, createddate, email, firstname, fullname, language, lastlogindate, lastname, nickname, openid, updateddate, createduserid, modifieduserid) VALUES (9caa6c8e-b720-11e4-a71e-12e3f512a338,NULL,'2012-08-18 00:00:00','','apiuser',NULL,NULL,'2012-08-18 00:00:00','apiuser',NULL,'apiuser','2012-08-18 00:00:00',9caa6c8e-b720-11e4-a71e-12e3f512a338,NULL);
+insert into user (id, country, createddate, email, firstname, fullname, language, lastlogindate, lastname, nickname, openid, updateddate, createduserid, modifieduserid) VALUES (1,NULL,'2012-08-18 00:00:00','','apiuser',NULL,NULL,'2012-08-18 00:00:00','apiuser',NULL,'apiuser','2012-08-18 00:00:00',1,NULL);

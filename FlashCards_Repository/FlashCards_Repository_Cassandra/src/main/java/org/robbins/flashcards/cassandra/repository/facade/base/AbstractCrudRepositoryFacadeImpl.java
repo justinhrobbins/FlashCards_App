@@ -14,6 +14,7 @@ import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.repository.facade.RepositoryFacade;
 
+import com.datastax.driver.core.utils.UUIDs;
 import com.google.common.collect.Lists;
 
 public abstract class AbstractCrudRepositoryFacadeImpl<D, E extends AbstractPersistable> implements GenericCrudFacade<D, Long>,
@@ -55,8 +56,7 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E extends AbstractPers
     public D save(final D dto) throws FlashcardsException {
         E entity = getConverter().getEntity(dto);
         if (entity.getId() == null) {
-            // TODO: fix for Cassandra
-//            entity.setId(UUID.randomUUID());
+            entity.setId(UUIDs.timeBased().timestamp());
         }
         E result = getRepository().save(entity);
         return getConverter().getDto(result);

@@ -22,7 +22,7 @@ import static org.junit.Assert.assertThat;
 public class DefaultFlashCardFacadeIT extends AbstractCassandraIntegrationTest {
 
     private final Long ID = 1L;
-    private final Long NON_EXISTING_ID = 2L;
+    private final Long NON_EXISTING_ID = 999L;
     final String NEW_QUESTION = "new question";
     final String NEW_ANSWER = "new answer";
 

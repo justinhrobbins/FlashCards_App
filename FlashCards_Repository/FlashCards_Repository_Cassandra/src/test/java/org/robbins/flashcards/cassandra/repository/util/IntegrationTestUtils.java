@@ -1,7 +1,10 @@
 package org.robbins.flashcards.cassandra.repository.util;
 
-import org.apache.commons.lang.RandomStringUtils;
-import org.apache.commons.lang.math.RandomUtils;
+
+import javax.inject.Inject;
+
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.RandomUtils;
 import org.robbins.flashcards.cassandra.repository.FlashCardCassandraRepository;
 import org.robbins.flashcards.cassandra.repository.TagCassandraRepository;
 import org.robbins.flashcards.cassandra.repository.domain.FlashCardCassandraBuilder;
@@ -9,16 +12,13 @@ import org.robbins.flashcards.cassandra.repository.domain.FlashCardCassandraEnti
 import org.robbins.flashcards.cassandra.repository.domain.TagCassandraBuilder;
 import org.robbins.flashcards.cassandra.repository.domain.TagCassandraEntity;
 import org.robbins.flashcards.dto.FlashCardDto;
-import org.robbins.flashcards.dto.builder.FlashCardDtoBuilder;
 import org.robbins.flashcards.dto.TagDto;
+import org.robbins.flashcards.dto.builder.FlashCardDtoBuilder;
 import org.robbins.flashcards.dto.builder.TagDtoBuilder;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.FlashcardFacade;
 import org.robbins.flashcards.facade.TagFacade;
 import org.springframework.stereotype.Component;
-
-import javax.inject.Inject;
-import java.util.UUID;
 
 @Component
 public class IntegrationTestUtils {
@@ -37,7 +37,7 @@ public class IntegrationTestUtils {
 
     public final FlashCardCassandraEntity createFlashCardEntity() {
         final FlashCardCassandraEntity flashcard = new FlashCardCassandraBuilder()
-                .withId(RandomUtils.nextLong())
+                .withId(RandomUtils.nextLong(0L, Long.MAX_VALUE))
                 .withQuestion(RandomStringUtils.randomAlphabetic(10))
                 .withAnswer(RandomStringUtils.randomAlphabetic(10))
                 .build();
@@ -47,7 +47,7 @@ public class IntegrationTestUtils {
 
     public final TagCassandraEntity createTagEntity() {
         final TagCassandraEntity tag = new TagCassandraBuilder()
-                .withId(RandomUtils.nextLong())
+                .withId(RandomUtils.nextLong(0L, Long.MAX_VALUE))
                 .withName(RandomStringUtils.randomAlphabetic(10)).build();
 
         return tagRepository.save(tag);

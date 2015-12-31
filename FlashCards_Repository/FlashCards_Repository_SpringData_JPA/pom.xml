@@ -48,12 +48,6 @@
 			<artifactId>spring-data-jpa</artifactId>
 		</dependency>
 
-        <!-- Spring data commons for Auditable and Persistable -->
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-commons-core</artifactId>
-        </dependency>
-
 		<!-- AOP dependencies -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
