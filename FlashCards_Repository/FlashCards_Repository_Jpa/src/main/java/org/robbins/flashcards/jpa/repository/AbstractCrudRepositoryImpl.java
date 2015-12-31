@@ -10,6 +10,8 @@ import org.robbins.flashcards.repository.auditing.AuditingAwareUser;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -32,6 +34,7 @@ public abstract class AbstractCrudRepositoryImpl<T extends AbstractAuditable<Lon
         return em;
     }
 
+    @Transactional
     @Override
     public T save(final T entity) {
         entity.setLastModifiedBy(getAuditingUser());

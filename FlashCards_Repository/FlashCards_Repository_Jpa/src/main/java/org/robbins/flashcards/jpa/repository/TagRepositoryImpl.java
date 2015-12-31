@@ -4,23 +4,28 @@ package org.robbins.flashcards.jpa.repository;
 import org.robbins.flashcards.jpa.repository.util.JpqlUtil;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.repository.TagRepository;
+import org.robbins.flashcards.repository.batch.BatchSavingRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
+import javax.inject.Inject;
 import javax.persistence.Query;
 import java.util.List;
 
 @Repository
 public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag, Long> implements
-        TagRepository<Tag, Long> {
-
+        TagRepository<Tag, Long>, BatchSavingRepository<Tag>
+{
     @Override
     public Class<Tag> getClazz() {
         return Tag.class;
     }
+
+    @Inject
+    private BatchSavingRepository<Tag> batchTagRepository;
 
     @SuppressWarnings("unchecked")
     @Override
@@ -75,5 +80,11 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag, Long> imp
         Query query = getEm().createQuery("SELECT t FROM Tag t JOIN t.createdBy u WHERE u.id = :userId");
         query.setParameter("userId", userId);
         return query.getResultList();
+    }
+
+    @Override
+    public int batchSave(final List<Tag> records)
+    {
+        return batchTagRepository.batchSave(records);
     }
 }
