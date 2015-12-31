@@ -1,9 +1,15 @@
 package org.robbins.flashcards.cassandra.repository;
 
 
-import com.google.common.collect.Lists;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.junit.Assert.assertThat;
 
-import org.apache.commons.lang.math.RandomUtils;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.apache.commons.lang3.RandomUtils;
 import org.junit.Test;
 import org.robbins.flashcards.cassandra.repository.domain.FlashCardCassandraEntity;
 import org.robbins.flashcards.cassandra.repository.domain.TagCassandraBuilder;
@@ -11,13 +17,7 @@ import org.robbins.flashcards.cassandra.repository.domain.TagCassandraEntity;
 import org.robbins.flashcards.repository.FlashCardRepository;
 import org.robbins.flashcards.repository.TagRepository;
 
-import javax.inject.Inject;
-import java.util.List;
-import java.util.UUID;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.junit.Assert.assertThat;
+import com.google.common.collect.Lists;
 
 public class TagRepositoryIT extends AbstractCassandraIntegrationTest {
 
@@ -52,7 +52,7 @@ public class TagRepositoryIT extends AbstractCassandraIntegrationTest {
 
     @Test
     public void testSave() {
-        final TagCassandraEntity tag = new TagCassandraBuilder().withId(RandomUtils.nextLong()).withName("new name").build();
+        final TagCassandraEntity tag = new TagCassandraBuilder().withId(RandomUtils.nextLong(0L, Long.MAX_VALUE)).withName("new name").build();
 
         TagCassandraEntity result = tagRepository.save(tag);
         assertThat(result.getId(), is(tag.getId()));

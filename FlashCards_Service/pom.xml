@@ -47,11 +47,11 @@
 			<artifactId>FlashCards_Repository_Commons</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		<!--<dependency>-->
-			<!--<groupId>org.robbins.flashcards</groupId>-->
-			<!--<artifactId>FlashCards_Repository_Cassandra</artifactId>-->
-			<!--<version>${project.version}</version>-->
-		<!--</dependency>-->
+		<dependency>
+			<groupId>org.robbins.flashcards</groupId>
+			<artifactId>FlashCards_Repository_Cassandra</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 
 		<!-- reflection helper utils -->
 		<dependency>
@@ -98,16 +98,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aspects</artifactId>
-        </dependency>
-
-        <!-- Spring data commons for Auditable and Persistable -->
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-commons-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-commons</artifactId>
         </dependency>
 
         <!-- AOP dependencies -->

@@ -19,10 +19,10 @@
         <developerConnection>scm:git:git@github.com:justinhrobbins/FlashCards_App.git</developerConnection>
     </scm>
     <dependencies>
-        <!-- Spring data commons for Auditable and Persistable -->
+        <!-- Spring data for Auditable and Persistable -->
         <dependency>
             <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-commons-core</artifactId>
+            <artifactId>spring-data-jpa</artifactId>
         </dependency>
 
         <!-- Jackson dependencies -->

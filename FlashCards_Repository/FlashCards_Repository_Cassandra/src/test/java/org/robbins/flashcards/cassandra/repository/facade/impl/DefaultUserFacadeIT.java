@@ -1,23 +1,24 @@
 
 package org.robbins.flashcards.cassandra.repository.facade.impl;
 
-import org.apache.commons.lang.RandomStringUtils;
-import org.junit.Test;
-import org.robbins.flashcards.cassandra.repository.AbstractCassandraIntegrationTest;
-import org.robbins.flashcards.dto.UserDto;
-import org.robbins.flashcards.dto.builder.UserDtoBuilder;
-import org.robbins.flashcards.exceptions.FlashcardsException;
-import org.robbins.flashcards.facade.UserFacade;
-
-import javax.inject.Inject;
-import java.util.List;
-import java.util.UUID;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.Test;
+import org.robbins.flashcards.cassandra.repository.AbstractCassandraIntegrationTest;
+import org.robbins.flashcards.dto.UserDto;
+import org.robbins.flashcards.dto.builder.UserDtoBuilder;
+import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.facade.UserFacade;
 
 public class DefaultUserFacadeIT extends AbstractCassandraIntegrationTest {
 

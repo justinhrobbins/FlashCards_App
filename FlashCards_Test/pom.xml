@@ -50,12 +50,6 @@
 			<artifactId>spring-web</artifactId>
 		</dependency>
 
-		<!-- Spring data commons for Auditable and Persistable -->
-		<dependency>
-		    <groupId>org.springframework.data</groupId>
-		    <artifactId>spring-data-commons-core</artifactId>
-		</dependency>
-
         <!-- logging -->
         <dependency>
             <groupId>org.slf4j</groupId>

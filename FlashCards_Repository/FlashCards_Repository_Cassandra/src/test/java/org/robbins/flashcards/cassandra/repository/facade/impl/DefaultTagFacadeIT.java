@@ -20,7 +20,7 @@ import static org.junit.Assert.assertThat;
 public class DefaultTagFacadeIT extends AbstractCassandraIntegrationTest {
 
     private final Long TAG_ID = 1L;
-    private final Long NON_EXISTING_TAG_ID = 2L;
+    private final Long NON_EXISTING_TAG_ID = 999L;
     private final String TAG_NAME = "tag1";
 
     @Inject

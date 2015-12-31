@@ -1,20 +1,23 @@
 package org.robbins.flashcards.cassandra.repository;
 
 
-import com.google.common.collect.Lists;
-
-import org.apache.commons.lang.math.RandomUtils;
-import org.junit.Test;
-import org.robbins.flashcards.cassandra.repository.domain.*;
-import org.robbins.flashcards.repository.FlashCardRepository;
-
-import javax.inject.Inject;
-import java.util.List;
-import java.util.UUID;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.Assert.assertThat;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.apache.commons.lang3.RandomUtils;
+import org.junit.Test;
+import org.robbins.flashcards.cassandra.repository.domain.FlashCardCassandraBuilder;
+import org.robbins.flashcards.cassandra.repository.domain.FlashCardCassandraEntity;
+import org.robbins.flashcards.cassandra.repository.domain.TagCassandraEntity;
+import org.robbins.flashcards.cassandra.repository.domain.TagFlashCardCassandraEntity;
+import org.robbins.flashcards.repository.FlashCardRepository;
+
+import com.google.common.collect.Lists;
 
 public class FlashCardRepositoryIT extends AbstractCassandraIntegrationTest {
 
@@ -47,7 +50,7 @@ public class FlashCardRepositoryIT extends AbstractCassandraIntegrationTest {
     @Test
     public void testSave() {
         final FlashCardCassandraEntity flashcard = new FlashCardCassandraBuilder()
-                .withId(RandomUtils.nextLong())
+                .withId(RandomUtils.nextLong(0L, Long.MAX_VALUE))
                 .withQuestion("new question")
                 .withAnswer("new answer")
                 .build();
@@ -63,7 +66,7 @@ public class FlashCardRepositoryIT extends AbstractCassandraIntegrationTest {
         final TagCassandraEntity tag1 = testUtils.createTagEntity();
         final TagCassandraEntity tag2 = testUtils.createTagEntity();
         final FlashCardCassandraEntity flashcard = new FlashCardCassandraBuilder()
-                .withId(RandomUtils.nextLong())
+                .withId(RandomUtils.nextLong(0, Long.MAX_VALUE))
                 .withQuestion("new question")
                 .withAnswer("new answer")
                 .withTag(tag1)

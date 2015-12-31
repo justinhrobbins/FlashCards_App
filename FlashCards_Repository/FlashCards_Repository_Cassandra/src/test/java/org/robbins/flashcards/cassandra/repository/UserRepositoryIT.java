@@ -9,7 +9,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.apache.commons.lang.math.RandomUtils;
+import org.apache.commons.lang3.RandomUtils;
 import org.junit.Test;
 import org.robbins.flashcards.cassandra.repository.domain.UserCassandraBuilder;
 import org.robbins.flashcards.cassandra.repository.domain.UserCassandraEntity;
@@ -40,7 +40,7 @@ public class UserRepositoryIT extends AbstractCassandraIntegrationTest {
 
     @Test
     public void insertTag() {
-        UserCassandraEntity user = new UserCassandraBuilder().withId(RandomUtils.nextLong()).withOpenId(OPEN_ID).build();
+        UserCassandraEntity user = new UserCassandraBuilder().withId(RandomUtils.nextLong(0, Long.MAX_VALUE)).withOpenId(OPEN_ID).build();
 
         UserCassandraEntity result = repository.save(user);
         assertThat(result.getId(), is(user.getId()));

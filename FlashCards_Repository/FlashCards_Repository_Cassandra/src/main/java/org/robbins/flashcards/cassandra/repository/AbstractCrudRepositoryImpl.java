@@ -3,6 +3,7 @@ package org.robbins.flashcards.cassandra.repository;
 
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.NotImplementedException;
+import org.robbins.flashcards.cassandra.repository.domain.UserCassandraEntity;
 import org.robbins.flashcards.repository.FlashCardsAppRepository;
 import org.springframework.data.cassandra.repository.TypedIdCassandraRepository;
 import org.springframework.data.domain.Page;
@@ -62,5 +63,9 @@ public abstract class AbstractCrudRepositoryImpl<T, ID extends Serializable>
         throw new NotImplementedException("method not yet implemented in Cassandra repository");
     }
 
-
+    @Override
+    public int batchSave(final List<T> records)
+    {
+        throw new NotImplementedException("Not implemented for Cassandra repository");
+    }
 }
