@@ -25,7 +25,7 @@ import org.springframework.util.StopWatch;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
-@Ignore
+//@Ignore
 @ContextConfiguration(locations = {"classpath*:META-INF/applicatonContext-loadtester.xml"})
 @RunWith(JUnitParamsRunner.class)
 public class LoadTesterIT {
@@ -33,10 +33,10 @@ public class LoadTesterIT {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoadTesterIT.class);
 
     private TestContextManager testContextManager;
-    private final Integer totalLoadCount = 5000000;
-    private final Integer batchSize = 10000;
-//    private final Integer totalLoadCount = 10;
-//    private final Integer batchSize = 10;
+//    private final Integer totalLoadCount = 5000000;
+//    private final Integer batchSize = 10000;
+    private final Integer totalLoadCount = 10;
+    private final Integer batchSize = 10;
     private final String endPointName = "tagClient";
     private StopWatch stopWatch;
 

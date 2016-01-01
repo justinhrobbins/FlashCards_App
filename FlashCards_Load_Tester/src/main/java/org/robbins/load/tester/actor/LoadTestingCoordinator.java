@@ -125,7 +125,7 @@ public class LoadTestingCoordinator extends AbstractActor {
     }
 
     private void completeLoadTest(final String endPointName) {
-        LoadTestResult loadTestResult = new LoadTestResult(this.completedTestCount, endPointName,
+        final LoadTestResult loadTestResult = new LoadTestResult(this.completedTestCount, endPointName,
                 this.successCount, this.failureCount, this.totalDuration);
         LOGGER.debug("LoadTestResult: {}", loadTestResult);
         parent.tell(loadTestResult, self());
