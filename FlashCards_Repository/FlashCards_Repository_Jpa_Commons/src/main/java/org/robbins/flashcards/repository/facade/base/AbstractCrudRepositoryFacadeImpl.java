@@ -92,21 +92,21 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E, ID extends Serializ
 //        LOGGER.trace(receipt.toString());
 //        return converter.getDto(receipt);
 //    }
-
-    private BatchLoadingReceipt createBatchLoadingReceipt(final String type) {
-        BatchLoadingReceipt receipt = new BatchLoadingReceipt();
-        receipt.setType(type);
-        receipt.setStartTime(new Date());
-        AuditingUtil.configureCreatedByAndTime(receipt, getAuditingUserId());
-        return receiptRepository.save(receipt);
-    }
-
-    private BatchLoadingReceipt completeBatchLoadingReceipt(final int successCount, final int failureCount, final BatchLoadingReceipt receipt) {
-        receipt.setSuccessCount(successCount);
-        receipt.setFailureCount(failureCount);
-        receipt.setEndTime(new Date());
-        return receiptRepository.save(receipt);
-    }
+//
+//    private BatchLoadingReceipt createBatchLoadingReceipt(final String type) {
+//        BatchLoadingReceipt receipt = new BatchLoadingReceipt();
+//        receipt.setType(type);
+//        receipt.setStartTime(new Date());
+//        AuditingUtil.configureCreatedByAndTime(receipt, getAuditingUserId());
+//        return receiptRepository.save(receipt);
+//    }
+//
+//    private BatchLoadingReceipt completeBatchLoadingReceipt(final int successCount, final int failureCount, final BatchLoadingReceipt receipt) {
+//        receipt.setSuccessCount(successCount);
+//        receipt.setFailureCount(failureCount);
+//        receipt.setEndTime(new Date());
+//        return receiptRepository.save(receipt);
+//    }
 
     @Override
     public List<D> list() throws RepositoryException {

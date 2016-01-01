@@ -11,6 +11,7 @@
         <intercept-url pattern="/v1/**" access="isAuthenticated()" />
 
         <http-basic />
+        <csrf disabled="true" />
     </http>
 
     <authentication-manager>
