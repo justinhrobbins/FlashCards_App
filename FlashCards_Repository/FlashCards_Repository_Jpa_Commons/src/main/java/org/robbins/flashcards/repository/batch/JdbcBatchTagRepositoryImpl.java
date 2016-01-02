@@ -28,7 +28,7 @@ import org.springframework.stereotype.Component;
 import com.google.common.collect.Lists;
 
 @Component("batchTagRepository")
-public class BatchTagRepositoryImpl extends AbstractBatchCustomRepositoryImpl implements BatchSavingRepository<Tag>
+public class JdbcBatchTagRepositoryImpl extends AbstractBatchCustomRepositoryImpl implements BatchSavingRepository<Tag>
 {
 	private static final String BATCH_INSERT_SQL = "insert into tag (TagName, CreatedUserId, CreatedDate) "
 			+ " VALUES (?, ?, ?)";

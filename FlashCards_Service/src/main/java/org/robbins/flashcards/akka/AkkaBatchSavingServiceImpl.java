@@ -11,22 +11,18 @@ import javax.inject.Inject;
 import org.robbins.flashcards.akka.actor.BatchSavingCoordinator;
 import org.robbins.flashcards.akka.message.BatchSaveResultMessage;
 import org.robbins.flashcards.akka.message.BatchSaveStartMessage;
-import org.robbins.flashcards.conversion.DtoConverter;
-import org.robbins.flashcards.dto.AbstractPersistableDto;
+import org.robbins.flashcards.dto.AbstractAuditableDto;
 import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
 import org.robbins.flashcards.exceptions.RepositoryException;
-import org.robbins.flashcards.model.BatchLoadingReceipt;
-import org.robbins.flashcards.model.util.AuditingUtil;
-import org.robbins.flashcards.repository.BatchLoadingReceiptRepository;
-import org.robbins.flashcards.repository.FlashCardsAppRepository;
+import org.robbins.flashcards.facade.BatchReceiptFacade;
+import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.repository.auditing.AuditingAwareUser;
+import org.robbins.flashcards.util.DtoAuditingUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.support.TransactionTemplate;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
@@ -39,40 +35,33 @@ import scala.reflect.ClassTag;
 
 
 @Component
-public class AkkaBatchSavingService implements InitializingBean {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(AkkaBatchSavingService.class);
+public class AkkaBatchSavingServiceImpl implements InitializingBean, AkkaBatchSavingService
+{
+    private static final Logger LOGGER = LoggerFactory.getLogger(AkkaBatchSavingServiceImpl.class);
 
     @Inject
     private ActorSystem actorSystem;
 
     @Inject
-    private PlatformTransactionManager txManager;
-
-    @Inject
-    private BatchLoadingReceiptRepository<BatchLoadingReceipt, Long> receiptRepository;
-
-    @Inject
-    @Qualifier("batchLoadingReceiptDtoConverter")
-    private DtoConverter<BatchLoadingReceiptDto, BatchLoadingReceipt> batchReceiptConverter;
+    @Qualifier("batchReceiptRepositoryFacade")
+    private BatchReceiptFacade facade;
 
     @Inject
     private AuditingAwareUser auditorAware;
 
     private ActorRef batchSavingCoordinator;
 
-    public Long getAuditingUserId() {
-        return auditorAware.getCurrentAuditor();
-    }
+    @Override
+    public BatchLoadingReceiptDto save(final GenericCrudFacade facade, final List<AbstractAuditableDto> dtos) {
+        LOGGER.debug("Sending StartBatchSaveMessage message to BatchSavingCoordinator for {} dtos", dtos.size());
 
-    public BatchLoadingReceiptDto save(final FlashCardsAppRepository repository, final DtoConverter converter,
-                                       final Long auditingUserId,  final List<AbstractPersistableDto> entities) {
-        LOGGER.debug("Sending StartBatchSaveMessage message to BatchSavingCoordinator for {} dtos", entities.size());
+        final String type = dtos.iterator().next().getClass().getSimpleName();
 
-        final String type = entities.iterator().next().getClass().getSimpleName();
+        // need to marked Created By here because the auditing user won't be available in the Akka system
+        configureCreatedBy(dtos);
 
         try {
-            final BatchSaveResultMessage receiptMessage = saveBatchWithAkka(type, repository, converter, auditingUserId, entities);
+            final BatchSaveResultMessage receiptMessage = saveBatchWithAkka(type, facade, dtos);
 
             LOGGER.debug("Batch save complete: {}", receiptMessage);
             return completeBatchLoadingReceipt(receiptMessage);
@@ -82,13 +71,16 @@ public class AkkaBatchSavingService implements InitializingBean {
         }
     }
 
-    private BatchSaveResultMessage saveBatchWithAkka(final String type, final FlashCardsAppRepository repository, final DtoConverter converter,
-                                                     final Long auditingUserId, final List<AbstractPersistableDto> entities) throws Exception {
+    private void configureCreatedBy(final List<AbstractAuditableDto> dtos) {
+        dtos.forEach(dto -> DtoAuditingUtil.configureCreatedByAndTime(dto, getAuditingUserId()));
+    }
 
-        final BatchLoadingReceiptDto batchLoadingReceiptDto = createBatchLoadingReceipt(type, entities);
-        final BatchSaveStartMessage startBatchSaveMessage = new BatchSaveStartMessage(batchLoadingReceiptDto, repository,
-                converter, auditingUserId, entities,
-                new TransactionTemplate(txManager));
+    private BatchSaveResultMessage saveBatchWithAkka(final String type, final GenericCrudFacade facade,
+                                                     final List<AbstractAuditableDto> dtos) throws Exception {
+
+        final BatchLoadingReceiptDto batchLoadingReceiptDto = createBatchLoadingReceipt(type, dtos);
+        final BatchSaveStartMessage startBatchSaveMessage = new BatchSaveStartMessage(batchLoadingReceiptDto, facade,
+                dtos);
         final FiniteDuration duration = FiniteDuration.create(1, TimeUnit.HOURS);
         final ClassTag<BatchSaveResultMessage> classTag = Util.classTag(BatchSaveResultMessage.class);
         final Future<BatchSaveResultMessage> receiptFuture = ask(batchSavingCoordinator, startBatchSaveMessage,
@@ -97,33 +89,32 @@ public class AkkaBatchSavingService implements InitializingBean {
         return Await.result(receiptFuture, duration);
     }
 
-    private BatchLoadingReceiptDto createBatchLoadingReceipt(final String type, final List<AbstractPersistableDto> entities) {
-        BatchLoadingReceipt receipt = new BatchLoadingReceipt();
+    private BatchLoadingReceiptDto createBatchLoadingReceipt(final String type, final List<AbstractAuditableDto> dtos) {
+        BatchLoadingReceiptDto receipt = new BatchLoadingReceiptDto();
         receipt.setType(type);
         receipt.setStartTime(new Date());
-        AuditingUtil.configureCreatedByAndTime(receipt, getAuditingUserId());
-        receipt = receiptRepository.save(receipt);
-        final BatchLoadingReceiptDto dto = batchReceiptConverter.getDto(receipt);
-        dto.setBatchSize(1000);
-        dto.setTotalSize(entities.size());
-        return dto;
+        receipt = facade.save(receipt);
+
+        receipt.setBatchSize(1000);
+        receipt.setTotalSize(dtos.size());
+        return receipt;
     }
 
-//    private BatchLoadingReceiptDto createBatchLoadingReceiptDto(final String type, final List<AbstractPersistableDto> entities) {
+//    private BatchLoadingReceiptDto createBatchLoadingReceiptDto(final String type, final List<AbstractPersistableDto> dtos) {
 //        final BatchLoadingReceiptDto receipt = new BatchLoadingReceiptDto();
 //        receipt.setType(type);
 //        // TODO: replace with injected property
 //        receipt.setBatchSize(1000);
-//        receipt.setTotalSize(entities.size());
+//        receipt.setTotalSize(dtos.size());
 //        receipt.setStartTime(new DateTime().toDate());
 //        return receipt;
 //    }
 
     private BatchLoadingReceiptDto completeBatchLoadingReceipt(final BatchSaveResultMessage receiptMessage) {
-        BatchLoadingReceipt receipt = batchReceiptConverter.getEntity(receiptMessage.getReceiptDto());
+        BatchLoadingReceiptDto receipt = receiptMessage.getReceiptDto();
         receipt.setEndTime(new Date());
-        receipt = receiptRepository.save(receipt);
-        return batchReceiptConverter.getDto(receipt);
+        receipt = facade.save(receipt);
+        return receipt;
     }
 
 //    @Transactional
@@ -139,5 +130,9 @@ public class AkkaBatchSavingService implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         batchSavingCoordinator = actorSystem.actorOf(BatchSavingCoordinator.props());
+    }
+
+    public Long getAuditingUserId() {
+        return auditorAware.getCurrentAuditor();
     }
 }

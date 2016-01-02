@@ -1,15 +1,13 @@
 package org.robbins.flashcards.akka.actor;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.robbins.flashcards.akka.message.SingleBatchSaveResultMessage;
 import org.robbins.flashcards.akka.message.SingleBatchSaveStartMessage;
-import org.robbins.flashcards.conversion.DtoConverter;
+import org.robbins.flashcards.dto.AbstractAuditableDto;
 import org.robbins.flashcards.dto.AbstractPersistableDto;
-import org.robbins.flashcards.model.common.AbstractAuditable;
-import org.robbins.flashcards.model.util.AuditingUtil;
-import org.robbins.flashcards.repository.FlashCardsAppRepository;
+import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
+import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,9 +22,7 @@ public class BatchSavingActor extends AbstractActor {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BatchSavingActor.class);
 
-    private FlashCardsAppRepository repository;
-    private DtoConverter converter;
-    private Long auditingUserId;
+    private GenericCrudFacade facade;
     private Long batchId;
     private Integer successCount = 0;
     private Integer failureCount = 0;
@@ -57,48 +53,31 @@ public class BatchSavingActor extends AbstractActor {
     private void doSave(final SingleBatchSaveStartMessage startSaveMessage, final ActorRef sender) {
         LOGGER.trace("Received SingleBatchSaveStartMessage message: {}", startSaveMessage.toString());
 
-        this.repository = startSaveMessage.getRepository();
-        this.converter = startSaveMessage.getConverter();
-        this.auditingUserId = startSaveMessage.getAuditingUserId();
+        this.facade = startSaveMessage.getFacade();
         this.batchId = startSaveMessage.getBatchId();
-        
-        SingleBatchSaveResultMessage result = startSaveMessage.getTxTemplate().execute(
-                status -> saveBatch(startSaveMessage.getDtos())
-        );
+
+        final SingleBatchSaveResultMessage result = saveBatch(startSaveMessage.getDtos());
 
         LOGGER.trace("Sending SingleBatchSaveResultMessage message: {}", result.toString());
         sender.tell(result, self());
     }
 
-    private SingleBatchSaveResultMessage saveBatch(final List<AbstractPersistableDto> batch) {
-        List<AbstractAuditable> entities = convertToEntities(batch);
-
-        successCount = repository.batchSave(entities);
-        failureCount = getFailureCount(batch.size(), successCount);
+    private SingleBatchSaveResultMessage saveBatch(final List<AbstractAuditableDto> batch) {
+        BatchLoadingReceiptDto receipt = facade.save(batch);
+        successCount = receipt.getSuccessCount();
+        failureCount = getFailureCount(batch.size());
 
         final SingleBatchSaveResultMessage result = new SingleBatchSaveResultMessage(successCount, failureCount, batchId);
         resetCounters();
         return result;
     }
 
-    private int getFailureCount(final int totalCount, final int succcesCount) {
+    private int getFailureCount(final int totalCount) {
         return totalCount - successCount;
     }
 
     private void resetCounters() {
         this.successCount = 0;
         this.failureCount = 0;
-    }
-
-    private List<AbstractAuditable> convertToEntities(final List<AbstractPersistableDto> batch) {
-            return batch.stream()
-                    .map(dto -> convertToEntity(dto))
-                    .collect(Collectors.toList());
-    }
-
-    private AbstractAuditable convertToEntity(final AbstractPersistableDto dto) {
-        final AbstractAuditable entity = (AbstractAuditable) converter.getEntity(dto);
-        AuditingUtil.configureCreatedByAndTime(entity, auditingUserId);
-        return entity;
     }
 }

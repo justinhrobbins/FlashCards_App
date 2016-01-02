@@ -35,8 +35,8 @@ public class LoadTesterIT {
     private TestContextManager testContextManager;
 //    private final Integer totalLoadCount = 5000000;
 //    private final Integer batchSize = 10000;
-    private final Integer totalLoadCount = 10;
-    private final Integer batchSize = 10;
+    private final Integer totalLoadCount = 10000;
+    private final Integer batchSize = 1000;
     private final String endPointName = "tagClient";
     private StopWatch stopWatch;
 

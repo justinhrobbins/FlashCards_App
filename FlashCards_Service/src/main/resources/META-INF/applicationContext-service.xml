@@ -6,11 +6,14 @@
                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
                         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
+    <import resource="classpath:META-INF/applicatonContext-akka.xml"/>
+
     <tx:annotation-driven />
 
     <context:component-scan base-package="
         org.robbins.flashcards.security,
         org.robbins.flashcards.service,
-        org.robbins.flashcards.presentation.facade" />
+        org.robbins.flashcards.presentation.facade,
+        org.robbins.flashcards.akka" />
 
 </beans>

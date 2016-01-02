@@ -7,7 +7,7 @@ public abstract class AbstractAuditableDto extends AbstractPersistableDto {
 
     private static final long serialVersionUID = -6807342050233167498L;
 
-    private String createdBy;
+    private Long createdBy;
 
     private Date createdDate;
 
@@ -15,11 +15,11 @@ public abstract class AbstractAuditableDto extends AbstractPersistableDto {
 
     private Date lastModifiedDate;
 
-    public String getCreatedBy() {
+    public Long getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(final String createdBy) {
+    public void setCreatedBy(final Long createdBy) {
         this.createdBy = createdBy;
     }
 
