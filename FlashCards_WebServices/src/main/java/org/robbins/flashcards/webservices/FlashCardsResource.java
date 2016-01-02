@@ -23,7 +23,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.dto.util.PagingUtils;
-import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.exceptions.FlashCardsException;
 import org.robbins.flashcards.service.FlashCardService;
 import org.robbins.flashcards.service.base.GenericPagingAndSortingService;
 import org.robbins.flashcards.webservices.base.AbstractGenericResource;
@@ -48,11 +48,11 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
     private static final Logger LOGGER = LoggerFactory.getLogger(FlashCardsResource.class);
 
     @Inject
-    private FlashCardService flashcardService;
+    private FlashCardService flashCardService;
 
     @Override
     protected GenericPagingAndSortingService<FlashCardDto, Long> getService() {
-        return flashcardService;
+        return flashCardService;
     }
 
     @GET
@@ -84,11 +84,11 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
                 // are we using pagination?
                 if (page != null) {
                     List<FlashCardDto> results;
-                    results = flashcardService.findByQuestionLike(question,
+                    results = flashCardService.findByQuestionLike(question,
                             new PageRequest(page, size));
                     return results.toArray(new FlashCardDto[results.size()]);
                 } else {
-                    List<FlashCardDto> results = flashcardService.findByQuestionLike(question);
+                    List<FlashCardDto> results = flashCardService.findByQuestionLike(question);
                     return results.toArray(new FlashCardDto[results.size()]);
                 }
             }
@@ -101,18 +101,18 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
                 }
                 // are we using Pagination?
                 if (page != null) {
-                    List<FlashCardDto> results = flashcardService.findByTagsIn(tagsSet,
+                    List<FlashCardDto> results = flashCardService.findByTagsIn(tagsSet,
                             new PageRequest(page, size));
                     return results.toArray(new FlashCardDto[results.size()]);
                 } else {
-                    List<FlashCardDto> results = flashcardService.findByTagsIn(tagsSet);
+                    List<FlashCardDto> results = flashCardService.findByTagsIn(tagsSet);
                     return results.toArray(new FlashCardDto[results.size()]);
                 }
             } else {
                 throw new GenericWebServiceException(Response.Status.BAD_REQUEST,
                         "Invalid 'search' parameters");
             }
-        } catch (FlashcardsException e) {
+        } catch (FlashCardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
     }
@@ -127,8 +127,8 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
         if (dto.getCreatedBy().equals(0L)) {
             FlashCardDto orig;
             try {
-                orig = flashcardService.findOne(id, null);
-            } catch (FlashcardsException e) {
+                orig = flashCardService.findOne(id, null);
+            } catch (FlashCardsException e) {
                 throw new GenericWebServiceException(
                         Response.Status.INTERNAL_SERVER_ERROR, e);
             }
@@ -153,7 +153,7 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
             LOGGER.error(e.getMessage(), e);
             throw new GenericWebServiceException(Response.Status.BAD_REQUEST,
                     "Invalid sort parameter: '" + sort + "'", e);
-        } catch (FlashcardsException e) {
+        } catch (FlashCardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
 
@@ -174,48 +174,48 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
                                               @QueryParam("fields") final String fields) {
 
         if (tagId != null) {
-            return listFlashcardsForTag(tagId, page, size, sort, direction, fields);
+            return listFlashCardsForTag(tagId, page, size, sort, direction, fields);
         }
         else if (userId != null) {
-            return listFlashcardsForUser(userId, page, size, sort, direction, fields);
+            return listFlashCardsForUser(userId, page, size, sort, direction, fields);
         }
         else {
             return list(page, size, sort, direction, fields);
         }
     }
 
-    private JResponse<List<FlashCardDto>> listFlashcardsForTag(final Long tagId, final Integer page,
-                                                               final Integer size, final String sort,
-                                                               final String direction, final String fields) {
+    private JResponse<List<FlashCardDto>> listFlashCardsForTag(final Long tagId, final Integer page,
+            final Integer size, final String sort,
+            final String direction, final String fields) {
         try {
-            List<FlashCardDto> entities = flashcardService.findFlashcardsForTag(tagId, this.getFieldsAsSet(fields));
+            List<FlashCardDto> entities = flashCardService.findFlashCardsForTag(tagId, this.getFieldsAsSet(fields));
             if (CollectionUtils.isEmpty(entities)) {
                 throw new GenericWebServiceException(Response.Status.NOT_FOUND,
-                        "Flashcards not found for Tag: " + tagId);
+                        "FlashCards not found for Tag: " + tagId);
             }
             return JResponse.ok(entities).build();
-        } catch (FlashcardsException e) {
+        } catch (FlashCardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
     }
 
-    private JResponse<List<FlashCardDto>> listFlashcardsForUser(final Long userId, final Integer page,
-                                                               final Integer size, final String sort,
-                                                               final String direction, final String fields) {
+    private JResponse<List<FlashCardDto>> listFlashCardsForUser(final Long userId, final Integer page,
+            final Integer size, final String sort,
+            final String direction, final String fields) {
         try {
-            List<FlashCardDto> entities = flashcardService.findByCreatedBy(userId, this.getFieldsAsSet(fields));
+            List<FlashCardDto> entities = flashCardService.findByCreatedBy(userId, this.getFieldsAsSet(fields));
             if (CollectionUtils.isEmpty(entities)) {
                 throw new GenericWebServiceException(Response.Status.NOT_FOUND,
-                        "Flashcards not found for User: " + userId);
+                        "FlashCards not found for User: " + userId);
             }
             return JResponse.ok(entities).build();
-        } catch (FlashcardsException e) {
+        } catch (FlashCardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
     }
 
     @Path("/{flashcardId}/tags")
-    public Class findTagsForFlashcard() {
+    public Class findTagsForFlashCard() {
         return TagsResource.class;
     }
 }

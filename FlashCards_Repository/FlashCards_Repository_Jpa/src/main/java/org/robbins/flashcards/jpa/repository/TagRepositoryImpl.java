@@ -69,9 +69,9 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag, Long> imp
     }
 
     @Override
-    public List<Tag> findByFlashcards_Id(final Long flashcardId) {
-        Query query = getEm().createQuery("SELECT t FROM Tag t JOIN t.flashcards f WHERE f.id = :flashcardId");
-        query.setParameter("flashcardId", flashcardId);
+    public List<Tag> findByFlashCards_Id(final Long flashCardId) {
+        Query query = getEm().createQuery("SELECT t FROM Tag t JOIN t.flashCards f WHERE f.id = :flashcardId");
+        query.setParameter("flashcardId", flashCardId);
         return query.getResultList();
     }
 

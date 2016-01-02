@@ -49,13 +49,13 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<TagCassandraEn
     private TagCassandraRepository repository;
 
     @Inject
-    private TagFlashcardCassandraRepository tagFlashcardCassandraRepository;
+    private TagFlashCardCassandraRepository tagFlashCardCassandraRepository;
 
     @Inject
     FlashCardCassandraRepository flashCardCassandraRepository;
 
     private PreparedStatement tagStatement;
-    private PreparedStatement flashcardStatement;
+    private PreparedStatement flashCardStatement;
 
     @Override
     public TagCassandraRepository getRepository() {
@@ -70,7 +70,7 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<TagCassandraEn
             LOGGER.error("Cassandra not available");
         } else {
             tagStatement = session.prepare(tagInsert());
-            flashcardStatement = session.prepare(flashcardUpdateTag());
+            flashCardStatement = session.prepare(flashCardUpdateTag());
         }
 
     }
@@ -88,15 +88,15 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<TagCassandraEn
                 tag.getId(),
                 tag.getName()));
 
-        final List<TagFlashCardCassandraEntity> tagFlashcards = tagFlashcardCassandraRepository.findByTagId(tag.getId());
-        if (tagFlashcards != null && tagFlashcards.size() > 0) {
-            for (TagFlashCardCassandraEntity tagFlashCard : tagFlashcards) {
-                final FlashCardCassandraEntity flashcard = flashCardCassandraRepository.findOne(tagFlashCard.getId().getFlashCardId());
-                if (flashcard != null && flashcard.getTags() != null) {
-                    batch.add(flashcardStatement.bind(
+        final List<TagFlashCardCassandraEntity> tagFlashCards = tagFlashCardCassandraRepository.findByTagId(tag.getId());
+        if (tagFlashCards != null && tagFlashCards.size() > 0) {
+            for (TagFlashCardCassandraEntity tagFlashCard : tagFlashCards) {
+                final FlashCardCassandraEntity flashCard = flashCardCassandraRepository.findOne(tagFlashCard.getId().getFlashCardId());
+                if (flashCard != null && flashCard.getTags() != null) {
+                    batch.add(flashCardStatement.bind(
                             tag.getId(),
                             tag.getName(),
-                            flashcard.getId()));
+                            flashCard.getId()));
                 }
             }
         }
@@ -109,7 +109,7 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<TagCassandraEn
                 .value(NAME, bindMarker());
     }
 
-    private RegularStatement flashcardUpdateTag() {
+    private RegularStatement flashCardUpdateTag() {
         return update(FLASHCARD_TABLE)
                 .with(put(TAGS, bindMarker(), bindMarker()))
                 .where(eq(ID, bindMarker()));
@@ -121,7 +121,7 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<TagCassandraEn
     }
 
     @Override
-    public List<TagCassandraEntity> findByFlashcards_Id(Long flashcardId) {
+    public List<TagCassandraEntity> findByFlashCards_Id(Long flashCardId) {
         throw new NotImplementedException("method not yet implemented in Cassandra repository");
     }
 

@@ -2,7 +2,7 @@
 package org.robbins.flashcards.service;
 
 import org.robbins.flashcards.dto.TagDto;
-import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.exceptions.FlashCardsException;
 import org.robbins.flashcards.facade.TagFacade;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.service.base.AbstractCrudServiceImpl;
@@ -27,12 +27,14 @@ public class TagServiceImpl extends AbstractCrudServiceImpl<TagDto, Long> implem
 	}
 
     @Override
-    public TagDto findByName(final String name) throws FlashcardsException {
+    public TagDto findByName(final String name) throws FlashCardsException
+    {
         return facade.findByName(name);
     }
 
     @Override
-    public List<TagDto> findTagsForFlashcard(final Long flashcardId, Set<String> fields) throws FlashcardsException {
-        return facade.findTagsForFlashcard(flashcardId, fields);
+    public List<TagDto> findTagsForFlashCard(final Long flashCardId, Set<String> fields) throws FlashCardsException
+    {
+        return facade.findTagsForFlashCard(flashCardId, fields);
     }
 }

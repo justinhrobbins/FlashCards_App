@@ -8,7 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DefaultFlashcardsAppClient extends AbstractClient implements FlashcardsAppClient {
+public class DefaultFlashCardsAppClient extends AbstractClient implements FlashCardsAppClient
+{
 
     private String getStatusUrl() {
         return getServerAddress() + ResourceUrls.status;

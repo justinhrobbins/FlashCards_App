@@ -63,5 +63,5 @@ public interface AppConstants extends Constants {
 
     String tags();
 
-    String thisTagIsNotAssignedToAnyFlashcards();
+    String thisTagIsNotAssignedToAnyFlashCards();
 }

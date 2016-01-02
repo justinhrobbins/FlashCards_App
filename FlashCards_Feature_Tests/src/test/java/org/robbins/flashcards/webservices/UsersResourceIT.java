@@ -7,7 +7,7 @@ import org.robbins.flashcards.client.GenericRestCrudFacade;
 import org.robbins.flashcards.client.UserClient;
 import org.robbins.flashcards.dto.UserDto;
 import org.robbins.flashcards.dto.builder.UserDtoBuilder;
-import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.exceptions.FlashCardsException;
 import org.robbins.flashcards.tests.webservices.GenericEntityRestTest;
 import org.robbins.tests.IntegrationTest;
 import org.springframework.test.context.ContextConfiguration;
@@ -46,7 +46,7 @@ public class UsersResourceIT extends GenericEntityRestTest<UserDto, Long> {
     }
 
     @Test
-    public void testSearchByOpenId() throws FlashcardsException
+    public void testSearchByOpenId() throws FlashCardsException
 	{
         final UserDto searchResult = client.findUserByOpenid(OPEN_ID);
 
@@ -54,7 +54,8 @@ public class UsersResourceIT extends GenericEntityRestTest<UserDto, Long> {
     }
 
     @Test
-    public void testUpdateEntity() throws FlashcardsException {
+    public void testUpdateEntity() throws FlashCardsException
+    {
         final Long id = getEntity().getId();
         final String UPDATED_VALUE = "updated value";
 

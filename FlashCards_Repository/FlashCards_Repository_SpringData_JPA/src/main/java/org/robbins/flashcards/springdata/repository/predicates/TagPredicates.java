@@ -10,8 +10,8 @@ public class TagPredicates {
         return tag.name.eq(name);
     }
 
-    public static Predicate hasFlashcardId(final Long flashCardId) {
+    public static Predicate hasFlashCardId(final Long flashCardId) {
         QTag tag = QTag.tag;
-        return tag.flashcards.any().id.eq(flashCardId);
+        return tag.flashCards.any().id.eq(flashCardId);
     }
 }

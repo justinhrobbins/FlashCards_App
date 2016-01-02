@@ -3,10 +3,9 @@ package org.robbins.flashcards.service.base;
 
 import org.robbins.flashcards.akka.AkkaBatchSavingService;
 import org.robbins.flashcards.dto.AbstractAuditableDto;
-import org.robbins.flashcards.dto.AbstractPersistableDto;
 import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
 import org.robbins.flashcards.exceptions.DataIntegrityException;
-import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.exceptions.FlashCardsException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -28,7 +27,8 @@ public abstract class AbstractCrudServiceImpl<D, ID extends Serializable> implem
     private AkkaBatchSavingService batchSavingService;
 
     @Override
-    public D save(final D dto) throws FlashcardsException {
+    public D save(final D dto) throws FlashCardsException
+    {
         try {
             return getFacade().save(dto);
         } catch (DataIntegrityViolationException integrityException) {
@@ -39,7 +39,8 @@ public abstract class AbstractCrudServiceImpl<D, ID extends Serializable> implem
     }
 
     @Override
-    public BatchLoadingReceiptDto save(List<D> dtos) throws FlashcardsException {
+    public BatchLoadingReceiptDto save(List<D> dtos) throws FlashCardsException
+    {
         return batchSavingService.save(getFacade(), (List<AbstractAuditableDto>) dtos);
     }
 
@@ -49,12 +50,14 @@ public abstract class AbstractCrudServiceImpl<D, ID extends Serializable> implem
     }
 
     @Override
-    public D findOne(final ID id) throws FlashcardsException {
+    public D findOne(final ID id) throws FlashCardsException
+    {
         return getFacade().findOne(id);
     }
 
     @Override
-    public D findOne(final ID id, final Set<String> fields) throws FlashcardsException {
+    public D findOne(final ID id, final Set<String> fields) throws FlashCardsException
+    {
         return getFacade().findOne(id, fields);
     }
 
@@ -64,22 +67,26 @@ public abstract class AbstractCrudServiceImpl<D, ID extends Serializable> implem
     }
 
     @Override
-    public List<D> findAll() throws FlashcardsException {
+    public List<D> findAll() throws FlashCardsException
+    {
         return getFacade().list();
     }
 
     @Override
-    public List<D> findAll(final Optional<Pageable> page) throws FlashcardsException {
+    public List<D> findAll(final Optional<Pageable> page) throws FlashCardsException
+    {
         return getFacade().list(page);
     }
 
     @Override
-    public List<D> findAll(final Optional<Pageable> page, Set<String> fields) throws FlashcardsException {
+    public List<D> findAll(final Optional<Pageable> page, Set<String> fields) throws FlashCardsException
+    {
         return getFacade().list(page, fields);
     }
 
     @Override
-    public List<D> findByCreatedBy(final ID userId, final Set<String> fields) throws FlashcardsException {
+    public List<D> findByCreatedBy(final ID userId, final Set<String> fields) throws FlashCardsException
+    {
         return getFacade().findByCreatedBy(userId, fields);
     }
 }

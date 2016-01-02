@@ -35,7 +35,7 @@ public class FlashCardFlexTable extends FlexTable {
 
         if (flashCards == null || flashCards.size() == 0) {
             this.setWidget(1, 0,
-                    new Label(constants.thisTagIsNotAssignedToAnyFlashcards()));
+                    new Label(constants.thisTagIsNotAssignedToAnyFlashCards()));
             return;
         }
 

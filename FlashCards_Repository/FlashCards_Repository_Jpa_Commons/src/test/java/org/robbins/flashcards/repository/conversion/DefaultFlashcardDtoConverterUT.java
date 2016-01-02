@@ -13,11 +13,11 @@ import org.mockito.Mockito;
 import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.model.FlashCard;
-import org.robbins.flashcards.repository.conversion.impl.DefaultFlashcardDtoConverter;
+import org.robbins.flashcards.repository.conversion.impl.DefaultFlashCardDtoConverter;
 import org.robbins.tests.BaseMockingTest;
 import org.springframework.test.util.ReflectionTestUtils;
 
-public class DefaultFlashcardDtoConverterUT extends BaseMockingTest {
+public class DefaultFlashCardDtoConverterUT extends BaseMockingTest {
     private DtoConverter converter;
     private FlashCard flashCard;
     private FlashCardDto flashCardDto;
@@ -30,7 +30,7 @@ public class DefaultFlashcardDtoConverterUT extends BaseMockingTest {
     @Before
     public void setup()
     {
-        converter = new DefaultFlashcardDtoConverter();
+        converter = new DefaultFlashCardDtoConverter();
         ReflectionTestUtils.setField(converter, "mapper", mockMapper);
 
         flashCard = new FlashCard();

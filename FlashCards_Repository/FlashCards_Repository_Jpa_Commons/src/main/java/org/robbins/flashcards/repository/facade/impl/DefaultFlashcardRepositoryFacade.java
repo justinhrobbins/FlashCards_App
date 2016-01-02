@@ -7,9 +7,9 @@ import com.google.common.collect.Sets;
 import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
-import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.exceptions.FlashCardsException;
 import org.robbins.flashcards.exceptions.RepositoryException;
-import org.robbins.flashcards.facade.FlashcardFacade;
+import org.robbins.flashcards.facade.FlashCardFacade;
 import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.model.util.EntityAuditingUtil;
@@ -29,8 +29,9 @@ import java.util.stream.Collectors;
 
 @Transactional
 @Component("flashcardRepositoryFacade")
-public class DefaultFlashcardRepositoryFacade extends
-		AbstractCrudRepositoryFacadeImpl<FlashCardDto, FlashCard, Long> implements FlashcardFacade {
+public class DefaultFlashCardRepositoryFacade extends
+		AbstractCrudRepositoryFacadeImpl<FlashCardDto, FlashCard, Long> implements FlashCardFacade
+{
 
 	@Inject
 	private FlashCardRepository<FlashCard, Tag, Long> repository;
@@ -40,7 +41,7 @@ public class DefaultFlashcardRepositoryFacade extends
 
     @Inject
     @Qualifier("flashcardDtoConverter")
-    private DtoConverter<FlashCardDto, FlashCard> flashcardConverter;
+    private DtoConverter<FlashCardDto, FlashCard> flashCardConverter;
 
     @Inject
     @Qualifier("tagDtoConverter")
@@ -49,7 +50,7 @@ public class DefaultFlashcardRepositoryFacade extends
     @Override
     public DtoConverter<FlashCardDto, FlashCard> getConverter()
     {
-        return flashcardConverter;
+        return flashCardConverter;
     }
 
 	@Override
@@ -102,7 +103,8 @@ public class DefaultFlashcardRepositoryFacade extends
     }
 
     @Override
-    public List<FlashCardDto> findFlashcardsForTag(Long tagId, Set<String> fields) throws FlashcardsException {
+    public List<FlashCardDto> findFlashCardsForTag(Long tagId, Set<String> fields) throws FlashCardsException
+    {
         List<FlashCard> results = repository.findByTags_Id(tagId);
         return convertAndInitializeEntities(results, fields);
     }

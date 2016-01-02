@@ -2,15 +2,14 @@
 package org.robbins.flashcards.cassandra.repository.facade;
 
 import org.apache.commons.lang3.NotImplementedException;
-import org.apache.commons.lang3.StringUtils;
 import org.robbins.flashcards.cassandra.repository.domain.FlashCardCassandraEntity;
 import org.robbins.flashcards.cassandra.repository.domain.TagCassandraEntity;
 import org.robbins.flashcards.cassandra.repository.facade.base.AbstractCrudRepositoryFacadeImpl;
 import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
-import org.robbins.flashcards.exceptions.FlashcardsException;
-import org.robbins.flashcards.facade.FlashcardFacade;
+import org.robbins.flashcards.exceptions.FlashCardsException;
+import org.robbins.flashcards.facade.FlashCardFacade;
 import org.robbins.flashcards.repository.FlashCardRepository;
 import org.robbins.flashcards.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -24,7 +23,8 @@ import com.datastax.driver.core.utils.UUIDs;
 
 @Component("flashcardRepositoryFacade")
 public class DefaultFlashCardRepositoryFacade extends AbstractCrudRepositoryFacadeImpl<FlashCardDto, FlashCardCassandraEntity> implements
-        FlashcardFacade {
+        FlashCardFacade
+{
 
     @Inject
 	private FlashCardRepository<FlashCardCassandraEntity, TagCassandraEntity, Long> repository;
@@ -52,7 +52,8 @@ public class DefaultFlashCardRepositoryFacade extends AbstractCrudRepositoryFaca
 	}
 
     @Override
-    public FlashCardDto save(final FlashCardDto dto) throws FlashcardsException {
+    public FlashCardDto save(final FlashCardDto dto) throws FlashCardsException
+    {
         FlashCardCassandraEntity entity = getConverter().getEntity(dto);
         if (entity.getId() == null) {
             entity.setId(UUIDs.timeBased().timestamp());
@@ -85,37 +86,44 @@ public class DefaultFlashCardRepositoryFacade extends AbstractCrudRepositoryFaca
     }
 
     @Override
-    public List<FlashCardDto> findByTagsIn(final Set<TagDto> tags) throws FlashcardsException {
+    public List<FlashCardDto> findByTagsIn(final Set<TagDto> tags) throws FlashCardsException
+    {
         throw new NotImplementedException("method not yet implemented in Cassandra repository");
     }
 
     @Override
-    public List<FlashCardDto> findByTagsIn(final Set<TagDto> tags, PageRequest page) throws FlashcardsException {
+    public List<FlashCardDto> findByTagsIn(final Set<TagDto> tags, PageRequest page) throws FlashCardsException
+    {
         throw new NotImplementedException("method not yet implemented in Cassandra repository");
     }
 
     @Override
-    public List<FlashCardDto> findByQuestionLike(final String question) throws FlashcardsException {
+    public List<FlashCardDto> findByQuestionLike(final String question) throws FlashCardsException
+    {
         throw new NotImplementedException("method not yet implemented in Cassandra repository");
     }
 
     @Override
-    public List<FlashCardDto> findByQuestionLike(final String question, PageRequest page) throws FlashcardsException {
+    public List<FlashCardDto> findByQuestionLike(final String question, PageRequest page) throws FlashCardsException
+    {
         throw new NotImplementedException("method not yet implemented in Cassandra repository");
     }
 
     @Override
-    public FlashCardDto findByQuestion(final String question) throws FlashcardsException {
+    public FlashCardDto findByQuestion(final String question) throws FlashCardsException
+    {
         throw new NotImplementedException("method not yet implemented in Cassandra repository");
     }
 
     @Override
-    public List<FlashCardDto> findFlashcardsForTag(final Long tagId, final Set<String> fields) throws FlashcardsException {
+    public List<FlashCardDto> findFlashCardsForTag(final Long tagId, final Set<String> fields) throws FlashCardsException
+    {
         throw new NotImplementedException("method not yet implemented in Cassandra repository");
     }
 
     @Override
-    public List<FlashCardDto> findByCreatedBy(final Long userId, final Set<String> fields) throws FlashcardsException {
+    public List<FlashCardDto> findByCreatedBy(final Long userId, final Set<String> fields) throws FlashCardsException
+    {
         throw new NotImplementedException("method not yet implemented in Cassandra repository");
     }
 }

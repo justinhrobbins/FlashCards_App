@@ -1,7 +1,7 @@
 package org.robbins.flashcards.client;
 
 import org.robbins.flashcards.dto.FlashCardDto;
-import org.robbins.flashcards.facade.FlashcardFacade;
+import org.robbins.flashcards.facade.FlashCardFacade;
 
-public interface FlashcardClient extends FlashcardFacade, GenericRestCrudFacade<FlashCardDto, Long> {
+public interface FlashCardClient extends FlashCardFacade, GenericRestCrudFacade<FlashCardDto, Long> {
 }

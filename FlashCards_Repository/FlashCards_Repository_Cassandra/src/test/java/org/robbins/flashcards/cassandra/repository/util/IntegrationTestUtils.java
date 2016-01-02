@@ -15,8 +15,8 @@ import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.dto.builder.FlashCardDtoBuilder;
 import org.robbins.flashcards.dto.builder.TagDtoBuilder;
-import org.robbins.flashcards.exceptions.FlashcardsException;
-import org.robbins.flashcards.facade.FlashcardFacade;
+import org.robbins.flashcards.exceptions.FlashCardsException;
+import org.robbins.flashcards.facade.FlashCardFacade;
 import org.robbins.flashcards.facade.TagFacade;
 import org.springframework.stereotype.Component;
 
@@ -30,19 +30,19 @@ public class IntegrationTestUtils {
     private TagCassandraRepository tagRepository;
 
     @Inject
-    private FlashcardFacade flashCardFacade;
+    private FlashCardFacade flashCardFacade;
 
     @Inject
     private TagFacade tagFacade;
 
     public final FlashCardCassandraEntity createFlashCardEntity() {
-        final FlashCardCassandraEntity flashcard = new FlashCardCassandraBuilder()
+        final FlashCardCassandraEntity flashCard = new FlashCardCassandraBuilder()
                 .withId(RandomUtils.nextLong(0L, Long.MAX_VALUE))
                 .withQuestion(RandomStringUtils.randomAlphabetic(10))
                 .withAnswer(RandomStringUtils.randomAlphabetic(10))
                 .build();
 
-        return flashCardRepository.save(flashcard);
+        return flashCardRepository.save(flashCard);
     }
 
     public final TagCassandraEntity createTagEntity() {
@@ -53,7 +53,8 @@ public class IntegrationTestUtils {
         return tagRepository.save(tag);
     }
 
-    public final FlashCardDto createFlashCardDto() throws FlashcardsException {
+    public final FlashCardDto createFlashCardDto() throws FlashCardsException
+    {
         final FlashCardDto dto = new FlashCardDtoBuilder()
                 .withQuestion(RandomStringUtils.randomAlphabetic(10))
                 .withAnswer(RandomStringUtils.randomAlphabetic(10))
@@ -62,7 +63,8 @@ public class IntegrationTestUtils {
         return flashCardFacade.save(dto);
     }
 
-    public final TagDto createTagDto() throws FlashcardsException {
+    public final TagDto createTagDto() throws FlashCardsException
+    {
         final TagDto tag = new TagDtoBuilder()
                 .withName(RandomStringUtils.randomAlphabetic(10)).build();
 

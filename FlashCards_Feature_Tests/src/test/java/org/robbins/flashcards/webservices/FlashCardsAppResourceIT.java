@@ -5,7 +5,7 @@ import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
-import org.robbins.flashcards.client.FlashcardsAppClient;
+import org.robbins.flashcards.client.FlashCardsAppClient;
 import org.robbins.tests.IntegrationTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -21,7 +21,7 @@ import static org.junit.Assert.assertThat;
 public class FlashCardsAppResourceIT {
 
     @Inject
-    private FlashcardsAppClient client;
+    private FlashCardsAppClient client;
 
     @Test
     public void status_FoundManifestAndVerson() {

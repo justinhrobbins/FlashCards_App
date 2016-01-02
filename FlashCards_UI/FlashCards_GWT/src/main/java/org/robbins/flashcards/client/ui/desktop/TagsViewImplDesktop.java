@@ -151,7 +151,7 @@ public class TagsViewImplDesktop extends CellTable<TagDto> implements TagsView {
 
             @Override
             public List<FlashCardDto> getValue(final TagDto object) {
-                return object.getFlashcardsAsList();
+                return object.getFlashCardsAsList();
             }
         };
         flashCardsColumn.setSortable(false);
@@ -192,7 +192,7 @@ public class TagsViewImplDesktop extends CellTable<TagDto> implements TagsView {
             @Override
             public void onBrowserEvent(final Context context, final Element elem,
                     final TagDto object, final NativeEvent event) {
-                if (object.getFlashcards().size() == 0) {
+                if (object.getFlashCards().size() == 0) {
                     GWT.log("Click on Delete cell for: " + object.getId());
                     eventBus.fireEvent(new DeleteTagEvent(object.getId()));
                 }

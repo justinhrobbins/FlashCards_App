@@ -66,9 +66,9 @@ public class DefaultTagClient extends AbstractCrudClient<TagDto, Long> implement
     }
 
     @Override
-    public List<TagDto> findTagsForFlashcard(final Long flashcardId, final Set<String> fields) {
+    public List<TagDto> findTagsForFlashCard(final Long flashCardId, final Set<String> fields) {
         Map<String, String> uriVariables = new HashMap<String, String>();
-        uriVariables.put("flashcardId", String.valueOf(flashcardId));
-        return Arrays.asList(searchEntities(getServerAddress() + ResourceUrls.tagsForFlashcard, uriVariables, TagDto[].class));
+        uriVariables.put("flashcardId", String.valueOf(flashCardId));
+        return Arrays.asList(searchEntities(getServerAddress() + ResourceUrls.tagsForFlashCard, uriVariables, TagDto[].class));
     }
 }

@@ -12,7 +12,7 @@ import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.robbins.flashcards.dto.TagDto;
-import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.exceptions.FlashCardsException;
 import org.robbins.flashcards.facade.TagFacade;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
@@ -33,7 +33,8 @@ public class TagServiceImplUT extends BaseMockingTest {
     }
 
     @Test
-    public void testFindByName() throws FlashcardsException {
+    public void testFindByName() throws FlashCardsException
+    {
         when(facade.findByName(Matchers.anyString())).thenReturn(new TagDto(1L));
 
         TagDto tag = tagService.findByName("EJB");

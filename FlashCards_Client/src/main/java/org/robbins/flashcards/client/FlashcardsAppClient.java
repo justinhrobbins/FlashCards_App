@@ -1,5 +1,6 @@
 package org.robbins.flashcards.client;
 
-public interface FlashcardsAppClient {
+public interface FlashCardsAppClient
+{
     String getStatus();
 }

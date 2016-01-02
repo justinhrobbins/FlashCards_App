@@ -20,7 +20,7 @@ import javax.ws.rs.core.Response;
 
 import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
 import org.robbins.flashcards.exceptions.DataIntegrityException;
-import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.exceptions.FlashCardsException;
 import org.robbins.flashcards.service.base.GenericPagingAndSortingService;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.slf4j.Logger;
@@ -53,7 +53,7 @@ public abstract class AbstractGenericResource<T, ID extends Serializable> extend
         T entity;
         try {
             entity = getService().findOne(id, this.getFieldsAsSet(fields));
-        } catch (FlashcardsException e) {
+        } catch (FlashCardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
 
@@ -74,7 +74,7 @@ public abstract class AbstractGenericResource<T, ID extends Serializable> extend
         } catch (DataIntegrityException e) {
             throw new GenericWebServiceException(Response.Status.BAD_REQUEST, e);
         }
-        catch (FlashcardsException e) {
+        catch (FlashCardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
     }
@@ -90,7 +90,7 @@ public abstract class AbstractGenericResource<T, ID extends Serializable> extend
         } catch (DataIntegrityException e) {
             throw new GenericWebServiceException(Response.Status.BAD_REQUEST, e);
         }
-        catch (FlashcardsException e) {
+        catch (FlashCardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
     }
@@ -102,7 +102,7 @@ public abstract class AbstractGenericResource<T, ID extends Serializable> extend
     public Response put(@PathParam("id") final ID id, final T entity) {
         try {
             getService().save(entity);
-        } catch (FlashcardsException e) {
+        } catch (FlashCardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
         return Response.noContent().build();
@@ -127,7 +127,7 @@ public abstract class AbstractGenericResource<T, ID extends Serializable> extend
         T originalEntity;
         try {
             originalEntity = getService().findOne(id);
-        } catch (FlashcardsException e) {
+        } catch (FlashCardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
 
@@ -137,7 +137,7 @@ public abstract class AbstractGenericResource<T, ID extends Serializable> extend
         // persist the entity back to the db
         try {
             getService().save(originalEntity);
-        } catch (FlashcardsException e) {
+        } catch (FlashCardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
 

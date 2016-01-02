@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
-import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.exceptions.FlashCardsException;
 
 public interface GenericCrudService<T, ID extends Serializable> {
 
@@ -16,9 +16,9 @@ public interface GenericCrudService<T, ID extends Serializable> {
      * @param entity
      * @return the saved entity
      */
-    T save(T entity) throws FlashcardsException;
+    T save(T entity) throws FlashCardsException;
 
-    BatchLoadingReceiptDto save(List<T> entities) throws FlashcardsException;
+    BatchLoadingReceiptDto save(List<T> entities) throws FlashCardsException;
 
     /**
      * Retrives an entity by its id.
@@ -26,7 +26,7 @@ public interface GenericCrudService<T, ID extends Serializable> {
      * @param id must not be {@literal null}.
      * @return the entity with the given id or {@literal null} if none found
      */
-    T findOne(ID id) throws FlashcardsException;
+    T findOne(ID id) throws FlashCardsException;
 
     /**
      * Returns the number of entities available.
@@ -42,5 +42,5 @@ public interface GenericCrudService<T, ID extends Serializable> {
      */
     void delete(ID id);
 
-	List<T> findAll() throws FlashcardsException;
+	List<T> findAll() throws FlashCardsException;
 }

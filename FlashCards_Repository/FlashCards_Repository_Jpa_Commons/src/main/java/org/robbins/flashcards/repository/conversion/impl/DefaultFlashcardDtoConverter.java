@@ -14,7 +14,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component("flashcardDtoConverter")
-public class DefaultFlashcardDtoConverter extends AbstractDtoConverter implements DtoConverter<FlashCardDto, FlashCard> {
+public class DefaultFlashCardDtoConverter extends AbstractDtoConverter implements DtoConverter<FlashCardDto, FlashCard> {
     @Override
     public FlashCardDto getDto(final FlashCard entity) throws RepositoryException {
         return getDto(entity, null);

@@ -12,7 +12,7 @@ import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.robbins.flashcards.dto.UserDto;
-import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.exceptions.FlashCardsException;
 import org.robbins.flashcards.facade.UserFacade;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
@@ -33,7 +33,8 @@ public class UserServiceImplUT extends BaseMockingTest {
     }
 
     @Test
-    public void testFindUserByOpenid() throws FlashcardsException {
+    public void testFindUserByOpenid() throws FlashCardsException
+    {
         when(facade.findUserByOpenid(Matchers.anyString())).thenReturn(new UserDto());
 
 		UserDto user = userService.findUserByOpenid("open_id");

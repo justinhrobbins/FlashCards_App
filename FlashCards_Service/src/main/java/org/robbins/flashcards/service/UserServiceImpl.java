@@ -4,7 +4,7 @@ package org.robbins.flashcards.service;
 import javax.inject.Inject;
 
 import org.robbins.flashcards.dto.UserDto;
-import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.exceptions.FlashCardsException;
 import org.robbins.flashcards.facade.UserFacade;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.service.base.AbstractCrudServiceImpl;
@@ -25,7 +25,8 @@ public class UserServiceImpl extends AbstractCrudServiceImpl<UserDto, Long> impl
     }
 
     @Override
-    public UserDto findUserByOpenid(final String openid) throws FlashcardsException {
+    public UserDto findUserByOpenid(final String openid) throws FlashCardsException
+    {
         return facade.findUserByOpenid(openid);
     }
 }

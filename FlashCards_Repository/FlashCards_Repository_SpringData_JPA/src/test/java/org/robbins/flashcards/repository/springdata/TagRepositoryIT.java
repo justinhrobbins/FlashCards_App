@@ -44,7 +44,7 @@ public class TagRepositoryIT extends BaseIntegrationTest {
     @Test
     public void findByFlashCardsId() {
         final Long flashCardId = findFirstFlashCardId();
-        final List<Tag> tags = tagRepository.findByFlashcards_Id(flashCardId);
+        final List<Tag> tags = tagRepository.findByFlashCards_Id(flashCardId);
         assertThat(tags.size(), is(1));
     }
 
@@ -56,9 +56,9 @@ public class TagRepositoryIT extends BaseIntegrationTest {
         List<Tag> tags = tagRepository.findAll();
 
         Optional<Tag> firstTag = tags.stream()
-                .filter(tag -> tag.getFlashcards().size() > 0)
+                .filter(tag -> tag.getFlashCards().size() > 0)
                 .findFirst();
 
-        return firstTag.isPresent() ? firstTag.get().getFlashcards().iterator().next().getId() : null;
+        return firstTag.isPresent() ? firstTag.get().getFlashCards().iterator().next().getId() : null;
     }
 }

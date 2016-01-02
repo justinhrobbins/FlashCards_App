@@ -16,7 +16,7 @@ import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.robbins.flashcards.dto.TagDto;
-import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.exceptions.FlashCardsException;
 import org.robbins.flashcards.facade.TagFacade;
 import org.robbins.flashcards.service.TagServiceImpl;
 import org.robbins.tests.BaseMockingTest;
@@ -46,7 +46,7 @@ public class AbstractCrudServiceImplUT extends BaseMockingTest {
     }
 
     @Test
-    public void save() throws FlashcardsException
+    public void save() throws FlashCardsException
 	{
         when(facade.save(tagDto)).thenReturn(tagDto);
 
@@ -68,7 +68,8 @@ public class AbstractCrudServiceImplUT extends BaseMockingTest {
     }
 
     @Test
-    public void findOne() throws FlashcardsException {
+    public void findOne() throws FlashCardsException
+    {
         when(facade.findOne(Matchers.anyLong())).thenReturn(tagDto);
 
 		final TagDto result = tagService.findOne(uuid);
@@ -93,7 +94,8 @@ public class AbstractCrudServiceImplUT extends BaseMockingTest {
     }
 
     @Test
-    public void findAll() throws FlashcardsException {
+    public void findAll() throws FlashCardsException
+    {
         when(facade.list()).thenReturn(tags);
 
 		final List<TagDto> results = tagService.findAll();

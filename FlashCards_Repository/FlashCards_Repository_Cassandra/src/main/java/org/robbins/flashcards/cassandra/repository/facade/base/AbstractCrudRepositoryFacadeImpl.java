@@ -10,7 +10,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.NotImplementedException;
 import org.robbins.flashcards.cassandra.repository.domain.AbstractPersistable;
 import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
-import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.exceptions.FlashCardsException;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.repository.facade.RepositoryFacade;
 import org.springframework.data.domain.Pageable;
@@ -22,18 +22,21 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E extends AbstractPers
         RepositoryFacade<D, E, Long>
 {
     @Override
-    public List<D> list() throws FlashcardsException {
+    public List<D> list() throws FlashCardsException
+    {
         final List<E> results = Lists.newArrayList(getRepository().findAll());
         return getConverter().getDtos(results);
     }
 
     @Override
-    public List<D> list(final Optional<Pageable> page) throws FlashcardsException {
+    public List<D> list(final Optional<Pageable> page) throws FlashCardsException
+    {
         throw new NotImplementedException("method not yet implemented in Cassandra repository");
     }
 
     @Override
-    public List<D> list(final Optional<Pageable> page, final Set<String> fields) throws FlashcardsException {
+    public List<D> list(final Optional<Pageable> page, final Set<String> fields) throws FlashCardsException
+    {
         throw new NotImplementedException("method not yet implemented in Cassandra repository");
     }
 
@@ -43,18 +46,20 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E extends AbstractPers
     }
 
     @Override
-    public D findOne(final Long id) throws FlashcardsException {
+    public D findOne(final Long id) throws FlashCardsException
+    {
         return findOne(id, null);
     }
 
     @Override
-    public D findOne(final Long id, final Set<String> fields) throws FlashcardsException {
+    public D findOne(final Long id, final Set<String> fields) throws FlashCardsException
+    {
         final E result = getRepository().findOne(id);
         return result == null ? null : getConverter().getDto(result);
     }
 
     @Override
-    public D save(final D dto) throws FlashcardsException
+    public D save(final D dto) throws FlashCardsException
     {
         final E entity = getConverter().getEntity(dto);
         addId(entity);
@@ -63,10 +68,11 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E extends AbstractPers
     }
 
     @Override
-    public BatchLoadingReceiptDto save(final List<D> dtos) throws FlashcardsException {
+    public BatchLoadingReceiptDto save(final List<D> dtos) throws FlashCardsException
+    {
 
         if (CollectionUtils.isEmpty(dtos))
-            throw new FlashcardsException("Expected list with at least one element");
+            throw new FlashCardsException("Expected list with at least one element");
 
         final List<E> entities = getConverter().getEntities(dtos);
         addIds(entities);
@@ -98,7 +104,8 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E extends AbstractPers
     }
 
     @Override
-    public List<D> findByCreatedBy(final Long userId, final Set<String> fields) throws FlashcardsException {
+    public List<D> findByCreatedBy(final Long userId, final Set<String> fields) throws FlashCardsException
+    {
         return null;
     }
 }

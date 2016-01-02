@@ -22,7 +22,7 @@ public class TagFlashCardRepositoryIT extends AbstractCassandraIntegrationTest {
     private static final Long FLASHCARD_ID = 1L;
 
     @Inject
-    private TagFlashcardCassandraRepository repository;
+    private TagFlashCardCassandraRepository repository;
 
     @Test
     public void testFindOne() {
@@ -45,10 +45,10 @@ public class TagFlashCardRepositoryIT extends AbstractCassandraIntegrationTest {
 
     @Test
     public void testFindAll() {
-        final List<TagFlashCardCassandraEntity> tagFlashcards = Lists.newArrayList(repository.findAll());
-        assertThat(tagFlashcards.size(), greaterThan(0));
-        assertThat(tagFlashcards.get(0).getId(), is(notNullValue()));
-        assertThat(tagFlashcards.get(0).getId().getTagId(), is(notNullValue()));
-        assertThat(tagFlashcards.get(0).getId().getFlashCardId(), is(notNullValue()));
+        final List<TagFlashCardCassandraEntity> tagFlashCards = Lists.newArrayList(repository.findAll());
+        assertThat(tagFlashCards.size(), greaterThan(0));
+        assertThat(tagFlashCards.get(0).getId(), is(notNullValue()));
+        assertThat(tagFlashCards.get(0).getId().getTagId(), is(notNullValue()));
+        assertThat(tagFlashCards.get(0).getId().getFlashCardId(), is(notNullValue()));
     }
 }

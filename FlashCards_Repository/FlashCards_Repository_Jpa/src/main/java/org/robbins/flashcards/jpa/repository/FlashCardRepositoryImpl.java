@@ -1,21 +1,23 @@
 
 package org.robbins.flashcards.jpa.repository;
 
-import org.apache.commons.lang3.StringUtils;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.persistence.Query;
+
 import org.joda.time.DateTime;
 import org.robbins.flashcards.jpa.repository.util.JpqlUtil;
 import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.repository.FlashCardRepository;
-import org.springframework.data.domain.*;
-import org.springframework.data.domain.Sort.Order;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
-
-import javax.persistence.Query;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Repository
 public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCard, Long>

@@ -18,8 +18,8 @@ import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
-import org.robbins.flashcards.exceptions.FlashcardsException;
-import org.robbins.flashcards.facade.FlashcardFacade;
+import org.robbins.flashcards.exceptions.FlashCardsException;
+import org.robbins.flashcards.facade.FlashCardFacade;
 import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.repository.FlashCardRepository;
@@ -31,7 +31,7 @@ import org.robbins.tests.UnitTest;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @Category(UnitTest.class)
-public class DefaultFlashcardFacadeUT extends BaseMockingTest {
+public class DefaultFlashCardFacadeUT extends BaseMockingTest {
 
     @Mock
     private FlashCardRepository repository;
@@ -40,16 +40,16 @@ public class DefaultFlashcardFacadeUT extends BaseMockingTest {
     private TagRepository tagRepository;
 
     @Mock
-    private DtoConverter<FlashCardDto, FlashCard> mockFlashcardConverter;
+    private DtoConverter<FlashCardDto, FlashCard> mockFlashCardConverter;
 
     @Mock
     private DtoConverter<TagDto, Tag> mockTagConverter;
 
     @Mock
-    private FlashCard mockFlashcard;
+    private FlashCard mockFlashCard;
 
     @Mock
-    private FlashCardDto mockFlashcardDto;
+    private FlashCardDto mockFlashCardDto;
 
     @Mock
     private TagDto mockTagDto;
@@ -60,24 +60,24 @@ public class DefaultFlashcardFacadeUT extends BaseMockingTest {
     @Mock
     private AuditingAwareUser auditorAware;
 
-    private FlashcardFacade flashCardFacade;
+    private FlashCardFacade flashCardFacade;
 
     @Before
     public void before() {
-        flashCardFacade = new DefaultFlashcardRepositoryFacade();
+        flashCardFacade = new DefaultFlashCardRepositoryFacade();
         ReflectionTestUtils.setField(flashCardFacade, "repository", repository);
-        ReflectionTestUtils.setField(flashCardFacade, "flashcardConverter", mockFlashcardConverter);
+        ReflectionTestUtils.setField(flashCardFacade, "flashCardConverter", mockFlashCardConverter);
         ReflectionTestUtils.setField(flashCardFacade, "tagConverter", mockTagConverter);
         ReflectionTestUtils.setField(flashCardFacade, "tagRepository", tagRepository);
         ReflectionTestUtils.setField(flashCardFacade, "auditorAware", auditorAware);
     }
 
     @Test
-    public void findByQuestion() throws FlashcardsException
+    public void findByQuestion() throws FlashCardsException
 	{
-        when(repository.findByQuestion(any(String.class))).thenReturn(mockFlashcard);
-        when(mockFlashcardConverter.getDto(mockFlashcard, null)).thenReturn(
-                mockFlashcardDto);
+        when(repository.findByQuestion(any(String.class))).thenReturn(mockFlashCard);
+        when(mockFlashCardConverter.getDto(mockFlashCard, null)).thenReturn(
+                mockFlashCardDto);
 
         FlashCardDto result = flashCardFacade.findByQuestion(any(String.class));
 
@@ -86,13 +86,14 @@ public class DefaultFlashcardFacadeUT extends BaseMockingTest {
     }
 
     @Test
-    public void findByQuestionLike() throws FlashcardsException {
-        List<FlashCard> mockFlashCardList = Arrays.asList(mockFlashcard);
+    public void findByQuestionLike() throws FlashCardsException
+    {
+        List<FlashCard> mockFlashCardList = Arrays.asList(mockFlashCard);
 
         when(repository.findByQuestionLike(any(String.class))).thenReturn(
 				mockFlashCardList);
-        when(mockFlashcardConverter.getDto(mockFlashcard)).thenReturn(
-                mockFlashcardDto);
+        when(mockFlashCardConverter.getDto(mockFlashCard)).thenReturn(
+                mockFlashCardDto);
 
         List<FlashCardDto> results = flashCardFacade.findByQuestionLike(any(String.class));
 
@@ -102,14 +103,15 @@ public class DefaultFlashcardFacadeUT extends BaseMockingTest {
 
     @SuppressWarnings("unchecked")
     @Test
-    public void findByTagsIn() throws FlashcardsException {
-        List<FlashCard> mockFlashCardList = Arrays.asList(mockFlashcard);
+    public void findByTagsIn() throws FlashCardsException
+    {
+        List<FlashCard> mockFlashCardList = Arrays.asList(mockFlashCard);
         Set<TagDto> mockTagDtos = new HashSet<>(Arrays.asList(mockTagDto));
         List<Tag> mockTagList = Arrays.asList(mockTag);
 
         when(repository.findByTagsIn(any(Set.class))).thenReturn(mockFlashCardList);
-        when(mockFlashcardConverter.getDto(mockFlashcard)).thenReturn(
-                mockFlashcardDto);
+        when(mockFlashCardConverter.getDto(mockFlashCard)).thenReturn(
+                mockFlashCardDto);
         when(mockTagConverter.getEntities(any(List.class))).thenReturn(mockTagList);
 
         List<FlashCardDto> results = flashCardFacade.findByTagsIn(mockTagDtos);
@@ -119,16 +121,17 @@ public class DefaultFlashcardFacadeUT extends BaseMockingTest {
     }
 
     @Test
-    public void save() throws FlashcardsException {
+    public void save() throws FlashCardsException
+    {
 
-        when(repository.save(any(FlashCard.class))).thenReturn(mockFlashcard);
+        when(repository.save(any(FlashCard.class))).thenReturn(mockFlashCard);
         when(tagRepository.findByName(any(String.class))).thenReturn(mockTag);
-        when(mockFlashcardConverter.getEntity(mockFlashcardDto)).thenReturn(mockFlashcard);
-        when(mockFlashcardConverter.getDto(mockFlashcard, null)).thenReturn(mockFlashcardDto);
-        when(mockFlashcardDto.getTags()).thenReturn(
+        when(mockFlashCardConverter.getEntity(mockFlashCardDto)).thenReturn(mockFlashCard);
+        when(mockFlashCardConverter.getDto(mockFlashCard, null)).thenReturn(mockFlashCardDto);
+        when(mockFlashCardDto.getTags()).thenReturn(
                 new HashSet<>(Arrays.asList(mockTagDto)));
 
-        FlashCardDto result = flashCardFacade.save(mockFlashcardDto);
+        FlashCardDto result = flashCardFacade.save(mockFlashCardDto);
 
         verify(repository).save(any(FlashCard.class));
         assertThat(result, is(FlashCardDto.class));

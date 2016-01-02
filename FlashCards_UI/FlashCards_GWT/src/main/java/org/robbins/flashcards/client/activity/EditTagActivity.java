@@ -74,7 +74,7 @@ public class EditTagActivity extends AppAbstractActivity {
                         GWT.log("EditTagActivity: 'Load Tag' TagId: " + tag.getId());
                         setTag(tag);
                         EditTagActivity.this.display.setTagData(tag);
-                        EditTagActivity.this.display.setFlashCardsData(tag.getFlashcardsAsList());
+                        EditTagActivity.this.display.setFlashCardsData(tag.getFlashCardsAsList());
                     }
 
                     @Override

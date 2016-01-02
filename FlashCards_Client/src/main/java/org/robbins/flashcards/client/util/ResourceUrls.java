@@ -32,9 +32,9 @@ public final class ResourceUrls {
 
     public static final String status = "/v1/status/";
 
-    public static final String tagsForFlashcard = "v1/flashcards/{flashcardId}/tags";
+    public static final String tagsForFlashCard = "v1/flashcards/{flashcardId}/tags";
 
-    public static final String flashcardsForTag = "v1/tags/{tagId}/flashcards";
+    public static final String flashCardsForTag = "v1/tags/{tagId}/flashcards";
 
     public static final String batch = "batch/";
 }

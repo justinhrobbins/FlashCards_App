@@ -164,8 +164,8 @@ public class EditFlashCardActivity extends AppAbstractActivity {
         }
     }
 
-    private void saveFlashCard(final FlashCardDto flashcard) {
-        flashCardService.postFlashCards(ConstsUtil.DEFAULT_AUTH_HEADER, flashcard,
+    private void saveFlashCard(final FlashCardDto flashCard) {
+        flashCardService.postFlashCards(ConstsUtil.DEFAULT_AUTH_HEADER, flashCard,
                 new MethodCallback<FlashCardDto>() {
 
                     @Override
@@ -186,12 +186,14 @@ public class EditFlashCardActivity extends AppAbstractActivity {
                 });
     }
 
-    private void updateFlashCard(final FlashCardDto flashcard) {
-        flashCardService.putFlashCard(ConstsUtil.DEFAULT_AUTH_HEADER, flashcard.getId(),
-                flashcard, new MethodCallback<java.lang.Void>() {
+    private void updateFlashCard(final FlashCardDto flashCard) {
+        flashCardService.putFlashCard(ConstsUtil.DEFAULT_AUTH_HEADER, flashCard.getId(),
+                flashCard, new MethodCallback<java.lang.Void>()
+                {
 
                     @Override
-                    public void onFailure(final Method method, final Throwable caught) {
+                    public void onFailure(final Method method, final Throwable caught)
+                    {
                         GWT.log("EditFlashCardActivity: Error saving data");
                         Window.alert(getConstants().errorSavingTag());
                         EditFlashCardActivity.this.display.getSubmitEnabled().setEnabled(
@@ -199,7 +201,8 @@ public class EditFlashCardActivity extends AppAbstractActivity {
                     }
 
                     @Override
-                    public void onSuccess(final Method method, final java.lang.Void result) {
+                    public void onSuccess(final Method method, final java.lang.Void result)
+                    {
                         GWT.log("EditFlashCardActivity: FlashCard updated");
                         EditFlashCardActivity.this.display.getSubmitEnabled().setEnabled(
                                 true);

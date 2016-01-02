@@ -7,11 +7,10 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.interceptor.SessionAware;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 import org.robbins.flashcards.dto.TagDto;
-import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.exceptions.FlashCardsException;
 import org.robbins.flashcards.facade.TagFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,7 +89,7 @@ public class TagAction extends FlashCardsAppBaseAction implements ModelDriven<Ta
             this.addActionMessage(getText("error.tag.delete.failed"));
 
             // we'll assume the Tag was not deleted because it is already assigned to one
-            // or more Flashcards
+            // or more FlashCards
             // maybe need to add code later to prevent a delete attempt if the Tag has
             // FlashCards
             this.addActionMessage(getText("error.tag.delete.failed.extra.info"));
@@ -136,7 +135,7 @@ public class TagAction extends FlashCardsAppBaseAction implements ModelDriven<Ta
 					addFieldError("tag.name", getText("error.tag.exists"));
 				}
 			}
-            catch (FlashcardsException e)
+            catch (FlashCardsException e)
 			{
 				LOGGER.error("Exception in display():", e);
 				addFieldError("tag.name", getText("error.tag.validation.failure"));

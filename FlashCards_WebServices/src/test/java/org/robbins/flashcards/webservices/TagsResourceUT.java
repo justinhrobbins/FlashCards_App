@@ -15,7 +15,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
 import org.robbins.flashcards.dto.TagDto;
-import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.exceptions.FlashCardsException;
 import org.robbins.flashcards.service.TagService;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.robbins.tests.BaseMockingTest;
@@ -41,7 +41,7 @@ public class TagsResourceUT extends BaseMockingTest {
     }
 
     @Test
-    public void search() throws FlashcardsException
+    public void search() throws FlashCardsException
 	{
         when(mockTagService.findByName(any(String.class))).thenReturn(mockTagDto);
 
@@ -52,14 +52,16 @@ public class TagsResourceUT extends BaseMockingTest {
     }
 
     @Test(expected = GenericWebServiceException.class)
-    public void search_NotFound() throws FlashcardsException {
+    public void search_NotFound() throws FlashCardsException
+    {
         when(mockTagService.findByName(any(String.class))).thenReturn(null);
 
         resource.searchByName(any(String.class));
     }
 
     @Test
-    public void put() throws FlashcardsException {
+    public void put() throws FlashCardsException
+    {
         when(mockTagService.findOne(any(Long.class))).thenReturn(mockTagDto);
         when(mockTagService.save(any(TagDto.class))).thenReturn(mockTagDto);
 
@@ -70,7 +72,8 @@ public class TagsResourceUT extends BaseMockingTest {
     }
 
     @Test
-    public void put_WithCreatedBy() throws FlashcardsException {
+    public void put_WithCreatedBy() throws FlashCardsException
+    {
         when(mockTagDto.getCreatedBy()).thenReturn(0L);
         when(mockTagService.save(any(TagDto.class))).thenReturn(mockTagDto);
 

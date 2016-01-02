@@ -7,7 +7,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.robbins.flashcards.dto.TagDto;
-import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.exceptions.FlashCardsException;
 import org.robbins.flashcards.facade.TagFacade;
 import org.robbins.tests.BaseIntegrationTest;
 import org.robbins.tests.IntegrationTest;
@@ -33,7 +33,7 @@ public class DefaultTagFacadeIT extends BaseIntegrationTest {
     private static String TAG_NAME = "tag1";
 
     @Test
-    public void findByName() throws FlashcardsException
+    public void findByName() throws FlashCardsException
 	{
         TagDto result = tagFacade.findByName(TAG_NAME);
         assertThat(result, is(TagDto.class));

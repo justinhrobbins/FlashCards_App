@@ -18,7 +18,7 @@ import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
 import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.dto.TagDto;
-import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.exceptions.FlashCardsException;
 import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.flashcards.facade.TagFacade;
 import org.robbins.flashcards.model.Tag;
@@ -64,7 +64,7 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
     }
 
     @Test
-    public void findByName() throws FlashcardsException
+    public void findByName() throws FlashCardsException
 	{
         when(repository.findByName(any(String.class))).thenReturn(mockTag);
         when(converter.getDto(mockTag, null)).thenReturn(mockTagDto);
@@ -76,7 +76,8 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
     }
 
     @Test
-    public void findByName_ReturnNull() throws FlashcardsException {
+    public void findByName_ReturnNull() throws FlashCardsException
+    {
         when(repository.findByName(any(String.class))).thenReturn(null);
 
         TagDto result = tagFacade.findByName(any(String.class));
@@ -96,7 +97,8 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
     }
 
     @Test
-    public void findOne() throws FlashcardsException {
+    public void findOne() throws FlashCardsException
+    {
         when(repository.findOne(any(String.class))).thenReturn(mockTag);
         when(converter.getDto(mockTag, null)).thenReturn(mockTagDto);
 
@@ -108,7 +110,8 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
     }
 
     @Test
-    public void findOne_WithFields() throws FlashcardsException {
+    public void findOne_WithFields() throws FlashCardsException
+    {
         TagDto tagDto = new TagDto();
         Set<String> fields = new HashSet<String>(Arrays.asList("flashcards"));
 
@@ -123,7 +126,8 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
     }
 
     @Test
-    public void findOne_ReturnsNull() throws FlashcardsException {
+    public void findOne_ReturnsNull() throws FlashCardsException
+    {
         when(repository.findOne(any(String.class))).thenReturn(null);
 
         TagDto result = tagFacade.findOne(any(Long.class));
@@ -140,7 +144,8 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
     }
 
     @Test
-    public void save() throws FlashcardsException {
+    public void save() throws FlashCardsException
+    {
         when(repository.save(any(Tag.class))).thenReturn(mockTag);
         when(converter.getDto(mockTag, null)).thenReturn(mockTagDto);
         when(converter.getEntity(mockTagDto)).thenReturn(mockTag);

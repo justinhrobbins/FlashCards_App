@@ -10,7 +10,7 @@ import javax.inject.Inject;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
-import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.exceptions.FlashCardsException;
 import org.robbins.flashcards.exceptions.RepositoryException;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.model.common.AbstractAuditable;
@@ -50,9 +50,10 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E extends AbstractAudi
 
     @Transactional(propagation= Propagation.NEVER)
     @Override
-    public BatchLoadingReceiptDto save(final List<D> dtos) throws FlashcardsException {
+    public BatchLoadingReceiptDto save(final List<D> dtos) throws FlashCardsException
+    {
         if (CollectionUtils.isEmpty(dtos))
-            throw new FlashcardsException("Expected list with at least one element");
+            throw new FlashCardsException("Expected list with at least one element");
 
         final List<E> entities = getConverter().getEntities(dtos);
         final int count = getRepository().batchSave(entities);
@@ -117,7 +118,8 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E extends AbstractAudi
     }
 
     @Override
-    public List<D> findByCreatedBy(final ID userId, final Set<String> fields) throws FlashcardsException {
+    public List<D> findByCreatedBy(final ID userId, final Set<String> fields) throws FlashCardsException
+    {
         List<E> results = getRepository().findByCreatedBy_Id(userId);
         return convertAndInitializeEntities(results, fields);
     }

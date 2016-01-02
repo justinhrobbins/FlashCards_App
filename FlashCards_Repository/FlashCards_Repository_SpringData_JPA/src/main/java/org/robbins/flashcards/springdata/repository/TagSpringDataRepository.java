@@ -12,9 +12,9 @@ import java.util.List;
 public interface TagSpringDataRepository extends JpaRepository<Tag, Long>, QueryDslPredicateExecutor<Tag> {
 
     Tag findByName(String name);
-    List<Tag> findByFlashcards_Id(String flashcardId);
+    List<Tag> findByFlashCards_Id(String flashCardId);
 
-    @EntityGraph(value = "Tag.flashcards", type = EntityGraph.EntityGraphType.LOAD)
+    @EntityGraph(value = "Tag.flashCards", type = EntityGraph.EntityGraphType.LOAD)
     @Query("SELECT DISTINCT t FROM Tag t ORDER BY t.name")
     List<Tag> findAll();
 }

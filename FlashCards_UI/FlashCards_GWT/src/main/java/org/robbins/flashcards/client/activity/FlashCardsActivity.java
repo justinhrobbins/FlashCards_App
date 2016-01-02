@@ -80,7 +80,7 @@ public class FlashCardsActivity extends AppAbstractActivity {
                         new DeleteFlashCardEventHandler() {
 
                             @Override
-                            public void onDeleteFlashcard(final DeleteFlashCardEvent event) {
+                            public void onDeleteFlashCard(final DeleteFlashCardEvent event) {
                                 GWT.log("FlashCardsActivity: 'Delete FlashCard' event");
 
                                 flashCardService.deleteFlashCards(

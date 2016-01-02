@@ -5,7 +5,7 @@ import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 
 import org.robbins.flashcards.dto.UserDto;
-import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.exceptions.FlashCardsException;
 import org.robbins.flashcards.service.UserService;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.slf4j.Logger;
@@ -60,7 +60,7 @@ public class AbstractSecurityFilter {
                         + getLoggedInUser().getId());
             }
         }
-        catch (FlashcardsException e)
+        catch (FlashCardsException e)
         {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
