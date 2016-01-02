@@ -16,7 +16,7 @@ import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
-import org.robbins.flashcards.facade.TagFacade;
+import org.robbins.flashcards.service.TagService;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
@@ -27,7 +27,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 public class TagsResourceUT extends BaseMockingTest {
 
     @Mock
-    private TagFacade mockTagFacade;
+    private TagService mockTagService;
 
     @Mock
     private TagDto mockTagDto;
@@ -37,46 +37,46 @@ public class TagsResourceUT extends BaseMockingTest {
     @Before
     public void before() {
         resource = new TagsResource();
-        ReflectionTestUtils.setField(resource, "tagFacade", mockTagFacade);
+        ReflectionTestUtils.setField(resource, "tagService", mockTagService);
     }
 
     @Test
     public void search() throws FlashcardsException
 	{
-        when(mockTagFacade.findByName(any(String.class))).thenReturn(mockTagDto);
+        when(mockTagService.findByName(any(String.class))).thenReturn(mockTagDto);
 
         TagDto result = resource.searchByName(any(String.class));
 
-        verify(mockTagFacade).findByName(any(String.class));
+        verify(mockTagService).findByName(any(String.class));
         assertThat(result, is(TagDto.class));
     }
 
     @Test(expected = GenericWebServiceException.class)
     public void search_NotFound() throws FlashcardsException {
-        when(mockTagFacade.findByName(any(String.class))).thenReturn(null);
+        when(mockTagService.findByName(any(String.class))).thenReturn(null);
 
         resource.searchByName(any(String.class));
     }
 
     @Test
     public void put() throws FlashcardsException {
-        when(mockTagFacade.findOne(any(Long.class))).thenReturn(mockTagDto);
-        when(mockTagFacade.save(any(TagDto.class))).thenReturn(mockTagDto);
+        when(mockTagService.findOne(any(Long.class))).thenReturn(mockTagDto);
+        when(mockTagService.save(any(TagDto.class))).thenReturn(mockTagDto);
 
         Response response = resource.put(RandomUtils.nextLong(0L, Long.MAX_VALUE), mockTagDto);
 
-        verify(mockTagFacade).save(any(TagDto.class));
+        verify(mockTagService).save(any(TagDto.class));
         assertThat(response.getStatus(), is(HttpStatus.NO_CONTENT.value()));
     }
 
     @Test
     public void put_WithCreatedBy() throws FlashcardsException {
         when(mockTagDto.getCreatedBy()).thenReturn(0L);
-        when(mockTagFacade.save(any(TagDto.class))).thenReturn(mockTagDto);
+        when(mockTagService.save(any(TagDto.class))).thenReturn(mockTagDto);
 
         Response response = resource.put(RandomUtils.nextLong(0L, Long.MAX_VALUE), mockTagDto);
 
-        verify(mockTagFacade).save(any(TagDto.class));
+        verify(mockTagService).save(any(TagDto.class));
         assertThat(response.getStatus(), is(HttpStatus.NO_CONTENT.value()));
     }
 }

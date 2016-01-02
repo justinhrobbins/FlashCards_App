@@ -1,19 +1,18 @@
 
 package org.robbins.flashcards.webservices.base;
 
+import javax.inject.Inject;
+import javax.ws.rs.core.Response;
+
 import org.robbins.flashcards.dto.UserDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
-import org.robbins.flashcards.facade.UserFacade;
+import org.robbins.flashcards.service.UserService;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-
-import javax.inject.Inject;
-import javax.ws.rs.core.Response;
 
 public class AbstractSecurityFilter {
 
@@ -23,8 +22,7 @@ public class AbstractSecurityFilter {
     private UserDto loggedInUser;
 
     @Inject
-	@Qualifier("presentationUserFacade")
-    private UserFacade userFacade;
+    private UserService userService;
 
     /**
      * Gets the logged in user.
@@ -53,7 +51,7 @@ public class AbstractSecurityFilter {
         String openId = findOpenId(authentication.getPrincipal());
 
         try {
-            UserDto user = userFacade.findUserByOpenid(openId);
+            UserDto user = userService.findUserByOpenid(openId);
 
             if (user != null) {
                 // set the user id on the autowired loggedInUser

@@ -16,19 +16,17 @@ import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
 import org.robbins.flashcards.dto.UserDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
-import org.robbins.flashcards.facade.UserFacade;
+import org.robbins.flashcards.service.UserService;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import java.util.UUID;
-
 @Category(UnitTest.class)
 public class UsersResourceUT extends BaseMockingTest {
 
     @Mock
-    private UserFacade mockUserFacade;
+    private UserService mockUserService;
 
     @Mock
     private UserDto mockUserDto;
@@ -38,28 +36,28 @@ public class UsersResourceUT extends BaseMockingTest {
     @Before
     public void before() {
         resource = new UsersResource();
-        ReflectionTestUtils.setField(resource, "userFacade", mockUserFacade);
+        ReflectionTestUtils.setField(resource, "userService", mockUserService);
     }
 
     @Test
     public void search() throws FlashcardsException
 	{
-        when(mockUserFacade.findUserByOpenid(any(String.class))).thenReturn(mockUserDto);
+        when(mockUserService.findUserByOpenid(any(String.class))).thenReturn(mockUserDto);
 
         UserDto result = resource.search(any(String.class));
 
-        verify(mockUserFacade).findUserByOpenid(any(String.class));
+        verify(mockUserService).findUserByOpenid(any(String.class));
         assertThat(result, is(UserDto.class));
     }
 
     @Test
     public void put() throws FlashcardsException {
-        when(mockUserFacade.findOne(any(Long.class))).thenReturn(mockUserDto);
-        when(mockUserFacade.save(any(UserDto.class))).thenReturn(mockUserDto);
+        when(mockUserService.findOne(any(Long.class))).thenReturn(mockUserDto);
+        when(mockUserService.save(any(UserDto.class))).thenReturn(mockUserDto);
 
         Response response = resource.put(RandomUtils.nextLong(0L, Long.MAX_VALUE), mockUserDto);
 
-        verify(mockUserFacade).save(any(UserDto.class));
+        verify(mockUserService).save(any(UserDto.class));
         assertThat(response.getStatus(), is(HttpStatus.NO_CONTENT.value()));
     }
 }

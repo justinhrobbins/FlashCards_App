@@ -5,7 +5,6 @@ import javax.inject.Inject;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
@@ -25,7 +24,6 @@ import org.springframework.util.StopWatch;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
-//@Ignore
 @ContextConfiguration(locations = {"classpath*:META-INF/applicatonContext-loadtester.xml"})
 @RunWith(JUnitParamsRunner.class)
 public class LoadTesterIT {

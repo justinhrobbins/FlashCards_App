@@ -21,7 +21,7 @@ import javax.ws.rs.core.Response;
 import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
 import org.robbins.flashcards.exceptions.DataIntegrityException;
 import org.robbins.flashcards.exceptions.FlashcardsException;
-import org.robbins.flashcards.facade.base.GenericCrudFacade;
+import org.robbins.flashcards.service.base.GenericPagingAndSortingService;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,14 +33,14 @@ public abstract class AbstractGenericResource<T, ID extends Serializable> extend
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGenericResource.class);
 
-    protected abstract GenericCrudFacade<T, ID> getFacade();
+    protected abstract GenericPagingAndSortingService<T, ID> getService();
 
     @Override
     @GET
     @Path("/count")
     @ApiOperation(value = "Count")
     public Long count() {
-        return getFacade().count();
+        return getService().count();
     }
 
     @Override
@@ -52,7 +52,7 @@ public abstract class AbstractGenericResource<T, ID extends Serializable> extend
 
         T entity;
         try {
-            entity = getFacade().findOne(id, this.getFieldsAsSet(fields));
+            entity = getService().findOne(id, this.getFieldsAsSet(fields));
         } catch (FlashcardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
@@ -70,7 +70,7 @@ public abstract class AbstractGenericResource<T, ID extends Serializable> extend
     public T post(final T entity) {
         try {
             LOGGER.debug("Received post request for {}", entity.getClass().getSimpleName());
-            return getFacade().save(entity);
+            return getService().save(entity);
         } catch (DataIntegrityException e) {
             throw new GenericWebServiceException(Response.Status.BAD_REQUEST, e);
         }
@@ -86,7 +86,7 @@ public abstract class AbstractGenericResource<T, ID extends Serializable> extend
     public BatchLoadingReceiptDto post(final List<T> entities) {
         LOGGER.debug("Received batch load request for {} {}", entities.size(), entities.get(0).getClass().getSimpleName());
         try {
-            return getFacade().save(entities);
+            return getService().save(entities);
         } catch (DataIntegrityException e) {
             throw new GenericWebServiceException(Response.Status.BAD_REQUEST, e);
         }
@@ -101,7 +101,7 @@ public abstract class AbstractGenericResource<T, ID extends Serializable> extend
     @ApiOperation(value = "Replace")
     public Response put(@PathParam("id") final ID id, final T entity) {
         try {
-            getFacade().save(entity);
+            getService().save(entity);
         } catch (FlashcardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
@@ -113,7 +113,7 @@ public abstract class AbstractGenericResource<T, ID extends Serializable> extend
     @Path("/{id}")
     @ApiOperation(value = "Delete")
     public Response delete(@PathParam("id") final ID id) {
-        getFacade().delete(id);
+        getService().delete(id);
 
         return Response.noContent().build();
     }
@@ -126,7 +126,7 @@ public abstract class AbstractGenericResource<T, ID extends Serializable> extend
         // get the original entity from the db
         T originalEntity;
         try {
-            originalEntity = getFacade().findOne(id);
+            originalEntity = getService().findOne(id);
         } catch (FlashcardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
@@ -136,7 +136,7 @@ public abstract class AbstractGenericResource<T, ID extends Serializable> extend
 
         // persist the entity back to the db
         try {
-            getFacade().save(originalEntity);
+            getService().save(originalEntity);
         } catch (FlashcardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }

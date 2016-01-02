@@ -1,20 +1,24 @@
 
 package org.robbins.flashcards.webservices;
 
-import com.wordnik.swagger.annotations.Api;
-import com.wordnik.swagger.annotations.ApiOperation;
+import javax.inject.Inject;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Response;
+
 import org.robbins.flashcards.dto.UserDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
-import org.robbins.flashcards.facade.UserFacade;
-import org.robbins.flashcards.facade.base.GenericCrudFacade;
+import org.robbins.flashcards.service.UserService;
+import org.robbins.flashcards.service.base.GenericPagingAndSortingService;
 import org.robbins.flashcards.webservices.base.AbstractGenericListingResource;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import javax.inject.Inject;
-import javax.ws.rs.*;
-import javax.ws.rs.core.Response;
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 
 @Path("/users/")
 @Component("usersResource")
@@ -24,12 +28,11 @@ import javax.ws.rs.core.Response;
 public class UsersResource extends AbstractGenericListingResource<UserDto, Long> {
 
     @Inject
-	@Qualifier("presentationUserFacade")
-    private UserFacade userFacade;
+    private UserService userService;
 
     @Override
-    protected GenericCrudFacade<UserDto, Long> getFacade() {
-        return userFacade;
+    protected GenericPagingAndSortingService<UserDto, Long> getService() {
+        return userService;
     }
 
     @GET
@@ -37,7 +40,7 @@ public class UsersResource extends AbstractGenericListingResource<UserDto, Long>
     @ApiOperation(value = "Find a user by their OpenId", response = UserDto.class)
     public UserDto search(@QueryParam("openid") final String openid) {
         try {
-            return userFacade.findUserByOpenid(openid);
+            return userService.findUserByOpenid(openid);
         } catch (FlashcardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
