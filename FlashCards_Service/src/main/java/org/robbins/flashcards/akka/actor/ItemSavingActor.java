@@ -10,7 +10,7 @@ import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.dto.AbstractPersistableDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.model.common.AbstractAuditable;
-import org.robbins.flashcards.model.util.AuditingUtil;
+import org.robbins.flashcards.model.util.EntityAuditingUtil;
 import org.robbins.flashcards.repository.FlashCardsAppRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,7 +60,7 @@ public class ItemSavingActor extends AbstractActor {
 
         try {
             final AbstractAuditable entity = (AbstractAuditable) converter.getEntity(dto);
-            AuditingUtil.configureCreatedByAndTime(entity, auditingUserId);
+            EntityAuditingUtil.configureCreatedByAndTime(entity, auditingUserId);
             repository.save(entity);
 
         } catch (FlashcardsException e) {

@@ -5,8 +5,6 @@
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <import resource="classpath:META-INF/applicatonContext-akka.xml"/>
-
 	<bean id="mapper" class="org.dozer.DozerBeanMapper">
 		<property name="mappingFiles">
 			<list>
@@ -25,7 +23,6 @@
 		org.robbins.flashcards.repository.facade,
         org.robbins.flashcards.repository.conversion,
         org.robbins.flashcards.repository.util,
-        org.robbins.flashcards.repository.batch,
-        org.robbins.flashcards.akka" />
+        org.robbins.flashcards.repository.batch" />
 
 </beans>

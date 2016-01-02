@@ -112,7 +112,7 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
 
         // some client apps don't know the Created By and Created Date, so make
         // sure we set it
-        if (dto.getCreatedBy() == null) {
+        if (dto.getCreatedBy().equals(0L)) {
             FlashCardDto orig;
             try {
                 orig = flashcardFacade.findOne(id, null);

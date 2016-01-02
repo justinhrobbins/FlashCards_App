@@ -1,30 +1,29 @@
 package org.robbins.flashcards.akka.actor;
 
-import akka.actor.AbstractActor;
-import akka.actor.ActorRef;
-import akka.actor.Props;
-import akka.japi.pf.ReceiveBuilder;
-
-import com.google.common.collect.Lists;
-
-import org.robbins.flashcards.akka.message.BatchSaveResultMessage;
-import org.robbins.flashcards.akka.message.BatchSaveStartMessage;
-import org.robbins.flashcards.akka.message.SingleBatchSaveResultMessage;
-import org.robbins.flashcards.akka.message.SingleBatchSaveStartMessage;
-import org.robbins.flashcards.dto.AbstractPersistableDto;
-import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import scala.PartialFunction;
-import scala.runtime.BoxedUnit;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.IntStream;
+
+import org.robbins.flashcards.akka.message.BatchSaveResultMessage;
+import org.robbins.flashcards.akka.message.BatchSaveStartMessage;
+import org.robbins.flashcards.akka.message.SingleBatchSaveResultMessage;
+import org.robbins.flashcards.akka.message.SingleBatchSaveStartMessage;
+import org.robbins.flashcards.dto.AbstractAuditableDto;
+import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.common.collect.Lists;
+
+import akka.actor.AbstractActor;
+import akka.actor.ActorRef;
+import akka.actor.Props;
+import akka.japi.pf.ReceiveBuilder;
+import scala.PartialFunction;
+import scala.runtime.BoxedUnit;
 
 public class BatchSavingCoordinator extends AbstractActor
 {
@@ -114,8 +113,7 @@ public class BatchSavingCoordinator extends AbstractActor
 
 			LOGGER.debug("Sending SingleBatchSaveStartMessage message with batch id: '{}' to worker '{}'", workQueueItem.batchId, worker.toString());
 			worker.tell(new SingleBatchSaveStartMessage(workQueueItem.batchId, workQueueItem.batchPartition,
-					workQueueItem.startMessage.getTxTemplate(), workQueueItem.startMessage.getRepository(),
-					workQueueItem.startMessage.getConverter(), workQueueItem.startMessage.getAuditingUserId()), self());
+					workQueueItem.startMessage.getFacade()), self());
 		}
 
 		if (!workQueue.isEmpty() && !idleWorkers.isEmpty())
@@ -134,7 +132,7 @@ public class BatchSavingCoordinator extends AbstractActor
 		batchesInProgress.put(receipt.getId(), receipt);
 		LOGGER.debug("Batches in progress: {}", batchesInProgress.size());
 
-		final List<List<AbstractPersistableDto>> batches = Lists.partition(startMessage.getDtos(), receipt.getBatchSize());
+		final List<List<AbstractAuditableDto>> batches = Lists.partition(startMessage.getDtos(), receipt.getBatchSize());
 		LOGGER.debug("Splitting batch of {} into {} sub-batches", startMessage.getDtos().size(), batches.size());
 
 		batches.stream()
@@ -176,9 +174,9 @@ public class BatchSavingCoordinator extends AbstractActor
 		final Long batchId;
 		final ActorRef sender;
 		final BatchSaveStartMessage startMessage;
-		final List<AbstractPersistableDto> batchPartition;
+		final List<AbstractAuditableDto> batchPartition;
 
-		public WorkQueueItem(final List<AbstractPersistableDto> batchPartition, final BatchSaveStartMessage startMessage, final ActorRef sender, final Long batchId)
+		public WorkQueueItem(final List<AbstractAuditableDto> batchPartition, final BatchSaveStartMessage startMessage, final ActorRef sender, final Long batchId)
 		{
 			this.batchPartition = batchPartition;
 			this.startMessage = startMessage;

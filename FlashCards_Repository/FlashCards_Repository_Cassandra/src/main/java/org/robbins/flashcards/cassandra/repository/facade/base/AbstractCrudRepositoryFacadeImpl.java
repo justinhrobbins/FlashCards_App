@@ -63,15 +63,15 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E extends AbstractPers
     }
 
     @Override
-    public BatchLoadingReceiptDto save(final List<D> entities) throws FlashcardsException {
+    public BatchLoadingReceiptDto save(final List<D> dtos) throws FlashcardsException {
 
-        if (CollectionUtils.isEmpty(entities)) throw new FlashcardsException("Expected list with at least one element");
+        if (CollectionUtils.isEmpty(dtos)) throw new FlashcardsException("Expected list with at least one element");
 
         BatchLoadingReceiptDto receipt = new BatchLoadingReceiptDto();
-        receipt.setType(entities.get(0).getClass().getSimpleName());
+        receipt.setType(dtos.get(0).getClass().getSimpleName());
         receipt.setStartTime(new Date());
 
-        entities.forEach(this::save);
+        dtos.forEach(this::save);
 
         receipt.setEndTime(new Date());
 

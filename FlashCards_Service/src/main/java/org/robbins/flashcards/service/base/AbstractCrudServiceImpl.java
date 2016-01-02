@@ -1,6 +1,9 @@
 
 package org.robbins.flashcards.service.base;
 
+import org.robbins.flashcards.akka.AkkaBatchSavingService;
+import org.robbins.flashcards.dto.AbstractAuditableDto;
+import org.robbins.flashcards.dto.AbstractPersistableDto;
 import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
 import org.robbins.flashcards.exceptions.DataIntegrityException;
 import org.robbins.flashcards.exceptions.FlashcardsException;
@@ -12,10 +15,15 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
+import javax.inject.Inject;
+
 public abstract class AbstractCrudServiceImpl<D, ID extends Serializable> implements GenericPagingAndSortingService<D, ID>,
         CrudService<D, ID> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractCrudServiceImpl.class);
+
+    @Inject
+    private AkkaBatchSavingService batchSavingService;
 
     @Override
     public D save(final D dto) throws FlashcardsException {
@@ -29,8 +37,8 @@ public abstract class AbstractCrudServiceImpl<D, ID extends Serializable> implem
     }
 
     @Override
-    public BatchLoadingReceiptDto save(List<D> entities) throws FlashcardsException {
-        return getFacade().save(entities);
+    public BatchLoadingReceiptDto save(List<D> dtos) throws FlashcardsException {
+        return batchSavingService.save(getFacade(), (List<AbstractAuditableDto>) dtos);
     }
 
     @Override
