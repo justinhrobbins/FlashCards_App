@@ -10,9 +10,11 @@ import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Pageable;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -67,14 +69,13 @@ public abstract class AbstractCrudServiceImpl<D, ID extends Serializable> implem
     }
 
     @Override
-    public List<D> findAll(final Integer page, final Integer size, final String sort, final String direction) throws FlashcardsException {
-        return getFacade().list(page, size, sort, direction);
+    public List<D> findAll(final Optional<Pageable> page) throws FlashcardsException {
+        return getFacade().list(page);
     }
 
     @Override
-    public List<D> findAll(final Integer page, final Integer size, final String sort, final String direction,
-                           Set<String> fields) throws FlashcardsException {
-        return getFacade().list(page, size, sort, direction, fields);
+    public List<D> findAll(final Optional<Pageable> page, Set<String> fields) throws FlashcardsException {
+        return getFacade().list(page, fields);
     }
 
     @Override

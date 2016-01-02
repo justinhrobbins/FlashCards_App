@@ -22,6 +22,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
+import org.robbins.flashcards.dto.util.PagingUtils;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.service.FlashCardService;
 import org.robbins.flashcards.service.base.GenericPagingAndSortingService;
@@ -146,7 +147,7 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
         List<FlashCardDto> entities;
 
         try {
-            entities = getService().findAll(page, size, sort, direction,
+            entities = getService().findAll(PagingUtils.getPageRequest(page, size, sort, direction),
                     this.getFieldsAsSet(fields));
         } catch (InvalidDataAccessApiUsageException e) {
             LOGGER.error(e.getMessage(), e);

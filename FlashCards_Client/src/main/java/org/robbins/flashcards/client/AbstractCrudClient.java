@@ -1,16 +1,23 @@
 package org.robbins.flashcards.client;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+
 import org.robbins.flashcards.dto.AbstractPersistableDto;
 import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.exceptions.ServiceException;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
-
-import java.util.*;
 
 public abstract class AbstractCrudClient<E extends AbstractPersistableDto, ID> extends AbstractClient implements GenericRestCrudFacade<E, ID> {
 
@@ -86,11 +93,11 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto, ID> e
 
     @Override
     public List<E> list() {
-        return list(null, null, null, null, null);
+        return list(Optional.empty(), null);
     }
 
     @Override
-    public List<E> list(final Integer page, final Integer size, final String sort, final String direction, final Set<String> fields) {
+    public List<E> list(final Optional<Pageable> page, final Set<String> fields) {
         // set the Authentication header
         @SuppressWarnings({ "unchecked", "rawtypes" })
         final HttpEntity httpEntity = new HttpEntity(getAuthHeaders());
@@ -103,8 +110,8 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto, ID> e
     }
 
     @Override
-    public List<E> list(final Integer page, final Integer size, final String sort, final String direction) {
-        return list(page, size, sort, direction, null);
+    public List<E> list(final Optional<Pageable> page) {
+        return list(page, null);
     }
 
     @Override

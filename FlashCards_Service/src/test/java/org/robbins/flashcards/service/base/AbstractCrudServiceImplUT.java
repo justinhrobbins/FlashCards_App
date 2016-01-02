@@ -101,27 +101,4 @@ public class AbstractCrudServiceImplUT extends BaseMockingTest {
         verify(facade, Mockito.times(1)).list();
         assertThat(results, is(List.class));
     }
-
-    @Test
-    public void findAllSort() throws FlashcardsException {
-		final String SORT = "PROPERTY_TO_SORT_BY";
-        when(facade.list(null, null, SORT, null)).thenReturn(tags);
-
-        final List<TagDto> results = tagService.findAll(null, null, SORT, null);
-
-        verify(facade, Mockito.times(1)).list(null, null, SORT, null);
-        assertThat(results, is(List.class));
-    }
-
-    @Test
-    public void findAllPageable() throws FlashcardsException {
-		final Integer PAGE = 1;
-		final Integer PAGE_SIZE = 1;
-        when(facade.list(PAGE, PAGE_SIZE, null, null)).thenReturn(tags);
-
-        final List<TagDto> results = tagService.findAll(PAGE, PAGE_SIZE, null, null);
-
-        verify(facade, Mockito.times(1)).list(PAGE, PAGE_SIZE, null, null);
-        assertThat(results, is(List.class));
-    }
 }
