@@ -1,20 +1,23 @@
 package org.robbins.flashcards.webservices.base;
 
-import com.sun.jersey.api.JResponse;
-import com.wordnik.swagger.annotations.ApiOperation;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.GET;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Response;
+
+import org.robbins.flashcards.dto.util.PagingUtils;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.GET;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Response;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import com.sun.jersey.api.JResponse;
+import com.wordnik.swagger.annotations.ApiOperation;
 
 public abstract class AbstractGenericListingResource<T, ID extends Serializable> extends AbstractGenericResource<T, ID> {
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGenericListingResource.class);
@@ -31,7 +34,7 @@ public abstract class AbstractGenericListingResource<T, ID extends Serializable>
         List<T> entities;
 
         try {
-            entities = getService().findAll(page, size, sort, direction,
+            entities = getService().findAll(PagingUtils.getPageRequest(page, size, sort, direction),
                     this.getFieldsAsSet(fields));
         } catch (InvalidDataAccessApiUsageException e) {
             LOGGER.error(e.getMessage(), e);

@@ -3,12 +3,12 @@ package org.robbins.flashcards.repository.facade.base;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.inject.Inject;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.exceptions.RepositoryException;
@@ -20,9 +20,7 @@ import org.robbins.flashcards.repository.facade.RepositoryFacade;
 import org.robbins.flashcards.repository.util.FieldInitializerUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -66,41 +64,30 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E extends AbstractAudi
 
     @Override
     public List<D> list() throws RepositoryException {
-        return list(null, null, null, null);
+        return list(Optional.empty());
     }
 
     @Override
-    public List<D> list(final Integer page, final Integer size, final String sort,
-                        final String direction)
+    public List<D> list(final Optional<Pageable> page)
             throws RepositoryException {
-        return this.list(page, size, sort, direction, null);
+        return this.list(page, null);
     }
 
     @Override
-    public List<D> list(final Integer page, final Integer size, final String sort,
-                        final String direction, final Set<String> fields) throws RepositoryException {
+    public List<D> list(final Optional<Pageable> page, final Set<String> fields) throws RepositoryException {
 
-        List<E> entities = null;
+        List<E> entities;
 
-        // are we trying to use Pagination or Sorting?
-        // if not then go ahead and return findAll()
-        if ((page == null) && (StringUtils.isEmpty(sort))) {
+        if (page.isPresent()) {
+            entities = getRepository().findAll(page.get()).getContent();
+        }
+        else {
             entities = getRepository().findAll();
-        } // should we Page
-        else if (page != null) {
-            PageRequest pageRequest = getPageRequest(page, size, sort, direction);
-            entities = getRepository().findAll(pageRequest).getContent();
-        } // should we just Sort the list?
-        else if (!StringUtils.isEmpty(sort)) {
-            // get a sorted list
-            Sort entitySort = getSort(sort, direction);
-            entities = getRepository().findAll(entitySort);
         }
 
         if (CollectionUtils.isEmpty(entities)) {
             return null;
         }
-
         return convertAndInitializeEntities(entities, fields);
     }
 
@@ -133,28 +120,6 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E extends AbstractAudi
     public List<D> findByCreatedBy(final ID userId, final Set<String> fields) throws FlashcardsException {
         List<E> results = getRepository().findByCreatedBy_Id(userId);
         return convertAndInitializeEntities(results, fields);
-    }
-
-    protected PageRequest getPageRequest(final Integer page, final Integer size,
-                                         final String sortOrder, final String sortDirection) {
-        // are we Sorting too?
-        if (!StringUtils.isEmpty(sortOrder)) {
-            Sort sort = getSort(sortOrder, sortDirection);
-            return new PageRequest(page, size, sort);
-        } else {
-            return new PageRequest(page, size);
-        }
-    }
-
-    protected Sort getSort(final String sort, final String order) {
-        if ((StringUtils.isEmpty(order)) || (order.equals("asc"))) {
-            return new Sort(Direction.ASC, order);
-        } else if (order.equals("desc")) {
-            return new Sort(Direction.DESC, order);
-        } else {
-            throw new IllegalArgumentException("Sort order must be 'asc' or 'desc'.  '"
-                    + order + "' is not an acceptable sort order");
-        }
     }
 
     protected List<D> convertAndInitializeEntities(final List<E> entities) throws RepositoryException {

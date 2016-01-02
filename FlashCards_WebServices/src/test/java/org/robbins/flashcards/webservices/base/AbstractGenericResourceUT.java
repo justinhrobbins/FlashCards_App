@@ -11,8 +11,8 @@ import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
 import org.apache.commons.lang3.RandomUtils;
@@ -27,7 +27,7 @@ import org.robbins.flashcards.webservices.TagsResource;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.util.ReflectionTestUtils;
 
@@ -59,61 +59,23 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
     @Test
     public void list() throws FlashcardsException
 	{
-        when(mockTagService.findAll(null, null, null, null, null)).thenReturn(tagDtoList);
+        when(mockTagService.findAll(any(Optional.class))).thenReturn(tagDtoList);
 
         JResponse<List<TagDto>> results = resource.list(null, null, null, null, null);
 
-        verify(mockTagService).findAll(null, null, null, null, null);
+        verify(mockTagService).findAll(any(Optional.class));
         assertThat(results.getEntity(), is(List.class));
     }
 
     @Test
     public void list_NullResult() throws FlashcardsException {
-        when(mockTagService.findAll(null, null, null, null)).thenReturn(null);
+        when(mockTagService.findAll(any(Optional.class))).thenReturn(null);
 
         JResponse<List<TagDto>> results = resource.list(null, null, null, null, null);
 
-        verify(mockTagService).findAll(null, null, null, null, null);
+        verify(mockTagService).findAll(any(Optional.class));
         assertThat(results.getEntity(), is(List.class));
         assertThat(results.getEntity().size(), is(0));
-    }
-
-    @Test(expected = WebApplicationException.class)
-    public void listWithInvalidSortParameter() throws FlashcardsException {
-        when(mockTagService.findAll(null, null, "bad_parameter", "asc", null)).thenThrow(
-                new InvalidDataAccessApiUsageException("error"));
-
-        resource.list(null, null, "bad_parameter", "asc", null);
-    }
-
-    @Test
-    public void listWithSort() throws FlashcardsException {
-        when(mockTagService.findAll(null, null, "name", "asc", null)).thenReturn(tagDtoList);
-
-        JResponse<List<TagDto>> results = resource.list(null, null, "name", "asc", null);
-
-        verify(mockTagService).findAll(null, null, "name", "asc", null);
-        assertThat(results.getEntity(), is(List.class));
-    }
-
-    @Test
-    public void listWithPagingAndSort() throws FlashcardsException {
-        when(mockTagService.findAll(0, 1, "name", "desc", null)).thenReturn(tagDtoList);
-
-        JResponse<List<TagDto>> results = resource.list(0, 1, "name", "desc", null);
-
-        verify(mockTagService).findAll(0, 1, "name", "desc", null);
-        assertThat(results.getEntity(), is(List.class));
-    }
-
-    @Test
-    public void listWithPagingNoSort() throws FlashcardsException {
-        when(mockTagService.findAll(0, 1, null, null, null)).thenReturn(tagDtoList);
-
-        JResponse<List<TagDto>> results = resource.list(0, 1, null, null, null);
-
-        verify(mockTagService).findAll(0, 1, null, null, null);
-        assertThat(results.getEntity(), is(List.class));
     }
 
     @Test

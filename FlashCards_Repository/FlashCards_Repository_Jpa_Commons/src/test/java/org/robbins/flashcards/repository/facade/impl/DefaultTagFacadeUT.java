@@ -10,28 +10,23 @@ import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
+import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.exceptions.ServiceException;
 import org.robbins.flashcards.facade.TagFacade;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.repository.TagRepository;
-import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.repository.auditing.AuditingAwareUser;
 import org.robbins.flashcards.repository.util.FieldInitializerUtil;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @Category(UnitTest.class)
@@ -154,80 +149,5 @@ public class DefaultTagFacadeUT extends BaseMockingTest {
 
         verify(repository).save(any(Tag.class));
         assertThat(result, is(TagDto.class));
-    }
-
-    @Test
-    public void list() throws FlashcardsException {
-        List<Tag> mockTagList = Arrays.asList(mockTag);
-
-        when(converter.getDto(mockTag)).thenReturn(mockTagDto);
-        when(repository.findAll()).thenReturn(mockTagList);
-
-        List<TagDto> results = tagFacade.list(null, null, null, null);
-
-        verify(repository).findAll();
-        assertThat(results, is(List.class));
-    }
-
-    @Test
-    public void list_WithSortAsc() throws FlashcardsException {
-        List<Tag> mockTagList = Arrays.asList(mockTag);
-
-        when(converter.getDto(mockTag)).thenReturn(mockTagDto);
-        when(repository.findAll(any(Sort.class))).thenReturn(mockTagList);
-
-        List<TagDto> results = tagFacade.list(null, null, "name", "asc");
-
-        verify(repository).findAll(any(Sort.class));
-        assertThat(results, is(List.class));
-    }
-
-    @Test
-    public void list_WithSortDesc() throws FlashcardsException {
-        List<Tag> mockTagList = Arrays.asList(mockTag);
-
-        when(converter.getDto(mockTag)).thenReturn(mockTagDto);
-        when(repository.findAll(any(Sort.class))).thenReturn(mockTagList);
-
-        List<TagDto> results = tagFacade.list(null, null, "name", "desc");
-
-        verify(repository).findAll(any(Sort.class));
-        assertThat(results, is(List.class));
-    }
-
-    @Test
-    public void list_ReturnNull() throws FlashcardsException {
-        when(repository.findAll()).thenReturn(null);
-
-        List<TagDto> results = tagFacade.list(null, null, null, null);
-
-        verify(repository).findAll();
-        assertThat(results, is(nullValue()));
-    }
-
-    @Test
-    public void list_WithPageAndSort() throws FlashcardsException {
-		Page<Tag> page = new PageImpl<>(Arrays.asList(mockTag));
-
-        when(converter.getDto(mockTag)).thenReturn(mockTagDto);
-        when(repository.findAll(any(PageRequest.class))).thenReturn(page);
-
-        List<TagDto> results = tagFacade.list(1, PAGE_SIZE, "name", "asc");
-
-        verify(repository).findAll(any(PageRequest.class));
-        assertThat(results, is(List.class));
-    }
-
-    @Test
-    public void list_WithPageNoSort() throws FlashcardsException {
-		Page<Tag> page = new PageImpl<>(Arrays.asList(mockTag));
-
-        when(converter.getDto(mockTag)).thenReturn(mockTagDto);
-        when(repository.findAll(any(PageRequest.class))).thenReturn(page);
-
-        List<TagDto> results = tagFacade.list(1, PAGE_SIZE, null, null);
-
-        verify(repository).findAll(any(PageRequest.class));
-        assertThat(results, is(List.class));
     }
 }

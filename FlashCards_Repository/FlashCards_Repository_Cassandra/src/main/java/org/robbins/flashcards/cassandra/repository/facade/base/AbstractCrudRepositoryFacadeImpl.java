@@ -2,10 +2,9 @@
 package org.robbins.flashcards.cassandra.repository.facade.base;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.NotImplementedException;
@@ -14,6 +13,7 @@ import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.repository.facade.RepositoryFacade;
+import org.springframework.data.domain.Pageable;
 
 import com.datastax.driver.core.utils.UUIDs;
 import com.google.common.collect.Lists;
@@ -23,18 +23,18 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E extends AbstractPers
 {
     @Override
     public List<D> list() throws FlashcardsException {
-        return list(null, null, null, null);
-    }
-
-    @Override
-    public List<D> list(final Integer page, final Integer size, final String sort, final String direction) throws FlashcardsException {
-        return list(null, null, null, null, null);
-    }
-
-    @Override
-    public List<D> list(final Integer page, final Integer size, final String sort, final String direction, final Set<String> fields) throws FlashcardsException {
         final List<E> results = Lists.newArrayList(getRepository().findAll());
         return getConverter().getDtos(results);
+    }
+
+    @Override
+    public List<D> list(final Optional<Pageable> page) throws FlashcardsException {
+        throw new NotImplementedException("method not yet implemented in Cassandra repository");
+    }
+
+    @Override
+    public List<D> list(final Optional<Pageable> page, final Set<String> fields) throws FlashcardsException {
+        throw new NotImplementedException("method not yet implemented in Cassandra repository");
     }
 
     @Override
