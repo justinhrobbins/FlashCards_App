@@ -27,15 +27,14 @@ import scala.runtime.BoxedUnit;
 
 public class BatchSavingCoordinator extends AbstractActor
 {
-
 	private static final Logger LOGGER = LoggerFactory.getLogger(BatchSavingCoordinator.class);
 
 	private final Map<Long, ActorRef> parents = new ConcurrentHashMap<>();
 	private final Map<Long, BatchLoadingReceiptDto> batchesInProgress = new ConcurrentHashMap<>();
 
-	final private List<WorkQueueItem> workQueue = new ArrayList<>();
-	final private Map<ActorRef, BatchSaveStartMessage> workInProgress = new HashMap<>();
-	final private List<ActorRef> idleWorkers = new ArrayList<>();
+	private final List<WorkQueueItem> workQueue = new ArrayList<>();
+	private final Map<ActorRef, BatchSaveStartMessage> workInProgress = new HashMap<>();
+	private final List<ActorRef> idleWorkers = new ArrayList<>();
 
 	public BatchSavingCoordinator()
 	{
