@@ -47,7 +47,7 @@ public class FieldInitializerUtilUT extends BaseMockingTest {
         fieldInitializerUtil = new FieldInitializerUtil();
 
         tagDto = new TagDto();
-        tagDto.setFlashcards(new HashSet<>());
+        tagDto.setFlashCards(new HashSet<>());
 
         when(mockEntityManager.getEntityManagerFactory()).thenReturn(
                 mockEntityManagerFactory);

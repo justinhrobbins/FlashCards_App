@@ -10,7 +10,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import org.robbins.flashcards.dto.util.PagingUtils;
-import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.exceptions.FlashCardsException;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +40,7 @@ public abstract class AbstractGenericListingResource<T, ID extends Serializable>
             LOGGER.error(e.getMessage(), e);
             throw new GenericWebServiceException(Response.Status.BAD_REQUEST,
                     "Inavlid sort parameter: '" + sort + "'", e);
-        } catch (FlashcardsException e) {
+        } catch (FlashCardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
 

@@ -3,7 +3,7 @@ package org.robbins.load.tester.service;
 import org.robbins.flashcards.client.GenericRestCrudFacade;
 import org.robbins.flashcards.dto.AbstractAuditableDto;
 import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
-import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.exceptions.FlashCardsException;
 import org.robbins.load.tester.message.LoadTestResult;
 import org.robbins.load.tester.message.LoadTestStart;
 import org.robbins.load.tester.message.SingleTestResult;
@@ -102,7 +102,7 @@ public class DefaultLoadTestingService implements LoadTestingService {
         try {
             client.save(dto);
 
-        } catch (FlashcardsException e) {
+        } catch (FlashCardsException e) {
             LOGGER.error("Unable to create Dto {}, error: {}", dto.toString(), e.getMessage());
             resultStatus = SingleTestResult.TestResultStatus.FAILURE;
         }

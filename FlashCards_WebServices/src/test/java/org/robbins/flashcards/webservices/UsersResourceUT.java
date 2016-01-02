@@ -15,7 +15,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
 import org.robbins.flashcards.dto.UserDto;
-import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.exceptions.FlashCardsException;
 import org.robbins.flashcards.service.UserService;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
@@ -40,7 +40,7 @@ public class UsersResourceUT extends BaseMockingTest {
     }
 
     @Test
-    public void search() throws FlashcardsException
+    public void search() throws FlashCardsException
 	{
         when(mockUserService.findUserByOpenid(any(String.class))).thenReturn(mockUserDto);
 
@@ -51,7 +51,8 @@ public class UsersResourceUT extends BaseMockingTest {
     }
 
     @Test
-    public void put() throws FlashcardsException {
+    public void put() throws FlashCardsException
+    {
         when(mockUserService.findOne(any(Long.class))).thenReturn(mockUserDto);
         when(mockUserService.save(any(UserDto.class))).thenReturn(mockUserDto);
 

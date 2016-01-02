@@ -11,7 +11,7 @@
  */
 package org.robbins.flashcards.exceptions;
 
-public class RepositoryException extends FlashcardsException
+public class RepositoryException extends FlashCardsException
 {
 	public RepositoryException(final String message) {
 		super(message);

@@ -6,12 +6,11 @@ import org.robbins.flashcards.cassandra.repository.AbstractCassandraIntegrationT
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.builder.FlashCardDtoBuilder;
 import org.robbins.flashcards.dto.builder.TagDtoBuilder;
-import org.robbins.flashcards.exceptions.FlashcardsException;
-import org.robbins.flashcards.facade.FlashcardFacade;
+import org.robbins.flashcards.exceptions.FlashCardsException;
+import org.robbins.flashcards.facade.FlashCardFacade;
 
 import javax.inject.Inject;
 import java.util.List;
-import java.util.UUID;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.greaterThan;
@@ -27,10 +26,10 @@ public class DefaultFlashCardFacadeIT extends AbstractCassandraIntegrationTest {
     final String NEW_ANSWER = "new answer";
 
     @Inject
-    private FlashcardFacade facade;
+    private FlashCardFacade facade;
 
     @Test
-    public void testList() throws FlashcardsException
+    public void testList() throws FlashCardsException
 	{
         final List<FlashCardDto> results = facade.list();
 
@@ -39,7 +38,8 @@ public class DefaultFlashCardFacadeIT extends AbstractCassandraIntegrationTest {
     }
 
     @Test
-    public void testFindOne() throws FlashcardsException {
+    public void testFindOne() throws FlashCardsException
+    {
 
         final FlashCardDto result = facade.findOne(ID);
         assertThat(result, is(notNullValue()));
@@ -47,14 +47,15 @@ public class DefaultFlashCardFacadeIT extends AbstractCassandraIntegrationTest {
     }
 
     @Test
-    public void testFindOne_ShouldReturnNull_WhenIdDoesNotExist() throws FlashcardsException {
+    public void testFindOne_ShouldReturnNull_WhenIdDoesNotExist() throws FlashCardsException
+    {
 
         final FlashCardDto result = facade.findOne(NON_EXISTING_ID);
         assertThat(result, is(nullValue()));
     }
 
     @Test
-    public void testSave() throws FlashcardsException
+    public void testSave() throws FlashCardsException
     {
         final FlashCardDto dto = new FlashCardDtoBuilder()
                 .withQuestion(NEW_QUESTION)
@@ -68,7 +69,7 @@ public class DefaultFlashCardFacadeIT extends AbstractCassandraIntegrationTest {
     }
 
     @Test
-    public void testSave_WithExistingTags() throws FlashcardsException
+    public void testSave_WithExistingTags() throws FlashCardsException
     {
         final FlashCardDto dto = new FlashCardDtoBuilder()
                 .withQuestion(NEW_QUESTION)
@@ -83,7 +84,7 @@ public class DefaultFlashCardFacadeIT extends AbstractCassandraIntegrationTest {
     }
 
     @Test
-    public void testSave_WithNewTags() throws FlashcardsException
+    public void testSave_WithNewTags() throws FlashCardsException
     {
         final FlashCardDto dto = new FlashCardDtoBuilder()
                 .withQuestion(NEW_QUESTION)
@@ -98,7 +99,7 @@ public class DefaultFlashCardFacadeIT extends AbstractCassandraIntegrationTest {
     }
 
     @Test
-    public void testSave_WithNewAndExistingTag() throws FlashcardsException
+    public void testSave_WithNewAndExistingTag() throws FlashCardsException
     {
         final FlashCardDto dto = new FlashCardDtoBuilder()
                 .withQuestion(NEW_QUESTION)
@@ -113,7 +114,7 @@ public class DefaultFlashCardFacadeIT extends AbstractCassandraIntegrationTest {
     }
 
     @Test
-    public void testUpdate() throws FlashcardsException
+    public void testUpdate() throws FlashCardsException
     {
         final String UPDATED_QUESTION = "updated question";
         final FlashCardDto toUpdate = testUtils.createFlashCardDto();
@@ -126,7 +127,8 @@ public class DefaultFlashCardFacadeIT extends AbstractCassandraIntegrationTest {
     }
 
     @Test
-    public void testDelete() throws FlashcardsException {
+    public void testDelete() throws FlashCardsException
+    {
         final FlashCardDto toDelete = testUtils.createFlashCardDto();
 
         facade.delete(toDelete.getId());

@@ -6,10 +6,8 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.robbins.flashcards.dto.AbstractAuditableDto;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
-import org.robbins.flashcards.dto.UserDto;
 import org.robbins.flashcards.dto.builder.FlashCardDtoBuilder;
 import org.robbins.flashcards.dto.builder.TagDtoBuilder;
-import org.robbins.flashcards.dto.builder.UserDtoBuilder;
 
 import java.util.Date;
 import java.util.List;
@@ -21,13 +19,13 @@ public class LoadingTestingUtil {
 
     private static final String prefix = "load-tester";
     private static final String tagDto = "TagDto";
-    private static final String flashcardDto = "FlashCardDto";
+    private static final String flashCardDto = "FlashCardDto";
 
     public static TagDto createTagDto(final String name) {
         return new TagDtoBuilder().withName(name).build();
     }
 
-    public static FlashCardDto createFlashcardDto(final String question) {
+    public static FlashCardDto createFlashCardDto(final String question) {
         return new FlashCardDtoBuilder()
                 .withQuestion(question)
                 .withAnswer(RandomStringUtils.randomAlphabetic(10))
@@ -38,8 +36,8 @@ public class LoadingTestingUtil {
         switch (dtoClass.getSimpleName()) {
             case tagDto:
                 return createTagDto(name);
-            case flashcardDto:
-                return createFlashcardDto(name);
+            case flashCardDto:
+                return createFlashCardDto(name);
             default:
                 throw new IllegalArgumentException("dtoClass does not match expected: " + dtoClass.getSimpleName());
         }

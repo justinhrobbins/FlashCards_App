@@ -10,7 +10,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import org.robbins.flashcards.dto.UserDto;
-import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.exceptions.FlashCardsException;
 import org.robbins.flashcards.service.UserService;
 import org.robbins.flashcards.service.base.GenericPagingAndSortingService;
 import org.robbins.flashcards.webservices.base.AbstractGenericListingResource;
@@ -41,13 +41,13 @@ public class UsersResource extends AbstractGenericListingResource<UserDto, Long>
     public UserDto search(@QueryParam("openid") final String openid) {
         try {
             return userService.findUserByOpenid(openid);
-        } catch (FlashcardsException e) {
+        } catch (FlashCardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
     }
 
     @Path("/{userId}/flashcards")
-    public Class findFlashcardsForUser() {
+    public Class findFlashCardsForUser() {
         return FlashCardsResource.class;
     }
 

@@ -3,8 +3,8 @@ package org.robbins.flashcards.service;
 
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
-import org.robbins.flashcards.exceptions.FlashcardsException;
-import org.robbins.flashcards.facade.FlashcardFacade;
+import org.robbins.flashcards.exceptions.FlashCardsException;
+import org.robbins.flashcards.facade.FlashCardFacade;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.robbins.flashcards.service.base.AbstractCrudServiceImpl;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -21,7 +21,7 @@ public class FlashCardServiceImpl extends AbstractCrudServiceImpl<FlashCardDto, 
 
     @Inject
 	@Qualifier("flashcardRepositoryFacade")
-    private FlashcardFacade facade;
+    private FlashCardFacade facade;
 
 	@Override
 	public GenericCrudFacade<FlashCardDto, Long> getFacade() {
@@ -29,34 +29,39 @@ public class FlashCardServiceImpl extends AbstractCrudServiceImpl<FlashCardDto, 
 	}
 
     @Override
-    public List<FlashCardDto> findByTagsIn(final Set<TagDto> tags) throws FlashcardsException
+    public List<FlashCardDto> findByTagsIn(final Set<TagDto> tags) throws FlashCardsException
 	{
         return facade.findByTagsIn(tags);
     }
 
     @Override
-    public List<FlashCardDto> findByTagsIn(final Set<TagDto> tags, final PageRequest page) throws FlashcardsException {
+    public List<FlashCardDto> findByTagsIn(final Set<TagDto> tags, final PageRequest page) throws FlashCardsException
+    {
         return facade.findByTagsIn(tags, page);
     }
 
     @Override
-    public List<FlashCardDto> findByQuestionLike(final String question) throws FlashcardsException {
+    public List<FlashCardDto> findByQuestionLike(final String question) throws FlashCardsException
+    {
         return facade.findByQuestionLike(question);
     }
 
     @Override
     public List<FlashCardDto> findByQuestionLike(final String question,
-            final PageRequest page) throws FlashcardsException {
+            final PageRequest page) throws FlashCardsException
+    {
         return facade.findByQuestionLike(question, page);
     }
 
     @Override
-    public FlashCardDto findByQuestion(final String question) throws FlashcardsException {
+    public FlashCardDto findByQuestion(final String question) throws FlashCardsException
+    {
         return facade.findByQuestion(question);
     }
 
     @Override
-    public List<FlashCardDto> findFlashcardsForTag(final Long tagId, final Set<String> fields) throws FlashcardsException {
-        return facade.findFlashcardsForTag(tagId, fields);
+    public List<FlashCardDto> findFlashCardsForTag(final Long tagId, final Set<String> fields) throws FlashCardsException
+    {
+        return facade.findFlashCardsForTag(tagId, fields);
     }
 }

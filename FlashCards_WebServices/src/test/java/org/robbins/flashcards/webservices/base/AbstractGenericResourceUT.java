@@ -21,13 +21,12 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
 import org.robbins.flashcards.dto.TagDto;
-import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.exceptions.FlashCardsException;
 import org.robbins.flashcards.service.TagService;
 import org.robbins.flashcards.webservices.TagsResource;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.util.ReflectionTestUtils;
 
@@ -57,7 +56,7 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
     }
 
     @Test
-    public void list() throws FlashcardsException
+    public void list() throws FlashCardsException
 	{
         when(mockTagService.findAll(any(Optional.class))).thenReturn(tagDtoList);
 
@@ -68,7 +67,8 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
     }
 
     @Test
-    public void list_NullResult() throws FlashcardsException {
+    public void list_NullResult() throws FlashCardsException
+    {
         when(mockTagService.findAll(any(Optional.class))).thenReturn(null);
 
         JResponse<List<TagDto>> results = resource.list(null, null, null, null, null);
@@ -90,7 +90,8 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
 
     @SuppressWarnings("unchecked")
     @Test
-    public void findOne() throws FlashcardsException {
+    public void findOne() throws FlashCardsException
+    {
         when(mockTagService.findOne(anyLong(), anySet())).thenReturn(new TagDto(uuid));
 
         TagDto result = resource.findOne(uuid, null);
@@ -101,7 +102,8 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
 
     @SuppressWarnings("unchecked")
     @Test
-    public void findOne_WithFields() throws FlashcardsException {
+    public void findOne_WithFields() throws FlashCardsException
+    {
         String fields = "name,flashcards,userpassword";
         when(mockTagService.findOne(anyLong(), anySet())).thenReturn(new TagDto(uuid));
 
@@ -113,14 +115,16 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
 
     @SuppressWarnings("unchecked")
     @Test(expected = GenericWebServiceException.class)
-    public void findOne_ReturnsNull() throws FlashcardsException {
+    public void findOne_ReturnsNull() throws FlashCardsException
+    {
         when(mockTagService.findOne(anyLong(), anySet())).thenReturn(null);
 
         resource.findOne(uuid, null);
     }
 
     @Test
-    public void post() throws FlashcardsException {
+    public void post() throws FlashCardsException
+    {
         when(mockTagService.save(any(TagDto.class))).thenReturn(new TagDto(uuid));
 
         TagDto result = resource.post(new TagDto());
@@ -138,7 +142,8 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
     }
 
     @Test
-    public void update() throws FlashcardsException {
+    public void update() throws FlashCardsException
+    {
         when(mockTagService.findOne(any(Long.class))).thenReturn(mockTagDto);
         when(mockTagService.save(any(TagDto.class))).thenReturn(mockTagDto);
 

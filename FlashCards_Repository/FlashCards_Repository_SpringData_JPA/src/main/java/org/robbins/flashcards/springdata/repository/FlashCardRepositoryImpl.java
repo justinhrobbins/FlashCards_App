@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 @Repository
-public class FlashcardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCard, Long> implements
+public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCard, Long> implements
         FlashCardRepository<FlashCard, Tag, Long> {
 
     @Inject

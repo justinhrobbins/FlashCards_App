@@ -12,8 +12,8 @@ import org.robbins.flashcards.model.common.AbstractAuditable;
 @Entity
 @Table(name = "tag")
 @AttributeOverride(name = "id", column = @Column(name = "TagId"))
-@NamedEntityGraph(name = "Tag.flashcards",
-        attributeNodes = @NamedAttributeNode("flashcards"))
+@NamedEntityGraph(name = "Tag.flashCards",
+        attributeNodes = @NamedAttributeNode("flashCards"))
 public class Tag extends AbstractAuditable<Long, Long> implements Serializable {
 
     private static final long serialVersionUID = 3642775570292807703L;
@@ -24,7 +24,7 @@ public class Tag extends AbstractAuditable<Long, Long> implements Serializable {
     @ManyToMany(targetEntity = org.robbins.flashcards.model.FlashCard.class, cascade = {
         CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "tags", fetch = FetchType.LAZY)
     @OrderBy("question")
-    private Set<FlashCard> flashcards = new HashSet<FlashCard>(0);
+    private Set<FlashCard> flashCards = new HashSet<>(0);
 
     public Tag() {
     }
@@ -33,9 +33,9 @@ public class Tag extends AbstractAuditable<Long, Long> implements Serializable {
         setId(id);
     }
 
-    public Tag(final String name, final Set<FlashCard> flashcards) {
+    public Tag(final String name, final Set<FlashCard> flashCards) {
         this.name = name;
-        this.flashcards = flashcards;
+        this.flashCards = flashCards;
     }
 
     public String getName() {
@@ -46,12 +46,12 @@ public class Tag extends AbstractAuditable<Long, Long> implements Serializable {
         this.name = name;
     }
 
-    public Set<FlashCard> getFlashcards() {
-        return this.flashcards;
+    public Set<FlashCard> getFlashCards() {
+        return this.flashCards;
     }
 
-    public void setFlashcards(final Set<FlashCard> flashcards) {
-        this.flashcards = flashcards;
+    public void setFlashCards(final Set<FlashCard> flashCards) {
+        this.flashCards = flashCards;
     }
 
     @Override

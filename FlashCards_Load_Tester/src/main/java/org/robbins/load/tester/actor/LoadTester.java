@@ -6,7 +6,7 @@ import akka.actor.Props;
 import akka.japi.pf.ReceiveBuilder;
 import org.robbins.flashcards.client.GenericRestCrudFacade;
 import org.robbins.flashcards.dto.AbstractAuditableDto;
-import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.exceptions.FlashCardsException;
 import org.robbins.load.tester.message.SingleTestResult;
 import org.robbins.load.tester.message.TestStart;
 import org.robbins.load.tester.util.LoadingTestingUtil;
@@ -62,7 +62,7 @@ public class LoadTester extends AbstractActor {
         try {
             client.save(dto);
 
-        } catch (FlashcardsException e) {
+        } catch (FlashCardsException e) {
             LOGGER.error("Unable to create Dto {}, error: {}", dto.toString(), e.getMessage());
             resultStatus = SingleTestResult.TestResultStatus.FAILURE;
         }

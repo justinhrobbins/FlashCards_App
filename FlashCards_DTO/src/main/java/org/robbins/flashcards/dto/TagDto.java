@@ -22,7 +22,7 @@ public class TagDto extends AbstractAuditableDto implements Serializable {
 
     private String name;
 
-    private Set<FlashCardDto> flashcards = new HashSet<FlashCardDto>(0);
+    private Set<FlashCardDto> flashCards = new HashSet<>(0);
 
     public TagDto() {
     }
@@ -44,12 +44,12 @@ public class TagDto extends AbstractAuditableDto implements Serializable {
         this.name = name;
     }
 
-    public Set<FlashCardDto> getFlashcards() {
-        return flashcards;
+    public Set<FlashCardDto> getFlashCards() {
+        return flashCards;
     }
 
-    public void setFlashcards(final Set<FlashCardDto> flashcards) {
-        this.flashcards = flashcards;
+    public void setFlashCards(final Set<FlashCardDto> flashCardId) {
+        this.flashCards = flashCardId;
     }
 
     /**

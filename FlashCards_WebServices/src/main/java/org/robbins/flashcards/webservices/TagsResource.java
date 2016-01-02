@@ -18,7 +18,7 @@ import javax.ws.rs.core.Response;
 import org.apache.commons.collections.CollectionUtils;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.dto.util.PagingUtils;
-import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.exceptions.FlashCardsException;
 import org.robbins.flashcards.service.TagService;
 import org.robbins.flashcards.service.base.GenericPagingAndSortingService;
 import org.robbins.flashcards.webservices.base.AbstractGenericResource;
@@ -61,7 +61,7 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long>
 		{
 			tagDto = tagService.findByName(name);
 		}
-		catch (FlashcardsException e)
+		catch (FlashCardsException e)
 		{
 			throw new GenericWebServiceException(
 					Response.Status.INTERNAL_SERVER_ERROR, e);
@@ -87,12 +87,12 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long>
 			{
 				orig = tagService.findOne(id);
 			}
-			catch (FlashcardsException e)
+			catch (FlashCardsException e)
 			{
 				throw new GenericWebServiceException(
 						Response.Status.INTERNAL_SERVER_ERROR, e);
 			}
-			dto.setFlashcards(orig.getFlashcards());
+			dto.setFlashCards(orig.getFlashCards());
 			dto.setCreatedBy(orig.getCreatedBy());
 			dto.setCreatedDate(orig.getCreatedDate());
 		}
@@ -116,7 +116,7 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long>
 			throw new GenericWebServiceException(Response.Status.BAD_REQUEST,
 					"Invalid sort parameter: '" + sort + "'", e);
 		}
-		catch (FlashcardsException e)
+		catch (FlashCardsException e)
 		{
 			throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
 		}
@@ -130,7 +130,7 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long>
 	}
 
 	@GET
-	public JResponse<List<TagDto>> list(@PathParam("flashcardId") final Long flashcardId,
+	public JResponse<List<TagDto>> list(@PathParam("flashcardId") final Long flashCardId,
 			@PathParam("userId") final Long userId,
 			@QueryParam("page") final Integer page,
 			@DefaultValue("25") @QueryParam("size") final Integer size,
@@ -139,9 +139,9 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long>
 			@QueryParam("fields") final String fields)
 	{
 
-		if (flashcardId != null)
+		if (flashCardId != null)
 		{
-			return listTagsForFlashcard(flashcardId, page, size, sort, direction, fields);
+			return listTagsForFlashCard(flashCardId, page, size, sort, direction, fields);
 		}
 		else if (userId != null)
 		{
@@ -153,21 +153,21 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long>
 		}
 	}
 
-	private JResponse<List<TagDto>> listTagsForFlashcard(final Long flashcardId, final Integer page,
+	private JResponse<List<TagDto>> listTagsForFlashCard(final Long flashCardId, final Integer page,
 			final Integer size, final String sort,
 			final String direction, final String fields)
 	{
 		try
 		{
-			List<TagDto> entities = tagService.findTagsForFlashcard(flashcardId, this.getFieldsAsSet(fields));
+			List<TagDto> entities = tagService.findTagsForFlashCard(flashCardId, this.getFieldsAsSet(fields));
 			if (CollectionUtils.isEmpty(entities))
 			{
 				throw new GenericWebServiceException(Response.Status.NOT_FOUND,
-						"Tags not found for Flashcard: " + flashcardId);
+						"Tags not found for FlashCard: " + flashCardId);
 			}
 			return JResponse.ok(entities).build();
 		}
-		catch (FlashcardsException e)
+		catch (FlashCardsException e)
 		{
 			throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
 		}
@@ -187,14 +187,14 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long>
 			}
 			return JResponse.ok(entities).build();
 		}
-		catch (FlashcardsException e)
+		catch (FlashCardsException e)
 		{
 			throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
 		}
 	}
 
 	@Path("/{tagId}/flashcards")
-	public Class findFlashcardsForTag()
+	public Class findFlashCardsForTag()
 	{
 		return FlashCardsResource.class;
 	}

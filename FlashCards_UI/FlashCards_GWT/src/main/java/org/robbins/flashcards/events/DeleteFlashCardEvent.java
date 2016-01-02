@@ -42,6 +42,6 @@ public class DeleteFlashCardEvent extends Event<DeleteFlashCardEventHandler> {
 
     @Override
     protected void dispatch(final DeleteFlashCardEventHandler handler) {
-        handler.onDeleteFlashcard(this);
+        handler.onDeleteFlashCard(this);
     }
 }

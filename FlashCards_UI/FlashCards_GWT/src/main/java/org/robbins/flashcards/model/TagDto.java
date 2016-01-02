@@ -13,7 +13,7 @@ public class TagDto extends AbstractAuditable<String, String> implements Seriali
 
     private String name;
 
-    private Set<FlashCardDto> flashcards = new HashSet<FlashCardDto>(0);
+    private Set<FlashCardDto> flashCards = new HashSet<FlashCardDto>(0);
 
     public TagDto() {
     }
@@ -22,9 +22,9 @@ public class TagDto extends AbstractAuditable<String, String> implements Seriali
         this.name = name;
     }
 
-    public TagDto(final String name, final Set<FlashCardDto> flashcards) {
+    public TagDto(final String name, final Set<FlashCardDto> flashCards) {
         this.name = name;
-        this.flashcards = flashcards;
+        this.flashCards = flashCards;
     }
 
     public String getName() {
@@ -35,20 +35,20 @@ public class TagDto extends AbstractAuditable<String, String> implements Seriali
         this.name = name;
     }
 
-    public Set<FlashCardDto> getFlashcards() {
-        return this.flashcards;
+    public Set<FlashCardDto> getFlashCards() {
+        return this.flashCards;
     }
 
-    public void setFlashcards(final Set<FlashCardDto> flashcards) {
-        this.flashcards = flashcards;
+    public void setFlashCards(final Set<FlashCardDto> flashCards) {
+        this.flashCards = flashCards;
     }
 
-    public List<FlashCardDto> getFlashcardsAsList() {
-        if (getFlashcards() == null) {
+    public List<FlashCardDto> getFlashCardsAsList() {
+        if (getFlashCards() == null) {
             return null;
         }
         List<FlashCardDto> flashCards = new ArrayList<FlashCardDto>();
-        for (FlashCardDto flashCard : getFlashcards()) {
+        for (FlashCardDto flashCard : getFlashCards()) {
             flashCards.add(flashCard);
         }
         return flashCards;

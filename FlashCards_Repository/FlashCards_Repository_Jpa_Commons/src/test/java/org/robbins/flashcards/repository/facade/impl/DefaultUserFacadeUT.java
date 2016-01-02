@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mock;
 import org.robbins.flashcards.dto.UserDto;
-import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.exceptions.FlashCardsException;
 import org.robbins.flashcards.facade.UserFacade;
 import org.robbins.flashcards.model.User;
 import org.robbins.flashcards.repository.UserRepository;
@@ -52,7 +52,7 @@ public class DefaultUserFacadeUT extends BaseMockingTest {
     }
 
     @Test
-    public void findUserByOpenid() throws FlashcardsException
+    public void findUserByOpenid() throws FlashCardsException
 	{
         when(repository.findUserByOpenid(any(String.class))).thenReturn(mockUser);
         when(converter.getDto(mockUser, null)).thenReturn(mockUserDto);
@@ -64,7 +64,8 @@ public class DefaultUserFacadeUT extends BaseMockingTest {
     }
 
     @Test
-    public void findByName_ReturnNull() throws FlashcardsException {
+    public void findByName_ReturnNull() throws FlashCardsException
+    {
         when(repository.findUserByOpenid(any(String.class))).thenReturn(null);
 
         UserDto result = userFacade.findUserByOpenid(any(String.class));
@@ -74,7 +75,8 @@ public class DefaultUserFacadeUT extends BaseMockingTest {
     }
 
     @Test
-    public void save() throws FlashcardsException {
+    public void save() throws FlashCardsException
+    {
         when(repository.save(any(User.class))).thenReturn(mockUser);
         when(repository.findOne(any(String.class))).thenReturn(mockUser);
         when(converter.getDto(mockUser, null)).thenReturn(mockUserDto);

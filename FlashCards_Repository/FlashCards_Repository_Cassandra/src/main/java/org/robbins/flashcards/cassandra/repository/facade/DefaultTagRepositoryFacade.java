@@ -6,7 +6,7 @@ import org.robbins.flashcards.cassandra.repository.domain.TagCassandraEntity;
 import org.robbins.flashcards.cassandra.repository.facade.base.AbstractCrudRepositoryFacadeImpl;
 import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.dto.TagDto;
-import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.exceptions.FlashCardsException;
 import org.robbins.flashcards.exceptions.RepositoryException;
 import org.robbins.flashcards.facade.TagFacade;
 import org.robbins.flashcards.repository.TagRepository;
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 import javax.inject.Inject;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 @Component("tagRepositoryFacade")
 public class DefaultTagRepositoryFacade extends AbstractCrudRepositoryFacadeImpl<TagDto, TagCassandraEntity> implements
@@ -47,12 +46,13 @@ public class DefaultTagRepositoryFacade extends AbstractCrudRepositoryFacadeImpl
     }
 
     @Override
-    public List<TagDto> findTagsForFlashcard(final Long flashcardId, final Set<String> fields) throws RepositoryException {
+    public List<TagDto> findTagsForFlashCard(final Long flashCardId, final Set<String> fields) throws RepositoryException {
         throw new NotImplementedException("method not yet implemented in Cassandra repository");
     }
 
     @Override
-    public List<TagDto> findByCreatedBy(final Long userId, final Set<String> fields) throws FlashcardsException {
+    public List<TagDto> findByCreatedBy(final Long userId, final Set<String> fields) throws FlashCardsException
+    {
         throw new NotImplementedException("method not yet implemented in Cassandra repository");
     }
 }

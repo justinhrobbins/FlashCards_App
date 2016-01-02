@@ -1,10 +1,9 @@
 package org.robbins.flashcards.client;
 
 import org.robbins.flashcards.client.util.ResourceUrls;
-import org.robbins.flashcards.dto.AbstractPersistableDto;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
-import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.exceptions.FlashCardsException;
 import org.robbins.flashcards.exceptions.ServiceException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
@@ -14,7 +13,8 @@ import java.util.stream.Collectors;
 
 
 @Component("flashcardClient")
-public class DefaultFlashcardClient extends AbstractCrudClient<FlashCardDto, Long> implements FlashcardClient {
+public class DefaultFlashCardClient extends AbstractCrudClient<FlashCardDto, Long> implements FlashCardClient
+{
     @Override
     public String getEntityListUrl() {
         return getServerAddress() + ResourceUrls.flashCards;
@@ -122,9 +122,10 @@ public class DefaultFlashcardClient extends AbstractCrudClient<FlashCardDto, Lon
     }
 
     @Override
-    public List<FlashCardDto> findFlashcardsForTag(Long tagId, Set<String> fields) throws FlashcardsException {
+    public List<FlashCardDto> findFlashCardsForTag(Long tagId, Set<String> fields) throws FlashCardsException
+    {
         final Map<String, String> uriVariables = new HashMap<String, String>();
         uriVariables.put("tagId", String.valueOf(tagId));
-        return Arrays.asList(searchEntities(getServerAddress() + ResourceUrls.flashcardsForTag, uriVariables, FlashCardDto[].class));
+        return Arrays.asList(searchEntities(getServerAddress() + ResourceUrls.flashCardsForTag, uriVariables, FlashCardDto[].class));
     }
 }

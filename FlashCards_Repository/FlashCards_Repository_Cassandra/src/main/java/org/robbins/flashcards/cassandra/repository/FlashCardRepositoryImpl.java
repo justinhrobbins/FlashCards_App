@@ -7,7 +7,6 @@ import static com.datastax.driver.core.querybuilder.QueryBuilder.insertInto;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.UUID;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -43,8 +42,8 @@ public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
     @Inject
     private TagRepository<TagCassandraEntity, Long> tagRepository;
 
-    private PreparedStatement flashcardStatement;
-    private PreparedStatement tagFlashcardStatement;
+    private PreparedStatement flashCardStatement;
+    private PreparedStatement tagFlashCardStatement;
 
     private static final String TAG_FLASHCARD_TABLE = "tag_flashcard";
     private static final String FLASHCARD_TABLE = "flashcard";
@@ -67,40 +66,40 @@ public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
         if (session == null){
             LOGGER.error("Cassandra not available");
         } else {
-            flashcardStatement = session.prepare(flashcardInsert());
-            tagFlashcardStatement = session.prepare(tagFlashcardInsert());
+            flashCardStatement = session.prepare(flashCardInsert());
+            tagFlashCardStatement = session.prepare(tagFlashCardInsert());
         }
 
     }
 
     @Override
-    public FlashCardCassandraEntity save(final FlashCardCassandraEntity flashcard) {
-        cassandraOperations.execute(flashcardBatch(flashcard));
+    public FlashCardCassandraEntity save(final FlashCardCassandraEntity flashCard) {
+        cassandraOperations.execute(flashCardBatch(flashCard));
 
-        return flashcard;
+        return flashCard;
     }
 
-    private BatchStatement flashcardBatch(FlashCardCassandraEntity flashcard) {
+    private BatchStatement flashCardBatch(FlashCardCassandraEntity flashCard) {
         BatchStatement batch = new BatchStatement();
 
-        batch.add(flashcardStatement.bind(
-                flashcard.getId(),
-                flashcard.getQuestion(),
-                flashcard.getAnswer(),
-                flashcard.getTags()));
+        batch.add(flashCardStatement.bind(
+                flashCard.getId(),
+                flashCard.getQuestion(),
+                flashCard.getAnswer(),
+                flashCard.getTags()));
 
-        for (Map.Entry<Long, String> tagEntry : flashcard.getTags().entrySet()) {
-            batch.add(tagFlashcardStatement.bind(
+        for (Map.Entry<Long, String> tagEntry : flashCard.getTags().entrySet()) {
+            batch.add(tagFlashCardStatement.bind(
                     tagEntry.getKey(),
-                    flashcard.getId(),
-                    flashcard.getQuestion(),
-                    flashcard.getAnswer()));
+                    flashCard.getId(),
+                    flashCard.getQuestion(),
+                    flashCard.getAnswer()));
         }
 
         return batch;
     }
 
-    private RegularStatement tagFlashcardInsert() {
+    private RegularStatement tagFlashCardInsert() {
         return insertInto(TAG_FLASHCARD_TABLE)
                 .value(TAG_ID, bindMarker())
                 .value(FLASHCARD_ID, bindMarker())
@@ -108,7 +107,7 @@ public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
                 .value(ANSWER, bindMarker());
     }
 
-    private RegularStatement flashcardInsert() {
+    private RegularStatement flashCardInsert() {
         return insertInto(FLASHCARD_TABLE)
                 .value(ID, bindMarker())
                 .value(QUESTION, bindMarker())

@@ -47,7 +47,7 @@ public class DeleteTagImageCell extends AbstractCell<TagDto> {
     @Override
     public void render(final Context context, final TagDto tag, final SafeHtmlBuilder sb) {
         if (tag != null) {
-            if ((tag.getFlashcards() != null) && (tag.getFlashcards().size() > 0)) {
+            if ((tag.getFlashCards() != null) && (tag.getFlashCards().size() > 0)) {
                 sb.append(SafeHtmlUtils.fromTrustedString(AbstractImagePrototype.create(
                         images.deleteDisabled()).getHTML()));
             } else {

@@ -10,7 +10,7 @@ import java.util.Set;
 
 import org.robbins.flashcards.dto.AbstractPersistableDto;
 import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
-import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.exceptions.FlashCardsException;
 import org.robbins.flashcards.exceptions.ServiceException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpEntity;
@@ -165,7 +165,8 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto, ID> e
     }
 
     @Override
-    public BatchLoadingReceiptDto save(List<E> entities) throws FlashcardsException {
+    public BatchLoadingReceiptDto save(List<E> entities) throws FlashCardsException
+    {
         // set the Authentication header
         @SuppressWarnings({ "unchecked", "rawtypes" })
         final HttpEntity httpEntity = new HttpEntity(entities, getAuthHeaders());
@@ -225,7 +226,8 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto, ID> e
     }
 
     @Override
-    public List<E> findByCreatedBy(final ID userId, final Set<String> fields) throws FlashcardsException {
+    public List<E> findByCreatedBy(final ID userId, final Set<String> fields) throws FlashCardsException
+    {
         Map<String, String> uriVariables = new HashMap<String, String>();
         uriVariables.put("userId", String.valueOf(userId));
         return Arrays.asList(searchEntities(getEntityListUrl(), uriVariables, getClazzArray()));

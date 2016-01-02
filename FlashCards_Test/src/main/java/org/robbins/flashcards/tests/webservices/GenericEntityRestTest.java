@@ -12,7 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robbins.flashcards.client.GenericRestCrudFacade;
-import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.exceptions.FlashCardsException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Persistable;
@@ -43,7 +43,8 @@ public abstract class GenericEntityRestTest<E extends Persistable<ID>, ID extend
      * Test get entity list.
      */
     @Test
-    public void testGetEntityList() throws FlashcardsException {
+    public void testGetEntityList() throws FlashCardsException
+    {
         final List<E> entityList = getClient().list();
 
         assertTrue(entityList.size() > 0);
@@ -63,7 +64,8 @@ public abstract class GenericEntityRestTest<E extends Persistable<ID>, ID extend
      * Test get entity.
      */
     @Test
-    public void testGetEntity() throws FlashcardsException {
+    public void testGetEntity() throws FlashCardsException
+    {
         final E retrievedEntity = getClient().findOne(getEntity().getId());
 
         assertEquals(retrievedEntity.getId(), getEntity().getId());
@@ -82,7 +84,8 @@ public abstract class GenericEntityRestTest<E extends Persistable<ID>, ID extend
      * Test put entity.
      */
     @Test
-    public void testPutEntity() throws FlashcardsException {
+    public void testPutEntity() throws FlashCardsException
+    {
 
         getClient().put(getEntity());
 
@@ -105,7 +108,8 @@ public abstract class GenericEntityRestTest<E extends Persistable<ID>, ID extend
     /**
      * Post entity.
      */
-    public void postEntity() throws FlashcardsException {
+    public void postEntity() throws FlashCardsException
+    {
         setEntity(getClient().save(getEntity()));
     }
 
@@ -113,7 +117,8 @@ public abstract class GenericEntityRestTest<E extends Persistable<ID>, ID extend
      * Before.
      */
     @Before
-    public void before() throws FlashcardsException{
+    public void before() throws FlashCardsException
+    {
         LOGGER.debug("******************** BEFORE TEST ********************");
 
         postEntity();

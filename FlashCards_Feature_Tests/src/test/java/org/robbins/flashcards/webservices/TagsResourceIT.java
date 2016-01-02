@@ -6,21 +6,20 @@ import com.google.common.collect.Sets;
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.robbins.flashcards.client.FlashcardClient;
+import org.robbins.flashcards.client.FlashCardClient;
 import org.robbins.flashcards.client.GenericRestCrudFacade;
 import org.robbins.flashcards.client.TagClient;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.builder.FlashCardDtoBuilder;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.dto.builder.TagDtoBuilder;
-import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.exceptions.FlashCardsException;
 import org.robbins.flashcards.tests.webservices.GenericEntityRestTest;
 import org.robbins.tests.IntegrationTest;
 import org.springframework.test.context.ContextConfiguration;
 
 import javax.inject.Inject;
 import java.util.List;
-import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -38,7 +37,7 @@ public class TagsResourceIT extends GenericEntityRestTest<TagDto, Long> {
     private TagClient client;
 
     @Inject
-    private FlashcardClient flashcardClient;
+    private FlashCardClient flashCardClient;
 
     @Override
     public GenericRestCrudFacade<TagDto, Long> getClient() {
@@ -56,7 +55,7 @@ public class TagsResourceIT extends GenericEntityRestTest<TagDto, Long> {
     }
 
     @Test
-    public void testSearchByName() throws FlashcardsException
+    public void testSearchByName() throws FlashCardsException
 	{
         final TagDto searchResult = client.findByName(TAG_NAME);
 
@@ -66,7 +65,8 @@ public class TagsResourceIT extends GenericEntityRestTest<TagDto, Long> {
     }
 
     @Test
-    public void testUpdateEntity() throws FlashcardsException {
+    public void testUpdateEntity() throws FlashCardsException
+    {
         final Long id = getEntity().getId();
         final String UPDATED_VALUE = "updated value";
 
@@ -81,7 +81,8 @@ public class TagsResourceIT extends GenericEntityRestTest<TagDto, Long> {
     }
 
     @Test
-    public void testFindByCreatedBy() throws FlashcardsException {
+    public void testFindByCreatedBy() throws FlashCardsException
+    {
         final Long userId = RandomUtils.nextLong(0L, Long.MAX_VALUE);
         final List<TagDto> results = client.findByCreatedBy(userId, null);
 
@@ -90,24 +91,26 @@ public class TagsResourceIT extends GenericEntityRestTest<TagDto, Long> {
     }
 
     @Test
-    public void testFindTagsForFlashcard() throws FlashcardsException {
-        final FlashCardDto flashCard = setupFlashcard();
+    public void testFindTagsForFlashCard() throws FlashCardsException
+    {
+        final FlashCardDto flashCard = setupFlashCard();
 
-        final List<TagDto> results = client.findTagsForFlashcard(flashCard.getId(), null);
+        final List<TagDto> results = client.findTagsForFlashCard(flashCard.getId(), null);
         assertTrue(results != null);
         assertTrue(results.size() == 1);
 
-        cleanupFlashcard(flashCard);
+        cleanupFlashCard(flashCard);
     }
 
-    private FlashCardDto setupFlashcard() throws FlashcardsException {
+    private FlashCardDto setupFlashCard() throws FlashCardsException
+    {
         final FlashCardDto flashCardDto = new FlashCardDtoBuilder().withQuestion("question").withAnswer("answer").build();
         flashCardDto.setTags(Sets.newHashSet(new TagDtoBuilder().withName("tag_name").build()));
-        return flashcardClient.save(flashCardDto);
+        return flashCardClient.save(flashCardDto);
     }
 
-    private void cleanupFlashcard(FlashCardDto flashCard) {
-        flashcardClient.delete(flashCard.getId());
+    private void cleanupFlashCard(FlashCardDto flashCard) {
+        flashCardClient.delete(flashCard.getId());
         client.delete(flashCard.getTags().iterator().next().getId());
     }
 }

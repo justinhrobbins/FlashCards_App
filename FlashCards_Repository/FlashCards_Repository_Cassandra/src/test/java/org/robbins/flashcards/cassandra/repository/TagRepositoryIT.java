@@ -68,8 +68,8 @@ public class TagRepositoryIT extends AbstractCassandraIntegrationTest {
         TagCassandraEntity result = tagRepository.save(existingEntity);
         assertThat(result.getName(), is(UPDATED_NAME));
 
-        FlashCardCassandraEntity flashcard = flashCardRepository.findOne(FLASHCARD_ID);
-        assertThat(flashcard.getTags().get(TAG_ID), is(UPDATED_NAME));
+        FlashCardCassandraEntity flashCard = flashCardRepository.findOne(FLASHCARD_ID);
+        assertThat(flashCard.getTags().get(TAG_ID), is(UPDATED_NAME));
     }
 
     @Test

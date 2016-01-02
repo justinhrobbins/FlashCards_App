@@ -11,13 +11,13 @@
  */
 package org.robbins.flashcards.exceptions;
 
-public class FlashcardsException extends RuntimeException
+public class FlashCardsException extends RuntimeException
 {
-	public FlashcardsException(final String message) {
+	public FlashCardsException(final String message) {
 		super(message);
 	}
 
-	public FlashcardsException(final String message, final Throwable cause) {
+	public FlashCardsException(final String message, final Throwable cause) {
 		super(message, cause);
 	}
 }

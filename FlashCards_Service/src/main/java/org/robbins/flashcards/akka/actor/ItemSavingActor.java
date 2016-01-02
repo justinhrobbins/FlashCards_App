@@ -8,7 +8,7 @@ import org.robbins.flashcards.akka.message.SingleSaveResultMessage;
 import org.robbins.flashcards.akka.message.SingleSaveStartMessage;
 import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.dto.AbstractPersistableDto;
-import org.robbins.flashcards.exceptions.FlashcardsException;
+import org.robbins.flashcards.exceptions.FlashCardsException;
 import org.robbins.flashcards.model.common.AbstractAuditable;
 import org.robbins.flashcards.model.util.EntityAuditingUtil;
 import org.robbins.flashcards.repository.FlashCardsAppRepository;
@@ -63,7 +63,7 @@ public class ItemSavingActor extends AbstractActor {
             EntityAuditingUtil.configureCreatedByAndTime(entity, auditingUserId);
             repository.save(entity);
 
-        } catch (FlashcardsException e) {
+        } catch (FlashCardsException e) {
             LOGGER.error("Unable to create Dto {}, error: {}", dto.toString(), e.getMessage());
             resultStatus = SingleSaveResultMessage.SaveResultStatus.FAILURE;
         }

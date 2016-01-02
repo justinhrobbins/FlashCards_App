@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import javax.inject.Inject;
 import java.util.List;
 
-import static org.robbins.flashcards.springdata.repository.predicates.TagPredicates.hasFlashcardId;
+import static org.robbins.flashcards.springdata.repository.predicates.TagPredicates.hasFlashCardId;
 import static org.robbins.flashcards.springdata.repository.predicates.TagPredicates.hasName;
 
 @Repository
@@ -35,8 +35,8 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag, Long> imp
     }
 
     @Override
-    public List<Tag> findByFlashcards_Id(final Long flashcardId) {
-        return toList(repository.findAll(hasFlashcardId(flashcardId)));
+    public List<Tag> findByFlashCards_Id(final Long flashCardId) {
+        return toList(repository.findAll(hasFlashCardId(flashCardId)));
     }
 
     @Override

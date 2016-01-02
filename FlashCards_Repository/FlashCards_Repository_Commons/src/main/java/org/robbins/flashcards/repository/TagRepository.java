@@ -7,5 +7,5 @@ import java.util.List;
 public interface TagRepository<E, ID extends Serializable> extends FlashCardsAppRepository<E, ID> {
 
     E findByName(final String name);
-	List<E> findByFlashcards_Id(final ID flashcardId);
+	List<E> findByFlashCards_Id(final ID flashCardId);
 }

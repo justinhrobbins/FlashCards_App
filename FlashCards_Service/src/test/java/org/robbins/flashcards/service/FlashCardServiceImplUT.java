@@ -19,8 +19,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
-import org.robbins.flashcards.exceptions.FlashcardsException;
-import org.robbins.flashcards.facade.FlashcardFacade;
+import org.robbins.flashcards.exceptions.FlashCardsException;
+import org.robbins.flashcards.facade.FlashCardFacade;
 import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.data.domain.PageRequest;
@@ -30,7 +30,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 public class FlashCardServiceImplUT extends BaseMockingTest {
 
     @Mock
-    private FlashcardFacade facade;
+    private FlashCardFacade facade;
 
     private FlashCardServiceImpl flashCardService;
 
@@ -41,7 +41,8 @@ public class FlashCardServiceImplUT extends BaseMockingTest {
     }
 
     @Test
-    public void testFindByQuestion() throws FlashcardsException {
+    public void testFindByQuestion() throws FlashCardsException
+    {
         when(facade.findByQuestion(Matchers.anyString())).thenReturn(
                 mock(FlashCardDto.class));
 
@@ -52,7 +53,8 @@ public class FlashCardServiceImplUT extends BaseMockingTest {
     }
 
     @Test
-    public void testFindByQuestionLike() throws FlashcardsException {
+    public void testFindByQuestionLike() throws FlashCardsException
+    {
         when(facade.findByQuestionLike(Matchers.anyString())).thenReturn(
                 new ArrayList<>());
 
@@ -63,7 +65,8 @@ public class FlashCardServiceImplUT extends BaseMockingTest {
     }
 
     @Test
-    public void testFindByTagsIn() throws FlashcardsException {
+    public void testFindByTagsIn() throws FlashCardsException
+    {
         when(facade.findByTagsIn(new HashSet<>())).thenReturn(
                 new ArrayList<>());
 
@@ -77,7 +80,8 @@ public class FlashCardServiceImplUT extends BaseMockingTest {
     }
 
     @Test
-    public void testFindByTagsInWithPageRequest() throws FlashcardsException {
+    public void testFindByTagsInWithPageRequest() throws FlashCardsException
+    {
         when(facade.findByTagsIn(new HashSet<>(), mock(PageRequest.class))).thenReturn(
                 new ArrayList<>());
 
@@ -92,7 +96,8 @@ public class FlashCardServiceImplUT extends BaseMockingTest {
     }
 
     @Test
-    public void testFindByQuestionLikeWithPageRequest() throws FlashcardsException {
+    public void testFindByQuestionLikeWithPageRequest() throws FlashCardsException
+    {
         when(facade.findByQuestionLike("Question", mock(PageRequest.class))).thenReturn(
                 new ArrayList<>());
 

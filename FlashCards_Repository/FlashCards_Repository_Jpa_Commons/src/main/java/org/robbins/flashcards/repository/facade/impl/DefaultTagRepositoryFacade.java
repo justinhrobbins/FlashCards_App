@@ -50,8 +50,8 @@ public class DefaultTagRepositoryFacade extends AbstractCrudRepositoryFacadeImpl
     }
 
     @Override
-    public List<TagDto> findTagsForFlashcard(final Long flashcardId, final Set<String> fields) throws RepositoryException {
-        List<Tag> results = repository.findByFlashcards_Id(flashcardId);
+    public List<TagDto> findTagsForFlashCard(final Long flashCardId, final Set<String> fields) throws RepositoryException {
+        List<Tag> results = repository.findByFlashCards_Id(flashCardId);
         return convertAndInitializeEntities(results, fields);
     }
 }
