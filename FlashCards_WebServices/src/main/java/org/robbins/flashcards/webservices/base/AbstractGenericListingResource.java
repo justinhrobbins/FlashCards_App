@@ -31,7 +31,7 @@ public abstract class AbstractGenericListingResource<T, ID extends Serializable>
         List<T> entities;
 
         try {
-            entities = getFacade().list(page, size, sort, direction,
+            entities = getService().findAll(page, size, sort, direction,
                     this.getFieldsAsSet(fields));
         } catch (InvalidDataAccessApiUsageException e) {
             LOGGER.error(e.getMessage(), e);

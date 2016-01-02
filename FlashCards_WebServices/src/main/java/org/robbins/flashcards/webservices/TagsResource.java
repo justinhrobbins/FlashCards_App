@@ -1,27 +1,35 @@
 
 package org.robbins.flashcards.webservices;
 
-import com.sun.jersey.api.JResponse;
-import com.wordnik.swagger.annotations.Api;
-import com.wordnik.swagger.annotations.ApiOperation;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Response;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.exceptions.FlashcardsException;
-import org.robbins.flashcards.facade.TagFacade;
-import org.robbins.flashcards.facade.base.GenericCrudFacade;
+import org.robbins.flashcards.service.TagService;
+import org.robbins.flashcards.service.base.GenericPagingAndSortingService;
 import org.robbins.flashcards.webservices.base.AbstractGenericResource;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.stereotype.Component;
 
-import javax.inject.Inject;
-import javax.ws.rs.*;
-import javax.ws.rs.core.Response;
-import java.util.ArrayList;
-import java.util.List;
+import com.sun.jersey.api.JResponse;
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 
 @Path("/tags/")
 @Component("tagsResource")
@@ -33,12 +41,11 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long> {
     private static final Logger LOGGER = LoggerFactory.getLogger(TagsResource.class);
 
     @Inject
-	@Qualifier("presentationTagFacade")
-    private TagFacade tagFacade;
+    private TagService tagService;
 
     @Override
-    protected GenericCrudFacade<TagDto, Long> getFacade() {
-        return tagFacade;
+    protected GenericPagingAndSortingService<TagDto, Long> getService() {
+        return tagService;
     }
 
     @GET
@@ -48,7 +55,7 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long> {
 
         TagDto tagDto;
         try {
-            tagDto = tagFacade.findByName(name);
+            tagDto = tagService.findByName(name);
         }
         catch(FlashcardsException e)
         {
@@ -71,7 +78,7 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long> {
         if (dto.getCreatedBy() == null) {
             TagDto orig;
             try {
-                orig = tagFacade.findOne(id);
+                orig = tagService.findOne(id);
             } catch (FlashcardsException e) {
                 throw new GenericWebServiceException(
                         Response.Status.INTERNAL_SERVER_ERROR, e);
@@ -91,7 +98,7 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long> {
         List<TagDto> entities;
 
         try {
-            entities = getFacade().list(page, size, sort, direction,
+            entities = getService().findAll(page, size, sort, direction,
                     this.getFieldsAsSet(fields));
         } catch (InvalidDataAccessApiUsageException e) {
             LOGGER.error(e.getMessage(), e);
@@ -135,7 +142,7 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long> {
                                                          final Integer size, final String sort,
                                                          final String direction, final String fields) {
         try {
-            List<TagDto> entities = tagFacade.findTagsForFlashcard(flashcardId, this.getFieldsAsSet(fields));
+            List<TagDto> entities = tagService.findTagsForFlashcard(flashcardId, this.getFieldsAsSet(fields));
             if (CollectionUtils.isEmpty(entities)) {
                 throw new GenericWebServiceException(Response.Status.NOT_FOUND,
                         "Tags not found for Flashcard: " + flashcardId);
@@ -150,7 +157,7 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long> {
                                                          final Integer size, final String sort,
                                                          final String direction, final String fields) {
         try {
-            List<TagDto> entities = tagFacade.findByCreatedBy(userId, this.getFieldsAsSet(fields));
+            List<TagDto> entities = tagService.findByCreatedBy(userId, this.getFieldsAsSet(fields));
             if (CollectionUtils.isEmpty(entities)) {
                 throw new GenericWebServiceException(Response.Status.NOT_FOUND,
                         "Tags not found for User: " + userId);
