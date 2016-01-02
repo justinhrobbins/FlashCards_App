@@ -25,12 +25,14 @@ public class DefaultUserRepositoryFacade extends AbstractCrudRepositoryFacadeImp
     @Qualifier("userDtoConverter")
     private DtoConverter<UserDto, UserCassandraEntity> converter;
 
+    @Override
     public DtoConverter<UserDto, UserCassandraEntity> getConverter()
     {
         return converter;
     }
 
-	public UserRepository<UserCassandraEntity, Long> getRepository() {
+    @Override
+    public UserRepository<UserCassandraEntity, Long> getRepository() {
 		return repository;
 	}
 

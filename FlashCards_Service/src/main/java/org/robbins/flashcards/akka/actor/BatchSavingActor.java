@@ -63,7 +63,7 @@ public class BatchSavingActor extends AbstractActor {
     }
 
     private SingleBatchSaveResultMessage saveBatch(final List<AbstractAuditableDto> batch) {
-        BatchLoadingReceiptDto receipt = facade.save(batch);
+        final BatchLoadingReceiptDto receipt = facade.save(batch);
         successCount = receipt.getSuccessCount();
         failureCount = getFailureCount(batch.size());
 

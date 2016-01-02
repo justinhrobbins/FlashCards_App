@@ -124,9 +124,6 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long> {
                                         @DefaultValue("asc") @QueryParam("direction") final String direction,
                                         @QueryParam("fields") final String fields) {
 
-        LOGGER.debug("flashcardId: {}", flashcardId);
-        LOGGER.debug("userId: {}", userId);
-
         if (flashcardId != null) {
             return listTagsForFlashcard(flashcardId, page, size, sort, direction, fields);
         }

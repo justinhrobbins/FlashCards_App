@@ -29,11 +29,13 @@ public class DefaultTagRepositoryFacade extends AbstractCrudRepositoryFacadeImpl
     @Qualifier("tagDtoConverter")
     private DtoConverter<TagDto, TagCassandraEntity> converter;
 
+    @Override
     public DtoConverter<TagDto, TagCassandraEntity> getConverter()
     {
         return converter;
     }
 
+    @Override
 	public TagRepository<TagCassandraEntity, Long> getRepository() {
 		return repository;
 	}
