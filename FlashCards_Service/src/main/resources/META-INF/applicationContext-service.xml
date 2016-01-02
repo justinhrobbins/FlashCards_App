@@ -10,6 +10,8 @@
 
     <tx:annotation-driven />
 
+    <bean id="auditorAware" class="org.robbins.flashcards.repository.auditing.AuditingAwareUser" />
+
     <context:component-scan base-package="
         org.robbins.flashcards.security,
         org.robbins.flashcards.service,

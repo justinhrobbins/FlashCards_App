@@ -1,10 +1,19 @@
 
 package org.robbins.flashcards.cassandra.repository;
 
-import com.datastax.driver.core.BatchStatement;
-import com.datastax.driver.core.PreparedStatement;
-import com.datastax.driver.core.RegularStatement;
-import com.datastax.driver.core.Session;
+import static com.datastax.driver.core.querybuilder.QueryBuilder.bindMarker;
+import static com.datastax.driver.core.querybuilder.QueryBuilder.eq;
+import static com.datastax.driver.core.querybuilder.QueryBuilder.insertInto;
+import static com.datastax.driver.core.querybuilder.QueryBuilder.put;
+import static com.datastax.driver.core.querybuilder.QueryBuilder.update;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+
 import org.apache.commons.lang3.NotImplementedException;
 import org.robbins.flashcards.cassandra.repository.domain.FlashCardCassandraEntity;
 import org.robbins.flashcards.cassandra.repository.domain.TagCassandraEntity;
@@ -15,12 +24,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.cassandra.core.CassandraOperations;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import java.util.List;
-import java.util.UUID;
-
-import static com.datastax.driver.core.querybuilder.QueryBuilder.*;
+import com.datastax.driver.core.BatchStatement;
+import com.datastax.driver.core.PreparedStatement;
+import com.datastax.driver.core.RegularStatement;
+import com.datastax.driver.core.Session;
 
 @Repository
 public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<TagCassandraEntity, Long> implements
@@ -28,8 +35,15 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<TagCassandraEn
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TagRepositoryImpl.class);
 
+    private static final String TAG_TABLE = "tag";
+    private static final String FLASHCARD_TABLE = "flashcard";
+    private static final String ID = "id";
+    private static final String NAME = "name";
+    private static final String TAGS = "tags";
+    private static final String BATCH_INSERT_CQL = "insert into tag (id, name) values (?, ?);";
+
     @Inject
-    private CassandraOperations cassandraOperations;
+    private CassandraOperations cassandraTemplate;
 
     @Inject
     private TagCassandraRepository repository;
@@ -43,12 +57,6 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<TagCassandraEn
     private PreparedStatement tagStatement;
     private PreparedStatement flashcardStatement;
 
-    private static final String TAG_TABLE = "tag";
-    private static final String FLASHCARD_TABLE = "flashcard";
-    private static final String ID = "id";
-    private static final String NAME = "name";
-    private static final String TAGS = "tags";
-
     @Override
     public TagCassandraRepository getRepository() {
         return repository;
@@ -57,7 +65,7 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<TagCassandraEn
     @SuppressWarnings("unused")
     @PostConstruct
     private void initStatements() {
-        Session session = cassandraOperations.getSession();
+        final Session session = cassandraTemplate.getSession();
         if (session == null) {
             LOGGER.error("Cassandra not available");
         } else {
@@ -69,21 +77,21 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<TagCassandraEn
 
     @Override
     public TagCassandraEntity save(final TagCassandraEntity tag) {
-        cassandraOperations.execute(tagBatch(tag));
+        cassandraTemplate.execute(tagBatch(tag));
 
         return tag;
     }
 
     private BatchStatement tagBatch(TagCassandraEntity tag) {
-        BatchStatement batch = new BatchStatement();
+        final BatchStatement batch = new BatchStatement();
         batch.add(tagStatement.bind(
                 tag.getId(),
                 tag.getName()));
 
-        List<TagFlashCardCassandraEntity> tagFlashcards = tagFlashcardCassandraRepository.findByTagId(tag.getId());
+        final List<TagFlashCardCassandraEntity> tagFlashcards = tagFlashcardCassandraRepository.findByTagId(tag.getId());
         if (tagFlashcards != null && tagFlashcards.size() > 0) {
             for (TagFlashCardCassandraEntity tagFlashCard : tagFlashcards) {
-                FlashCardCassandraEntity flashcard = flashCardCassandraRepository.findOne(tagFlashCard.getId().getFlashCardId());
+                final FlashCardCassandraEntity flashcard = flashCardCassandraRepository.findOne(tagFlashCard.getId().getFlashCardId());
                 if (flashcard != null && flashcard.getTags() != null) {
                     batch.add(flashcardStatement.bind(
                             tag.getId(),
@@ -115,5 +123,28 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<TagCassandraEn
     @Override
     public List<TagCassandraEntity> findByFlashcards_Id(Long flashcardId) {
         throw new NotImplementedException("method not yet implemented in Cassandra repository");
+    }
+
+    @Override
+    public int batchSave(final List<TagCassandraEntity> tags)
+    {
+        cassandraTemplate.ingest(BATCH_INSERT_CQL, convertTagsForIngestion(tags));
+        return tags.size();
+    }
+
+    private List<List<?>> convertTagsForIngestion(final List<TagCassandraEntity> tags)
+    {
+        return tags
+                .stream()
+                .map(this::convertTagForIngestion)
+                .collect(Collectors.toList());
+    }
+
+    private List<?> convertTagForIngestion(final TagCassandraEntity tag)
+    {
+        final List<Object> tagList = new ArrayList<>();
+        tagList.add(tag.getId());
+        tagList.add(tag.getName());
+        return tagList;
     }
 }

@@ -40,11 +40,13 @@ public class DefaultFlashCardRepositoryFacade extends AbstractCrudRepositoryFaca
     @Qualifier("tagDtoConverter")
     private DtoConverter<TagDto, TagCassandraEntity> tagConverter;
 
+    @Override
     public DtoConverter<FlashCardDto, FlashCardCassandraEntity> getConverter()
     {
         return converter;
     }
 
+    @Override
 	public FlashCardRepository<FlashCardCassandraEntity, TagCassandraEntity, Long> getRepository() {
 		return repository;
 	}

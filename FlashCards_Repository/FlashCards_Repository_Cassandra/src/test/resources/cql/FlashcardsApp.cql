@@ -51,3 +51,12 @@ create table user (
     PRIMARY KEY (id));
 create index user_open_id on user (openid);
 insert into user (id, country, createddate, email, firstname, fullname, language, lastlogindate, lastname, nickname, openid, updateddate, createduserid, modifieduserid) VALUES (1,NULL,'2012-08-18 00:00:00','','apiuser',NULL,NULL,'2012-08-18 00:00:00','apiuser',NULL,'apiuser','2012-08-18 00:00:00',1,NULL);
+
+create table batchreceipt (
+    id bigint,
+    type varchar,
+    successCount int,
+    failureCount int,
+    startTime timestamp,
+    endTime timestamp,
+    PRIMARY KEY (id));

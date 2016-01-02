@@ -1,6 +1,7 @@
 
 package org.robbins.flashcards.cassandra.repository.facade.base;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -32,7 +33,7 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E extends AbstractPers
 
     @Override
     public List<D> list(final Integer page, final Integer size, final String sort, final String direction, final Set<String> fields) throws FlashcardsException {
-        List<E> results = Lists.newArrayList(getRepository().findAll());
+        final List<E> results = Lists.newArrayList(getRepository().findAll());
         return getConverter().getDtos(results);
     }
 
@@ -48,34 +49,47 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E extends AbstractPers
 
     @Override
     public D findOne(final Long id, final Set<String> fields) throws FlashcardsException {
-        E result = getRepository().findOne(id);
+        final E result = getRepository().findOne(id);
         return result == null ? null : getConverter().getDto(result);
     }
 
     @Override
-    public D save(final D dto) throws FlashcardsException {
-        E entity = getConverter().getEntity(dto);
-        if (entity.getId() == null) {
-            entity.setId(UUIDs.timeBased().timestamp());
-        }
-        E result = getRepository().save(entity);
+    public D save(final D dto) throws FlashcardsException
+    {
+        final E entity = getConverter().getEntity(dto);
+        addId(entity);
+        final E result = getRepository().save(entity);
         return getConverter().getDto(result);
     }
 
     @Override
     public BatchLoadingReceiptDto save(final List<D> dtos) throws FlashcardsException {
 
-        if (CollectionUtils.isEmpty(dtos)) throw new FlashcardsException("Expected list with at least one element");
+        if (CollectionUtils.isEmpty(dtos))
+            throw new FlashcardsException("Expected list with at least one element");
 
-        BatchLoadingReceiptDto receipt = new BatchLoadingReceiptDto();
-        receipt.setType(dtos.get(0).getClass().getSimpleName());
-        receipt.setStartTime(new Date());
+        final List<E> entities = getConverter().getEntities(dtos);
+        addIds(entities);
+        final int count = getRepository().batchSave(entities);
+        final BatchLoadingReceiptDto result = new BatchLoadingReceiptDto();
+        result.setSuccessCount(count);
 
-        dtos.forEach(this::save);
+        return result;
+    }
 
-        receipt.setEndTime(new Date());
+    private void addId(final E entity)
+    {
+        addIds(Arrays.asList(entity));
+    }
 
-        return receipt;
+    private void addIds(final List<E> entities)
+    {
+        entities.forEach(entity -> {
+            if (entity.getId() == null)
+            {
+                entity.setId(UUIDs.timeBased().timestamp());
+            }
+        });
     }
 
     @Override
