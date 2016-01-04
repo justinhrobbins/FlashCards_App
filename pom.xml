@@ -164,6 +164,7 @@
         <module>FlashCards_UI</module>
         <module>FlashCards_Load_Tester</module>
         <module>FlashCards_Feature_Tests</module>
+        <module>FlashCards_Config</module>
     </modules>
     <profiles>
 

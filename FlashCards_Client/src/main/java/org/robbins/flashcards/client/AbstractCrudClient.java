@@ -160,7 +160,7 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto, ID> e
             throw new ServiceException("Unble to save '" + entity.getClass().getSimpleName() + "' " + e.getMessage());
         }
         catch (Exception e) {
-            throw new ServiceException("Unexpected exception" + e.getMessage());
+            throw new ServiceException("Unexpected exception: " + e.getMessage());
         }
     }
 
@@ -178,7 +178,7 @@ public abstract class AbstractCrudClient<E extends AbstractPersistableDto, ID> e
             throw new ServiceException("Unable to save '" + entities.getClass().getSimpleName() + "' " + e.getMessage());
         }
         catch (Exception e) {
-            throw new ServiceException("Unexpected exception" + e.getMessage());
+            throw new ServiceException("Unexpected exception: " + e.getMessage());
         }
     }
 
