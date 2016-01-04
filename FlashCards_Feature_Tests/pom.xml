@@ -24,13 +24,13 @@
             <artifactId>FlashCards_Load_Tester</artifactId>
             <version>${project.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.robbins.flashcards</groupId>
             <artifactId>FlashCards_Test</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
