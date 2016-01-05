@@ -22,10 +22,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
+import akka.actor.Props;
 import akka.japi.Util;
 import akka.util.Timeout;
 import scala.concurrent.Await;
@@ -38,6 +40,9 @@ import scala.reflect.ClassTag;
 public class AkkaBatchSavingServiceImpl implements InitializingBean, AkkaBatchSavingService
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(AkkaBatchSavingServiceImpl.class);
+
+    @Value("${jdbc.batchsize}")
+    private Integer BATCH_SIZE;
 
     @Inject
     private ActorSystem actorSystem;
@@ -95,7 +100,7 @@ public class AkkaBatchSavingServiceImpl implements InitializingBean, AkkaBatchSa
         receipt.setStartTime(new Date());
         receipt = facade.save(receipt);
 
-        receipt.setBatchSize(1000);
+        receipt.setBatchSize(BATCH_SIZE);
         receipt.setTotalSize(dtos.size());
         return receipt;
     }
@@ -103,8 +108,7 @@ public class AkkaBatchSavingServiceImpl implements InitializingBean, AkkaBatchSa
 //    private BatchLoadingReceiptDto createBatchLoadingReceiptDto(final String type, final List<AbstractPersistableDto> dtos) {
 //        final BatchLoadingReceiptDto receipt = new BatchLoadingReceiptDto();
 //        receipt.setType(type);
-//        // TODO: replace with injected property
-//        receipt.setBatchSize(1000);
+//        receipt.setBatchSize(BATCH_SIZE);
 //        receipt.setTotalSize(dtos.size());
 //        receipt.setStartTime(new DateTime().toDate());
 //        return receipt;
@@ -127,9 +131,17 @@ public class AkkaBatchSavingServiceImpl implements InitializingBean, AkkaBatchSa
 //        return batchReceiptConverter.getDto(receipt);
 //    }
 
+    private ActorRef createBatchSavingCoordinator()
+    {
+        final SpringExtension akkaSpringExtension = SpringExtension.SpringExtProvider;
+        final SpringExtension.SpringExt springExt = akkaSpringExtension.get(actorSystem);
+        final Props props = springExt.props("batchSavingCoordinator");
+        return actorSystem.actorOf(props);
+    }
+
     @Override
     public void afterPropertiesSet() throws Exception {
-        batchSavingCoordinator = actorSystem.actorOf(BatchSavingCoordinator.props());
+        batchSavingCoordinator = createBatchSavingCoordinator();
     }
 
     public Long getAuditingUserId() {

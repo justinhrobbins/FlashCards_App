@@ -36,6 +36,11 @@
 			<artifactId>FlashCards_Akka</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.robbins.flashcards</groupId>
+			<artifactId>FlashCards_Config</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.robbins.flashcards</groupId>

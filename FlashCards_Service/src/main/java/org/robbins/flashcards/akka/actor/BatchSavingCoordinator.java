@@ -15,6 +15,8 @@ import org.robbins.flashcards.dto.AbstractAuditableDto;
 import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import com.google.common.collect.Lists;
 
@@ -25,9 +27,13 @@ import akka.japi.pf.ReceiveBuilder;
 import scala.PartialFunction;
 import scala.runtime.BoxedUnit;
 
+@Component("batchSavingCoordinator")
 public class BatchSavingCoordinator extends AbstractActor
 {
 	private static final Logger LOGGER = LoggerFactory.getLogger(BatchSavingCoordinator.class);
+
+	@Value("${akka.workerCount}")
+	private Integer WORKER_COUNT;
 
 	private final Map<Long, ActorRef> parents = new ConcurrentHashMap<>();
 	private final Map<Long, BatchLoadingReceiptDto> batchesInProgress = new ConcurrentHashMap<>();
@@ -55,7 +61,7 @@ public class BatchSavingCoordinator extends AbstractActor
 
 	private void createBatchSavingActors()
 	{
-		IntStream.range(1, 11).forEach(i -> {
+		IntStream.range(0, WORKER_COUNT).forEach(i -> {
 			final String actorName = "batch-saving-actor" + i;
 			LOGGER.trace("Creating actor: {}", actorName);
 			context().actorOf(BatchSavingActor.props(), actorName);

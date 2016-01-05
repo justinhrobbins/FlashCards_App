@@ -22,6 +22,7 @@ import javax.sql.DataSource;
 import org.robbins.flashcards.model.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.stereotype.Component;
 
@@ -33,8 +34,8 @@ public class JdbcBatchTagRepositoryImpl extends AbstractBatchCustomRepositoryImp
 	private static final String BATCH_INSERT_SQL = "insert into tag (TagName, CreatedUserId, CreatedDate) "
 			+ " VALUES (?, ?, ?)";
 
-	// TODO: Replace with injected property value
-	private static final Integer BATCH_SIZE = 1000;
+	@Value("${jdbc.batchsize}")
+	private Integer BATCH_SIZE;
 
 	@Autowired
 	@Qualifier("dataSource")
