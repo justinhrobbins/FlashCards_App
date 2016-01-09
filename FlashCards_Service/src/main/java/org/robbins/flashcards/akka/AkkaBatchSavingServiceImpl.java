@@ -8,9 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
-import org.robbins.flashcards.akka.actor.BatchSavingCoordinator;
-import org.robbins.flashcards.akka.message.BatchSaveResultMessage;
-import org.robbins.flashcards.akka.message.BatchSaveStartMessage;
+import org.robbins.flashcards.akka.message.Messages;
 import org.robbins.flashcards.dto.AbstractAuditableDto;
 import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
 import org.robbins.flashcards.exceptions.RepositoryException;
@@ -66,7 +64,7 @@ public class AkkaBatchSavingServiceImpl implements InitializingBean, AkkaBatchSa
         configureCreatedBy(dtos);
 
         try {
-            final BatchSaveResultMessage receiptMessage = saveBatchWithAkka(type, facade, dtos);
+            final Messages.BatchSaveResultMessage receiptMessage = saveBatchWithAkka(type, facade, dtos);
 
             LOGGER.debug("Batch save complete: {}", receiptMessage);
             return completeBatchLoadingReceipt(receiptMessage);
@@ -80,15 +78,15 @@ public class AkkaBatchSavingServiceImpl implements InitializingBean, AkkaBatchSa
         dtos.forEach(dto -> DtoAuditingUtil.configureCreatedByAndTime(dto, getAuditingUserId()));
     }
 
-    private BatchSaveResultMessage saveBatchWithAkka(final String type, final GenericCrudFacade facade,
+    private Messages.BatchSaveResultMessage saveBatchWithAkka(final String type, final GenericCrudFacade facade,
                                                      final List<AbstractAuditableDto> dtos) throws Exception {
 
         final BatchLoadingReceiptDto batchLoadingReceiptDto = createBatchLoadingReceipt(type, dtos);
-        final BatchSaveStartMessage startBatchSaveMessage = new BatchSaveStartMessage(batchLoadingReceiptDto, facade,
+        final Messages.BatchSaveStartMessage startBatchSaveMessage = new Messages.BatchSaveStartMessage(batchLoadingReceiptDto, facade,
                 dtos);
         final FiniteDuration duration = FiniteDuration.create(1, TimeUnit.HOURS);
-        final ClassTag<BatchSaveResultMessage> classTag = Util.classTag(BatchSaveResultMessage.class);
-        final Future<BatchSaveResultMessage> receiptFuture = ask(batchSavingCoordinator, startBatchSaveMessage,
+        final ClassTag<Messages.BatchSaveResultMessage> classTag = Util.classTag(Messages.BatchSaveResultMessage.class);
+        final Future<Messages.BatchSaveResultMessage> receiptFuture = ask(batchSavingCoordinator, startBatchSaveMessage,
                 Timeout.durationToTimeout(duration))
                 .mapTo(classTag);
         return Await.result(receiptFuture, duration);
@@ -114,8 +112,8 @@ public class AkkaBatchSavingServiceImpl implements InitializingBean, AkkaBatchSa
 //        return receipt;
 //    }
 
-    private BatchLoadingReceiptDto completeBatchLoadingReceipt(final BatchSaveResultMessage receiptMessage) {
-        BatchLoadingReceiptDto receipt = receiptMessage.getReceiptDto();
+    private BatchLoadingReceiptDto completeBatchLoadingReceipt(final Messages.BatchSaveResultMessage receiptMessage) {
+        BatchLoadingReceiptDto receipt = receiptMessage.receiptDto();
         receipt.setEndTime(new Date());
         receipt = facade.save(receipt);
         return receipt;

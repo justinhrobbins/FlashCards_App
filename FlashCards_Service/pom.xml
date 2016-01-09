@@ -173,5 +173,11 @@
 	</dependencies>
 	<build>
 		<finalName>FlashCards_Service</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.scala-tools</groupId>
+				<artifactId>maven-scala-plugin</artifactId>
+			</plugin>
+		</plugins>
 	</build>
 </project>
