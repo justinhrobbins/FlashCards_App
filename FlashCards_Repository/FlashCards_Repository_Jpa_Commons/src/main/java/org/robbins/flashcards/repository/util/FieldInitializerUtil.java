@@ -30,7 +30,7 @@ public class FieldInitializerUtil {
     // Therefore, if we want to return the field in the response, we
     // need to make sure it is loaded
     private void initializeField(final Object entity, final String field) {
-        PersistenceUnitUtil unitUtil = em.getEntityManagerFactory().getPersistenceUnitUtil();
+        final PersistenceUnitUtil unitUtil = em.getEntityManagerFactory().getPersistenceUnitUtil();
 
         try {
             // if the requested 'field' exists and hasn't been

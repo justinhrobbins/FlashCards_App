@@ -108,15 +108,15 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long>
 
 		try
 		{
-			entities = getService().findAll(PagingUtils.getPageRequest(page, size, sort, direction));
+			entities = getService().findAll(PagingUtils.getPageRequest(page, size, sort, direction), getFieldsAsSet(fields));
 		}
-		catch (InvalidDataAccessApiUsageException e)
+		catch (final InvalidDataAccessApiUsageException e)
 		{
 			LOGGER.error(e.getMessage(), e);
 			throw new GenericWebServiceException(Response.Status.BAD_REQUEST,
 					"Invalid sort parameter: '" + sort + "'", e);
 		}
-		catch (FlashCardsException e)
+		catch (final FlashCardsException e)
 		{
 			throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
 		}
@@ -159,7 +159,7 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long>
 	{
 		try
 		{
-			List<TagDto> entities = tagService.findTagsForFlashCard(flashCardId, this.getFieldsAsSet(fields));
+			final List<TagDto> entities = tagService.findTagsForFlashCard(flashCardId, this.getFieldsAsSet(fields));
 			if (CollectionUtils.isEmpty(entities))
 			{
 				throw new GenericWebServiceException(Response.Status.NOT_FOUND,
@@ -167,7 +167,7 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long>
 			}
 			return JResponse.ok(entities).build();
 		}
-		catch (FlashCardsException e)
+		catch (final FlashCardsException e)
 		{
 			throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
 		}
@@ -179,7 +179,7 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long>
 	{
 		try
 		{
-			List<TagDto> entities = tagService.findByCreatedBy(userId, this.getFieldsAsSet(fields));
+			final List<TagDto> entities = tagService.findByCreatedBy(userId, this.getFieldsAsSet(fields));
 			if (CollectionUtils.isEmpty(entities))
 			{
 				throw new GenericWebServiceException(Response.Status.NOT_FOUND,
@@ -187,7 +187,7 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long>
 			}
 			return JResponse.ok(entities).build();
 		}
-		catch (FlashCardsException e)
+		catch (final FlashCardsException e)
 		{
 			throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
 		}

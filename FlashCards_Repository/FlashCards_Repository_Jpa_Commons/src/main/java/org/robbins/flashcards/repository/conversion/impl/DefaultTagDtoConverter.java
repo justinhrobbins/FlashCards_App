@@ -44,13 +44,12 @@ public class DefaultTagDtoConverter extends AbstractDtoConverter implements DtoC
             throws RepositoryException {
 
         return entities.stream()
-                .map(this::getDto)
+                .map(entity -> getDto(entity, fields))
                 .collect(Collectors.toList());
      }
 
     @Override
     public List<Tag> getEntities(final List<TagDto> dtos) {
-        List<Tag> entities = dtos.stream().map(this::getEntity).collect(Collectors.toList());
-        return entities;
+        return dtos.stream().map(this::getEntity).collect(Collectors.toList());
     }
 }
