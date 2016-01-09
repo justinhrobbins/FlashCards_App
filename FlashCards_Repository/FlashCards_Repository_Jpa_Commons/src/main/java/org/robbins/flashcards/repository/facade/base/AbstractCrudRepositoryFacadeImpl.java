@@ -77,7 +77,7 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E extends AbstractAudi
     @Override
     public List<D> list(final Optional<Pageable> page, final Set<String> fields) throws RepositoryException {
 
-        List<E> entities;
+        final List<E> entities;
 
         if (page.isPresent()) {
             entities = getRepository().findAll(page.get()).getContent();
@@ -104,7 +104,7 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E extends AbstractAudi
 
     @Override
     public D findOne(final ID id, final Set<String> fields) throws RepositoryException {
-        E result = getRepository().findOne(id);
+        final E result = getRepository().findOne(id);
 
         if (result == null) {
             return null;
@@ -120,7 +120,7 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E extends AbstractAudi
     @Override
     public List<D> findByCreatedBy(final ID userId, final Set<String> fields) throws FlashCardsException
     {
-        List<E> results = getRepository().findByCreatedBy_Id(userId);
+        final List<E> results = getRepository().findByCreatedBy_Id(userId);
         return convertAndInitializeEntities(results, fields);
     }
 

@@ -22,7 +22,7 @@ public class DefaultUserDtoConverter extends AbstractDtoConverter implements Dto
     @Override
     public UserDto getDto(final User entity, final Set<String> fields)
             throws RepositoryException {
-        UserDto userDto = getMapper().map(entity, UserDto.class);
+        final UserDto userDto = getMapper().map(entity, UserDto.class);
         DtoUtil.filterFields(userDto, fields);
         return userDto;
     }
@@ -33,7 +33,7 @@ public class DefaultUserDtoConverter extends AbstractDtoConverter implements Dto
     }
 
     @Override
-    public List<UserDto> getDtos(List<User> entities) throws RepositoryException {
+    public List<UserDto> getDtos(final List<User> entities) throws RepositoryException {
         return getDtos(entities, null);
     }
 
@@ -48,9 +48,8 @@ public class DefaultUserDtoConverter extends AbstractDtoConverter implements Dto
 
     @Override
     public List<User> getEntities(final List<UserDto> dtos) {
-        List<User> entities = dtos.stream()
+        return dtos.stream()
                 .map(this::getEntity)
                 .collect(Collectors.toList());
-        return entities;
     }
 }

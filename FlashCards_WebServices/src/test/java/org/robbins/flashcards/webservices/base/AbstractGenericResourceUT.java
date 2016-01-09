@@ -6,6 +6,7 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Matchers.anySet;
+import static org.mockito.Matchers.anySetOf;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -58,22 +59,22 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
     @Test
     public void list() throws FlashCardsException
 	{
-        when(mockTagService.findAll(any(Optional.class))).thenReturn(tagDtoList);
+        when(mockTagService.findAll(any(Optional.class), anySetOf(String.class))).thenReturn(tagDtoList);
 
-        JResponse<List<TagDto>> results = resource.list(null, null, null, null, null);
+        final JResponse<List<TagDto>> results = resource.list(null, null, null, null, null);
 
-        verify(mockTagService).findAll(any(Optional.class));
+        verify(mockTagService).findAll(any(Optional.class), anySetOf(String.class));
         assertThat(results.getEntity(), is(List.class));
     }
 
     @Test
     public void list_NullResult() throws FlashCardsException
     {
-        when(mockTagService.findAll(any(Optional.class))).thenReturn(null);
+        when(mockTagService.findAll(any(Optional.class), anySetOf(String.class))).thenReturn(null);
 
-        JResponse<List<TagDto>> results = resource.list(null, null, null, null, null);
+        final JResponse<List<TagDto>> results = resource.list(null, null, null, null, null);
 
-        verify(mockTagService).findAll(any(Optional.class));
+        verify(mockTagService).findAll(any(Optional.class), anySetOf(String.class));
         assertThat(results.getEntity(), is(List.class));
         assertThat(results.getEntity().size(), is(0));
     }
@@ -82,7 +83,7 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
     public void count() {
         when(mockTagService.count()).thenReturn(1L);
 
-        Long result = resource.count();
+        final Long result = resource.count();
 
         verify(mockTagService).count();
         assertThat(result, is(Long.class));
@@ -94,7 +95,7 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
     {
         when(mockTagService.findOne(anyLong(), anySet())).thenReturn(new TagDto(uuid));
 
-        TagDto result = resource.findOne(uuid, null);
+        final TagDto result = resource.findOne(uuid, null);
 
         verify(mockTagService).findOne(anyLong(), anySet());
         assertThat(result, is(TagDto.class));
@@ -104,10 +105,10 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
     @Test
     public void findOne_WithFields() throws FlashCardsException
     {
-        String fields = "name,flashcards,userpassword";
+        final String fields = "name,flashcards,userpassword";
         when(mockTagService.findOne(anyLong(), anySet())).thenReturn(new TagDto(uuid));
 
-        TagDto result = resource.findOne(uuid, fields);
+        final TagDto result = resource.findOne(uuid, fields);
 
         verify(mockTagService).findOne(anyLong(), anySet());
         assertThat(result, is(TagDto.class));
@@ -127,7 +128,7 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
     {
         when(mockTagService.save(any(TagDto.class))).thenReturn(new TagDto(uuid));
 
-        TagDto result = resource.post(new TagDto());
+        final TagDto result = resource.post(new TagDto());
 
         verify(mockTagService).save(any(TagDto.class));
         assertThat(result, is(TagDto.class));
@@ -135,7 +136,7 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
 
     @Test
     public void delete() {
-        Response response = resource.delete(anyLong());
+        final Response response = resource.delete(anyLong());
 
         verify(mockTagService).delete(anyLong());
         assertThat(response.getStatus(), is(HttpStatus.NO_CONTENT.value()));
@@ -147,7 +148,7 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
         when(mockTagService.findOne(any(Long.class))).thenReturn(mockTagDto);
         when(mockTagService.save(any(TagDto.class))).thenReturn(mockTagDto);
 
-        Response response = resource.update(uuid, mockTagDto);
+        final Response response = resource.update(uuid, mockTagDto);
 
         verify(mockTagService).findOne(any(Long.class));
         verify(mockTagService).save(any(TagDto.class));

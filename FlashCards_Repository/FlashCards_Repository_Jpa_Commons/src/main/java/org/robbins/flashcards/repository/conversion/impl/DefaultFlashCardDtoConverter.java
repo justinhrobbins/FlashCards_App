@@ -24,7 +24,7 @@ public class DefaultFlashCardDtoConverter extends AbstractDtoConverter implement
     public FlashCardDto getDto(final FlashCard entity, final Set<String> fields)
             throws RepositoryException
 	{
-        FlashCardDto flashCardDto = getMapper().map(entity, FlashCardDto.class);
+        final FlashCardDto flashCardDto = getMapper().map(entity, FlashCardDto.class);
         DtoUtil.filterFields(flashCardDto, fields);
         return flashCardDto;
     }
@@ -35,7 +35,7 @@ public class DefaultFlashCardDtoConverter extends AbstractDtoConverter implement
     }
 
     @Override
-    public List<FlashCardDto> getDtos(List<FlashCard> entities) throws RepositoryException {
+    public List<FlashCardDto> getDtos(final List<FlashCard> entities) throws RepositoryException {
         return getDtos(entities, null);
     }
 
