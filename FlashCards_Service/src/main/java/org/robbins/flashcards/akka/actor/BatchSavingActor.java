@@ -2,10 +2,8 @@ package org.robbins.flashcards.akka.actor;
 
 import java.util.List;
 
-import org.robbins.flashcards.akka.message.SingleBatchSaveResultMessage;
-import org.robbins.flashcards.akka.message.SingleBatchSaveStartMessage;
+import org.robbins.flashcards.akka.message.Messages;
 import org.robbins.flashcards.dto.AbstractAuditableDto;
-import org.robbins.flashcards.dto.AbstractPersistableDto;
 import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
 import org.robbins.flashcards.facade.base.GenericCrudFacade;
 import org.slf4j.Logger;
@@ -39,35 +37,35 @@ public class BatchSavingActor extends AbstractActor {
     public void preStart() throws Exception
     {
         super.preStart();
-        context().parent().tell(new BatchSavingCoordinator.GiveMeWork(), self());
+        context().parent().tell(new Messages.GiveMeWork(), self());
     }
 
     @Override
     public PartialFunction<Object, BoxedUnit> receive() {
         return ReceiveBuilder
-                .match(SingleBatchSaveStartMessage.class, startSave -> doSave(startSave, sender()))
+                .match(Messages.SingleBatchSaveStartMessage.class, startSave -> doSave(startSave, sender()))
                 .matchAny(o -> LOGGER.error("Received Unknown message"))
                 .build();
     }
 
-    private void doSave(final SingleBatchSaveStartMessage startSaveMessage, final ActorRef sender) {
+    private void doSave(final Messages.SingleBatchSaveStartMessage startSaveMessage, final ActorRef sender) {
         LOGGER.trace("Received SingleBatchSaveStartMessage message: {}", startSaveMessage.toString());
 
-        this.facade = startSaveMessage.getFacade();
-        this.batchId = startSaveMessage.getBatchId();
+        this.facade = startSaveMessage.facade();
+        this.batchId = startSaveMessage.batchId();
 
-        final SingleBatchSaveResultMessage result = saveBatch(startSaveMessage.getDtos());
+        final Messages.SingleBatchSaveResultMessage result = saveBatch(startSaveMessage.dtos());
 
         LOGGER.trace("Sending SingleBatchSaveResultMessage message: {}", result.toString());
         sender.tell(result, self());
     }
 
-    private SingleBatchSaveResultMessage saveBatch(final List<AbstractAuditableDto> batch) {
+    private Messages.SingleBatchSaveResultMessage saveBatch(final List<AbstractAuditableDto> batch) {
         final BatchLoadingReceiptDto receipt = facade.save(batch);
         successCount = receipt.getSuccessCount();
         failureCount = getFailureCount(batch.size());
 
-        final SingleBatchSaveResultMessage result = new SingleBatchSaveResultMessage(successCount, failureCount, batchId);
+        final Messages.SingleBatchSaveResultMessage result = new Messages.SingleBatchSaveResultMessage(successCount, failureCount, batchId);
         resetCounters();
         return result;
     }
