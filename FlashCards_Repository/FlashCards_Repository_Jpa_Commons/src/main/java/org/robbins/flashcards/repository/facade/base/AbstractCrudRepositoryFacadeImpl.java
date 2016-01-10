@@ -42,9 +42,9 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E extends AbstractAudi
 
     @Override
     public D save(final D dto) throws RepositoryException {
-        E entity = getConverter().getEntity(dto);
+        final E entity = getConverter().getEntity(dto);
         EntityAuditingUtil.configureCreatedByAndTime(entity, getAuditingUserId());
-        E result = getRepository().save(entity);
+        final E result = getRepository().save(entity);
         return convertAndInitializeEntity(result);
     }
 
