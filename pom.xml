@@ -23,7 +23,6 @@
         <aspectj.version>1.7.4</aspectj.version>
         <akka.version>2.3.13</akka.version>
         <cassandra-driver.version>2.1.9</cassandra-driver.version>
-        <cassandra-unit-spring.version>2.2.2.1</cassandra-unit-spring.version>
         <cglib.version>2.2.2</cglib.version>
         <checkstyle.version>2.10</checkstyle.version>
         <cobertura.version>2.6</cobertura.version>
@@ -79,6 +78,7 @@
         <swagger.version>1.3.0</swagger.version>
 
         <!-- Plugin versions -->
+        <maven.cassandra.plugin.version>2.1.7-1</maven.cassandra.plugin.version>
         <gwt.maven.plugin.version>2.5.1</gwt.maven.plugin.version>
         <maven.apt.plugin>1.1.3</maven.apt.plugin>
         <maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>
@@ -791,30 +791,6 @@
                 <groupId>com.datastax.cassandra</groupId>
                 <artifactId>cassandra-driver-core</artifactId>
                 <version>${cassandra-driver.version}</version>
-                <!--<exclusions>-->
-                    <!--<exclusion>-->
-                        <!--<groupId>com.codahale.metrics</groupId>-->
-                        <!--<artifactId>metrics-core</artifactId>-->
-                    <!--</exclusion>-->
-                <!--</exclusions>-->
-            </dependency>
-
-            <!-- cassandra unit -->
-            <dependency>
-                <groupId>org.cassandraunit</groupId>
-                <artifactId>cassandra-unit-spring</artifactId>
-                <version>${cassandra-unit-spring.version}</version>
-                <scope>test</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>slf4j-log4j12</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>log4j</groupId>
-                        <artifactId>log4j</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
 
             <!-- testing -->
@@ -921,7 +897,6 @@
                         <excludes>
                             <exclude>**/*UT.java</exclude>
                         </excludes>
-                        <!-- <parallel>classes</parallel> -->
                     </configuration>
                     <executions>
                         <execution>
@@ -1103,6 +1078,26 @@
                             <phase>process-resources</phase>
                             <goals>
                                 <goal>compile</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>cassandra-maven-plugin</artifactId>
+                    <version>${maven.cassandra.plugin.version}</version>
+                    <configuration>
+                        <script>${basedir}/src/test/resources/cql/FlashcardsApp.cql</script>
+                        <cqlVersion>3.0.0</cqlVersion>
+                        <nativeTransportPort>9142</nativeTransportPort>
+                        <loadFailureIgnore>false</loadFailureIgnore>
+                        <startNativeTransport>true</startNativeTransport>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>start</goal>
+                                <goal>stop</goal>
                             </goals>
                         </execution>
                     </executions>
