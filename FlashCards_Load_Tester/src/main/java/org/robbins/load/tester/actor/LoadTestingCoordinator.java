@@ -72,7 +72,7 @@ public class LoadTestingCoordinator extends AbstractActor {
         final List<List<AbstractAuditableDto>> batches = LoadingTestingUtil.createDtosInBatches(
                 loadTestStartMessage.getTotalLoadCount(), loadTestStartMessage.getBatchSize(), loadTestStartMessage.getDtoClass());
 
-        ActorRef batchLoadTestingActor = context().actorOf(FromConfig.getInstance().props(BatchLoadTester.props(client)), "batch-load-tester");
+        final ActorRef batchLoadTestingActor = context().actorOf(FromConfig.getInstance().props(BatchLoadTester.props(client)), "batch-load-tester");
 
         batches.forEach(batch -> batchLoadTestingActor.tell(new BatchTestStart(loadTestStartMessage.getEndPointName(), batch, loadTestStartMessage.getDtoClass()), self()));
     }
@@ -81,7 +81,7 @@ public class LoadTestingCoordinator extends AbstractActor {
         LOGGER.debug("Starting load test");
 
         final GenericRestCrudFacade client = getClient(loadTestStartMessage.getDtoClass());
-        ActorRef loadTestingActor = context().actorOf(FromConfig.getInstance().props(LoadTester.props(client)), "load-tester");
+        final ActorRef loadTestingActor = context().actorOf(FromConfig.getInstance().props(LoadTester.props(client)), "load-tester");
 
         LongStream.range(1, loadTestStartMessage.getTotalLoadCount() + 1)
                 .forEach(i ->
