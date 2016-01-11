@@ -11,6 +11,8 @@
  */
 package org.robbins.flashcards.repository.batch;
 
+import java.util.stream.IntStream;
+
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
@@ -22,21 +24,17 @@ public abstract class AbstractBatchCustomRepositoryImpl
 {
 	private JdbcTemplate jdbcTemplate = null;
 
-	protected int executeBatch(String sql, BatchPreparedStatementSetter batchPreparedStatementSetter) {
-		Preconditions.checkNotNull(jdbcTemplate, "Datasource not set for batch statement.");
-		int[] rows = jdbcTemplate.batchUpdate(sql, batchPreparedStatementSetter);
+	protected int executeBatch(final String sql, final BatchPreparedStatementSetter batchPreparedStatementSetter) {
+		Preconditions.checkNotNull(jdbcTemplate, "DataSource not set for batch statement.");
+		final int[] rows = jdbcTemplate.batchUpdate(sql, batchPreparedStatementSetter);
 		return sumRows(rows);
 	}
 
-	private int sumRows(int[] rows) {
-		int rowCount = 0;
-		for(int row : rows) {
-			rowCount += row;
-		}
-		return rowCount;
+	private int sumRows(final int[] rows) {
+		return IntStream.of(rows).sum();
 	}
 
-	public void setDataSource(DataSource dataSource) {
+	public void setDataSource(final DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 }

@@ -47,15 +47,15 @@ public class JdbcBatchTagRepositoryImpl extends AbstractBatchCustomRepositoryImp
 	}
 
 	@Override
-	public int batchSave(List<Tag> records) {
+	public int batchSave(final List<Tag> records) {
 		int count = 0;
 		for(final List<Tag> batch : Lists.partition(records, BATCH_SIZE)) {
 			count += executeBatch(BATCH_INSERT_SQL, new BatchPreparedStatementSetter() {
 
 				@Override
-				public void setValues(PreparedStatement ps, int i) throws SQLException
+				public void setValues(final PreparedStatement ps, final int i) throws SQLException
 				{
-					Tag tag = batch.get(i);
+					final Tag tag = batch.get(i);
 					ps.setString(1, tag.getName());
 					ps.setLong(2, tag.getCreatedBy());
 					ps.setDate(3, new Date(tag.getCreatedDateAsDate().getTime()));
