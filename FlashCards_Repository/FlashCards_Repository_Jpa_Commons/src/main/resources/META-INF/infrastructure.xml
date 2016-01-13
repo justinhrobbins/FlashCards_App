@@ -2,9 +2,11 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+    xmlns:repository="http://www.springframework.org/schema/data/repository"
     xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+        http://www.springframework.org/schema/data/repository http://www.springframework.org/schema/data/repository/spring-repository.xsd">
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory" />
@@ -93,13 +95,14 @@
     </beans>
 
     <beans profile="test-data">
-        <jdbc:initialize-database>
-            <jdbc:script location="classpath:sql/user.sql" />
-            <jdbc:script location="classpath:sql/tag.sql" />
-            <jdbc:script location="classpath:sql/flashcard.sql" />
-            <jdbc:script location="classpath:sql/flashcard_tag.sql" />
-            <jdbc:script location="classpath:sql/flashcard_link.sql" />
-        </jdbc:initialize-database>
+        <!--<jdbc:initialize-database>-->
+            <!--<jdbc:script location="classpath:sql/user.sql" />-->
+            <!--<jdbc:script location="classpath:sql/tag.sql" />-->
+            <!--<jdbc:script location="classpath:sql/flashcard.sql" />-->
+            <!--<jdbc:script location="classpath:sql/flashcard_tag.sql" />-->
+            <!--<jdbc:script location="classpath:sql/flashcard_link.sql" />-->
+        <!--</jdbc:initialize-database>-->
+        <repository:jackson2-populator locations="classpath:init-data/tag.json" />
     </beans>
 
 </beans>
