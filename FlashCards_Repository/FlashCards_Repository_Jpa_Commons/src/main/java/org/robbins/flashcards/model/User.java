@@ -1,12 +1,15 @@
 
 package org.robbins.flashcards.model;
 
-import org.joda.time.DateTime;
-import org.robbins.flashcards.model.common.AbstractAuditable;
-
-import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
+
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import org.robbins.flashcards.model.common.AbstractAuditable;
 
 @Entity
 @Table(name = "user")
@@ -39,10 +42,8 @@ public class User extends AbstractAuditable<Long, Long> implements Serializable 
     @Column(name = "Language")
     private String language;
 
-    // @JsonSerialize(using = CustomJsonDateSerializer.class)
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "LastLoginDate", nullable = true)
-    private Date lastLoginDate;
+    private LocalDateTime lastLoginDate;
 
     public User() {
     }
@@ -133,12 +134,12 @@ public class User extends AbstractAuditable<Long, Long> implements Serializable 
         this.language = language;
     }
 
-    public DateTime getLastLoginDate() {
-        return null == lastLoginDate ? null : new DateTime(lastLoginDate);
+    public LocalDateTime getLastLoginDate() {
+        return lastLoginDate;
     }
 
-    public void setLastLoginDate(final DateTime lastLoginDate) {
-        this.lastLoginDate = null == lastLoginDate ? null : lastLoginDate.toDate();
+    public void setLastLoginDate(final LocalDateTime lastLoginDate) {
+        this.lastLoginDate = lastLoginDate;
     }
 
     @Override
