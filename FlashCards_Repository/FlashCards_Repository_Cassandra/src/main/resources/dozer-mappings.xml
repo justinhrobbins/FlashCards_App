@@ -7,7 +7,7 @@
         <custom-converters>
             <converter
                 type="org.robbins.flashcards.repository.util.dozer.DateTimeConverter">
-                <class-a>org.joda.time.DateTime</class-a>
+                <class-a>java.time.LocalDateTime</class-a>
                 <class-b>java.util.Date</class-b>
             </converter>
             <converter

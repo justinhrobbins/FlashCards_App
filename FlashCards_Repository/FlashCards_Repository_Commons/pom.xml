@@ -26,12 +26,6 @@
 			<version>${project.version}</version>
 		</dependency>
 
-		<!-- Joda-Time provides a quality replacement for the Java date and time classes. -->
-		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-		</dependency>
-
 		<!-- Dozer for mapping @Entities to DTOs -->
 		<dependency>
 			<groupId>net.sf.dozer</groupId>

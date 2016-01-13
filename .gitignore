@@ -10,9 +10,6 @@ gen/
 gwt-unitCache/
 deploy/
 classes/
-restygwt/
-gwt-joda-time/
-
 
 # Compiled source #
 ###################

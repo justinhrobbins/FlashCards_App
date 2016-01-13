@@ -1,12 +1,10 @@
 
 package org.robbins.flashcards.repository.util.dozer;
 
-import org.dozer.CustomConverter;
-import org.joda.time.DateTime;
-import org.springframework.data.mapping.model.MappingException;
-
-import java.util.Date;
 import java.util.UUID;
+
+import org.dozer.CustomConverter;
+import org.springframework.data.mapping.model.MappingException;
 
 public class UUIDConverter implements CustomConverter {
 

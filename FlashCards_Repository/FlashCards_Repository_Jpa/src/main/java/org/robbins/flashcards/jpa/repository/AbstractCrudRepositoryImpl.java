@@ -1,19 +1,19 @@
 
 package org.robbins.flashcards.jpa.repository;
 
-import org.apache.commons.lang3.NotImplementedException;
-import org.joda.time.DateTime;
-import org.robbins.flashcards.model.common.AbstractAuditable;
-import org.robbins.flashcards.repository.FlashCardsAppRepository;
-import org.robbins.flashcards.repository.auditing.AuditingAwareUser;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
-import java.io.Serializable;
-import java.util.List;
+import org.apache.commons.lang3.NotImplementedException;
+import org.robbins.flashcards.model.common.AbstractAuditable;
+import org.robbins.flashcards.repository.FlashCardsAppRepository;
+import org.robbins.flashcards.repository.auditing.AuditingAwareUser;
 
 public abstract class AbstractCrudRepositoryImpl<T extends AbstractAuditable<Long, ID>, ID extends Serializable>
         implements FlashCardsAppRepository<T, ID> {
@@ -38,12 +38,12 @@ public abstract class AbstractCrudRepositoryImpl<T extends AbstractAuditable<Lon
     @Override
     public T save(final T entity) {
         entity.setLastModifiedBy(getAuditingUser());
-        entity.setLastModifiedDate(new DateTime());
+        entity.setLastModifiedDate(LocalDateTime.now());
 
         // is it a new entity?
         if (entity.getId() == null) {
             entity.setCreatedBy(getAuditingUser());
-            entity.setCreatedDate(new DateTime());
+            entity.setCreatedDate(LocalDateTime.now());
             getEm().persist(entity);
         } // must be an update
         else {
