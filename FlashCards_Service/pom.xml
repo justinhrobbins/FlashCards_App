@@ -122,13 +122,6 @@
             <artifactId>hibernate-jpa-2.1-api</artifactId>
         </dependency>
 
-        <!-- Joda-Time provides a quality replacement for the Java date and time 
-            classes. -->
-        <dependency>
-            <groupId>joda-time</groupId>
-            <artifactId>joda-time</artifactId>
-        </dependency>
-
 		<dependency>
 			<groupId>org.javassist</groupId>
 			<artifactId>javassist</artifactId>

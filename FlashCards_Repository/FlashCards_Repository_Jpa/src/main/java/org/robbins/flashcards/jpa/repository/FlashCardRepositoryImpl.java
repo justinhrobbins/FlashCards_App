@@ -1,13 +1,13 @@
 
 package org.robbins.flashcards.jpa.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.Query;
 
-import org.joda.time.DateTime;
 import org.robbins.flashcards.jpa.repository.util.JpqlUtil;
 import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
@@ -33,9 +33,9 @@ public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
         flashCard.getTags().stream()
                 .filter(tag -> (tag.getId() == null)).forEach(tag -> {
             tag.setCreatedBy(getAuditingUser());
-            tag.setCreatedDate(new DateTime());
+            tag.setCreatedDate(LocalDateTime.now());
             tag.setLastModifiedBy(getAuditingUser());
-            tag.setLastModifiedDate(new DateTime());
+            tag.setLastModifiedDate(LocalDateTime.now());
         });
         return super.save(flashCard);
     }
