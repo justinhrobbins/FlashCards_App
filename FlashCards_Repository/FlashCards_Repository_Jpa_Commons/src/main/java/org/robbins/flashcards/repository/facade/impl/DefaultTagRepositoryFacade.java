@@ -41,7 +41,7 @@ public class DefaultTagRepositoryFacade extends AbstractCrudRepositoryFacadeImpl
 
     @Override
     public TagDto findByName(final String name) throws RepositoryException {
-        Tag result = repository.findByName(name);
+        final Tag result = repository.findByName(name);
 
         if (result == null) {
             return null;
@@ -51,7 +51,7 @@ public class DefaultTagRepositoryFacade extends AbstractCrudRepositoryFacadeImpl
 
     @Override
     public List<TagDto> findTagsForFlashCard(final Long flashCardId, final Set<String> fields) throws RepositoryException {
-        List<Tag> results = repository.findByFlashCards_Id(flashCardId);
+        final List<Tag> results = repository.findByFlashCards_Id(flashCardId);
         return convertAndInitializeEntities(results, fields);
     }
 }
