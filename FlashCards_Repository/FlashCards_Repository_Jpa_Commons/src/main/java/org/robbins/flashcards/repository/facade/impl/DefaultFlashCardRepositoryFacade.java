@@ -60,31 +60,31 @@ public class DefaultFlashCardRepositoryFacade extends
 
     @Override
     public FlashCardDto save(final FlashCardDto dto) throws RepositoryException {
-        FlashCard entity = getConverter().getEntity(dto);
+        final FlashCard entity = getConverter().getEntity(dto);
         EntityAuditingUtil.configureCreatedByAndTime(entity, getAuditingUserId());
         entity.setTags(configureTags(dto.getTags()));
-        FlashCard result = repository.save(entity);
+        final FlashCard result = repository.save(entity);
         return convertAndInitializeEntity(result);
     }
 
     @Override
     public List<FlashCardDto> findByTagsIn(final Set<TagDto> tagDtos)
             throws RepositoryException {
-        List<FlashCard> results = repository.findByTagsIn(getTags(tagDtos));
+        final List<FlashCard> results = repository.findByTagsIn(getTags(tagDtos));
         return convertAndInitializeEntities(results);
     }
 
     @Override
     public List<FlashCardDto> findByTagsIn(final Set<TagDto> tagDtos,
             final PageRequest page) throws RepositoryException {
-        List<FlashCard> results =  repository.findByTagsIn(getTags(tagDtos), page);
+        final List<FlashCard> results =  repository.findByTagsIn(getTags(tagDtos), page);
         return convertAndInitializeEntities(results);
     }
 
     @Override
     public List<FlashCardDto> findByQuestionLike(final String question)
             throws RepositoryException {
-        List<FlashCard> results = repository.findByQuestionLike(question);
+        final List<FlashCard> results = repository.findByQuestionLike(question);
         return convertAndInitializeEntities(results);
     }
 
@@ -92,26 +92,26 @@ public class DefaultFlashCardRepositoryFacade extends
     public List<FlashCardDto> findByQuestionLike(final String question,
             final PageRequest page)
             throws RepositoryException {
-        List<FlashCard> results =  repository.findByQuestionLike(question, page);
+        final List<FlashCard> results =  repository.findByQuestionLike(question, page);
         return convertAndInitializeEntities(results);
     }
 
     @Override
     public FlashCardDto findByQuestion(final String question) throws RepositoryException {
-        FlashCard result = repository.findByQuestion(question);
+        final FlashCard result = repository.findByQuestion(question);
         return convertAndInitializeEntity(result);
     }
 
     @Override
-    public List<FlashCardDto> findFlashCardsForTag(Long tagId, Set<String> fields) throws FlashCardsException
+    public List<FlashCardDto> findFlashCardsForTag(final Long tagId, final Set<String> fields) throws FlashCardsException
     {
-        List<FlashCard> results = repository.findByTags_Id(tagId);
+        final List<FlashCard> results = repository.findByTags_Id(tagId);
         return convertAndInitializeEntities(results, fields);
     }
 
     private Set<Tag> getTags(final Set<TagDto> tagDtos) {
-        List<TagDto> tagDtoList = Lists.newArrayList(tagDtos);
-        List<Tag> tagList = tagConverter.getEntities(tagDtoList);
+        final List<TagDto> tagDtoList = Lists.newArrayList(tagDtos);
+        final List<Tag> tagList = tagConverter.getEntities(tagDtoList);
         return Sets.newHashSet(tagList);
     }
 
@@ -121,7 +121,7 @@ public class DefaultFlashCardRepositoryFacade extends
                 .collect(Collectors.toSet());
     }
 
-    private Tag configureTag(TagDto tagDto) {
+    private Tag configureTag(final TagDto tagDto) {
         if (tagDto.getId() == null) {
             final Tag existingTag = tagRepository.findByName(tagDto.getName());
             if (existingTag == null) {
