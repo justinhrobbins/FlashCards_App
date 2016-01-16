@@ -11,8 +11,6 @@
  */
 package org.robbins.flashcards.context;
 
-import java.io.IOException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContextInitializer;
@@ -23,18 +21,18 @@ import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.ResourcePropertySource;
 
+import java.io.IOException;
+
 public class FlashCardsApplicationContextInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext>
 {
 	private static final Logger LOGGER = LoggerFactory.getLogger(FlashCardsApplicationContextInitializer.class);
 
 	private final String REPOSITORY_PROFILE_PROPERTY = "repository.profile";
 	private final String SECURITY_PROFILE_PROPERTY = "security.profile";
-	private final String DATABASE_PROFILE_PROPERTY = "database.profile";
 	private final String TESTDATA_PROFILE_PROPERTY= "tests.data.profile";
 
 	private final String DEFAULT_REPOSITORY_PROFILE = "spring-data";
 	private final String DEFAULT_SECURITY_PROFILE = "security-http";
-	private final String DEFAULT_DATABASE_PROFILE = "embedded";
 	private final String DEFAULT_TESTDATA_PROFILE = "test-data";
 
 	@Override
@@ -53,7 +51,6 @@ public class FlashCardsApplicationContextInitializer implements ApplicationConte
 
 	private void addSpringProfiles(final ConfigurableEnvironment environment)
 	{
-		addDatabaseProfile(environment);
 		addRepositoryProfile(environment);
 		addSecurityProfile(environment);
 		addTestDataProfile(environment);
@@ -93,11 +90,6 @@ public class FlashCardsApplicationContextInitializer implements ApplicationConte
 	private void addRepositoryProfile(final ConfigurableEnvironment environment)
 	{
 		addProfile(REPOSITORY_PROFILE_PROPERTY, DEFAULT_REPOSITORY_PROFILE, environment);
-	}
-
-	private void addDatabaseProfile(final ConfigurableEnvironment environment)
-	{
-		addProfile(DATABASE_PROFILE_PROPERTY, DEFAULT_DATABASE_PROFILE, environment);
 	}
 
 	private void addSecurityProfile(final ConfigurableEnvironment environment)
