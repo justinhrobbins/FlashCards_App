@@ -26,7 +26,7 @@ import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
 @Ignore
-@ContextConfiguration(locations = {"classpath*:META-INF/applicatonContext-loadtester.xml"})
+@ContextConfiguration(locations = {"classpath:META-INF/applicatonContext-loadtester.xml"})
 @RunWith(JUnitParamsRunner.class)
 public class LoadTesterIT {
 
