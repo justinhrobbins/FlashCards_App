@@ -13,6 +13,7 @@ import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.collect.Lists;
@@ -24,6 +25,7 @@ import akka.japi.pf.ReceiveBuilder;
 import scala.PartialFunction;
 import scala.runtime.BoxedUnit;
 
+@Scope("prototype")
 @Component("batchSavingCoordinator")
 public class BatchSavingCoordinator extends AbstractActor
 {

@@ -25,7 +25,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 @Category(IntegrationTest.class)
-@ContextConfiguration(locations = {"classpath*:META-INF/applicatonContext-client.xml"})
+@ContextConfiguration(locations = {"classpath:META-INF/applicatonContext-client.xml"})
 public class TagsResourceIT extends GenericEntityRestTest<TagDto, Long> {
 
     final static String TAG_NAME = "Web API Test 'Tag'";
