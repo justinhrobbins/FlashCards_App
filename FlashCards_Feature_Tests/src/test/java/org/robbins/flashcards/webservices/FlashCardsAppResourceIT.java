@@ -17,7 +17,7 @@ import static org.junit.Assert.assertThat;
 
 @Category(IntegrationTest.class)
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath*:META-INF/applicatonContext-client.xml"})
+@ContextConfiguration(locations = {"classpath:META-INF/applicatonContext-client.xml"})
 public class FlashCardsAppResourceIT {
 
     @Inject
