@@ -13,78 +13,45 @@
     <bean
         class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 
-    <beans profile="mysql">
-        <bean id="entityManagerFactory"
-              class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-            <property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
-            <property name="jpaProperties">
-                <props>
-                    <prop key="hibernate.connection.provider_class">${hibernate.connection.provider_class}</prop>
-                    <prop key="hibernate.hikari.dataSourceClassName">${hibernate.hikari.dataSourceClassName}</prop>
-                    <prop key="hibernate.hikari.dataSource.url">${hibernate.hikari.dataSource.url}</prop>
-                    <prop key="hibernate.hikari.dataSource.user">${hibernate.hikari.dataSource.user}</prop>
-                    <prop key="hibernate.hikari.dataSource.password">${hibernate.hikari.dataSource.password}</prop>
-                    <prop key="hibernate.hikari.dataSource.cachePrepStmts">${hibernate.hikari.dataSource.cachePrepStmts}</prop>
-                    <prop key="hibernate.hikari.dataSource.prepStmtCacheSize">${hibernate.hikari.dataSource.prepStmtCacheSize}</prop>
-                    <prop key="hibernate.hikari.dataSource.prepStmtCacheSqlLimit">${hibernate.hikari.dataSource.prepStmtCacheSqlLimit}</prop>
-                    <prop key="hibernate.hikari.maximumPoolSize">${hibernate.hikari.maximumPoolSize}</prop>
-                    <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
-                    <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
-                    <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
-                    <prop key="hibernate.jdbc.batch_size property">${hibernate.jdbc.batch_size}</prop>
-                    <prop key="hibernate.order_inserts">${hibernate.order_inserts}</prop>
-                    <prop key="org.hibernate.flushMode">${org.hibernate.flushMode}</prop>
-                    <prop key="use_sql_comments">${use_sql_comments}</prop>
-                </props>
-            </property>
-        </bean>
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.connection.provider_class">${hibernate.connection.provider_class}</prop>
+                <prop key="hibernate.hikari.dataSourceClassName">${hibernate.hikari.dataSourceClassName}</prop>
+                <prop key="hibernate.hikari.dataSource.url">${hibernate.hikari.dataSource.url}</prop>
+                <prop key="hibernate.hikari.dataSource.user">${hibernate.hikari.dataSource.user}</prop>
+                <prop key="hibernate.hikari.dataSource.password">${hibernate.hikari.dataSource.password}</prop>
+                <prop key="hibernate.hikari.dataSource.cachePrepStmts">${hibernate.hikari.dataSource.cachePrepStmts}</prop>
+                <prop key="hibernate.hikari.dataSource.prepStmtCacheSize">${hibernate.hikari.dataSource.prepStmtCacheSize}</prop>
+                <prop key="hibernate.hikari.dataSource.prepStmtCacheSqlLimit">${hibernate.hikari.dataSource.prepStmtCacheSqlLimit}</prop>
+                <prop key="hibernate.hikari.maximumPoolSize">${hibernate.hikari.maximumPoolSize}</prop>
+                <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+                <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+                <prop key="hibernate.jdbc.batch_size property">${hibernate.jdbc.batch_size}</prop>
+                <prop key="hibernate.order_inserts">${hibernate.order_inserts}</prop>
+                <prop key="org.hibernate.flushMode">${org.hibernate.flushMode}</prop>
+                <prop key="use_sql_comments">${use_sql_comments}</prop>
+            </props>
+        </property>
+    </bean>
 
-        <bean id="jpaVendorAdapter"
-            class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-            <property name="database" value="${jpaVendorAdapter.database}" />
-            <property name="databasePlatform" value="${jpaVendorAdapter.databasePlatform}" />
-        </bean>
+    <bean id="jpaVendorAdapter"
+          class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <property name="database" value="${jpaVendorAdapter.database}" />
+        <property name="databasePlatform" value="${jpaVendorAdapter.databasePlatform}" />
+    </bean>
 
-        <!-- data source is only used by jdbc initializer.  it should be moved into a confing bean -->
-        <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
-              destroy-method="close">
-            <property name="driverClass" value="com.mysql.jdbc.Driver" />
-            <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/flashcardapp_db?useConfigs=maxPerformance&amp;rewriteBatchedStatements=true" />
-            <property name="user" value="fcuser_c3po" />
-            <property name="password" value="flashcard" />
-        </bean>
-    </beans>
-
-    <beans profile="embedded">
-        <bean id="jpaVendorAdapter"
-            class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-            <property name="database" value="H2" />
-            <property name="databasePlatform" value="org.hibernate.dialect.H2Dialect" />
-        </bean>
-
-        <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
-            destroy-method="close">
-            <property name="driverClass" value="org.h2.Driver" />
-            <property name="jdbcUrl" value="jdbc:h2:mem:flashcardsDb;MVCC=true" />
-        </bean>
-
-        <bean id="entityManagerFactory"
-              class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-            <property name="dataSource" ref="dataSource" />
-            <property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
-            <property name="jpaProperties">
-                <props>
-                    <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
-                    <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
-                    <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
-                    <prop key="hibernate.jdbc.batch_size property">${hibernate.jdbc.batch_size}</prop>
-                    <prop key="hibernate.order_inserts">${hibernate.order_inserts}</prop>
-                    <prop key="org.hibernate.flushMode">${org.hibernate.flushMode}</prop>
-                    <prop key="use_sql_comments">${use_sql_comments}</prop>
-                </props>
-            </property>
-        </bean>
-    </beans>
+    <!-- data source is only used by jdbc initializer.  it should be moved into a confing bean -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close">
+        <property name="driverClass" value="com.mysql.jdbc.Driver" />
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/flashcardapp_db?useConfigs=maxPerformance&amp;rewriteBatchedStatements=true" />
+        <property name="user" value="fcuser_c3po" />
+        <property name="password" value="flashcard" />
+    </bean>
 
     <beans profile="minimal-test-data">
         <jdbc:initialize-database>
