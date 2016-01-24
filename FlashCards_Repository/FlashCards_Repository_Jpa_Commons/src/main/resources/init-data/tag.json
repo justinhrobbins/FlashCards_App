@@ -1,22 +1,42 @@
-[ { "_class" : "org.robbins.flashcards.model.Tag",
-  "id" : "2",
-  "name" : "JPA",
-  "lastModifiedDate" : "2013-03-29 19:10:19",
-  "createdDate" : "2011-10-17 22:28:22",
-  "lastModifiedBy" : "4",
-  "createdBy" : "1"},
-  { "_class" : "org.robbins.flashcards.model.Tag",
-    "id" : "12",
-    "name" : "JAX-RS",
-    "lastModifiedDate" : "2012-09-01 19:07:56",
-    "createdDate" : "2012-09-01 19:07:56",
-    "lastModifiedBy" : "4",
-    "createdBy" : "4"},
-  { "_class" : "org.robbins.flashcards.model.Tag",
-    "id" : "14",
-    "name" : "Maven",
-    "lastModifiedDate" : "2013-04-07 19:58:04",
-    "createdDate" : "2013-04-07 19:58:04",
-    "lastModifiedBy" : "1",
-    "createdBy" : "1"}
+[
+  {
+    "_class": "org.robbins.flashcards.dto.TagDto",
+    "name": "Hibernate"
+  },
+  {
+    "_class": "org.robbins.flashcards.dto.TagDto",
+    "name": "JPA"
+  },
+  {
+    "_class": "org.robbins.flashcards.dto.TagDto",
+    "name": "JAX-RS"
+  },
+  {
+    "_class": "org.robbins.flashcards.dto.TagDto",
+    "name": "Maven"
+  },
+  {
+    "_class": "org.robbins.flashcards.dto.TagDto",
+    "name": "Java"
+  },
+  {
+    "_class": "org.robbins.flashcards.dto.TagDto",
+    "name": "SQL"
+  },
+  {
+    "_class": "org.robbins.flashcards.dto.TagDto",
+    "name": "Spring"
+  },
+  {
+    "_class": "org.robbins.flashcards.dto.TagDto",
+    "name": "AOP"
+  },
+  {
+    "_class": "org.robbins.flashcards.dto.TagDto",
+    "name": "Agile"
+  },
+  {
+    "_class": "org.robbins.flashcards.dto.TagDto",
+    "name": "Git"
+  }
 ]

@@ -16,6 +16,4 @@
                                             org.robbins.flashcards.jersey.filters;
                                             org.robbins.flashcards.providers" />
 
-      <bean id="objectMapper" class="org.robbins.flashcards.jackson.CustomObjectMapper" />
-
 </beans>

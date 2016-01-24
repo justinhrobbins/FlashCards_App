@@ -3,7 +3,6 @@ package org.robbins.flashcards.repository.facade.impl;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-
 import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.dto.FlashCardDto;
 import org.robbins.flashcards.dto.TagDto;
@@ -22,7 +21,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -61,7 +59,7 @@ public class DefaultFlashCardRepositoryFacade extends
     @Override
     public FlashCardDto save(final FlashCardDto dto) throws RepositoryException {
         final FlashCard entity = getConverter().getEntity(dto);
-        EntityAuditingUtil.configureCreatedByAndTime(entity, getAuditingUserId());
+        configureCreatedByAndTime(entity);
         entity.setTags(configureTags(dto.getTags()));
         final FlashCard result = repository.save(entity);
         return convertAndInitializeEntity(result);
