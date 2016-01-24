@@ -1,0 +1,42 @@
+[
+  {
+    "_class": "org.robbins.flashcards.dto.TagDto",
+    "name": "Hibernate"
+  },
+  {
+    "_class": "org.robbins.flashcards.dto.TagDto",
+    "name": "JPA"
+  },
+  {
+    "_class": "org.robbins.flashcards.dto.TagDto",
+    "name": "JAX-RS"
+  },
+  {
+    "_class": "org.robbins.flashcards.dto.TagDto",
+    "name": "Maven"
+  },
+  {
+    "_class": "org.robbins.flashcards.dto.TagDto",
+    "name": "Java"
+  },
+  {
+    "_class": "org.robbins.flashcards.dto.TagDto",
+    "name": "SQL"
+  },
+  {
+    "_class": "org.robbins.flashcards.dto.TagDto",
+    "name": "Spring"
+  },
+  {
+    "_class": "org.robbins.flashcards.dto.TagDto",
+    "name": "AOP"
+  },
+  {
+    "_class": "org.robbins.flashcards.dto.TagDto",
+    "name": "Agile"
+  },
+  {
+    "_class": "org.robbins.flashcards.dto.TagDto",
+    "name": "Git"
+  }
+]

@@ -44,8 +44,7 @@
         <hikari.version>2.4.1</hikari.version>
         <httpclient.version>4.2.4</httpclient.version>
         <h2.version>1.3.171</h2.version>
-        <jackson.version>2.1.4</jackson.version>
-        <jackson.hibernate.version>2.1.1</jackson.hibernate.version>
+        <jackson.version>2.6.4</jackson.version>
         <javassist.version>3.18.1-GA</javassist.version>
         <javax.inject.version>1</javax.inject.version>
         <javax.servlet.api>3.0.1</javax.servlet.api>
@@ -369,7 +368,12 @@
             <dependency>
                 <groupId>com.fasterxml.jackson.datatype</groupId>
                 <artifactId>jackson-datatype-hibernate4</artifactId>
-                <version>${jackson.hibernate.version}</version>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jsr310</artifactId>
+                <version>${jackson.version}</version>
             </dependency>
 
             <!-- JSR 330: Dependency Injection for Java -->

@@ -1,12 +1,12 @@
 
 package org.robbins.flashcards.repository.facade.impl;
 
+import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.dto.UserDto;
 import org.robbins.flashcards.exceptions.RepositoryException;
 import org.robbins.flashcards.facade.UserFacade;
 import org.robbins.flashcards.model.User;
 import org.robbins.flashcards.repository.UserRepository;
-import org.robbins.flashcards.conversion.DtoConverter;
 import org.robbins.flashcards.repository.facade.base.AbstractCrudRepositoryFacadeImpl;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -49,14 +49,15 @@ public class DefaultUserRepositoryFacade extends AbstractCrudRepositoryFacadeImp
 
     @Override
     public UserDto save(final UserDto dto) throws RepositoryException {
-        User entity = getConverter().getEntity(dto);
+        final User entity = getConverter().getEntity(dto);
 
         if (!dto.isNew()) {
             User orig = repository.findOne(dto.getId());
             entity.setCreatedBy(orig.getCreatedBy());
             entity.setCreatedDate(orig.getCreatedDate());
         }
-
-        return super.save(dto);
+        configureCreatedByAndTime(entity);
+        final User result = getRepository().save(entity);
+        return convertAndInitializeEntity(result);
     }
 }

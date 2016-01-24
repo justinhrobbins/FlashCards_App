@@ -1,13 +1,6 @@
 
 package org.robbins.flashcards.repository.facade.base;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
-import javax.inject.Inject;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
 import org.robbins.flashcards.exceptions.FlashCardsException;
@@ -23,6 +16,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.inject.Inject;
+import java.io.Serializable;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Transactional
 public abstract class AbstractCrudRepositoryFacadeImpl<D, E extends AbstractAuditable, ID extends Serializable> implements GenericCrudFacade<D, ID>,
@@ -43,9 +42,14 @@ public abstract class AbstractCrudRepositoryFacadeImpl<D, E extends AbstractAudi
     @Override
     public D save(final D dto) throws RepositoryException {
         final E entity = getConverter().getEntity(dto);
-        EntityAuditingUtil.configureCreatedByAndTime(entity, getAuditingUserId());
+        configureCreatedByAndTime(entity);
         final E result = getRepository().save(entity);
         return convertAndInitializeEntity(result);
+    }
+
+    public void configureCreatedByAndTime(final E entity)
+    {
+        EntityAuditingUtil.configureCreatedByAndTime(entity, getAuditingUserId());
     }
 
     @Transactional(propagation= Propagation.NEVER)

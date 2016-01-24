@@ -26,6 +26,11 @@
             <artifactId>FlashCards_Repository_Jpa_Commons</artifactId>
             <version>${project.version}</version>
         </dependency>
+		<dependency>
+			<groupId>org.robbins.flashcards</groupId>
+			<artifactId>FlashCards_Repository_Commons</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>

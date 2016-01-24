@@ -1,0 +1,35 @@
+[
+  {
+    "_class": "org.robbins.flashcards.dto.UserDto",
+    "openid" : "https://www.google.com/accounts/o8/id?id=AItOawllJAsRUc_lQK9cK8vk0E7CJGqEFUAC5oE",
+    "firstName": "Justin",
+    "lastName": "Robbins",
+    "fullName": "Justin Robbins",
+    "email": "justinhrobbins@gmail.com",
+    "nickname": "",
+    "country": "",
+    "language": ""
+  },
+  {
+    "_class": "org.robbins.flashcards.dto.UserDto",
+    "openid" : "apiuser",
+    "firstName": "apiuser",
+    "lastName": "",
+    "fullName": "apiuser",
+    "email": "",
+    "nickname": "",
+    "country": "",
+    "language": ""
+  },
+  {
+    "_class": "org.robbins.flashcards.dto.UserDto",
+    "openid" : "rest-api-client",
+    "firstName": "rest-api-client",
+    "lastName": "",
+    "fullName": "",
+    "email": "",
+    "nickname": "",
+    "country": "",
+    "language": ""
+  }
+]
