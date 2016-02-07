@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
        xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
@@ -17,14 +15,10 @@
 
     <bean id="entityManagerFactory"
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource" />
         <property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
         <property name="jpaProperties">
             <props>
-                <prop key="hibernate.connection.provider_class">${hibernate.connection.provider_class}</prop>
-                <prop key="hibernate.hikari.dataSourceClassName">${hibernate.hikari.dataSourceClassName}</prop>
-                <prop key="hibernate.hikari.dataSource.url">${hibernate.hikari.dataSource.url}</prop>
-                <prop key="hibernate.hikari.dataSource.user">${hibernate.hikari.dataSource.user}</prop>
-                <prop key="hibernate.hikari.dataSource.password">${hibernate.hikari.dataSource.password}</prop>
                 <prop key="hibernate.hikari.dataSource.cachePrepStmts">${hibernate.hikari.dataSource.cachePrepStmts}</prop>
                 <prop key="hibernate.hikari.dataSource.prepStmtCacheSize">${hibernate.hikari.dataSource.prepStmtCacheSize}</prop>
                 <prop key="hibernate.hikari.dataSource.prepStmtCacheSqlLimit">${hibernate.hikari.dataSource.prepStmtCacheSqlLimit}</prop>
@@ -46,14 +40,23 @@
         <property name="databasePlatform" value="${jpaVendorAdapter.databasePlatform}" />
     </bean>
 
-    <!-- data source is only used by jdbc initializer.  it should be moved into a confing bean -->
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
-          destroy-method="close">
-        <property name="driverClass" value="com.mysql.jdbc.Driver" />
-        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/flashcardapp_db?useConfigs=maxPerformance&amp;rewriteBatchedStatements=true" />
-        <property name="user" value="fcuser_c3po" />
-        <property name="password" value="flashcard" />
+    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+        <property name="poolName" value="springHikariCP" />
+        <property name="connectionTestQuery" value="SELECT 1" />
+        <property name="dataSourceClassName" value="${hibernate.hikari.dataSourceClassName}" />
+        <property name="dataSourceProperties">
+            <props>
+                <prop key="url">${hibernate.hikari.dataSource.url}</prop>
+                <prop key="user">${hibernate.hikari.dataSource.user}</prop>
+                <prop key="password">${hibernate.hikari.dataSource.password}</prop>
+            </props>
+        </property>
     </bean>
+
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+        <constructor-arg ref="hikariConfig" />
+    </bean>
+
 
     <beans profile="minimal-test-data">
         <util:list id="initResourceNames">
