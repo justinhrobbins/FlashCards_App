@@ -42,13 +42,13 @@
 
     <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
         <property name="poolName" value="springHikariCP" />
-        <property name="connectionTestQuery" value="SELECT 1" />
-        <property name="dataSourceClassName" value="${hibernate.hikari.dataSourceClassName}" />
+        <property name="dataSourceClassName" value="${hikari.dataSourceClassName}" />
         <property name="dataSourceProperties">
             <props>
-                <prop key="url">${hibernate.hikari.dataSource.url}</prop>
-                <prop key="user">${hibernate.hikari.dataSource.user}</prop>
-                <prop key="password">${hibernate.hikari.dataSource.password}</prop>
+                <prop key="url">${hikari.dataSource.url}</prop>
+                <prop key="user">${hikari.dataSource.user}</prop>
+                <prop key="password">${hikari.dataSource.password}</prop>
+                <prop key="rewriteBatchedStatements">true</prop>
             </props>
         </property>
     </bean>
@@ -56,7 +56,6 @@
     <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
         <constructor-arg ref="hikariConfig" />
     </bean>
-
 
     <beans profile="minimal-test-data">
         <util:list id="initResourceNames">
