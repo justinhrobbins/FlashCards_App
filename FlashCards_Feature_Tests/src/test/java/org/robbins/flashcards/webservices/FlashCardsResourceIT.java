@@ -1,7 +1,7 @@
 
 package org.robbins.flashcards.webservices;
 
-import com.google.common.collect.Sets;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -18,7 +18,6 @@ import org.robbins.tests.IntegrationTest;
 import org.springframework.test.context.ContextConfiguration;
 
 import javax.inject.Inject;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -30,7 +29,10 @@ public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto, Lo
 
     // this entity will be created in @Before and we'll use it for our JUnit tests and
     // then delete it in @After
-    private FlashCardDto entity = new FlashCardDtoBuilder().withQuestion("Web API Test 'Question'").withAnswer("Web API Test 'Answer'").build();
+    private FlashCardDto entity = new FlashCardDtoBuilder()
+            .withQuestion(randomQuestion())
+            .withAnswer(randomQuestion())
+            .build();
 
     @Override
     public void setEntity(final FlashCardDto entity) {
@@ -56,13 +58,36 @@ public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto, Lo
     @Test
     public void testSearchByTagsIn() throws FlashCardsException
 	{
-        final Set<TagDto> tags = new HashSet<>();
-        tags.add(new TagDto(2L, "two"));
-        tags.add(new TagDto(20L, "twenty"));
+        final FlashCardDto flashCard = givenFlashCardHasTwoTags();
 
-        final List<FlashCardDto> searchResult = client.findByTagsIn(tags);
+        final List<FlashCardDto> searchResult = client.findByTagsIn(flashCard.getTags());
 
         assertTrue(searchResult.size() > 0);
+
+        cleanupFlashCard(flashCard);
+    }
+
+    private FlashCardDto givenFlashCardHasTwoTags() {
+        final FlashCardDto flashCard = setupFlashCard();
+        TagDto tag1 = new TagDtoBuilder().withName(randomTagName()).build();
+        TagDto tag2 = new TagDtoBuilder().withName(randomTagName()).build();
+
+        tag1 = tagClient.save(tag1);
+        tag2 = tagClient.save(tag2);
+
+        flashCard.getTags().add(tag1);
+        flashCard.getTags().add(tag2);
+
+        return client.save(flashCard);
+    }
+
+    private FlashCardDto setupFlashCard() throws FlashCardsException
+    {
+        final FlashCardDto flashCardDto = new FlashCardDtoBuilder()
+                .withQuestion(randomQuestion())
+                .withAnswer(randomAnwer())
+                .build();
+        return client.save(flashCardDto);
     }
 
     @Test
@@ -86,11 +111,11 @@ public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto, Lo
     {
 
         final FlashCardDto flashCard = new FlashCardDto();
-        flashCard.setQuestion("Question4");
-        flashCard.setAnswer("Answer4");
+        flashCard.setQuestion(randomQuestion());
+        flashCard.setAnswer(randomAnwer());
 
         final TagDto tag = new TagDto();
-        tag.setName("tag4");
+        tag.setName(randomTagName());
         flashCard.getTags().add(tag);
 
         final FlashCardDto newFlashCard = client.save(flashCard);
@@ -104,7 +129,7 @@ public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto, Lo
     @Test
     public void testFindFlashCardsForTag() throws FlashCardsException
     {
-        final FlashCardDto flashCard = setupFlashCard();
+        final FlashCardDto flashCard = givenFlashCardHasTwoTags();
 
         final List<FlashCardDto> results = client.findFlashCardsForTag(flashCard.getTags().iterator().next().getId(), null);
         assertTrue(results != null);
@@ -113,15 +138,29 @@ public class FlashCardsResourceIT extends GenericEntityRestTest<FlashCardDto, Lo
         cleanupFlashCard(flashCard);
     }
 
-    private FlashCardDto setupFlashCard() throws FlashCardsException
-    {
-        final FlashCardDto flashCardDto = new FlashCardDtoBuilder().withQuestion("question").withAnswer("answer").build();
-        flashCardDto.setTags(Sets.newHashSet(new TagDtoBuilder().withName("tag_name").build()));
-        return client.save(flashCardDto);
+    private void cleanupFlashCard(FlashCardDto flashCard) {
+        final Set<TagDto> tags = flashCard.getTags();
+        client.delete(flashCard.getId());
+        cleanupTags(tags);
     }
 
-    private void cleanupFlashCard(FlashCardDto flashCard) {
-        client.delete(flashCard.getId());
-        tagClient.delete(flashCard.getTags().iterator().next().getId());
+    private void cleanupTags(Set<TagDto> tags) {
+        tags.forEach(tag -> tagClient.delete(tag.getId()));
+    }
+
+    private String randomQuestion() {
+        return randomString("Question", 10);
+    }
+
+    private String randomAnwer() {
+        return randomString("Answer", 10);
+    }
+
+    private String randomTagName() {
+        return randomString("Tag", 10);
+    }
+
+    private String randomString(final String prefix, final int size) {
+        return prefix + ": " + RandomStringUtils.randomAlphabetic(size);
     }
 }
