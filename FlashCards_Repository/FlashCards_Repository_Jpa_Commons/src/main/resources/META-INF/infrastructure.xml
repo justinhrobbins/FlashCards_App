@@ -48,7 +48,6 @@
                 <prop key="url">${hikari.dataSource.url}</prop>
                 <prop key="user">${hikari.dataSource.user}</prop>
                 <prop key="password">${hikari.dataSource.password}</prop>
-                <prop key="rewriteBatchedStatements">true</prop>
             </props>
         </property>
     </bean>
@@ -56,6 +55,10 @@
     <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
         <constructor-arg ref="hikariConfig" />
     </bean>
+
+    <beans profile="default">
+        <util:list id="initResourceNames" />
+    </beans>
 
     <beans profile="minimal-test-data">
         <util:list id="initResourceNames">

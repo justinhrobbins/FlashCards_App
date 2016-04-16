@@ -41,12 +41,14 @@
 			<artifactId>FlashCards_Config</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.robbins.flashcards</groupId>
+			<artifactId>FlashCards_Config</artifactId>
+			<type>test-jar</type>
+			<version>${project.version}</version>
+		</dependency>
 
 		<!-- JDBC Connection pooling -->
-		<dependency>
-			<groupId>c3p0</groupId>
-			<artifactId>c3p0</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>

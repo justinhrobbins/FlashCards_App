@@ -29,7 +29,7 @@ public class FlashCardsApplicationContextInitializer implements ApplicationConte
 
 	private final String REPOSITORY_PROFILE_PROPERTY = "repository.profile";
 	private final String SECURITY_PROFILE_PROPERTY = "security.profile";
-	private final String TESTDATA_PROFILE_PROPERTY= "tests.data.profile";
+	private final String TESTDATA_PROFILE_PROPERTY= "test.data.profile";
 
 	private final String DEFAULT_REPOSITORY_PROFILE = "spring-data";
 	private final String DEFAULT_SECURITY_PROFILE = "security-http";
