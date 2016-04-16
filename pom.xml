@@ -30,7 +30,6 @@
         <commons.collections.version>3.2.2</commons.collections.version>
         <commons.lang3.version>3.3</commons.lang3.version>
         <coveralls.version>2.1.0</coveralls.version>
-        <c3p0.version>0.9.1</c3p0.version>
         <dbunit.version>2.4.9</dbunit.version>
         <dozer.version>5.4.0</dozer.version>
         <findbugs.version>2.5.3</findbugs.version>
@@ -519,12 +518,6 @@
 
             <!-- JDBC Connection pooling -->
             <dependency>
-                <groupId>c3p0</groupId>
-                <artifactId>c3p0</artifactId>
-                <version>${c3p0.version}</version>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
                 <groupId>com.zaxxer</groupId>
                 <artifactId>HikariCP</artifactId>
                 <version>${hikari.version}</version>
@@ -543,7 +536,7 @@
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
                 <version>${h2.version}</version>
-                <scope>runtime</scope>
+                <scope>test</scope>
             </dependency>
 
             <!-- helper utils -->
@@ -946,11 +939,6 @@
                     <artifactId>tomcat7-maven-plugin</artifactId>
                     <version>${maven.tomcat.plugin.version}</version>
                     <dependencies>
-                        <dependency>
-                            <groupId>c3p0</groupId>
-                            <artifactId>c3p0</artifactId>
-                            <version>${c3p0.version}</version>
-                        </dependency>
                         <dependency>
                             <groupId>com.h2database</groupId>
                             <artifactId>h2</artifactId>
