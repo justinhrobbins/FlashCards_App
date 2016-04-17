@@ -1,23 +1,9 @@
 
 package org.robbins.flashcards.webservices;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.StringTokenizer;
 
-import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Response;
-
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.robbins.flashcards.dto.FlashCardDto;
@@ -34,9 +20,10 @@ import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
-import com.sun.jersey.api.JResponse;
-import com.wordnik.swagger.annotations.Api;
-import com.wordnik.swagger.annotations.ApiOperation;
+import javax.inject.Inject;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
+import java.util.*;
 
 @Path("/flashcards/")
 @Component("flashCardsResource")
@@ -125,7 +112,7 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
         // some client apps don't know the Created By and Created Date, so make
         // sure we set it
         if (dto.getCreatedBy().equals(0L)) {
-            FlashCardDto orig;
+            final FlashCardDto orig;
             try {
                 orig = flashCardService.findOne(id, null);
             } catch (FlashCardsException e) {
@@ -140,7 +127,7 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
     }
 
     @Override
-    public JResponse<List<FlashCardDto>> list(final Integer page,  final Integer size,
+    public Response list(final Integer page,  final Integer size,
                                         final String sort, final String direction,
                                         final String fields) {
 
@@ -153,7 +140,7 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
             LOGGER.error(e.getMessage(), e);
             throw new GenericWebServiceException(Response.Status.BAD_REQUEST,
                     "Invalid sort parameter: '" + sort + "'", e);
-        } catch (FlashCardsException e) {
+        } catch (final FlashCardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
 
@@ -161,11 +148,11 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
             entities = new ArrayList<>();
         }
 
-        return JResponse.ok(entities).build();
+        return Response.ok(entities).build();
     }
 
     @GET
-    public JResponse<List<FlashCardDto>> list(@PathParam("tagId") final Long tagId,
+    public Response list(@PathParam("tagId") final Long tagId,
                                               @PathParam("userId") final Long userId,
                                               @QueryParam("page") final Integer page,
                                               @DefaultValue("25") @QueryParam("size") final Integer size,
@@ -184,32 +171,32 @@ public class FlashCardsResource extends AbstractGenericResource<FlashCardDto, Lo
         }
     }
 
-    private JResponse<List<FlashCardDto>> listFlashCardsForTag(final Long tagId, final Integer page,
+    private Response listFlashCardsForTag(final Long tagId, final Integer page,
             final Integer size, final String sort,
             final String direction, final String fields) {
         try {
-            List<FlashCardDto> entities = flashCardService.findFlashCardsForTag(tagId, this.getFieldsAsSet(fields));
+            final List<FlashCardDto> entities = flashCardService.findFlashCardsForTag(tagId, this.getFieldsAsSet(fields));
             if (CollectionUtils.isEmpty(entities)) {
                 throw new GenericWebServiceException(Response.Status.NOT_FOUND,
                         "FlashCards not found for Tag: " + tagId);
             }
-            return JResponse.ok(entities).build();
+            return Response.ok(entities).build();
         } catch (FlashCardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
     }
 
-    private JResponse<List<FlashCardDto>> listFlashCardsForUser(final Long userId, final Integer page,
+    private Response listFlashCardsForUser(final Long userId, final Integer page,
             final Integer size, final String sort,
             final String direction, final String fields) {
         try {
-            List<FlashCardDto> entities = flashCardService.findByCreatedBy(userId, this.getFieldsAsSet(fields));
+            final List<FlashCardDto> entities = flashCardService.findByCreatedBy(userId, this.getFieldsAsSet(fields));
             if (CollectionUtils.isEmpty(entities)) {
                 throw new GenericWebServiceException(Response.Status.NOT_FOUND,
                         "FlashCards not found for User: " + userId);
             }
-            return JResponse.ok(entities).build();
-        } catch (FlashCardsException e) {
+            return Response.ok(entities).build();
+        } catch (final FlashCardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
     }

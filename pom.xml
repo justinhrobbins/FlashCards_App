@@ -47,7 +47,7 @@
         <javassist.version>3.18.1-GA</javassist.version>
         <javax.inject.version>1</javax.inject.version>
         <javax.servlet.api>3.0.1</javax.servlet.api>
-        <jersey.version>1.19</jersey.version>
+        <jersey.version>2.22.2</jersey.version>
         <jgeppert.struts2.version>3.3.3</jgeppert.struts2.version>
         <jspapi.version>2.0</jspapi.version>
         <jsr311.api.version>1.1</jsr311.api.version>
@@ -71,12 +71,12 @@
         <spring.security.oauth2.version>2.0.8.RELEASE</spring.security.oauth2.version>
         <spring.test.dbunit.version>1.2.1</spring.test.dbunit.version>
         <struts.version>2.3.4.1</struts.version>
-        <swagger.version>1.3.0</swagger.version>
+        <swagger.version>1.5.0</swagger.version>
 
         <!-- Plugin versions -->
-        <maven.cassandra.plugin.version>2.1.7-1</maven.cassandra.plugin.version>
         <gwt.maven.plugin.version>2.5.1</gwt.maven.plugin.version>
         <maven.apt.plugin>1.1.3</maven.apt.plugin>
+        <maven.cassandra.plugin.version>2.1.7-1</maven.cassandra.plugin.version>
         <maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>
         <maven.failsafe.plugin.version>2.14</maven.failsafe.plugin.version>
         <maven.jar.plugin.version>2.4</maven.jar.plugin.version>
@@ -370,6 +370,21 @@
                 <version>${jackson.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-yaml</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-xml</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.jaxrs</groupId>
+                <artifactId>jackson-jaxrs-base</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.fasterxml.jackson.datatype</groupId>
                 <artifactId>jackson-datatype-jsr310</artifactId>
                 <version>${jackson.version}</version>
@@ -465,6 +480,12 @@
                 <artifactId>spring-security-oauth2</artifactId>
                 <version>${spring.security.oauth2.version}</version>
                 <scope>runtime</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.codehaus.jackson</groupId>
+                        <artifactId>jackson-mapper-asl</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <!-- Spring data dependencies -->
@@ -483,12 +504,6 @@
                 <artifactId>querydsl-jpa</artifactId>
                 <version>${querydsl.version}</version>
             </dependency>
-
-            <!--<dependency>-->
-                <!--<groupId>org.springframework.data</groupId>-->
-                <!--<artifactId>spring-data-commons</artifactId>-->
-                <!--<version>${springdata.commons.version}</version>-->
-            <!--</dependency>-->
 
             <!-- Hibernate -->
             <dependency>
@@ -574,57 +589,47 @@
 
             <!-- Jersey dependencies -->
             <dependency>
-                <groupId>com.sun.jersey</groupId>
+                <groupId>org.glassfish.jersey.core</groupId>
                 <artifactId>jersey-server</artifactId>
+                <version>${jersey.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.jersey.media</groupId>
+                <artifactId>jersey-media-json-jackson</artifactId>
                 <version>${jersey.version}</version>
             </dependency>
 
             <!-- Jersey + Spring integration dependency -->
             <dependency>
-                <groupId>com.sun.jersey.contribs</groupId>
-                <artifactId>jersey-spring</artifactId>
+                <groupId>org.glassfish.jersey.ext</groupId>
+                <artifactId>jersey-spring3</artifactId>
                 <version>${jersey.version}</version>
                 <scope>runtime</scope>
-                <!-- don't let this artifact pull in old versions of the 
-                    following dependencies -->
                 <exclusions>
                     <exclusion>
-                        <artifactId>spring-aop</artifactId>
                         <groupId>org.springframework</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>spring-asm</artifactId>
-                        <groupId>org.springframework</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>spring-beans</artifactId>
-                        <groupId>org.springframework</groupId>
-                    </exclusion>
-                    <exclusion>
                         <artifactId>spring-context</artifactId>
-                        <groupId>org.springframework</groupId>
                     </exclusion>
                     <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-beans</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
                         <artifactId>spring-core</artifactId>
-                        <groupId>org.springframework</groupId>
                     </exclusion>
                     <exclusion>
-                        <artifactId>spring-expression</artifactId>
                         <groupId>org.springframework</groupId>
-                    </exclusion>
-                    <exclusion>
                         <artifactId>spring-web</artifactId>
-                        <groupId>org.springframework</groupId>
                     </exclusion>
                 </exclusions>
             </dependency>
 
             <!-- Swagger API documentation stuff -->
             <dependency>
-                <groupId>com.wordnik</groupId>
-                <artifactId>swagger-jersey-jaxrs_2.10</artifactId>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-jersey2-jaxrs</artifactId>
                 <version>${swagger.version}</version>
-                <scope>runtime</scope>
                 <exclusions>
                     <exclusion>
                         <groupId>org.reflections</groupId>
@@ -635,11 +640,6 @@
                         <artifactId>javassist</artifactId>
                     </exclusion>
                 </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>com.wordnik</groupId>
-                <artifactId>swagger-annotations_2.10</artifactId>
-                <version>${swagger.version}</version>
             </dependency>
 
             <!-- Runtime dependencies provided by servlet container -->

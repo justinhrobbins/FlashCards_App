@@ -6,9 +6,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.sun.jersey.spi.container.ContainerRequest;
-import com.sun.jersey.spi.container.ContainerRequestFilter;
+import javax.ws.rs.container.ContainerRequestContext;
+import javax.ws.rs.container.ContainerRequestFilter;
+import javax.ws.rs.ext.Provider;
+import java.io.IOException;
 
+@Provider
 @Component("jerseySecurityFilter")
 public class SecurityFilter extends AbstractSecurityFilter implements
         ContainerRequestFilter {
@@ -16,11 +19,9 @@ public class SecurityFilter extends AbstractSecurityFilter implements
     private static final Logger LOGGER = LoggerFactory.getLogger(SecurityFilter.class);
 
     @Override
-    public ContainerRequest filter(final ContainerRequest request) {
+    public void filter(final ContainerRequestContext requestContext) throws IOException {
         LOGGER.trace("SecurityFilter");
 
         configureLoggedInUser();
-
-        return request;
     }
 }

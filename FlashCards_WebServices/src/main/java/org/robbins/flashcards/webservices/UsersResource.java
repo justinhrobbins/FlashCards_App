@@ -1,14 +1,8 @@
 
 package org.robbins.flashcards.webservices;
 
-import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Response;
-
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.robbins.flashcards.dto.UserDto;
 import org.robbins.flashcards.exceptions.FlashCardsException;
 import org.robbins.flashcards.service.UserService;
@@ -17,8 +11,10 @@ import org.robbins.flashcards.webservices.base.AbstractGenericListingResource;
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.springframework.stereotype.Component;
 
-import com.wordnik.swagger.annotations.Api;
-import com.wordnik.swagger.annotations.ApiOperation;
+import javax.inject.Inject;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
+
 
 @Path("/users/")
 @Component("usersResource")

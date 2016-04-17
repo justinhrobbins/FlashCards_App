@@ -1,21 +1,6 @@
 
 package org.robbins.flashcards.webservices.base;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyLong;
-import static org.mockito.Matchers.anySet;
-import static org.mockito.Matchers.anySetOf;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-
-import javax.ws.rs.core.Response;
-
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,7 +16,17 @@ import org.robbins.tests.UnitTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import com.sun.jersey.api.JResponse;
+import javax.ws.rs.core.Response;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.core.IsInstanceOf.instanceOf;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @Category(UnitTest.class)
 public class AbstractGenericResourceUT extends BaseMockingTest {
@@ -61,10 +56,10 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
 	{
         when(mockTagService.findAll(any(Optional.class), anySetOf(String.class))).thenReturn(tagDtoList);
 
-        final JResponse<List<TagDto>> results = resource.list(null, null, null, null, null);
+        final Response results = resource.list(null, null, null, null, null);
 
         verify(mockTagService).findAll(any(Optional.class), anySetOf(String.class));
-        assertThat(results.getEntity(), is(List.class));
+        assertThat(results.getEntity(), instanceOf(List.class));
     }
 
     @Test
@@ -72,11 +67,11 @@ public class AbstractGenericResourceUT extends BaseMockingTest {
     {
         when(mockTagService.findAll(any(Optional.class), anySetOf(String.class))).thenReturn(null);
 
-        final JResponse<List<TagDto>> results = resource.list(null, null, null, null, null);
+        final Response results = resource.list(null, null, null, null, null);
 
         verify(mockTagService).findAll(any(Optional.class), anySetOf(String.class));
-        assertThat(results.getEntity(), is(List.class));
-        assertThat(results.getEntity().size(), is(0));
+        assertThat(results.getEntity(), instanceOf(List.class));
+        assertThat(((List)results.getEntity()).size(), is(0));
     }
 
     @Test

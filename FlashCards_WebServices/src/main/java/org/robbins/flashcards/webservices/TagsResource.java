@@ -1,20 +1,9 @@
 
 package org.robbins.flashcards.webservices;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Response;
-
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.collections.CollectionUtils;
 import org.robbins.flashcards.dto.TagDto;
 import org.robbins.flashcards.dto.util.PagingUtils;
@@ -28,9 +17,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.stereotype.Component;
 
-import com.sun.jersey.api.JResponse;
-import com.wordnik.swagger.annotations.Api;
-import com.wordnik.swagger.annotations.ApiOperation;
+import javax.inject.Inject;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
+import java.util.ArrayList;
+import java.util.List;
 
 @Path("/tags/")
 @Component("tagsResource")
@@ -56,12 +47,12 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long>
 	@ApiOperation(value = "Find Tag by Name", response = TagDto.class)
 	public TagDto searchByName(@QueryParam("name") final String name)
 	{
-		TagDto tagDto;
+		final TagDto tagDto;
 		try
 		{
 			tagDto = tagService.findByName(name);
 		}
-		catch (FlashCardsException e)
+		catch (final FlashCardsException e)
 		{
 			throw new GenericWebServiceException(
 					Response.Status.INTERNAL_SERVER_ERROR, e);
@@ -82,7 +73,7 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long>
 	{
 		if (dto.getCreatedBy() == null)
 		{
-			TagDto orig;
+			final TagDto orig;
 			try
 			{
 				orig = tagService.findOne(id);
@@ -100,7 +91,7 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long>
 	}
 
 	@Override
-	public JResponse<List<TagDto>> list(final Integer page, final Integer size,
+	public Response list(final Integer page, final Integer size,
 			final String sort, final String direction,
 			final String fields)
 	{
@@ -126,11 +117,11 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long>
 			entities = new ArrayList<>();
 		}
 
-		return JResponse.ok(entities).build();
+		return Response.ok(entities).build();
 	}
 
 	@GET
-	public JResponse<List<TagDto>> list(@PathParam("flashcardId") final Long flashCardId,
+	public Response list(@PathParam("flashcardId") final Long flashCardId,
 			@PathParam("userId") final Long userId,
 			@QueryParam("page") final Integer page,
 			@DefaultValue("25") @QueryParam("size") final Integer size,
@@ -153,7 +144,7 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long>
 		}
 	}
 
-	private JResponse<List<TagDto>> listTagsForFlashCard(final Long flashCardId, final Integer page,
+	private Response listTagsForFlashCard(final Long flashCardId, final Integer page,
 			final Integer size, final String sort,
 			final String direction, final String fields)
 	{
@@ -165,7 +156,7 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long>
 				throw new GenericWebServiceException(Response.Status.NOT_FOUND,
 						"Tags not found for FlashCard: " + flashCardId);
 			}
-			return JResponse.ok(entities).build();
+			return Response.ok(entities).build();
 		}
 		catch (final FlashCardsException e)
 		{
@@ -173,7 +164,7 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long>
 		}
 	}
 
-	private JResponse<List<TagDto>> listTagsForUser(final Long userId, final Integer page,
+	private Response listTagsForUser(final Long userId, final Integer page,
 			final Integer size, final String sort,
 			final String direction, final String fields)
 	{
@@ -185,7 +176,7 @@ public class TagsResource extends AbstractGenericResource<TagDto, Long>
 				throw new GenericWebServiceException(Response.Status.NOT_FOUND,
 						"Tags not found for User: " + userId);
 			}
-			return JResponse.ok(entities).build();
+			return Response.ok(entities).build();
 		}
 		catch (final FlashCardsException e)
 		{

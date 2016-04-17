@@ -1,14 +1,6 @@
 
 package org.robbins.flashcards.webservices;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import javax.ws.rs.core.Response;
-
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,6 +13,15 @@ import org.robbins.tests.BaseMockingTest;
 import org.robbins.tests.UnitTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.util.ReflectionTestUtils;
+
+import javax.ws.rs.core.Response;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.core.Is.isA;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @Category(UnitTest.class)
 public class UsersResourceUT extends BaseMockingTest {
@@ -47,7 +48,7 @@ public class UsersResourceUT extends BaseMockingTest {
         UserDto result = resource.search(any(String.class));
 
         verify(mockUserService).findUserByOpenid(any(String.class));
-        assertThat(result, is(UserDto.class));
+        assertThat(result, isA(UserDto.class));
     }
 
     @Test
