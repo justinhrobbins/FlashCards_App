@@ -1,16 +1,6 @@
 
 package org.robbins.flashcards.webservices;
 
-import java.io.IOException;
-import java.util.Properties;
-
-import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
-
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +8,15 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.stereotype.Component;
+
+import javax.inject.Inject;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
+import java.io.IOException;
+import java.util.Properties;
 
 @Path("/")
 @Component("flashCardsAppResource")
@@ -30,7 +29,7 @@ public class FlashCardsAppResource {
     @Inject
     private ApplicationContext context;
 
-    public ApplicationContext getContext() {
+    private ApplicationContext getContext() {
         return context;
     }
 
@@ -40,8 +39,8 @@ public class FlashCardsAppResource {
         String version = getClass().getPackage().getImplementationVersion();
         if (version == null) {
             try {
-                Resource resource = getContext().getResource("/META-INF/MANIFEST.MF");
-                Properties prop = PropertiesLoaderUtils.loadProperties(resource);
+                final Resource resource = getContext().getResource("/META-INF/MANIFEST.MF");
+                final Properties prop = PropertiesLoaderUtils.loadProperties(resource);
                 version = prop.getProperty("Implementation-Version");
                 if (null == version) {
                     throw new GenericWebServiceException(
@@ -49,7 +48,7 @@ public class FlashCardsAppResource {
                             "Unable to determine status");
                 }
                 LOGGER.debug("Version: " + version);
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 LOGGER.error(e.toString());
                 throw new GenericWebServiceException(
                         Response.Status.INTERNAL_SERVER_ERROR,

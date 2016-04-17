@@ -1,17 +1,15 @@
 
 package org.robbins.flashcards.webservices.base;
 
+import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
+
+import javax.ws.rs.core.Response;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.ws.rs.core.Response;
-
-import com.sun.jersey.api.JResponse;
-import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
-
 public interface GenericResource<T, ID extends Serializable> {
 
-    JResponse<List<T>> list(Integer page, Integer size, String sort,
+    Response list(Integer page, Integer size, String sort,
             String direction, String fields);
 
     Long count();

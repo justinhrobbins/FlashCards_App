@@ -17,10 +17,10 @@ public abstract class AbstractResource {
             return null;
         }
 
-        Set<String> filterProperties = new HashSet<String>();
-        StringTokenizer st = new StringTokenizer(fields, ",");
+        final Set<String> filterProperties = new HashSet<String>();
+        final StringTokenizer st = new StringTokenizer(fields, ",");
         while (st.hasMoreTokens()) {
-            String field = st.nextToken();
+            final String field = st.nextToken();
 
             // never allow 'userpassword' to be passed even if it was
             // specifically requested

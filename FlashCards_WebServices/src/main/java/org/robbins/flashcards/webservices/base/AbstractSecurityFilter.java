@@ -40,18 +40,18 @@ public class AbstractSecurityFilter {
     protected void configureLoggedInUser() {
         // get the logged in user name from Security Context
 
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        Authentication authentication = securityContext.getAuthentication();
+        final SecurityContext securityContext = SecurityContextHolder.getContext();
+        final Authentication authentication = securityContext.getAuthentication();
 
         if ("anonymousUser".equals(authentication.getName())) {
             LOGGER.debug("AbstractSecurityFilter - anonymous user");
             return;
         }
 
-        String openId = findOpenId(authentication.getPrincipal());
+        final String openId = findOpenId(authentication.getPrincipal());
 
         try {
-            UserDto user = userService.findUserByOpenid(openId);
+            final UserDto user = userService.findUserByOpenid(openId);
 
             if (user != null) {
                 // set the user id on the autowired loggedInUser
@@ -60,13 +60,13 @@ public class AbstractSecurityFilter {
                         + getLoggedInUser().getId());
             }
         }
-        catch (FlashCardsException e)
+        catch (final FlashCardsException e)
         {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
     }
 
-    private String findOpenId(Object principal)
+    private String findOpenId(final Object principal)
     {
         if (principal instanceof org.springframework.security.core.userdetails.User)
         {

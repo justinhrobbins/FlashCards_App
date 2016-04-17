@@ -1,23 +1,7 @@
 
 package org.robbins.flashcards.webservices.base;
 
-import java.beans.BeanInfo;
-import java.beans.IntrospectionException;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.List;
-
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Response;
-
+import io.swagger.annotations.ApiOperation;
 import org.robbins.flashcards.dto.BatchLoadingReceiptDto;
 import org.robbins.flashcards.exceptions.DataIntegrityException;
 import org.robbins.flashcards.exceptions.FlashCardsException;
@@ -26,7 +10,15 @@ import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.wordnik.swagger.annotations.ApiOperation;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
 
 public abstract class AbstractGenericResource<T, ID extends Serializable> extends AbstractResource
         implements GenericResource<T, ID> {
@@ -50,10 +42,10 @@ public abstract class AbstractGenericResource<T, ID extends Serializable> extend
     public T findOne(@PathParam("id") final ID id,
             @QueryParam("fields") final String fields) {
 
-        T entity;
+        final T entity;
         try {
             entity = getService().findOne(id, this.getFieldsAsSet(fields));
-        } catch (FlashCardsException e) {
+        } catch (final FlashCardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
 
@@ -71,10 +63,10 @@ public abstract class AbstractGenericResource<T, ID extends Serializable> extend
         try {
             LOGGER.debug("Received post request for {}", entity.getClass().getSimpleName());
             return getService().save(entity);
-        } catch (DataIntegrityException e) {
+        } catch (final DataIntegrityException e) {
             throw new GenericWebServiceException(Response.Status.BAD_REQUEST, e);
         }
-        catch (FlashCardsException e) {
+        catch (final FlashCardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
     }
@@ -87,10 +79,10 @@ public abstract class AbstractGenericResource<T, ID extends Serializable> extend
         LOGGER.debug("Received batch load request for {} {}", entities.size(), entities.get(0).getClass().getSimpleName());
         try {
             return getService().save(entities);
-        } catch (DataIntegrityException e) {
+        } catch (final DataIntegrityException e) {
             throw new GenericWebServiceException(Response.Status.BAD_REQUEST, e);
         }
-        catch (FlashCardsException e) {
+        catch (final FlashCardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
     }
@@ -102,7 +94,7 @@ public abstract class AbstractGenericResource<T, ID extends Serializable> extend
     public Response put(@PathParam("id") final ID id, final T entity) {
         try {
             getService().save(entity);
-        } catch (FlashCardsException e) {
+        } catch (final FlashCardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
         return Response.noContent().build();
@@ -124,10 +116,10 @@ public abstract class AbstractGenericResource<T, ID extends Serializable> extend
     @ApiOperation(value = "Update")
     public Response update(@PathParam("id") final ID id, final T updatedEntity) {
         // get the original entity from the db
-        T originalEntity;
+        final T originalEntity;
         try {
             originalEntity = getService().findOne(id);
-        } catch (FlashCardsException e) {
+        } catch (final FlashCardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
 
@@ -137,7 +129,7 @@ public abstract class AbstractGenericResource<T, ID extends Serializable> extend
         // persist the entity back to the db
         try {
             getService().save(originalEntity);
-        } catch (FlashCardsException e) {
+        } catch (final FlashCardsException e) {
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR, e);
         }
 
@@ -147,10 +139,10 @@ public abstract class AbstractGenericResource<T, ID extends Serializable> extend
 
     // update the target entity with any non-null field in the source entity
     private void merge(final T source, final T target) {
-        BeanInfo beanInfo;
+        final BeanInfo beanInfo;
         try {
             beanInfo = Introspector.getBeanInfo(source.getClass());
-        } catch (IntrospectionException e) {
+        } catch (final IntrospectionException e) {
             LOGGER.error(e.getMessage(), e);
             throw new GenericWebServiceException(Response.Status.INTERNAL_SERVER_ERROR,
                     e.getMessage(), e);
@@ -160,13 +152,13 @@ public abstract class AbstractGenericResource<T, ID extends Serializable> extend
                 .forEach(descriptor -> mergeField(source, target, descriptor));
     }
 
-    private void mergeField(T source, T target, PropertyDescriptor descriptor) {
+    private void mergeField(final T source, final T target, final PropertyDescriptor descriptor) {
         // Only copy writable attributes
         if (descriptor.getWriteMethod() != null) {
-            Object newValue;
+            final Object newValue;
             try {
                 newValue = descriptor.getReadMethod().invoke(source);
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 LOGGER.error(e.getMessage(), e);
                 throw new GenericWebServiceException(
                         Response.Status.INTERNAL_SERVER_ERROR, e.getMessage(), e);
@@ -181,7 +173,7 @@ public abstract class AbstractGenericResource<T, ID extends Serializable> extend
                         + newValue + "'");
                 try {
                     descriptor.getWriteMethod().invoke(target, newValue);
-                } catch (Exception e) {
+                } catch (final Exception e) {
                     LOGGER.error(e.getMessage(), e);
                     throw new GenericWebServiceException(
                             Response.Status.INTERNAL_SERVER_ERROR, e.getMessage(), e);

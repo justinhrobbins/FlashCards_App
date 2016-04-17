@@ -16,8 +16,8 @@ public class DefaultExceptionHandler implements ExceptionMapper<WebApplicationEx
 
     @Override
     public Response toResponse(final WebApplicationException webApplicationException) {
-        ResponseBuilder builder;
-        GenericWebServiceException exception;
+        final ResponseBuilder builder;
+        final GenericWebServiceException exception;
 
         if (webApplicationException instanceof GenericWebServiceException) {
             exception = (GenericWebServiceException) webApplicationException;

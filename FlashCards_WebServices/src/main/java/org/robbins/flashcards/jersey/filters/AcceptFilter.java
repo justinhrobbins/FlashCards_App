@@ -1,20 +1,22 @@
 
 package org.robbins.flashcards.jersey.filters;
 
-import java.util.List;
-
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response;
-
 import org.robbins.flashcards.webservices.exceptions.GenericWebServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.sun.jersey.spi.container.ContainerRequest;
-import com.sun.jersey.spi.container.ContainerRequestFilter;
+import javax.ws.rs.container.ContainerRequestContext;
+import javax.ws.rs.container.ContainerRequestFilter;
+import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.ext.Provider;
+import java.io.IOException;
+import java.util.List;
+
+
 
 /**
  * Overrides the 'accept' HTTP header with value parsed from the querystring 'accept'
@@ -23,6 +25,7 @@ import com.sun.jersey.spi.container.ContainerRequestFilter;
  * @author Justin Robbins
  *
  */
+@Provider
 @Component("jerseyAcceptFilter")
 public class AcceptFilter implements ContainerRequestFilter {
 
@@ -31,13 +34,13 @@ public class AcceptFilter implements ContainerRequestFilter {
     private static String ACCEPT = "accept";
 
     @Override
-    public ContainerRequest filter(final ContainerRequest request) {
+    public void filter(final ContainerRequestContext requestContext) throws IOException {
         LOGGER.trace("AcceptFilter");
 
-        MultivaluedMap<String, String> queryParametersMap = request.getQueryParameters();
+        final MultivaluedMap<String, String> queryParametersMap = requestContext.getUriInfo().getQueryParameters();
 
         if (queryParametersMap.containsKey(ACCEPT)) {
-            List<String> queryparmsList = queryParametersMap.get(ACCEPT);
+            final List<String> queryparmsList = queryParametersMap.get(ACCEPT);
             LOGGER.debug(queryparmsList.toString());
 
             // does the 'accept' header match either json or xml?
@@ -49,10 +52,8 @@ public class AcceptFilter implements ContainerRequestFilter {
                                 + MediaType.APPLICATION_XML);
             }
 
-            MultivaluedMap<String, String> headers = request.getRequestHeaders();
+            final MultivaluedMap<String, String> headers = requestContext.getHeaders();
             headers.put(HttpHeaders.ACCEPT, queryparmsList);
         }
-
-        return request;
     }
 }
