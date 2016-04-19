@@ -1,23 +1,17 @@
 
 package org.robbins.flashcards.jpa.repository;
 
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import javax.persistence.Query;
-
 import org.robbins.flashcards.jpa.repository.util.JpqlUtil;
 import org.robbins.flashcards.model.FlashCard;
 import org.robbins.flashcards.model.Tag;
 import org.robbins.flashcards.repository.FlashCardRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Repository;
+
+import javax.persistence.Query;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Repository
 public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCard, Long>
@@ -26,18 +20,6 @@ public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
     @Override
     public Class<FlashCard> getClazz() {
         return FlashCard.class;
-    }
-
-    @Override
-    public FlashCard save(final FlashCard flashCard) {
-        flashCard.getTags().stream()
-                .filter(tag -> (tag.getId() == null)).forEach(tag -> {
-            tag.setCreatedBy(getAuditingUser());
-            tag.setCreatedDate(LocalDateTime.now());
-            tag.setLastModifiedBy(getAuditingUser());
-            tag.setLastModifiedDate(LocalDateTime.now());
-        });
-        return super.save(flashCard);
     }
 
     @SuppressWarnings("unchecked")

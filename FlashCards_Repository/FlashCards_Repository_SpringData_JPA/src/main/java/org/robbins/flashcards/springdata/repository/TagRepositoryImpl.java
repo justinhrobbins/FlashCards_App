@@ -41,13 +41,13 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag, Long> imp
 
     @Override
     @Cacheable("tagById")
-    public Tag findOne(Long id) {
+    public Tag findOne(final Long id) {
         return repository.findOne(id);
     }
 
     @Override
     @Caching(evict = { @CacheEvict(value = "tags", allEntries=true), @CacheEvict(value = "tagById", key = "#p0.id") })
-    public Tag save(Tag entity) {
+    public Tag save(final Tag entity) {
         return repository.save(entity);
     }
 
@@ -59,7 +59,7 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag, Long> imp
 
     @Override
     @Caching(evict = { @CacheEvict(value = "tags", allEntries=true), @CacheEvict(value = "tagById", key = "#p0") })
-    public void delete(Long id) {
+    public void delete(final Long id) {
         repository.delete(id);
     }
 

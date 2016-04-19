@@ -36,10 +36,10 @@ public class FieldInitializerUtil {
             // if the requested 'field' exists and hasn't been
             if ((PropertyUtils.isReadable(entity, field))
                     && (!unitUtil.isLoaded(entity, field))) {
-                Object value = PropertyUtils.getProperty(entity, field);
+                final Object value = PropertyUtils.getProperty(entity, field);
                 // is the 'field' a collection?
                 if (value instanceof Collection<?>) {
-                    LOGGER.debug("Initializing collection: {}", field);
+                    LOGGER.trace("Initializing collection: {}", field);
 
                     // this is why we are here!
                     // initialize the collection

@@ -40,7 +40,7 @@ public class DefaultUserRepositoryFacade extends AbstractCrudRepositoryFacadeImp
     @Override
     public UserDto findUserByOpenid(final String openid) throws RepositoryException
 	{
-        User result = repository.findUserByOpenid(openid);
+        final User result = repository.findUserByOpenid(openid);
         if (result == null) {
             return null;
         }
@@ -52,7 +52,7 @@ public class DefaultUserRepositoryFacade extends AbstractCrudRepositoryFacadeImp
         final User entity = getConverter().getEntity(dto);
 
         if (!dto.isNew()) {
-            User orig = repository.findOne(dto.getId());
+            final User orig = repository.findOne(dto.getId());
             entity.setCreatedBy(orig.getCreatedBy());
             entity.setCreatedDate(orig.getCreatedDate());
         }
