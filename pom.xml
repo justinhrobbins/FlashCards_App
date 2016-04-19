@@ -29,7 +29,7 @@
         <commons.beanutils.version>1.8.3</commons.beanutils.version>
         <commons.collections.version>3.2.2</commons.collections.version>
         <commons.lang3.version>3.3</commons.lang3.version>
-        <coveralls.version>2.1.0</coveralls.version>
+        <coveralls.version>4.1.0</coveralls.version>
         <dbunit.version>2.4.9</dbunit.version>
         <dozer.version>5.4.0</dozer.version>
         <findbugs.version>2.5.3</findbugs.version>
@@ -959,6 +959,7 @@
                     <version>${coveralls.version}</version>
                     <configuration>
                         <skip>${skip.coveralls}</skip>
+                        <aggregate>true</aggregate>
                     </configuration>
                 </plugin>
                 <plugin>
