@@ -67,15 +67,15 @@ public class ResourceReaderRepositoryPopulator implements RepositoryPopulator, I
         }
     }
 
-    private Object readObjectFrom(Resource resource) {
+    private Object readObjectFrom(final Resource resource) {
         try {
             return getResourceReader().readFrom(resource, null);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void persist(Object object) {
+    private void persist(final Object object) {
 
         final String dtoName = object.getClass().getSimpleName();
         final GenericCrudFacade facade = dtoToFacadeMap.get(dtoName);
