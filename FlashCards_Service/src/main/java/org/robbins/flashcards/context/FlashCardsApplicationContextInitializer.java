@@ -11,6 +11,7 @@
  */
 package org.robbins.flashcards.context;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContextInitializer;
@@ -47,6 +48,7 @@ public class FlashCardsApplicationContextInitializer implements ApplicationConte
 	{
 		addDefaultPropsToEnvironment(environment);
 		addOverridePropsToEnvironment(environment);
+		addEnvironmentPropsToEnvironment(environment);
 	}
 
 	private void addSpringProfiles(final ConfigurableEnvironment environment)
@@ -59,9 +61,9 @@ public class FlashCardsApplicationContextInitializer implements ApplicationConte
 	private void addDefaultPropsToEnvironment(final ConfigurableEnvironment environment)
 	{
 		final String DEFAULT_PROPS = "default.properties";
-		final String LOCATION = "classpath:" + DEFAULT_PROPS;
+		final String DEFAULT_PROPS_LOCATION = "classpath:" + DEFAULT_PROPS;
 
-		addPropsToEnvironment(DEFAULT_PROPS, LOCATION, environment);
+		addPropsToEnvironment(DEFAULT_PROPS, DEFAULT_PROPS_LOCATION, environment);
 	}
 
 	private void addOverridePropsToEnvironment(final ConfigurableEnvironment environment)
@@ -70,6 +72,18 @@ public class FlashCardsApplicationContextInitializer implements ApplicationConte
 		final String LOCATION = "classpath:" + OVERRIDE_PROPS;
 
 		addPropsToEnvironment(OVERRIDE_PROPS, LOCATION, environment);
+	}
+
+	private void addEnvironmentPropsToEnvironment(final ConfigurableEnvironment environment)
+	{
+		final String ENV = environment.getProperty("FLASHCARDS_ENV");
+		if (!StringUtils.isEmpty(ENV))
+		{
+			final String ENV_PROPS =  ENV + "-profile.properties";
+			final String LOCATION = "classpath:" + ENV_PROPS;
+
+			addPropsToEnvironment(ENV_PROPS, LOCATION, environment);
+		}
 	}
 
 	private void addPropsToEnvironment(final String PROPS, final String LOCATION, final ConfigurableEnvironment environment)
@@ -81,7 +95,7 @@ public class FlashCardsApplicationContextInitializer implements ApplicationConte
 			final PropertiesPropertySource defaultProps = new ResourcePropertySource(defaultPropsResource);
 			environment.getPropertySources().addFirst(defaultProps);
 		}
-		catch (IOException e)
+		catch (final IOException e)
 		{
 			LOGGER.info("Unable to find properties file {}", PROPS);
 		}
