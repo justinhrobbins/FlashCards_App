@@ -12,5 +12,7 @@ public class EntityAuditingUtil
             entity.setCreatedBy(auditingUserId);
             entity.setCreatedDate(LocalDateTime.now());
         }
+        entity.setLastModifiedBy(auditingUserId);
+        entity.setLastModifiedDate(LocalDateTime.now());
     }
 }

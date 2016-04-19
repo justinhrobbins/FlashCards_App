@@ -18,7 +18,7 @@ public class AuditingAwareUser implements AuditorAware<Long> {
 
     @Override
     public Long getCurrentAuditor() {
-        Long auditor = ((UserDto) context.getBean("loggedInUser")).getId();
+        final Long auditor = ((UserDto) context.getBean("loggedInUser")).getId();
 
         LOGGER.trace("Logged In User Id: " + auditor);
 
