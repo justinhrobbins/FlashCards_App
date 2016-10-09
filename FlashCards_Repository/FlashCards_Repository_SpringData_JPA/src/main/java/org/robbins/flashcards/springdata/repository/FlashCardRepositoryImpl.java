@@ -1,19 +1,22 @@
 
 package org.robbins.flashcards.springdata.repository;
 
-import org.robbins.flashcards.model.FlashCard;
-import org.robbins.flashcards.model.Tag;
-import org.robbins.flashcards.repository.FlashCardRepository;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.Caching;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Repository;
-
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Set;
 
+import javax.cache.annotation.CacheDefaults;
+import javax.cache.annotation.CacheRemove;
+import javax.cache.annotation.CacheResult;
+import javax.inject.Inject;
+
+import org.robbins.flashcards.caching.PersistableCacheKeyGenerator;
+import org.robbins.flashcards.model.FlashCard;
+import org.robbins.flashcards.model.Tag;
+import org.robbins.flashcards.repository.FlashCardRepository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Repository;
+
+@CacheDefaults(cacheName = "flashcardById", cacheKeyGenerator = PersistableCacheKeyGenerator.class)
 @Repository
 public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCard, Long> implements
         FlashCardRepository<FlashCard, Tag, Long> {
@@ -57,31 +60,24 @@ public class FlashCardRepositoryImpl extends AbstractCrudRepositoryImpl<FlashCar
     }
 
     @Override
-    @Cacheable("flashcardById")
+    @CacheResult
     public FlashCard findOne(Long id) {
         return repository.findOne(id);
     }
 
     @Override
-    @Caching(evict = {
-            @CacheEvict(value = "flashcards", allEntries = true),
-            @CacheEvict(value = "flashcardById", key = "#p0.id"),
-            @CacheEvict(value = "tags", beforeInvocation=true, allEntries = true, condition = "!#entity.getTags().isEmpty()")})
+    @CacheRemove
     public FlashCard save(FlashCard entity) {
         return repository.save(entity);
     }
 
     @Override
-    @Cacheable("flashcards")
     public List<FlashCard> findAll() {
         return repository.findAll();
     }
 
     @Override
-    @Caching(evict = {
-            @CacheEvict(value = "flashcards", allEntries = true),
-            @CacheEvict(value = "flashcardById", key = "#p0"),
-            @CacheEvict(value = "tags", allEntries = true)})
+    @CacheRemove
     public void delete(Long id) {
         repository.delete(id);
     }

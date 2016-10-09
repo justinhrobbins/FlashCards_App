@@ -1,19 +1,22 @@
 package org.robbins.flashcards.springdata.repository;
 
-import org.robbins.flashcards.model.Tag;
-import org.robbins.flashcards.repository.TagRepository;
-import org.robbins.flashcards.repository.batch.BatchSavingRepository;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.Caching;
-import org.springframework.stereotype.Repository;
-
-import javax.inject.Inject;
-import java.util.List;
-
 import static org.robbins.flashcards.springdata.repository.predicates.TagPredicates.hasFlashCardId;
 import static org.robbins.flashcards.springdata.repository.predicates.TagPredicates.hasName;
 
+import java.util.List;
+
+import javax.cache.annotation.CacheDefaults;
+import javax.cache.annotation.CacheRemove;
+import javax.cache.annotation.CacheResult;
+import javax.inject.Inject;
+
+import org.robbins.flashcards.caching.PersistableCacheKeyGenerator;
+import org.robbins.flashcards.model.Tag;
+import org.robbins.flashcards.repository.TagRepository;
+import org.robbins.flashcards.repository.batch.BatchSavingRepository;
+import org.springframework.stereotype.Repository;
+
+@CacheDefaults(cacheName = "tagById", cacheKeyGenerator = PersistableCacheKeyGenerator.class)
 @Repository
 public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag, Long> implements
         TagRepository<Tag, Long>, BatchSavingRepository<Tag>
@@ -40,25 +43,23 @@ public class TagRepositoryImpl extends AbstractCrudRepositoryImpl<Tag, Long> imp
     }
 
     @Override
-    @Cacheable("tagById")
+    @CacheResult
     public Tag findOne(final Long id) {
         return repository.findOne(id);
     }
 
     @Override
-    @Caching(evict = { @CacheEvict(value = "tags", allEntries=true), @CacheEvict(value = "tagById", key = "#p0.id") })
+    @CacheRemove
     public Tag save(final Tag entity) {
         return repository.save(entity);
     }
 
     @Override
-    @Cacheable("tags")
     public List<Tag> findAll() {
         return repository.findAll();
     }
 
     @Override
-    @Caching(evict = { @CacheEvict(value = "tags", allEntries=true), @CacheEvict(value = "tagById", key = "#p0") })
     public void delete(final Long id) {
         repository.delete(id);
     }

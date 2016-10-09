@@ -7,6 +7,8 @@
                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
                         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
+	<import resource="classpath:META-INF/applicationContext-caching.xml" />
+
 	<bean id="mapper" class="org.dozer.DozerBeanMapper">
 		<property name="mappingFiles">
 			<list>

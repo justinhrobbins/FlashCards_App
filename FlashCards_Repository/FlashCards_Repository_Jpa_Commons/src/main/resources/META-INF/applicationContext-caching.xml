@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ [y] hybris Platform
+  ~
+  ~ Copyright (c) 2000-2016 hybris AG
+  ~ All rights reserved.
+  ~
+  ~ This software is the confidential and proprietary information of hybris
+  ~ ("Confidential Information"). You shall not disclose such Confidential
+  ~ Information and shall use it only in accordance with the terms of the
+  ~ license agreement you entered into with hybris.
+  -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xmlns:hz="http://www.hazelcast.com/schema/spring"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
+        http://www.hazelcast.com/schema/spring http://www.hazelcast.com/schema/spring/hazelcast-spring.xsd">
+
+    <cache:annotation-driven/>
+
+    <bean class="org.robbins.flashcards.caching.PersistableCacheKeyGenerator" />
+
+    <hz:hazelcast id="instance">
+        <hz:config>
+            <hz:group name="grp" password="pass" />
+            <hz:network port="${hazelcast-port}" port-auto-increment="false">
+                <hz:join>
+                    <hz:multicast enabled="false" />
+                    <hz:tcp-ip enabled="true">
+                        <hz:member>127.0.0.1</hz:member>
+                    </hz:tcp-ip>
+                </hz:join>
+            </hz:network>
+
+            <!-- cache should be created in instance beforehand -->
+            <hz:cache name="userByOpenId" />
+            <hz:cache name="userById" />
+            <hz:cache name="tagById" />
+            <hz:cache name="flashcardById" />
+
+        </hz:config>
+    </hz:hazelcast>
+
+    <hz:client id="client" depends-on="instance">
+        <hz:group name="grp" password="pass" />
+        <hz:network>
+            <hz:member>127.0.0.1:5701</hz:member>
+        </hz:network>
+    </hz:client>
+
+    <hz:cache-manager id="hazelcastJCacheCacheManager" instance-ref="client" name="hazelcastJCacheCacheManager" />
+
+    <bean id="cacheManager" class="org.springframework.cache.jcache.JCacheCacheManager">
+        <constructor-arg ref="hazelcastJCacheCacheManager" />
+    </bean>
+
+</beans>
