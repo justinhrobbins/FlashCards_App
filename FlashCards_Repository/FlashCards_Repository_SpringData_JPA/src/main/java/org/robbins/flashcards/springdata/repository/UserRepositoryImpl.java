@@ -1,18 +1,21 @@
 
 package org.robbins.flashcards.springdata.repository;
 
-import org.robbins.flashcards.model.User;
-import org.robbins.flashcards.repository.UserRepository;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Repository;
-
-import javax.inject.Inject;
+import static org.robbins.flashcards.springdata.repository.predicates.UserPredicates.hasOpenId;
 
 import java.util.List;
 
-import static org.robbins.flashcards.springdata.repository.predicates.UserPredicates.hasOpenId;
+import javax.cache.annotation.CacheDefaults;
+import javax.cache.annotation.CacheRemove;
+import javax.cache.annotation.CacheResult;
+import javax.inject.Inject;
 
+import org.robbins.flashcards.caching.PersistableCacheKeyGenerator;
+import org.robbins.flashcards.model.User;
+import org.robbins.flashcards.repository.UserRepository;
+import org.springframework.stereotype.Repository;
+
+@CacheDefaults(cacheKeyGenerator = PersistableCacheKeyGenerator.class)
 @Repository
 public class UserRepositoryImpl extends AbstractCrudRepositoryImpl<User, Long> implements
         UserRepository<User, Long> {
@@ -26,25 +29,24 @@ public class UserRepositoryImpl extends AbstractCrudRepositoryImpl<User, Long> i
     }
 
     @Override
-    @Cacheable("userByOpenId")
+    @CacheResult(cacheName = "userByOpenId")
     public User findUserByOpenid(final String openid) {
         return repository.findOne(hasOpenId(openid));
     }
 
     @Override
-    @Cacheable("userById")
-    public User findOne(Long id) {
+    @CacheResult(cacheName = "userById")
+    public User findOne(final Long id) {
         return repository.findOne(id);
     }
 
     @Override
-    @CacheEvict(value = "userById", key = "#p0.id")
-    public User save(User entity) {
+    @CacheRemove(cacheName = "userById")
+    public User save(final User entity) {
         return repository.save(entity);
     }
 
     @Override
-    @Cacheable("users")
     public List<User> findAll() {
         return repository.findAll();
     }
